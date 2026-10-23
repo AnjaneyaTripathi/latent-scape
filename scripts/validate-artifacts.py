@@ -13,6 +13,7 @@ import re
 import sys
 from pathlib import Path
 from typing import Any
+from urllib.parse import urlsplit
 
 
 # GitHub Pages documents these limits in decimal units. Using their exact values
@@ -39,6 +40,36 @@ EXTERNAL_ASSET_SUFFIXES = (".js", ".mjs", ".css", ".wasm", ".onnx", ".json")
 
 def error(errors: list[str], message: str) -> None:
     errors.append(message)
+
+
+def valid_outbound_paper_url(value: object) -> bool:
+    """Paper sources may be PDFs; only hosting a PDF is prohibited."""
+    if not isinstance(value, str):
+        return False
+    parsed = urlsplit(value)
+    return parsed.scheme in {"http", "https"} and bool(parsed.hostname)
+
+
+def validate_hosted_files(root: Path, files: list[Path], errors: list[str]) -> int:
+    """Enforce Pages asset limits and reject PDFs stored in the artifact."""
+    total = sum(path.stat().st_size for path in files)
+    for path in files:
+        relative = path.relative_to(root)
+        size = path.stat().st_size
+        if size > MAX_FILE_BYTES:
+            error(errors, f"file exceeds 100 MB: {relative} ({size} bytes)")
+        if path.suffix.lower() == ".pdf":
+            error(errors, f"PDF found in static artifact: {relative}")
+        if path.suffix.lower() in TEXT_ASSET_SUFFIXES:
+            try:
+                text = path.read_text(encoding="utf-8")
+            except UnicodeDecodeError:
+                error(errors, f"non-UTF-8 text asset: {relative}")
+                continue
+            for url in REMOTE_ASSET.findall(text):
+                if url.lower().split("?", 1)[0].endswith(EXTERNAL_ASSET_SUFFIXES):
+                    error(errors, f"external generated asset URL in {relative}: {url}")
+    return total
 
 
 def require_json(path: Path, errors: list[str]) -> Any | None:
@@ -106,8 +137,8 @@ def validate_corpus(root: Path, manifest: dict[str, Any], errors: list[str]) -> 
 
     summaries = 0
     for paper in papers:
-        if not isinstance(paper.get("url"), str) or paper["url"].lower().split("?", 1)[0].endswith(".pdf"):
-            error(errors, f"paper {paper.get('slug')} has no valid non-PDF original URL")
+        if not valid_outbound_paper_url(paper.get("url")):
+            error(errors, f"paper {paper.get('slug')} has no valid absolute HTTP(S) original URL")
         for field in ("references", "citedBy", "similarPapers"):
             unknown = set(paper.get(field) or []) - paper_set
             if unknown:
@@ -161,23 +192,7 @@ def main() -> int:
         return 1
 
     files = [path for path in root.rglob("*") if path.is_file()]
-    total = sum(path.stat().st_size for path in files)
-    for path in files:
-        relative = path.relative_to(root)
-        size = path.stat().st_size
-        if size > MAX_FILE_BYTES:
-            error(errors, f"file exceeds 100 MB: {relative} ({size} bytes)")
-        if path.suffix.lower() == ".pdf":
-            error(errors, f"PDF found in static artifact: {relative}")
-        if path.suffix.lower() in TEXT_ASSET_SUFFIXES:
-            try:
-                text = path.read_text(encoding="utf-8")
-            except UnicodeDecodeError:
-                error(errors, f"non-UTF-8 text asset: {relative}")
-                continue
-            for url in REMOTE_ASSET.findall(text):
-                if url.lower().split("?", 1)[0].endswith(EXTERNAL_ASSET_SUFFIXES):
-                    error(errors, f"external generated asset URL in {relative}: {url}")
+    total = validate_hosted_files(root, files, errors)
     if total > MAX_SITE_BYTES:
         error(errors, f"site exceeds 1 GB: {total} bytes")
 

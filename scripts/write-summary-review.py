@@ -9,11 +9,18 @@ import json
 from pathlib import Path
 
 
-REQUIRED = ("problem", "idea", "results", "limitations", "tldr", "difficulty", "source", "model")
+REQUIRED = ("tldr", "difficulty", "source", "model")
 
 
 def text(value: object) -> str:
     return html.escape(str(value or ""), quote=True)
+
+
+def narrative_paragraphs(summary: dict) -> list[str]:
+    paragraphs = summary.get("paragraphs")
+    if isinstance(paragraphs, list) and 3 <= len(paragraphs) <= 5 and all(isinstance(value, str) and value.strip() for value in paragraphs):
+        return paragraphs
+    return [summary.get(key, "") for key in ("problem", "idea", "results", "limitations") if str(summary.get(key, "")).strip()]
 
 
 def main() -> int:
@@ -33,6 +40,9 @@ def main() -> int:
             raise SystemExit(f"summary references absent paper: {slug}")
         if not isinstance(summary, dict) or any(not str(summary.get(key, "")).strip() for key in REQUIRED):
             raise SystemExit(f"summary is incomplete: {slug}")
+        paragraphs = narrative_paragraphs(summary)
+        if not 3 <= len(paragraphs) <= 5:
+            raise SystemExit(f"summary needs 3–5 explanatory paragraphs: {slug}")
         paper = by_slug[slug]
         original = text(paper.get("url"))
         cards.append(f'''<article class="summary" data-difficulty="{text(summary["difficulty"])}">
@@ -40,8 +50,9 @@ def main() -> int:
 <h2>{text(paper.get("title"))}</h2>
 <p class="tldr"><b>TL;DR</b> {text(summary["tldr"])}</p>
 <p><a href="./#/paper/{text(slug)}">Open in Latentscape</a> · <a href="{original}" target="_blank" rel="noreferrer">Original paper ↗</a></p>
-<details><summary>Read the review</summary>
-<dl><dt>Problem</dt><dd>{text(summary["problem"])}</dd><dt>Idea</dt><dd>{text(summary["idea"])}</dd><dt>Results</dt><dd>{text(summary["results"])}</dd><dt>Limitations</dt><dd>{text(summary["limitations"])}</dd></dl>
+<details><summary>Read the official abstract and explanation</summary>
+<h3>Official abstract</h3><p>{text(paper.get("abstract"))}</p>
+<h3>What this paper did</h3>{''.join(f'<p>{text(paragraph)}</p>' for paragraph in paragraphs)}
 <p class="provenance">Generated offline · source: {text(summary["source"])} · model: {text(summary["model"])}</p>
 </details></article>''')
     page = f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Latentscape · Astra summary review</title>

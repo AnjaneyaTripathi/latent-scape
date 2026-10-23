@@ -5,6 +5,9 @@ from pipeline.ingest import (
     parse_neurips_index,
     parse_pmlr_volume,
 )
+from pipeline.full_ingest import audit_full_abstract_quality, hydrate_official_page
+from pipeline.settings import Settings
+from pipeline.util import read_json, write_json
 from pipeline.util import stable_slug
 
 
@@ -41,3 +44,56 @@ def test_explicit_github_code_link_is_retained_without_punctuation():
     code, project = extract_outbound_links("Code available: https://github.com/CharlesQ9/HistAgent.")
     assert code == "https://github.com/CharlesQ9/HistAgent"
     assert project is None
+
+
+def test_full_hydration_preserves_official_abstract_as_display_text():
+    page = """
+    <h3>Abstract</h3><div>First sentence.\n Second sentence.</div>
+    <meta name="citation_abstract" content="Different fallback" />
+    <a href="https://github.com/example/work">Code repository</a>
+    """
+    hydrated = hydrate_official_page(page, {"slug": "paper", "abstract": "", "codeUrl": None, "projectUrl": None})
+    assert hydrated["abstract"] == "First sentence. Second sentence."
+    assert hydrated["originalAbstract"] == hydrated["abstract"]
+    assert hydrated["abstractStatus"] == "present"
+    assert hydrated["codeUrl"] == "https://github.com/example/work"
+
+
+def test_quality_audit_removes_too_short_and_full_body_abstracts(tmp_path):
+    settings = Settings(
+        root=tmp_path,
+        cache_dir=tmp_path / "cache",
+        raw_dir=tmp_path / "raw",
+        derived_dir=tmp_path / "derived",
+        output_dir=tmp_path / "out",
+    )
+    settings.prepare()
+    write_json(
+        settings.raw_dir / "papers-full.json",
+        [
+            {"slug": "short", "abstract": "Abstract Unavailable", "originalAbstract": "Abstract Unavailable"},
+            {
+                "slug": "long",
+                "abstract": ("word " * 698) + "Acknowledgements",
+                "originalAbstract": ("word " * 698) + "Acknowledgements",
+                "abstractQuality": "official-landing-page-possibly-full-text",
+            },
+            {"slug": "brief", "abstract": "word " * 10, "originalAbstract": "word " * 10},
+            {"slug": "good", "abstract": "word " * 100, "originalAbstract": "word " * 100},
+        ],
+    )
+    assert audit_full_abstract_quality(settings) == {
+        "papers": 4,
+        "rejected": 2,
+        "review": 0,
+        "summaryEvidenceInsufficient": 1,
+        "placeholder-or-extraction-junk": 1,
+        "legacy-landing-page-possibly-full-paper": 1,
+    }
+    papers = {paper["slug"]: paper for paper in read_json(settings.raw_dir / "papers-full.json", [])}
+    assert papers["short"]["abstractStatus"] == "needs-source-recovery"
+    assert papers["short"]["abstract"] == ""
+    assert papers["long"]["originalAbstract"] == ""
+    assert papers["brief"]["abstract"]
+    assert papers["brief"]["summaryEvidenceStatus"] == "insufficient"
+    assert papers["good"].get("abstractStatus") != "needs-source-recovery"

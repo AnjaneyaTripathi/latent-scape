@@ -20,6 +20,15 @@ try {
 }
 
 const artifact = resolve(process.argv[2] || 'site/dist');
+const dataManifest = JSON.parse(await readFile(join(artifact, 'data', 'manifest.json'), 'utf8'));
+const dataTopics = JSON.parse(await readFile(join(artifact, 'data', 'topics.json'), 'utf8'));
+let authoredPaper;
+for (const filename of Object.values(dataManifest.shards?.papers || {})) {
+  const shard = JSON.parse(await readFile(join(artifact, 'data', filename), 'utf8'));
+  authoredPaper = shard.find((paper) => paper.summary?.paragraphs?.length || paper.summary?.problem);
+  if (authoredPaper) break;
+}
+if (!authoredPaper) throw new Error('Smoke test needs one authored paper summary');
 const mime = { '.css': 'text/css', '.html': 'text/html', '.js': 'text/javascript', '.mjs': 'text/javascript', '.json': 'application/json', '.onnx': 'application/octet-stream', '.wasm': 'application/wasm', '.txt': 'text/plain' };
 const server = createServer(async (request, response) => {
   let pathname = decodeURIComponent(new URL(request.url, 'http://local').pathname);
@@ -43,12 +52,14 @@ const context = await browser.newContext({ viewport: { width: 1440, height: 920 
 const page = await context.newPage();
 const failures = [];
 const external = [];
+const localRequests = [];
 page.on('pageerror', (error) => failures.push(`page error: ${error.message}`));
 page.on('console', (message) => { if (message.type() === 'error') failures.push(`console: ${message.text()}`); });
 context.on('page', (child) => child.on('pageerror', (error) => failures.push(`child page error: ${error.message}`)));
 context.on('request', (request) => {
   const url = new URL(request.url());
   if (url.origin !== base && !url.protocol.startsWith('data')) external.push(request.url());
+  if (url.origin === base) localRequests.push(url.pathname);
 });
 
 async function assert(condition, message) { if (!condition) failures.push(message); }
@@ -63,9 +74,21 @@ async function search(query) {
 try {
   await page.goto(`${base}/latent-scape/`, { waitUntil: 'networkidle' });
   await assert((await page.locator('body').innerText()).length > 80, 'home page did not render');
+  // The landing page is deliberately usable before the 50+ MB search index is
+  // fetched. Wait for the background featured cards so their topic labels have
+  // also resolved before making the cold-start request assertion.
+  await page.locator('#featured-papers .paper-card').first().waitFor();
+  await assert(!localRequests.some((pathname) => pathname.endsWith('/data/search.json')), 'cold home loaded search.json before a search was requested');
+  const featuredTags = page.locator('#featured-papers .tag');
+  await assert(await featuredTags.count() > 0, 'featured cards did not render topic labels');
+  await assert((await featuredTags.allTextContents()).every((label) => !/^topic-\d{3}(?:-|$)/i.test(label.trim())), 'featured cards exposed raw topic IDs instead of curated labels');
+  // Ensure the service worker controls this client before testing a full offline reload.
+  await page.evaluate(() => navigator.serviceWorker?.ready);
+  await page.reload({ waitUntil: 'networkidle' });
   await page.screenshot({ path: '/tmp/latentscape-home-light.png' });
 
   await search('learning from rewards');
+  await assert(await page.getByLabel('Search concepts and papers').count() === 1, 'search input does not have an accessible label');
   const results = page.locator('.results a, .card a, .paper-card a');
   await assert(await results.count() > 0, 'search returned no navigable result');
   const semanticResults = await page.evaluate(async () => {
@@ -97,15 +120,50 @@ try {
   }
   await context.setOffline(false);
 
+  // A paper page must preserve the official abstract verbatim, then give a
+  // bounded 3–5 paragraph explanation rather than replacing the source text.
+  await page.goto(`${base}/latent-scape/#/paper/${encodeURIComponent(authoredPaper.slug)}`, { waitUntil: 'networkidle' });
+  await page.locator('.paper-detail h1').filter({ hasText: authoredPaper.title }).waitFor();
+  const abstract = page.locator('.official-abstract > p:not(.eyebrow):not(.source-note)').first();
+  const renderedAbstract = await abstract.textContent();
+  const expectedAbstract = authoredPaper.originalAbstract ?? authoredPaper.abstract;
+  await assert(renderedAbstract === expectedAbstract, `paper page changed the official abstract text (${JSON.stringify(renderedAbstract)} !== ${JSON.stringify(expectedAbstract)})`);
+  const explanation = page.locator('.narrative > p:not(.eyebrow):not(.source-note)');
+  const paragraphCount = await explanation.count();
+  await assert(paragraphCount >= 3 && paragraphCount <= 5, `paper explanation has ${paragraphCount} paragraphs, expected 3–5`);
+
   await page.goto(`${base}/latent-scape/#/topics`, { waitUntil: 'networkidle' });
   const firstTopic = page.locator('.topic-card a').first();
   if (await firstTopic.count()) { await firstTopic.click(); await page.waitForTimeout(350); await page.screenshot({ path: '/tmp/latentscape-topic.png', fullPage: true }); }
 
+  await page.goto(`${base}/latent-scape/#/map`, { waitUntil: 'networkidle' });
+  const topicPicker = page.locator('#map-topic');
+  await topicPicker.waitFor();
+  const optionCount = await topicPicker.locator('option').count();
+  await assert(dataManifest.totalTopics === 256, `map fixture has ${dataManifest.totalTopics} topics, expected 256`);
+  await assert(optionCount - 1 === 256, `map topic picker has ${optionCount - 1} topics, expected 256`);
+  await topicPicker.selectOption({ index: 1 });
+  await page.waitForFunction(() => location.hash.startsWith('#/topic/'));
+  await assert(page.url().includes('/topic/'), 'keyboard-accessible map topic picker did not navigate to a topic page');
+
   await page.setViewportSize({ width: 390, height: 844 });
+  const assertMobileWidth = async (name) => {
+    const widths = await page.evaluate(() => ({ scroll: document.documentElement.scrollWidth, viewport: window.innerWidth }));
+    await assert(widths.scroll <= widths.viewport + 1, `mobile ${name} page overflows horizontally (${widths.scroll} > ${widths.viewport})`);
+  };
   await page.goto(`${base}/latent-scape/`, { waitUntil: 'networkidle' });
-  const widths = await page.evaluate(() => ({ scroll: document.documentElement.scrollWidth, viewport: window.innerWidth }));
-  await assert(widths.scroll <= widths.viewport + 1, `mobile page overflows horizontally (${widths.scroll} > ${widths.viewport})`);
+  await assertMobileWidth('home');
   await page.screenshot({ path: '/tmp/latentscape-mobile.png', fullPage: true });
+
+  await page.goto(`${base}/latent-scape/#/paper/${encodeURIComponent(authoredPaper.slug)}`, { waitUntil: 'networkidle' });
+  await page.locator('.paper-detail h1').waitFor();
+  await assertMobileWidth('paper');
+  const mobileTopic = dataTopics[0];
+  if (mobileTopic?.slug) {
+    await page.goto(`${base}/latent-scape/#/topic/${encodeURIComponent(mobileTopic.slug)}`, { waitUntil: 'networkidle' });
+    await page.locator('.detail h1').waitFor();
+    await assertMobileWidth('topic');
+  } else failures.push('mobile topic overflow check needs one topic');
 
   const theme = page.locator('#theme-wide:visible, #theme:visible').first();
   if (await theme.count()) { const before = await page.locator('html').getAttribute('data-theme'); await theme.click(); await assert((await page.locator('html').getAttribute('data-theme')) !== before, 'theme toggle did not change the document theme'); }

@@ -1,24 +1,25 @@
-name: Deploy static site to GitHub Pages
+name: Build static site (manual Pages deployment opt-in)
 
 on:
   push:
     branches: [main]
   workflow_dispatch:
+    inputs:
+      deploy:
+        description: Deploy the already-built artifact to GitHub Pages (requires Pages support for this private repository)
+        required: true
+        default: false
+        type: boolean
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
   group: pages
   cancel-in-progress: true
 
 jobs:
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Check out committed static inputs
@@ -31,9 +32,6 @@ jobs:
           cache: npm
           cache-dependency-path: site/package-lock.json
 
-      - name: Configure Pages
-        uses: actions/configure-pages@v5
-
       - name: Build static artifact
         working-directory: site
         run: npm ci && npm run build
@@ -42,6 +40,33 @@ jobs:
         run: |
           python3 scripts/write-artifact-report.py site/dist
           python3 scripts/validate-artifacts.py site/dist
+
+      - name: Upload validated static artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: site-dist
+          path: site/dist
+          retention-days: 7
+
+  deploy:
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.deploy }}
+    needs: build
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download validated static artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: site-dist
+          path: site/dist
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v4
