@@ -27,7 +27,9 @@ python -m pipeline.astra_runner --input /path/to/records.json --output-dir /path
 ```
 
 Remove `--dry-run` only after reviewing the generated manifest. The runner
-defaults to batches of 25 and two concurrent batches (at most four). Each batch requires
+defaults to batches of 25 and two concurrent batches. It accepts up to 32
+concurrent batches for the one-time full-corpus pass; ramp from measured
+throughput instead of assuming an account will sustain the maximum. Each batch requires
 Codex to return a `slug → summary` JSON map with a TLDR, three to five
 plain-language paragraphs, the exact abstract hash, difficulty, provenance, and
 background topic slugs. It rejects output that is not abstract-grounded, has an
@@ -51,3 +53,35 @@ in append-only per-batch attempt journals. It binds the output directory to the
 ordered input snapshot, model, validation revision, and batch size; use a new
 output directory if any of those changes. Account dollar cost is intentionally
 recorded as unknown, not zero.
+
+Only one runner can own an output directory. It holds `working/.runner.lock`, so
+a second invocation refuses before it can rewrite the manifest. To hand a live
+run to a larger worker pool, request a drain (send `SIGTERM` or create
+`working/DRAIN`), wait for the in-flight batches to checkpoint, then resume the
+same frozen input and output directory with a new `--workers` value. Completed
+shards are validated and skipped. `working/control.json` contains
+`targetWorkers`; editing that integer between 1 and 32 changes the scheduling
+target for the active owner without changing the frozen records. The compact
+`working/progress.json` reports active batches, completion, a rate for the
+current owner only, and a rate-based ETA.
+
+Inspect a live full-corpus run with:
+
+```sh
+python -m json.tool data/generated/narratives/full/working/progress.json
+```
+
+To change the target safely while the owner is running, use the pipeline's
+atomic JSON writer. For example, this raises the scheduling target to 32; it
+does not claim that 32 workers are already active, and the measured ETA remains
+an estimate rather than a deadline guarantee.
+
+```sh
+uv run python -c 'from pathlib import Path; from pipeline.util import read_json, write_json; p = Path("data/generated/narratives/full/working/control.json"); state = read_json(p, {}); state["targetWorkers"] = 32; write_json(p, state)'
+```
+
+For evidence-only authoring, each Codex invocation disables the MCP servers
+configured in the local Codex config using one-off `-c` overrides. This avoids
+starting unrelated tools for every batch; it does not edit the user's config or
+read credentials into the run artifacts. Only server names that are valid TOML
+bare keys are overridden; unusual names are left unchanged rather than guessed.

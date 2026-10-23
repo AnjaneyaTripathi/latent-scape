@@ -21,3 +21,12 @@ def test_original_outbound_pdf_is_valid_but_hosted_pdf_is_rejected(tmp_path):
     errors: list[str] = []
     validator.validate_hosted_files(tmp_path, [hosted], errors)
     assert any("PDF found in static artifact" in message for message in errors)
+
+
+def test_optional_outbound_urls_allow_verified_pdfs_but_reject_unsafe_values():
+    validator = _validator()
+    assert validator.valid_optional_outbound_url(None)
+    assert validator.valid_optional_outbound_url("")
+    assert validator.valid_optional_outbound_url("https://publisher.example/paper.pdf#page=7")
+    for unsafe in ("javascript:alert(1)", "data:text/html,unsafe", "/project", "relative/page", "https://[invalid", 7):
+        assert not validator.valid_optional_outbound_url(unsafe)

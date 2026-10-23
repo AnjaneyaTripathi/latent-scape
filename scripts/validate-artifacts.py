@@ -46,8 +46,16 @@ def valid_outbound_paper_url(value: object) -> bool:
     """Paper sources may be PDFs; only hosting a PDF is prohibited."""
     if not isinstance(value, str):
         return False
-    parsed = urlsplit(value)
+    try:
+        parsed = urlsplit(value)
+    except ValueError:
+        return False
     return parsed.scheme in {"http", "https"} and bool(parsed.hostname)
+
+
+def valid_optional_outbound_url(value: object) -> bool:
+    """Optional reader-facing links must either be blank or safe absolute URLs."""
+    return value is None or value == "" or valid_outbound_paper_url(value)
 
 
 def validate_hosted_files(root: Path, files: list[Path], errors: list[str]) -> int:
@@ -139,6 +147,9 @@ def validate_corpus(root: Path, manifest: dict[str, Any], errors: list[str]) -> 
     for paper in papers:
         if not valid_outbound_paper_url(paper.get("url")):
             error(errors, f"paper {paper.get('slug')} has no valid absolute HTTP(S) original URL")
+        for field in ("originalUrl", "codeUrl", "projectUrl"):
+            if not valid_optional_outbound_url(paper.get(field)):
+                error(errors, f"paper {paper.get('slug')} has invalid {field}; expected blank or absolute HTTP(S) URL")
         for field in ("references", "citedBy", "similarPapers"):
             unknown = set(paper.get(field) or []) - paper_set
             if unknown:

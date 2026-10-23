@@ -2,10 +2,10 @@ from __future__ import annotations
 
 import shutil
 from collections import Counter, defaultdict
-from urllib.parse import urlparse
+from urllib.parse import urlsplit
 
 from .settings import Settings
-from .corpus import select, verify_meta
+from .corpus import select, verify_meta, write_meta
 from .summaries import summary_eligibility_reason
 from .util import read_json, shard_for, write_json
 
@@ -13,15 +13,98 @@ from .util import read_json, shard_for, write_json
 def _is_http_url(value: object) -> bool:
     if not isinstance(value, str):
         return False
-    parsed = urlparse(value)
-    return parsed.scheme in {"http", "https"} and bool(parsed.netloc)
+    try:
+        parsed = urlsplit(value)
+        return parsed.scheme in {"http", "https"} and bool(parsed.hostname)
+    except ValueError:
+        return False
+
+
+def normalize_optional_outbound_url(value: object) -> str | None:
+    """Keep safe links and recover only an exact duplicated Markdown URL.
+
+    Link extraction occasionally captures a Markdown destination as
+    https://example](https://example. When both copies are byte-identical, the
+    intended destination is unambiguous. Other malformed values are omitted
+    rather than guessed and never reach a reader-facing link.
+    """
+    if not isinstance(value, str):
+        return None
+    candidate = value.strip()
+    if _is_http_url(candidate):
+        return candidate
+    if "](" in candidate:
+        left, right = candidate.split("](", 1)
+        if left.startswith("["):
+            left = left[1:]
+        if right.endswith(")"):
+            right = right[:-1]
+        if left == right and _is_http_url(left):
+            return left
+    return None
 
 
 def _is_dblp_url(value: object) -> bool:
     if not _is_http_url(value):
         return False
-    host = urlparse(str(value)).netloc.lower().split(":", 1)[0]
+    host = urlsplit(str(value)).hostname
+    if not host:
+        return False
+    host = host.lower()
     return host == "dblp.org" or host.endswith(".dblp.org")
+
+
+def repair_optional_outbound_links(settings: Settings, corpus: str = "full") -> dict:
+    """Repair current derived optional links without changing source-corpus text.
+
+    This is deliberately limited to code/project links. It leaves paper
+    metadata, abstracts, ordering, topics, and the frozen source fingerprint
+    untouched, while recording every correction in a committed audit artifact.
+    """
+    _, fingerprint = select(settings, corpus)
+    papers_path = settings.derived_dir / f"papers-topics-{corpus}.json"
+    if not papers_path.exists():
+        raise FileNotFoundError(f"derived paper data is missing: {papers_path}")
+    verify_meta(papers_path, corpus, fingerprint, "topic papers")
+    papers = read_json(papers_path, [])
+    if not isinstance(papers, list):
+        raise ValueError("derived paper data must be a list")
+    updates: list[dict[str, str | None]] = []
+    for paper in papers:
+        if not isinstance(paper, dict):
+            continue
+        for field in ("codeUrl", "projectUrl"):
+            previous = paper.get(field)
+            normalized = normalize_optional_outbound_url(previous)
+            if previous == normalized:
+                continue
+            # Preserve absent/null fields. Only malformed nonempty optional
+            # links need a public-data correction.
+            if previous not in (None, ""):
+                paper[field] = normalized
+                updates.append(
+                    {
+                        "slug": str(paper.get("slug") or ""),
+                        "field": field,
+                        "oldUrl": str(previous),
+                        "newUrl": normalized,
+                        "reason": (
+                            "exact duplicated Markdown destination normalized"
+                            if normalized else "invalid optional outbound URL omitted"
+                        ),
+                    }
+                )
+    if updates:
+        write_json(papers_path, papers)
+        write_meta(papers_path, corpus, fingerprint)
+    artifact = {
+        "corpus": corpus,
+        "corpusFingerprint": fingerprint,
+        "scope": "derived optional code/project links only; source corpus unchanged",
+        "updates": updates,
+    }
+    write_json(settings.root / "data" / "generated" / f"optional-link-repairs-{corpus}.json", artifact)
+    return artifact
 
 
 def _verified_correction_urls(settings: Settings) -> dict[str, str]:
@@ -132,6 +215,8 @@ def export_site_data(settings: Settings, corpus: str = "sample") -> dict:
     source_link_counts: Counter[str] = Counter()
     for paper in papers:
         public = dict(paper)
+        for field in ("codeUrl", "projectUrl"):
+            public[field] = normalize_optional_outbound_url(public.get(field))
         original_url, source_link_label = _resolve_source_link(paper, corrections)
         public["originalUrl"] = original_url
         public["sourceLinkLabel"] = source_link_label

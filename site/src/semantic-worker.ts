@@ -38,12 +38,21 @@ if (env.backends.onnx.wasm) {
 let extractorPromise: Promise<any> | undefined;
 let indexPromise: Promise<{ metadata: SemanticIndex; shards: Array<{ ids: string[]; values: Int8Array }> }> | undefined;
 let indexKey = '';
+let topicsPromise: Promise<Topic[]> | undefined;
+let topicsKey = '';
 
 async function extractor() {
   if (!extractorPromise) {
-    extractorPromise = pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2', {
+    const loading = pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2', {
       dtype: 'q8',
     });
+    const retryable = loading.catch((error: unknown) => {
+      // Model bytes can be temporarily unavailable during an offline/cache
+      // transition. Do not retain the rejected promise forever.
+      if (extractorPromise === retryable) extractorPromise = undefined;
+      throw error;
+    });
+    extractorPromise = retryable;
   }
   return extractorPromise;
 }
@@ -85,9 +94,37 @@ async function loadIndex(url: string, topicsUrl: string) {
         throw new Error('Semantic index byte length does not match its row metadata');
       }
       return { metadata, shards: [{ ids: metadata.ids, values }] };
-    })();
+    })().catch((error: unknown) => {
+      // A transient offline/cache failure must not poison every later search.
+      if (indexKey === key) {
+        indexPromise = undefined;
+        indexKey = '';
+      }
+      throw error;
+    });
   }
   return indexPromise;
+}
+
+async function loadTopics(url: string): Promise<Topic[]> {
+  if (!topicsPromise || topicsKey !== url) {
+    topicsKey = url;
+    topicsPromise = fetch(url).then(async (response) => {
+      if (!response.ok) throw new Error(`Could not load topics for semantic search (${response.status})`);
+      const topics = await response.json() as Topic[];
+      if (!Array.isArray(topics)) throw new Error('Topics for semantic search must be an array');
+      return topics;
+    }).catch((error: unknown) => {
+      // Keep the successful index/model cache, but make a failed topic fetch
+      // retryable on the next query (especially after an offline reload).
+      if (topicsKey === url) {
+        topicsPromise = undefined;
+        topicsKey = '';
+      }
+      throw error;
+    });
+  }
+  return topicsPromise;
 }
 
 function insertTop(
@@ -102,10 +139,7 @@ function insertTop(
 
 async function search(query: string, topK: number, url: string, topicsUrl: string) {
   const [featureExtractor, index, topics] = await Promise.all([
-    extractor(), loadIndex(url, topicsUrl), fetch(topicsUrl).then(async (response) => {
-      if (!response.ok) throw new Error(`Could not load topics for semantic search (${response.status})`);
-      return response.json() as Promise<Topic[]>;
-    }),
+    extractor(), loadIndex(url, topicsUrl), loadTopics(topicsUrl),
   ]);
   const output = await featureExtractor(query, {
     pooling: 'mean', normalize: true, truncation: true, max_length: 256,

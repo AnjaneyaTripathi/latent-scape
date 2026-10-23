@@ -9,11 +9,17 @@ from __future__ import annotations
 
 import argparse
 import concurrent.futures
+import datetime as dt
+import fcntl
 import hashlib
 import json
+import os
 import re
+import signal
 import subprocess
+import threading
 import time
+import tomllib
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -25,7 +31,7 @@ from .util import read_json, write_json
 
 
 MODEL = "gpt-6-astra"
-MAX_WORKERS = 4
+MAX_WORKERS = 32
 MAX_ATTEMPTS = 3
 WORD_MIN = 120
 WORD_MAX = 240
@@ -34,6 +40,133 @@ WORD_MAX = 240
 # while keeping estimates explicitly distinct from reported usage.
 PROBE_CONTEXT_OVERHEAD_TOKENS = 17_750
 VALIDATION_VERSION = 2
+
+
+def _now() -> str:
+    return dt.datetime.now(dt.timezone.utc).isoformat()
+
+
+class RunLock:
+    """An advisory process lock for one mutable narrative output directory."""
+
+    def __init__(self, path: Path):
+        self.path = path
+        self.handle: Any | None = None
+
+    def __enter__(self) -> "RunLock":
+        self.path.parent.mkdir(parents=True, exist_ok=True)
+        self.handle = self.path.open("a+", encoding="utf-8")
+        try:
+            fcntl.flock(self.handle.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except BlockingIOError as error:
+            self.handle.close()
+            self.handle = None
+            raise SystemExit(
+                f"another Astra runner owns {self.path.parent}; stop or drain it before resuming"
+            ) from error
+        self.handle.seek(0)
+        self.handle.truncate()
+        self.handle.write(json.dumps({"pid": os.getpid(), "startedAt": _now()}) + "\n")
+        self.handle.flush()
+        return self
+
+    def __exit__(self, *_: object) -> None:
+        if self.handle is not None:
+            fcntl.flock(self.handle.fileno(), fcntl.LOCK_UN)
+            self.handle.close()
+            self.handle = None
+
+
+class RateLimitGate:
+    """Coordinate bounded retry delays across concurrent batches."""
+
+    def __init__(self) -> None:
+        self._lock = threading.Lock()
+        self._not_before = 0.0
+
+    def wait(self) -> None:
+        with self._lock:
+            delay = self._not_before - time.monotonic()
+        if delay > 0:
+            time.sleep(delay)
+
+    def defer(self, seconds: float) -> None:
+        with self._lock:
+            self._not_before = max(self._not_before, time.monotonic() + seconds)
+
+
+def _control_path(working_dir: Path) -> Path:
+    return working_dir / "control.json"
+
+
+def _target_workers(working_dir: Path, fallback: int) -> int:
+    """Allow a live owner to increase/decrease scheduling without a new run."""
+    control = read_json(_control_path(working_dir), {})
+    target = control.get("targetWorkers") if isinstance(control, dict) else None
+    return target if isinstance(target, int) and 1 <= target <= MAX_WORKERS else fallback
+
+
+def disabled_configured_mcp_overrides(config_path: Path | None = None) -> list[str]:
+    """Disable only configured MCP servers for evidence-only batch calls.
+
+    The authoring prompt permits no tools and supplies all evidence itself.
+    Reading the top-level server names avoids starting unrelated local MCP
+    processes for every concurrent Codex batch. Configuration values (including
+    credentials) are never returned or written to runner artifacts.
+    """
+    path = config_path or Path.home() / ".codex" / "config.toml"
+    try:
+        with path.open("rb") as handle:
+            configured = tomllib.load(handle).get("mcp_servers", {})
+    except (OSError, tomllib.TOMLDecodeError):
+        return []
+    if not isinstance(configured, dict):
+        return []
+    overrides: list[str] = []
+    for name in sorted(configured):
+        # Codex's one-off dotted paths accept TOML bare keys. Quoting a path
+        # segment would instead create a literal quoted server name. Names that
+        # cannot be represented safely are left alone rather than guessed.
+        if isinstance(name, str) and re.fullmatch(r"[A-Za-z0-9_-]+", name):
+            overrides.extend(["-c", f"mcp_servers.{name}.enabled=false"])
+    return overrides
+
+
+def _write_progress(
+    working_dir: Path,
+    manifest: dict[str, Any],
+    results: dict[int, dict[str, Any]],
+    active: list[dict[str, Any]],
+    started: float,
+    *,
+    baseline_complete: int,
+    drain_requested: bool,
+) -> None:
+    finished = [item for item in results.values() if item.get("status") in {"complete", "skipped"}]
+    complete = sum(int(item.get("records", 0)) for item in finished)
+    active_records = sum(int(item.get("records", 0)) for item in active)
+    elapsed = max(time.monotonic() - started, 1e-9)
+    run_complete = max(0, complete - baseline_complete)
+    rate = run_complete / (elapsed / 3600)
+    remaining = max(0, int(manifest.get("eligibleRecords", 0)) - complete)
+    write_json(
+        working_dir / "progress.json",
+        {
+            "updatedAt": _now(),
+            "model": MODEL,
+            "configuredWorkers": manifest.get("workers"),
+            "targetWorkers": _target_workers(working_dir, int(manifest.get("workers", 1))),
+            "completedRecords": complete,
+            "completedThisOwner": run_complete,
+            "pendingRecords": max(0, remaining - active_records),
+            "activeRecords": active_records,
+            "activeBatches": active,
+            "failedBatches": sum(item.get("status") == "failed" for item in results.values()),
+            "measuredPapersPerHour": round(rate, 2),
+            "estimatedRemainingHoursAtCurrentRate": round(remaining / rate, 2) if rate else None,
+            "drainRequested": drain_requested,
+        },
+    )
 
 
 @dataclass(frozen=True)
@@ -188,7 +321,7 @@ def prompt_for(records: list[Record], retry_errors: dict[str, list[str]] | None 
 
 Use only title, officialAbstract, sourceAbstractSha256, and allowedBackgroundConcepts in the supplied evidence. Do not retrieve sources, run commands, use web access, or invent experiments, metrics, baselines, dates, citations, or limitations.
 
-For each key return: tldr (one concise sentence); paragraphs (3–5 substantive plain-language paragraphs, 140–240 words total, focused on what the paper did, why its approach matters, and what its stated findings mean). Mention a real stated assumption or limit only when the supplied abstract supports it; do not devote a paragraph to generic missing-details disclaimers. difficulty (beginner/intermediate/advanced); source exactly "abstract"; model exactly "gpt-6-astra"; backgroundConcepts using only allowedBackgroundConcepts or []; and sourceAbstractSha256 exactly as supplied. The site shows the official abstract separately, unchanged. Do not repeat it verbatim, do not use generic filler, and do not add headings or markdown.
+For each key return: tldr (one concise sentence); paragraphs (3–5 substantive plain-language paragraphs, 140–240 words total, focused on what the paper did, why its approach matters, and what its stated findings mean). Preserve the strength of every claim: never turn a sufficient, conditional, possible, empirical, or qualified statement into a necessary, universal, or certain one. Mention a real stated assumption or limit only when the supplied abstract supports it; do not devote a paragraph to generic missing-details disclaimers. difficulty (beginner/intermediate/advanced); source exactly "abstract"; model exactly "gpt-6-astra"; backgroundConcepts using only allowedBackgroundConcepts or []; and sourceAbstractSha256 exactly as supplied. The site shows the official abstract separately, unchanged. Do not repeat it verbatim, do not use generic filler, and do not add headings or markdown.
 
 Evidence JSON:
 {json.dumps(evidence, ensure_ascii=False)}
@@ -291,16 +424,31 @@ def parse_reported_usage(stdout: str) -> dict[str, int] | None:
     return totals or None
 
 
-def run_batch(root: Path, batch_number: int, records: list[Record], output_dir: Path, working_dir: Path, dry_run: bool) -> dict[str, Any]:
+def run_batch(root: Path, batch_number: int, records: list[Record], output_dir: Path, working_dir: Path, dry_run: bool, rate_gate: RateLimitGate | None = None) -> dict[str, Any]:
+    started_at = _now()
+    started_monotonic = time.monotonic()
+
+    def result(status: str, path: Path, **extra: Any) -> dict[str, Any]:
+        return {
+            "batch": batch_number,
+            "status": status,
+            "path": str(path),
+            "records": len(records),
+            "startedAt": started_at,
+            "finishedAt": _now(),
+            "durationSeconds": round(time.monotonic() - started_monotonic, 3),
+            **extra,
+        }
+
     output_path = output_dir / f"batch-{batch_number:05d}.json"
     attempt_path = working_dir / f"batch-{batch_number:05d}.attempts.json"
     prior_attempts = read_json(attempt_path, [])
     if not isinstance(prior_attempts, list):
         prior_attempts = []
     if existing_valid(output_path, records):
-        return {"batch": batch_number, "status": "skipped", "path": str(output_path), "records": len(records), "attemptsDetail": prior_attempts}
+        return result("skipped", output_path, attemptsDetail=prior_attempts)
     if dry_run:
-        return {"batch": batch_number, "status": "planned", "path": str(output_path), "records": len(records)}
+        return result("planned", output_path)
     schema_path = working_dir / f"schema-batch-{batch_number:05d}.json"
     temporary = working_dir / f"response-batch-{batch_number:05d}.json"
     partial_path = working_dir / f"batch-{batch_number:05d}.partial.json"
@@ -316,15 +464,17 @@ def run_batch(root: Path, batch_number: int, records: list[Record], output_dir: 
         if not remaining:
             write_json(output_path, accepted)
             partial_path.unlink(missing_ok=True)
-            return {"batch": batch_number, "status": "complete", "path": str(output_path), "records": len(records), "attempts": attempt - 1, "attemptsDetail": attempts}
+            return result("complete", output_path, attempts=attempt - 1, attemptsDetail=attempts)
         write_json(schema_path, batch_schema(remaining))
         prompt = prompt_for(remaining, retry_errors)
         command = [
-            "codex", "exec", "--ephemeral", "--json", "-m", MODEL,
+            "codex", *disabled_configured_mcp_overrides(), "exec", "--ephemeral", "--json", "-m", MODEL,
             "--sandbox", "read-only", "--output-schema", str(schema_path),
             "-o", str(temporary), "-C", str(root), "-",
         ]
         try:
+            if rate_gate is not None:
+                rate_gate.wait()
             process = subprocess.run(command, input=prompt, text=True, capture_output=True, timeout=900, check=False)
         except subprocess.TimeoutExpired:
             attempts.append({"attempt": attempt, "error": "timed out after 900 seconds"})
@@ -345,7 +495,7 @@ def run_batch(root: Path, batch_number: int, records: list[Record], output_dir: 
                     write_json(output_path, accepted)
                     temporary.unlink(missing_ok=True)
                     partial_path.unlink(missing_ok=True)
-                    return {"batch": batch_number, "status": "complete", "path": str(output_path), "records": len(records), "attempts": attempt, "attemptsDetail": attempts}
+                    return result("complete", output_path, attempts=attempt, attemptsDetail=attempts)
                 attempts.append({"attempt": attempt, "errors": errors, "usage": usage})
                 retry_errors = errors
             else:
@@ -362,11 +512,29 @@ def run_batch(root: Path, batch_number: int, records: list[Record], output_dir: 
                 })
             write_json(attempt_path, attempts)
         temporary.unlink(missing_ok=True)
-        if attempt < MAX_ATTEMPTS:
-            time.sleep(2 ** (attempt - 1))
+        if attempt < first_attempt + MAX_ATTEMPTS - 1:
+            diagnostic = " ".join(
+                str(item.get("stderr", "")) + " " + str(item.get("stdout", ""))
+                for item in attempts[-1:]
+                if isinstance(item, dict)
+            ).casefold()
+            # Provider rate limits need a slower bounded backoff than a schema
+            # retry. This remains explicit instead of guessing a reset window.
+            limited = any(
+                marker in diagnostic for marker in (
+                    "rate limit", "rate_limit", "429", "quota", "usage limit", "too many requests",
+                )
+            )
+            epoch_attempt = attempt - first_attempt
+            delay = min(60, 5 * 2 ** epoch_attempt) if limited else 2 ** epoch_attempt
+            if limited and rate_gate is not None:
+                rate_gate.defer(delay)
+                rate_gate.wait()
+            else:
+                time.sleep(delay)
     error_path = working_dir / f"batch-{batch_number:05d}.errors.json"
     write_json(error_path, {"records": [record.slug for record in records], "attempts": attempts})
-    return {"batch": batch_number, "status": "failed", "path": str(error_path), "records": len(records), "attempts": len(attempts), "attemptsDetail": attempts}
+    return result("failed", error_path, attempts=len(attempts), attemptsDetail=attempts)
 
 
 def make_manifest(records: list[Record], unavailable: list[dict[str, str]], args: argparse.Namespace) -> dict[str, Any]:
@@ -407,6 +575,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--skip-existing-dir", type=Path, help="skip only current-hash-valid summaries in importable top-level shards")
     parser.add_argument("--dry-run", action="store_true", help="write a manifest and planned batches without calling Codex")
     parser.add_argument("--max-failures", type=int, default=8, help="stop scheduling after this many failed batches")
+    parser.add_argument("--drain-file", type=Path, help="file whose presence drains new scheduling after in-flight batches finish")
     return parser.parse_args(argv)
 
 
@@ -441,6 +610,113 @@ def _usage_ledger(working_dir: Path) -> list[dict[str, Any]]:
     return ledger
 
 
+def _run_locked(args: argparse.Namespace, root: Path, working_dir: Path) -> int:
+    """Run one owner of an output directory; callers hold its advisory lock."""
+    manifest_path = working_dir / "manifest.json"
+    prior_manifest = read_json(manifest_path, {})
+    if args.skip_existing_dir:
+        output = args.output_dir.resolve()
+        skip = args.skip_existing_dir.resolve()
+        if skip == output or output.is_relative_to(skip):
+            raise SystemExit("--skip-existing-dir cannot be the active output directory or one of its parents; use a separate immutable summary directory")
+    base_records, base_unavailable = load_records(args.input, None, args.exclude_file, None)
+    if prior_manifest:
+        current_identity = {
+            "inputHash": hashlib.sha256(args.input.read_bytes()).hexdigest(),
+            "batchSize": args.batch_size,
+            "model": MODEL,
+            "validationVersion": VALIDATION_VERSION,
+        }
+        if any(prior_manifest.get(key) not in {None, current_identity[key]} for key in current_identity):
+            raise SystemExit("output directory belongs to a different input, batch size, model, or validation revision; choose a new --output-dir")
+        records = _restore_frozen_records(base_records, prior_manifest)
+        saved_unavailable = read_json(working_dir / "unavailable.json", base_unavailable)
+        unavailable = saved_unavailable if isinstance(saved_unavailable, list) else base_unavailable
+    else:
+        records, unavailable = load_records(args.input, args.limit, args.exclude_file, args.skip_existing_dir)
+    manifest = make_manifest(records, unavailable, args)
+    previous_batches = {item.get("batch"): item for item in prior_manifest.get("batches", []) if isinstance(item, dict) and isinstance(item.get("batch"), int)}
+    manifest["batches"] = [item for _, item in sorted(previous_batches.items())]
+    manifest["reportedUsage"] = _usage_ledger(working_dir)
+    write_json(manifest_path, manifest)
+    write_json(working_dir / "unavailable.json", unavailable)
+    control_path = _control_path(working_dir)
+    if not control_path.exists():
+        write_json(control_path, {"targetWorkers": args.workers, "updatedAt": _now()})
+    drain_path = args.drain_file or working_dir / "DRAIN"
+    drain_signal = threading.Event()
+
+    def request_drain(_signum: int, _frame: Any) -> None:
+        drain_signal.set()
+
+    old_signals = {signal.SIGINT: signal.getsignal(signal.SIGINT), signal.SIGTERM: signal.getsignal(signal.SIGTERM)}
+    signal.signal(signal.SIGINT, request_drain)
+    signal.signal(signal.SIGTERM, request_drain)
+    started = time.monotonic()
+    batches = [records[index:index + args.batch_size] for index in range(0, len(records), args.batch_size)]
+    results: dict[int, dict[str, Any]] = dict(previous_batches)
+    baseline_complete = sum(
+        int(item.get("records", 0))
+        for item in results.values()
+        if item.get("status") in {"complete", "skipped"}
+    )
+    failures = 0
+    drained = False
+    try:
+        with concurrent.futures.ThreadPoolExecutor(max_workers=MAX_WORKERS) as pool:
+            next_batch = 0
+            futures: dict[concurrent.futures.Future[dict[str, Any]], tuple[int, float]] = {}
+            rate_gate = RateLimitGate()
+
+            def is_draining() -> bool:
+                return drain_signal.is_set() or drain_path.exists()
+
+            def active_rows() -> list[dict[str, Any]]:
+                return [{"batch": batch, "records": len(batches[batch]), "startedAt": dt.datetime.fromtimestamp(started_at, dt.timezone.utc).isoformat()} for batch, started_at in sorted(futures.values())]
+
+            def checkpoint() -> None:
+                manifest["batches"] = [item for _, item in sorted(results.items())]
+                manifest["reportedUsage"] = _usage_ledger(working_dir)
+                write_json(manifest_path, manifest)
+                _write_progress(working_dir, manifest, results, active_rows(), started, baseline_complete=baseline_complete, drain_requested=is_draining())
+
+            def schedule() -> None:
+                nonlocal next_batch, drained
+                if is_draining():
+                    drained = True
+                    return
+                target = _target_workers(working_dir, args.workers)
+                while next_batch < len(batches) and len(futures) < target and failures < args.max_failures:
+                    batch = batches[next_batch]
+                    futures[pool.submit(run_batch, root, next_batch, batch, args.output_dir, working_dir, args.dry_run, rate_gate)] = (next_batch, time.time())
+                    next_batch += 1
+
+            schedule()
+            checkpoint()
+            while futures:
+                done, _ = concurrent.futures.wait(futures, return_when=concurrent.futures.FIRST_COMPLETED)
+                for future in done:
+                    batch, _started_at = futures.pop(future)
+                    result = future.result()
+                    results[batch] = result
+                    if result["status"] == "failed":
+                        failures += 1
+                schedule()
+                checkpoint()
+        final_results = [item for _, item in sorted(results.items())]
+        manifest["batches"] = final_results
+        manifest["reportedUsage"] = _usage_ledger(working_dir)
+        manifest["completeRecords"] = sum(item["records"] for item in final_results if item["status"] in {"complete", "skipped"})
+        manifest["failedBatches"] = sum(item["status"] == "failed" for item in final_results)
+        write_json(manifest_path, manifest)
+        _write_progress(working_dir, manifest, results, [], started, baseline_complete=baseline_complete, drain_requested=drained)
+        print(json.dumps({"eligibleRecords": manifest["eligibleRecords"], "unavailableCount": manifest["unavailableCount"], "batchesFinished": len(final_results), "completeRecords": manifest["completeRecords"], "failedBatches": manifest["failedBatches"], "drained": drained, "reportedUsage": manifest["reportedUsage"]}, sort_keys=True))
+        return 2 if drained else (1 if manifest["failedBatches"] else 0)
+    finally:
+        for signum, previous in old_signals.items():
+            signal.signal(signum, previous)
+
+
 def main(argv: list[str] | None = None) -> int:
     args = parse_args(argv)
     if args.batch_size < 1:
@@ -455,84 +731,8 @@ def main(argv: list[str] | None = None) -> int:
     args.output_dir.mkdir(parents=True, exist_ok=True)
     working_dir = args.output_dir / "working"
     working_dir.mkdir(parents=True, exist_ok=True)
-    manifest_path = working_dir / "manifest.json"
-    prior_manifest = read_json(manifest_path, {})
-    if args.skip_existing_dir:
-        output = args.output_dir.resolve()
-        skip = args.skip_existing_dir.resolve()
-        if skip == output or output.is_relative_to(skip):
-            raise SystemExit("--skip-existing-dir cannot be the active output directory or one of its parents; use a separate immutable summary directory")
-    # On first invocation, existing reviewed shards form a frozen exclusion set.
-    # On resume, restore that frozen record order rather than re-evaluating a
-    # directory that may have changed while this run was authoring batches.
-    base_records, base_unavailable = load_records(args.input, None, args.exclude_file, None)
-    if prior_manifest:
-        current_identity = {
-            "inputHash": hashlib.sha256(args.input.read_bytes()).hexdigest(),
-            "batchSize": args.batch_size,
-            "model": MODEL,
-            "validationVersion": VALIDATION_VERSION,
-        }
-        identity_keys = tuple(current_identity)
-        if any(prior_manifest.get(key) not in {None, current_identity[key]} for key in identity_keys):
-            raise SystemExit("output directory belongs to a different input, batch size, model, or validation revision; choose a new --output-dir")
-        records = _restore_frozen_records(base_records, prior_manifest)
-        saved_unavailable = read_json(working_dir / "unavailable.json", base_unavailable)
-        unavailable = saved_unavailable if isinstance(saved_unavailable, list) else base_unavailable
-    else:
-        records, unavailable = load_records(args.input, args.limit, args.exclude_file, args.skip_existing_dir)
-    manifest = make_manifest(records, unavailable, args)
-    previous_batches = {item.get("batch"): item for item in prior_manifest.get("batches", []) if isinstance(item, dict) and isinstance(item.get("batch"), int)}
-    manifest["batches"] = [item for _, item in sorted(previous_batches.items())]
-    manifest["reportedUsage"] = _usage_ledger(working_dir)
-    write_json(manifest_path, manifest)
-    write_json(working_dir / "unavailable.json", unavailable)
-    batches = [records[index:index + args.batch_size] for index in range(0, len(records), args.batch_size)]
-    results: dict[int, dict[str, Any]] = dict(previous_batches)
-    failures = 0
-    with concurrent.futures.ThreadPoolExecutor(max_workers=args.workers) as pool:
-        next_batch = 0
-        futures: dict[concurrent.futures.Future[dict[str, Any]], int] = {}
-
-        def schedule() -> None:
-            nonlocal next_batch
-            while next_batch < len(batches) and len(futures) < args.workers and failures < args.max_failures:
-                batch = batches[next_batch]
-                futures[pool.submit(run_batch, root, next_batch, batch, args.output_dir, working_dir, args.dry_run)] = next_batch
-                next_batch += 1
-
-        schedule()
-        while futures:
-            done, _ = concurrent.futures.wait(futures, return_when=concurrent.futures.FIRST_COMPLETED)
-            for future in done:
-                futures.pop(future)
-                result = future.result()
-                results[result["batch"]] = result
-                if result["status"] == "failed":
-                    failures += 1
-                # A durable progress checkpoint makes long curation runs
-                # observable and safely resumable if interrupted.
-                manifest["batches"] = [item for _, item in sorted(results.items())]
-                manifest["reportedUsage"] = _usage_ledger(working_dir)
-                write_json(manifest_path, manifest)
-            schedule()
-    final_results = [item for _, item in sorted(results.items())]
-    manifest["batches"] = final_results
-    manifest["reportedUsage"] = _usage_ledger(working_dir)
-    manifest["completeRecords"] = sum(item["records"] for item in final_results if item["status"] in {"complete", "skipped"})
-    manifest["failedBatches"] = sum(item["status"] == "failed" for item in final_results)
-    write_json(manifest_path, manifest)
-    # Keep terminal progress compact even when a historical source has many
-    # ineligible records. Per-slug reasons stay in working/unavailable.json.
-    print(json.dumps({
-        "eligibleRecords": manifest["eligibleRecords"],
-        "unavailableCount": manifest["unavailableCount"],
-        "batchesFinished": len(final_results),
-        "completeRecords": manifest["completeRecords"],
-        "failedBatches": manifest["failedBatches"],
-        "reportedUsage": manifest["reportedUsage"],
-    }, sort_keys=True))
-    return 1 if manifest["failedBatches"] else 0
+    with RunLock(working_dir / ".runner.lock"):
+        return _run_locked(args, root, working_dir)
 
 
 if __name__ == "__main__":

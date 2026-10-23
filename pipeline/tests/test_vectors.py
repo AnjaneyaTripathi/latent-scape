@@ -4,7 +4,11 @@ import numpy as np
 
 from pipeline.corpus import fingerprint, write_meta
 from pipeline.embedding import quantize_unit_vectors
-from pipeline.export import export_site_data
+from pipeline.export import (
+    export_site_data,
+    normalize_optional_outbound_url,
+    repair_optional_outbound_links,
+)
 from pipeline.settings import Settings
 from pipeline.util import write_json
 
@@ -115,3 +119,61 @@ def test_export_marks_dblp_as_record_and_uses_reviewed_original_sources(tmp_path
     assert report["curatedTopics"] == 1
     search = json.loads((settings.output_dir / "search.json").read_text())
     assert next(item for item in search if item["slug"] == "repaired")["originalUrl"] == repaired["originalUrl"]
+
+
+def test_optional_link_repair_normalizes_only_exact_duplicate_markdown_destinations(tmp_path):
+    settings = Settings(
+        root=tmp_path,
+        cache_dir=tmp_path / "cache",
+        raw_dir=tmp_path / "raw",
+        derived_dir=tmp_path / "derived",
+        output_dir=tmp_path / "output",
+    )
+    papers = [
+        {
+            "slug": "recoverable",
+            "title": "Recoverable",
+            "abstract": "A real abstract.",
+            "url": "https://example.test/paper",
+            "venue": "NeurIPS",
+            "year": 2023,
+            "topicSlugs": [],
+            "citationCount": None,
+            "projectUrl": "https://project.test](https://project.test",
+        },
+        {
+            "slug": "unsafe",
+            "title": "Unsafe",
+            "abstract": "Another real abstract.",
+            "url": "https://example.test/other",
+            "venue": "ICML",
+            "year": 2023,
+            "topicSlugs": [],
+            "citationCount": None,
+            "projectUrl": "javascript:alert(1)",
+        },
+    ]
+    write_json(settings.raw_dir / "papers-full.json", papers)
+    corpus_fingerprint = fingerprint(papers)
+    derived_papers = settings.derived_dir / "papers-topics-full.json"
+    write_json(derived_papers, papers)
+    write_meta(derived_papers, "full", corpus_fingerprint)
+
+    repair = repair_optional_outbound_links(settings, "full")
+
+    repaired = json.loads(derived_papers.read_text())
+    assert repaired[0]["projectUrl"] == "https://project.test"
+    assert repaired[1]["projectUrl"] is None
+    assert [update["slug"] for update in repair["updates"]] == ["recoverable", "unsafe"]
+    assert (settings.root / "data" / "generated" / "optional-link-repairs-full.json").exists()
+    assert normalize_optional_outbound_url("https://ok.test/project") == "https://ok.test/project"
+    assert normalize_optional_outbound_url("https://one.test](https://two.test") is None
+
+    export_site_data(settings, "full")
+    values = [
+        paper
+        for path in (settings.output_dir / "papers").glob("*.json")
+        for paper in json.loads(path.read_text())
+    ]
+    assert next(paper for paper in values if paper["slug"] == "recoverable")["projectUrl"] == "https://project.test"
+    assert next(paper for paper in values if paper["slug"] == "unsafe")["projectUrl"] is None

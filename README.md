@@ -6,7 +6,7 @@ Latentscape is a static, concept-first guide to NeurIPS and ICML research. It ha
 
 The frozen source corpus contains **54,437 papers**: 30,840 NeurIPS and 23,597 ICML records. It contains 52,893 nonempty source abstracts, of which 52,836 currently meet the evidence gate for narrative authoring; 1,601 records are ineligible because source evidence is missing, under recovery, insufficient, or otherwise excluded by validation. Short genuine abstracts remain visible rather than being rewritten. ICML 1980 and 1985 remain explicitly unverified historical gaps. The corpus is a one-time snapshot dated 2026-10-23; it is not a live feed.
 
-The topic pass has 32 broad areas and 256 fine topics; all current guides are carry-forward reviewed after the controlled source correction. Citation coverage is partial and Astra narrative authoring is ongoing: do not interpret the corpus count as a claim that every paper has been curated. The full four-worker Astra run is estimated at roughly 49 hours from measured batches. Deployment remains pending because this repository is private.
+The topic pass has 32 broad areas and 256 fine topics; all current guides are carry-forward reviewed after the controlled source correction. Citation coverage is partial and Astra narrative authoring is ongoing: do not interpret the corpus count as a claim that every paper has been curated. The live authoring runner has an adjustable target of up to 32 concurrent workers; its current completion count, active batches, measured throughput, and rate-based ETA are recorded in `data/generated/narratives/full/working/progress.json`. The ETA is empirical rather than guaranteed. Deployment remains pending because this repository is private.
 
 ## Build the static site
 
@@ -37,7 +37,7 @@ Use `uv run` for every pipeline command; `uv sync` alone does not activate the e
 | Source QA | `uv run latentscape audit-full-abstracts` and `uv run latentscape extract-full-outbound-links` | Rechecks cached source evidence and explicit links. |
 | Citation enrichment | `uv run latentscape enrich --corpus full --config config.toml` | Offline cache-backed enrichment when configured, then merge its approved results. |
 | Embeddings/topics | `uv run python -m pipeline.full_build prepare` | Resumes hash-bound embedding chunks and topic preparation. |
-| Astra narratives | `uv run python -m pipeline.full_build generate --workers 4` | Resumes the frozen eligible input; no runtime site API. |
+| Astra narratives | `uv run python -m pipeline.full_build generate --workers 24` | Resumes the frozen eligible input; choose 1–32 workers from measured throughput and account capacity. |
 | Guides/import | `uv run latentscape import-topics --corpus full` | Imports only approved, hash-matched guide shards. |
 | Static derivation | `uv run latentscape similarity --corpus full`, `uv run latentscape glossary --corpus full`, `uv run latentscape export --corpus full` | Rebuilds static navigation and site data. |
 

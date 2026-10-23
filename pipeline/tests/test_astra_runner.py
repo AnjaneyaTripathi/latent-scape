@@ -4,7 +4,7 @@ from types import SimpleNamespace
 import pytest
 
 from pipeline import astra_runner
-from pipeline.astra_runner import MODEL, abstract_hash, batch_schema, load_exclusions, load_records, main, normalize_record, run_batch, valid_subset, validate_batch
+from pipeline.astra_runner import MODEL, RunLock, _write_progress, abstract_hash, batch_schema, disabled_configured_mcp_overrides, load_exclusions, load_records, main, normalize_record, run_batch, valid_subset, validate_batch
 
 
 def _paragraph(word: str) -> str:
@@ -206,3 +206,107 @@ def test_failed_batch_gets_a_new_bounded_retry_epoch_after_restart(tmp_path, mon
     assert second["status"] == "complete"
     assert calls == 4
     assert [entry["attempt"] for entry in second["attemptsDetail"]] == [1, 2, 3, 4]
+
+
+def test_resumed_retry_epoch_keeps_bounded_backoff(tmp_path, monkeypatch):
+    record = normalize_record({"slug": "paper", "title": "Paper", "abstract": "evidence " * 40})
+    working = tmp_path / "working"
+    working.mkdir()
+    write_json = astra_runner.write_json
+    write_json(working / "batch-00000.attempts.json", [{"attempt": 1}, {"attempt": 2}, {"attempt": 3}])
+    calls = 0
+    pauses: list[float] = []
+
+    def fail_then_succeed(command, **kwargs):
+        nonlocal calls
+        calls += 1
+        if calls == 1:
+            return SimpleNamespace(returncode=1, stdout="", stderr="temporary outage")
+        destination = command[command.index("-o") + 1]
+        with open(destination, "w", encoding="utf-8") as handle:
+            json.dump({"paper": _summary(record.abstract)}, handle)
+        return SimpleNamespace(returncode=0, stdout="", stderr="")
+
+    monkeypatch.setattr(astra_runner.subprocess, "run", fail_then_succeed)
+    monkeypatch.setattr(astra_runner.time, "sleep", pauses.append)
+    result = run_batch(tmp_path, 0, [record], tmp_path, working, False)
+    assert result["status"] == "complete"
+    assert pauses == [1]
+
+
+def test_runner_allows_32_workers_and_disables_only_safe_configured_mcp_servers(tmp_path):
+    config = tmp_path / "config.toml"
+    config.write_text("[mcp_servers.local_tools]\ncommand = 'ignored'\n[mcp_servers.\"name with spaces\"]\ncommand = 'ignored'\n")
+    assert disabled_configured_mcp_overrides(config) == ["-c", "mcp_servers.local_tools.enabled=false"]
+    source = tmp_path / "records.json"
+    source.write_text(json.dumps([{"slug": "paper", "title": "Paper", "abstract": "official " * 40}]))
+    assert main(["--input", str(source), "--output-dir", str(tmp_path / "out"), "--workers", "32", "--dry-run"]) == 0
+
+
+def test_batch_passes_configured_mcp_overrides_to_codex(tmp_path, monkeypatch):
+    record = normalize_record({"slug": "paper", "title": "Paper", "abstract": "evidence " * 40})
+    seen: list[str] = []
+
+    def fake_run(command, **kwargs):
+        seen.extend(command)
+        destination = command[command.index("-o") + 1]
+        with open(destination, "w", encoding="utf-8") as handle:
+            json.dump({"paper": _summary(record.abstract)}, handle)
+        return SimpleNamespace(returncode=0, stdout="", stderr="")
+
+    monkeypatch.setattr(astra_runner, "disabled_configured_mcp_overrides", lambda: ["-c", "mcp_servers.local.enabled=false"])
+    monkeypatch.setattr(astra_runner.subprocess, "run", fake_run)
+    working = tmp_path / "working"
+    working.mkdir()
+    assert run_batch(tmp_path, 0, [record], tmp_path, working, False)["status"] == "complete"
+    assert seen[:4] == ["codex", "-c", "mcp_servers.local.enabled=false", "exec"]
+
+
+def test_second_runner_cannot_mutate_a_locked_output_directory(tmp_path):
+    source = tmp_path / "records.json"
+    source.write_text(json.dumps([{"slug": "paper", "title": "Paper", "abstract": "official " * 40}]))
+    output = tmp_path / "out"
+    working = output / "working"
+    with RunLock(working / ".runner.lock"):
+        with pytest.raises(SystemExit, match="another Astra runner owns"):
+            main(["--input", str(source), "--output-dir", str(output), "--dry-run"])
+
+
+def test_drain_file_finishes_current_batch_without_scheduling_later_batches(tmp_path, monkeypatch):
+    source = tmp_path / "records.json"
+    source.write_text(json.dumps([
+        {"slug": "one", "title": "One", "abstract": "one " * 40},
+        {"slug": "two", "title": "Two", "abstract": "two " * 40},
+    ]))
+    output = tmp_path / "out"
+    calls: list[int] = []
+
+    def fake_batch(root, batch_number, records, output_dir, working_dir, dry_run, rate_gate):
+        calls.append(batch_number)
+        (working_dir / "DRAIN").touch()
+        return {"batch": batch_number, "status": "complete", "path": str(output_dir / f"batch-{batch_number:05d}.json"), "records": len(records)}
+
+    monkeypatch.setattr(astra_runner, "run_batch", fake_batch)
+    assert main(["--input", str(source), "--output-dir", str(output), "--batch-size", "1", "--workers", "1"]) == 2
+    assert calls == [0]
+    manifest = json.loads((output / "working" / "manifest.json").read_text())
+    assert [item["batch"] for item in manifest["batches"]] == [0]
+
+
+def test_resumed_progress_does_not_use_historical_work_for_new_owner_rate(tmp_path):
+    working = tmp_path / "working"
+    manifest = {"workers": 24, "eligibleRecords": 200}
+    _write_progress(
+        working,
+        manifest,
+        {0: {"batch": 0, "status": "complete", "records": 100}},
+        [],
+        __import__("time").monotonic(),
+        baseline_complete=100,
+        drain_requested=False,
+    )
+    progress = json.loads((working / "progress.json").read_text())
+    assert progress["completedRecords"] == 100
+    assert progress["completedThisOwner"] == 0
+    assert progress["measuredPapersPerHour"] == 0
+    assert progress["estimatedRemainingHoursAtCurrentRate"] is None

@@ -100,6 +100,11 @@ try {
 
   await page.screenshot({ path: '/tmp/latentscape-desktop-search.png', fullPage: true });
 
+  const specialQuery = 'L1 & L2 regularization ? % κ';
+  const encodedSpecialRoute = encodeURIComponent(`search?q=${encodeURIComponent(specialQuery)}`).replace(/%2F/g, '/');
+  await page.goto(`${base}/latent-scape/#/${encodedSpecialRoute}`, { waitUntil: 'networkidle' });
+  await assert(await page.getByLabel('Search concepts and papers').inputValue() === specialQuery, 'search route changed encoded query punctuation or Unicode');
+
   // Warm model/vector/shard fetches, then make another search while offline.
   await context.setOffline(true);
   await search('generate pictures from noise');
@@ -135,6 +140,32 @@ try {
   await page.goto(`${base}/latent-scape/#/topics`, { waitUntil: 'networkidle' });
   const firstTopic = page.locator('.topic-card a').first();
   if (await firstTopic.count()) { await firstTopic.click(); await page.waitForTimeout(350); await page.screenshot({ path: '/tmp/latentscape-topic.png', fullPage: true }); }
+
+  // Topic pages are long enough to reproduce the original issue: a paper card
+  // selected below the fold must open at its own heading, while Back restores
+  // the reader to the card they chose.
+  const topicPaper = page.locator('.grid.featured .paper-card h3 a[href^="#/paper/"]').first();
+  if (await topicPaper.count()) {
+    const sourceScroll = await page.evaluate(() => {
+      const top = Math.min(700, Math.max(0, document.documentElement.scrollHeight - innerHeight));
+      window.scrollTo(0, top);
+      return window.scrollY;
+    });
+    await assert(sourceScroll > 100, 'topic page was too short for the scroll navigation regression check');
+    await topicPaper.click();
+    await page.locator('.paper-detail h1').waitFor();
+    await assert((await page.evaluate(() => window.scrollY)) <= 1, 'paper navigation retained the old page scroll position');
+    await page.goBack({ waitUntil: 'networkidle' });
+    await page.locator('.detail h1').waitFor();
+    await page.waitForFunction((top) => window.scrollY >= top - 40, sourceScroll, { timeout: 10000 }).catch(() => {});
+    const restoredScroll = await page.evaluate(() => window.scrollY);
+    await assert(Math.abs(restoredScroll - sourceScroll) < 40, `browser Back did not restore the prior topic position (${restoredScroll}; expected ${sourceScroll})`);
+    const skip = page.locator('.skip');
+    await skip.focus();
+    await page.keyboard.press('Enter');
+    await assert(!page.url().endsWith('#main'), 'skip link changed the SPA route to #main');
+    await assert(await page.evaluate(() => document.activeElement?.id === 'main'), 'skip link did not focus main content');
+  } else failures.push('scroll regression check needs a topic paper card');
 
   await page.goto(`${base}/latent-scape/#/map`, { waitUntil: 'networkidle' });
   const topicPicker = page.locator('#map-topic');

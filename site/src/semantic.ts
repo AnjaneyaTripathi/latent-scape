@@ -48,7 +48,13 @@ export class SemanticSearch {
       else pending.reject(new Error(message.error));
     };
     worker.onerror = (event) => {
+      // A crashed worker cannot process a later request. Only the currently
+      // installed worker may reject pending work or clear the cache: a late
+      // event from a terminated predecessor must not disrupt its replacement.
+      if (this.worker !== worker) return;
       const error = new Error(event.message || 'Semantic search worker failed');
+      worker.terminate();
+      this.worker = undefined;
       for (const pending of this.pending.values()) pending.reject(error);
       this.pending.clear();
     };
