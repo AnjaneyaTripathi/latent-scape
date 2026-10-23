@@ -1,0 +1,38 @@
+[project]
+name = "latentscape-pipeline"
+version = "0.1.0"
+description = "Resumable offline builder for the Latentscape static research corpus"
+requires-python = ">=3.12"
+dependencies = [
+  "beautifulsoup4>=4.12",
+  "httpx>=0.27",
+  "jsonschema>=4.23",
+  "numpy>=1.26",
+  "onnxruntime>=1.19",
+  "scikit-learn>=1.5",
+  "tokenizers>=0.20",
+]
+
+[project.scripts]
+latentscape = "pipeline.cli:main"
+
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["pipeline"]
+
+[dependency-groups]
+dev = ["pytest>=8.3", "ruff>=0.8"]
+
+[tool.pytest.ini_options]
+testpaths = ["pipeline/tests"]
+pythonpath = ["."]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]

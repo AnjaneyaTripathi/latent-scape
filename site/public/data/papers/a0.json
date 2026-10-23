@@ -1,0 +1,96 @@
+[
+  {
+    "abstract": "Quantizing LLM weights and activations is a standard approach for efficient deployment, but a few extreme outliers can stretch the dynamic range and amplify low-bit quantization errors. Prior transform-based mitigations (e.g., Hadamard rotations) are fixed and data-agnostic, and their optimality for quantization has remained unclear. We derive closed-form optimal linear blockwise transforms for joint weight-activation quantization under standard RTN AbsMax-scaled block quantizers, covering both integer and floating-point formats. The resulting construction, WUSH, combines a Hadamard backbone with a data-dependent second-moment component to form a non-orthogonal transform that is provably near-optimal for FP and INT quantizers under mild assumptions while admitting an efficient fused GPU implementation. Empirically, WUSH improves W4A4 accuracy over the strongest Hadamard-based baselines (e.g., on Llama-3.1-8B-Instruct in MXFP4, it gains +2.8 average points with RTN and +0.7 with GPTQ) while delivering up to 5.8$\\times$ per-layer throughput over BF16 via FP4 MatMul. Source code is available at https://github.com/IST-DASLab/WUSH.",
+    "abstractStatus": "present",
+    "authors": [
+      "Jiale Chen",
+      "Vage Egiazarian",
+      "Roberto L. Castro",
+      "Torsten Hoefler",
+      "Dan Alistarh"
+    ],
+    "citationCount": null,
+    "citedBy": [],
+    "codeUrl": "https://github.com/IST-DASLab/WUSH",
+    "projectUrl": null,
+    "provenance": [
+      "https://proceedings.mlr.press/v306/"
+    ],
+    "references": [],
+    "similarPapers": [
+      "neurips-2025-efficient-large-language-model-inference-with-neural-block-linearization-5473f76d59",
+      "icml-2026-diversity-aware-weight-perturbation-promotes-robust-adaptation-5665c9310d",
+      "neurips-2023-boosting-with-tempered-exponential-measures-89bf907cf4",
+      "neurips-2021-m-fac-efficient-matrix-free-approximations-of-second-order-information-8ac49a8419",
+      "icml-2026-incorporating-importance-weighting-in-optimal-transport-based-domain-alignment-b266c953b2",
+      "neurips-2023-robust-low-rank-training-via-approximate-orthonormal-constraints-7e78dd8f4b",
+      "icml-2024-tilt-your-head-activating-the-hidden-spatial-invariance-of-classifiers-a886b6c27d",
+      "neurips-2023-smooth-flipping-probability-for-differential-private-sign-random-projection-methods-e98c56013c"
+    ],
+    "slug": "icml-2026-wush-near-optimal-adaptive-transforms-for-llm-quantization-77811e9ef6",
+    "summary": {
+      "backgroundConcepts": [],
+      "difficulty": "advanced",
+      "idea": "Combine a Hadamard transform with data-dependent second moments to obtain an efficient non-orthogonal block transform for joint weight and activation quantization.",
+      "limitations": "The optimum is tied to specified block quantizers and assumptions. Per-layer peak throughput does not establish the same whole-model speedup.",
+      "model": "gpt-6-astra",
+      "problem": "A few extreme weights or activations can stretch quantization ranges and increase error when language models are represented with very few bits.",
+      "results": "WUSH has near-optimality guarantees under stated assumptions and reports four-bit accuracy gains of 2.8 average points with round-to-nearest and 0.7 with GPTQ on a cited Llama configuration, plus up to 5.8× per-layer throughput over BF16.",
+      "source": "abstract",
+      "tldr": "A data-adaptive transform reduces outlier-driven errors in low-bit language-model quantization."
+    },
+    "title": "WUSH: Near-Optimal Adaptive Transforms for LLM Quantization",
+    "topicSlugs": [
+      "topic-009-how-to-escape-saddle-points-efficiently"
+    ],
+    "url": "https://proceedings.mlr.press/v306/chen26z.html",
+    "venue": "ICML",
+    "year": 2026
+  },
+  {
+    "abstract": "We present an algorithm for learning high-treewidth Markov networks where inference is still tractable. This is made possible by exploiting context specific independence and determinism in the domain. The class of models our algorithm can learn has the same desirable properties as thin junction trees: polynomial inference, closed form weight learning, etc., but is much broader. Our algorithm searches for a feature that divides the state space into subspaces where the remaining variables decompose into independent subsets (conditioned on the feature or its negation) and recurses on each subspace/subset of variables until no useful new features can be found. We provide probabilistic performance guarantees for our algorithm under the assumption that the maximum feature length is k (the treewidth can be much larger) and dependences are of bounded strength. We also propose a greedy version of the algorithm that, while forgoing these guarantees, is much more efficient.Experiments on a variety of domains show that our approach compares favorably with thin junction trees and other Markov network structure learners.",
+    "abstractStatus": "present",
+    "authors": [
+      "Vibhav Gogate",
+      "William Webb",
+      "Pedro Domingos"
+    ],
+    "citationCount": null,
+    "citedBy": [],
+    "codeUrl": null,
+    "projectUrl": null,
+    "provenance": [
+      "https://papers.nips.cc/paper_files/paper/2010"
+    ],
+    "references": [],
+    "similarPapers": [
+      "neurips-2017-learning-overcomplete-hmms-1cdaaf8912",
+      "icml-2020-learning-to-branch-for-multi-task-learning-2e6e00bad4",
+      "neurips-2016-solving-marginal-map-problems-with-np-oracles-and-parity-constraints-c410af04db",
+      "neurips-2025-empowering-decision-trees-via-shape-function-branching-10015805f6",
+      "neurips-2018-learning-from-discriminative-feature-feedback-d74e71dbba",
+      "neurips-2024-graph-structure-inference-with-bam-neural-dependency-processing-via-bilinear-attention-10ff851bbc",
+      "neurips-2007-structured-learning-with-approximate-inference-83c81efc6c",
+      "neurips-2023-zero-one-laws-of-graph-neural-networks-009f15a210"
+    ],
+    "slug": "neurips-2010-learning-efficient-markov-networks-29abb307ef",
+    "summary": {
+      "backgroundConcepts": [],
+      "difficulty": "advanced",
+      "idea": "The learner finds conditions that split variables into independent groups, then recursively models those simpler pieces. This exploits independence that appears only in particular contexts, alongside deterministic relationships.",
+      "limitations": "The guarantees require bounded feature length and bounded dependence strength. A faster greedy version gives up those guarantees, creating a practical tradeoff between speed and theoretical assurance.",
+      "model": "gpt-6-astra",
+      "problem": "Probabilistic networks with many connections usually make inference expensive. Restricting network structure can restore efficiency but exclude useful patterns of dependence.",
+      "results": "The resulting model class supports polynomial-time inference and closed-form weight learning. Experiments compare favorably with several structure learners; the paper also provides probabilistic guarantees under stated assumptions.",
+      "source": "abstract",
+      "tldr": "Complex-looking networks can remain computationally manageable when their conditional structure breaks into simpler pieces."
+    },
+    "title": "Learning Efficient Markov Networks",
+    "topicSlugs": [
+      "topic-006-pocket2mol-efficient-molecular-sampling-based-on"
+    ],
+    "url": "https://papers.nips.cc/paper_files/paper/2010/hash/e5e63da79fcd2bebbd7cb8bf1c1d0274-Abstract.html",
+    "venue": "NeurIPS",
+    "year": 2010
+  }
+]

@@ -1,0 +1,49 @@
+[
+  {
+    "abstract": "Large Language Model or LLM inference has two phases, the prompt (or prefill) phase to output the first token and the extension (or decoding) phase to the generate subsequent tokens. In this work, we propose an efficient parallelization scheme, KV-Runahead to accelerate the prompt phase. The key observation is that the extension phase generates tokens faster than the prompt phase because of key-value cache (KV-cache). Hence, KV-Runahead parallelizes the prompt phase by orchestrating multiple processes to populate the KV-cache and minimizes the time-to-first-token (TTFT). Dual-purposing the KV-cache scheme has two main benefits. First, since KV-cache is designed to leverage the causal attention map, we minimize computation and computation automatically. Second, since it already exists for the extension phase, KV-Runahead is easy to implement. We further propose context-level load-balancing to handle uneven KV-cache generation (due to the causal attention) and to optimize TTFT. Compared with an existing parallelization scheme such as tensor or sequential parallelization where keys and values are locally generated and exchanged via all-gather collectives, our experimental results demonstrate that KV-Runahead can offer over 1.4× and 1.6× speedups for Llama 7B and Falcon 7B respectively.",
+    "abstractStatus": "present",
+    "authors": [
+      "Minsik Cho",
+      "Mohammad Rastegari",
+      "Devang Naik"
+    ],
+    "citationCount": 1,
+    "citedBy": [],
+    "codeUrl": null,
+    "projectUrl": null,
+    "provenance": [
+      "https://proceedings.mlr.press/v235/",
+      "OpenAlex"
+    ],
+    "references": [],
+    "similarPapers": [
+      "icml-2024-quest-query-aware-sparsity-for-efficient-long-context-llm-inference-0aad56a61b",
+      "icml-2025-nesterov-method-for-asynchronous-pipeline-parallel-optimization-4fd4b25fd6",
+      "icml-2026-least-loaded-expert-parallelism-load-balancing-an-imbalanced-mixture-of-experts-b7434a7107",
+      "icml-2025-orthorank-token-selection-via-sink-token-orthogonality-for-efficient-llm-inference-163914485b",
+      "icml-2026-the-silent-thought-modeling-internal-cognition-in-full-duplex-spoken-dialogue-models-via-3582e19a64",
+      "neurips-2020-retrieval-augmented-generation-for-knowledge-intensive-nlp-tasks-93c25e8340",
+      "icml-2026-iapo-information-aware-policy-optimization-for-token-efficient-reasoning-5c9331f1d9",
+      "neurips-2025-efficient-large-language-model-inference-with-neural-block-linearization-5473f76d59"
+    ],
+    "slug": "icml-2024-kv-runahead-scalable-causal-llm-inference-by-parallel-key-value-cache-generation-7eaf3a33dc",
+    "summary": {
+      "backgroundConcepts": [],
+      "difficulty": "intermediate",
+      "idea": "Parallelize prompt processing by coordinating multiple processes to fill the cache, and balance work across context segments to account for causal attention's uneven workload.",
+      "limitations": "The method targets the prompt phase and time to first token. The abstract does not establish corresponding improvements in later-token throughput or specify hardware and prompt lengths for the gains.",
+      "model": "gpt-6-astra",
+      "problem": "Long prompts delay an autoregressive language model's first output token, even though later tokens benefit from an existing key–value cache.",
+      "results": "KV-Runahead reports speedups above 1.4× for Llama 7B and 1.6× for Falcon 7B relative to compared parallelization schemes.",
+      "source": "abstract",
+      "tldr": "Parallel key–value cache construction speeds up the first-token phase of causal language-model inference."
+    },
+    "title": "KV-Runahead: Scalable Causal LLM Inference by Parallel Key-Value Cache Generation",
+    "topicSlugs": [
+      "topic-001-convolutional-sequence-to-sequence-learning"
+    ],
+    "url": "https://proceedings.mlr.press/v235/cho24e.html",
+    "venue": "ICML",
+    "year": 2024
+  }
+]

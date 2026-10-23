@@ -1,0 +1,36 @@
+[pipeline]
+snapshot_date = "2026-10-23"
+cache_dir = "pipeline/.cache"
+raw_dir = "pipeline/data/raw"
+derived_dir = "pipeline/data/derived"
+output_dir = "site/public/data"
+request_timeout_seconds = 30
+request_delay_seconds = 0.15
+
+[ingest]
+# The MVP intentionally stops after a representative 500-paper auditable sample.
+sample_size = 500
+sample_seed = 20261023
+neurips_years = "1987-2026"
+icml_years = "2013-2026"
+# Deliberate historical limitation: PMLR's uniform proceedings pages begin at ICML 2013.
+# Earlier ICML years require a separately verified source adapter.
+icml_historical_fallback = false
+
+[enrich]
+provider = "openalex" # openalex, semantic_scholar, or none
+enabled = false
+max_requests = 0
+
+[embedding]
+# This pinned model is also shipped to the browser. Do not substitute a model here
+# without staging matching browser assets and updating the semantic worker.
+model = "Xenova/all-MiniLM-L6-v2"
+dimensions = 384
+
+[llm]
+# No key is committed. Choose a provider only after reviewing the 200-paper gate.
+provider = "disabled"
+model = ""
+api_key_env = "LATENTSCAPE_LLM_API_KEY"
+max_usd = 0.0
