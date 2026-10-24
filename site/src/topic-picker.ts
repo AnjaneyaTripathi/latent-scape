@@ -1,3 +1,4 @@
+import { renderRichText, plainText } from './rich-text';
 import './topic-picker.css';
 
 export interface PickerTopic { slug: string; title: string; area?: string }
@@ -24,13 +25,13 @@ export function mountTopicPicker(root: HTMLElement, topics: PickerTopic[], selec
   let pointerWithin = false;
   const selected = topics.find((topic) => topic.slug === selectedSlug) || topics[0];
   if (!selected) return;
-  label.textContent = selected.title;
+  label.innerHTML = renderRichText(selected.title);
   input.setAttribute('aria-expanded', 'false');
 
   const matches = () => {
     const tokens = query.toLocaleLowerCase().trim().split(/\s+/).filter(Boolean);
     return topics.filter((topic) => {
-      const haystack = `${topic.title} ${topic.area || ''}`.toLocaleLowerCase();
+      const haystack = plainText(`${topic.title} ${topic.area || ''}`).toLocaleLowerCase();
       return tokens.every((token) => haystack.includes(token));
     });
   };
@@ -42,7 +43,7 @@ export function mountTopicPicker(root: HTMLElement, topics: PickerTopic[], selec
     count.textContent = results.length === 1 ? '1 topic' : `${results.length} topics`;
     clear.hidden = !query;
     if (active >= 0) input.setAttribute('aria-activedescendant', optionId(results[active])); else input.removeAttribute('aria-activedescendant');
-    list.innerHTML = results.length ? results.map((topic, index) => `<button type="button" role="option" tabindex="-1" id="${optionId(topic)}" data-topic-picker-option="${esc(topic.slug)}" aria-selected="${topic.slug === selected.slug}" data-active="${index === active}"><span>${esc(topic.title)}</span>${topic.area ? `<small>${esc(topic.area)}</small>` : ''}</button>`).join('') : '<p class="topic-picker-empty" data-topic-picker-empty>No matching topics.</p>';
+    list.innerHTML = results.length ? results.map((topic, index) => `<button type="button" role="option" tabindex="-1" id="${optionId(topic)}" data-topic-picker-option="${esc(topic.slug)}" aria-selected="${topic.slug === selected.slug}" data-active="${index === active}"><span>${renderRichText(topic.title)}</span>${topic.area ? `<small>${renderRichText(topic.area)}</small>` : ''}</button>`).join('') : '<p class="topic-picker-empty" data-topic-picker-empty>No matching topics.</p>';
     const activeOption = list.querySelector<HTMLElement>('[data-active="true"]');
     activeOption?.scrollIntoView({ block: 'nearest' });
   };

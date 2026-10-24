@@ -1,3 +1,4 @@
+import { renderRichText } from './rich-text';
 import { atlas, type Paper, type SearchDoc, type Summary } from './data';
 
 const esc = (value = '') => value.replace(/[&<>'"]/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' })[char]!);
@@ -20,22 +21,23 @@ function metadata(paper: { venue?: string; year?: number }) {
   return [paper.venue || 'Paper', paper.year].filter(Boolean).map((value) => esc(String(value))).join(' · ');
 }
 function topicCard(doc: SearchDoc) {
-  return `<article class="card search-result-card topic" data-search-card data-topic-slug="${esc(doc.slug)}"><p class="eyebrow">Topic</p><h3><a href="${href(`topic/${doc.slug}`)}">${esc(doc.title)}</a></h3><p class="search-topic-description">${esc(doc.description || 'Explore this part of the research landscape.')}</p><span class="arrow" aria-hidden="true">→</span></article>`;
+  return `<article class="card search-result-card topic" data-search-card data-topic-slug="${esc(doc.slug)}"><p class="eyebrow">Topic</p><h3><a href="${href(`topic/${doc.slug}`)}">${renderRichText(doc.title)}</a></h3><p class="search-topic-description">${renderRichText(doc.description || 'Explore this part of the research landscape.')}</p><span class="arrow" aria-hidden="true">→</span></article>`;
 }
 function paperCard(doc: SearchDoc, dialogId: string) {
-  return `<article class="card search-result-card paper" data-search-card data-paper-slug="${esc(doc.slug)}"><p class="eyebrow">${metadata(doc)}</p><h3><a href="${href(`paper/${doc.slug}`)}">${esc(doc.title)}</a></h3><p class="search-result-tldr">${esc(doc.tldr || 'A summary is unavailable for this paper.')}</p><div class="search-result-attribution">${doc.tldr ? attribution(doc) : sourceLink(doc)}</div><div class="search-result-actions"><button type="button" class="search-summary-toggle" data-summary-toggle aria-haspopup="dialog" aria-controls="${dialogId}">Read summary <span aria-hidden="true">→</span></button></div></article>`;
+  return `<article class="card search-result-card paper" data-search-card data-paper-slug="${esc(doc.slug)}"><p class="eyebrow">${metadata(doc)}</p><h3><a href="${href(`paper/${doc.slug}`)}">${renderRichText(doc.title)}</a></h3><p class="search-result-tldr">${renderRichText(doc.tldr || 'A summary is unavailable for this paper.')}</p><div class="search-result-attribution">${doc.tldr ? attribution(doc) : sourceLink(doc)}</div><div class="search-result-actions"><button type="button" class="search-summary-toggle" data-summary-toggle aria-haspopup="dialog" aria-controls="${dialogId}">Read summary <span aria-hidden="true">→</span></button></div></article>`;
 }
 function paperHeading(paper: SearchDoc | Paper, titleId: string) {
-  const authors = 'authors' in paper ? `<p class="search-dialog-authors">${esc(paper.authors?.join(', ') || 'Authors unavailable')}</p>` : '';
-  return `<p class="eyebrow">${metadata(paper)}</p><h2 id="${titleId}" class="search-dialog-title">${esc(paper.title)}</h2>${authors}<div class="search-dialog-links">${sourceLink(paper)}<a href="${href(`paper/${paper.slug}`)}">Open paper page →</a></div>`;
+  const authors = 'authors' in paper ? `<p class="search-dialog-authors">${renderRichText(paper.authors?.join(', ') || 'Authors unavailable')}</p>` : '';
+  return `<p class="eyebrow">${metadata(paper)}</p><h2 id="${titleId}" class="search-dialog-title">${renderRichText(paper.title)}</h2>${authors}<div class="search-dialog-links">${sourceLink(paper)}<a href="${href(`paper/${paper.slug}`)}">Open paper page →</a></div>`;
 }
 function summaryMarkup(paper: Paper) {
   const summary = paper.summary;
-  const explanation = summary ? paragraphs(summary).map((paragraph) => `<p>${esc(paragraph)}</p>`).join('') : '';
-  const summaryView = summary ? `<section class="search-dialog-summary"><h3 class="search-summary-heading">TL;DR</h3>${attribution(paper)}<p class="search-summary-tldr">${esc(summary.tldr)}</p></section><section class="search-summary-narrative"><h3 class="search-summary-heading">What this paper did</h3>${attribution(paper)}${explanation || '<p>An explanation is unavailable for this paper.</p>'}<p class="search-summary-note">Based on the official abstract. Read the original paper for methods, evidence, and full context.</p></section>` : `<section class="search-dialog-summary"><p class="search-summary-fallback">An AI-generated explanation is unavailable for this paper. Read the original paper for detail.</p></section>`;
+  const explanation = summary ? paragraphs(summary).map((paragraph) => `<p>${renderRichText(paragraph)}</p>`).join('') : '';
+  const summaryView = summary ? `<section class="search-dialog-summary"><h3 class="search-summary-heading">TL;DR</h3>${attribution(paper)}<p class="search-summary-tldr">${renderRichText(summary.tldr)}</p></section><section class="search-summary-narrative"><h3 class="search-summary-heading">What this paper did</h3>${attribution(paper)}${explanation || '<p>An explanation is unavailable for this paper.</p>'}<p class="search-summary-note">Based on the official abstract. Read the original paper for methods, evidence, and full context.</p></section>` : `<section class="search-dialog-summary"><p class="search-summary-fallback">An AI-generated explanation is unavailable for this paper. Read the original paper for detail.</p></section>`;
   const abstract = paper.originalAbstract ?? paper.abstract;
+  const sourceCharactersNote = /\(cid:\d+\)|\uFFFD/.test(abstract || '') ? 'Some characters in this source text could not be recovered. See the original paper. ' : '';
   const awaitingVerification = paper.abstractStatus === 'needs-source-recovery' || paper.abstractQuality === 'official-landing-page-possibly-full-text';
-  return `${summaryView}<section class="search-summary-abstract"><h3 class="search-summary-heading">${awaitingVerification ? 'Source text awaiting abstract verification' : 'Original abstract'}</h3><p class="search-abstract-text">${esc(abstract || 'Unavailable from the official source in this snapshot.')}</p><p class="search-summary-note">${awaitingVerification ? 'This text needs confirmation against the original paper. ' : ''}Source link. ${sourceLink(paper)}</p></section>`;
+  return `${summaryView}<section class="search-summary-abstract"><h3 class="search-summary-heading">${awaitingVerification ? 'Source text awaiting abstract verification' : 'Original abstract'}</h3><p class="search-abstract-text">${renderRichText(abstract || 'Unavailable from the official source in this snapshot.')}</p><p class="search-summary-note">${awaitingVerification ? 'This text needs confirmation against the original paper. ' : ''}${sourceCharactersNote}Source link. ${sourceLink(paper)}</p></section>`;
 }
 
 /** Freeze the page on mobile too; restore only the inline properties we own. */

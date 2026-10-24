@@ -31,7 +31,7 @@ export default defineConfig({
   base: process.env.GITHUB_ACTIONS ? '/latent-scape/' : '/',
   // Source maps expose implementation comments and source paths to every site
   // reader. Release diagnostics live outside the static artifact instead.
-  build: { target: 'es2022', sourcemap: false },
+  build: { target: 'es2022', sourcemap: false, assetsInlineLimit: 0 },
   plugins: [{
     name: 'version-service-worker-from-output',
     async closeBundle() {

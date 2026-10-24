@@ -8,7 +8,7 @@ The site offers these ways into the collection:
 
 - **Search** accepts plain-language queries and returns relevant papers and topics.
 - **Topic pages** explain an idea, its development, related concepts, and every paper in the topic through a paginated list.
-- **Knowledge map** starts from a topic and shows every known direct and second-degree semantic connection.
+- **Knowledge map** starts from a topic and shows every known direct semantic connection.
 - **Paper pages** show the unchanged source abstract when available, followed by a clearly labelled AI-generated TL;DR and plain-language explanation. Each page includes the available original-source or publication-record link.
 
 The fixed snapshot is dated **2026-10-23** and contains **54,437 papers** (30,840 NeurIPS and 23,597 ICML), organized into **256 topics** across 32 broad areas. It includes **52,836 AI-generated paper explanations** grounded in the available source abstracts.

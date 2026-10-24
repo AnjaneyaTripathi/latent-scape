@@ -9,17 +9,17 @@ The browser loads the application shell and lightweight navigation data first. S
 The knowledge map reads `topic-graph.json`, a precomputed focused semantic
 neighbourhood for each topic. First-degree cards contain every known direct
 semantic relation: the source topic's ranked outgoing neighbours followed by
-incoming-only neighbours in deterministic order. Second-degree cards contain
-every known distance-two neighbour of those cards, excluding every direct root
-relation.
-Each neighbourhood stores its own measured bounds so long direct- and
-second-degree columns grow downward while the focus card remains in the initial
-viewport.
-Stored card positions avoid a runtime layout, and lines are emitted only for an
-existing semantic relation (never an inferred citation or similarity).
+incoming-only neighbours in deterministic order. The map has two columns: the
+focus topic and all its direct neighbours, with no second-degree expansion.
+Each neighbourhood stores its own measured bounds so the direct-neighbour
+column grows downward while the focus card remains in the initial viewport.
+Stored card positions avoid a runtime layout. Lines connect the focus to each
+known direct semantic neighbour (never an inferred citation or similarity).
 
 Each topic also has a static `topic-papers/<slug>.json` list. It carries the
 topic context and compact metadata for every member paper, so pagination does
 not require loading the all-topic index or full paper-detail shards.
+
+Visible research text passes through a shared renderer. It decodes entities, permits attribute-free emphasis and subscript/superscript markup, and typesets supported TeX with locally bundled KaTeX fonts. Source records remain unchanged. Unsupported notation is shown as escaped source text; source markup cannot add scripts, external assets, or styled elements. The topic catalog searches and sorts decoded reader text.
 
 `scripts/validate-artifacts.py` is the release boundary. It rejects PDFs, remote model or runtime assets, oversized artifacts, and internal audit or review material in the published bundle. Build measurements and maintainer provenance stay outside the reader-facing artifact.

@@ -37,7 +37,7 @@ DATA_FILES = (
 )
 TEXT_ASSET_SUFFIXES = {".html", ".js", ".css"}
 REMOTE_ASSET = re.compile(r"https?://[^\"'\s)<>]+", re.IGNORECASE)
-EXTERNAL_ASSET_SUFFIXES = (".js", ".mjs", ".css", ".wasm", ".onnx", ".json")
+EXTERNAL_ASSET_SUFFIXES = (".js", ".mjs", ".css", ".wasm", ".onnx", ".json", ".woff2", ".woff", ".ttf")
 FORBIDDEN_PUBLIC_PATHS = {
     "data/coverage.json",
     "data/corpus-report.json",
@@ -55,7 +55,7 @@ LEGAL_FILES = {"LICENSE", "NOTICE", "ThirdPartyNotices.txt"}
 STATIC_RUNTIME_FILES = {"index.html", "sw.js", "favicon.svg"}
 STATIC_DATA_FILES = set(DATA_FILES) | {"data/glossary.json"}
 WASM_FILE = re.compile(r"wasm/ort-wasm-[A-Za-z0-9_.-]+\.(?:wasm|mjs)$")
-ASSET_FILE = re.compile(r"assets/[A-Za-z0-9_.-]+\.(?:js|css|wasm)$")
+ASSET_FILE = re.compile(r"assets/[A-Za-z0-9_.-]+\.(?:js|css|wasm|woff2|woff|ttf)$")
 PAPER_SHARD = re.compile(r"papers/[0-9a-f]{2}\.json$")
 VECTOR_SHARD = re.compile(r"vectors/[0-9]{4}\.i8$")
 TOPIC_PAPER_FILE = re.compile(r"topic-papers/[a-z0-9][a-z0-9-]*\.json$")
@@ -182,7 +182,7 @@ def validate_topic_graph(root: Path, topics: list[dict], errors: list[str]) -> N
     rows, neighborhoods, cards = (
         graph.get("topics"), graph.get("neighborhoods"), graph.get("cardDimensions"),
     )
-    if graph.get("version") != 2 or graph.get("layoutKind") != "focused-semantic-neighborhoods":
+    if graph.get("version") != 3 or graph.get("layoutKind") != "focused-semantic-neighborhoods":
         error(errors, "topic graph has unsupported version or layout kind")
     if not isinstance(rows, list) or not isinstance(neighborhoods, list) or not isinstance(cards, dict):
         error(errors, "topic graph must contain topics, neighborhoods, and card dimensions")
@@ -228,16 +228,16 @@ def validate_topic_graph(root: Path, topics: list[dict], errors: list[str]) -> N
     def adjacent(index: int) -> set[int]:
         return (set(related[index]) | set(incoming[index])) - {index}
     for root, neighborhood in enumerate(neighborhoods):
-        if not isinstance(neighborhood, dict) or set(neighborhood) != {"rootTopic", "bounds", "nodes", "edges", "directNeighborTotal", "secondDegreeTotal"} or neighborhood.get("rootTopic") != root:
+        if not isinstance(neighborhood, dict) or set(neighborhood) != {"rootTopic", "bounds", "nodes", "edges", "directNeighborTotal"} or neighborhood.get("rootTopic") != root:
             error(errors, f"topic graph neighborhood has wrong root: {root}")
             continue
         bounds = neighborhood.get("bounds")
         if (
             not isinstance(bounds, dict)
             or set(bounds) != {"width", "height"}
-            or bounds.get("width") != 1040
+            or bounds.get("width") != 700
             or not _finite_number(bounds.get("height"))
-            or bounds["height"] < 900
+            or bounds["height"] < 480
         ):
             error(errors, f"topic graph neighborhood has invalid bounds: {root}")
             continue
@@ -253,31 +253,14 @@ def validate_topic_graph(root: Path, topics: list[dict], errors: list[str]) -> N
         )
         direct.extend(incoming_only)
         root_adjacent = adjacent(root)
-        candidate_scores: dict[int, tuple[int, int, str]] = {}
-        for neighbor in direct:
-            for candidate in adjacent(neighbor):
-                if candidate == root or candidate in direct or candidate in root_adjacent:
-                    continue
-                rank = related[neighbor].index(candidate) if candidate in related[neighbor] else 10_000 + candidate
-                connections, old_rank, _ = candidate_scores.get(candidate, (0, rank, rows[candidate].get("slug", "")))
-                candidate_scores[candidate] = (connections + 1, min(old_rank, rank), rows[candidate].get("slug", ""))
-        second_all = sorted(candidate_scores, key=lambda item: (-candidate_scores[item][0], candidate_scores[item][1], candidate_scores[item][2]))
-        second = second_all
-        expected_nodes = [root, *direct, *second]
+        expected_nodes = [root, *direct]
         nodes = neighborhood.get("nodes")
-        if not isinstance(nodes, list) or [node.get("topic") for node in nodes if isinstance(node, dict)] != expected_nodes or [node.get("degree") for node in nodes if isinstance(node, dict)] != [0, *([1] * len(direct)), *([2] * len(second))]:
+        if not isinstance(nodes, list) or [node.get("topic") for node in nodes if isinstance(node, dict)] != expected_nodes or [node.get("degree") for node in nodes if isinstance(node, dict)] != [0, *([1] * len(direct))]:
             error(errors, f"topic graph neighborhood nodes are stale or inconsistent: {root}")
             continue
-        if neighborhood.get("directNeighborTotal") != len(root_adjacent) or neighborhood.get("secondDegreeTotal") != len(second_all):
+        if neighborhood.get("directNeighborTotal") != len(root_adjacent):
             error(errors, f"topic graph neighborhood totals are stale: {root}")
-        visible = set(expected_nodes); expected_edges: set[tuple[int, int, int]] = set()
-        for source in visible:
-            for target in visible:
-                if source >= target or target not in adjacent(source):
-                    continue
-                other = target if source == root else source
-                degree = 1 if root in {source, target} and other in direct else 2
-                expected_edges.add((source, target, degree))
+        expected_edges = {(min(root, target), max(root, target), 1) for target in direct}
         actual_edges = neighborhood.get("edges")
         actual = {(edge.get("source"), edge.get("target"), edge.get("degree")) for edge in actual_edges if isinstance(edge, dict)} if isinstance(actual_edges, list) else set()
         if actual != expected_edges or len(actual) != len(actual_edges or []) or any(set(edge) != {"source", "target", "degree"} for edge in actual_edges or [] if isinstance(edge, dict)):

@@ -19,6 +19,13 @@ describe('topic paper state', () => {
     expect(filterTopicPapers(papers, { q: '', year: '', venue: '', sort: 'title', page: 1 }).map((paper) => paper.slug)).toEqual(['second', 'third', 'first']);
   });
 
+  it('matches the rendered words and decoded author names', () => {
+    const formatted = { ...papers[0], title: 'An <em>efficient</em> method', authors: ['D&#x27;Angelo'], tldr: 'Uses $O(n)$ steps.' };
+    for (const q of ['an efficient method', "d'angelo", 'o(n)']) {
+      expect(filterTopicPapers([formatted], { q, year: '', venue: '', sort: 'title', page: 1 })).toEqual([formatted]);
+    }
+  });
+
   it('serializes special query characters as a round-trippable canonical route', () => {
     const href = topicRoute('valid-topic', 'papers', { q: 'L1 & L2 + 50%? κ', year: '', venue: '', sort: 'newest', page: 1 });
     const query = href.split('?')[1];

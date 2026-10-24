@@ -4,6 +4,7 @@ import './topic-graph.css';
 import './topic-papers.css';
 import './search-cards.css';
 import { atlas, type Paper } from './data';
+import { renderRichText, plainText } from './rich-text';
 import { mountSearchCards } from './search-cards';
 import { renderAbout } from './about';
 import { configureSearch, keywordSearch, lastSemanticNotice, search } from './search';
@@ -14,7 +15,7 @@ const app = document.querySelector<HTMLDivElement>('#app')!;
 const esc = (value = '') => value.replace(/[&<>'"]/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' })[char]!);
 const route = () => parseHashRoute(location.hash).value;
 const href = (path: string) => `#/${encodeURIComponent(path).replace(/%2F/g, '/')}`;
-const link = (kind: 'paper' | 'topic', slug: string, label: string) => `<a href="${href(`${kind}/${slug}`)}">${esc(label)}</a>`;
+const link = (kind: 'paper' | 'topic', slug: string, label: string) => `<a href="${href(`${kind}/${slug}`)}">${renderRichText(label)}</a>`;
 const topicLabel = (slug: string) => atlas.topic(slug)?.title || slug.replaceAll('-', ' ');
 let disposeActiveMap: (() => void) | undefined;
 let disposeActiveSearch: (() => void) | undefined;
@@ -89,7 +90,7 @@ async function discover(renderId: number) {
   });
 }
 
-function paperCard(paper: Paper) { return `<article class="paper-card"><p class="eyebrow">${esc(paper.venue)} · ${paper.year}</p><h3>${link('paper', paper.slug, paper.title)}</h3><p>${paper.summary ? esc(paper.summary.tldr) : 'Read the original abstract on the paper page.'}</p>${paper.summary ? `<small class="ai-label">AI-generated summary</small> ${officialLink(paper)}` : ''}<div>${paper.topicSlugs?.slice(0, 2).map((slug) => `<span class="tag">${esc(topicLabel(slug))}</span>`).join('') || ''}</div></article>`; }
+function paperCard(paper: Paper) { return `<article class="paper-card"><p class="eyebrow">${esc(paper.venue)} · ${paper.year}</p><h3>${link('paper', paper.slug, paper.title)}</h3><p>${paper.summary ? renderRichText(paper.summary.tldr) : 'Read the original abstract on the paper page.'}</p>${paper.summary ? `<small class="ai-label">AI-generated summary</small> ${officialLink(paper)}` : ''}<div>${paper.topicSlugs?.slice(0, 2).map((slug) => `<span class="tag">${renderRichText(topicLabel(slug))}</span>`).join('') || ''}</div></article>`; }
 
 async function searchPage(query = '', renderId: number) {
   if (!shell(`<section class="page-top"><p class="kicker">SEARCH LATENTSCAPE</p><h1>Where should we begin?</h1><form id="search-form" class="searchbox wide"><label class="sr-only" for="search">Search topics and papers</label><input id="search" value="${esc(query)}" placeholder="A method, problem, or plain-language question" autofocus /><button>Search</button></form><div id="search-results">${query ? '<p class="loading-inline" aria-live="polite">Loading the search index…</p>' : '<p class="empty">Search mixes concepts and papers, then follows the meaning of your query.</p>'}</div></section>`, renderId)) return;
@@ -115,10 +116,14 @@ async function searchPage(query = '', renderId: number) {
   finishDeferredScroll(renderId);
 }
 
+function topicExcerpt(value: string) {
+  const text = plainText(value);
+  return text.length > 150 ? `${text.slice(0, 150).replace(/\s+\S*$/, '').trimEnd()}…` : text;
+}
 async function topicsPage(renderId: number) {
   await atlas.ensureTopics();
   if (!renderGate.isCurrent(renderId)) return;
-  shell(`<section class="page-top compact"><p class="kicker">TOPIC LIBRARY</p><h1>Ideas, in context.</h1><p class="lede">Start with the concepts that organize the field. Each path traces the work that shaped it.</p><section class="topic-grid">${atlas.topics.map((topic) => `<article class="topic-card"><p>${esc(topic.area || 'Research area')}</p><h2>${link('topic', topic.slug, topic.title)}</h2><span>${esc(topic.overview || 'A connected area of machine learning research.').slice(0, 150)}</span><b>Explore →</b></article>`).join('') || '<p class="empty">No topics are available in this snapshot.</p>'}</section></section>`, renderId);
+  shell(`<section class="page-top compact"><p class="kicker">TOPIC LIBRARY</p><h1>Ideas, in context.</h1><p class="lede">Start with the concepts that organize the field. Each path traces the work that shaped it.</p><section class="topic-grid">${atlas.topics.map((topic) => `<article class="topic-card"><p>${renderRichText(topic.area || 'Research area')}</p><h2>${link('topic', topic.slug, topic.title)}</h2><span>${esc(topicExcerpt(topic.overview || 'A connected area of machine learning research.'))}</span><b>Explore →</b></article>`).join('') || '<p class="empty">No topics are available in this snapshot.</p>'}</section></section>`, renderId);
 }
 async function topicPage(slug: string, query: string, renderId: number) {
   if (!/^[a-z0-9-]+$/.test(slug)) {
@@ -146,14 +151,15 @@ async function paperPage(slug: string, query: string, renderId: number) {
   if (!renderGate.isCurrent(renderId)) return;
   const abstract = paper.originalAbstract ?? paper.abstract;
   const awaitingAbstractVerification = paper.abstractStatus === 'needs-source-recovery' || paper.abstractQuality === 'official-landing-page-possibly-full-text';
-  const abstractView = abstract ? `<p>${esc(abstract)}</p>` : '<p>Unavailable from the official source in this snapshot.</p>';
+  const abstractView = abstract ? `<p>${renderRichText(abstract)}</p>` : '<p>Unavailable from the official source in this snapshot.</p>';
+  const sourceCharactersNote = /\(cid:\d+\)|\uFFFD/.test(abstract || '') ? 'Some characters in this source text could not be recovered. See the original paper. ' : '';
   const abstractHeading = awaitingAbstractVerification ? 'SOURCE TEXT AWAITING ABSTRACT VERIFICATION' : 'ORIGINAL ABSTRACT';
   const explanation = paper.summary ? summaryView(paper) : `<section class="summary-empty"><p>An AI-generated explanation is unavailable for this paper. Read the original paper for detail.</p></section>`;
   const from = new URLSearchParams(query).get('from');
   const returnHref = from?.startsWith('#/topic/') ? from : '#/search';
   const returnTab = from?.startsWith('#/topic/') ? new URLSearchParams(from.split('?')[1] || '').get('tab') : null;
   const returnLabel = from?.startsWith('#/topic/') ? returnTab === 'papers' ? '← Back to topic papers' : '← Back to topic' : '← Back to search';
-  shell(`<article class="detail paper-detail"><a class="crumb"${from?.startsWith('#/topic/') ? ' data-restore-scroll' : ''} href="${esc(returnHref)}">${returnLabel}</a><p class="kicker">${esc(paper.venue)} · ${paper.year}</p><h1>${esc(paper.title)}</h1><p class="authors">${esc(paper.authors?.join(', ') || 'Authors unavailable')}</p><div class="paper-actions">${officialLink(paper)}${paper.codeUrl ? `<a href="${esc(paper.codeUrl)}" target="_blank" rel="noreferrer">Code ↗</a>` : ''}${paper.projectUrl ? `<a href="${esc(paper.projectUrl)}" target="_blank" rel="noreferrer">Project ↗</a>` : ''}</div><section class="official-abstract"><p class="eyebrow">${abstractHeading}</p>${abstractView}<p class="source-note">${awaitingAbstractVerification ? 'This text needs confirmation against the original paper, so no AI explanation is shown. ' : ''}Source link. ${officialLink(paper)}</p></section>${explanation}<section class="background"><p class="kicker">BACKGROUND CONCEPTS</p><div>${(paper.topicSlugs || []).map((item) => link('topic', item, topicLabel(item))).join('') || '<span>No background topics are available for this paper.</span>'}</div></section>${paper.references?.length || paper.citedBy?.length ? `<section class="citation-paths"><div><p class="kicker">BUILDS ON</p>${references.map((item) => link('paper', item.slug, item.title)).join('') || '<span>Reference links unavailable.</span>'}</div><div><p class="kicker">BUILT ON THIS</p>${citedBy.map((item) => link('paper', item.slug, item.title)).join('') || '<span>Derivative links unavailable.</span>'}</div></section>` : ''}<section class="section-head"><div><p class="kicker">SIDEWAYS NAVIGATION</p><h2>Similar papers</h2></div></section><section class="grid featured">${similar.map(paperCard).join('') || '<p class="empty">Similar papers are unavailable for this record.</p>'}</section></article>`, renderId);
+  shell(`<article class="detail paper-detail"><a class="crumb"${from?.startsWith('#/topic/') ? ' data-restore-scroll' : ''} href="${esc(returnHref)}">${returnLabel}</a><p class="kicker">${esc(paper.venue)} · ${paper.year}</p><h1>${renderRichText(paper.title)}</h1><p class="authors">${renderRichText(paper.authors?.join(', ') || 'Authors unavailable')}</p><div class="paper-actions">${officialLink(paper)}${paper.codeUrl ? `<a href="${esc(paper.codeUrl)}" target="_blank" rel="noreferrer">Code ↗</a>` : ''}${paper.projectUrl ? `<a href="${esc(paper.projectUrl)}" target="_blank" rel="noreferrer">Project ↗</a>` : ''}</div><section class="official-abstract"><p class="eyebrow">${abstractHeading}</p>${abstractView}<p class="source-note">${awaitingAbstractVerification ? 'This text needs confirmation against the original paper, so no AI explanation is shown. ' : ''}${sourceCharactersNote}Source link. ${officialLink(paper)}</p></section>${explanation}<section class="background"><p class="kicker">BACKGROUND CONCEPTS</p><div>${(paper.topicSlugs || []).map((item) => link('topic', item, topicLabel(item))).join('') || '<span>No background topics are available for this paper.</span>'}</div></section>${paper.references?.length || paper.citedBy?.length ? `<section class="citation-paths"><div><p class="kicker">BUILDS ON</p>${references.map((item) => link('paper', item.slug, item.title)).join('') || '<span>Reference links unavailable.</span>'}</div><div><p class="kicker">BUILT ON THIS</p>${citedBy.map((item) => link('paper', item.slug, item.title)).join('') || '<span>Derivative links unavailable.</span>'}</div></section>` : ''}<section class="section-head"><div><p class="kicker">SIDEWAYS NAVIGATION</p><h2>Similar papers</h2></div></section><section class="grid featured">${similar.map(paperCard).join('') || '<p class="empty">Similar papers are unavailable for this record.</p>'}</section></article>`, renderId);
 }
 function summaryParagraphs(summary: NonNullable<Paper['summary']>) {
   if (summary.paragraphs && summary.paragraphs.length >= 3 && summary.paragraphs.length <= 5) return summary.paragraphs;
@@ -162,8 +168,8 @@ function summaryParagraphs(summary: NonNullable<Paper['summary']>) {
 function summaryView(paper: Paper) {
   const summary = paper.summary!;
   const paragraphs = summaryParagraphs(summary);
-  const body = paragraphs.length ? paragraphs.map((paragraph) => `<p>${esc(paragraph)}</p>`).join('') : '<p>An AI-generated explanation is unavailable for this paper. Read the original paper for detail.</p>';
-  return `<section class="tldr"><p class="eyebrow">TL;DR <span class="ai-label">AI-generated summary</span> ${officialLink(paper)}</p><p>${esc(summary.tldr)}</p></section><section class="narrative"><p class="eyebrow">WHAT THIS PAPER DID <span class="ai-label">AI-generated summary</span> ${officialLink(paper)}</p>${body}<p class="source-note">Based on the official abstract. Read the original paper for methods, evidence, and full context.</p></section>`;
+  const body = paragraphs.length ? paragraphs.map((paragraph) => `<p>${renderRichText(paragraph)}</p>`).join('') : '<p>An AI-generated explanation is unavailable for this paper. Read the original paper for detail.</p>';
+  return `<section class="tldr"><p class="eyebrow">TL;DR <span class="ai-label">AI-generated summary</span> ${officialLink(paper)}</p><p>${renderRichText(summary.tldr)}</p></section><section class="narrative"><p class="eyebrow">WHAT THIS PAPER DID <span class="ai-label">AI-generated summary</span> ${officialLink(paper)}</p>${body}<p class="source-note">Based on the official abstract. Read the original paper for methods, evidence, and full context.</p></section>`;
 }
 async function mapPage(query: string, renderId: number) {
   const { loadTopicGraph, mountTopicGraph } = await import('./topic-graph');
@@ -171,11 +177,10 @@ async function mapPage(query: string, renderId: number) {
   if (!renderGate.isCurrent(renderId)) return;
   const params = new URLSearchParams(query);
   const selectedSlug = params.get('topic') || data.defaultTopicSlug;
-  const depth = params.get('depth') === '1' ? 1 : 2;
-  shell(`<section class="page-top map-page"><p class="kicker">SEMANTIC NEIGHBOURHOODS</p><h1>Knowledge map</h1><p class="lede">Follow the ideas around a topic.</p><section id="topic-graph-shell"><div class="topic-map-controls"><div class="topic-map-picker" data-topic-picker><span id="map-topic-label">Focus topic</span><button id="map-topic" type="button" aria-labelledby="map-topic-label map-topic-value" aria-haspopup="listbox" aria-controls="map-topic-listbox" aria-expanded="false"><span id="map-topic-value" data-topic-picker-label></span><span aria-hidden="true">⌄</span></button><div id="map-topic-popover" class="topic-map-popover" hidden><label class="sr-only" for="map-topic-search">Search topics</label><div class="topic-map-search-row"><input id="map-topic-search" type="search" role="combobox" aria-expanded="true" aria-controls="map-topic-listbox" autocomplete="off" placeholder="Search topics"><button type="button" data-topic-picker-clear hidden aria-label="Clear topic search">Clear</button></div><p data-topic-picker-count aria-live="polite"></p><div id="map-topic-listbox" role="listbox" aria-label="Topics"></div></div></div><label class="topic-map-depth" for="map-two-hop"><input id="map-two-hop" type="checkbox" checked><span class="topic-map-switch" aria-hidden="true"></span><span><b>Second-degree neighbours</b><small>Include related topics one step further</small></span></label></div><p class="topic-map-legend"><i></i> Lines show semantic relationships, not citations.</p><div class="topic-graph-scroller" tabindex="0" aria-label="Topic relationship diagram; swipe sideways on small screens"><div id="topic-graph" class="topic-graph" data-topic-graph-ready="true"></div></div></section></section>`, renderId);
+  shell(`<section class="page-top map-page"><p class="kicker">SEMANTIC NEIGHBOURHOODS</p><h1>Knowledge map</h1><p class="lede">Follow the ideas around a topic.</p><section id="topic-graph-shell"><div class="topic-map-controls"><div class="topic-map-picker" data-topic-picker><span id="map-topic-label">Focus topic</span><button id="map-topic" type="button" aria-labelledby="map-topic-label map-topic-value" aria-haspopup="listbox" aria-controls="map-topic-listbox" aria-expanded="false"><span id="map-topic-value" data-topic-picker-label></span><span aria-hidden="true">⌄</span></button><div id="map-topic-popover" class="topic-map-popover" hidden><label class="sr-only" for="map-topic-search">Search topics</label><div class="topic-map-search-row"><input id="map-topic-search" type="search" role="combobox" aria-expanded="true" aria-controls="map-topic-listbox" autocomplete="off" placeholder="Search topics"><button type="button" data-topic-picker-clear hidden aria-label="Clear topic search">Clear</button></div><p data-topic-picker-count aria-live="polite"></p><div id="map-topic-listbox" role="listbox" aria-label="Topics"></div></div></div></div><p class="topic-map-legend"><i></i> Lines show semantic relationships, not citations.</p><div class="topic-graph-scroller" tabindex="0" aria-label="Topic relationship diagram; swipe sideways on small screens"><div id="topic-graph" class="topic-graph" data-topic-graph-ready="true"></div></div></section></section>`, renderId);
   const container = document.querySelector<HTMLElement>('#topic-graph-shell');
   if (!container || !renderGate.isCurrent(renderId)) return;
-  disposeActiveMap = mountTopicGraph(container, data, selectedSlug, depth);
+  disposeActiveMap = mountTopicGraph(container, data, selectedSlug);
 }
 async function aboutPage(renderId: number) { shell(renderAbout(atlas.manifest || {}), renderId); }
 function missing(message: string, renderId?: number) { shell(`<section class="status error"><p>${esc(message)}</p><a href="#/discover">Return to Discover →</a></section>`, renderId); }
