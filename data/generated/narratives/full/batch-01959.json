@@ -1,0 +1,327 @@
+{
+  "icml-2026-a-decision-theoretic-view-of-test-time-training-when-how-far-and-which-directions-to-ada-e8194c2af9": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Test-time training updates a pretrained model’s parameters for an individual prompt. It can help when test inputs differ from pretraining data, but its success depends on how many updates are taken and which parameters can change. This paper explains that sensitivity by interpreting adaptation as implicit Bayesian inference in a kernel regime.",
+      "Under a Gaussian process benchmark, the analysis shows that updates reduce prediction error when their strength matches the prompt’s signal relative to noise and their directions align with information relevant to the query. This explains why a fixed update count or fixed adaptation subspace can fail after a distribution shift: the same adaptation settings need not suit different prompts.",
+      "The authors establish a PAC-Bayes guarantee against overfitting when update steps are selected using prompt evidence. Under a separate linear-Gaussian correction model, they characterize an optimal update subspace and derive a rule for scoring Transformer blocks and heads. These conditional theoretical results provide guidance for adapting selectively, rather than assuming every prompt benefits from the same updates."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b4cdb686178360285e70e73b4f1ca1d89cdc8de94784d5ec9f7364896ab0251e",
+    "tldr": "A Bayesian analysis explains test-time training’s instability and gives conditional guidance for choosing update counts and parameter directions."
+  },
+  "icml-2026-a-probabilistic-framework-for-llm-based-model-discovery-cbecad7b22": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Discovering a mechanistic simulator means finding a model whose internal processes can explain observed data. LLM-based discovery systems often propose a model, inspect its performance, and revise it through a manually designed workflow. This paper gives that process a probabilistic interpretation: discovery becomes sampling from a distribution over possible explanatory models.",
+      "The proposed algorithm, ModelSMC, implements this perspective using Sequential Monte Carlo. It maintains candidate models as particles, with an LLM proposing and refining those candidates over successive iterations. Likelihood-based weights assess how well candidates explain the observations. Proposal, revision, and selection therefore become connected parts of an inference procedure, with multiple possible explanations represented within the same framework.",
+      "Experiments on real scientific systems illustrate that ModelSMC finds models with interpretable mechanisms and improves posterior predictive checks, which assess how well inferred models account for observed behavior. The contribution is both an algorithm and a way to reason about discovery workflows. Its reported results support probabilistic organization of model search without claiming that a discovered mechanism must be the unique true explanation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d8b56ce75ce6bec46a3642390be1e270edfd54ccfe60e149430bac50fd062fa4",
+    "tldr": "ModelSMC organizes LLM-driven scientific model discovery as probabilistic inference over candidate mechanistic explanations."
+  },
+  "icml-2026-a-solver-free-training-method-for-predict-then-optimize-3bf0b270dd": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "In predict-then-optimize systems, a machine learning model predicts coefficients that a later optimization problem uses to choose a decision. Training should therefore care about the quality of the resulting decision. The difficulty is that small prediction changes often leave the selected decision unchanged, making direct gradients of decision regret zero almost everywhere.",
+      "Existing approaches smooth this relationship to obtain useful training signals, but typically require an expensive optimization solver call for every gradient evaluation. This paper introduces a surrogate loss derived through a measure transformation principle. The resulting training pipeline remains focused on decision quality while eliminating optimization solver calls during training, directly addressing a major computational bottleneck.",
+      "The authors establish Fisher consistency and excess risk bounds, providing theoretical connections between optimizing the surrogate and improving the target decision objective. Experiments report decision quality competitive with leading methods while reducing training time by orders of magnitude. The solver-free claim concerns training: the overall setting still includes a subsequent optimization task that converts predictions into decisions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d17d60c51d197bbaa431e835410e40eed0a50f425fca9dd69b0caebe83c1a715",
+    "tldr": "A theoretically supported surrogate trains decision-focused prediction models without solver calls, substantially reducing reported training costs."
+  },
+  "icml-2026-active-policy-optimization-for-individualized-dosing-via-gradient-variance-minimization-fe136e0575": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Learning an individualized dosing policy means choosing a continuous treatment level for each individual to maximize an outcome or utility. When experiments are expensive, the learning system must decide which additional observations are most useful. This paper targets that acquisition problem directly, extending attention beyond binary treatments and treatment-effect estimation to continuous policy optimization.",
+      "The theoretical starting point connects policy regret to uncertainty about dose-response gradients at the currently estimated optimal doses. A gradient describes how the outcome changes as the dose changes. The authors show that expected posterior variance in these gradients bounds optimization regret, identifying a specific form of uncertainty that matters for choosing a good dose.",
+      "GVALID uses this result to select batches of samples greedily, aiming to reduce the relevant gradient uncertainty. The approach concentrates acquisition on information tied to policy quality instead of seeking to improve every part of the dose-response estimate equally. Experiments report superior performance under strict budgets, supporting the value of directing scarce observations toward uncertainty near estimated policy optima."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1ae873d5fd9b47a426c5b3cdb81cbcda3aaf5c60f30c235c58287b4a355fbae5",
+    "tldr": "GVALID selects experimental samples to reduce gradient uncertainty near estimated optimal doses, improving individualized policy learning under tight budgets."
+  },
+  "icml-2026-adversarial-dual-on-policy-distillation-from-expressive-teacher-0d1de2b743": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A control policy trained only on expert demonstrations receives supervision at expert states, even though its own actions may take it elsewhere. Learning from a teacher on those newly visited states could help, but demonstration-only settings do not supply a ready-made strong teacher. FA-OPD addresses this by jointly training a flow-matching teacher and a lightweight student.",
+      "The teacher supplies two types of feedback during student rollouts. A reward channel assesses how expert-like state-action pairs are and supports exploration through optimization over longer horizons. An action channel provides local action targets at the states the student actually encounters. These signals connect broader behavioral improvement with immediate corrective guidance.",
+      "Their coupling is central: reward feedback supports generalization beyond individual demonstrated actions, while action feedback helps keep exploration close to expert-like behavior. Across six benchmarks covering robot navigation, manipulation, and locomotion, the method outperforms strong baselines and shows substantially better robustness when demonstrations are noisy or limited. The results support learning the teacher and student together as a practical response to missing on-policy supervision."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ae1ae6a32ff91f8ae4480923039fa9fd1170722631b45bbc028b48bd10e42293",
+    "tldr": "FA-OPD jointly trains a teacher and student, combining reward and action feedback on student rollouts to improve embodied control."
+  },
+  "icml-2026-beyond-policy-training-recursive-solution-search-from-unannotated-videos-178e8fd991": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Videos of task executions contain information about how a task progresses, even when they lack action labels or other supervision expected by reinforcement learning pipelines. This paper focuses on situations where the objective is to recover one feasible solution. In that setting, training a policy for repeated use can introduce unnecessary work.",
+      "Policy-Free Recursive Search, or PFR-Search, organizes unannotated videos into high-level task flows. It then searches recursively backward and forward through those flows to recover a solution, without modeling or training a policy. The task-flow representation gives the search a structure based on observed progress, allowing it to use demonstrations without the usual policy-centered supervision.",
+      "The evaluation uses reinforcement learning as an interface, incorporating intrinsic rewards aligned with the task flows and comparing against video-driven RL methods. This evaluation role does not change the framework’s policy-free solution-search objective. On long-horizon Minecraft tasks, PFR-Search recovers feasible solutions with minimal exploration. The findings support direct search as an efficient option when a single successful execution is the desired result."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "69606003060a9d0ab698c5642f7a5861979b54c0edfc791a93cb22c21b6965ff",
+    "tldr": "PFR-Search uses task flows extracted from unannotated videos to find feasible solutions without training a policy."
+  },
+  "icml-2026-caos-conformal-aggregation-of-one-shot-predictors-672bd28269": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A pretrained model can adapt to a task using one labeled example, but that prediction alone does not express uncertainty with a statistical guarantee. Standard split conformal prediction offers coverage guarantees, yet dividing scarce labels between fitting and calibration wastes valuable information in this setting. Relying on a single predictor also limits what the available examples can contribute.",
+      "CAOS combines multiple one-shot predictors adaptively and calibrates their outputs with a leave-one-out procedure. This lets the framework make fuller use of the labeled data. The resulting construction violates classical exchangeability assumptions used in familiar conformal arguments, so the authors establish valid marginal coverage through a different proof based on monotonicity.",
+      "Experiments on facial landmarking and RAFT text classification produce substantially smaller prediction sets than split conformal baselines while preserving reliable coverage. Smaller sets mean the uncertainty output is more specific at the maintained coverage level. The guarantee is marginal, describing coverage across cases rather than promising correctness for every individual prediction. The contribution connects efficient use of scarce labels with principled uncertainty quantification."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8f902cf4522317cf22e5794b8ccfaa502b7dea01f221e41d303a399e9ea523bb",
+    "tldr": "CAOS aggregates one-shot predictors and reuses scarce labels for calibration, producing smaller prediction sets with valid marginal coverage."
+  },
+  "icml-2026-corrected-samplers-for-discrete-flow-models-cc810a1435": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Discrete flow models generate data in finite state spaces by following transitions whose rates vary over time and state. Common samplers approximate these dynamics by freezing rates within each time interval and evaluating them at its initial state. Those approximations can require many iterations to keep numerical error under control, making generation expensive.",
+      "This paper first establishes finite-step discretization error bounds for tau-leaping and Euler sampling within the discrete flow framework, without restricting transition rates or source distributions. It then analyzes a lower bound on the Euler sampler’s one-step error to motivate two modifications: a time-corrected sampler and a location-corrected sampler. Both aim to reduce approximation error with almost no extra computational cost.",
+      "The authors prove that the location-corrected method has lower complexity than existing parallel samplers. Simulations and text-to-image generation experiments also show better generation quality with shorter inference time. Together, the theory and experiments indicate that improving how each sampling step approximates the dynamics can reduce the amount of computation needed for useful samples."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b84629e1bba987ed5158ac61f05b24420406453f8164fc98b89514963e66c50f",
+    "tldr": "Two corrected discrete-flow samplers reduce numerical error at little extra cost, with theoretical and empirical efficiency improvements."
+  },
+  "icml-2026-error-analysis-of-discrete-flow-with-generator-matching-4543601831": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Discrete flow models learn distributions over discrete states, but understanding their final distribution requires tracking several sources of error. This paper develops a stochastic-calculus framework that accounts for inaccurate transition-rate estimates and stopping the process early. It emphasizes rate estimation, an error source that earlier analyses have given relatively little attention.",
+      "The analysis compares the path distributions of two continuous-time Markov chains using a Girsanov-type theorem. Generator matching and uniformization then support finite-sample bounds on distribution estimation without requiring bounded oracle transition rates. The paper also identifies a structural distinction from discrete diffusion: the discrete flow setup avoids initialization error arising from truncating a forward noising process.",
+      "With an additional boundedness condition, the authors obtain faster convergence in total variation, a measure of discrepancy between distributions. That rate is nearly optimal in its dependence on sample size. Simulations explore performance under different settings. The work therefore separates a broader error guarantee from a sharper conditional result, clarifying how assumptions affect the strength of convergence claims."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8daaee1dbef6d104c18823c2da62dafbf0ded9e57d277af49729e4de5b659955",
+    "tldr": "A unified analysis bounds discrete-flow estimation and early-stopping errors, with nearly optimal sample-size convergence under an additional boundedness condition."
+  },
+  "icml-2026-f-divergence-self-play-for-tabular-anomaly-detection-via-large-language-models-bba31664ad": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Detecting unusual table rows is difficult when columns mix numbers, categories, and text. LLM-based approaches can turn rows into text, but a single supervised fine-tuning stage gives limited feedback for refining what normal data should look like. DiSPaT introduces an iterative self-play process intended to strengthen that description of normality.",
+      "At each iteration, the current model generates synthetic rows that act as pseudo-anomalies. A critic learns to distinguish those rows from real normal examples, and its feedback guides updates to the generator. The synthetic samples provide a changing comparison set as training proceeds, while the generator is pushed toward the distribution represented by the normal data.",
+      "The authors derive a tight approximation connecting this objective to f-divergence minimization, giving a theoretical basis for interpreting training as reducing a distributional gap. Across diverse benchmarks, DiSPaT consistently outperforms earlier LLM methods, deep learning approaches, and classical unsupervised detectors. These empirical results support iterative distribution alignment as a useful way to learn normality for tabular anomaly detection."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5a960dddedd031bcc6d37f68a153dc929e2ab999fa9ed6cdf99acac53ad500b0",
+    "tldr": "DiSPaT uses alternating generation and discrimination to improve an LLM’s model of normal table rows and detect anomalies."
+  },
+  "icml-2026-gradient-inversion-attacks-beyond-sgd-16bf31b3a5": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Federated learning can expose private training data through the information exchanged during optimization. Many reconstruction attacks assume that the attacker observes raw gradients, as in basic stochastic gradient descent. Adaptive optimizers change this setting because the observable parameter updates incorporate optimizer-specific transformations and state, making ordinary gradient matching less effective.",
+      "The paper develops attacks that target those observable updates directly. It introduces an analytical rule for recovering labels and an objective that adjusts candidate inputs until their induced optimizer updates resemble the observed ones. Matching the actual shared signal makes the approach applicable to optimizers including Adam, AdaGrad, and RMSProp, rather than depending on direct access to true gradients.",
+      "Experiments on datasets including ImageNet and PACS show that the approach is more effective than existing gradient-matching techniques. The authors also find that its update-matching objective strengthens attacks in the standard SGD setting. The findings broaden the demonstrated privacy threat: changing the optimizer alters the reconstruction problem, but the tested adaptive methods still reveal exploitable information through their updates."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a41fd1475b7c40553e0ef6ac239eca6f61423194b76a9bf1c42d3aeba07adca7",
+    "tldr": "Matching optimizer updates enables private-data reconstruction attacks against adaptive optimizers and also strengthens reported attacks on SGD."
+  },
+  "icml-2026-hidden-in-plain-sight-class-competition-focuses-attribution-maps-27d1563a5e": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Attribution maps highlight the input features associated with a neural network’s prediction. They often appear unfocused, marking irrelevant features alongside useful ones. This paper revisits the standard attribution pipeline and identifies a major contributor: using an individual class logit, or raw class score, as the quantity the explanation method tries to attribute.",
+      "The proposed change considers distributions of attributions across multiple classes using existing attribution methods. Looking across classes introduces class competition into the explanation, helping produce more specific and fine-grained maps. The contribution therefore lies in how attribution information is targeted and interpreted, allowing established explanation methods to benefit without requiring a new method for each model architecture.",
+      "On common benchmarks, including the grid-pointing game and randomization-based sanity checks, the change improves results for 18 attribution methods across seven architectures, with gains reaching up to twofold. That maximum describes the reported improvements, not a uniform doubling for every method. The results show that a shared pipeline choice can substantially affect explanation quality across otherwise different attribution techniques."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "600f633f0992f19068e7130f5b7090ed3fd3a42545140e34565901be51296191",
+    "tldr": "Considering attribution across competing classes makes existing explanation methods more focused, with reported benchmark gains of up to twofold."
+  },
+  "icml-2026-in-context-learning-is-provably-bayesian-inference-a-generalization-theory-for-meta-lear-726b47df8d": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "In-context learning lets a model use examples inside a prompt to respond to a task. This paper studies that behavior through a finite-sample meta-learning framework that allows mixtures of different task types. Its central tool separates prediction risk into two components, distinguishing the model’s approximation error from uncertainty inherent in the inference problem.",
+      "The Bayes Gap measures how closely the trained model matches the best Bayesian in-context predictor. For a Transformer with uniform attention, the authors bound this gap and make explicit how it depends on the number of pretraining prompts and their context lengths. Posterior Variance captures model-independent uncertainty, separating what training can improve from the difficulty associated with the underlying task.",
+      "Within the analysis, uncertainty about which task in the mixture generated the examples disappears exponentially quickly as in-context examples accumulate. The remaining uncertainty is governed by the true task’s difficulty. These results support a Bayesian interpretation for the analyzed Transformer: pretraining selects a meta-level strategy, and prompt examples rapidly specialize that strategy to the current task."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "89db923cdc9228bedda7d7c90ae227fe1f3de95ec33edc56e4d136bd900578d6",
+    "tldr": "A finite-sample theory explains Bayesian in-context learning for a uniform-attention Transformer by separating approximation error from task uncertainty."
+  },
+  "icml-2026-lec-linear-expectation-constraints-for-selection-conditioned-risk-control-in-selective-p-f5b2f259d0": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A system that accepts only confident predictions needs to control errors among the answers it actually returns. An uncertainty score alone does not supply that guarantee. LEC formulates acceptance as a constrained decision problem, targeting the marginal probability of error conditional on a prediction being selected.",
+      "Its linear expectation constraint relates accepted errors to accepted predictions. Specifically, controlling the ratio of their expected counts controls the desired selection-conditioned risk. Under exchangeability, the authors derive a finite-sample sufficient condition based only on held-out calibration data. This enables selection of a threshold that maximizes retention while satisfying the risk constraint; the condition is sufficient, rather than asserted to be necessary.",
+      "LEC also extends to routing between two models: inputs above the primary model’s calibrated uncertainty threshold can move to a subsequent model while preserving system-level error control. Experiments on closed-ended and open-ended question answering, including visual questions, maintain the prescribed risk level and substantially improve retention over baselines. The benefit is more accepted predictions at a controlled marginal error level."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "11c6e946432d63c0fb4cf4132a09b166edbe0f95fbff5c5bc4251028542ab2b9",
+    "tldr": "LEC calibrates acceptance and routing thresholds to maximize retained predictions while controlling selection-conditioned error under exchangeability."
+  },
+  "icml-2026-mitigating-conversational-inertia-in-multi-turn-agents-f111d41da4": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "An agent’s conversation history contains useful environmental feedback, but it also contains its own previous responses. This paper finds that models can treat those responses as demonstrations to imitate. Attention analysis identifies strong diagonal attention toward earlier responses, associated with an imitation bias the authors call conversational inertia, which restricts exploration.",
+      "The key observation compares actions generated for identical states using different context lengths. Longer contexts exhibit stronger inertia than shorter ones, allowing the authors to construct preference pairs without environment rewards. Context Preference Learning uses those pairs to favor responses with lower inertia. Additional inference-time context management strategies aim to balance useful historical feedback against the tendency to repeat earlier behavior.",
+      "Across eight agentic environments and one deep research scenario, the framework reduces conversational inertia and improves performance. These findings expose a practical tension in extending agent histories: more context can support exploitation while also reinforcing imitation. The approach uses that tension as a training signal and an inference-management consideration, rather than assuming that adding history consistently improves agent behavior."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d5dcac6962d14973351b14dc9a3152515311c85a0c0ad028832c8dfe5a050f2f",
+    "tldr": "Context Preference Learning reduces agents’ tendency to imitate their own previous responses, improving exploration and reported task performance."
+  },
+  "icml-2026-multi-view-consistent-latent-action-learning-for-world-modeling-and-control-694ce01282": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "World models need representations of actions, but action labels are scarce. Learning hidden action representations from video could help, yet a single camera view can confuse physical motion with superficial pixel changes such as camera shake. MuCoLA uses synchronized views to identify action information that remains consistent across different visual perspectives.",
+      "The framework trains a student-teacher network with DINO-style self-distillation, aligning action distributions across viewpoints. Shared motion semantics provide the agreement signal, while viewpoint-dependent disturbances are filtered out. The paper’s theoretical analysis describes the multi-view objective as a spectral filter that separates agent dynamics from environmental nuisances, explaining why consistency across cameras can improve the learned representation.",
+      "Experiments show significant improvements over baselines in action regression, video reconstruction, and downstream visual control. The method also exhibits favorable scaling as model capacity and data volume increase. Together, the results support synchronized multi-view video as useful supervision for learning actions without explicit action annotations. The approach’s central resource is agreement across video streams, which supplies information that a single view may not reliably reveal."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f50db29b4e5bafb1affead7ac72a4bda9d9ade8ba4dccb81c97f87bcd9c7c5f9",
+    "tldr": "MuCoLA learns action representations from synchronized camera views, reducing viewpoint noise and improving world modeling and control."
+  },
+  "icml-2026-multimodal-fact-level-attribution-for-verifiable-reasoning-d3d93461f9": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A multimodal model can give a correct explanation while citing evidence that does not support it. MuRGAt evaluates this distinction in tasks involving reasoning across video, audio, and other input modalities. It moves beyond grounding directly observable details to examine whether individual factual claims remain traceable during more complex reasoning.",
+      "Models must produce answers with explicit reasoning and precise citations. Each citation identifies both the source modality and the relevant time segment, making the claimed evidence specific enough to assess. The authors also introduce an automatic evaluation framework whose scores strongly correlate with human judgments, supporting systematic assessment of attribution alongside answer and reasoning quality.",
+      "Human and automated evaluations reveal frequent citation hallucinations even among strong models whose reasoning is correct. The benchmark also exposes a trade-off: deeper reasoning or more structured grounding often reduces accuracy. These findings show that successful internal reasoning does not automatically produce verifiable evidence references. MuRGAt makes that gap measurable by testing both the reasoning and the factual support attached to it."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "efbb1133143339bda5ba109313e3911f06cc093ff7ded172e485c01217e97975",
+    "tldr": "MuRGAt tests whether multimodal reasoning includes valid fact-level citations and finds frequent attribution failures despite correct reasoning."
+  },
+  "icml-2026-new-bounds-for-kernel-sums-via-fast-spherical-embeddings-30bbb2725c": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A kernel mean measures the average kernel similarity between a query and points in a dataset. This paper studies how quickly that average can be estimated within a specified additive error. For the Gaussian kernel, the computational bounds depend on the data dimension, the required accuracy, and the diameter of a region containing the points.",
+      "The authors prove a query-time bound of approximately d + εΔ² + 1/ε³, suppressing logarithmic factors, where d is dimension, ε is allowed error, and Δ is diameter. This improves previous bounds in regimes combining small error with intermediate diameter. The improvement is therefore sensitive to the relationship between accuracy and geometry, rather than being an unconditional replacement for every previous bound.",
+      "The proof introduces a fast spherical embedding that limits the embedded dataset’s diameter while preserving nearby Euclidean distances and preventing far-apart points from collapsing together. Those properties let the analysis reshape the geometry without destroying essential distance information. Beyond the kernel-mean result, the authors suggest that the embedding theorem may have independent value."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ff94ffd4981e9a1131f89f713ceb7b396ce7bcacf8346c5b6bfd559083c4dd47",
+    "tldr": "A fast spherical embedding yields a better Gaussian kernel-mean query bound for small-error, intermediate-diameter regimes."
+  },
+  "icml-2026-openmag-a-comprehensive-benchmark-for-multimodal-attributed-graph-3bbb04e16a": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Multimodal-attributed graphs combine relationships between entities with attributes from different modalities. Evaluating models for these graphs requires accounting for both structural dependencies and cross-modal information. OpenMAG addresses gaps in existing benchmarks involving domain coverage, feature encoders, model variety, and the range of downstream tasks, all of which can complicate fair comparisons.",
+      "The benchmark brings together 19 datasets spanning six domains, 16 encoders, a standardized implementation library of 24 models, and eight downstream tasks. It supports both fixed feature representations and encoders that can be trained. This shared framework makes it possible to compare a broader set of modeling and encoding choices within a consistent evaluation environment.",
+      "The study examines necessity, data quality, effectiveness, robustness, and efficiency, and reports 14 insights into multimodal graph learning. Its contribution is the evaluation infrastructure and systematic assessment, rather than a single new model claimed to outperform the rest. The breadth of the benchmark supports investigation of how data, representations, and model choices interact across different graph-learning settings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f1ad1bc4215804c0df59a8e8a6f2e1fe0b87b5f668e54736d2402c1d35626dce",
+    "tldr": "OpenMAG standardizes multimodal graph evaluation across 19 datasets, 16 encoders, 24 models, and eight tasks."
+  },
+  "icml-2026-posterior-behavioral-cloning-pretraining-bc-policies-for-efficient-rl-finetuning-3a95b230b4": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Policies are often first trained to imitate demonstrations and then improved through reinforcement learning. This paper asks whether the imitation stage produces a useful starting point for that later improvement. Its theoretical analysis shows that standard behavioral cloning can fail to cover the demonstrator’s actions, a minimal condition necessary for effective RL fine-tuning.",
+      "Posterior Behavioral Cloning changes the pretraining target. Instead of fitting only the observed demonstrations exactly, it models the posterior distribution of demonstrator behavior given those demonstrations. The authors show that the resulting policy covers the demonstrator’s actions while ensuring that its pretrained performance is no worse than the behavioral-cloning policy’s. This links uncertainty about demonstrated behavior to the quality of the initialization.",
+      "The method is implemented with modern generative models and evaluated on realistic robotic control benchmarks and real-world manipulation tasks. It significantly improves RL fine-tuning performance relative to standard behavioral cloning. The contribution is therefore a change to what pretraining learns, supported by theory and robotic experiments, that makes subsequent reinforcement learning more effective."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d0d474c353e60f97bf47aa107ab1fb8b368ad286e0367733619f0cae92df853a",
+    "tldr": "Posterior Behavioral Cloning preserves demonstrator-action coverage during pretraining and improves subsequent reinforcement learning in robotic tasks."
+  },
+  "icml-2026-rtprune-reading-twice-inspired-token-pruning-for-efficient-deepseek-ocr-inference-f8cc87eb66": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "DeepSeek-OCR compresses documents into visual tokens, but those tokens can still contain redundant textual and structural information. Removing tokens carelessly can damage text fidelity. RTPrune is motivated by an observed decoding pattern: the model first emphasizes many high-norm tokens, then shifts attention toward the remaining tokens in a second reading stage.",
+      "The method mirrors that pattern with two stages. It initially prioritizes high-norm tokens carrying salient text and structure. It then pairs and merges remaining tokens using optimal transport to aggregate their features efficiently. A dynamic pruning ratio responds to token similarity and textual density, adapting the amount of compression to the document’s information rather than applying a single fixed ratio.",
+      "On OmniDocBench with DeepSeek-OCR-Large, the reported configuration retains 84.25% of tokens, reaches 99.47% accuracy, and makes prefill 1.23 times faster. The speed figure refers specifically to prefill, not the entire inference process. These results support designing pruning around the OCR model’s observed reading behavior to improve efficiency while preserving textual accuracy."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f557761b1fe3f793650c49cc99b74b7dd03dcb2a463279fec0c31f11a19ed7d5",
+    "tldr": "RTPrune follows DeepSeek-OCR’s two-stage reading pattern to reduce visual tokens while preserving accuracy and accelerating prefill."
+  },
+  "icml-2026-saving-foundation-flow-matching-priors-for-inverse-problems-cffb9e8a13": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Inverse problems recover an underlying object or signal from observations, and generative priors help guide that recovery. Foundation flow-matching models promise reusable priors, yet the paper reports that current uses trail domain-specific and even untrained alternatives. FMPlug addresses how to use a foundation model effectively for a particular inverse-problem instance.",
+      "The framework combines an instance-guided warm start that varies with time and a sharp Gaussianity regularizer. The warm start supplies problem-specific guidance, while the regularizer preserves Gaussian structure. Their combination aims to adapt the reconstruction process to the current problem while retaining structures important to using the foundation flow-matching prior.",
+      "Evaluation covers simple image restoration and scientific inverse problems with only a few similar samples. The latter setting matters because collecting specialized data and training a domain-specific generator can be prohibitively expensive. The authors report superior experimental results, supporting FMPlug as a way to make existing foundation models more practical and reusable for these tasks. The findings concern the evaluated settings, with particular motivation from scientific applications where similar examples are scarce."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "eb39487d511e03c10f4a7b41736447b5474288c16789dd39a76be55fbf727f44",
+    "tldr": "FMPlug combines instance-guided initialization and Gaussianity regularization to improve foundation flow-matching priors for inverse problems."
+  },
+  "icml-2026-shortcut-resistant-cam-distillation-for-long-tailed-recognition-6f0129198d": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "In long-tailed recognition, some classes have many examples while others have very few. The paper finds that rare classes are especially vulnerable to shortcuts: their limited examples often share backgrounds or textures that correlate with the label. Common classes have more varied appearances and environments, encouraging representations that focus more consistently on the object.",
+      "Shortcut-Resistant CAM Distillation transfers object-focused evidence from common classes to rare ones. It works with Class Activation Maps, which locate spatial evidence for a class prediction. The method combines maps from a small set of common-class candidates into a teacher, weighting them through an energy model based on coherence and concentration, then distills that teacher into the rare-class map.",
+      "The theoretical analysis measures shortcut reliance as the amount of activation-map evidence assigned to shortcut regions and shows that SRCD suppresses rare-class shortcuts. Experiments consistently improve strong baselines on long-tailed benchmarks. The approach uses explanation maps as a training mechanism, directing rare-class learning toward object-related evidence when scarce examples otherwise make contextual cues unusually tempting."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4b8614d46f6a38905f2a74943cdfef673dc16ca48793df548b500bad8bd7331f",
+    "tldr": "SRCD transfers object-focused activation maps from common classes to rare classes, reducing shortcut reliance and improving long-tailed recognition."
+  },
+  "icml-2026-the-shadow-price-of-reasoning-economic-perspective-on-optimal-budget-allocation-for-llms-d132f5a920": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Giving an LLM more reasoning tokens can improve its answers, but a deployment must often share a fixed budget across many queries. This paper treats that allocation as a global optimization problem. The central question is where an additional unit of computation contributes most to overall performance under resource scarcity.",
+      "The authors model each query’s reasoning utility with a shifted-surge function and derive an optimal allocation policy governed by a shared shadow price. That price expresses the value of scarce computation and balances marginal utility across queries. CLEAR implements this perspective by abandoning queries judged uneconomical and redirecting resources toward solvable queries near the point where additional reasoning becomes useful.",
+      "Experiments across several reasoning tasks and traffic streams improve the trade-off between total token cost and mean accuracy. Under scarce resources, the reported gain in global accuracy reaches up to three times that of uniform allocation. This is a maximum observed improvement, while the theoretical allocation depends on the specified utility model. The results emphasize managing reasoning across a workload, rather than assigning every query the same budget."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b7b5e553a9d57367b1aa1621805899196767e3cc15b1cb1478d962a090d510e0",
+    "tldr": "CLEAR allocates reasoning tokens using a global shadow price, improving workload-level accuracy under constrained computation budgets."
+  },
+  "icml-2026-video-svd-efficient-video-diffusion-via-orthogonal-basis-composition-8b6e0f3510": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Video Diffusion Transformers spend substantial computation on dense self-attention. This paper examines the attention matrix before softmax and finds that its singular values decay rapidly, indicating an effectively low-dimensional structure. It also observes that real motion mixes spatial and temporal patterns, making rigid separation into spatial versus temporal attention an imperfect fit.",
+      "Video-SVD exploits those observations by constructing checkpoint-adaptive orthogonal bases offline. During inference, it replaces expensive dense attention computation with projection into smaller subspaces and composition of those bases. The method leaves the original network parameters unchanged. Layer-shared, dual-stream residual modules help recover fine content details and positional information that the compact representation might otherwise lose.",
+      "Across HunyuanVideo and Wan2.1 models, the method maintains high visual quality while accelerating end-to-end generation. Reported speedups reach 1.92 times for HunyuanVideo, 1.75 times for Wan2.1-1.3B, and 1.79 times for Wan2.1-14B. These results support exploiting the attention matrix’s joint spatiotemporal structure as a practical, training-free acceleration strategy, with offline basis preparation preceding its lightweight inference computations."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "75eb8e37dd7d83637ff22ab39ae8182cfc42bdd40253a8b8ef21630e3bae3376",
+    "tldr": "Video-SVD accelerates video diffusion through compact attention bases, achieving reported end-to-end speedups up to 1.92 times while preserving high visual quality."
+  }
+}

@@ -1,0 +1,327 @@
+{
+  "icml-2024-accelerating-iterative-retrieval-augmented-language-model-serving-with-speculation-5e7b141b53": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Retrieval-augmented language models consult external information while generating answers. When retrieval happens repeatedly, serving the model involves coordinating many retrieval and generation operations. RaLMSpec targets this repeated work with speculative retrieval and batched verification: it anticipates retrieval work and checks speculative results together, making the interaction between retrieval and generation more efficient.",
+      "The framework combines this approach with several systems optimizations. Prefetching prepares information ahead of use, a speculation stride scheduler controls how far speculation proceeds, and asynchronous verification allows checking to happen without making every operation wait in sequence. These components address the execution of iterative retrieval, with evaluations covering both document retrieval and token-level retrieval in KNN language models.",
+      "Across three language models and four question-answering datasets, document-level speedups range from 1.75–2.39 times for exact dense retrieval, 1.04–1.39 times for approximate dense retrieval, and 1.31–1.77 times for sparse retrieval. Token-level serving reaches speedups of up to 7.59 and 2.45 times for exact and approximate dense retrieval, respectively. The differing gains show that the benefit depends on the retrieval setting."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "93c69ae3d71545606d0d11c7991a81554c9c4d612a5b1d7c7dba6eba364c1845",
+    "tldr": "RaLMSpec accelerates repeated retrieval during language-model serving by combining speculative retrieval, batched verification, and coordinated systems optimizations."
+  },
+  "icml-2024-apt-adaptive-pruning-and-tuning-pretrained-language-models-for-efficient-training-and-in-de3e3b1067": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Making language models cheaper to adapt and cheaper to run involves two related challenges. Updating only a small set of parameters can reduce training memory, but leaves inference costs unchanged. Removing whole parameter blocks can improve inference efficiency, yet the pruning process can itself require additional training time and memory. APT addresses both costs within one adaptation procedure.",
+      "Early in fine-tuning, APT changes which parameters receive tuning capacity and which are removed. It adds salient tuning parameters to support fast, accurate convergence while discarding parameters judged unimportant. The central idea is to coordinate learning and compression as the model adapts, so decisions about what to train and what to retain develop together.",
+      "The reported experiments retain up to 98% of task performance for RoBERTa and T5 with 40% of parameters remaining. For LLaMA, the reported retention is 86.4% with 70% remaining. APT also achieves fine-tuning speedups of up to eight times and training-memory reductions of up to 70% for large models. These are reported outcomes across experimental settings, rather than one uniform compression-performance tradeoff."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "fe9d85a85036117e123bfc3d1c0d336eb12e800bec55d483cac2fa758bf22480",
+    "tldr": "APT jointly adapts and prunes language models to reduce training and inference costs while retaining substantial task performance."
+  },
+  "icml-2024-confronting-reward-overoptimization-for-diffusion-models-a-perspective-of-inductive-and--0f02215491": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A diffusion model can be aligned with human preferences by optimizing a learned reward model. However, pushing that reward too hard can potentially worsen the underlying performance the reward is meant to represent. This paper investigates that problem through the structure of diffusion generation and the learning behavior of the critic used during optimization.",
+      "The authors identify a mismatch between existing alignment methods and the temporal structure of successive denoising steps as a possible source of overoptimization. They also find different roles for dormant and active neurons in their critic: dormant neurons act as a regularizing influence, while active neurons reflect primacy bias, or an influence of earlier learning on subsequent behavior.",
+      "These observations motivate TDPO-R, a policy-gradient method that uses the temporal inductive bias of diffusion models and resets active critic neurons to mitigate primacy bias. Experiments report better mitigation of reward overoptimization. The contribution links the organization of denoising steps with the critic’s internal learning dynamics, offering two concrete places to intervene when improving a learned reward stops reliably improving the intended outcome."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "19adc9a1624c904a3c5fe1a7b347af29b3bd85189eed342bef3ec7c1a26b6f67",
+    "tldr": "TDPO-R reduces reward overoptimization in diffusion-model alignment by using denoising’s temporal structure and resetting active critic neurons."
+  },
+  "icml-2024-efficient-contextual-bandits-with-uninformed-feedback-graphs-41d50890d1": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "In a bandit problem, a learner repeatedly chooses an action and learns from limited feedback. A feedback graph describes which additional outcomes become observable after a choice, placing the problem between observing only the chosen action and observing everything. The contextual version also uses information available about the current decision.",
+      "An earlier efficient approach required the learner to see the feedback graph before choosing an action. This paper handles settings where the graph appears only afterward or is never fully revealed. Its algorithms reduce the problem to online regression for both action losses and the graphs themselves. Learning how feedback becomes available is therefore part of the decision process.",
+      "A central theoretical result concerns the loss used to learn the graphs: log loss, rather than squared loss, is critical for obtaining the favorable regret guarantees established here. Regret measures the accumulated cost of imperfect decisions relative to a comparator. Experiments on a bidding application with synthetic and real-world data also support the method’s effectiveness, connecting the theoretical treatment of unknown feedback to an applied decision setting."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "cc7b3441534c8f386bc34e4131a197c35807ca1051f07de12016e48df19a2291",
+    "tldr": "The paper develops contextual bandit algorithms that learn both losses and unknown feedback graphs, with log loss playing a critical theoretical role."
+  },
+  "icml-2024-efficient-denoising-diffusion-via-probabilistic-masking-89eed45a21": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Diffusion models generate samples through a sequence of denoising steps, making inference expensive when that sequence is long. EDDPM learns which timesteps to keep during training. This directly addresses the concern that handcrafted acceleration rules may remove useful steps along with redundant ones.",
+      "Each timestep receives a probabilistic mask representing whether it should be used. A reparameterization makes this binary choice amenable to continuous optimization, allowing the mask distribution and model weights to be learned together. A sparsity constraint encourages removal of unnecessary steps during training. As training completes, the random masks converge to a sparse, deterministic selection containing only a small number of retained steps.",
+      "Experiments report strong results across several domains, including high-quality time-series imputation with 20% of the steps and a FID of 4.89 with five steps on CIFAR-10. Starting from a pretrained model, the method identifies informative timesteps within one epoch. These findings support learning the sampling schedule alongside the model and suggest a practical route to studying large diffusion models when computational resources are limited."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "769cea0fba3845c0f8ed7c5e6dc77769cbbe607446ddd3edaed02c6086dcb83b",
+    "tldr": "EDDPM learns sparse timestep masks during training so diffusion models can generate samples with fewer denoising steps."
+  },
+  "icml-2024-fast-text-to-3d-aware-face-generation-and-manipulation-via-direct-cross-modal-mapping-an-f7f65df046": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Generating or editing a 3D-aware face from text requires matching a description while producing compatible views of the face. Existing approaches face difficulties with both speed and visual quality. E³-FaceNet addresses these issues with an end-to-end network that maps text instructions directly into a 3D-aware visual space.",
+      "Two components support that direct mapping. A Style Code Enhancer improves semantic alignment between text and the generated visual representation. A geometric regularization objective encourages consistency across images generated from multiple viewpoints. Together, these components address two distinct requirements: following the requested appearance and maintaining a coherent face as the viewpoint changes.",
+      "Experiments on three benchmark datasets report picture-like face generation and manipulation alongside inference speed improvements of orders of magnitude. In the stated comparison with Latent3D, generating five views is almost 470 times faster while achieving better generation quality. That result applies to the reported five-view comparison. More broadly, the findings support direct text-to-visual mapping combined with explicit semantic and geometric objectives as an effective approach to this task."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e91b098378dec36987168585e64e27c147782a5793b27d0f7e37c659edbc339b",
+    "tldr": "E³-FaceNet directly maps text to 3D-aware faces, using semantic enhancement and geometric regularization to improve quality and generation speed."
+  },
+  "icml-2024-feature-contamination-neural-networks-learn-uncorrelated-features-and-fail-to-generalize-0550eead61": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A model that performs well on its training distribution may fail when the data distribution changes. This paper investigates why learning a useful representation can remain difficult even when a good example is available. Empirically, explicitly training a student network to fit representations from a teacher that generalizes out of distribution does not suffice to make the student generalize.",
+      "The authors then analyze two-layer ReLU networks trained with stochastic gradient descent under a structured feature model. They identify feature contamination: a network can acquire uncorrelated features together with predictive ones. These extra features can contribute to failure when the distribution shifts, even though they are not the misleading correlations emphasized in common accounts of generalization failure.",
+      "The distinction matters because it identifies a different mechanism by which learned representations can become unreliable. The theoretical result is tied to the specified network, optimization method, and feature model, while the teacher-student finding is empirical. Together, they motivate closer attention to inductive biases—the tendencies of a learning system that influence which features it acquires—when studying robustness to distribution shifts."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "890100e32b9dbcec5a87d48e59313f13f8ae1fc38e1d7367da2606b752a86338",
+    "tldr": "The paper identifies feature contamination, where learning uncorrelated features alongside predictive ones can undermine generalization under distribution shifts."
+  },
+  "icml-2024-image-fusion-via-vision-language-model-e4e7dbbce1": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Image fusion combines useful information from multiple images into one composite. FILM introduces explicit textual descriptions into that process, extending approaches centered on pixels and visual recognition features. Its premise is that language can supply semantic context that helps determine how information from the source images should be combined.",
+      "The pipeline first produces semantic prompts from the images and sends them to ChatGPT to obtain fuller descriptions. It combines those descriptions in the textual domain, then uses the resulting semantic information to guide visual fusion through cross-attention. Text therefore participates in the fusion procedure itself, supporting feature extraction and contextual understanding as visual information is integrated.",
+      "The paper reports promising results for infrared-visible, medical, multi-exposure, and multi-focus fusion. It also introduces a vision-language dataset with ChatGPT-generated paragraph descriptions for eight image-fusion datasets spanning those four tasks. The contribution includes both a method for using language during fusion and a descriptive data resource that supports further research on this approach across several kinds of source imagery."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1bc5c2e3dc78c9eae96da9813b09a95d7c92eb7b190e447cb0239284bc6e1912",
+    "tldr": "FILM combines textual descriptions of source images and uses them to guide visual fusion through cross-attention."
+  },
+  "icml-2024-learning-and-forgetting-unsafe-examples-in-large-language-models-3d11d95ced": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Custom fine-tuning can expose an aligned language model to unsafe material mixed into third-party data. This paper studies examples involving bias, toxicity, and harmfulness. It finds that aligned models readily learn such content, but also tend to forget it more strongly than other examples when subsequently fine-tuned on safer material.",
+      "ForgetFilter turns that difference into a data-selection signal. It filters potentially unsafe training examples according to how strongly the model forgets them. The approach uses changes in learned behavior to identify problematic data, making the forgetting process useful for deciding which examples should participate in customized fine-tuning.",
+      "In the reported experiments, ForgetFilter preserves safety without sacrificing downstream task performance, whereas sequential safety fine-tuning does not achieve the same combination. It also outperforms replay and moral self-correction in limiting the acquisition of unsafe content. The reported toxicity score is 75% lower than with no safety measures and 62% lower than with self-correction. These findings support forgetting strength as a useful filtering signal in the studied customization settings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "776f0d7074d444e5fa921ad206a1fb86413cd5d770b504f79995011f6806182d",
+    "tldr": "ForgetFilter uses models’ stronger forgetting of unsafe examples to filter custom fine-tuning data while preserving downstream performance in the reported experiments."
+  },
+  "icml-2024-lightweight-image-super-resolution-via-flexible-meta-pruning-7284047312": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Lightweight image super-resolution models aim to improve image resolution with moderate computational complexity. Designing a small architecture can still leave redundant channels and weights inside it. Flexible Meta Pruning, or FMP, addresses both forms of redundancy together, extending compression beyond removing only whole channels.",
+      "FMP represents the pruning decisions with channel vectors and weight indicators. Channel vectors control the input and output channels of each layer, providing structured pruning. Weight indicators control the sparsity of individual kernel weights, providing unstructured pruning. Both are supplied to a hypernetwork whose parameters serve as metadata for the super-resolution backbone’s parameters, linking the pruning controls with the model being compressed.",
+      "During pruning, the method regularizes the sparsity of both kinds of controls and optimizes them using proximal gradient and stochastic gradient descent. Experiments examine factors affecting joint channel and weight pruning and report superior results when FMP is applied to baseline super-resolution architectures. The contribution is a flexible mechanism for combining two levels of compression within the same model, supported by the reported experimental comparisons."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1a913f3cd49cd7244b936d644f120a7d047ae2f3273662d9af5abe57658db146",
+    "tldr": "Flexible Meta Pruning compresses image super-resolution networks by jointly pruning whole channels and individual weights through hypernetwork-based controls."
+  },
+  "icml-2024-long-is-more-for-alignment-a-simple-but-tough-to-beat-baseline-for-instruction-fine-tuni-2a582fd711": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Instruction fine-tuning depends on choosing useful examples, but identifying high-quality data often involves manual curation or a separate model acting as a judge. This paper tests a much simpler rule: select the 1,000 instructions whose responses are longest. The authors’ intuition is that longer responses may contain more learnable information and be harder to overfit.",
+      "Across the stated Llama-2 and Mistral models and Alpaca and Evol-Instruct datasets, this selection rule consistently outperforms LIMA and AlpaGasus according to GPT-4 and PaLM-2 judges. It also remains competitive on Open LLM benchmarks assessing factual knowledge. These results establish response length as a strong empirical selection baseline in the tested settings.",
+      "A lightweight refinement of the selected instructions improves results further, yielding competitive MT-Bench performance and the reported second-highest AlpacaEval 2.0 ranking among Llama-2-7B-based models. Training uses only 1,000 examples and no additional preference data. The authors also analyze whether GPT-4’s preference for longer responses explains the gains, reporting evidence that it does not simply account for the improvement."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1d8940ed844793a11d6ffdd551875fd9cf44cc31dbadcd0bbb478cb69e447dea",
+    "tldr": "Selecting 1,000 training examples with the longest responses provides a strong instruction-fine-tuning baseline across the models and datasets studied."
+  },
+  "icml-2024-mlip-efficient-multi-perspective-language-image-pretraining-with-exhaustive-data-utiliza-b3acd010c0": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "CLIP learns image and text representations from paired examples, but this paper argues that a single contrastive training signal leaves useful information unused. It also identifies computational waste from retaining uninformative image tokens. MLIP addresses both problems by enriching the supervision available from each pair and compressing the image-token representation.",
+      "The method adds frequency-domain information to spatial image information. The authors use frequency transforms for their sensitivity to both high- and low-frequency variations, complementing the spatial sensitivity described in the paper. Token-level alignment adds finer-grained supervision. Together, these changes provide learning signals across multiple domains and levels, giving the model more ways to extract informative image features from each training pair.",
+      "For efficiency, MLIP merges tokens using semantic information from both frequency and spatial domains. It produces tokens at multiple granularities with a controllable compression rate, allowing the amount of compression to be adjusted. Extensive experiments support the design’s effectiveness. The overall contribution connects richer use of training examples with selective reduction of the tokens that the visual encoder must process."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "448be504f312bfdb10866ebdca7bdc8012c92b633b5fe82ca2ea484336bb018a",
+    "tldr": "MLIP enriches image-text supervision with frequency information and token alignment while merging tokens to accelerate CLIP."
+  },
+  "icml-2024-navigating-complexity-toward-lossless-graph-condensation-via-expanding-window-matching-a479477910": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Graph condensation creates a small synthetic graph intended to train graph neural networks as effectively as the original large dataset. The objective is to reduce training costs without sacrificing predictive performance. This paper investigates why existing methods sometimes fail to preserve enough information to achieve that goal.",
+      "The authors identify biased and restricted supervision in a previous trajectory-matching approach. Such methods use the training behavior of models on the original graph to guide construction of the condensed graph. If those training trajectories provide a narrow signal, they can limit both the size and effectiveness of the resulting condensed dataset. The proposed method first uses curriculum learning to obtain expert trajectories containing more diverse supervision.",
+      "It then transfers that information through expanding window matching and introduces a loss function to extract additional knowledge from the trajectories. Theoretical analysis supports the design, and experiments report improvements across datasets. The paper presents these results as progress toward lossless condensation: its contribution is a way to recover previously neglected supervision, rather than an assertion that every graph can now be condensed without performance loss."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3c3178f0c15239be331bffbc599fddbf3e8b6764ebba3057e3fb74b1a051c606",
+    "tldr": "The method improves graph condensation by creating more informative expert trajectories and transferring their supervision through expanding window matching."
+  },
+  "icml-2024-neural-jump-diffusion-temporal-point-processes-009d623b69": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Temporal point processes describe events occurring over time through an intensity that governs their occurrence. This paper reformulates that evolving intensity using stochastic differential equations. It first establishes equivalent formulations for several classical models, including Poisson, Hawkes, and self-correcting processes, creating a mathematical connection between familiar event models and this alternative representation.",
+      "The proposed Neural Jump-Diffusion Temporal Point Process builds on that connection. Its intensity follows an equation with drift, diffusion, and jump components, each parameterized by a neural network. These components allow the model to represent evolving intensity through continuous change, randomness, and jumps, without committing to a particular fixed functional form for those coefficient functions.",
+      "The paper provides theoretical guarantees for existence and uniqueness of the proposed equation’s solution. Experiments on synthetic and real-world datasets show that the framework captures intensity dynamics across different scenarios and significantly outperforms state-of-the-art temporal point process models on the evaluated prediction tasks. The contribution combines flexible neural parameterization with a mathematically grounded description of how event intensity evolves."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1ffe266fe2a0dc9f53de8917976f2e94a56ba1709e67bf7da42adbc17f3f3e2c",
+    "tldr": "NJDTPP models event intensity with a neural jump-diffusion equation, combining flexible dynamics with existence and uniqueness guarantees."
+  },
+  "icml-2024-offline-training-of-language-model-agents-with-functions-as-learnable-weights-03236e1507": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Language-model agents often solve tasks by calling specialized functions. This paper treats those functions as the part of the agent that can be trained, while keeping the underlying language-model weights fixed. That is particularly useful when modifying the model is difficult or its weights are inaccessible.",
+      "AgentOptimizer uses a language model to progressively update an agent’s functions for downstream tasks. The functions act as learnable agent parameters: improvement comes through changing the tools available to the agent. The training algorithm includes rollback and early stopping to streamline the process, providing mechanisms for reversing changes and ending training as the function set develops.",
+      "Extensive experiments show that this training paradigm can significantly improve representative language-model agents across various downstream tasks. The authors also investigate learning curves and transfer between domains. The findings broaden what training an agent can mean: adapting the functions through which it acts can improve task performance even when the language model itself remains fixed. This makes tool development a central component of the learning procedure."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5f2f1e98eebef41d4684febe49c742aa287d27887642df2809d6c3ff2172368a",
+    "tldr": "AgentOptimizer improves language-model agents by learning better functions while leaving the underlying language-model weights unchanged."
+  },
+  "icml-2024-on-the-expressive-power-of-spectral-invariant-graph-neural-networks-412454230a": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Spectral information can enrich a graph neural network, but eigenvectors have ambiguities that architectures must handle consistently. Spectral invariant models address those ambiguities through features such as spectral distances or projection matrices. This paper studies their expressive power: which graph structures these models can theoretically distinguish.",
+      "The authors introduce Eigenspace Projection GNN, or EPNN, as a message-passing framework for spectral invariant models. Their analysis places prior spectral invariant architectures within a common hierarchy: those architectures are either equivalent to EPNN in expressiveness or strictly weaker. This gives a unified comparison of designs that otherwise use different forms of spectral information.",
+      "The analysis also establishes an upper boundary. EPNN is bounded by a class of subgraph GNNs, and the spectral invariant architectures considered are strictly less expressive than the 3-WL graph-distinguishing procedure. The authors further show that these spectral features add no expressive advantage when combined with more expressive GNNs. These are conclusions about theoretical distinguishing power, clarifying what spectral information contributes within the architecture classes analyzed."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5abcb67b1beea58952ac54b6897b30094fb62058abdce9679e59d59853464362",
+    "tldr": "EPNN unifies the expressiveness of prior spectral invariant graph networks and establishes that these architectures remain weaker than 3-WL."
+  },
+  "icml-2024-parden-can-you-repeat-that-defending-against-jailbreaks-via-repetition-5fc640d4f6": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Safety-aligned language models can still produce undesirable outputs after jailbreak attempts. One possible safeguard is to ask the model to assess its own content, but direct toxicity classification can work poorly. The authors hypothesize that this reflects a mismatch: alignment trains models to refuse unsafe generation, while classification asks them to express safety judgments in a different format.",
+      "PARDEN instead asks the model to repeat its own outputs. This keeps the safeguard closer to the generation behavior shaped by alignment. The method requires neither fine-tuning nor access to the model’s internal workings, making repetition the central operation through which the safeguard uses the model’s existing behavior.",
+      "Experiments on Llama-2 and Claude-2 report substantially better jailbreak detection than existing baselines, especially when detecting many harmful cases while rarely flagging benign ones. For Llama2-7B on the harmful behaviours dataset, a 90% true-positive rate accompanies a false-positive reduction from 24.8% to 2.0%. The empirical improvement supports the repetition approach; the domain-shift explanation is presented as the motivating hypothesis."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7902dae0b07d535baf2fda075b00fa1d18bdf9174807b6f5f5bc8d6f9ea74d39",
+    "tldr": "PARDEN detects jailbreak outputs by asking a model to repeat them, improving reported detection without fine-tuning or internal model access."
+  },
+  "icml-2024-position-measure-dataset-diversity-dont-just-claim-it-c5355c8e5b": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Calling a dataset diverse can sound like a straightforward description, but the term carries assumptions about what differences matter and how they should be represented. This position paper argues that dataset descriptions often use diversity, bias, and quality without clearly defining or validating those concepts. Such labels embed social judgments even when datasets are presented as neutral.",
+      "The authors examine how diversity is treated across 135 image and text datasets. Drawing on social-science measurement theory, they develop considerations and recommendations for three connected activities: defining the concept, turning that definition into something measurable, and evaluating whether the measurement captures the intended property. Each step makes the meaning of a diversity claim more explicit.",
+      "The paper’s contribution is guidance for reasoning carefully about dataset properties whose meanings are abstract and disputed. Its implications extend beyond the word diversity to other value-laden descriptions used in machine learning. The proposed direction is to support dataset claims with precise concepts and defensible measurement, making construction choices and their underlying assumptions easier to examine."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e22604f173c29deda3ebda3ee9513fd40ef6f87f81ba07d59e8b777b93876d78",
+    "tldr": "An analysis of 135 datasets motivates clearer definitions, measurements, and validation for claims about dataset diversity."
+  },
+  "icml-2024-position-social-environment-design-should-be-further-developed-for-ai-based-policy-makin-faab32c35c": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This position paper proposes Social Environment Design as a framework and research agenda for AI-based government and economic policymaking. Its starting point is the possibility that AI could help analyze and improve policy. The framework aims to organize that possibility into a systematic program of research spanning economic environments, policy objectives, and simulation.",
+      "A distinctive element is the inclusion of voting on policy objectives. This makes the selection of objectives part of the framework itself, alongside the analysis of policies intended to pursue them. The proposal connects reinforcement learning, economics and computer science, and computational social choice, bringing together research concerned with learning decisions, economic interaction, and collective choice.",
+      "The paper identifies open problems that need further development and presents AI simulation as a direction for systematic policy analysis. Its intended outcomes include advancing social welfare and supporting more ethical and responsible decisions. These are goals of the proposed research agenda. The contribution is the organizing framework and articulation of challenges, rather than a demonstrated policy intervention or an established guarantee of improved welfare."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b92295ee78b7e5b2c88dda855a5f23ee5e2827d890af5aa11344fcd7f646d271",
+    "tldr": "Social Environment Design proposes a research framework linking AI policy simulation, economic environments, and voting on policy objectives."
+  },
+  "icml-2024-probabilistic-inference-in-language-models-via-twisted-sequential-monte-carlo-fc0e0d5c59": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Many language-model tasks can be described as sampling complete sequences according to a reward or potential function. The difficulty is that a partial sequence may not yet reveal how well its eventual completion will satisfy that objective. This paper applies Sequential Monte Carlo to guide generation toward the desired sequence distribution.",
+      "Learned twist functions estimate the expected future potential of each partial sequence. These estimates direct inference-time computation toward promising continuations. The authors introduce a contrastive method for learning the twists and connect the approach to soft reinforcement learning, relating probabilistic sequence inference to a framework for reward-guided decision-making.",
+      "The paper also develops tools for evaluating how accurately an inference method samples its intended distribution. Bidirectional bounds on the log partition function enable estimation of KL divergence in both directions between the inference and target distributions. Applications demonstrate effective sampling of undesirable outputs for safety research, generation of reviews with varied sentiment, and text infilling. The contribution therefore combines a generation procedure with methods for assessing whether its output distribution matches its objective."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2796ef744f4c0ff1781139d97675f6ff30d9592cb9b14c3c940dd59867e214b1",
+    "tldr": "Twisted Sequential Monte Carlo uses learned future-value estimates to guide language-model sampling and provides bounds for evaluating distributional accuracy."
+  },
+  "icml-2024-quantum-algorithms-and-lower-bounds-for-finite-sum-optimization-32a6070c73": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Finite-sum optimization minimizes an average of many component functions together with an additional term. This structure appears in problems such as regression and support vector machines. The paper studies quantum algorithms for this setting, beginning with smooth convex components and a strongly convex proximal term, and asks how much computation is needed to reach a specified accuracy.",
+      "The proposed quantum complexity bound depends on the number of components, the dimension, and the ratio of smoothness to strong convexity. It improves on the tight classical bound in relevant parameter regimes. The authors also prove a quantum lower bound when the dimension is sufficiently large, establishing a limit on possible quantum improvements without claiming that their upper and lower bounds coincide.",
+      "Both types of bound extend to settings without strong convexity of the proximal term and to Lipschitz components that need not be smooth. The paper also treats nonconvex objectives, giving a query bound for finding an approximately critical point. That final guarantee concerns approximate stationarity, so its target differs from the approximately optimal solution sought in the convex setting."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d2e0298f4d9ce3d5aa3e9d3ace2885fb6bacfd4f24bd0a17a734552818fe6942",
+    "tldr": "The paper establishes quantum algorithms and lower bounds for finite-sum optimization, with extensions beyond smooth, strongly convex settings."
+  },
+  "icml-2024-the-emergence-of-reproducibility-and-consistency-in-diffusion-models-05d90e10a8": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Different diffusion models often produce remarkably similar outputs when given the same initial noise and a deterministic sampler. This paper investigates that phenomenon experimentally under the name consistent model reproducibility. The comparison concerns agreement across models, extending the idea of reproducibility beyond rerunning a single fixed model.",
+      "The experiments suggest that different frameworks, architectures, and training procedures can lead models toward the same data distribution and score function. Further investigation points to training-data size as an influence on which distribution is learned. The authors distinguish a memorization regime, in which models overfit the training-data distribution, from a generalization regime, in which they learn the underlying data distribution.",
+      "The study also observes the reproducibility property in variants used for conditional generation and inverse problems. These findings suggest that shared generation behavior is a broader empirical pattern across diffusion approaches. The same-noise and deterministic-sampling conditions are central to the observation, while the distinction between memorization and generalization clarifies that similar outputs across models need to be interpreted alongside the distribution those models have learned."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8cebdb0fb2aad5d5b016e1bf6c6ad4fce94de88473ad75aec82d6d0bbbe6896e",
+    "tldr": "Experiments find that different diffusion models often generate similar outputs from identical noise, with training-data size influencing memorization and generalization regimes."
+  },
+  "icml-2024-transferable-facial-privacy-protection-against-blind-face-restoration-via-domain-consist-59a0cdd078": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Obscuring a face through methods such as pixelation may leave information that restoration models can recover. The paper empirically finds that blind face restoration models can restore obfuscated faces with high probability after retraining on such images. This raises a privacy concern involving information visible to people, beyond protection against automated face recognition.",
+      "The proposed defense generates adversarially obfuscated images that transfer across restoration models. It builds on a shared characteristic of those models: they approximate the inverse of a transformation from high-quality images to low-quality images. The method uses that common domain relationship to shape adversarial obfuscation, with the aim of reducing dependence on the particular surrogate model used to generate perturbations.",
+      "Reducing surrogate overfitting is intended to make the obfuscation effective against other restoration models as well. Extensive experiments across multiple blind face restoration models support both effectiveness and transferability. The contribution addresses the specific risk that restoration can undermine conventional obfuscation, and demonstrates a defense based on shared restoration behavior across the tested models rather than solely on one model’s response."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7552c9b9b3430f417b8f0a533a779abd0bc5a58e0e4f9c42c94cc58fb73fbc20",
+    "tldr": "The paper develops adversarial face obfuscation that transfers across restoration models by targeting their shared mapping between image-quality domains."
+  },
+  "icml-2024-uncertainty-aware-reward-free-exploration-with-general-function-approximation-cf1e6d688f": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Reward-free reinforcement learning explores an environment without relying on task-specific external rewards during exploration. The resulting experience can support learning for multiple tasks. This paper argues that existing approaches often overlook differences in uncertainty among collected samples, reducing how efficiently they use experience.",
+      "GFA-RFE addresses uncertainty in two places. An uncertainty-aware intrinsic reward guides exploration, while an uncertainty-weighted learning process handles samples with different uncertainty levels. This connects the choice of what experience to collect with the treatment of that experience during learning. The approach uses a general value-function class, allowing the theoretical analysis to express complexity through properties of that class.",
+      "The stated episode bound scales with the square of the horizon, the logarithm of the function class’s covering number, and its generalized eluder dimension, divided by the square of the target error, up to suppressed logarithmic factors. The authors report an improvement over existing reward-free bounds. Across DeepMind Control Suite domains and tasks, GFA-RFE outperforms or matches state-of-the-art unsupervised reinforcement-learning methods, supporting the practical value of accounting for heterogeneous uncertainty."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "07c8d887dbb4bc856abdd592c167e2294a82ed46db5a4756dfd8d742c5336233",
+    "tldr": "GFA-RFE uses uncertainty to guide exploration and weight learning, improving the stated sample-complexity bound and achieving competitive empirical performance."
+  },
+  "icml-2024-videoprism-a-foundational-visual-encoder-for-video-understanding-a353bcbd67": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "VideoPrism is a general-purpose video encoder designed to support many video-understanding tasks while keeping the encoder frozen. The aim is to learn a reusable visual representation during pretraining that remains useful across different downstream applications. Its training data combines 36 million high-quality video-caption pairs with 582 million video clips accompanied by noisier text, including speech transcripts.",
+      "The pretraining method builds on masked autoencoding and adds global-local distillation of semantic video embeddings together with token shuffling. These components allow the training process to use associated text while keeping its primary focus on the video modality. The heterogeneous corpus supplies both carefully paired descriptions and a much larger collection with imperfect textual context.",
+      "Evaluation spans four broad task groups, including web video question answering and computer vision for science. The paper reports state-of-the-art performance on 31 of 33 benchmarks using a single frozen encoder. This breadth supports the claim that the learned video representation transfers across diverse tasks, and the results connect that versatility with a pretraining strategy designed to make use of differently structured video-text data."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6634fc1fa51160280d1354b3ce81f20222da7d197c833baab0943dd3a74a852a",
+    "tldr": "VideoPrism learns a reusable video representation from large, heterogeneous video-text data and achieves state-of-the-art results on 31 of 33 benchmarks."
+  }
+}

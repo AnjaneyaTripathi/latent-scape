@@ -1,0 +1,327 @@
+{
+  "neurips-2020-a-loss-function-for-generative-neural-networks-based-on-watsons-perceptual-model-b4137a9380": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Training an image generator requires a way to measure how closely its output resembles a target image. For variational autoencoders, the paper argues that this measurement should reflect human visual perception. It develops a training loss from Watson’s perceptual model, which compares images through weighted differences in frequency space and accounts for how luminance and contrast can mask visible differences.",
+      "The authors adapt this perceptual model for neural network training in several ways. They extend it to color images, use the Fourier transform to improve robustness to translation, eliminate artifacts associated with dividing images into blocks, and make the calculation differentiable. These changes let the perceptual comparison directly guide updates to the generator.",
+      "In the reported experiments, variational autoencoders trained with this loss produced realistic, high-quality samples. Their images were less blurry than those obtained with Euclidean distance or the Structural Similarity Index. Compared with losses based on deep neural networks, the approach used fewer computational resources and produced fewer artifacts, supporting its usefulness as a perceptually motivated training objective."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b8ed6ff064fb71c2e99f785598cb941f98ea8e96a269569b6315dfa408f1a254",
+    "tldr": "An adapted Watson perceptual loss improves generated image quality while reducing computation relative to deep-network-based losses in the reported experiments."
+  },
+  "neurips-2020-adversarial-robustness-of-supervised-sparse-coding-1f152c7e08": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper studies adversarial robustness in a classifier that learns its own representation while remaining amenable to mathematical analysis. Its model combines an encoder that promotes sparse representations with a linear classifier. This choice addresses a tension in robustness research: very simple models can support precise theory, but may miss important features of systems that learn representations from data.",
+      "The analysis connects three properties: how expressive the learned representation is, how stable it remains under input changes, and the classification margin in feature space. Under a mild encoder-gap condition on training data, the authors bound robust risk for perturbations whose size is limited in the Euclidean norm. The resulting guarantee therefore depends on properties of the learned encoder and its dictionary.",
+      "The authors also derive a certificate for the complete classification pipeline, covering the representation and final decision together. They compute certified accuracy on real data and compare with other certification approaches. This demonstrates that the theoretical framework can produce concrete robustness assessments for learned sparse representations."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f60b4375c1ffe11361b27146aaff5b6376680423ad2d66ec563978f0dc076042",
+    "tldr": "The paper derives robust-risk bounds and classification certificates for sparse learned representations coupled with linear classifiers."
+  },
+  "neurips-2020-biologically-inspired-mechanisms-for-adversarial-robustness-15c8d2850d": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Small adversarial changes to an image can challenge neural network perception. The paper investigates whether two mechanisms inspired by primate vision can improve resistance to these changes. Its motivation is the apparent stability of primate visual perception under small stimulus perturbations, while recognizing that the biological mechanisms responsible for that stability remain incompletely understood.",
+      "The first mechanism is nonuniform sampling, inspired by how the retina samples visual information unevenly. The second supplies multiple receptive fields of different sizes at each eccentricity, or position relative to the center of vision. Together, these mechanisms change how visual information is sampled and how much surrounding context is available at a location.",
+      "The authors demonstrate improved robustness to small adversarial perturbations and use ablation studies to examine the contribution of each mechanism. They also verify that the improvements do not arise from gradient obfuscation, which could make gradient-based attacks misleadingly ineffective. The findings support these particular biological design ideas as useful contributors to robustness, without establishing a complete explanation of robust primate vision."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2189c395a7c7247dca7c8a1b9ad8222a428ff1402bb54dedf08cc2c7b5ff4b13",
+    "tldr": "Retina-inspired sampling and multiple receptive-field sizes improve neural-network robustness to small adversarial perturbations in the reported studies."
+  },
+  "neurips-2020-cooperative-multi-player-bandit-optimization-6e2b29128c": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper considers a team whose members choose actions separately, while each member’s reward depends on everyone’s actions. The team wants to maximize its total reward, but a player cannot directly observe other players’ actions or rewards. Information must travel through neighboring players, creating a bias toward helping nearby participants whose outcomes are better known.",
+      "The proposed distributed algorithm corrects this informational imbalance. Its analysis assumes twice continuously differentiable reward functions and convex, compact action sets. Communication follows a randomly changing graph governed by an ergodic Markov chain. Players can act using only the small random subset of rewards currently available to them, rather than requiring complete team information at every turn.",
+      "Under these conditions, the algorithm converges with probability one to the stationary points associated with projected gradient ascent on total reward. If total reward is also concave, convergence is to an optimal joint action profile. Concavity is therefore important to the stronger conclusion: the general result establishes stationarity, while the additional condition yields team optimality."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c32611f03ffaeefd353e236fe1a3a455a80578cc4268f256c971c557c189c7e2",
+    "tldr": "A distributed bandit algorithm corrects local information bias and converges to stationary team solutions, with optimality when total reward is concave."
+  },
+  "neurips-2020-differentiable-meta-learning-of-bandit-policies-2fb22ef9f7": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A useful exploration strategy can depend on which bandit problems an agent typically encounters. This paper learns policies that maximize average reward across problem instances drawn from an unknown distribution. Instead of specifying that distribution in a restrictive mathematical form, the approach uses sampled instances to learn exploration behavior suited to its structure.",
+      "The authors make policies differentiable and optimize them with policy gradients. This turns the design of exploration behavior into a meta-learning problem: training happens across bandit instances, while the learned policy acts within an instance. They derive gradient estimators and introduce variance-reduction techniques to make this optimization more effective.",
+      "The study covers several policy classes, including neural networks and a new softmax policy. The softmax policy has regret guarantees and provides a starting point for optimization; those guarantees are specific to that policy rather than automatically applying to every learned class. Experiments demonstrate versatility, and neural policies learn implicit biases conveyed only through the sampled problems. The results show how recurring problem structure can inform exploration without being explicitly encoded by the designer."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "66888978a17e81a5bba8d41e1043a17fb0947747fd4436c116cc81c46ea6f97d",
+    "tldr": "Differentiable meta-learning trains bandit exploration policies to exploit structure in sampled problems from an unknown distribution."
+  },
+  "neurips-2020-dynamic-fusion-of-eye-movement-data-and-verbal-narrations-in-knowledge-rich-domains-8efdfbf472": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Experts reveal aspects of their reasoning through both where they look and what they say. This paper jointly analyzes eye movements and verbal narration to discover interpretable patterns in complex decisions. The aim is to make expert knowledge usable within statistical models that support collaborative decision-making between people and machines.",
+      "The proposed dynamic Bayesian nonparametric model organizes hidden knowledge patterns into phases of a decision process. Each phase has its own distribution of topics in the spoken narration, together with changing relationships between those topics and eye movements. This organization links verbal content to perceptual behavior within a particular stage, rather than treating all observations as interchangeable evidence.",
+      "To fit the model, the authors develop a split-merge-switch sampler that explores possible posterior configurations with improved mixing. Case studies address diagnostic error prediction and disease morphology categorization, demonstrating the usefulness of the model and its discovered patterns. The contribution is both an analysis method for expert behavior and a way to connect that behavior to downstream predictive tasks."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e232b8815015b400143e0c0a2942cfdf41e3d9ff1c42c1220afcf363ea71a87e",
+    "tldr": "A dynamic Bayesian model combines expert gaze and narration to identify interpretable phases and knowledge patterns in decision-making."
+  },
+  "neurips-2020-fourier-transform-based-attribution-priors-improve-the-interpretability-and-stability-of-9bc952080a": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Genomic prediction models can assign importance scores to individual DNA bases, helping identify sequence patterns associated with molecular activity. However, accurate predictions do not necessarily produce clear explanations. Overfitting and sensitivity to random initialization can make these importance scores noisy or inconsistent, obscuring the biological motifs researchers want to understand.",
+      "The paper introduces a training prior that acts directly on input attribution scores. During training, it computes their Fourier transform and penalizes high-frequency components. This discourages rapidly fluctuating attribution patterns as part of learning the predictor, rather than relying solely on cleaning up explanations after training. The approach does not depend on a particular model architecture or experimental assay.",
+      "Across the evaluated architectures and prediction tasks, the prior improves stability, interpretability, and performance on held-out data, especially with severely limited training data. It also improves the sensitivity and precision of identifying biologically meaningful motifs within individual regulatory elements. Similar gains across the experiments suggest that shaping explanations during training can improve both their reliability and the underlying model’s predictive performance."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "50bf3c5e4b18dcb1ea1a1f0542f5fb2cac72185e203f3755c437c3960b2106d3",
+    "tldr": "Penalizing high-frequency attribution patterns during training improves genomic models’ explanations, stability, and held-out performance in the reported experiments."
+  },
+  "neurips-2020-just-pick-a-sign-optimizing-deep-multitask-models-with-gradient-sign-dropout-6f896aaec1": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Many neural networks train shared weights using several loss terms. Each term supplies a gradient signal, and these signals can push the shared model in conflicting directions. The paper focuses on this conflict as an obstacle to effective training, particularly when multiple tasks or objectives must be learned together.",
+      "Gradient Sign Dropout, or GradDrop, addresses the problem through probabilistic masking. At an activation layer, it samples gradient signals according to their consistency. This makes agreement between update directions part of how training information is selected. The method is implemented as a simple layer that can be used in deep networks and combined with other approaches for balancing gradients.",
+      "The authors report that GradDrop outperforms the compared state-of-the-art multiloss methods in traditional multitask and transfer-learning settings. They also use the method to examine connections between effective multiloss optimization and randomness in gradient updates. The contribution therefore combines a practical training component with a perspective on why carefully structured stochasticity can help when shared parameters receive competing learning signals."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f4fdaa48c8b1d1373203a23e3cd2f4509a39aa4493cb55519d9871df9b9530f7",
+    "tldr": "GradDrop probabilistically masks conflicting gradient signals and improves multiloss training in the reported multitask and transfer-learning evaluations."
+  },
+  "neurips-2020-learning-affordance-landscapes-for-interaction-exploration-in-3d-environments-93bbf60856": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "An agent entering an unfamiliar home needs to discover what it can do with the objects around it. The paper treats this as exploration for interaction: learning which parts of a new three-dimensional environment support particular actions. Its agent receives an egocentric RGB-D view and operates through a high-level action space.",
+      "Two learning processes develop together. A reinforcement-learning policy is rewarded for successful interactions, while an image-based affordance model learns to associate image regions with the likelihood that each action will work there. The policy helps gather interaction experience, and the affordance predictions provide denser rewards for further exploration. Exploration thus builds both practical behavior and a visual account of usable objects and regions.",
+      "Experiments in AI2-iTHOR show that agents can learn how to interact intelligently with new home environments. This preparation helps them quickly address later tasks involving finding and placing objects. The stated benefit is that exploratory experience becomes useful groundwork for downstream interaction goals, connecting discovery of an environment’s possibilities with subsequent task execution."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b0e82b44a2c5a2c3e2c94cf2037ad2108e328b1477ab1733b80c94a5db3febf0",
+    "tldr": "An agent jointly learns exploratory behavior and visual action possibilities, preparing it to perform later tasks in unfamiliar home environments."
+  },
+  "neurips-2020-marginal-utility-for-planning-in-continuous-or-large-discrete-action-spaces-e033c105d5": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A sample-based planner evaluates candidate actions using a model of its environment. When actions are continuous or extremely numerous, deciding which candidates to consider becomes crucial. Exhaustive generation is difficult, while hand-designed rules and learned stochastic policies offer different ways to focus the planner’s search.",
+      "This paper trains the candidate generator using marginal utility: the improvement in action value relative to actions already generated. The objective makes a candidate’s usefulness depend on the alternatives already available to the planner. It therefore targets the value of adding an option to a planning process, giving the generator an objective directly connected to the quality of the candidate collection.",
+      "The authors evaluate the approach in curling, which has continuous states and actions and stochastic outcomes, and in a location game with a large discrete action space. In these evaluations, marginal-utility training outperforms domain-informed hand-coded generators, trained stochastic policies, and other natural generation objectives. These findings support explicitly learning how to contribute useful additional choices to a planner’s search."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1d3ef0f091f59d9508367ebde02d779f1ad3752716b9d6e9da431271581fe5cb",
+    "tldr": "Training action generators for marginal improvement over existing candidates improves sample-based planning in two challenging action-space settings."
+  },
+  "neurips-2020-minimax-lower-bounds-for-transfer-learning-with-linear-and-one-hidden-layer-neural-netwo-01dee71900": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Transfer learning uses experience from a well-labeled source task to help learn a related target task with fewer labels. The paper asks a fundamental statistical question: how much can any learning procedure benefit from that source information? It studies regression with linear models and neural networks containing one hidden layer.",
+      "The authors develop a minimax framework and derive a lower bound on achievable target generalization error. A minimax lower bound describes an unavoidable difficulty across the problems covered by the framework, rather than the performance of one chosen training algorithm. Here, the bound depends on the numbers of labeled source and target examples and on appropriate measures of similarity between the tasks.",
+      "This formulation places data availability and task relatedness in the same analysis. It helps characterize the benefits and limits of transfer through quantities that distinguish one learning problem from another. Experiments corroborate the theoretical finding. The contribution is a statement about fundamental statistical constraints, providing a reference for understanding what transfer-learning procedures can hope to achieve within the studied model classes."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b2175373b0b853cab0bf08fe552cd7911a7a50ec069b73f350dfcec60ee14508",
+    "tldr": "Minimax lower bounds relate transfer learning’s achievable target error to source data, target data, and task similarity."
+  },
+  "neurips-2020-momentumrnn-integrating-momentum-into-recurrent-neural-networks-8787c9be24": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Designing recurrent neural networks often involves searching through many possible architectures. This paper develops a more structured route by connecting the evolution of an RNN’s hidden state to gradient descent. It then incorporates momentum into that interpretation, producing a family of recurrent architectures called MomentumRNNs.",
+      "The key change concerns the recurrent cell’s internal dynamics. Momentum becomes part of how the hidden state evolves, making optimization ideas a guide for architecture design. The authors prove theoretically and demonstrate numerically that the resulting networks alleviate vanishing gradients, the weakening of training signals as they propagate through recurrent computation.",
+      "A momentum-based LSTM variant improves convergence speed and accuracy over its LSTM counterpart across the evaluated benchmarks. The framework also applies to other recurrent cells, including orthogonal RNNs. Finally, the authors incorporate ideas from Adam and restarted Nesterov acceleration to design further cells with better reported performance. Together, these results support using established optimization mechanisms as reusable building blocks for recurrent architectures."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7e7d1045103426124762a7b09bf6326c7e9bbd80f7dd1233bb90c79ced6cd4ea",
+    "tldr": "MomentumRNN incorporates momentum into recurrent hidden-state dynamics, alleviating vanishing gradients and improving performance in the reported evaluations."
+  },
+  "neurips-2020-near-optimal-reinforcement-learning-with-self-play-6d10fb0eb8": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper studies how efficiently an agent can learn through self-play in two-player zero-sum games. The setting is a tabular episodic Markov game, and the goal is to find an approximate Nash equilibrium without direct supervision. A central issue is how the required amount of game experience grows with the numbers of states and available actions.",
+      "Writing these counts as S states, A maximizing-player actions, and B minimizing-player actions, the authors improve the highlighted dependence from roughly S²AB to SAB using an optimistic Nash Q-learning variant. Their new Nash V-learning algorithm improves it further to S(A+B), with logarithmic factors suppressed. This replaces a product of the players’ action counts with their sum.",
+      "The Nash V-learning result matches the information-theoretic lower bound in the problem-dependent parameters except for a polynomial factor in episode length. The paper also establishes computational hardness for learning a best response to a fixed opponent. That is a distinct learning objective, so the hardness result addresses a different question from the near-optimal self-play guarantee."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1e7d0967c0efdee5efd7e3633376964a1aa56bfcdb07c08e24382179d2402766",
+    "tldr": "New self-play algorithms approach optimal sample complexity for finding approximate Nash equilibria in tabular episodic zero-sum Markov games."
+  },
+  "neurips-2020-network-diffusions-via-neural-mean-field-dynamics-1d7d0326de": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper studies diffusion on networks, including how node infection probabilities evolve and how the underlying network can be inferred from observed cascades. It develops a neural learning framework whose structure comes from mathematical diffusion dynamics. This gives the recurrent model an interpretable relationship to the process it is intended to describe.",
+      "Using the Mori-Zwanzig formalism, the authors derive an exact evolution equation for node infection probabilities. That equation includes a memory integral, so past behavior contributes to present evolution. Learnable convolutions over time approximate this memory term, yielding a structured recurrent neural network. The distinction matters: the governing derivation is exact, while the learned memory representation is an approximation.",
+      "From cascade data, the framework jointly learns network structure and infection-probability dynamics, information useful for applications such as influence maximization. The authors also connect parameter learning with optimal control. Experiments on synthetic and real-world data report improved accuracy and efficiency over existing approaches, along with versatility across variations in the underlying diffusion model."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2befa9d0786b3b93c85566ba705ca18382cfbeaa7632e226b2f1035b9f642d08",
+    "tldr": "A recurrent model derived from diffusion equations learns network structure and infection dynamics by approximating their memory dependence."
+  },
+  "neurips-2020-on-the-equivalence-of-molecular-graph-convolution-and-molecular-wave-function-with-poor--8bda695b79": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper connects molecular graph convolution with the linear combination of atomic orbitals, an approximation used to describe molecular wave functions. Through this connection, the authors argue that molecular graph convolutional networks introduce unnecessary depth and nonlinearity. They also find that these networks use a poorer basis-function set than standard theoretical or quantum-chemical calculations.",
+      "These observations motivate the quantum deep field model, grounded in density functional theory. Its molecular representation can be understood as a single linear graph-convolution layer. Two ordinary feedforward networks then learn an energy functional and a Hohenberg–Kohn map, placing nonlinear modeling in components associated with nonlinear relationships in the underlying physics.",
+      "For molecular energy prediction, the authors train on small molecules and test on larger ones, reporting strong extrapolation performance. This evaluates behavior beyond the training molecules’ size range. They advocate such extrapolation tests when assessing physics-based machine learning, proposing that this emphasis could support practical applications such as large-scale materials screening. That application is a motivation for the evaluation strategy, rather than a reported screening outcome."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "51e0603ce05d9e0b4d04b356b5606f589b66bdcb8e69bd58299e442943c5bd32",
+    "tldr": "A connection between molecular graph convolution and atomic orbitals motivates a physics-based model that extrapolates from smaller to larger molecules."
+  },
+  "neurips-2020-optimizing-neural-networks-via-koopman-operator-theory-403e8166f6": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Neural network training produces a sequence of changing weights and biases, which can be viewed as a dynamical system. This paper explores whether Koopman operator theory can exploit that viewpoint to accelerate training. The attraction is that Koopman theory offers a linear framework for describing nonlinear dynamics, while deep-network optimization is inherently nonconvex.",
+      "The authors apply Koopman-based methods to predict the evolution of weights and biases in fully connected feedforward deep networks. They show that these predictions remain accurate over a nontrivial interval of training. This makes the training trajectory itself an object of prediction, creating an opportunity to advance network parameters efficiently during that interval.",
+      "Within the demonstrated prediction window, the approach is more than ten times faster than several gradient-descent-based methods, including Adam, Adadelta, and Adagrad, consistent with the authors’ complexity analysis. The scope of that result matters: it concerns the window where parameter evolution is accurately predicted. The paper presents this as an initial step and discusses open questions and possible extensions of the approach."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a4e269550169f0ee4a790596c30026d1aaaab7b37ce30c057cca0fa641521a6b",
+    "tldr": "Koopman-based predictions advance neural-network parameters accurately over a training window, with more than tenfold speedups reported within that window."
+  },
+  "neurips-2020-projected-stein-variational-gradient-descent-40c7a47bea": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Bayesian inference becomes difficult when the unknown parameter vector has many dimensions. This paper exploits a feature of the ill-posed problems it considers: although the parameter space is large, the data primarily inform a much smaller subspace. Its projected Stein variational gradient descent method focuses computation on that lower-dimensional structure.",
+      "The method adaptively constructs the relevant subspace using a matrix formed from gradients of the log-likelihood. It then applies the projected inference procedure to the coefficients describing parameters within that subspace. The dimension reduction is therefore guided by how the likelihood responds to parameter changes, connecting the computational simplification to information supplied by the observations.",
+      "Experiments ranging from hundreds to tens of thousands of parameters show greater accuracy and efficiency than standard SVGD. They also demonstrate better scalability as parameter counts, sample counts, data quantities, and processor-core counts change. The findings support concentrating inference on data-informed directions when the problem has the intrinsic low-dimensional structure on which the method relies."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5f5b2935bcfee80a103e31c7698eb9e4d7ace84d926ab3bbd7418de0fe129d30",
+    "tldr": "Projected SVGD exploits a low-dimensional data-informed subspace to improve Bayesian inference accuracy, efficiency, and scalability in the reported experiments."
+  },
+  "neurips-2020-scalable-multi-agent-reinforcement-learning-for-networked-systems-with-average-reward-8c7846d977": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Multi-agent reinforcement learning can become computationally overwhelming because joint state and action spaces grow exponentially with the number of agents. This paper identifies a class of networked problems where local dependence makes a more scalable solution possible. The objective is to optimize average reward using policies that rely on localized information.",
+      "The central property is exponential decay of influence with graph distance. Agents farther apart in the network have progressively weaker effects on one another. The authors identify and exploit this structure so that learning can concentrate on local neighborhoods while still supporting a near-optimal localized policy for the studied problem class.",
+      "Their Scalable Actor-Critic method has complexity governed by neighborhood state-action spaces instead of the full network’s joint space. This changes which part of the system determines the computational burden. The result is conditional on the local dependence and decay properties established in the paper: those properties supply the justification for replacing network-wide reasoning with localized learning when optimizing the average-reward objective."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e65eb06fb7974f07588e5e70bbb0550871760dcd77d5ff6415fa9ad58fdc412e",
+    "tldr": "Exponential decay of influence enables a localized actor-critic method with neighborhood-based complexity for a class of networked multi-agent problems."
+  },
+  "neurips-2020-se-3-transformers-3d-roto-translation-equivariant-attention-networks-0c57201fd3": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A three-dimensional point cloud can be rotated or translated without changing the underlying object or system. The SE(3)-Transformer builds these transformations into a self-attention architecture. Its equivariance guarantee means that transforming the input produces the corresponding transformation in the model’s output, giving a predictable relationship between differently positioned versions of the same input.",
+      "The architecture combines this geometric constraint with attention’s ability to process large point clouds containing varying numbers of points. Equivariance also increases weight sharing within the model. The intended benefit is stable behavior under rotations and translations that would otherwise be nuisance variations, while retaining attention as a mechanism for processing relationships among points.",
+      "On a toy N-body particle simulation dataset, the authors demonstrate prediction robustness under input rotations. They also report competitive results on ScanObjectNN and QM9. Across all evaluated cases, the model outperforms both a strong attention baseline without equivariance and an equivariant model without attention. These comparisons support the value of combining the two ingredients in the studied tasks."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "226a7c27ff2b7b1a9dafb395e0ac7a2f0ca8372f057e55333887a219b5b8855a",
+    "tldr": "The SE(3)-Transformer combines attention with guaranteed rotation-and-translation equivariance for improved point-cloud modeling in the reported evaluations."
+  },
+  "neurips-2020-self-distillation-as-instance-specific-label-smoothing-b7266b0b42": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Repeated self-distillation can improve how neural networks generalize, but the source of that improvement is not fully understood. This paper finds experimentally that increasing diversity in teacher predictions is associated with part of the performance gain. This motivates an explanation that considers how teacher guidance varies across individual examples.",
+      "The authors interpret teacher-student training as amortized maximum a posteriori estimation. In this framework, teacher predictions provide instance-specific regularization. The interpretation establishes a theoretical connection with label smoothing, which regularizes predictive uncertainty, while suggesting that diversity in predictions also matters. Uncertainty and diversity thus become separate aspects of the training signal worth examining.",
+      "Experiments across multiple datasets and neural architectures broadly support the usefulness of predictive diversity. Building on this result, the authors propose an instance-specific label-smoothing method that encourages diversity without training a separate teacher. It often outperforms classical label smoothing in their evaluation. The contribution links an observed benefit of self-distillation to a simpler training mechanism, while preserving the finding that diversity explains only part of the original improvement."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ecfc28b9bd020ca99ffc7b287615701d9066caf99df7c68accfb98fdcee21237",
+    "tldr": "An instance-specific regularization view links self-distillation to label smoothing and motivates a teacher-free method that often improves on classical smoothing."
+  },
+  "neurips-2020-statistical-query-lower-bounds-via-functional-gradients-3c2eae7fed": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper establishes limits on learning through statistical queries, a model where algorithms obtain approximate statistical information about data. It studies agnostic learning under Gaussian input marginals, allowing the learning problem to depart from a perfectly specified target model. The results cover any nonpolynomial activation, including ReLU, sigmoid, and sign.",
+      "For ReLU regression, the authors show that a specified relationship between query tolerance, dimension, and desired accuracy forces a very large number of queries. Specifically, tolerance n^{-(1/epsilon)^b} requires at least epsilon times 2^{n^c} queries for some positive constants b and c. The result applies to general statistical-query algorithms, extending beyond the narrower correlational query setting.",
+      "The proof uses gradient boosting to amplify lower bounds for functions represented by two-layer neural networks. Its key ingredient is an unconventional convex functional used during boosting. The same technique also gives a best-possible reduction between agnostic learning and learning probabilistic concepts. The contribution therefore includes both broad query-complexity barriers and a tool for relating two established learning formulations."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "afa3b7a45ba3fd67998922cd8d32e0775b575f08e63eb3114c11f9f9691e68de",
+    "tldr": "Functional-gradient techniques establish general statistical-query lower bounds for agnostically learning nonpolynomial activations under Gaussian marginals."
+  },
+  "neurips-2020-svgd-as-a-kernelized-wasserstein-gradient-flow-of-the-chi-squared-divergence-7460ac81ea": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Stein variational gradient descent is a sampling algorithm whose behavior can be understood through the evolution of probability distributions. A common explanation views it as a kernelized gradient flow that reduces Kullback-Leibler divergence in optimal-transport geometry. This paper offers a different mathematical perspective, centered on the chi-squared divergence.",
+      "The new interpretation views SVGD as a kernelized Wasserstein gradient flow of that alternative discrepancy measure. In plain terms, it changes the lens used to describe how a distribution moves toward its target. This matters because the mathematical description can guide both the analysis of convergence and the design choices that shape the algorithm’s behavior.",
+      "Motivated by this perspective, the authors analyze convergence of the chi-squared gradient flow. They also show that the interpretation supplies better guidance for choosing effective SVGD kernels. The contribution is therefore a theoretical reframing with a practical design consequence: the choice of divergence helps explain which kernels are useful, connecting the underlying distributional dynamics to a central component of the sampling method."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "55909f4d3026bda0fe05c4f90f78248ad16c95e3eb74ffa3c444f22dd9331ffe",
+    "tldr": "Viewing SVGD through chi-squared gradient flow yields convergence analysis and improved guidance for kernel selection."
+  },
+  "neurips-2020-the-power-of-predictions-in-online-control-156a32aa00": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper asks how much future information is needed to make effective decisions in online linear quadratic regulator control. It considers disturbances in the system dynamics that are either stochastic or adversarial. In both settings, the authors characterize an optimal policy and derive tight bounds on minimum cost and dynamic regret.",
+      "A central finding concerns conventional greedy model predictive control, which repeatedly makes decisions using a limited prediction horizon. The analysis shows that this approach is near-optimal in both disturbance settings. This gives theoretical support to a familiar control strategy by quantifying how its performance depends on the amount of future information available.",
+      "For a problem lasting T steps, a prediction horizon growing only logarithmically with T is sufficient to obtain constant-order dynamic regret. The required horizon matches the authors’ lower bound up to lower-order terms. Thus, within the studied control setting, the analysis identifies both a sufficient amount of prediction and a nearly matching fundamental requirement, showing why relatively short foresight can provide strong long-run performance."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "51a1a3e89c28806b234cfcb9fd0f4520a1bd8324440bef9dd6cd9371dc14d66e",
+    "tldr": "In the studied online LQR settings, greedy model predictive control achieves constant-order dynamic regret with a logarithmic prediction horizon."
+  },
+  "neurips-2020-tight-first-and-second-order-regret-bounds-for-adversarial-linear-bandits-7d086ac55f": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Adversarial linear bandit problems require decisions under limited feedback even when losses can vary adversarially. This paper develops algorithms whose regret guarantees reflect favorable structure in the realized losses. They perform well when some action has low cumulative loss or when losses have low variance, capturing first-order and second-order forms of adaptivity.",
+      "The algorithms support both discrete and continuous action sets without advance knowledge of the losses. Their computational efficiency is conditional on access to a linear optimization oracle for the action set. This separates the learning guarantee from the practical ability to solve the required optimization subproblem over the available actions.",
+      "The construction combines optimistic online optimization, continuous multiplicative weight updates, and a new distribution-truncation technique. The authors show that the resulting regret bounds are tight up to polylogarithmic factors. This means the dependence captured by their guarantees is close to the fundamental limit, while requiring weaker assumptions than existing algorithms. The contribution joins loss-sensitive performance guarantees with broad action-space coverage under an explicit computational condition."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e07aad16711654e165b7d29369d2b94fb5cd9faa51e8e86ad47d1a2e1850bcf9",
+    "tldr": "New adversarial linear bandit algorithms achieve nearly tight loss- and variance-sensitive regret bounds across discrete and continuous action sets."
+  },
+  "neurips-2020-towards-problem-dependent-optimal-learning-rates-5066e3ed5f": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Generalization guarantees can become more informative when they reflect the particular learning problem. This paper studies error rates that depend tightly on the variance or effective loss associated with the best hypothesis. Such rates aim to capture favorable statistical structure that a broad worst-case bound may overlook.",
+      "The authors identify a difficulty with common uniform-convergence and localization tools: they often fail to combine localization in parameter space with optimal dependence on sample size. This can produce weak guarantees for rich hypothesis classes, especially when the worst-case loss bound is large. The proposed framework addresses this combination through a principle called uniform localized convergence.",
+      "Using that framework, the paper introduces a moment-penalized estimator achieving the optimal variance-dependent rate for general rich classes. It also derives an improved loss-dependent rate for standard empirical risk minimization. These are distinct outcomes: one concerns a new estimator, while the other strengthens the analysis of an established learning rule. Together, they improve how learning guarantees account for the statistical difficulty of a particular problem."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9b103b0cc9e504514c9076e920ed61b53a289fba7081cceab4616aaae71d7a70",
+    "tldr": "Uniform localized convergence yields optimal variance-dependent rates for a new estimator and improved loss-dependent rates for empirical risk minimization."
+  }
+}

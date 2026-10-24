@@ -10,16 +10,10 @@ export interface Summary {
   results?: string;
   limitations?: string;
   difficulty?: string;
-  source?: string;
-  model?: string;
-  backgroundConcepts?: string[];
-  /** SHA-256 of the official abstract supplied to the narrative author. */
-  sourceAbstractSha256?: string;
 }
-export interface Paper { slug: string; title: string; authors: string[]; year: number; venue: string; abstract: string; originalAbstract?: string; abstractStatus?: string; abstractSource?: string; abstractQuality?: string; summaryEvidenceStatus?: string; url: string; originalUrl?: string; sourceLinkLabel?: string; codeUrl?: string; projectUrl?: string; citationCount?: number | null; references?: string[]; citedBy?: string[]; similarPapers?: string[]; topicSlugs?: string[]; summary?: Summary | null }
-export interface Topic { slug: string; title: string; area?: string; overview?: string; whyItMatters?: string; evolution?: string; openQuestions?: string[]; prerequisites?: string[]; difficulty?: string; paperSlugs?: string[]; relatedTopics?: string[] }
-export interface Manifest { snapshot?: string; totalPapers?: number; totalTopics?: number; coverage?: Record<string, Record<string, number>>; featuredSlugs?: string[]; shards?: { papers?: Record<string, string>; vectors?: string } }
-export interface CorpusReport { papers?: number; topics?: number; curatedTopics?: number; citationMatchRate?: number; sample?: boolean; summaryCoverage?: { narrative: number; legacy: number; pending: number; unavailable: number } }
+export interface Paper { slug: string; title: string; authors: string[]; year: number; venue: string; abstract: string; originalAbstract?: string; abstractStatus?: string; abstractQuality?: string; url: string; originalUrl?: string; sourceLinkLabel?: string; codeUrl?: string; projectUrl?: string; citationCount?: number | null; references?: string[]; citedBy?: string[]; similarPapers?: string[]; topicSlugs?: string[]; summary?: Summary | null }
+export interface Topic { slug: string; title: string; area?: string; broadGroupId?: string; overview?: string; whyItMatters?: string; evolution?: string; openQuestions?: string[]; prerequisites?: string[]; difficulty?: string; paperSlugs?: string[]; relatedTopics?: string[] }
+export interface Manifest { snapshot?: string; totalPapers?: number; totalTopics?: number; featuredSlugs?: string[]; shards?: { papers?: Record<string, string>; vectors?: string } }
 
 const base = import.meta.env.BASE_URL;
 const json = async <T>(path: string): Promise<T> => {
@@ -94,7 +88,6 @@ export class AtlasData {
     const documents = await this.ensureSearch();
     return Promise.all(documents.filter((doc) => doc.type === 'paper').slice(0, 6).map((doc) => this.paper(doc.slug)));
   }
-  async report() { return json<CorpusReport>('corpus-report.json'); }
   private async loadShard(filename: string) {
     const shard = await json<Paper[]>(filename);
     shard.forEach((paper) => this.papers.set(paper.slug, paper));

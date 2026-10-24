@@ -1,0 +1,327 @@
+{
+  "icml-2026-adaptive-generation-of-bias-eliciting-questions-for-llms-e866cf07dc": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Bias evaluations often ask models to complete templates or choose among fixed answers. These formats make testing manageable, but they capture only a narrow slice of ordinary conversation. This paper develops a way to generate open-ended questions that better reflect realistic interactions while probing whether responses disadvantage or stereotype particular groups.",
+      "The method uses a counterfactual framework and repeatedly mutates questions to explore situations where biased behavior is more likely to appear. This makes question construction adaptive rather than fixed in advance. The evaluation also examines response patterns beyond harmful content, including unequal refusals across cases and whether a model explicitly acknowledges bias.",
+      "The researchers use this process to build CAB, a diverse benchmark checked by humans. Evaluations find persistent biases in certain scenarios for every model examined. That finding concerns the tested models and scenarios, rather than establishing that every response is biased. The contribution is a more nuanced way to expose differences in how models handle socially sensitive, open-ended interactions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c951bad5f4a656cdc36dce91693f0931332a7fe62ee0469a560710248ff959a6",
+    "tldr": "An adaptive, human-verified benchmark uses realistic open-ended questions to reveal persistent biases in certain scenarios across all examined models."
+  },
+  "icml-2026-adversarial-vulnerability-from-interference-between-features-in-superposition-8978df2dae": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper investigates whether adversarial vulnerability can arise from how a network compresses information internally. Its proposed mechanism is superposition: representing more concepts than there are available dimensions. Those representations cannot all remain independent, so changing the representation of one concept can interfere with others and create an opening for an adversarial perturbation.",
+      "In synthetic settings where the amount of superposition is precisely controlled, the researchers establish that superposition is sufficient to produce vulnerability. They also connect the mechanism to particular attacks: perturbations found by PGD align with theoretically optimal perturbations derived from the interference geometry. The theory therefore predicts attack structure, beyond suggesting that compression might cause problems.",
+      "Models trained on similar data develop similar interference patterns, providing an explanation for attacks that transfer between models. Successful attacks on image classifiers also exhibit structure predicted by the mechanism. These findings support representational compression as one possible source of vulnerability; they complement explanations involving data and architecture rather than establishing superposition as the cause of every adversarial example."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "76ad1a6c6ba686f740313a908801e2b93c9b592009007909fea945253ee5f987",
+    "tldr": "Controlled experiments show that interference between compressed feature representations can create adversarial vulnerability and help explain attack transfer."
+  },
+  "icml-2026-annotations-mitigate-post-training-mode-collapse-ab1bf17128": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Supervised fine-tuning can make a model better at following instructions while narrowing the range of meanings it generates. This paper attributes that semantic narrowing to the relatively low diversity of fine-tuning data compared with pretraining data. The researchers find that this trade-off becomes worse as models scale, making diversity preservation an increasingly relevant training concern.",
+      "Their method, annotation-anchored training, begins during pretraining. Documents are paired with semantic annotations, allowing the model to learn an annotation distribution that reflects the breadth of the original material. That distribution is then preserved during post-training. At generation time, sampled annotations provide semantic guidance, giving the model a route back to the diversity learned earlier.",
+      "The reported models can achieve six times less diversity collapse than models trained with standard supervised fine-tuning, and the approach improves with scale. The finding suggests that annotations can connect preference-following behavior with a broader range of generated content. The intervention spans pretraining, post-training, and inference, with the preserved annotation distribution serving as the link between them."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "aa2d2149ebe9b4042818dacb7dbf4be092815ab576cf1f86e9bb0a6fa66ac8dd",
+    "tldr": "Preserving and sampling semantic annotations across training stages can substantially reduce the diversity loss associated with supervised fine-tuning."
+  },
+  "icml-2026-approximating-f-divergences-with-rank-statistics-427fb69847": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Comparing probability distributions often involves estimating how their densities differ. This paper proposes an alternative for f-divergences that works with ranks instead of explicitly estimating density ratios. For two one-dimensional distributions, it constructs a rank histogram whose resolution is controlled by K, then measures how far that histogram departs from a uniform distribution.",
+      "The resulting rank-based approximation has several theoretical properties. It remains below the true divergence and increases monotonically with resolution. Under mild regularity conditions on the density ratio expressed in quantile coordinates, the authors establish rates of convergence as K grows. They also analyze finite-sample deviations and asymptotic normality, addressing uncertainty from estimating the construction with limited observations.",
+      "For higher-dimensional data, the method averages the one-dimensional construction over random projections. This defines a sliced divergence, and the paper provides convergence results for that sliced limit as well. Experiments compare the approach with neural baselines and demonstrate its use as a generative-model training objective. Together, the contributions offer a rank-based route to distribution comparison with explicit approximation and sampling guarantees."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ae22b1d08802e4c5355720e9f67cc6b0b5be694ce77ff2e0a45b3d62b8c6f10d",
+    "tldr": "Rank histograms provide a density-ratio-free approximation to f-divergences with convergence guarantees and a random-projection extension for higher-dimensional data."
+  },
+  "icml-2026-attention-projection-mixing-with-exogenous-anchors-8d70724a5b": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Reusing early attention projections across layers can help optimization and data efficiency, but it gives the first layer competing responsibilities. That layer must perform useful computation while providing a stable reference for deeper layers. The paper shows that this conflict constrains designs that use an internal layer as their shared anchor.",
+      "ExoFormer moves the anchor projections outside the sequential layer stack and learns them separately. Its normalized mixing framework combines anchor information with queries, keys, values, and gate logits through learned coefficients. The authors investigate coefficients at element, attention-head, and scalar granularity, and identify normalization of anchor sources as important for stable reuse throughout the model.",
+      "The tested ExoFormer variants consistently outperform corresponding internal-anchor designs. The dynamic variant reports 1.5 times the downstream accuracy points and matches Gated Attention's validation loss using 1.5 times fewer tokens. The authors interpret these results through an Offloading Hypothesis: external anchors preserve token identity, freeing the sequential layers to specialize in transforming features. This is the proposed explanation for the gains."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "67c391b115672ef1c383daf2e5abbc9549a134706f7fd248896241b75467e857",
+    "tldr": "ExoFormer learns shared attention anchors outside the layer stack, improving tested performance and data efficiency over internal-anchor designs."
+  },
+  "icml-2026-bayesian-model-selection-and-misspecification-testing-in-imaging-inverse-problems-only-f-07f4958d1c": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Image reconstruction often starts with incomplete, noisy measurements rather than a known correct image. Bayesian models help recover an image, but evaluating those models is difficult when ground truth is unavailable. This paper tackles both choosing among candidate models and detecting misspecification, meaning a mismatch between the model and the process behind the measurements.",
+      "The proposed approach combines Bayesian cross-validation with data fission, a randomized way to split measurements. That combination supports unsupervised evaluation using the available observations. It is designed to work with any Bayesian imaging sampler, including diffusion and plug-and-play samplers, addressing the incompatibility that some existing evaluation methods have with image priors represented implicitly by learned models.",
+      "Experiments examine different scoring rules and different kinds of model misspecification. The authors report strong model-selection and misspecification-detection accuracy at low computational cost. The practical significance is that evaluating a reconstruction model need not depend on access to a clean reference image. The same measurement-based framework supports both comparing alternatives and diagnosing whether an assumed model fits the observations."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "bca8fe6f49d5c1f4b026b487c07615d3b15a0a9931b0c8b17de294032fabc8c9",
+    "tldr": "Combining Bayesian cross-validation with randomized measurement splitting enables imaging-model selection and misspecification detection without ground-truth images."
+  },
+  "icml-2026-constitutional-black-box-monitoring-for-scheming-in-llm-agents-4194604581": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies monitors that try to detect agents covertly pursuing misaligned goals. The monitors are language-model classifiers that inspect externally visible inputs and outputs, without relying on access to internal reasoning. Natural-language behavior specifications guide the creation of synthetic examples used to develop and select the monitoring prompts.",
+      "Two pipelines generate those examples: STRIDE iteratively refines agent trajectories, while Gloom uses agent-environment simulation. Each produces 1,000 samples. The researchers compare prompt sweeps, human refinement, and automated prompt optimization, then evaluate the resulting monitors on 7,500 held-out trajectories from Control Arena, where agents act in more realistic, grounded environments.",
+      "Monitors selected entirely using synthetic data capture a meaningful scheming signal on the more realistic evaluation. However, improvement quickly levels off in this setting: simple prompt sweeps match more extensive optimization, and pushing optimization further produces overfitting rather than better results. The study therefore supports synthetic data as a useful source of monitoring supervision while identifying a concrete limit to additional prompt optimization."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "49743629c78a16e3bb9d7b3b07a77f3a6e999693bf63d704aafd4003ec8af28a",
+    "tldr": "Monitors selected on synthetic agent behavior can detect scheming in more realistic environments, but further prompt optimization quickly saturates and can overfit."
+  },
+  "icml-2026-domed-redesigning-ensemble-distillation-for-domain-generalization-df664bcd5e": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Domain generalization asks a model to work on domains it did not encounter during training. Accurate predictions matter, but so does estimating uncertainty when conditions change. This paper investigates how to combine ensembles and knowledge distillation so that a distilled model benefits from diverse teachers while retaining useful uncertainty estimates.",
+      "DomED organizes data around domain boundaries. Teachers train on distinct subsets of domains, and their predictions are distilled on complementary domains that those teachers have not seen. This arrangement promotes diversity and training efficiency. The theoretical analysis shows how distilling teachers on unseen domains filters out domain-specific spurious correlations, giving the allocation scheme a purpose beyond simply dividing the data.",
+      "The method also separates uncertainty distillation from ordinary distillation to address the accuracy degradation that can occur when the two are combined conventionally. Across multiple benchmarks, DomED achieves competitive prediction accuracy and substantially better uncertainty estimates than the compared domain-generalization and ensemble-distillation techniques. The reported benefit is therefore stronger uncertainty estimation alongside maintained accuracy, rather than an across-the-board claim of superior accuracy."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "08ebea217fccb3d43a65ab9712d093321743b0d85b6390ccc832d40fcede1a0b",
+    "tldr": "DomED distills teachers on domains unseen by each teacher and separates uncertainty training, improving uncertainty estimates while maintaining competitive accuracy."
+  },
+  "icml-2026-dream-mpc-gradient-based-model-predictive-control-with-latent-imagination-a9691eacce": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Planning with a learned world model can improve a reinforcement-learning policy, but searching over candidate actions can be expensive in high-dimensional control. Gradient-based optimization is a possible alternative to population-based search, although prior empirical work has often found it less effective. Dream-MPC investigates how to make gradient-based planning work better in this setting.",
+      "The method begins with a small number of candidate trajectories generated by rolling out a learned policy. It then improves each candidate through gradient ascent using the learned world model. Uncertainty regularization is part of this optimization, and previously optimized actions are reused over time. Reuse spreads the benefit of optimization iterations across successive planning steps.",
+      "Across 24 continuous-control tasks, the results show that Dream-MPC can substantially improve the underlying policy and can outperform gradient-free model predictive control and state-of-the-art baselines. The contribution is a particular combination of policy-generated candidates, model-based gradients, uncertainty regularization, and action reuse. The findings establish that this combination can make gradient-based planning effective, without claiming that gradients always outperform gradient-free search."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c181f0728fe9ebf0be2f9571265a14202a11e93cef6b1c96427797eed5d60f81",
+    "tldr": "Dream-MPC improves policy-generated action trajectories with world-model gradients, uncertainty regularization, and action reuse, showing gains across continuous-control tasks."
+  },
+  "icml-2026-edge-colored-clustering-in-hypergraphs-a-maxecc-approximation-852d388154": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "MaxECC describes a clustering problem in which interactions already have colors and the objects involved must be assigned colors. An interaction counts as satisfied when all its participating objects receive its color. Hyperedges allow an interaction to involve more than two objects, making the formulation suitable for clustering based on relationships among whole groups.",
+      "The paper develops approximation algorithms, which provide guarantees relative to the best achievable number of satisfied edges. For edge size r, one algorithm achieves a ratio of 1/(r+1), exponentially improving an existing algorithm's ratio. A separate dependent-rounding method achieves 1/ceil(k/2), where k is the number of colors. The guarantees therefore capture different structural aspects of the problem.",
+      "Analytical scaling further improves the first approach to a factor of (1-exp(-r))/r. Applying the scaling approach to ordinary graphs yields a factor of 0.43, compared with the previously known 0.38. These are algorithmic approximation guarantees rather than reported prediction accuracies. The results improve how much of an optimal clustering objective can be guaranteed when exact optimization is not supplied."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "afe60b56531aba755b26c950969c5e32a2001b87e6f6dc5624adea96e83a496d",
+    "tldr": "New rounding and scaling algorithms improve approximation guarantees for clustering with colored multi-way interactions, including a 0.43 guarantee for graphs."
+  },
+  "icml-2026-effgen-enabling-small-language-models-as-capable-autonomous-agents-fd36c2afbb": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "EffGen is an agent framework designed around small language models and local deployment. Its premise is that agent capabilities depend partly on the surrounding system, including how requests are presented, divided, routed, and remembered. The framework addresses the cost and sensitive-data concerns associated with systems built around remote calls to large models.",
+      "Its components include prompt compression for tool use, dependency-aware decomposition into sequential or parallel subtasks, routing based on five complexity factors, and memory combining short-term, long-term, and vector storage. It also supports communication across MCP, A2A, and ACP protocols. Prompt compression averages 57% across the benchmarks, with reductions reaching 70–80% while preserving task semantics.",
+      "Across 13 benchmarks, EffGen reports higher success rates, faster execution, and lower memory use than LangChain, AutoGen, and Smolagents. The analysis finds complementary effects across model sizes: prompt optimization helps smaller models more, while complexity routing helps larger models more. Combining both gives consistent gains across the tested scales, supporting framework design as a practical contributor to agent performance."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c9381e56c9b032a8e822da41c093bef9020d8728bbc4e6d40390680687365d22",
+    "tldr": "EffGen combines prompt compression, task decomposition, routing, and memory to improve the tested efficiency and success of locally deployable language-model agents."
+  },
+  "icml-2026-extending-fair-null-space-projections-for-continuous-attributes-to-kernel-methods-8f71daf076": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Fairness methods commonly treat protected attributes and prediction targets as discrete categories. This paper focuses on continuous protected attributes, particularly in regression, where the target is also continuous. It extends iterative null-space projection, a strategy previously explored for linear models or embeddings produced by nonlinear encoders, to feature spaces defined by kernels.",
+      "The key construction uses an empirical feature space to express the projection as a direct transformation of the kernel matrix. That matrix is the representation through which kernel methods access relationships among observations. Working at this level makes the proposed transformation independent of a particular prediction model or fairness score while supporting continuously valued protected information.",
+      "The authors evaluate the approach together with Support Vector Regression across multiple datasets. They report performance that is competitive with or better than contemporary comparison methods. The contribution is both theoretical and practical: a derivation of how to perform the transformation in a kernel setting, and evidence that the resulting method can be useful for regression tasks involving continuous fairness."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8e89215472a882ea97d0e230c1da9bfd575a60a3c5b24ab43ccbd07449dbc50a",
+    "tldr": "A direct kernel-matrix transformation extends fair null-space projection to continuous protected attributes and shows competitive results with Support Vector Regression."
+  },
+  "icml-2026-how-hard-is-science-cd6371b9b8": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper studies one step of scientific discovery: finding a mathematical expression that fits measurements. This task, symbolic regression, is NP-hard in general, yet practical software often finds useful expressions without searching every possibility. The authors use parameterized complexity to investigate which restrictions help explain that gap between worst-case difficulty and practical success.",
+      "They show that symbolic regression is fixed-parameter tractable when expression depth or expression-tree size is the parameter and the set of available primitives is fixed. This identifies a tractable regime aligned with bounded-complexity searches used by popular algorithms. By contrast, parameterizing by the number of variables or primitives used gives W[1]-hardness, identifying selection as a distinct source of difficulty.",
+      "The paper also establishes conditional lower bounds under the exponential time hypothesis, approximation-hardness results, and rules out polynomial kernels when the primitive set is part of the input. These findings separate several ways an expression-search problem can become difficult. Their scope is the formal task of deriving expressions from data, offering insight into one component of automated science rather than measuring all scientific work."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "44a8ebe5547b1b3aea9e8a074e75333c8347d11fb265510c99094a4d128ebc97",
+    "tldr": "A parameterized analysis of symbolic regression identifies bounded expression complexity as a tractable regime and variable or primitive selection as a source of hardness."
+  },
+  "icml-2026-ilora-bayesian-low-rank-adaptation-with-latent-interaction-graphs-for-microbiome-diagnos-63b20baf83": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Standard LoRA adapts a language model through a static low-rank parameter update. iLoRA instead makes that update depend on an interaction graph inferred from each input. The aim is to learn both a prediction and the hidden relationships associated with it, rather than fitting a predictor first and analyzing interactions afterward.",
+      "The framework combines Bayesian adaptation with graph-conditioned updates. Its microbiome application is motivated by disease states that can depend on both the abundance of individual species and interactions among microbes. The researchers test complementary aspects of the approach through interactive question answering with human-annotated graphs and inflammatory bowel disease diagnosis across multiple cohorts.",
+      "Across these settings, iLoRA improves on strong LoRA and Bayesian adaptation baselines. Its recovered graphs align with human annotations and cohort-level microbiome associations, and it provides calibrated uncertainty with moderate additional overhead from the graph branch. The findings support learning interaction structure as part of adaptation, while the reported graph alignment concerns annotations and associations rather than establishing causal microbial relationships."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "af7511e01568d286472638882bf87bd59ccbec9a97d07bfcab1951b5e692e279",
+    "tldr": "iLoRA uses inferred interaction graphs to generate input-dependent Bayesian LoRA updates, improving tested prediction, graph recovery, and uncertainty estimation."
+  },
+  "icml-2026-learning-the-minimum-action-distance-f1ea63fd0e": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Two states can look similar while requiring many actions to move between them. This paper learns a representation based on minimum action distance: the fewest actions needed to transition from one state to another. That distance is intended to capture an environment's transition structure and provide a meaningful measure of progress toward a goal.",
+      "The learning procedure uses only sequences of observed states, without rewards or records of the actions performed. It builds an embedding space in which distances between state representations approximate minimum action distance. The framework accommodates both symmetric and asymmetric approximations, allowing its representation of transition distance to account for direction when appropriate.",
+      "Evaluation uses environments with known minimum action distances, including deterministic and stochastic dynamics, discrete and continuous states, and noisy observations. The method learns representations more efficiently than existing approaches, estimates the true distances more accurately, and improves downstream goal-reaching performance. These findings connect representation quality with practical usefulness: the learned distances can support goal-conditioned reinforcement learning and reward shaping by providing a dense measure of progress."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2c796e0673714a03afab6fd3af0348731ddc5e3ab00f1a360c8bfe4176c26a7e",
+    "tldr": "Learning minimum action distances from state trajectories alone yields more accurate representations and improves goal-reaching performance in the evaluated environments."
+  },
+  "icml-2026-pmspo-progressive-matching-and-semantic-aware-policy-optimization-for-camouflaged-object-b5d574f3f9": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Camouflaged object detection requires locating objects that closely resemble their surroundings. For multimodal language models trained with reinforcement learning, the paper identifies three obstacles: matching predictions to multiple objects, learning from poor-quality samples, and confusing true objects with background distractors that have similar textures. PMSPO addresses these obstacles through a curriculum-based training framework.",
+      "The method uses a Sinkhorn-based matching reward built around intersection over union to align predictions with multiple objects during training. Positive Learning Gain Filtering selects higher-quality training samples. A third component converts deep visual features into semantic contrastive reward rules, helping calibrate the distinction between target objects and background rather than relying only on texture similarity.",
+      "On camouflaged-object benchmarks, PMSPO achieves the best reported performance among reinforcement-learning methods across all evaluated metrics. The comparison is specifically within that class of methods. The result supports combining improvements to object matching, sample selection, and semantic reward design when adapting multimodal models to visual grounding tasks in which object boundaries and identities are difficult to distinguish."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "bbe85f5c00bc6a2d2ecdb87d9f678d6df1bb2b133f8c6f5850b170b64c023929",
+    "tldr": "PMSPO combines multi-object matching, sample filtering, and semantic rewards to lead the evaluated reinforcement-learning methods on camouflaged-object benchmarks."
+  },
+  "icml-2026-retriever-portfolios-a-principled-approach-to-adaptive-rag-d3cb9ce03e": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Retrieval-augmented generation systems often use one retriever with fixed settings for every query. Yet a short factual question and a question requiring several reasoning steps can benefit from different retrieval choices. This paper selects a small, diverse portfolio from a larger pool of retrievers to cover different parts of the target query distribution.",
+      "The selection problem is formalized through an expected best-of-k objective: the portfolio should contain useful retrieval options across the queries it is expected to face. The authors derive an efficient construction algorithm with near-optimal guarantees for that objective. A router pipeline then works with the learned portfolio, connecting the selection procedure to an adaptive question-answering system.",
+      "Across multiple question-answering benchmarks, the approach improves retrieval metrics and answer quality over single-retriever and naive multi-retriever baselines. Fixed portfolios also allow retrieval and language-model calls to run in parallel. Compared with tuning retrieval hyperparameters during inference, this yields comparable, and sometimes better, accuracy with substantially lower latency and token cost. The contribution links principled portfolio selection to practical deployment efficiency."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c5f24f36fabeddc3b1c53830f69492a737252166aacad5698a9451c666847a91",
+    "tldr": "Selecting and routing among small retriever portfolios improves tested RAG quality while reducing latency and token cost relative to inference-time tuning."
+  },
+  "icml-2026-tempora-characterising-the-time-contingent-utility-of-online-test-time-adaptation-dfbd94fb97": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Test-time adaptation updates a model using unlabeled samples encountered during deployment, helping it respond to changed conditions. But an accuracy gain may have little practical value if the resulting prediction arrives too late. Tempora evaluates adaptation with time constraints included, rather than treating processing time as effectively unlimited.",
+      "The framework specifies deployment scenarios, measurement protocols, and metrics that combine accuracy with timeliness. It includes discrete utility for streams with hard deadlines, continuous utility for interactions whose value declines with delay, and amortized utility for deployments with limited budgets. These alternatives represent different ways processing time changes the usefulness of a prediction.",
+      "The authors evaluate 11 adaptation methods in more than 750 temporal evaluations across datasets, models, and hardware. Rankings under conventional evaluation do not reliably predict rankings under temporal pressure. The best method changes with both the distribution shift and the time constraint, with no clear overall winner. The findings make method selection a joint question about adaptation quality and deployment timing, and provide a framework for measuring that relationship."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1e7f2970a61b26c03fe436904ab867649139067040e7a54da556c6485f6c3d56",
+    "tldr": "Tempora shows that test-time adaptation rankings change under realistic timing constraints, with the most useful method depending on both shift and temporal pressure."
+  },
+  "icml-2026-toolorchestra-elevating-intelligence-via-efficient-model-and-tool-orchestration-2f090ca746": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "ToolOrchestra studies whether a relatively small model can solve difficult agentic tasks by coordinating other models and tools. The central task is deciding how to use available capabilities efficiently while respecting a user's preferences about tool use. The approach trains this coordinating behavior with reinforcement-learning rewards for outcomes, efficiency, and user preferences.",
+      "The resulting Orchestrator model has eight billion parameters. On Humanity's Last Exam, its coordinated system scores 37.1%, compared with GPT-5's 35.1%, while the authors report 2.5 times greater efficiency. On tau-squared-Bench and FRAMES, it surpasses GPT-5 by a wide margin while using about 30% of the cost. These results evaluate orchestration with tools as the problem-solving approach.",
+      "Additional analysis reports the strongest performance-cost trade-off among the evaluated methods under multiple metrics, along with robust generalization to tools not previously seen. The findings support learning coordination as a way to improve both capability and efficiency. The small model's contribution lies in managing a diverse collection of resources, with tool preferences included explicitly in its training objective."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e43a2cb61c81071f46d546b86c0e01df4a2cbcd844e1383ef3537ce4440294c1",
+    "tldr": "ToolOrchestra trains an 8B coordinator whose use of models and tools improves benchmark accuracy and cost while accounting for user tool preferences."
+  },
+  "icml-2026-vcg-bench-towards-a-unified-visual-centric-benchmark-for-structured-generation-and-editi-9e229ffaff": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Professional diagrams need to be controllable and editable as well as visually convincing. This paper argues that pixel-based generation does not adequately support those requirements and proposes representing diagrams as code using mxGraph XML. That representation makes structured generation and editing explicit tasks for vision-language models.",
+      "VCG-Bench contains 1,449 diagrams organized into six domains and 15 subdomains. It evaluates two connected capabilities: generating diagram code from visual input and editing existing diagram code. Bringing both tasks into one benchmark links initial reconstruction with subsequent changes, reflecting the need to work with diagram structure throughout an editing workflow.",
+      "The evaluation protocol measures several dimensions, including whether the generated mxGraph executes successfully and whether visual style remains consistent. Experiments show that current state-of-the-art vision-language models still struggle with structural fidelity and following instructions in this setting. The contribution is a dataset, task definition, and evaluation framework that make those difficulties measurable, with emphasis on usable diagram structure rather than visual appearance alone."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "89c834413be5da672c74144a731fc064d26914a474e3213c3278be14062ad7c8",
+    "tldr": "VCG-Bench evaluates diagram generation and editing through mxGraph code, exposing structural-fidelity and instruction-following challenges in current vision-language models."
+  },
+  "icml-2026-wbmm-windowed-batch-matrix-multiplication-for-efficient-large-receptive-field-convolutio-1e241164cd": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Large convolution kernels let a layer incorporate information from a wider area, but irregular memory access can make them slow. The paper also finds that Large Kernel Acceleration can become counterproductive on large feature maps. WBMM reorganizes the computation around contiguous windows to obtain broader spatial coverage with more regular memory access.",
+      "For each window, WBMM constructs weight matrices by indexing a compact relative-position bias table, then uses batched matrix multiplication. Its throughput improves as windows grow, reversing the reported trend for depthwise convolutions with larger kernels. At the operator level, 14-by-14 windows run faster than 5-by-5 depthwise-convolution baselines while providing a receptive field 7.8 times larger per layer.",
+      "The full approach adds communication across windows between blocks and hierarchical window reparameterization. On ImageNet-1K, COCO, and ADE20K, it achieves comparable or higher accuracy with training speedups of 1.31–1.88 times. Advantages also appear across GPU, CPU, and edge devices without specialized acceleration kernels. The results connect memory-access organization with practical gains in the cost of processing wider spatial context."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e422d01d2519044cf37b34f0cb9066082c3970ea179f5190f033340cd19075c2",
+    "tldr": "WBMM uses contiguous windows and batched matrix multiplication to expand spatial coverage while improving measured training speed across vision tasks and hardware."
+  },
+  "icml-2026-well-posed-kl-regularized-control-via-wasserstein-and-kalmanwasserstein-kl-divergences-4a25f32b16": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "KL divergence is commonly used to regularize control and reinforcement learning, but it can become infinite when distributions have mismatched support and degenerate as noise decreases. This paper constructs related divergences using transport-based geometries in place of the Fisher–Rao geometry in a dynamical formulation of KL divergence.",
+      "The authors derive closed-form expressions for common distribution families. For elliptic distributions with equal covariances that degenerate, the new divergences remain finite. They also provide a geometric interpretation of regularization heuristics in Kalman ensemble methods. These properties motivate using the alternatives in control problems where ordinary KL regularization becomes problematic as randomness vanishes.",
+      "The control analysis considers linear time-invariant systems with Gaussian process noise, a fully tractable setting. Ordinary KL becomes a quadratic control penalty that turns singular in the zero-noise limit; the proposed variants remove that singularity and make the problems well-posed. Experiments on a double integrator and cart-pole show nontrivial feedback and better closed-loop performance, illustrating the practical consequences of the changed regularization geometry."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "cd53aa8c3218089e52b9635dc3570b81f87a375805b17b1caae8b2bb438a04f0",
+    "tldr": "Transport-based KL analogs remove a vanishing-noise singularity in the analyzed control setting and improve closed-loop performance in two examples."
+  },
+  "icml-2026-why-agentic-theorem-prover-works-a-statistical-provability-theory-of-mathematical-reason-a0d6465874": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper analyzes theorem proving through statistical provability: the chance of obtaining a verified proof within a budget on a specified stream of problems. It models proof search as a finite-horizon decision process with deterministic verifier dynamics. Under a faithful state abstraction, the authors establish a correspondence between optimal success probability and ordinary syntactic provability.",
+      "The main analysis concerns a pipeline that learns action values offline at each search depth and then greedily selects actions during proving. Its theorem bounds the success gap relative to an optimal prover using action-value errors weighted by the states the learned prover visits. Under uniform error bounds, the leading multiplier is the prover's average truncated proof length.",
+      "The error analysis separates approximation error, training-distribution coverage in representation space, and Monte Carlo label noise. A faster rate holds under an action-gap margin condition. This framework explains how verifier feedback, retrieval, representation geometry, and shorter proofs can help on biased mathematical workloads. The claims concern budgeted success on those workloads and remain compatible with classical worst-case hardness."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "88ca0dfb37881a6f728102b2c74471d148165c8bdf2cc00cd209623581e251ac",
+    "tldr": "A theory of budgeted proof success links learned-prover errors to visited states, proof length, training coverage, and conditional improvements from action-value separation."
+  },
+  "icml-2026-world-guidance-world-modeling-in-condition-space-for-action-generation-b51d0df07d": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Predicting future observations can help vision-language-action models choose actions, but the prediction target must balance compactness with useful detail. A representation that is easy to predict may omit information needed for precise movement. World Guidance, or WoG, addresses this trade-off by representing future observations as compact conditions used within action inference.",
+      "The framework maps future observations into those conditions and injects them into the action-generation pipeline. The model is trained to predict both the compressed conditions and future actions. This places world modeling in the same condition space that guides action generation, linking what the model predicts about the future with how it determines its actions.",
+      "The authors report that modeling this space supports fine-grained action generation and stronger generalization. They also find that the approach learns effectively from substantial human manipulation video data. Experiments in simulation and real-world environments show significant improvements over existing future-prediction methods. The findings support compact, action-relevant future representations as a useful way to combine world modeling with action prediction."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5ad9b88c349406b4ade9d23c914ab387461958dcf70d738d003febc3680e5517",
+    "tldr": "WoG predicts compact future-observation conditions alongside actions, improving fine-grained action generation and generalization in simulated and real-world evaluations."
+  },
+  "icml-2026-zeroth-order-optimization-at-the-edge-of-stability-c41056a050": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Zeroth-order optimization uses function evaluations when gradients are unavailable or too expensive. This paper studies the stability of a family of methods using the standard two-point estimator. It derives an explicit step-size condition that exactly characterizes mean-square linear stability, providing a theoretical boundary for how large an update can be in that analysis.",
+      "The condition depends on the entire Hessian spectrum, which describes curvature across directions. This differs from first-order stability, governed by the largest Hessian eigenvalue. Because computing the full spectrum is impractical for neural-network training, the authors also derive usable bounds involving only the largest eigenvalue and the Hessian trace, which sums the eigenvalues.",
+      "In full-batch vision experiments with CNNs, ResNets, and Transformers, ZO-GD, ZO-GDM, and ZO-Adam stabilize near the predicted boundary. The results also indicate a distinctive implicit regularization effect: large zeroth-order step sizes primarily regulate the Hessian trace, whereas first-order methods regulate its largest eigenvalue. This links observed training dynamics to a broader measure of curvature than the sharpest direction alone."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "abedc0d075dd1b7fddc43896ddd014fd30f44c40f5d0456aabfa6badf8ceaac1",
+    "tldr": "Zeroth-order stability depends on the full Hessian spectrum, and full-batch experiments find training near the predicted boundary with trace-focused implicit regularization."
+  }
+}

@@ -1,0 +1,329 @@
+{
+  "neurips-2024-a-critical-evaluation-of-ai-feedback-for-aligning-large-language-models-1d36c07410": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Learning from AI feedback commonly involves two stages. A model first learns from example answers supplied by a teacher, then receives further training using judgments from a critic. This paper asks whether the added complexity of the second stage explains its reported benefits, or whether another difference in the training setup is responsible.",
+      "The authors identify an important imbalance: demonstrations often come from a weaker teacher than the model providing feedback. In their evaluation, this difference accounts for virtually all the improvement attributed to the reinforcement learning stage. Using GPT-4 directly to produce supervised training examples outperforms the existing AI-feedback pipelines they examine.",
+      "The findings make the source of training information central to interpreting alignment gains. They do not establish that feedback training is always unnecessary: gains vary substantially with the base model family, evaluation protocol, and critic. The paper also offers a mechanistic explanation of when supervised training may perform better and suggestions for making feedback training more useful."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "735f67450e97c21ed16b7670a1485684710db11457e502a912b03f5124a451df",
+    "tldr": "Much of the evaluated benefit of AI-feedback training comes from using a stronger critic than teacher, and stronger supervised examples can outperform those pipelines."
+  },
+  "neurips-2024-a2po-towards-effective-offline-reinforcement-learning-from-an-advantage-aware-perspectiv-42eaaa8244": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Offline reinforcement learning trains an agent from recorded experience without collecting new interactions. To avoid unsupported actions, training often keeps the agent close to the behaviors represented in the dataset. This becomes difficult when several behavior policies contributed data: their actions and returns can differ, making a single set of behavioral constraints internally conflicting.",
+      "A2PO addresses this problem by making constraints depend on advantage values, which indicate the relative desirability of actions. A conditional variational autoencoder uses those values to separate action distributions that are mixed together in the dataset. The agent then learns within these differentiated constraints while moving toward actions associated with higher advantage.",
+      "This approach preserves distinctions among recorded behaviors rather than merely emphasizing high-advantage samples and overlooking behavioral diversity. The authors evaluate A2PO on both single-quality and mixed-quality datasets in D4RL and report better results than the compared methods. These findings support explicitly modeling how action distributions vary with advantage when learning from heterogeneous experience."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "82d9407af05ee002de07194e27129a4a5b998859745827508a2a234b220201a1",
+    "tldr": "A2PO separates recorded behavior by advantage to build more effective offline reinforcement learning constraints for datasets of mixed quality."
+  },
+  "neurips-2024-addressing-asynchronicity-in-clinical-multimodal-fusion-via-individualized-chest-x-ray-g-d57f32a605": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Clinical prediction can benefit from combining electronic health records with chest X-rays, but these sources arrive at different times. Health records may update continuously, while imaging is less frequent because of its cost and radiation exposure. Consequently, the most recent available image can describe an earlier condition than the accompanying records.",
+      "DDL-CXR addresses this timing mismatch by generating an updated latent representation of a patient's chest X-ray. A latent representation is a compact internal encoding used by the model. The generation process conditions a latent diffusion model on both a previous image and the patient's health-record time series, using them to convey anatomical structure and disease progression, respectively.",
+      "The generated representation provides a way to incorporate more recent clinical information into the imaging component of prediction. It also lets information from the two modalities interact during generation. Experiments on MIMIC datasets show that the approach can address asynchronous inputs and consistently outperforms the existing methods evaluated. The reported contribution concerns improved prediction through generated representations."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "26e304f7dba236405e38c3cb4857058a0340a93a9b81d267413de4c7b3d60614",
+    "tldr": "DDL-CXR combines an earlier chest X-ray with subsequent health records to generate updated image representations that improve clinical prediction."
+  },
+  "neurips-2024-av-gs-learning-material-and-geometry-aware-priors-for-novel-view-acoustic-synthesis-08c41c8f85": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Novel view acoustic synthesis aims to produce the two-ear audio a listener would hear at a chosen location, starting from a mono sound source in a three-dimensional scene. Visual information helps describe the environment, but the paper identifies shortcomings in existing NeRF-based approaches: expensive rendering and limited representation of geometry, materials, and listener–source relationships.",
+      "AV-GS represents the scene explicitly using Gaussian points equipped with learned audio-guidance parameters. This representation supplies information about material and geometric properties while accounting for the positions of the listener and source. The scene model is therefore organized to support sound synthesis as well as represent visual surroundings.",
+      "The method also adds and removes points according to their contribution to sound propagation. A visually plain wall, for example, may deserve more points because it changes sound paths. Experiments on real-world RWAS and simulated SoundSpaces data report better performance than existing alternatives. The results support adapting the allocation of scene detail to acoustic importance."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0bea3f3e28529794d6f405620474816c99caae056be12f1bc544332431cac114",
+    "tldr": "AV-GS learns Gaussian scene representations tailored to geometry, materials, and sound propagation to improve audio synthesis at new viewpoints."
+  },
+  "neurips-2024-c-2m-3-cycle-consistent-multi-model-merging-706f5aad04": {
+    "backgroundConcepts": [
+      "topic-184-c-2m-3-cycle-consistent-multi-model-merging"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Combining neural networks directly through their weights requires matching corresponding neurons across models. This paper presents a method that finds these matches without using data. It optimizes neuron permutations while maintaining coherence across all layers, and reports improvements over approaches that make alignment decisions locally within individual layers.",
+      "For merging more than two models, the method adds a guarantee of cycle consistency. This means that following a circular sequence of neuron mappings returns to a consistent correspondence, without accumulating mapping error along the route. The constraint makes the collection of alignments mutually compatible instead of treating every pair of networks as an independent matching problem.",
+      "The authors provide qualitative and quantitative evidence for the value of this constraint when merging homogeneous groups of models. Their experiments span different architecture and dataset settings. They also report that combining the method with activation renormalization produces the best results in the evaluated task. Together, the findings emphasize consistency across both layers and models as useful ingredients in weight-space merging."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5a6665a7db569c213f7091b0345bd1ec6e6eabc73d8606757f5420d3b8b433ea",
+    "tldr": "C²M³ merges networks without data by aligning neurons coherently across layers and enforcing consistent mappings among multiple models."
+  },
+  "neurips-2024-chain-of-thoughtlessness-an-analysis-of-cot-in-planning-43d58abd84": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Chain-of-thought prompting provides worked reasoning examples, raising the possibility that a language model can learn a reusable solution procedure from its prompt. This paper tests that interpretation in Blocksworld, a classical planning domain. It examines two leading language models while varying both the generality of the examples and the complexity of the problems being solved.",
+      "Meaningful improvements appear only when the prompts are extremely specific to the relevant problem class. Even then, performance gains diminish quickly when the requested stacks become larger than those demonstrated. The authors also construct scalable versions of three domains used in earlier chain-of-thought research and find similar failure patterns.",
+      "These results suggest that the observed gains depend on carefully tailored demonstrations rather than learning general algorithms from examples. That conclusion is presented as evidence from the studied settings, rather than a universal account of language-model reasoning. The findings also expose a practical tradeoff: obtaining improvements may require substantial human effort to prepare narrowly suitable examples with correct reasoning traces."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0182d7dd98c08bcaeab6ae80d637826d064e0e1fd9bf37978277cf31058e8656",
+    "tldr": "In the studied planning tasks, chain-of-thought gains rely on highly specific examples and deteriorate as problems grow beyond the demonstrated sizes."
+  },
+  "neurips-2024-constrained-sampling-with-primal-dual-langevin-monte-carlo-b1e93a4dd6": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies sampling when a probability distribution is known only up to a normalization constant and must satisfy statistical requirements. These requirements constrain averages of potentially nonlinear functions across the distribution. Applications include imposing moment conditions for counterfactual analysis or enforcing desired properties such as prediction fairness in Bayesian inference.",
+      "Such requirements differ from restrictions on which individual values a sample may take, so existing methods for support constraints are not suited to the task. The proposed primal-dual Langevin Monte Carlo algorithm simultaneously adjusts the target distribution to meet the statistical constraints and generates samples from it. Its construction uses opposing gradient updates in Wasserstein space, a geometry for working with probability distributions.",
+      "The authors analyze convergence by adapting classical saddle-point optimization arguments to this distributional setting. Their guarantees rely on stated regularity conditions involving convexity, strong convexity, and log-Sobolev inequalities. Applications illustrate the method's effectiveness, while the theoretical contribution provides a framework for reasoning about sampling and distribution-level constraints together."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6c7410d5f54c42415e1cd857a782ffda4383d3c20b10c952b2606df0c773cf97",
+    "tldr": "PD-LMC jointly enforces constraints on distributional averages and draws samples, with convergence analysis under specified mathematical assumptions."
+  },
+  "neurips-2024-enhancing-llm-reasoning-via-vision-augmented-prompting-71ee79894f": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Many language-model reasoning methods organize their work entirely as text, even when a problem contains useful spatial or visual relationships. Vision-Augmented Prompting addresses this mismatch by giving the reasoning process a visual representation to work with. Its motivation is that verbal and visual-spatial processing can make complementary contributions to solving a problem.",
+      "Starting from a textual description, the framework extracts visual and spatial clues and uses external drawing tools to synthesize an image. It then develops a chain of thought across text and images, refining the image as reasoning proceeds. A final reasoning stage based on self-alignment produces the answer, making the visual component part of an iterative process.",
+      "The authors evaluate the framework on geometry problems, Sudoku, time-series prediction, and the travelling salesman problem. They report better results than the existing language-model reasoning frameworks evaluated. These findings support the value of constructing and revising visual representations for the tested tasks, extending reasoning beyond a purely verbal sequence of intermediate steps."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f2d0a7f80d0ec5870da4cf24863318e03bd6b4a1eea43465500d9edab0166d81",
+    "tldr": "Vision-Augmented Prompting turns spatial clues into revisable images and combines visual and textual reasoning to improve performance on four tasks."
+  },
+  "neurips-2024-face2qr-a-unified-framework-for-aesthetic-face-preserving-and-scannable-qr-code-generati-54dd5e6f0a": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Personalized QR codes that incorporate a face must satisfy three competing goals: attractive appearance, recognizable identity, and reliable scanning. Existing image and style-transfer methods can compromise these goals when facial features interact with the QR pattern. Face2QR introduces a pipeline specifically designed to manage those interactions throughout generation.",
+      "The first component, IDQR, combines background styling and facial identity in a unified SD-based generation framework with control networks. The second, IDRS, rearranges QR modules to resolve conflicts between the code pattern and facial features while maintaining scannability. This directly addresses the placement of the code's structural elements around the identity information.",
+      "The final component, IDSE, optimizes latent codes to strengthen scanning robustness while preserving identity and visual quality. Each stage therefore addresses a different part of the same balancing problem, from initial integration to pattern arrangement and refinement. The authors report that Face2QR outperforms existing approaches in their experiments, with particularly strong results in preserving facial recognition features within customized QR designs."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3c6366a20b9ff67b97b9e2766ef9d3f1cd8ad80c6f01800f011509ee28ac6198",
+    "tldr": "Face2QR combines identity-aware image generation, QR-pattern rearrangement, and latent optimization to produce attractive, recognizable, and scannable face-based codes."
+  },
+  "neurips-2024-global-convergence-in-training-large-scale-transformers-d30a7fdbf2": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Transformers work well across many applications, but understanding why their training reaches good solutions remains a mathematical challenge. This paper analyzes gradient flow, a continuous-time description of optimization, for Transformers trained with weight decay. It focuses on a large-scale limit in which both model width and depth grow without bound.",
+      "The authors construct a mean-field description of that limit and show that the training dynamics converge to a Wasserstein gradient flow represented by a partial differential equation. This replaces the evolution of many individual parameters with a distributional description. They then prove convergence to a global minimum consistent with the equation's solution when weight decay is sufficiently small.",
+      "The analysis introduces techniques tailored to Transformers that require only partial homogeneity and local Lipschitz smoothness, weakening the corresponding requirements of earlier tools discussed in the paper. The result is a conditional optimization guarantee for the analyzed dynamics and limiting setting. The authors also suggest that the mathematical techniques may be useful independently of this particular Transformer analysis."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0b7ec07f86498bcedc98dbf76c472c94bd49ab8aad0a688206665f82e3a66c33",
+    "tldr": "The paper establishes a mean-field account of Transformer training and global convergence under its assumptions when weight decay is sufficiently small."
+  },
+  "neurips-2024-lakd-length-agnostic-knowledge-distillation-for-trajectory-prediction-with-any-length-ob-bd05821155": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Trajectory prediction systems often assume they can observe a sufficiently long, fixed history before forecasting movement. Real traffic can violate that assumption when an obstructed vehicle suddenly becomes visible. LaKD is designed to support predictions from observation histories of varying lengths, allowing existing prediction models to work with this less uniform information.",
+      "Its knowledge-distillation mechanism does not assume that longer histories always provide better guidance. They contain more temporal information but may also introduce interference. Instead, LaKD determines the direction of knowledge transfer from prediction performance, allowing information to pass between different history lengths according to which currently offers better predictions.",
+      "A single model acts as both teacher and student, creating the possibility that learning from one history length disrupts useful knowledge associated with another. LaKD addresses this with a dynamic soft mask based on neuron importance, protecting critical units during transfer. Experiments on Argoverse 1, nuScenes, and Argoverse 2 support the framework's effectiveness, and the approach is designed to accommodate different trajectory-prediction architectures."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5045b99f67be2415924112d7aae9c1ef05384da0d0b073d03ff3a71ef13fad6d",
+    "tldr": "LaKD transfers knowledge dynamically between observation lengths and protects important neurons to improve trajectory prediction with variable amounts of history."
+  },
+  "neurips-2024-lavib-a-large-scale-video-interpolation-benchmark-a38d5dc0e6": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Video frame interpolation concerns producing intermediate frames in a video sequence. LAVIB provides a large benchmark for studying this task using high-resolution web videos. Its collection process is automated and requires little human verification, allowing the dataset to include 283,000 clips drawn from 17,000 ultra-high-definition videos, totaling 77.6 hours.",
+      "The benchmark characterizes each video's motion magnitude, lighting conditions, frame sharpness, and contrast. These measurements give the collection an explicit account of the visual conditions a model encounters. They also support quantitative challenges based on those properties, addressing an aspect the authors describe as underexplored in existing datasets for low-level video tasks.",
+      "The standard training, validation, and test partitions have similar distributions of the measured video properties. Additional out-of-distribution partitions deliberately use different attributes in training and testing. This design supports evaluation under both matched conditions and shifts in the characteristics of the videos. The paper's contribution is the dataset and evaluation structure for investigating interpolation across these conditions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5b86c9a7289474060a16fcaa4f1aaf630a02c48aaeacbf41581eb1a456286354",
+    "tldr": "LAVIB provides 283,000 high-resolution video clips and attribute-based splits for evaluating frame interpolation under matched and shifted conditions."
+  },
+  "neurips-2024-longvideobench-a-benchmark-for-long-context-interleaved-video-language-understanding-32fdacbc59": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "LongVideoBench evaluates whether multimodal models can find and reason about detailed information in long videos accompanied by subtitles. It contains 3,763 web videos of varying lengths, with inputs extending to an hour. The benchmark addresses a gap between models' growing capacity to accept long inputs and public evaluations of what they understand from them.",
+      "Its central task is referring reasoning. A question points to a relevant context within the video, and the model must reason about details in that context. The benchmark includes 6,678 human-annotated multiple-choice questions spanning 17 categories, combining the challenge of locating relevant material with the challenge of interpreting it.",
+      "Evaluations find substantial difficulty even for advanced proprietary models, with open-source models falling further behind. The reported results also indicate that performance improves only when models can process more frames. Within these evaluations, additional frame-processing capacity is therefore a condition associated with improvement, emphasizing the importance of access to detailed visual information over a long input."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4e0f407b3cef34bfe1193700fda3e6aa281c766977fa72e29c1aec34155a1b6a",
+    "tldr": "LongVideoBench tests retrieval and reasoning over videos with subtitles lasting up to an hour, revealing substantial challenges for evaluated multimodal models."
+  },
+  "neurips-2024-mediq-question-asking-llms-and-a-benchmark-for-reliable-interactive-clinical-reasoning-7fbcdb9ed6": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Medical questions may arrive with incomplete information, yet conventional language-model evaluations usually provide a single fixed prompt. MEDIQ studies a more interactive setting in which an expert system can ask a patient system for missing details. The expert can defer a diagnostic decision when uncertain and gather information through follow-up questions.",
+      "The paper provides a pipeline for converting existing single-turn medical benchmarks into this format. Simply prompting strong models to ask questions reduces performance in the reported experiments, showing that information seeking requires more than adding an instruction. The authors therefore test abstention strategies that estimate confidence and guide when the model should ask for more context.",
+      "These strategies improve diagnostic accuracy by a reported 22.3%, although performance remains below the upper bound obtained by providing complete information upfront. That upper bound assumes information availability the authors describe as unrealistic in practice. Filtering irrelevant context and changing conversation formatting also improve interactive performance, highlighting the importance of both question timing and how gathered information is presented."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0d0562c32b5784caca80dba0963bc5f7a70affab5340e9688327976eeda1aec1",
+    "tldr": "MEDIQ evaluates clinical information seeking and shows that confidence-guided questioning improves simulated diagnostic performance, while straightforward question-asking prompts can hurt it."
+  },
+  "neurips-2024-mllm-compbench-a-comparative-reasoning-benchmark-for-multimodal-llms-e69c436661": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Comparing two things requires reasoning about their relationship, such as which has a particular attribute or how their states differ. MLLM-CompBench evaluates this ability in multimodal language models through questions about pairs of images. The paper treats comparative reasoning as an important capability that has received relatively little direct evaluation.",
+      "The benchmark contains approximately 40,000 image pairs assembled using metadata from vision datasets and CLIP similarity scores. Its questions cover eight comparison dimensions: visual attributes, existence, state, emotion, time, space, quantity, and quality. Images span subjects such as animals, fashion, sports, and indoor and outdoor scenes, providing varied settings for relative judgments.",
+      "Human annotators label questions designed to distinguish characteristics between the paired images. Evaluations of models including GPT-4V, Gemini-Pro, and LLaVA-1.6 reveal notable weaknesses in comparative ability. The benchmark makes those weaknesses measurable across different kinds of comparisons, providing a basis for assessing future improvements in how models relate visual evidence from two images."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4b9236e7a6092cb43e315eaf48ce985b3caec9448f5d7c1ab1db93e3e61ccf01",
+    "tldr": "MLLM-CompBench uses roughly 40,000 image pairs to reveal weaknesses in multimodal models' ability to make relative visual comparisons."
+  },
+  "neurips-2024-momentumsmoe-integrating-momentum-into-sparse-mixture-of-experts-161090228d": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Sparse mixtures of experts increase model capacity while activating only a small subset of parameters for each sample. The paper addresses instability during training and difficulty adapting to new data distributions, including a lack of robustness to contaminated data. Its goal is to improve these properties while retaining sparse computation.",
+      "The authors connect the dynamics of expert representations to gradient descent on a multi-objective optimization problem. This connection motivates incorporating momentum into the expert framework, yielding a family of models called MomentumSMoE. They provide theoretical results and numerical evidence that the resulting models are more stable and robust than the sparse mixtures of experts they compare against.",
+      "Experiments demonstrate advantages on ImageNet-1K object recognition and WikiText-103 language modeling, with applicability to expert designs used in V-MoE and GLaM. The framework can also incorporate more advanced momentum-based optimization methods, including Adam. The authors report that these extensions can improve performance with almost negligible extra computation and simple implementations, making the optimization perspective useful for designing additional expert models."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "839ac99a4d29cb3a48e81dd0b002e6f5792206491141d76d6841df0477d4e541",
+    "tldr": "MomentumSMoE uses an optimization-based view of expert dynamics to add momentum, improving stability and robustness with little additional computation."
+  },
+  "neurips-2024-mspe-multi-scale-patch-embedding-prompts-vision-transformers-to-any-resolution-7197f43c34": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Vision Transformers commonly process images resized to a preset resolution, although real images naturally have different dimensions. Changing a model's expected resolution can substantially reduce its performance. This paper addresses that problem at the patch-embedding stage, where image regions are converted into representations the Transformer can process.",
+      "Multi-Scale Patch Embedding replaces a standard patch embedding with several patch kernels of different sizes. It selects suitable parameters for different resolutions, allowing the original image to be used without resizing. The approach concentrates the adaptation in this input component and does not require changes to other parts of the model or costly training.",
+      "Experiments cover image classification, segmentation, and detection. The authors report stronger performance on low-resolution inputs and comparable performance on high-resolution inputs relative to existing methods. These findings support patch embedding as a useful place to handle resolution variation. The method is designed to apply readily to most Vision Transformers, connecting practical flexibility in input size with a localized architectural change."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e43f5919090616ffa2c5b40b86eb7ab62a4e66070f9d00429fe4c0dc11e18fe7",
+    "tldr": "MSPE adapts Vision Transformers to varying image resolutions through multiple patch-kernel sizes, improving low-resolution performance without changing the rest of the model."
+  },
+  "neurips-2024-multi-llm-debate-framework-principals-and-interventions-fc7193fe95": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Having several language models debate an answer offers a possible route to improving answer quality. This paper develops a mathematical framework for analyzing that process and identifying when discussion may fail to produce useful revisions. Its focus is on the dynamics of agreement among models, including how their capabilities and starting responses shape the outcome.",
+      "The theoretical results show that similar capabilities or similar responses can lead to static debate dynamics that settle on the majority opinion. If shared training data has embedded a common misconception, that majority can favor an incorrect answer. Under those circumstances, debate is likely to reinforce the misconception rather than resolve it.",
+      "Using these insights, the authors propose three interventions intended to improve debate. They provide theoretical results for each intervention and report better performance on four benchmark tasks. The contribution therefore combines an account of a possible failure mechanism with supported ways to improve the process, emphasizing that agreement among participants can reflect shared error as well as useful deliberation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7f0d7001b8bee13c292da2b56868c9b39f60c8aab74dbc50dce10fac05f30a3e",
+    "tldr": "The paper explains how multi-model debate can reinforce shared misconceptions and proposes three interventions supported by theory and benchmark improvements."
+  },
+  "neurips-2024-navsim-data-driven-non-reactive-autonomous-vehicle-simulation-and-benchmarking-b949286ee8": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Evaluating driving policies involves a difficult tradeoff. Comparing predictions with recorded driving data is convenient, but can poorly reflect behavior during interaction. Full closed-loop simulation is computationally expensive and can differ substantially from real data. NAVSIM combines large datasets with short simulations to provide an evaluation approach between these alternatives.",
+      "The framework rolls out bird's-eye-view representations of scenes and computes measures such as progress and time to collision. Its simulator is explicitly non-reactive: the evaluated policy and environment do not influence each other. The authors show empirically that this separation permits open-loop metric computation while producing measures better aligned with closed-loop evaluations than conventional displacement errors.",
+      "A competition using NAVSIM attracted 143 teams and 463 entries. On a large collection of challenging scenarios, the authors observe that a comparatively simple method with moderate compute requirements, TransFuser, can match a larger driving architecture, UniAD. The result illustrates how changing evaluation can clarify comparisons between approaches. NAVSIM's modular design also allows potential extensions through datasets, curation strategies, and metrics."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "603c5c461e747e94ea16cf267e02d8649d2a0a2eb09db4d1cdbb4698b255cdef",
+    "tldr": "NAVSIM uses short non-reactive simulations of recorded scenes to evaluate driving policies with metrics empirically better aligned with closed-loop performance."
+  },
+  "neurips-2024-not-all-tokens-are-what-you-need-for-pretraining-a3e2d86a6f": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Language-model pretraining typically applies a next-token prediction loss uniformly across training tokens. This paper questions whether every token contributes equally useful learning. An analysis of token-level training dynamics identifies different loss patterns, motivating a training procedure that focuses attention on tokens aligned with the desired distribution.",
+      "The resulting model, Rho-1, uses Selective Language Modeling. A reference model scores the training tokens, and the learning objective focuses on higher-scoring tokens. This makes token selection part of the training objective, using the reference model to guide which prediction errors the model should prioritize.",
+      "After continued pretraining on 15 billion OpenWebMath tokens, the authors report absolute few-shot accuracy improvements of up to 30% across nine math tasks. Following fine-tuning, the 1B and 7B versions achieve 40.6% and 51.8% on MATH, matching DeepSeekMath using 3% of its pretraining tokens. Continued pretraining on 80 billion general tokens also yields a reported 6.8% average improvement across 15 tasks. These results support selective token supervision as a route to better data efficiency and performance."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9acb7fc9cf46a38eea3a6023d03b11bc4e1e3886fdb463e5627e4cbe2ca5eadb",
+    "tldr": "Rho-1 focuses pretraining loss on reference-model-selected tokens, delivering reported improvements in mathematical and general tasks with greater data efficiency."
+  },
+  "neurips-2024-quest-quadruple-multimodal-contrastive-learning-with-constraints-and-self-penalization-d5a5dc1d12": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Multimodal contrastive learning aligns information from different modalities, but the paper identifies two weaknesses in existing approaches. Treating all negative examples alike overlooks possible semantic relationships with positive examples. In addition, emphasizing information shared across views can suppress information unique to a modality, reducing the usefulness of learned features.",
+      "QUEST uses quaternion vector spaces to optimize shared and unique information together. Its contrastive objectives and orthogonality constraints are designed to extract sufficient unique information. A further penalty guided by shared information prevents the shared component from exerting excessive influence over the optimization of unique features.",
+      "The central aim is to preserve what different views have in common while also learning what each contributes individually. Experiments across multiple datasets report superior multimodal contrastive-learning performance, including state-of-the-art results on a public benchmark. On synthetic shortcut datasets using CLIP, the authors report an average improvement of 97.95% over existing baselines. That large reported gain belongs specifically to the synthetic shortcut setting described in the abstract."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f99cdc87ea664039d179fda1993e55a6e7b1cf461537af58a4e11f95c3648670",
+    "tldr": "QUEST jointly learns shared and modality-specific information using quaternion objectives, constraints, and penalization, improving the evaluated contrastive-learning results."
+  },
+  "neurips-2024-rextime-a-benchmark-suite-for-reasoning-across-time-in-videos-8a05fdedec": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "ReXTime evaluates video questions whose relevant question context and answer occur in different segments. Solving them requires connecting events across time, including understanding cause-and-effect relationships between segments. The benchmark targets this form of temporal reasoning because it remains difficult even for leading multimodal language models.",
+      "The authors build an automated pipeline for creating temporal question-answer pairs, reducing the manual work needed to construct examples. The evaluation collection contains 921 validation samples and 2,143 test samples that are manually curated for accuracy and relevance. This combines automated generation with human checking of the material used to measure model performance.",
+      "Evaluations show that frontier language models outperform academic models but remain behind humans by a reported 14.3% accuracy gap. The same pipeline also produces 9,695 training samples without manual effort. Empirical studies suggest that fine-tuning on these generated examples can improve reasoning across time. ReXTime therefore supplies both a targeted evaluation and evidence for a possible training route to improve the capability it measures."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3d050cdbff4837232767fbdd5cafc114714c29dae843aa7e74701eae33bd82d8",
+    "tldr": "ReXTime exposes a substantial human–model gap in reasoning across video segments and provides generated training data that may improve that ability."
+  },
+  "neurips-2024-stabilize-the-latent-space-for-image-autoregressive-modeling-a-unified-perspective-ff80b756b8": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Image generators often work in a compact latent space produced by an autoencoder instead of directly modeling pixels. The paper asks whether representations optimized for reconstruction are the best foundation for generation. Its starting observation is that autoregressive models trail diffusion and masked-image models even when they use the same latent space.",
+      "The authors propose a unified view emphasizing latent-space stability. Their tokenizer, DiGIT, applies K-Means clustering to features from self-supervised learning models, producing discrete image tokens. This offers a different representation for learning images through next-token prediction, the basic training principle used by GPT-style models.",
+      "Experiments show benefits for both image understanding and generation using this approach. The authors report a GPT-style image autoregressive model that outperforms latent diffusion models in their evaluation and improves substantially as model size increases. These findings support the potential of better latent representations and discrete tokenization to strengthen autoregressive image modeling. The contribution links the choice of representation to the effectiveness of the generative training method."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "68d5c96bb7eeddac445344379ce48784cdf080c9bfcfe1f788db1edefe044346",
+    "tldr": "DiGIT clusters self-supervised image features into discrete tokens, improving autoregressive image understanding and generation through a more stable latent representation."
+  },
+  "neurips-2024-stochastic-optimal-control-for-diffusion-bridges-in-function-spaces-9e4414416f": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Diffusion methods usually operate on finite-dimensional representations, while some problems are more naturally expressed as distributions over entire functions. This paper develops stochastic optimal control theory for that infinite-dimensional setting. Its aim is to extend diffusion algorithms to continuous function representations while retaining a principled mathematical account of their behavior.",
+      "The authors derive Doob's h-transform, a central construction for diffusion bridges, from an optimal-control perspective and extend it to infinite dimensions. A key obstacle is that these spaces typically lack closed-form probability densities. They also establish that, for a specific choice of control objective, solving the optimal-control problem is equivalent to learning a diffusion-based generative model.",
+      "The framework supports two applications: learning bridges between distributions over functions and generating samples from such a distribution. The paper reports effective applications involving resolution-free images, time-series data, and probability density functions. These examples connect the theory to settings where the object being modeled has a continuous functional representation, expanding the scope of diffusion-based modeling beyond a fixed finite-dimensional formulation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9cc97c09e4c6031c2b9183bb28cfc5ea45f43a42d85d1a538b54702934299d42",
+    "tldr": "The paper extends stochastic optimal control and diffusion bridges to function spaces, connecting a specific control objective to generative-model learning."
+  },
+  "neurips-2024-visual-perception-by-large-language-models-weights-d097a63989": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Multimodal language models commonly represent an image as visual tokens and combine them with text in a single input sequence. This gives the language model access to visual information, but lengthens the sequence it must process. The paper explores a different location for that information: the model's weights.",
+      "For each image, a vision encoder first extracts features. A generator converts those features into perceptual weights, which are then merged with the language model's weights. The proposed VLoRA method makes these generated weights low-rank, with a structure similar to LoRA. Visual information therefore changes the model's parameters for the image instead of occupying additional input-token positions.",
+      "Removing visual tokens shortens the language model's input sequence and is the central efficiency mechanism. Across the evaluated multimodal benchmarks, the authors report performance comparable to existing approaches while significantly reducing computation during both training and inference. The results support parameter-space alignment as a practical alternative for conveying visual information to a language model without extending its input sequence."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "32c71157b7b397e39364a8666107477df80c301f3b640af04dca39f486874134",
+    "tldr": "VLoRA converts image features into low-rank model-weight updates, achieving comparable multimodal performance with substantially less training and inference computation."
+  }
+}

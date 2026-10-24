@@ -1,0 +1,327 @@
+{
+  "icml-2020-adaptive-droplet-routing-in-digital-microfluidic-biochips-using-deep-reinforcement-learn-73dab1f267": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Digital microfluidic biochips move tiny fluid droplets across a two-dimensional array of electrodes to carry out biochemical procedures. Reliable movement matters because a failed transport step can compromise the assay. The paper addresses a practical source of failure: electrodes deteriorate over time, so a route that previously worked may become unreliable.",
+      "The authors formulate droplet transportation as a reinforcement learning problem and train deep neural network policies for routing. Their aim is for these policies to capture the electrodes’ underlying health conditions and use that information to support reliable fluid movement. This connects the routing decision to the changing condition of the device. The proposed routing workflow also accommodates different chip sizes.",
+      "The work includes a demonstration of reliable execution of an epigenetic bioassay on a fabricated chip using the learned router. That provides a physical-device demonstration alongside the learning formulation. The authors also introduce a simulation environment using the OpenAI Gym interface, giving researchers a shared setting for investigating reinforcement learning methods for droplet routing."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4eed0a807deee42d9e38c55bb871bb02395a7a8ab4bf7b6530286c4c53e1d104",
+    "tldr": "Deep reinforcement learning guides droplet routing around changing electrode conditions, with a successful bioassay demonstration on a fabricated chip."
+  },
+  "icml-2020-an-imitation-learning-approach-for-cache-replacement-1b6a659bae": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A cache replacement policy decides which stored item to remove when a new one arrives. This decision affects execution speed because retrieving an item from cache is much faster than missing it. The difficulty is anticipating future accesses. Handcrafted policies capture some common patterns, but the paper argues that more varied and complicated patterns call for learned decisions.",
+      "Parrot learns by imitating Belady’s policy, an oracle that makes optimal eviction decisions when given future accesses. Those future accesses supply a training reference, while Parrot’s own decisions depend only on past accesses. The central idea is to learn useful patterns from an otherwise impractical expert, producing a policy that approximates its choices without requiring future information during use.",
+      "The reported results require careful reading: the supplied abstract states a 20% increase in cache miss rates on 13 memory-intensive SPEC applications, which is unfavorable for that metric. Separately, it reports a 61% increase in cache hit rates on a web search benchmark relative to LRU. The authors also release a Gym environment for further cache replacement research."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f9b21fe167b95961ddc95c03cb7efe07a37b606779df96fde4e21db5ae189af8",
+    "tldr": "Parrot learns cache eviction decisions from a future-aware oracle while using only past accesses, with mixed reported metric directions in the supplied abstract."
+  },
+  "icml-2020-ar-dae-towards-unbiased-neural-entropy-gradient-estimation-f702a5cd02": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Entropy describes uncertainty in a distribution, but computing it for an arbitrary continuous random variable is generally intractable. For learning algorithms, the useful quantity can instead be the gradient of entropy: how that uncertainty changes as the model changes. This paper develops a neural approximation that makes this gradient more accessible.",
+      "The proposed amortized residual denoising autoencoder, or AR-DAE, approximates the gradient of the log density. That approximation can then be used to estimate an entropy gradient. The authors explain that amortization reduces approximation error by approaching the asymptotic optimum of a regular denoising autoencoder. Unbiasedness is a theoretical property at that optimum, so the claim concerns a limiting condition rather than an unconditional guarantee for every trained estimator.",
+      "The paper examines approximation error through both theory and experiments and studies practical heuristics intended to improve robustness. It also applies the estimator to variational autoencoders for density estimation and soft actor-critic for continuous control, reporting state-of-the-art performance. These applications show how improving an intermediate gradient estimate can benefit broader learning procedures."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0045215dba4d51e8aaaf985e21d596ec11340a595665708acedda6f013b0f53d",
+    "tldr": "AR-DAE estimates entropy gradients through learned log-density gradients, approaching theoretical unbiasedness under an asymptotic optimality condition."
+  },
+  "icml-2020-boosting-deep-neural-network-efficiency-with-dual-module-inference-f57187cebb": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Neural network inference can be expensive for two different reasons: moving model data through memory or performing the calculations themselves. This paper proposes a paired-module approach that reduces both kinds of work selectively. Its starting observation is that nonlinear activation functions have regions where approximation errors matter less to their outputs.",
+      "A lightweight module approximates an original network layer, which serves as the larger module. The lightweight computation handles activations in less sensitive regions, while the original computation is reserved for sensitive regions. This lets the system dynamically avoid some costly memory accesses and operations. The approach therefore ties computational effort to how strongly approximation noise can affect an activation.",
+      "For memory-bound models such as recurrent networks, the authors report 40% fewer memory accesses on average and speedups of 1.54 to 1.75 times on a commodity CPU server, with negligible model-quality impact. For compute-bound models such as convolutional networks, they report a 3.02-fold reduction in operations with a 0.5% accuracy drop. These are distinct reported benefits for different execution bottlenecks."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b8920a98c568148af8e0aec0b7f1d2dc9934056e3952e6c31fc2854357c64f80",
+    "tldr": "A lightweight approximation handles noise-tolerant activations while full computation handles sensitive ones, reducing inference costs with small reported quality changes."
+  },
+  "icml-2020-do-we-really-need-to-access-the-source-data-source-hypothesis-transfer-for-unsupervised--b24ce47d55": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Unsupervised domain adaptation transfers knowledge from a labeled source dataset to a related target domain without target labels. Many approaches need the original source data during adaptation, which can be inconvenient or risky when data are private and distributed. This paper studies adaptation with access to the trained source model alone.",
+      "The proposed SHOT framework keeps the source model’s classifier fixed and adapts its feature extractor to the target domain. It combines information maximization with self-supervised pseudo-labeling to make target representations align with the existing classifier. The fixed classifier acts as the reference for adaptation, while changes to the feature extractor let unfamiliar target inputs become useful to that reference.",
+      "The authors evaluate SHOT across closed-set, partial-set, and open-set adaptation, covering several relationships between source and target class sets. They report state-of-the-art results on multiple benchmarks. The findings support the usefulness of transferring a trained model without retaining source-data access during adaptation, while the benchmark evidence establishes performance in the evaluated settings rather than a universal adaptation guarantee."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "578536ca67daf1142f24ea518400d1e6012b18b40aec230545f226eaa0c3e151",
+    "tldr": "SHOT adapts a source model to unlabeled target data by freezing its classifier and learning target features without accessing the source dataset."
+  },
+  "icml-2020-exploration-through-reward-biasing-reward-biased-maximum-likelihood-estimation-for-stoch-d8ecc1949d": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "In a stochastic multi-armed bandit problem, a learner repeatedly chooses among options with uncertain rewards. Good decisions require both exploiting promising options and gathering information about alternatives. This paper develops a family of algorithms called RBMLE, drawing on reward-biased maximum likelihood estimation from adaptive control to shape that exploration process.",
+      "For a broad collection of reward distributions, the authors show that RBMLE produces an index policy: choices can be made using a score for each option. A central part of the analysis concerns how quickly the reward bias grows over time. That growth rate interacts with regret, the accumulated performance shortfall relative to the best option, so choosing it is a substantive part of the method.",
+      "For Gaussian and sub-Gaussian bandits, the authors prove order-optimal finite-time regret while adaptively estimating unknown constants needed by the bias schedule. Experiments report regret competitive with leading methods, together with better computational efficiency and scalability than the strongest-performing comparison methods. The theoretical optimality claim is specifically established for the stated Gaussian and sub-Gaussian settings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0d7633b4642ae82a6cc59b678974152d100c3df8823b9b89b7247f491ef31340",
+    "tldr": "RBMLE turns reward-biased estimation into bandit index policies, with order-optimal regret guarantees for Gaussian and sub-Gaussian rewards."
+  },
+  "icml-2020-extrapolation-for-large-batch-training-in-deep-learning-3e0e294c93": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Increasing training batch size can help reduce training time, but it often worsens a network’s performance on unseen data. One proposed remedy perturbs model parameters when computing gradients, creating a smoothing effect. The paper identifies a practical difficulty with that strategy: choosing suitable noise can require model-specific adjustments and additional tuning.",
+      "The authors propose computationally efficient extrapolation, also called an extragradient approach, to stabilize the optimization trajectory while retaining smoothing benefits intended to avoid sharp minima. They place several variations within a unified optimization framework. This matters because it connects the training modification to a common analytical account instead of treating each variation as a separate empirical trick.",
+      "The paper proves convergence of the proposed scheme and evaluates it on ResNet, LSTM, and Transformer models. Across a variety of experiments, the authors report support for substantially larger batches while matching or exceeding state-of-the-art accuracy. The results connect the optimization analysis to practical training outcomes, with the larger-batch accuracy claim grounded in those evaluated experiments."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0163d5b79d33e8225d1100da99ebd99cb155c75d0fad2ab761bc6042d2131c9f",
+    "tldr": "An extrapolation-based training framework stabilizes large-batch optimization and enables larger batches with strong accuracy in the reported experiments."
+  },
+  "icml-2020-finite-time-last-iterate-convergence-for-multi-agent-learning-in-games-439b959873": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "When several agents learn simultaneously, each agent’s changing behavior affects the others. This paper studies online gradient descent in a particular family called lambda-cocoercive games. That family can accommodate multiple Nash equilibria and includes unconstrained strongly monotone games. The focus is on whether the agents’ current decisions converge, rather than only whether averages of past decisions behave well.",
+      "The authors establish finite-time convergence rates for the last iterate of joint online gradient descent. They then design a fully adaptive version that does not need advance knowledge of parameters such as the cocoercivity constant. Using a double-stopping-time argument, they show that this adaptive method achieves the same convergence rate as its non-adaptive counterpart.",
+      "The analysis also extends to noisy gradient feedback, providing both almost-sure convergence and quantitative finite-time rates under non-decreasing step sizes. Together, these results address how quickly current behavior settles, how learning can proceed without known problem constants, and how noise affects convergence. The guarantees apply within the studied game class and feedback settings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "164dfc8fcb8034c2515aa03177391a19cbe617d1e54b86fc813ce3157f584dbf",
+    "tldr": "For lambda-cocoercive games, the paper establishes last-iterate convergence rates and a parameter-free adaptive gradient method with matching rates."
+  },
+  "icml-2020-generalized-and-scalable-optimal-sparse-decision-trees-f4878e8926": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Sparse decision trees are useful for interpretable prediction, but finding an optimal tree is computationally difficult. Common construction methods make greedy splits and later prune the result, which can leave better trees undiscovered. This paper develops a general optimization framework aimed at constructing optimal sparse trees for a wider range of practical objectives.",
+      "The work addresses two problems: handling imbalanced data and fully optimizing over continuous variables. It supports objectives including F-score, AUC, and partial area under the ROC convex hull. Supporting these objectives matters because the criterion used to select a tree need not be limited to one measure of classification performance, particularly when class frequencies are uneven.",
+      "The authors also introduce a scalable algorithm that gives provably optimal results in the presence of continuous variables. They report construction speed improvements of several orders of magnitude relative to the state of the art. The contribution combines a broader choice of optimization targets with faster tree construction, making exact optimization more practically useful within the framework studied."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a6f2d5b29bf49eb18ac327f727f53c7c9c0be04ee1e682bae019057b3d76965a",
+    "tldr": "A decision-tree optimization framework supports imbalance-sensitive objectives and continuous variables while reporting major speed gains and provable optimality."
+  },
+  "icml-2020-handling-the-positive-definite-constraint-in-the-bayesian-learning-rule-392900ec22": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The Bayesian learning rule is a variational inference method based on natural gradients, and it encompasses many existing learning algorithms. A difficulty arises when its parameters must remain inside an open constraint set: an update can leave the permitted region. Correcting that through line searches can slow learning. This paper focuses on positive-definite matrix constraints.",
+      "The authors modify the rule using Riemannian gradient methods so that it naturally respects positive definiteness. The modification applies when the approximation admits a block-coordinate natural parameterization, with Gaussian distributions and Gaussian mixtures given as examples. This is a stated structural requirement on where the method applies, rather than a claim that the same update handles every constrained approximation.",
+      "The paper reports better performance than existing methods without a significant increase in computation. Its practical contribution is to incorporate the required matrix constraint into the learning update itself. For suitable variational approximations, this makes the Bayesian learning rule easier to use while addressing the constraint violations that otherwise motivate additional line-search work."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "902938d61e46810ebe65e8d3ca619b299f3c035a45e39c8cccedd3b423d99633",
+    "tldr": "A Riemannian modification of the Bayesian learning rule preserves positive-definite constraints for approximations with a suitable parameterization."
+  },
+  "icml-2020-hierarchical-verification-for-adversarial-robustness-f9ce0f7ef7": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Exact point-wise robustness verification asks whether a network’s prediction is protected against perturbations within a chosen distance of a particular input. For feed-forward ReLU networks, activation patterns divide input space into geometric regions. Checking the relevant regions can establish robustness, but finding and processing them requires solving convex optimization problems.",
+      "LayerCert uses the nested geometric structure created by successive network layers to explore these regions hierarchically. The comparison method, GeoCert, treats the partition as a more general polyhedral complex. Exploiting the layered structure gives LayerCert additional organization for deciding which regions to examine and how to formulate the associated optimization work.",
+      "Under certain conditions on algorithm parameters, the authors prove that LayerCert reduces both the number and size of convex programs relative to GeoCert. The framework can also incorporate lower bounds from convex relaxations to improve performance further. Experiments show substantial reductions in solved programs and runtime. The theoretical improvement is conditional, while the reported runtime reductions provide empirical evidence of its practical value."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "389ee5dc1fc9da39917eefa82ef48761a7bdfd2527a064572c04cada6ea9ee55",
+    "tldr": "LayerCert exploits ReLU networks’ layered geometry to accelerate exact robustness verification, with conditional guarantees of reduced optimization work."
+  },
+  "icml-2020-improving-generative-imagination-in-object-centric-world-models-ac498dce78": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Object-centric world models represent a scene in terms of its constituent objects. The paper argues that much evaluation has emphasized detecting and tracking those objects, leaving a different capability less understood: generating plausible developments over time. It also asks how useful ingredients from earlier models can be combined into a unified framework.",
+      "Generative Structured World Models, or G-SWM, bring those ingredients together and add two capabilities emphasized by the authors: multimodal uncertainty and situation-awareness. Multimodal uncertainty allows temporal imagination to represent distinct possible outcomes. Situation-awareness makes the surrounding circumstances part of that capability. These properties matter when generating a scene’s future requires more than continuing a single, context-independent trajectory.",
+      "The authors investigate temporal generation directly and compare G-SWM with previous models across multiple experimental settings. They report best or comparable performance throughout, including some complex settings that had not previously been tested. The finding supports the model’s versatility across those evaluations while making temporal imagination itself a central target for assessing object-centric generative models."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "02eb316a421f50b6770ee306e6388f6d2241a7b3d04321c3758af44db0d844f3",
+    "tldr": "G-SWM combines object-centric modeling capabilities with multimodal uncertainty and situation-awareness to improve the generation of possible futures."
+  },
+  "icml-2020-infogan-cr-and-modelcentrality-self-supervised-model-training-and-selection-for-disentan-bf74e5fab5": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A disentangled generative model aims to associate different latent variables with distinct, interpretable properties of its outputs. This paper addresses two related challenges: training such models and choosing a good trained model without labels that reveal the true underlying factors. Those labels are often assumed during tuning even though real datasets generally lack them.",
+      "For training, the authors introduce a contrastive regularizer inspired by latent traversal, the idea of inspecting how outputs change as latent codes vary. This self-supervised approach produces higher disentanglement scores than the compared VAE and GAN methods. For selection, ModelCentrality uses synthetic samples to identify the medoid of a collection of models, selecting a model that is central within the collection.",
+      "The authors report that ModelCentrality finds a model close to the best available one for both VAEs and GANs. Combining it with contrastive regularization significantly improves reported state-of-the-art disentanglement scores without accessing supervised data. The contribution therefore covers both learning useful latent structure and selecting among candidates when ground-truth factor labels are unavailable."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "364aa3dcb6fc2f9e526624ca123df99119af8f36d3a8936d79a2e6c95409f306",
+    "tldr": "Contrastive self-supervision and ModelCentrality improve disentangled generative modeling and model selection without ground-truth latent-factor labels."
+  },
+  "icml-2020-input-sparsity-low-rank-approximation-in-schatten-norm-0235754125": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Low-rank approximation replaces a large matrix with a product of two narrower matrices. The goal is to preserve the original matrix while using a restricted rank. This paper develops algorithms for measuring approximation error in every Schatten norm, a family of matrix norms computed from singular values that includes the nuclear and Frobenius norms.",
+      "For a given square matrix and target rank, the algorithm returns factors whose error is at most one plus epsilon times the best achievable rank-constrained error, with high probability. Its runtime includes a term proportional to the number of nonzero input entries, plus an additional term depending on matrix size, rank, accuracy, and the selected norm. Dimensionality reduction for Ky-Fan norms is central to the analysis.",
+      "The nuclear-norm case receives particular attention: its additional dependence on matrix size is linear, multiplied by a polynomial in rank and inverse accuracy, up to suppressed logarithmic factors. The paper also establishes better matrix-size dependence than singular value decomposition across the stated norms. These results extend fast approximation guarantees beyond the previously available Frobenius-norm case."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "41d2720de0b95a5e2fc2dd6bc17c23c9b25237ef1db643c82cfa895bd351d279",
+    "tldr": "The paper gives input-sparsity-time low-rank approximation algorithms with high-probability near-optimal error guarantees across Schatten norms."
+  },
+  "icml-2020-on-a-projective-ensemble-approach-to-two-sample-test-for-equality-of-distributions-464d98e1e7": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The multivariate two-sample problem asks whether two collections of observations come from the same distribution. This paper proposes a test built from a projective ensemble, generalizing the Cramer-von Mises statistic. The resulting statistic has a closed-form expression, requires no tuning parameters, and can be computed in quadratic time, making its implementation relatively straightforward.",
+      "The authors establish consistency against every fixed alternative: when the distributions differ in a fixed way, the test can detect that difference as sample size grows. They also describe the test as insensitive to dimension and robust to outliers. It does not require moment assumptions, so its theoretical scope does not depend on imposing those particular restrictions on the distributions.",
+      "The paper analyzes asymptotic behavior under the null hypothesis and two kinds of alternatives. It also proposes a permutation procedure for approximating critical values and establishes its consistency. Simulations and a real-data application demonstrate effectiveness. Together, these contributions pair a simple test statistic with theory explaining its behavior and a practical way to calibrate the decision threshold."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6a67f29b9c8e94f00a2d97eaefb1f55937225f4486aeabd44a7a73f0e8f282ed",
+    "tldr": "A tuning-free projective-ensemble test compares multivariate distributions with consistency guarantees, outlier robustness, and no moment assumptions."
+  },
+  "icml-2020-on-gradient-descent-ascent-for-nonconvex-concave-minimax-problems-b6a3f2ff7e": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Minimax optimization involves minimizing an objective in one set of variables while maximizing it in another. This paper studies objectives that are nonconvex in the minimizing variables and concave in the maximizing variables, with the latter restricted to a convex, bounded set. Gradient descent ascent is a common method here, but equal step sizes can produce cycles or divergence in general settings.",
+      "The authors analyze two-time-scale gradient descent ascent, which gives the minimizing and maximizing updates different step-size scales. They establish complexity results for finding a stationary point of the value function obtained by maximizing over the second variable. This identifies a meaningful optimization target for the outer minimization without claiming that the algorithm finds a global optimum.",
+      "The analysis is nonasymptotic, addressing computational progress over a finite number of iterations rather than only eventual limiting behavior. The authors present it as the first such analysis for two-time-scale gradient descent ascent in this setting. It offers theoretical insight into the method’s practical performance in applications such as GAN training, within the stated structural assumptions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "cd814b9c06cc6aaf4c30bed0c07e29a7f9f040b2f3c3e6a6b2c7b5d7346c94d1",
+    "tldr": "Two-time-scale gradient descent ascent has finite-iteration guarantees for finding stationary points in the studied nonconvex-concave minimax setting."
+  },
+  "icml-2020-on-the-theoretical-properties-of-the-network-jackknife-057752cfd6": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The network jackknife estimates uncertainty by repeatedly leaving a node out of a network and examining how a statistic changes. This paper studies when that procedure has theoretical support. Its analysis uses the sparse graphon model, providing a setting in which to reason about the variability of statistics computed from network data.",
+      "The authors prove an Efron-Stein-type inequality for any network functional that is unchanged by relabeling nodes. Under the model, the jackknife variance estimate is conservative in expectation. That means the guarantee concerns its average behavior, rather than promising an overestimate for every individual network. For a general class of count functionals, they additionally establish consistency of the procedure.",
+      "Simulated and real-data examples complement the theory. The jackknife performs competitively in settings where other resampling methods are known to be valid, and it yields more accurate inference than related methods such as subsampling for several statistics. The work therefore provides both model-based justification and empirical support for a relatively direct approach to uncertainty estimation on networks."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3dda3e7a966dcf02a399fc46526b3e8ba9cebee897200898414f7ac08858bfdb",
+    "tldr": "Under a sparse graphon model, the network jackknife gives conservative variance estimates in expectation and is consistent for a class of count statistics."
+  },
+  "icml-2020-peer-loss-functions-learning-from-noisy-labels-without-knowing-noise-rates-3633c99126": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Supervised learning becomes harder when training labels are incorrect. Many approaches ask practitioners to specify how often labels are corrupted or to estimate those noise rates in a separate step. This paper introduces peer loss functions to support learning from noisy labels without requiring those rates to be supplied in advance.",
+      "Peer losses fit within ordinary empirical risk minimization, where a model is trained by minimizing its average loss on the available examples. The central theoretical result compares learning with peer losses on noisy data to learning from inaccessible clean data. Under conditions described as mild, the authors show that the noisy-data procedure can yield an optimal or near-optimal classifier relative to that clean-data reference.",
+      "The paper accompanies its theoretical results with extensive experiments and presents peer loss as a robust candidate for potentially noisy training sets. Its practical appeal is simplifying model development by removing the need for prior noise-rate specification. The clean-data-like performance claim remains conditional on the theory’s assumptions, rather than guaranteeing recovery under every possible form of label corruption."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9a2bace6997c8238c84a0384cdf224a7b87c551b54aca495e06c6f50bf27e042",
+    "tldr": "Peer loss functions enable noisy-label training without specified noise rates and offer conditional guarantees of optimal or near-optimal classification."
+  },
+  "icml-2020-rifle-backpropagation-in-depth-for-deep-transfer-learning-through-re-initializing-the-fu-48d93eecbf": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Fine-tuning a pretrained convolutional network transfers knowledge from a larger dataset to a target task. However, the paper observes that backpropagation may change deeper convolutional layers only weakly, leaving outcomes similar to those obtained with those weights frozen. This motivates a training strategy that encourages more substantial adaptation throughout the network.",
+      "RIFLE periodically resets the fully connected layer to random initial values during fine-tuning. These resets perturb backpropagation and drive updates into deeper convolutional layers. The authors argue that the learning procedure can recover from the perturbations as training continues. The intervention is simple, but it changes the learning signal reaching the pretrained representation rather than merely adjusting the final predictions.",
+      "Across a broad range of datasets, the authors report testing accuracy 0.5% to 2% higher than dropout, dropconnect, stochastic depth, and cyclic learning rates under the same settings. Empirical examples and ablation studies also indicate meaningful changes in deeper layers alongside improved accuracy. These findings support periodic reinitialization as a practical strategy for the evaluated transfer-learning tasks."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8e038718954c567ee7af401d63530eefaf463241afe5b626e285f346848902e8",
+    "tldr": "RIFLE periodically reinitializes the fully connected layer during fine-tuning to encourage deeper CNN updates and improve reported transfer accuracy."
+  },
+  "icml-2020-sample-complexity-bounds-for-1-bit-compressive-sensing-and-binary-stable-embeddings-with-bd12090bcc": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "One-bit compressive sensing reconstructs an unknown vector from measurements that retain only the sign of a linear function. Traditional formulations assume the vector is sparse. This paper studies an alternative structural assumption: the vector is described by a generative model. The question becomes how many binary measurements are needed for accurate approximate recovery under that prior.",
+      "For noiseless measurements, the authors establish sample-complexity bounds using independent Gaussian measurements and a Lipschitz-continuous generative prior. They also give a nearly matching lower bound that applies regardless of the reconstruction algorithm. Together, the bounds describe both what can be achieved and how much measurement information is fundamentally required within the studied setting.",
+      "The paper additionally establishes a binary stable embedding property when sufficiently many Gaussian measurements are available. This property characterizes robustness to measurement errors and noise. The results are applied to neural network generators, and a proof-of-concept numerical experiment shows substantial improvements over sparsity-based approaches. That experiment illustrates the potential benefit of the generative assumption alongside the formal measurement guarantees."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4e6bbc953ab25487b5c030f286e841d9a184f8727db768c738f5836a396c7ae5",
+    "tldr": "The paper bounds the binary measurements needed for recovery under Lipschitz generative priors and establishes a stability property for sufficiently many Gaussian measurements."
+  },
+  "icml-2020-sparse-shrunk-additive-models-23e0c3dd61": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Selecting useful features becomes challenging when their relationships with a response are nonlinear and when features interact. The paper argues that many existing selection methods rely on linear models or handle interactions only with prior structural information. It studies high-dimensional nonparametric regression using sparse additive models that allow more flexible interactions among features.",
+      "The proposed sparse shrunk additive model, SSAM, explores structure among features and connects sparse kernel regression with sparse feature selection. The aim is to combine flexible predictive relationships with a representation that selects relevant features. This makes learning the feature structure part of the modeling problem instead of relying entirely on structure supplied beforehand.",
+      "The authors establish convergence rates and sparsity properties using integral-operator analysis and concentration estimates. A stated feature of the theory and algorithm is that component functions need only be continuous and bounded; they need not belong to reproducing kernel Hilbert spaces. Experiments on synthetic and real-world data demonstrate effectiveness, complementing the theoretical account of accuracy and sparsity under the stated function assumptions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c642f258502133e6a1b2865bebef9f3a525d6082f10d6eb9d41f38a3d6e9ed46",
+    "tldr": "SSAM combines nonlinear regression, feature selection, and flexible interactions, with convergence and sparsity theory for continuous bounded component functions."
+  },
+  "icml-2020-temporal-logic-point-processes-2cbf1fc42a": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Event models often need to predict both when something will happen and why the preceding events make it likely. This paper proposes a probabilistic framework that incorporates domain knowledge as temporal logic rules. That is especially useful when observations are sparse and the available data alone may provide limited guidance about the relationships between events.",
+      "The model describes event starts and ends through an intensity function, whose structure is informed by first-order temporal logic. Softened temporal relations and weighted combinations of rules let the model represent uncertainty instead of requiring every relationship to hold rigidly. The rules give the event dynamics an interpretable structure, while their probabilistic treatment accommodates uncertain observations and relationships.",
+      "The authors derive maximum likelihood estimation and show that the model can produce accurate predictions when data are limited and domain knowledge is important. They also show that familiar models, including Hawkes and self-correcting point processes, arise as special cases under simple rules. This places established approaches within a broader framework that can express additional rule-informed event dynamics."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "996ce74d4b3e4c230ac69783e0bceca16e55346453b8ec454992a3afb06d07f1",
+    "tldr": "Temporal logic rules structure a probabilistic event model that incorporates domain knowledge and supports accurate prediction in sparse-data settings."
+  },
+  "icml-2020-time-aware-large-kernel-convolutions-b0819b2c4c": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Sequence models need to combine information across tokens, but doing so can be computationally expensive. Attention that considers all token pairs has quadratic time complexity in sequence length. Fixed-window depthwise convolutions offer another approach, but their cost scales with both the sequence length and the chosen kernel size. This paper proposes a different adaptive convolution operation.",
+      "Time-aware Large Kernel convolutions, or TaLK convolutions, learn to predict the size of a summation kernel instead of using a fixed-sized kernel matrix. The change makes the extent of the aggregation learned while giving the operation linear time complexity in the number of tokens. Its significance is the combination of an adaptive aggregation size with favorable sequence-length scaling.",
+      "The authors evaluate TaLK convolutions on large-scale datasets for machine translation, abstractive summarization, and language modeling. They report an efficient improvement over the compared attention and convolution approaches. These evaluations connect the computational design to several language-generation tasks, showing that the proposed operation can serve as a useful alternative across the tested sequence-modeling settings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0e16e35681f631762de7fc47ba49dadbb8538b568c67daa3408ed4d41e733be8",
+    "tldr": "TaLK convolutions learn summation-kernel sizes to encode sequences in linear time, with reported improvements across several language tasks."
+  },
+  "icml-2020-understanding-the-curse-of-horizon-in-off-policy-evaluation-via-conditional-importance-s-fe8599169e": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Off-policy evaluation estimates how a policy would perform using experience collected under another policy. Importance sampling can make such estimates highly variable when trajectories are long. This paper uses conditional Monte Carlo to analyze whether structured alternatives, including per-decision and marginalized importance sampling, actually reduce that variance.",
+      "For finite-horizon Markov decision processes, the authors find that these alternatives do not have an unconditional strict variance-reduction guarantee over ordinary importance sampling. They then establish sufficient conditions under which per-decision or marginalized estimators do reduce variance. The distinction matters: using more of the problem’s structure can help, but the estimator’s form alone does not establish the improvement.",
+      "The authors also analyze how variance behaves as the horizon grows, deriving upper and lower bounds. These yield sufficient conditions for an exponential-versus-polynomial separation between ordinary importance sampling and the studied alternatives. The paper therefore clarifies both the potential size of the benefit and the circumstances needed to establish it, rather than treating long-horizon variance reduction as automatic."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "618085a1ae93c05f0f5af3569eaad602c497cf4cd0e446927fbaf26ae0704f05",
+    "tldr": "Structured importance-sampling estimators reduce variance under sufficient conditions, but strict improvement is not guaranteed for every finite-horizon problem."
+  },
+  "icml-2020-variable-skipping-for-autoregressive-range-density-estimation-0fee4dce9a": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Autoregressive density models assign likelihoods to individual data points, but some applications need the probability mass of an entire range. Database cardinality estimation is one example, where estimating how many records meet query conditions affects user-visible performance. This paper studies how to make those range estimates faster over high-dimensional data.",
+      "The proposed technique, variable skipping, exploits the sparse structure of range queries to avoid sampling variables that are unnecessary during approximate inference. The key opportunity comes from the query itself: not every variable needs the same processing for a particular requested range. The technique can be introduced through a simple data augmentation procedure while retaining the usual maximum likelihood training objective.",
+      "The authors report efficiency improvements of 10 to 100 times when targeting challenging high-quantile error metrics, which emphasize the larger errors in the evaluation distribution. They also demonstrate support for applications such as text pattern matching. The contribution connects query-aware inference savings with a training procedure that fits the existing autoregressive learning objective."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3da0c45e2d98c88fa4a207e9854adc262417eb68474dc26cfa7b6492c8f83dc0",
+    "tldr": "Variable skipping avoids unnecessary sampling in autoregressive range queries, delivering reported efficiency gains of 10 to 100 times."
+  }
+}

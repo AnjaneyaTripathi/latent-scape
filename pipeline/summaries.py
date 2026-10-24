@@ -2,14 +2,14 @@ from __future__ import annotations
 
 import hashlib
 import json
-import re
 from pathlib import Path
 
 from jsonschema import Draft202012Validator
 
-from .settings import Settings
-from .ingest import _stratified_sample
 from .corpus import select, verify_meta, write_meta
+from .ingest import _stratified_sample
+from .settings import Settings
+from .summary_evidence import summary_eligibility_reason
 from .util import read_json, write_json
 
 SUMMARY_SCHEMA = {
@@ -32,20 +32,6 @@ SUMMARY_SCHEMA = {
     ],
     "additionalProperties": False,
 }
-
-ABSTRACT_PLACEHOLDERS = {"abstract unavailable", "abstract not available", "unavailable", "none", "n/a"}
-
-
-def summary_eligibility_reason(abstract: str, abstract_quality: str = "") -> str | None:
-    """Use the same evidence gate for reporting and Astra authoring."""
-    if abstract_quality == "official-landing-page-possibly-full-text":
-        return "abstract quality requires source cleanup"
-    normalized = abstract.casefold().strip()
-    if not abstract.strip() or normalized in ABSTRACT_PLACEHOLDERS:
-        return "official abstract unavailable"
-    if len(re.findall(r"\b[\w’'-]+\b", abstract)) < 40:
-        return "insufficient abstract evidence (fewer than 40 words)"
-    return None
 
 PROMPT_TEMPLATE = """Using only this title and official abstract, return JSON matching the narrative summary schema.
 Write a TLDR and 3–5 substantive, plain-language paragraphs explaining what the paper did: the motivating problem, approach, evidence or stated findings, and limits of what the abstract establishes. Do not invent experimental details or rewrite the official abstract. Keep the supplied sourceAbstractSha256 exactly.

@@ -1,8 +1,8 @@
 import './style.css';
 import './overrides.css';
+import './topic-graph.css';
 import { atlas, type Paper, type SearchDoc, type Topic } from './data';
-import Graph from 'graphology';
-import Sigma from 'sigma';
+import { renderAbout } from './about';
 import { configureSearch, keywordSearch, lastSemanticNotice, search } from './search';
 import { semanticSearch } from './semantic';
 import { NavigationState, RenderGate, parseHashRoute, rememberScroll, restoreScroll } from './navigation';
@@ -13,7 +13,7 @@ const route = () => parseHashRoute(location.hash).value;
 const href = (path: string) => `#/${encodeURIComponent(path).replace(/%2F/g, '/')}`;
 const link = (kind: 'paper' | 'topic', slug: string, label: string) => `<a href="${href(`${kind}/${slug}`)}">${esc(label)}</a>`;
 const topicLabel = (slug: string) => atlas.topic(slug)?.title || slug.replaceAll('-', ' ');
-let activeSigma: Sigma | undefined;
+let disposeActiveMap: (() => void) | undefined;
 const navigation = new NavigationState();
 const renderGate = new RenderGate();
 let hasRenderedRoute = false;
@@ -22,7 +22,7 @@ window.latentscapeSemanticSearch = async (query) => { const results = await sema
 
 function shell(content: string, renderId?: number) {
   if (renderId !== undefined && !renderGate.isCurrent(renderId)) return false;
-  activeSigma?.kill(); activeSigma = undefined;
+  disposeActiveMap?.(); disposeActiveMap = undefined;
   app.innerHTML = `<a class="skip" href="#main">Skip to content</a><aside class="rail"><a class="brand" href="#/discover"><span class="brand-dot"></span>latent<span>scape</span></a><nav aria-label="Primary"><a href="#/discover">Discover</a><a href="#/topics">Topics</a><a href="#/map">Knowledge map</a><a href="#/about">About</a></nav><div class="rail-foot">NeurIPS + ICML<br><span>Research, mapped.</span></div></aside><header class="mobile-head"><a class="brand" href="#/discover">latent<span>scape</span></a><button id="theme" aria-label="Toggle theme">◐</button></header><main id="main" tabindex="-1">${content}</main><button class="theme" id="theme-wide" aria-label="Toggle theme">◐</button>`;
   document.querySelectorAll<HTMLButtonElement>('#theme,#theme-wide').forEach((button) => button.onclick = toggleTheme);
   return true;
@@ -56,28 +56,28 @@ function finishDeferredScroll(renderId: number) {
 function card(doc: SearchDoc) {
   const type = doc.type === 'topic' ? 'Topic' : `${doc.venue || 'Paper'} · ${doc.year || ''}`;
   const sourceUrl = doc.originalUrl || doc.url;
-  return `<article class="card ${doc.type}"><p class="eyebrow">${esc(type)}</p><h3>${link(doc.type, doc.slug, doc.title)}</h3><p>${esc(doc.description || doc.abstract || 'Explore this part of the research landscape.').slice(0, 210)}</p>${doc.type === 'paper' && sourceUrl ? `<a class="source-link" href="${esc(sourceUrl)}" target="_blank" rel="noreferrer">${esc(doc.sourceLinkLabel || 'Original paper')} ↗</a>` : ''}<span class="arrow">↗</span></article>`;
+  return `<article class="card ${doc.type}"><p class="eyebrow">${esc(type)}</p><h3>${link(doc.type, doc.slug, doc.title)}</h3><p>${esc(doc.description || doc.abstract || 'Explore this part of the research landscape.').slice(0, 210)}</p>${doc.type === 'paper' && sourceUrl ? `<a class="source-link" href="${esc(sourceUrl)}" target="_blank" rel="noreferrer">${esc(doc.sourceLinkLabel || 'Original paper')} ↗</a>` : ''}<span class="arrow">→</span></article>`;
 }
 function graphArt() { return `<svg class="hero-graph" viewBox="0 0 620 370" aria-label="Illustration of a connected research graph" role="img"><g stroke="currentColor" stroke-opacity=".23" fill="none"><path d="M87 284 185 190 303 243 440 161 543 215M185 190 235 82 385 91 440 161M303 243 371 320 543 215M87 284 371 320M235 82 303 243" /></g><g fill="currentColor"><circle cx="87" cy="284" r="7"/><circle cx="185" cy="190" r="13"/><circle cx="235" cy="82" r="8"/><circle cx="303" cy="243" r="20"/><circle cx="385" cy="91" r="10"/><circle cx="440" cy="161" r="17"/><circle cx="543" cy="215" r="8"/><circle cx="371" cy="320" r="11"/></g><g class="graph-label"><text x="53" y="312">optimisation</text><text x="168" y="169">representation</text><text x="282" y="278">learning</text><text x="422" y="145">generative</text></g></svg>`; }
 
 async function discover(renderId: number) {
-  if (!shell(`<section class="hero"><div class="hero-copy"><p class="kicker">AN ATLAS FOR AI RESEARCH</p><h1>Find the idea<br>behind the paper.</h1><p class="lede">A concept-first guide to NeurIPS and ICML research. Start with a concept, follow the connections, reach the original work.</p><form id="search-form" class="searchbox"><label class="sr-only" for="search">Search concepts and papers</label><input id="search" autocomplete="off" placeholder="Try “diffusion models” or “causal discovery”" /><button>Explore <span>↗</span></button></form><p class="hint">Semantic search · ${atlas.manifest?.totalPapers?.toLocaleString() || 'Corpus'}-paper snapshot · works offline after loading</p></div>${graphArt()}</section><section class="strip"><span>START EXPLORING</span><a href="#/topics">Browse by topic <b>→</b></a><a href="#/map">Open knowledge map <b>→</b></a></section><section class="section-head"><div><p class="kicker">AVAILABLE STARTING POINTS</p><h2>Starting points</h2></div><a href="#/search">Search the snapshot →</a></section><section class="grid featured" id="featured-papers"><p class="empty">Loading starting points…</p></section>`, renderId)) return;
+  if (!shell(`<section class="hero"><div class="hero-copy"><p class="kicker">A GUIDE TO AI RESEARCH</p><h1>Find the idea<br>behind the paper.</h1><p class="lede">A concept-first guide to NeurIPS and ICML research. Start with a concept, follow the connections, reach the original work.</p><form id="search-form" class="searchbox"><label class="sr-only" for="search">Search topics and papers</label><input id="search" autocomplete="off" placeholder="Try “diffusion models” or “causal discovery”" /><button>Explore <span>→</span></button></form><p class="hint">Semantic search · ${atlas.manifest?.totalPapers?.toLocaleString() || 'Corpus'}-paper snapshot · works offline after loading</p></div>${graphArt()}</section><section class="strip"><span>START EXPLORING</span><a href="#/topics">Browse by topic <b>→</b></a><a href="#/map">Open knowledge map <b>→</b></a></section><section class="section-head"><div><p class="kicker">AVAILABLE STARTING POINTS</p><h2>Starting points</h2></div><a href="#/search">Search the snapshot →</a></section><section class="grid featured" id="featured-papers"><p class="empty">Loading starting points…</p></section>`, renderId)) return;
   document.querySelector<HTMLFormElement>('#search-form')!.onsubmit = (event) => { event.preventDefault(); navigate(`search?q=${encodeURIComponent(document.querySelector<HTMLInputElement>('#search')!.value.trim())}`); };
   void Promise.all([atlas.ensureTopics(), atlas.featuredPapers()]).then(([, papers]) => {
     const target = document.querySelector<HTMLElement>('#featured-papers');
     if (!renderGate.isCurrent(renderId) || !target) return;
     const featured = papers.filter(Boolean) as Paper[];
-    target.innerHTML = featured.length ? featured.map(paperCard).join('') : '<p class="empty">Paper detail shards will appear here once the data pipeline finishes.</p>';
+    target.innerHTML = featured.length ? featured.map(paperCard).join('') : '<p class="empty">No starting points are available. Try searching for a topic or method.</p>';
   }).catch(() => {
     const target = document.querySelector<HTMLElement>('#featured-papers');
-    if (renderGate.isCurrent(renderId) && target) target.innerHTML = '<p class="empty">Starting points are unavailable while the offline bundle loads.</p>';
+    if (renderGate.isCurrent(renderId) && target) target.innerHTML = '<p class="empty">Starting points are temporarily unavailable. Try searching for a topic or method.</p>';
   });
 }
 
 function paperCard(paper: Paper) { return `<article class="paper-card"><p class="eyebrow">${esc(paper.venue)} · ${paper.year}</p><h3>${link('paper', paper.slug, paper.title)}</h3><p>${esc(paper.summary?.tldr || paper.abstract).slice(0, 180)}</p>${paper.summary ? `<small class="ai-label">AI-generated summary</small> ${officialLink(paper)}` : ''}<div>${paper.topicSlugs?.slice(0, 2).map((slug) => `<span class="tag">${esc(topicLabel(slug))}</span>`).join('') || ''}</div></article>`; }
 
 async function searchPage(query = '', renderId: number) {
-  if (!shell(`<section class="page-top"><p class="kicker">SEARCH THE ATLAS</p><h1>Where should we begin?</h1><form id="search-form" class="searchbox wide"><label class="sr-only" for="search">Search concepts and papers</label><input id="search" value="${esc(query)}" placeholder="A method, problem, or plain-language question" autofocus /><button>Search</button></form><div id="search-results" aria-live="polite">${query ? '<p class="loading-inline">Loading the search index…</p>' : '<p class="empty">Search mixes concepts and papers, then follows the meaning of your query.</p>'}</div></section>`, renderId)) return;
+  if (!shell(`<section class="page-top"><p class="kicker">SEARCH LATENTSCAPE</p><h1>Where should we begin?</h1><form id="search-form" class="searchbox wide"><label class="sr-only" for="search">Search topics and papers</label><input id="search" value="${esc(query)}" placeholder="A method, problem, or plain-language question" autofocus /><button>Search</button></form><div id="search-results" aria-live="polite">${query ? '<p class="loading-inline">Loading the search index…</p>' : '<p class="empty">Search mixes concepts and papers, then follows the meaning of your query.</p>'}</div></section>`, renderId)) return;
   document.querySelector<HTMLFormElement>('#search-form')!.onsubmit = (event) => { event.preventDefault(); navigate(`search?q=${encodeURIComponent(document.querySelector<HTMLInputElement>('#search')!.value.trim())}`); };
   if (!query) return;
   const target = document.querySelector('#search-results');
@@ -85,7 +85,7 @@ async function searchPage(query = '', renderId: number) {
   const documents = await atlas.ensureSearch();
   if (!renderGate.isCurrent(renderId)) return;
   configureSearch(documents);
-  const show = (results: Awaited<ReturnType<typeof search>>, note = '') => { if (!renderGate.isCurrent(renderId) || !target.isConnected || document.querySelector<HTMLInputElement>('#search')?.value !== query) return; target.innerHTML = results.length ? `<p class="result-count">${results.length} paths through the atlas${note ? ` · ${note}` : ''}</p><section class="results">${results.map((result) => card(result.item)).join('')}</section>` : `<p class="empty">No close matches yet. Try a broader idea or a named method.</p>`; };
+  const show = (results: Awaited<ReturnType<typeof search>>, note = '') => { if (!renderGate.isCurrent(renderId) || !target.isConnected || document.querySelector<HTMLInputElement>('#search')?.value !== query) return; target.innerHTML = results.length ? `<p class="result-count">${results.length} results${note ? ` · ${note}` : ''}</p><section class="results">${results.map((result) => card(result.item)).join('')}</section>` : `<p class="empty">No close matches yet. Try a broader idea or a named method.</p>`; };
   show(keywordSearch(query), 'Loading semantic search…');
   show(await search(query, documents), lastSemanticNotice);
   finishDeferredScroll(renderId);
@@ -94,13 +94,20 @@ async function searchPage(query = '', renderId: number) {
 async function topicsPage(renderId: number) {
   await atlas.ensureTopics();
   if (!renderGate.isCurrent(renderId)) return;
-  shell(`<section class="page-top compact"><p class="kicker">CONCEPT LIBRARY</p><h1>Ideas, in context.</h1><p class="lede">Start with the concepts that organize the field. Each path traces the work that shaped it.</p><section class="topic-grid">${atlas.topics.map((topic) => `<article class="topic-card"><p>${esc(topic.area || 'Research area')}</p><h2>${link('topic', topic.slug, topic.title)}</h2><span>${esc(topic.overview || 'A connected area of machine learning research.').slice(0, 150)}</span><b>Explore →</b></article>`).join('') || '<p class="empty">Topic maps are being generated from the corpus.</p>'}</section></section>`, renderId);
+  shell(`<section class="page-top compact"><p class="kicker">TOPIC LIBRARY</p><h1>Ideas, in context.</h1><p class="lede">Start with the concepts that organize the field. Each path traces the work that shaped it.</p><section class="topic-grid">${atlas.topics.map((topic) => `<article class="topic-card"><p>${esc(topic.area || 'Research area')}</p><h2>${link('topic', topic.slug, topic.title)}</h2><span>${esc(topic.overview || 'A connected area of machine learning research.').slice(0, 150)}</span><b>Explore →</b></article>`).join('') || '<p class="empty">No topics are available in this snapshot.</p>'}</section></section>`, renderId);
 }
-function topicGraph(topic: Topic) { const nodes = [topic.slug, ...(topic.relatedTopics || []).slice(0, 5)]; return `<div class="mini-graph">${nodes.map((node, index) => `<span style="--i:${index}">${index === 0 ? esc(topic.title) : link('topic', node, topicLabel(node))}</span>`).join('')}<i></i><i></i><i></i></div>`; }
+function topicConnections(topic: Topic) {
+  const related = (topic.relatedTopics || []).slice(0, 5).map((slug) => atlas.topic(slug)).filter((item): item is Topic => Boolean(item));
+  if (!related.length) return '<p class="connection-empty">No related topics are available for this topic.</p>';
+  return `<ul class="topic-connections">${related.map((item) => {
+    const paperCount = item.paperSlugs?.length;
+    return `<li><a href="${href(`topic/${item.slug}`)}"><span class="connection-title">${esc(item.title)}</span>${paperCount ? `<span class="connection-count">${paperCount.toLocaleString()} papers</span>` : ''}<span class="connection-arrow" aria-hidden="true">→</span></a></li>`;
+  }).join('')}</ul>`;
+}
 async function topicPage(slug: string, renderId: number) {
   await atlas.ensureTopics();
   if (!renderGate.isCurrent(renderId)) return;
-  const topic = atlas.topic(slug); if (!topic) return missing('That topic is not in this atlas yet.', renderId);
+  const topic = atlas.topic(slug); if (!topic) return missing('That topic is not in this snapshot.', renderId);
   // The offline topic builder persists paperSlugs chronologically, so topic
   // pages can load their paper shards without first fetching the search index.
   const ordered = (topic.paperSlugs || []).slice();
@@ -108,7 +115,7 @@ async function topicPage(slug: string, renderId: number) {
   const [early, recent] = await Promise.all([atlas.papersFor(earlySlugs), atlas.papersFor(recentSlugs)]);
   if (!renderGate.isCurrent(renderId)) return;
   const earlyPapers = early.filter(Boolean) as Paper[]; const recentPapers = recent.filter(Boolean) as Paper[];
-  shell(`<article class="detail"><a class="crumb" href="#/topics">← All topics</a><p class="kicker">${esc(topic.area || 'CONCEPT')}</p><h1>${esc(topic.title)}</h1><p class="detail-lede">${esc(topic.overview || 'This concept is being mapped from the research corpus.')}</p><div class="topic-layout"><div><section class="prose"><h2>Why it matters</h2><p>${esc(topic.whyItMatters || 'Its influence is visible through the research questions and methods it connects.')}</p><h2>How it evolved</h2><p>${esc(topic.evolution || 'The corpus traces how this idea developed over time.')}</p>${topic.openQuestions?.length ? `<h2>Open questions</h2><ul>${topic.openQuestions.map((question) => `<li>${esc(question)}</li>`).join('')}</ul>` : ''}</section></div><aside class="info-panel"><p class="eyebrow">CONNECTIONS</p>${topicGraph(topic)}<p class="eyebrow">PREREQUISITES</p>${topic.prerequisites?.map((item) => `<span class="tag">${esc(topicLabel(item))}</span>`).join('') || '<p>Explore the linked papers to build context.</p>'}</aside></div><section class="section-head"><div><p class="kicker">READING THE FIELD</p><h2>Early work</h2></div></section><section class="grid featured">${earlyPapers.map(paperCard).join('') || '<p class="empty">Associated papers are loading with the next pipeline run.</p>'}</section>${recentPapers.length ? `<section class="section-head"><div><p class="kicker">READING THE FIELD</p><h2>Recent work</h2></div></section><section class="grid featured">${recentPapers.map(paperCard).join('')}</section>` : ''}<section class="related"><p class="kicker">NEIGHBOURING TOPICS</p><div>${(topic.relatedTopics || []).map((item) => link('topic', item, topicLabel(item))).join('') || 'Connections will appear as clustering completes.'}</div></section></article>`, renderId);
+  shell(`<article class="detail"><a class="crumb" href="#/topics">← All topics</a><p class="kicker">${esc(topic.area || 'CONCEPT')}</p><h1>${esc(topic.title)}</h1><p class="detail-lede">${esc(topic.overview || 'Explore the papers and related concepts for this topic.')}</p><div class="topic-layout"><div><section class="prose"><h2>Why it matters</h2><p>${esc(topic.whyItMatters || 'Its influence is visible through the research questions and methods it connects.')}</p><h2>How it evolved</h2><p>${esc(topic.evolution || 'The corpus traces how this idea developed over time.')}</p>${topic.openQuestions?.length ? `<h2>Open questions</h2><ul>${topic.openQuestions.map((question) => `<li>${esc(question)}</li>`).join('')}</ul>` : ''}</section></div><aside class="info-panel"><p class="eyebrow">RELATED TOPICS</p>${topicConnections(topic)}<p class="eyebrow">PREREQUISITES</p>${topic.prerequisites?.map((item) => `<span class="tag">${esc(topicLabel(item))}</span>`).join('') || '<p>Explore the linked papers to build context.</p>'}</aside></div><section class="section-head"><div><p class="kicker">READING THE FIELD</p><h2>Early work</h2></div></section><section class="grid featured">${earlyPapers.map(paperCard).join('') || '<p class="empty">No early papers are available for this topic.</p>'}</section>${recentPapers.length ? `<section class="section-head"><div><p class="kicker">READING THE FIELD</p><h2>Recent work</h2></div></section><section class="grid featured">${recentPapers.map(paperCard).join('')}</section>` : ''}</article>`, renderId);
 }
 function officialLink(paper: Paper) { return `<a class="official" href="${esc(paper.originalUrl || paper.url)}" target="_blank" rel="noreferrer">${esc(paper.sourceLinkLabel || 'Original paper')} ↗</a>`; }
 async function paperPage(slug: string, renderId: number) {
@@ -123,8 +130,8 @@ async function paperPage(slug: string, renderId: number) {
   const awaitingAbstractVerification = paper.abstractStatus === 'needs-source-recovery' || paper.abstractQuality === 'official-landing-page-possibly-full-text';
   const abstractView = abstract ? `<p>${esc(abstract)}</p>` : '<p>Unavailable from the official source in this snapshot.</p>';
   const abstractHeading = awaitingAbstractVerification ? 'SOURCE TEXT AWAITING ABSTRACT VERIFICATION' : 'ORIGINAL ABSTRACT';
-  const explanation = paper.summary ? summaryView(paper) : `<section class="summary-empty"><p>An AI-generated explanation is pending or unavailable for this paper. Read the original paper for detail.</p></section>`;
-  shell(`<article class="detail paper-detail"><a class="crumb" href="#/search">← Back to search</a><p class="kicker">${esc(paper.venue)} · ${paper.year}</p><h1>${esc(paper.title)}</h1><p class="authors">${esc(paper.authors?.join(', ') || 'Authors unavailable')}</p><div class="paper-actions">${officialLink(paper)}${paper.codeUrl ? `<a href="${esc(paper.codeUrl)}" target="_blank" rel="noreferrer">Code ↗</a>` : ''}${paper.projectUrl ? `<a href="${esc(paper.projectUrl)}" target="_blank" rel="noreferrer">Project ↗</a>` : ''}</div><section class="official-abstract"><p class="eyebrow">${abstractHeading}</p>${abstractView}<p class="source-note">${awaitingAbstractVerification ? 'This source text is retained for audit and is not used for an AI explanation. ' : ''}Original source. ${officialLink(paper)}</p></section>${explanation}<section class="background"><p class="kicker">BACKGROUND CONCEPTS</p><div>${(paper.topicSlugs || []).map((item) => link('topic', item, topicLabel(item))).join('') || '<span>Topics are being mapped.</span>'}</div></section>${paper.references?.length || paper.citedBy?.length ? `<section class="citation-paths"><div><p class="kicker">BUILDS ON</p>${references.map((item) => link('paper', item.slug, item.title)).join('') || '<span>Reference links unavailable.</span>'}</div><div><p class="kicker">BUILT ON THIS</p>${citedBy.map((item) => link('paper', item.slug, item.title)).join('') || '<span>Derivative links unavailable.</span>'}</div></section>` : ''}<section class="section-head"><div><p class="kicker">SIDEWAYS NAVIGATION</p><h2>Similar papers</h2></div></section><section class="grid featured">${similar.map(paperCard).join('') || '<p class="empty">Similarity links will appear with the next graph build.</p>'}</section></article>`, renderId);
+  const explanation = paper.summary ? summaryView(paper) : `<section class="summary-empty"><p>An AI-generated explanation is unavailable for this paper. Read the original paper for detail.</p></section>`;
+  shell(`<article class="detail paper-detail"><a class="crumb" href="#/search">← Back to search</a><p class="kicker">${esc(paper.venue)} · ${paper.year}</p><h1>${esc(paper.title)}</h1><p class="authors">${esc(paper.authors?.join(', ') || 'Authors unavailable')}</p><div class="paper-actions">${officialLink(paper)}${paper.codeUrl ? `<a href="${esc(paper.codeUrl)}" target="_blank" rel="noreferrer">Code ↗</a>` : ''}${paper.projectUrl ? `<a href="${esc(paper.projectUrl)}" target="_blank" rel="noreferrer">Project ↗</a>` : ''}</div><section class="official-abstract"><p class="eyebrow">${abstractHeading}</p>${abstractView}<p class="source-note">${awaitingAbstractVerification ? 'This text needs confirmation against the original paper, so no AI explanation is shown. ' : ''}Source link. ${officialLink(paper)}</p></section>${explanation}<section class="background"><p class="kicker">BACKGROUND CONCEPTS</p><div>${(paper.topicSlugs || []).map((item) => link('topic', item, topicLabel(item))).join('') || '<span>No background topics are available for this paper.</span>'}</div></section>${paper.references?.length || paper.citedBy?.length ? `<section class="citation-paths"><div><p class="kicker">BUILDS ON</p>${references.map((item) => link('paper', item.slug, item.title)).join('') || '<span>Reference links unavailable.</span>'}</div><div><p class="kicker">BUILT ON THIS</p>${citedBy.map((item) => link('paper', item.slug, item.title)).join('') || '<span>Derivative links unavailable.</span>'}</div></section>` : ''}<section class="section-head"><div><p class="kicker">SIDEWAYS NAVIGATION</p><h2>Similar papers</h2></div></section><section class="grid featured">${similar.map(paperCard).join('') || '<p class="empty">Similar papers are unavailable for this record.</p>'}</section></article>`, renderId);
 }
 function summaryParagraphs(summary: NonNullable<Paper['summary']>) {
   if (summary.paragraphs && summary.paragraphs.length >= 3 && summary.paragraphs.length <= 5) return summary.paragraphs;
@@ -133,22 +140,24 @@ function summaryParagraphs(summary: NonNullable<Paper['summary']>) {
 function summaryView(paper: Paper) {
   const summary = paper.summary!;
   const paragraphs = summaryParagraphs(summary);
-  const body = paragraphs.length ? paragraphs.map((paragraph) => `<p>${esc(paragraph)}</p>`).join('') : '<p>This explanation is being regenerated from the official abstract.</p>';
+  const body = paragraphs.length ? paragraphs.map((paragraph) => `<p>${esc(paragraph)}</p>`).join('') : '<p>An AI-generated explanation is unavailable for this paper. Read the original paper for detail.</p>';
   return `<section class="tldr"><p class="eyebrow">TL;DR <span class="ai-label">AI-generated summary</span> ${officialLink(paper)}</p><p>${esc(summary.tldr)}</p></section><section class="narrative"><p class="eyebrow">WHAT THIS PAPER DID <span class="ai-label">AI-generated summary</span> ${officialLink(paper)}</p>${body}<p class="source-note">Based on the official abstract. Read the original paper for methods, evidence, and full context.</p></section>`;
 }
-async function mapPage(renderId: number) {
-  await atlas.ensureTopics();
+async function mapPage(query: string, renderId: number) {
+  const { loadTopicGraph, mountTopicGraph } = await import('./topic-graph');
+  const data = await loadTopicGraph();
   if (!renderGate.isCurrent(renderId)) return;
-  shell(`<section class="page-top map-page"><p class="kicker">THE FIELD AT A GLANCE</p><h1>Knowledge map</h1><p class="lede">A navigable view of topic connections in this ${atlas.manifest?.totalPapers?.toLocaleString() || 'research'}-paper snapshot.</p><div class="map-shell"><div id="sigma-map" class="map-placeholder" aria-label="Interactive topic connection graph">${graphArt()}</div><aside><p class="eyebrow">LEGEND</p><p><b>Nodes</b><br>research topics</p><p><b>Lines</b><br>neighbouring concepts</p><label for="map-topic">Open a topic</label><select id="map-topic"><option value="">Choose a topic</option>${atlas.topics.map((topic) => `<option value="${esc(topic.slug)}">${esc(topic.title)}</option>`).join('')}</select></aside></div></section>`, renderId);
-  document.querySelector<HTMLSelectElement>('#map-topic')!.onchange = (event) => {
-    const slug = (event.currentTarget as HTMLSelectElement).value;
-    if (slug) navigate(`topic/${slug}`);
-  };
-  void mountMap();
+  const params = new URLSearchParams(query);
+  const selectedSlug = params.get('topic') || data.defaultTopicSlug;
+  const depth = params.get('depth') === '1' ? 1 : 2;
+  const options = data.topics.map((topic) => `<option value="${esc(topic.slug)}">${esc(topic.title)}</option>`).join('');
+  shell(`<section class="page-top map-page"><p class="kicker">SEMANTIC NEIGHBOURHOODS</p><h1>Knowledge map</h1><p class="lede">Follow the ideas around a topic.</p><section id="topic-graph-shell"><div class="topic-map-controls"><label class="topic-map-picker" for="map-topic"><span>Focus topic</span><span class="topic-map-select-wrap"><select id="map-topic">${options}</select><svg viewBox="0 0 12 8" aria-hidden="true"><path d="m1 1 5 5 5-5"/></svg></span></label><label class="topic-map-depth" for="map-two-hop"><input id="map-two-hop" type="checkbox" checked><span class="topic-map-switch" aria-hidden="true"></span><span><b>Second-degree neighbours</b><small>Include related topics one step further</small></span></label></div><p class="topic-map-legend"><i></i> Lines show semantic relationships, not citations.</p><div class="topic-graph-scroller" tabindex="0" aria-label="Topic relationship diagram; swipe sideways on small screens"><div id="topic-graph" class="topic-graph" data-topic-graph-ready="true"></div></div></section></section>`, renderId);
+  const container = document.querySelector<HTMLElement>('#topic-graph-shell');
+  if (!container || !renderGate.isCurrent(renderId)) return;
+  disposeActiveMap = mountTopicGraph(container, data, selectedSlug, depth);
 }
-async function mountMap() { const element = document.querySelector<HTMLDivElement>('#sigma-map'); if (!element || !atlas.topics.length) return; const graph = new Graph(); const style = getComputedStyle(document.documentElement); const ink = style.getPropertyValue('--ink').trim(); const line = style.getPropertyValue('--line').trim(); atlas.topics.forEach((topic, index) => graph.addNode(topic.slug, { label: topic.title, x: Math.cos(index * 2.4) * (1 + index / 80), y: Math.sin(index * 2.4) * (1 + index / 80), size: 5 + Math.min((topic.paperSlugs?.length || 0), 18) / 5, color: '#e65322' })); atlas.topics.forEach((topic) => topic.relatedTopics?.slice(0, 4).forEach((other) => { if (graph.hasNode(other) && !graph.hasEdge(topic.slug, other)) graph.addEdge(topic.slug, other, { color: line, size: 1 }); })); element.innerHTML = ''; activeSigma = new Sigma(graph, element, { renderEdgeLabels: false, labelRenderedSizeThreshold: 8, labelColor: { color: ink } }); activeSigma.on('clickNode', ({ node }) => { navigate(`topic/${node}`); }); }
-async function aboutPage(renderId: number) { const report = await atlas.report().catch(() => undefined); if (!renderGate.isCurrent(renderId)) return; const summaries = report?.summaryCoverage; shell(`<section class="page-top about"><p class="kicker">ABOUT LATENTSCAPE</p><h1>Research is a landscape.</h1><p class="lede">Latentscape is a static, offline-ready guide to NeurIPS and ICML research. It is built from a fixed snapshot of official proceedings and points you back to the source paper whenever you need it.</p><div class="about-grid"><article><h2>Concept first</h2><p>Browse the vocabulary and connections that make individual papers easier to place.</p></article><article><h2>Traceable</h2><p>Every generated summary sits next to a direct link to the original publication.</p></article><article><h2>Static by design</h2><p>No accounts, backend, tracking, or runtime research APIs.</p></article></div>${report ? `<section class="report"><p class="kicker">CURRENT SNAPSHOT</p><p>This snapshot contains <b>${report.papers || atlas.manifest?.totalPapers || 0} papers</b> and <b>${report.topics || atlas.manifest?.totalTopics || 0} topics</b> (${report.curatedTopics || 0} with curated guides). Citation-data match rate: ${((report.citationMatchRate || 0) * 100).toFixed(1)}%.</p>${summaries ? `<p>AI explanations: ${summaries.narrative} current narratives, ${summaries.legacy} legacy summaries, ${summaries.pending} pending, and ${summaries.unavailable} unavailable from sufficient source evidence.</p>` : ''}<p>Some historical source gaps remain; coverage is reported rather than hidden.</p><p><a href="${import.meta.env.BASE_URL}data/corpus-report.json" target="_blank">Corpus report ↗</a> · <a href="${import.meta.env.BASE_URL}data/coverage.json" target="_blank">Coverage audit ↗</a> · <a href="${import.meta.env.BASE_URL}summary-review.html" target="_blank">Summary review ↗</a></p></section>` : ''}</section>`, renderId); }
-function missing(message: string, renderId?: number) { shell(`<section class="status error"><p>${esc(message)}</p><a href="#/discover">Return to the atlas →</a></section>`, renderId); }
+async function aboutPage(renderId: number) { shell(renderAbout(atlas.manifest || {}), renderId); }
+function missing(message: string, renderId?: number) { shell(`<section class="status error"><p>${esc(message)}</p><a href="#/discover">Return to Discover →</a></section>`, renderId); }
 async function render() {
   const renderId = renderGate.begin();
   pendingHistoryScroll = undefined;
@@ -161,18 +170,18 @@ async function render() {
     else if (kind === 'topics') await topicsPage(renderId);
     else if (kind === 'topic' && slug) await topicPage(slug, renderId);
     else if (kind === 'paper' && slug) await paperPage(slug, renderId);
-    else if (kind === 'map') await mapPage(renderId);
+    else if (kind === 'map') await mapPage(query, renderId);
     else if (kind === 'about') await aboutPage(renderId);
     else missing('That route does not exist.', renderId);
     finishRoute(renderId, current, intent, kind === 'search' && Boolean(query));
   } catch (error) {
     if (renderGate.isCurrent(renderId)) {
-      missing(error instanceof Error ? `${error.message}. The offline data bundle may still be building.` : 'The atlas could not load.', renderId);
+      missing('This page could not load. Please reload and try again.', renderId);
       finishRoute(renderId, current, intent);
     }
   }
 }
-async function boot() { status('Loading the research atlas'); try { await atlas.initialize(); await render(); } catch (error) { missing(error instanceof Error ? `${error.message}. Add pipeline output to site/public/data.` : 'Data could not load.'); } }
+async function boot() { status('Loading Latentscape'); try { await atlas.initialize(); await render(); } catch { missing('The site could not load. Please reload and try again.'); } }
 async function precacheAtlas() { const registration = await navigator.serviceWorker?.ready; const shards = Object.values(atlas.manifest?.shards?.papers || {}).map((path) => `${import.meta.env.BASE_URL}data/${path}`); const loaded = performance.getEntriesByType('resource').map((entry) => entry.name).filter((url) => url.startsWith(location.origin)); registration?.active?.postMessage({ type: 'precache', urls: [...shards, ...loaded] }); }
 const savedTheme = localStorage.getItem('latentscape-theme'); if (savedTheme) document.documentElement.dataset.theme = savedTheme;
 document.addEventListener('click', (event) => {

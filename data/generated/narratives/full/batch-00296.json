@@ -1,0 +1,327 @@
+{
+  "neurips-2018-automatic-differentiation-in-ml-where-we-are-and-where-we-should-be-going-acabe5cd32": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Automatic differentiation supplies the derivatives needed to train many machine learning models. This paper reviews how differentiation tools support programs that operate on arrays, including operator overloading, source transformation, and graph representations of programs. It uses that review to motivate a representation designed around the requirements of general differentiation.",
+      "The proposed graph representation supports function calls, functions that take or return other functions, and recursion. These features let model implementations retain richer programming structure. It also represents closures, which combine a function with its surrounding context. That capability enables source transformation to construct derivative programs without a tape for recording execution.",
+      "The resulting derivative program can be optimized ahead of execution using techniques from functional language compilers, and the approach supports higher-order derivatives. The authors introduce Myia, a proof-of-concept compiler with a restricted Python front end. The contribution connects programming-language design with differentiation: the structure used to represent a model also determines which derivative computations and compiler optimizations are readily available."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5d49795cfbb60c30fa886d24fe0ec7420e6f417ffa69590b44811968755b3903",
+    "tldr": "A new program representation supports richer automatic differentiation and ahead-of-time optimization, demonstrated through the Myia compiler prototype."
+  },
+  "neurips-2018-boolean-decision-rules-via-column-generation-c5e821bece": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper learns classifiers expressed as Boolean rules, making their decisions easier to inspect. It considers two structures: alternatives made from groups of jointly required conditions, and jointly required groups of alternatives. An integer program explicitly balances prediction accuracy against rule simplicity, so the learning objective includes the cost of a complicated explanation.",
+      "The challenge is that there are exponentially many possible clauses to consider. Column generation searches this space without requiring a preliminary heuristic rule-mining procedure. It also provides a bound on how far the selected rules are from the best possible training-data solution. For larger datasets, the authors introduce an approximate version that uses randomization.",
+      "Against three alternatives, the method achieves a better accuracy–simplicity trade-off on eight of sixteen datasets. When tuned primarily for accuracy, it remains competitive with specialized rule learners and sometimes produces substantially simpler rules with no loss of accuracy. These findings support its usefulness for selecting readable classifiers, while the optimization-gap bound concerns the training objective specifically."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "12bd7d966022f4a66eede3bdf75cc2f4a3a63c8f2f21668319bdbb32af9d69c9",
+    "tldr": "Column generation learns interpretable Boolean classifiers while balancing accuracy and simplicity and bounding their training-objective optimality gap."
+  },
+  "neurips-2018-boosting-black-box-variational-inference-617947fb08": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Variational inference approximates a difficult probability distribution with one that is easier to compute with. Boosting expands this idea by gradually building a mixture of distributions instead of committing to a single component. Earlier convergence guarantees required restrictive distribution families and a customized implementation of the component-selection step for each probabilistic model.",
+      "This paper changes both the analysis and the optimization procedure. It establishes a relaxed smoothness condition sufficient for convergence of the functional Frank–Wolfe algorithm. It also reformulates the greedy selection step through a Residual ELBO objective, which replaces the usual variational objective when fitting a new mixture component.",
+      "Together, these changes enable a black-box implementation of the boosting subroutine, reducing the model-specific work needed to use it. A stopping rule based on the Frank–Wolfe duality gap provides a principled way to assess optimization progress. The authors also report extensive experiments illustrating the contributions. The central advance is making a progressively richer variational approximation more accessible while retaining a stated theoretical basis for convergence."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "73a0c6b50d64c0f01dfd31bab1f05e8aa6242fd6e9514e051c5a1d1d5ae504ac",
+    "tldr": "A revised convergence analysis and residual variational objective make boosting-based variational inference amenable to black-box implementation."
+  },
+  "neurips-2018-demystifying-excessively-volatile-human-learning-a-bayesian-persistent-prior-and-a-neura-3a336c7011": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "People can learn as though their environment might change abruptly even when its statistics remain stable. The Dynamic Belief Model explains this tendency through Bayesian inference, but exact computation is demanding. This paper investigates whether a much simpler, neurally plausible exponential-filtering algorithm, called EXP, can reproduce the relevant predictions and human behavior.",
+      "The authors derive the relationship between EXP and the Bayesian model. EXP saves computation by omitting an explicit representation of inferential uncertainty. Nevertheless, it retains a persistent influence from prior beliefs, allowing it to achieve near-Bayesian prediction performance. The abstract identifies this persistent prior as the feature that distinguishes it from the other approximation methods considered.",
+      "EXP approximates Bayesian predictions much better than the delta-learning rule. In a visual search task, it also reproduces human behavior comparably to the Dynamic Belief Model and better than the other models examined. The broader conclusion is conditional: when individual observations convey little information, detecting changes or adjusting learning rates can be difficult and unnecessary for Bayes-optimal prediction."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "233e15260d41ce71abb8f0bbddea91f17d1655851a9d2d55189b7171752605db",
+    "tldr": "A simple exponential filter preserves a persistent prior, enabling near-Bayesian predictions and accounting for human behavior in a visual search task."
+  },
+  "neurips-2018-discretely-relaxing-continuous-variables-for-tractable-variational-inference-1f6e9ccbef": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "DIRECT explores variational inference with discrete latent-variable priors, using Kronecker matrix algebra to make otherwise enormous calculations tractable. Its key benefit is exact computation of the evidence lower bound and its gradients. This removes the gradient-estimation variance associated with stochastic estimators and makes quasi-Newton optimization methods available.",
+      "The approach also separates training complexity from the number of training examples. Its posterior samples use sparse, low-precision quantized integers, supporting fast inference on devices with limited hardware resources. In addition, the models can calculate statistical moments of their predictive posterior exactly, avoiding Monte Carlo sampling for those quantities.",
+      "These advantages depend on model structure: the authors explicitly state that DIRECT is not practical for every likelihood. They identify a practical model structure and demonstrate accurate inference with four-bit latent variables. Their numerical studies involve ELBO calculations that would require more than 10^2352 likelihood evaluations if enumerated, yet report training on over two million examples in seconds. The result illustrates how exploitable algebraic structure can replace an infeasible explicit calculation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "59d27881f33c8c32e22f003e50ebaa269507540079d6cfe18693fa62b018dc13",
+    "tldr": "DIRECT uses discrete latent variables and Kronecker algebra to compute variational objectives exactly and efficiently for suitable model structures."
+  },
+  "neurips-2018-distributionally-robust-graphical-models-4330398961": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Structured prediction involves outputs whose parts are related, with graphs providing a compact description of those relationships. The paper identifies a trade-off between two established approaches. Conditional random fields provide Fisher consistency, a statistical alignment with the desired prediction problem, while structured support vector machines can directly incorporate customized measures of prediction error.",
+      "The authors introduce adversarial graphical models to bring these properties together. The predictor is constructed through distributionally robust optimization over a class of data distributions specified using graphical structure. Within this framework, the learning design can account for a task-specific loss while also retaining a Fisher consistency guarantee.",
+      "The paper supplies exact algorithms for learning and prediction with time complexity similar to existing graphical-model methods. Experiments demonstrate practical benefits of the approach. Its significance is that the choice of what counts as a costly prediction error can be integrated into a statistically principled graphical predictor. The robustness claim concerns the specified class of distributions, which defines the uncertainty the method addresses."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0cf4894d5309d904cdb3873737a45dcd37f5736b3c5a5b510122b75ec18d2d13",
+    "tldr": "Adversarial graphical models combine customized prediction losses with Fisher consistency through distributionally robust optimization."
+  },
+  "neurips-2018-evolved-policy-gradients-2bc0fa2aee": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper treats the reinforcement learning update rule itself as something that can be learned. Rather than specifying a fixed training loss, it evolves a differentiable loss function. An agent then improves its policy by minimizing that learned loss, with the outer learning process seeking losses that lead to high rewards.",
+      "The loss is parameterized using temporal convolutions over the agent's experience. This gives the learning rule flexibility to use information from the agent's history when determining policy updates. The method therefore learns how experience should shape gradient-based policy improvement, alongside the ordinary process in which an agent learns how to act.",
+      "Experiments show that Evolved Policy Gradients learns faster than an off-the-shelf policy-gradient method in several randomized environments. The authors also demonstrate that the learned loss can transfer to test tasks outside the training distribution and produces behavior qualitatively different from other popular metalearning algorithms. These findings establish examples of useful learned update rules and transfer, with the reported advantage grounded in the environments examined."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ba34af29b988fd01bc02799761060dd49b1880b74753c8b5fa8863dbfb563284",
+    "tldr": "Evolved Policy Gradients learns a history-dependent training loss that accelerates learning in several environments and can transfer to new task distributions."
+  },
+  "neurips-2018-fishnet-a-versatile-backbone-for-image-region-and-pixel-level-prediction-f65e90f659": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Image classification, object detection, and pixel-level segmentation place different demands on a neural network's features. Yet classification networks are commonly reused as backbones for all three. This paper designs FishNet around their combined needs, including tasks that require deep representations while retaining high spatial resolution.",
+      "FishNet preserves and refines information at every resolution for use in the final task. Its design also addresses the difficulty of directly propagating gradient information from deep layers to shallow ones. These choices connect the representation available for prediction with the routes through which earlier layers receive training signals.",
+      "The authors report extensive experiments supporting the architecture. On ImageNet-1k, FishNet exceeds the accuracy of DenseNet and ResNet while using fewer parameters. It also served as one module in the winning entry of the COCO Detection 2018 challenge. Together, these findings support the value of considering multiple prediction scales when designing a backbone. The challenge result describes FishNet's role within a larger system rather than an isolated evaluation of the backbone."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e84664f0631676bf73647bf1e57c7093804bae128f2f251a24e168692b99f2d0",
+    "tldr": "FishNet preserves and refines features across resolutions to support classification, detection, and segmentation with a shared backbone design."
+  },
+  "neurips-2018-gilbo-one-metric-to-measure-them-all-5d98667f41": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Latent-variable generative models describe generated observations through underlying latent variables. This paper proposes GILBO, a tractable lower bound on the mutual information in that joint generative description. Mutual information captures how much the generated observation and its latent description reveal about one another, giving the metric a specific information-based interpretation.",
+      "GILBO measures the complexity of the learned latent description independently of a dataset used for evaluation. The authors interpret it through the logarithm of an effective description length. Because it is a lower bound, its value provides a bounded assessment of the underlying information quantity rather than an assertion that the quantity has been calculated exactly.",
+      "The measure is defined for both variational autoencoders and generative adversarial networks, allowing the same construction to be applied across these model types. The authors compute it for 800 GANs and VAEs trained on MNIST, FashionMNIST, CIFAR-10, and CelebA, and discuss the results. The stated contribution is a common, computable measure of latent-description complexity across different generative modeling approaches."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1cf732717a08c870d08ab1aa1005b85fba66608e1e42893e6717490bbc637b05",
+    "tldr": "GILBO provides a tractable, data-independent information lower bound for assessing latent-description complexity in both VAEs and GANs."
+  },
+  "neurips-2018-improving-neural-program-synthesis-with-inferred-execution-traces-a76c14f9f3": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Program synthesis seeks a program that satisfies a supplied specification, such as examples of inputs and desired outputs. An execution trace contains additional structure about the steps connecting them. That information can help identify a suitable program, but traces are harder to obtain than ordinary input–output examples.",
+      "The paper turns this difficulty into a two-stage prediction problem. First, a model infers an execution trace from an input–output example. Second, another inference step uses that trace to produce the program. The trace becomes an intermediate representation that exposes computational structure between the specification and the final code.",
+      "In the Karel domain, this modification raises synthesis accuracy from the prior result of 77.12% to 81.3%, achieving the reported state of the art. The finding shows that an inferred intermediate structure can be useful even when the richer supervision is not directly supplied at inference time. More broadly, the approach takes advantage of the explicit execution structure available in programming tasks to organize the synthesis process."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "20844855d7bb9439022926289a4d33594bd599bbe48cd0e5ff37c9752b678183",
+    "tldr": "Inferring execution traces before generating programs improves reported Karel synthesis accuracy from 77.12% to 81.3%."
+  },
+  "neurips-2018-iterative-value-aware-model-learning-af5e6d01cd": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Model-based reinforcement learning learns how an environment changes and then uses that model to make decisions. A conventional approach fits transitions by a statistical objective such as likelihood, without incorporating the decision problem. Value-Aware Model Learning questions this separation, especially when the available model family cannot represent the true environment.",
+      "In that setting, a model's usefulness depends on how its errors affect planning. The original value-aware formulation can lead to an optimization problem that is hard to solve. This paper introduces Iterative VAML, a class of algorithms that uses the structure of approximate value iteration to formulate a simpler model-learning problem.",
+      "The approach ties model estimation to the procedure that will use the model, allowing planning structure to inform what the learning objective emphasizes. The authors provide a theoretical analysis and a finite-sample upper bound on error. This supplies a formal guarantee for the proposed framework while addressing the optimization difficulty that motivated the iterative construction. Its central contribution is a more tractable route to decision-aware transition modeling."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c608a794b684a4729fc0a9a3610574484d67bf6dc72f0c403daa6cb7abae18c5",
+    "tldr": "Iterative VAML uses approximate value iteration to simplify decision-aware transition-model learning and provides a finite-sample error bound."
+  },
+  "neurips-2018-learning-and-testing-causal-models-with-interventions-d11cf45cb2": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper studies how interventions can test and learn causal Bayesian networks. Its setting uses discrete variables on a given graph, with bounded numbers of incoming edges and bounded confounded components. The testing question asks whether an unknown network matches a reference or differs substantially under at least one possible intervention.",
+      "For a graph with n variables, the authors show that O(log n) interventions and O(n/epsilon²) samples per intervention suffice for this distinction, where epsilon specifies the total-variation separation to detect. They also develop efficient methods for comparing two unknown networks on the same graph and for learning a network whose graph is supplied.",
+      "The interventions can be chosen non-adaptively, without using earlier outcomes to select later experiments. A lower bound shows that comparing two unknown networks can still require Omega(log n) interventions even with adaptive choices. A new inequality for squared Hellinger distance enables the algorithms. Together, these results identify efficient intervention strategies and a matching general barrier on the intervention count for the two-unknown-network testing problem."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "528530516836fa772f5d990e84c422c940c44fdb891134351c6037323a4b13c9",
+    "tldr": "Under stated graph restrictions, causal networks can be tested efficiently with logarithmically many interventions, and adaptivity cannot generally improve that order."
+  },
+  "neurips-2018-learning-libraries-of-subroutines-for-neurallyguided-bayesian-program-induction-4356cf53b9": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Program induction searches for programs that solve supplied tasks. A domain-specific language makes that search manageable by defining which components and combinations are available, while also encoding knowledge about the domain. The paper addresses the dependence on manually designing this language by introducing an algorithm that learns a domain-specific language itself.",
+      "The algorithm jointly trains a neural network to guide program search in the learned language. This couples two responsibilities: developing a useful library of program components and learning how to search efficiently with those components. The available building blocks and the search procedure are therefore learned together, rather than treating the language as a fixed, hand-engineered input.",
+      "The authors apply the model to functions on lists, text editing, and symbolic regression. These applications show the model learning domain-specific libraries that express solutions within each setting. The contribution is a way to acquire reusable program structure while also learning to navigate the resulting program space. It addresses both how solutions are represented and how they are found."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "dffcd2975ed15d7648c68fbad26b262278e829a8eee95f4043908fd5347cb2ee",
+    "tldr": "A program-induction algorithm jointly learns reusable subroutine libraries and a neural network that guides search through the learned language."
+  },
+  "neurips-2018-learning-task-specifications-from-demonstrations-58bbf90035": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Many practical tasks consist of smaller tasks that must later be combined. Demonstrations can communicate those pieces, but learned rewards do not always provide clear rules for combining them safely. This paper learns logical specifications from demonstrations, using representations with well-defined and typically interpretable composition rules.",
+      "The specifications are Boolean, non-Markovian rewards: they describe whether an entire sequence of behavior satisfies a condition, rather than assigning a reward based only on the current state. The authors formulate their inference as maximum a posteriori estimation in a stochastic environment. A maximum-entropy principle yields an analytic model of how likely a demonstration is under a candidate specification.",
+      "An efficient search procedure then identifies the most likely specification from a large candidate collection. Experiments demonstrate how these learned specifications can avoid common problems caused by ad-hoc reward composition. The approach matters because it makes the meaning of a learned sub-task explicit in a form that supports composition, connecting imitation from examples with a structured account of what successful behavior requires."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "db85258881f0117a73ff089107aaaf16c955e13a65edd70847ee0bbb9e108a6d",
+    "tldr": "The method infers composable logical task specifications from demonstrations through Bayesian inference and a maximum-entropy likelihood."
+  },
+  "neurips-2018-maximizing-induced-cardinality-under-a-determinantal-point-process-7320b2b247": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Determinantal point processes can describe collections that balance item quality and diversity. Recommendation methods often choose the most probable collection under such a model. This paper points out that this objective treats the model as a distribution over optimal recommendation sets, although examples of those optimal sets may be unavailable.",
+      "The proposed alternative assumes that the DPP describes which recommended items users engage with. That interpretation better matches the training data commonly used for these systems. Under this assumption, the authors define an objective measuring the expected number of items a user will engage with, and call its optimization Maximum Induced Cardinality.",
+      "This changes the recommendation target from finding a probable set to maximizing modeled engagement count. The objective is not submodular, so it does not directly possess that useful optimization structure. Nevertheless, the authors show that a submodular function can approximate it and report that a greedy algorithm optimizes it well empirically. The contribution aligns the decision objective with the stated meaning of the learned engagement model."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5deaf7e16e43d94ad5517eb7cb12435bede4ccbbd0c57b509acf3621b1b03ac6",
+    "tldr": "Maximum Induced Cardinality uses a DPP engagement model to select recommendations that maximize expected engagement count."
+  },
+  "neurips-2018-natasha-2-faster-non-convex-optimization-than-sgd-77d4be15ec": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Natasha 2 addresses optimization of smooth, nonconvex functions using stochastic gradients. Nonconvex objectives can have multiple locally favorable regions, so the stated target is an epsilon-approximate local minimum. Epsilon expresses the desired approximation accuracy, making the dependence on this tolerance central to the algorithm's theoretical performance claim.",
+      "The paper presents a stochastic algorithm with a rate of O(epsilon^-3.25), improving on the O(epsilon^-4) rate attributed to the previous best result using stochastic gradient descent. The smaller exponent means the stated rate grows less rapidly as the requested tolerance becomes tighter. This is an asymptotic comparison of how the optimization requirement scales with accuracy.",
+      "The algorithm requires only oracle access to stochastic gradients: its stated information source is gradient estimates supplied on request. The contribution therefore combines a stronger rate with this restricted form of access to the objective. The guarantee concerns approximate local minima of smooth nonconvex functions; the finding should be understood at that stated optimization target, with the rate improvement measured against the cited SGD result."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "23fffa7ef8f079541e6dad4bed7af7abf4d15de0e0fefe45946efd99ecbfb65d",
+    "tldr": "Natasha 2 improves the stated rate for finding approximate local minima with stochastic gradients from O(epsilon^-4) to O(epsilon^-3.25)."
+  },
+  "neurips-2018-neural-interaction-transparency-nit-disentangling-learned-interactions-for-improved-inte-d89a478be4": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Neural networks can learn effects that depend on several input variables acting together. Their hidden layers often mix these interactions into shared representations, making the resulting behavior hard to interpret. Neural Interaction Transparency aims to separate those effects and expose a simpler structure involving lower-order interactions.",
+      "The framework introduces a regularizer that directly penalizes interaction order, meaning the number of variables involved in an interaction. The authors show that disentangling interactions turns a feedforward network into a generalized additive model with interaction terms. This organizes the prediction as contributions from identifiable effects, providing a more transparent account of what the network has learned.",
+      "The paper reports that this approach can yield transparent models with performance comparable to state-of-the-art models. It also supports learning additive models with interactions involving at most K variables while requiring only O(1) trained models. This efficiency claim concerns the number of models trained. The central idea is to make interaction complexity an explicit learning target, so interpretability follows from the structure of the learned predictor."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "db1c31ffe1cfa3347b8fde7991db5d1527c844700d8b59829f4df731fc23f0f8",
+    "tldr": "NIT penalizes interaction order to turn entangled neural representations into interpretable additive models with explicit interaction terms."
+  },
+  "neurips-2018-pca-of-high-dimensional-random-walks-with-comparison-to-neural-network-training-d63a2ec493": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A common way to visualize neural network training is to project successive parameter vectors onto a few principal components. This paper studies what such pictures can look like for high-dimensional random walks. That comparison helps distinguish patterns associated with the visualization procedure from interpretations specific to learning.",
+      "The authors calculate the trajectory covariance's eigenvalues and eigenvectors. In the long-trajectory, high-dimensional limit, they prove that a few components capture most variance and that projections onto PCA-component subspaces form Lissajous curves. They extend the analysis to momentum and to motion in a quadratic potential, finding high-dimensional behavior that remains at a fixed distance from the minimum.",
+      "They then examine training trajectories for a linear CIFAR-10 model, a fully connected MNIST model, and ResNet-50-v2 on ImageNet. In each case, the eigenvalue distribution and projected paths resemble those of a random walk with drift. The results provide a mathematical comparison for interpreting visually simple training trajectories: concentrated PCA variance and structured projected curves can also arise from random motion."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b236f3bd1e68e56a037a4fe39c18f7d4fb314cf17c399dfa2f85c766a87a9d43",
+    "tldr": "High-dimensional random walks produce structured PCA projections resembling those observed in the training trajectories of three studied models."
+  },
+  "neurips-2018-revisiting-epsilon-gamma-tau-similarity-learning-for-domain-adaptation-36b976bc93": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Similarity learning constructs a comparison function suited to observed data so that it can support classification. Existing theory gives strong guarantees in the supervised setting. This paper examines what happens when the data used to learn the similarity and the data encountered during deployment follow different probability distributions.",
+      "The authors extend the theoretical framework to domain adaptation by defining an epsilon–gamma notion of good similarity. They prove results that quantify the target-domain performance of a similarity function trained on a source domain. This makes the distribution change part of the guarantee rather than treating the training and deployment settings as interchangeable.",
+      "A particular result depends on the source distribution dominating the target distribution. Under that condition, the authors establish new domain-adaptation learning bounds. The assumption is therefore part of the basis for those bounds, not a conclusion that every source–target pair satisfies. The contribution is a theoretical account of how learned similarities can support classification after a distribution change, including a stated condition under which stronger analysis becomes possible."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "134c26631fee314e61bfa4063fa59a0cc2c249a4a537d572d7433f3dbf1d3262",
+    "tldr": "The paper extends similarity-learning guarantees to domain adaptation, including new bounds when the source distribution dominates the target."
+  },
+  "neurips-2018-simple-random-search-of-static-linear-policies-is-competitive-for-reinforcement-learning-5bd84dbe70": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper introduces a model-free random-search method for continuous control using static linear policies. This keeps the policy representation and training procedure simple. Under commonly used evaluation practices, the method matches state-of-the-art sample efficiency on MuJoCo locomotion benchmarks, making it a useful point of comparison for more elaborate approaches.",
+      "Its small computational cost also permits a much broader evaluation. The authors test hundreds of random seeds and many hyperparameter configurations for each benchmark task. These experiments reveal substantial variability, showing that conclusions drawn from narrower evaluations can give an overly optimistic impression of performance.",
+      "The contribution therefore includes both a competitive control method and evidence about how control methods should be assessed. The apparent sample-efficiency result is explicitly qualified by the more rigorous evaluation. The findings suggest that commonly reported estimates do not adequately characterize reinforcement learning performance on these tasks, and motivate new baselines, benchmarks, and evaluation methods that better account for variation across runs and configurations."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3bf2e15e93cd1ba847fc19ea411cc6501ddac35c46438366daf1efc73df4e5f6",
+    "tldr": "Simple random search appears highly competitive on locomotion benchmarks, while extensive testing exposes variability that makes common evaluations optimistic."
+  },
+  "neurips-2018-sparse-pca-from-sparse-linear-regression-328d809288": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Sparse principal component analysis and sparse linear regression both seek useful structure involving relatively few variables in high-dimensional data. This paper establishes an explicit algorithmic connection between them. It gives an efficient transformation that turns a black-box sparse-regression solver into an algorithm for sparse PCA.",
+      "The guarantee is conditional on the regression solver satisfying suitable prediction-error bounds, including bounds achieved by existing efficient methods based on the Lasso. Under the single-spiked covariance model, the resulting sparse-PCA algorithm achieves near-state-of-the-art guarantees for testing and support recovery. Support recovery concerns identifying which variables participate in the sparse component.",
+      "The comparison is to the guarantees of the best polynomial-time algorithms considered in the paper. Beyond the theoretical connection, the reduction offers a practical route to obtaining multiple sparse-PCA algorithms from existing sparse-regression methods. The authors also compare their framework with other sparse-PCA algorithms on simulated data. The main result is a reusable reduction with explicit conditions connecting the quality of a regression solver to sparse-PCA guarantees."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "10b99934b1fa21798466c8af38fcfca7df0c4a0525babe58a4b7ef3e5f093fd4",
+    "tldr": "An efficient reduction converts sparse-regression solvers with suitable prediction guarantees into sparse-PCA algorithms with strong conditional guarantees."
+  },
+  "neurips-2018-tangent-automatic-differentiation-using-source-code-transformation-for-dynamically-typed-362083404e": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "As models expressed in Python become more complex, calculating their derivatives can put pressure on existing software tools. Tangent explores automatic differentiation techniques intended to combine expressive model programming, performance, and usability. The scope includes both first derivatives and higher-order derivatives, so it addresses computations that go beyond a single gradient.",
+      "The central implementation technique is source-code transformation: derivative computation is produced by transforming the program's source. The paper also explores flexible gradient surgery, allowing derivative behavior to be adjusted, and efficient in-place array operations. These features address the relationship between how researchers write array programs and how derivative computations are carried out.",
+      "The authors implement and demonstrate the ideas in Tangent, a Python library described as the first automatic differentiation framework for a dynamic language to use source-code transformation. Its contribution is a concrete software realization of these techniques in a dynamically typed array-programming setting. The work presents differentiation as a programming-tool design problem, bringing derivative support together with control over computation and the usability of the resulting system."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "53842d9945f49d1d1ff75deeb0272bccb52e033b6f47c000703b87da4b10f287",
+    "tldr": "Tangent demonstrates source-transformation automatic differentiation for Python, including higher-order derivatives, gradient customization, and in-place array operations."
+  },
+  "neurips-2018-the-limits-of-post-selection-generalization-d55334bfb4": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Analysts often choose their next question after seeing earlier results from the same dataset. This adaptive reuse can undermine ordinary generalization guarantees. Post hoc generalization addresses the problem by requiring that an algorithm's output not enable someone to identify a statistic whose dataset value differs substantially from its population value.",
+      "The paper establishes a tight lower bound on the error of algorithms that both satisfy this property and answer adaptively chosen statistical queries. This identifies a fundamental accuracy barrier within that class of algorithms. The result concerns what any qualifying method can achieve, rather than a weakness of a particular implementation.",
+      "The authors also show that post hoc generalization is not preserved under composition in general. Even though many individual algorithms with the property have strong composition behavior, the property alone does not ensure it. The two results clarify separate limits: how accurately adaptive queries can be answered under this guarantee, and whether guarantees for individual analyses can automatically be carried over when those analyses are combined."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "de23adcad5ae13a17109b8810447a59a5b6fcb2a40b9d70bbf862e03602f4a62",
+    "tldr": "Post hoc generalization imposes a tight adaptive-query accuracy barrier and does not, by itself, survive composition."
+  },
+  "neurips-2018-transfer-of-deep-reactive-policies-for-mdp-planning-64594bd12f": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Probabilistic planning systems often solve each problem instance independently, even when several instances belong to the same domain. This paper develops a domain-independent method for transferring deep reactive policies between instances described in RDDL. The aim is to reuse learned decision-making experience instead of requiring extensive learning on each new instance.",
+      "The architecture uses the domain's symbolic state configuration and transition function to construct a shared embedding space for states and state–action pairs. A reinforcement learning agent is trained in that common space. This shared representation makes near-zero-shot transfer possible, requiring little training on a new instance and no use of the domain simulator during that transfer.",
+      "Experiments across three benchmark domains report significantly better learning curves than planning from scratch and a state-of-the-art reinforcement-learning transfer method. These findings support the use of an explicit domain description to connect otherwise distinct planning instances. The transfer claim is near-zero-shot, allowing some new-instance training, and relies on the symbolic and transition information available through the RDDL representation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6ced454bf102d570217b75b172a09dbe1e4b5bf23cfbbc8c07f787f9b1f3b384",
+    "tldr": "Shared embeddings derived from RDDL domain structure enable near-zero-shot policy transfer with improved learning curves on three benchmark domains."
+  },
+  "neurips-2018-variational-bayesian-monte-carlo-6ae40580d3": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Bayesian inference becomes expensive when evaluating a model's likelihood requires substantial computation and offers no convenient internal structure. Variational Bayesian Monte Carlo addresses settings where standard inference methods would need unavailable gradients or too many likelihood evaluations. Its goal is to extract useful posterior and model-comparison information from a limited evaluation budget.",
+      "VBMC combines variational inference with Gaussian-process Bayesian quadrature and active sampling. The quadrature component approximates an otherwise intractable integral in the variational objective, while active sampling guides where evaluations are made. The method produces a nonparametric posterior approximation and an approximate lower bound on model evidence, which can support model selection.",
+      "The authors test synthetic likelihoods and a neuronal model fitted to recordings from real neurons. Across the tested problems, with dimensionality up to ten, VBMC consistently reconstructs posterior distributions and model evidence well using limited likelihood evaluations. The reported comparisons highlight methods that work only in very low dimensions. These findings support VBMC's promise for expensive black-box inference within the dimensional range examined."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "430a4a263855b57f6634b097ccb200ea48d10c55c8bfe6d390890fe8b6804b5c",
+    "tldr": "VBMC combines variational inference and active Bayesian quadrature to estimate posteriors and model evidence with few expensive likelihood evaluations."
+  }
+}

@@ -1,0 +1,377 @@
+{
+  "neurips-2020-a-combinatorial-perspective-on-transfer-learning-dd454b3ca9": {
+    "backgroundConcepts": [
+      "topic-083-online-continual-learning-from-imbalanced-data"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies how learning reusable parts of solutions can help a system handle new tasks, including tasks whose data may follow different distributions. Its central proposal combines identifying task boundaries, learning modular components, and retaining previous knowledge through memory-based ensembles. The authors postulate that these ingredients could support generalization to an exponentially growing collection of unseen tasks.",
+      "Their concrete system combines the Forget-Me-Not Process with Gated Linear Networks. The former handles task segmentation and memory-based ensembling, while the latter supplies modular, local learning. Together, these components connect the organization of experience with the organization of the learned solution: experience can be separated into tasks while useful learned components remain available for subsequent learning.",
+      "The reported system resists catastrophic forgetting, exhibits no negative transfer, and gains more positive transfer as it encounters additional tasks. It also performs competitively against offline and online methods on standard continual learning benchmarks. These findings support the usefulness of the proposed combination; the broader exponential generalization claim is presented as the motivating postulate."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "eaa59c8305f82a68f18aede6bd28d4ae531c4445f842195b796672d9bd3153af",
+    "tldr": "Combining modular learning, task segmentation, and memory-based ensembles supports transfer and resistance to forgetting across continual learning tasks."
+  },
+  "neurips-2020-a-statistical-framework-for-low-bitwidth-training-of-deep-neural-networks-afabe463c7": {
+    "backgroundConcepts": [
+      "topic-194-1-bit-wonder-improving-qat-performance-in-the-lo"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Fully quantized training represents activations, weights, and gradients with few bits, creating an opportunity to accelerate neural network training on low-bitwidth hardware. The paper addresses a theoretical gap in this approach: how rounding gradients into a limited set of representable values changes the learning process. It develops a statistical framework for understanding those changes.",
+      "The framework treats the fully quantized gradient as a random estimate of the gradient used in quantization-aware training, where the corresponding gradient retains full precision. The authors show that this estimate is unbiased, meaning its average agrees with the reference gradient. They then examine its variance, which describes how much individual estimates fluctuate around that average.",
+      "This analysis motivates two gradient quantizers with lower variance than an existing per-tensor quantizer. In the reported ResNet-50 experiment on ImageNet, a 5-bit block Householder quantizer loses only 0.5% validation accuracy relative to quantization-aware training, comparable to the existing INT8 baseline. The contribution connects a statistical property of quantization to a concrete design choice and its observed training performance."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "fb38d2c71b742934dab25d7c993fd637bca82e672024620f33af2f98e8ecbe7e",
+    "tldr": "A statistical analysis of quantized gradients motivates lower-variance quantizers that retain strong accuracy with fewer bits."
+  },
+  "neurips-2020-adapting-neural-architectures-between-domains-dc9912c4b9": {
+    "backgroundConcepts": [
+      "topic-122-a-boo-n-for-evaluating-architecture-performance"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Neural architecture search often designs a network on a smaller dataset because searching directly on a large dataset is expensive. The difficulty is that a design that works well on the smaller task may lose its advantage when transferred. This paper treats that transfer as a domain adaptation problem involving the architecture itself.",
+      "The authors analyze bounds on how well a selected architecture generalizes between domains. Their analysis connects generalization with validation error and the distance between the two data distributions. This makes the mismatch between the search dataset and the destination dataset part of the architecture-selection problem, rather than assuming that success on the smaller task will carry over.",
+      "These theoretical observations lead to AdaptNAS, a method for adapting neural architectures across domains. In the reported evaluation, using only a small portion of ImageNet was sufficient for AdaptNAS to achieve success on the full dataset and outperform the comparison algorithms. The finding supports incorporating information from the destination domain while retaining the practical motivation for avoiding a full-scale architecture search."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0bb0656eff8847fc18694d75c5719f536d3e82a791a3cd01f51e3c42d4e107a7",
+    "tldr": "AdaptNAS uses domain adaptation to help architectures found on smaller datasets transfer successfully to larger target datasets."
+  },
+  "neurips-2020-autosync-learning-to-synchronize-for-data-parallel-distributed-deep-learning-46e0ff4b87": {
+    "backgroundConcepts": [
+      "topic-213-dicod-distributed-convolutional-coordinate-desce"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "In data-parallel training, synchronization coordinates work across computing resources, and its design affects training throughput. A strategy that suits one neural network or cluster may perform differently on another. Existing systems often expose only a few synchronization choices, leaving practitioners to determine how those choices should fit their particular model and hardware.",
+      "AutoSync introduces a shared representation covering synchronization architecture, message partitioning, placement, and communication topology. It uses this representation in an automated pipeline that takes the model structure and resource specifications into account. The approach matters because several interacting decisions can be optimized together instead of treating synchronization as a single isolated setting.",
+      "With data from 200 trial runs, AutoSync discovers strategies reported to be up to 1.6 times better than manually optimized strategies. Transfer-learning mechanisms reduce optimization cost by transferring simulators between similar models, similar clusters, or both. The authors also provide more than 10,000 strategy and runtime pairs spanning diverse configurations. The performance claim describes the reported best improvement, rather than a uniform gain for every configuration."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "688be225f85b30ec67fba520ce0b61cc1ecba8ecc80bd4ecc14548862c3c3871",
+    "tldr": "AutoSync learns synchronization strategies tailored to neural networks and computing clusters, improving reported distributed training throughput."
+  },
+  "neurips-2020-better-set-representations-for-relational-reasoning-0c667ae25d": {
+    "backgroundConcepts": [
+      "topic-061-neural-symbolic-regression-that-scales"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Relational reasoning operates on collections of entities and the relationships between them. When those entities form a set, changing their order should not change what the set represents. This paper examines approaches that obtain entities by directly treating internal neural network features as a set, and shows that these approaches fail to respect this permutation invariance.",
+      "The authors argue that this mismatch creates fundamental limits on the representations those methods can learn. They introduce the Set Refiner Network, a simple general-purpose module intended to address the problem. The contribution focuses on how entities are represented before or within relational reasoning, making the quality of the set representation an explicit part of the model design.",
+      "Synthetic image experiments show that the module can separate objects without explicit supervision for that decomposition. When added to existing relational reasoning models, it produces substantial improvements in prediction performance and robustness across several tasks. These findings connect respecting set invariance with practical gains, while also showing that the proposed module can be incorporated into established models."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a11af565f182184e78e1fa5a39dcac88efea4838e9658566c00afb57975543af",
+    "tldr": "The Set Refiner Network improves relational reasoning by addressing permutation-invariance problems in learned entity representations."
+  },
+  "neurips-2020-convolutional-generation-of-textured-3d-meshes-0de0f4375d": {
+    "backgroundConcepts": [
+      "topic-010-3d-aware-scene-manipulation-via-inverse-graphics"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper develops a generative framework that produces triangle meshes together with high-resolution texture maps using only two-dimensional supervision from single-view natural images. Its motivation is that visually convincing image generation alone provides limited control over an object's three-dimensional form. Generating explicit geometry and texture gives the model outputs that directly represent those aspects of an object.",
+      "The central design encodes both the mesh and its texture as two-dimensional representations with corresponding semantic structure. This allows a two-dimensional convolutional generative adversarial network to model them together. Differentiable rendering connects the generated three-dimensional objects to the image-based supervision, making the representation compatible with learning from the available natural images.",
+      "The authors demonstrate the method on Pascal3D+ Cars and CUB. They examine unconditional generation as well as generation guided by class labels, attributes, and text. They also propose evaluating mesh quality separately from texture quality. That distinction helps assess the two outputs individually, so the evaluation can address the generated geometry as well as its surface appearance."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "210db2310e8591895889b711b5dc65cd498f12566453045330bd2cd008d0f805",
+    "tldr": "Aligned two-dimensional encodings and differentiable rendering enable a convolutional GAN to generate textured 3D meshes from single-view image supervision."
+  },
+  "neurips-2020-debugging-tests-for-model-explanations-af92aa2248": {
+    "backgroundConcepts": [
+      "topic-078-mathcal-m-4-a-unified-xai-benchmark-for-faithful"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper asks whether explanations produced after a prediction actually help diagnose model defects. It organizes bugs by their source: contaminated training data, problems in the model itself, and contamination at test time. This turns the broad question of explanation usefulness into specific debugging tasks with different kinds of failure to detect.",
+      "The tests examine spurious correlations, mislabeled training examples, partially reinitialized networks, and inputs outside the training distribution. The tested explanation methods identify a spurious background bug, but do not conclusively identify mislabeled examples. The authors also find that a class of methods that alter back-propagation is insensitive to higher-layer parameters, making those methods ineffective for diagnosing the studied model contamination.",
+      "A human-subject study adds a practical perspective. Participants fail to identify defective models using attribution explanations and instead rely primarily on predictions. Taken together, the results show why successful debugging in one setting does not establish usefulness across other defects. The paper provides task-specific evidence for judging explanations as debugging tools, rather than treating an explanation's availability as evidence of diagnostic value."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b44e1b41af703a56e5cfc937272ced57ce320955caef779b6ab1f064463413b2",
+    "tldr": "Debugging tests reveal that the evaluated explanation methods detect some data artifacts but miss other defects and can be insensitive to model changes."
+  },
+  "neurips-2020-deep-structural-causal-models-for-tractable-counterfactual-inference-ee2149b6a4": {
+    "backgroundConcepts": [
+      "topic-254-a-causal-lens-for-controllable-text-generation"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper presents a framework for combining structural causal models with deep learning components. Its focus is counterfactual inference: answering how an observed case would have differed under a change to the modeled causal process. Such questions require more than learning associations between variables, because they concern an alternative outcome for the same observed case.",
+      "The key technical step is making inference of exogenous noise variables tractable. These variables represent external influences within the structural causal model, and inferring them is crucial for counterfactual reasoning. The framework uses normalising flows and variational inference to support this step, addressing a capability the authors identify as missing from existing deep causal learning methods.",
+      "The authors validate the framework on a synthetic dataset built from MNIST and a medical dataset containing brain MRI scans. Their experiments indicate that trained models can support association, intervention, and counterfactual queries, corresponding to all three levels of Pearl's causal hierarchy. The results establish an experimentally demonstrated route to richer causal questions in imaging, with the framework also proposed for applications beyond images."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "14ef801ce61709b62dbf59ad175f4f70f25be7c80556851446eba34db7711fb4",
+    "tldr": "Deep structural causal models use normalising flows and variational inference to make the noise inference needed for counterfactual questions tractable."
+  },
+  "neurips-2020-fairness-without-demographics-through-adversarially-reweighted-learning-931ce8f409": {
+    "backgroundConcepts": [
+      "topic-041-understanding-instance-level-impact-of-fairness-"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Many approaches to machine learning fairness require protected attributes, such as race or sex, to identify groups and adjust training. This paper considers situations where privacy or regulation prevents collecting or using those attributes. Its question is whether a model can improve fairness even when protected group memberships are unavailable to the learning procedure.",
+      "The proposed method, Adversarially Reweighted Learning, builds on the hypothesis that ordinary task features and labels contain useful information for identifying fairness problems. It co-trains an adversarial reweighting component, allowing training emphasis to change using those available signals. This creates a way to address unequal performance without directly supplying protected group identities to the method.",
+      "The reported results show improvements in Rawlsian Max-Min fairness, which focuses attention on the groups receiving the worst performance. Across multiple datasets, ARL improves AUC for worst-case protected groups and outperforms the compared state-of-the-art alternatives. These findings support the usefulness of non-protected features and labels in the evaluated settings; they do not establish that every fairness issue is recoverable from those signals."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "12e672933fdce7e0e30f24da2b6aa3de857226901c2f6efd70849bfe2b7ee7b2",
+    "tldr": "Adversarially Reweighted Learning improves reported worst-group performance using task features and labels without protected group memberships."
+  },
+  "neurips-2020-hardness-of-learning-neural-networks-with-natural-weights-8b4d50aa9b": {
+    "backgroundConcepts": [
+      "topic-159-mathcalo-log-n-latent-dimension-suffices-for-uni"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Neural networks work well in practice despite theoretical results showing that learning them can be computationally hard. One possible explanation is that earlier hardness results allow arbitrary weights, whereas realistic weights might possess helpful regularities. This paper investigates whether weights drawn from familiar, natural distributions provide a general escape from those learning difficulties.",
+      "The authors prove negative results for depth-two networks with weights from distributions including the normal and uniform distributions. Their conclusion concerns algorithms that would be provably successful for most weight choices and every input distribution. Within that scope, simply making weights random according to these natural distributions does not yield an efficient learning guarantee.",
+      "The distinction between weights and inputs is central to interpreting the result. The networks need not have specially selected unusual weights, but the desired guarantee still covers every distribution of inputs. Consequently, a property shared by most networks under the studied weight distributions cannot by itself establish that broad guarantee. The result narrows a proposed explanation for practical success without asserting that every concrete learning task involving such networks is difficult."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4ea1454ce7e81ca4326a1f47768e143f5e1a82753fd8dccdc44bfe072d81181f",
+    "tldr": "Natural random weight distributions alone do not make depth-two networks efficiently learnable with guarantees covering every input distribution."
+  },
+  "neurips-2020-higher-order-spectral-clustering-of-directed-graphs-8e4b0a21ae": {
+    "backgroundConcepts": [
+      "topic-239-a-divide-and-conquer-framework-for-distributed-g"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Graph clustering commonly seeks groups with relatively few connections crossing their boundaries. This paper studies directed graphs where the relationships between groups also carry useful structure. Direction matters because connections from one group to another can have a different meaning from connections going the other way, so finding groups alone does not capture the full organization.",
+      "The authors use a Hermitian matrix representation of the directed graph to develop a spectral clustering algorithm. They establish nearly-linear running time and show that, under suitable assumptions, the algorithm can be implemented in sublinear time. The method therefore addresses both the structural goal of representing relationships among clusters and the computational goal of handling graphs efficiently.",
+      "Experiments use the UN Comtrade dataset, with countries grouped according to import and export records. The resulting clusters reveal relationships between groups of countries and changes in those groups over time, consistent with known international trade facts. These findings illustrate how directed clustering can expose organization beyond isolated communities, while the stronger sublinear efficiency result remains conditional on the stated class of assumptions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1ad07b677a4c8ef1e7841b9f5f97d17379e0f9ffda4f8457e43d87a46b8a6095",
+    "tldr": "A spectral method clusters directed graphs while capturing relationships among groups, with efficient algorithms and evidence from international trade data."
+  },
+  "neurips-2020-learning-guidance-rewards-with-trajectory-space-smoothing-8c365dcf69": {
+    "backgroundConcepts": [
+      "topic-209-a-deep-bayesian-policy-reuse-approach-against-no"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Reinforcement learning becomes difficult when an action's useful consequences appear much later. The learner must determine which earlier decisions deserve credit despite sparse or delayed feedback. This paper studies learned guidance rewards, which supply denser feedback that can be used in place of the environment's original rewards to make that assignment easier.",
+      "The authors begin with a substitute reinforcement learning objective that smooths over trajectory space, the space of sequences of interaction. From this objective they derive an algorithm for learning guidance rewards. They show that the resulting rewards have an intuitive interpretation and can be obtained without training additional neural networks, making the construction easier to integrate into existing methods.",
+      "The guidance rewards are incorporated into Q-learning, Actor-Critic, and Distributional-RL algorithms. Results from both single-agent and multi-agent tasks illustrate benefits when environmental rewards are sparse or delayed. The contribution therefore combines an objective-based derivation with a practical integration strategy: improving the feedback used for learning can help established algorithms address long-term credit assignment without adding another neural network to train."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1a9c61609ab0e93bc5d7dde657b5e368440e9c433439486946abd82f75d1249d",
+    "tldr": "Trajectory-space smoothing yields learned guidance rewards that help existing reinforcement learning algorithms handle sparse or delayed feedback."
+  },
+  "neurips-2020-online-algorithm-for-unsupervised-sequential-selection-with-contextual-information-fc45badacb": {
+    "backgroundConcepts": [
+      "topic-174-parametric-graph-for-unimodal-ranking-bandit"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies sequential selection when the learner receives contextual information but cannot infer an option's loss from the observed feedback. Options are arranged in an ordered cascade, each with a fixed cost. On each round, the learner chooses how far to proceed, paying the accumulated costs plus the uncertain loss of the option where it stops.",
+      "The goal is to learn a context-dependent stopping rule that minimizes expected total loss. Ordinary feedback-based comparison is unavailable because the total loss cannot be estimated. The authors identify Contextual Weak Dominance as a structural property under which learning remains possible. This provides a sufficient condition for recovering useful decisions despite the absence of directly observable losses.",
+      "Under that property, the proposed algorithm achieves sublinear regret: its accumulated disadvantage relative to the comparison decision rule grows more slowly than the number of rounds. Experiments on synthetic and real datasets support the algorithm. The central result is conditional on the problem's structure; Contextual Weak Dominance enables the guarantee, rather than being claimed as necessary for every learnable instance."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "fdca9597b4ddf4b3a7fb70ca889cd55a271605a86e5db7c63d2b08dbcb53a22c",
+    "tldr": "A contextual sequential-selection algorithm achieves sublinear regret under Contextual Weak Dominance even when observed feedback cannot reveal losses."
+  },
+  "neurips-2020-primal-dual-mesh-convolutional-neural-networks-2044e81f4d": {
+    "backgroundConcepts": [
+      "topic-134-textttprism-a-3d-probabilistic-neural-representa"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Neural networks for triangle meshes must account for both geometric information and how mesh elements connect. The paper identifies a tension in existing approaches: generic graph methods overlook mesh-specific structure, while specialized mesh convolutions can impose rigid rules that inadequately capture local topology. It proposes a framework intended to combine the strengths of both.",
+      "The method constructs two kinds of graphs from the input mesh using a primal-dual framework. It takes features associated with edges and faces, then uses attention to aggregate them dynamically. A complementary pooling operation groups mesh faces according to the task, providing a geometric interpretation for downsampling and a way to accommodate differences in mesh connectivity.",
+      "The authors analyze the approach using ideas from mesh simplification and evaluate it on shape classification and segmentation. The reported performance is comparable to or better than state-of-the-art methods. The contribution is therefore broader than a new convolution rule: it connects feature aggregation and pooling so that learning over a mesh can reflect both its local connections and its geometric organization."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "51d8d1d79cb448dcff7682d30fe9ad09ccf39f39d792d2141c0864c24f980e6f",
+    "tldr": "Primal-dual mesh networks combine attention over edge and face features with geometrically interpretable pooling for 3D shape tasks."
+  },
+  "neurips-2020-ridge-rider-finding-diverse-solutions-by-following-eigenvectors-of-the-hessian-5ece425b55": {
+    "backgroundConcepts": [
+      "topic-176-how-to-escape-saddle-points-efficiently"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Optimizing a loss does not fully determine which useful behavior a neural network will learn. This paper focuses on settings where different local solutions matter, including preferences for shape or texture features, ensemble construction, and zero-shot coordination. The authors argue that standard gradient-based training can favor easy solutions while failing to discover other desired ones.",
+      "Ridge Rider changes the directions used to explore the loss surface. Instead of following the gradient's locally greedy direction, it follows eigenvectors of the Hessian, which describe directions associated with the surface's local curvature. By repeatedly following ridges and branching between them, the method searches for qualitatively different solutions rather than pursuing only one local descent route.",
+      "The paper presents theoretical and experimental evidence that this strategy is promising across several challenging problems. Its significance lies in treating solution diversity as an optimization concern: which solution is reached can matter alongside the value of the loss. The abstract presents Ridge Rider as a promising direction, without claiming that it enumerates every solution or universally outperforms gradient-based optimization."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "148bfb4bdf3544036ea7d1fa3934e7db7b8c7e2c63b0b6cb0f753e6ad8eff28b",
+    "tldr": "Ridge Rider follows and branches along Hessian eigenvector directions to discover qualitatively different solutions on a loss surface."
+  },
+  "neurips-2020-robust-compressed-sensing-using-generative-models-6711e4a898": {
+    "backgroundConcepts": [
+      "topic-074-a-continuous-time-mirror-descent-approach-to-spa"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper considers recovering a high-dimensional signal from fewer linear measurements than the signal has coordinates. Recovery relies on a generative prior: the signal is assumed to be represented by a deep generative model mapping a lower-dimensional input into the signal space. This assumption supplies structure that makes reconstruction from limited measurements possible.",
+      "Standard empirical risk minimization has recovery guarantees for sub-Gaussian measurement matrices, but heavy tails or outliers can cause serious failures. The authors propose an algorithm inspired by Median-of-Means to handle those less favorable observations. Their method provides recovery guarantees for heavy-tailed data even when outliers are present, addressing robustness in both the measurement matrix and the measurements.",
+      "The theoretical results match the sample-complexity guarantees that empirical risk minimization enjoys under sub-Gaussian assumptions. Experiments support both sides of the argument: other algorithms fail on the studied heavy-tailed or corrupted data, while the proposed method exhibits the predicted robustness. The result shows that, in the analyzed setting with a generative prior, increased robustness can retain the favorable measurement requirements of the cleaner-data guarantee."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c9cf734b4de0bda41070e6c48eb50a72a58ee6c7489eb91ae04e9d138e326827",
+    "tldr": "A Median-of-Means-inspired reconstruction algorithm uses a generative prior to recover signals robustly from heavy-tailed measurements with outliers."
+  },
+  "neurips-2020-sinkhorn-barycenter-via-functional-gradient-descent-24f37f0ce5": {
+    "backgroundConcepts": [
+      "topic-003-a-convergence-theory-for-svgd-in-the-population-"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A barycenter combines several probability distributions into a representative distribution according to a chosen notion of difference. This paper studies barycenters defined using Sinkhorn divergence, a formulation useful for aggregating information in graphics, learning, and vision. The computational task is to find the distribution that best serves as that shared representative.",
+      "The authors reformulate the problem as unconstrained optimization over functions, rather than optimizing directly over probability measures. This leads to Sinkhorn Descent, a functional gradient descent method. They prove sublinear convergence to a stationary point and, under additional assumptions, asymptotic convergence to a global minimizer. The distinction matters because the stronger global conclusion depends on those assumptions.",
+      "A mean-field analysis also shows that the method preserves weak convergence of empirical measures, linking its behavior on empirical distributions to their limiting behavior. Its computational complexity grows linearly with dimension, and the authors demonstrate scalability on a 100-dimensional barycenter problem. Together, these results connect an alternative optimization formulation with convergence properties and a concrete demonstration of higher-dimensional computation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "15fdacd99ab347138757cfdb61374f331b623e91360ed1c639328621f6df8083",
+    "tldr": "Sinkhorn Descent reformulates distribution averaging as functional optimization, with convergence guarantees and computational complexity linear in dimension."
+  },
+  "neurips-2020-stochastic-latent-actor-critic-deep-reinforcement-learning-with-a-latent-variable-model-7857eefa08": {
+    "backgroundConcepts": [
+      "topic-087-reinforcement-learning-with-prototypical-represe"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Learning control directly from images asks an agent to solve two problems together: interpret a large visual input and learn which actions accomplish the task. This paper separates those responsibilities by explicitly learning a compact latent representation before carrying out reinforcement learning in that representation. The aim is to make image-based control more sample efficient.",
+      "The proposed Stochastic Latent Actor-Critic algorithm combines a stochastic sequential model with reinforcement learning in one method. The sequential model supplies the learned latent space, and the control-learning component operates within it. This provides an organized way to connect representation learning over image sequences with the learning of policies for complex continuous control tasks.",
+      "Across the evaluated image-based control tasks, SLAC outperforms both model-free and model-based alternatives in final performance and sample efficiency. These results indicate that the learned representation can support strong control while reducing the amount of interaction needed in the tested settings. The contribution centers on the integration of sequential latent modeling and reinforcement learning, with explicit representation learning serving as the link between visual observations and task learning."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "303f09f935dec81f40216bc47f302bf26c898608bdeee8ffaa5d821c45bd3938",
+    "tldr": "SLAC learns a compact stochastic latent representation of image sequences and performs reinforcement learning there to improve control performance and sample efficiency."
+  },
+  "neurips-2020-the-advantage-of-conditional-meta-learning-for-biased-regularization-and-fine-tuning-dc02133e4f": {
+    "backgroundConcepts": [
+      "topic-053-textttmetadistill-unlocking-the-performance-ceil"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Biased regularization and fine tuning can help learners adapt across related tasks when their target parameter vectors lie near a shared meta-parameter. This paper examines environments where tasks are more heterogeneous. In those environments, a single common vector may inadequately represent the structure of the task distribution and lead to poor performance.",
+      "The proposed alternative learns a conditioning function that maps information about a task to a suitable meta-parameter for that task. This makes the shared learning rule responsive to task differences. The authors characterize properties of task environments under which conditioning provides a substantial advantage, and identify environments with multiple clusters as examples satisfying those properties.",
+      "They then introduce a convex meta-learning algorithm intended to realize that advantage in practice. Numerical experiments confirm the theoretical findings. The resulting message is conditional: using task information can substantially improve meta-learning when the environment has the relevant structure. The paper explains both why a common meta-parameter can be inadequate and how a learned mapping from task information can supply more appropriate starting guidance."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d2cca3323830df2f6d074e643e663d9efff2afdc735e294ff7e458fa0d6c7e32",
+    "tldr": "Conditional meta-learning uses task information to choose task-specific meta-parameters, offering theoretical and empirical advantages in structured heterogeneous environments."
+  },
+  "neurips-2020-the-route-to-chaos-in-routing-games-when-is-price-of-anarchy-too-optimistic-f16ecd3794": {
+    "backgroundConcepts": [
+      "topic-076-varepsilon-fractional-core-stability-in-hedonic-"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Price of Anarchy assesses inefficiency at equilibrium, but learning agents need not settle there. This paper studies Multiplicative Weights Update in routing games using actual costs instead of costs normalized to the interval from zero to one. This nonstandard choice permits large regret and models agents responding more aggressively as rising demand makes costs large.",
+      "For non-atomic routing with two linear-cost paths, the authors identify a demand threshold beyond which the dynamics become unstable. With a symmetric equilibrium split, the system undergoes a period-doubling bifurcation. Although Price of Anarchy equals one, in the large-population limit average social cost approaches its worst possible value for almost every initial condition. Asymmetric equilibria can instead lead to chaos as demand increases.",
+      "In the analyzed non-equilibrating regimes, average path flows still converge exactly to equilibrium flows. Thus, correct average traffic allocations can coexist with very poor average costs, exposing a limitation of equilibrium-based assessment for these dynamics. The paper also extends its results to broader routing settings, including more strategies, polynomial costs, atomic users, and heterogeneous users."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2afafed00a56c059a5061b0c5cad0971c7253ac42da1cf03788cec1284394b5f",
+    "tldr": "Routing agents using unnormalized costs can develop unstable or chaotic behavior, making equilibrium-based Price of Anarchy overly optimistic."
+  },
+  "neurips-2020-towards-better-generalization-of-adaptive-gradient-methods-550492b191": {
+    "backgroundConcepts": [
+      "topic-069-pscaling-small-models-principled-warm-starts-and"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Adaptive optimizers such as AdaGrad, RMSprop, and Adam offer fast training, yet their generalization can be worse than stochastic gradient descent for over-parameterized networks. This paper focuses on the gap between reducing training loss and performing well on the underlying data population. Analyses restricted to the training objective do not directly resolve that gap.",
+      "The authors propose Stable Adaptive Gradient Descent, or SAGD, for nonconvex optimization. The method uses differential privacy to improve the generalization behavior of adaptive gradient methods. Its theoretical analysis establishes high-probability convergence to a population stationary point, linking optimization to the population objective rather than only to the particular training sample.",
+      "A stationary point is a point where the objective has no first-order direction of change, so the result should not be read as a guarantee of globally optimal predictions. Experiments across several deep learning tasks and models show that SAGD is competitive with, and often better than, the tested baselines. The paper therefore combines a population-level theoretical target with empirical evidence of useful performance."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "df6563f8710fd2946fa391039e5b7340f1f12723ddae9ca3323d289faeda83da",
+    "tldr": "SAGD uses differential privacy to strengthen adaptive optimization's generalization guarantees and achieves competitive empirical performance."
+  },
+  "neurips-2020-tree-i-am-no-tree-i-am-a-low-dimensional-hyperbolic-embedding-68f57af497": {
+    "backgroundConcepts": [
+      "topic-050-a-geometric-take-on-metric-learning"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Hyperbolic representations can reveal hierarchical organization in data. This paper approaches their construction by first learning a tree that approximates the distances between data points. The resulting tree can directly express a hierarchy, serve as a distance approximation, or be converted into a hyperbolic embedding using Sarkar's construction.",
+      "The proposed TreeRep algorithm takes a delta-hyperbolic metric and produces a tree structure approximating it. The parameter delta describes the input metric's hyperbolicity. For the special case delta equals zero, the authors prove that TreeRep exactly recovers the original tree structure. For general nonnegative delta, the stated goal and result concern approximation rather than universal exact reconstruction.",
+      "Empirical comparisons show TreeRep running many orders of magnitude faster than previous algorithms. It also achieves lower average distortion and higher mean average precision than most prior methods across the studied representation and hierarchy tasks. These findings support learning an intermediate tree as a useful route to hyperbolic representations, with the same intermediate object also usable for hierarchical analysis and metric approximation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8ce005983fad6e3ec11228064158f10a9140c6605c288eff960f70a5471b827d",
+    "tldr": "TreeRep rapidly learns tree approximations of hyperbolic metrics, enabling hierarchy extraction and hyperbolic embeddings with strong reported empirical quality."
+  },
+  "neurips-2020-variance-reduction-via-accelerated-dual-averaging-for-finite-sum-optimization-a8ca15a5bf": {
+    "backgroundConcepts": [
+      "topic-003-a-convergence-theory-for-svgd-in-the-population-"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper introduces VRADA for convex objectives expressed as a finite sum of sample-level terms. It combines variance reduction with accelerated dual averaging in a method that covers both general convex and strongly convex smooth problems. The goal is to reduce the number of stochastic gradient evaluations while simplifying the algorithm and its analysis.",
+      "For general smooth convex objectives with n samples, VRADA reaches accuracy of order 1/n using order n log log n stochastic gradient evaluations. Its complexity matches the setting's lower bound up to a log log n factor. For strongly convex smooth objectives, the guarantees depend on how the sample count compares with the condition number, which characterizes the optimization problem's conditioning.",
+      "VRADA matches the lower bound in the stated regime where n is at most on the order of the condition number. When n is much larger, it improves the known rate, including a logarithmic dependence on their ratio. Experiments on real datasets show good performance against existing methods. The contribution joins stronger complexity guarantees with one unified approach across the two convex settings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7503bc432dc1feb04e4416810f5e3de3a21d76356d07bee3d821698a9a180c63",
+    "tldr": "VRADA unifies variance reduction and accelerated dual averaging to improve gradient-evaluation guarantees for smooth finite-sum convex optimization."
+  },
+  "neurips-2020-watch-out-motion-is-blurring-the-vision-of-your-deep-neural-networks-eb368ecb3a": {
+    "backgroundConcepts": [
+      "topic-223-efficient-black-box-adversarial-attacks-via-baye"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Motion blur commonly affects visual inputs used for detection and tracking. This paper investigates whether deliberately constructed blur can cause neural networks to misclassify images while retaining a natural visual appearance. Its proposed method, the motion-based adversarial blur attack, or ABBA, studies a failure mechanism tied to motion-related image degradation.",
+      "ABBA begins by applying spatially varying convolution kernels to an image and tuning their weights to induce misclassification. To make the blur more visually plausible, the method treats a salient region as a moving object and regularizes the predicted kernels. It further strengthens the attack by adapting translations of the object and background, incorporating their movement into the construction.",
+      "Evaluation on the NeurIPS'17 adversarial competition dataset examines different kernel sizes, translations, and image regions and demonstrates the attack's effectiveness. Additional analysis shows that ABBA penetrates the evaluated GAN-based deblurring mechanisms more effectively than other blurring methods. These findings identify a vulnerability to the constructed motion-blurred examples and show that the tested deblurring methods do not reliably eliminate that attack advantage."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ded79661d4696ce1d433a210eaa57adb025d4b4cd6208f0ccfd74cf761977546",
+    "tldr": "ABBA constructs visually natural motion blur that causes misclassification and remains more effective than other blur methods against tested deblurring defenses."
+  },
+  "neurips-2020-what-went-wrong-and-when-instance-wise-feature-importance-for-time-series-black-box-mode-94d887e1e4": {
+    "backgroundConcepts": [
+      "topic-229-discriminative-regularization-for-latent-variabl"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A time-series explanation needs to identify both which observations matter and when they matter. This paper introduces FIT, a framework for explaining individual predictions from black-box models of multivariate time series. It focuses on how observations contribute to changes in the model's predictive distribution as the sequence unfolds.",
+      "FIT measures an observation's importance through its contribution to a distributional shift. Its definition uses KL-divergence to compare the predictive distribution with a counterfactual in which the remaining features are unobserved. This ties importance to a specific contrast about the information available to the model, giving the explanation a way to distinguish contributions from different observations over time.",
+      "The authors also demonstrate the need to control for distribution shifts that depend on time, which matters when interpreting changes in predictions across a sequence. Comparisons on simulated data and real clinical data show that FIT identifies important observations and time points better than the tested state-of-the-art baselines. The reported findings support an explanation framework that treats temporal change as an essential part of feature importance."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "563df201de60ac42e8df5dee56e751c39622418efde767db880572c82114988f",
+    "tldr": "FIT explains time-series predictions by measuring how individual observations contribute to changes in predictive distributions over time."
+  }
+}

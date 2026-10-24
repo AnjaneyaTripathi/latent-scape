@@ -1,0 +1,327 @@
+{
+  "icml-2026-adaptive-reinforcement-learning-for-unobservable-random-delays-2a84d101a9": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Reinforcement learning often assumes that observations arrive immediately and chosen actions take effect without delay. Networked systems can violate both assumptions: delays fluctuate, and an agent may not know the current delay when choosing an action. Planning around a fixed maximum delay can therefore be unnecessarily conservative when actual delays are shorter.",
+      "The paper introduces an interaction layer that lets an agent prepare for several possible delays at once. Instead of producing only one immediate action, the agent generates a matrix of possible future actions over a delay horizon. This framework addresses unpredictable timing as well as action packets that fail to arrive over a network.",
+      "The authors build Actor-Critic with Delay Adaptation, or ACDA, on this framework. This model-based algorithm adjusts to changing delay patterns. Across locomotion benchmarks, including experiments using measured real-world delays, it substantially outperforms the compared approaches. The findings support preparing adaptable future actions as a way to improve control when communication timing is uncertain."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0d60b07e4b903c8774be106ac962d8b7667e7628d10869f1936b8b21bf114040",
+    "tldr": "ACDA prepares alternative future actions to improve reinforcement learning under hidden, changing delays and lost action packets."
+  },
+  "icml-2026-contextualized-privacy-defense-for-llm-agents-25e03bf678": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "An agent handling personal information must make privacy decisions throughout a task, as the relevant context changes. A fixed privacy prompt or a guard that blocks an action offers limited support for this ongoing decision process. The paper develops a method that supplies privacy guidance at individual steps of execution.",
+      "Contextualized Defense Instructing, or CDI, uses an instructor model to generate guidance tailored to the current situation. This guidance actively influences what the agent does next. The instructor learns through reinforcement learning, using environments constructed from earlier task trajectories that contained privacy violations. Past failures thus become material for improving future instructions.",
+      "The authors compare CDI and baseline defenses within a shared simulation framework, distinguishing where each intervenes in the agent loop. CDI achieves reported privacy preservation of 94.2% and helpfulness of 80.6%, with a better balance than the baselines. It also shows stronger adversarial robustness and generalization in the evaluations. These findings support adapting privacy guidance during execution while preserving the agent’s ability to help."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b810f5dd72af14c79208905c5f662d27b722a46024260a528c23c7123e11d638",
+    "tldr": "CDI trains an instructor to give agents context-specific privacy guidance, improving the evaluated balance between privacy and helpfulness."
+  },
+  "icml-2026-coupled-variational-reinforcement-learning-for-language-model-general-reasoning-9fcb0a3917": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Reinforcement learning for reasoning often depends on rewards that can verify whether an answer is correct. Verifier-free methods offer another route: they use the model’s probability of producing a reference answer as a reward. However, sampling reasoning from the question alone leaves useful answer information disconnected from the search for reasoning traces.",
+      "Coupled Variational Reinforcement Learning, or CoVRL, connects these pieces through variational inference. It combines prior and posterior distributions in a hybrid sampling strategy, then optimizes a composite distribution incorporating both. The intended benefit is to explore useful reasoning more efficiently while keeping the sampled reasoning consistent with the resulting answer.",
+      "Experiments on mathematical and general reasoning benchmarks report a 12.4% performance improvement over the base model and a further 2.3% improvement over leading verifier-free reinforcement learning baselines. These results support coupling answer information with reasoning exploration during training. Here, verifier-free learning still uses reference answers for its reward signal; the contribution concerns how that information informs the reasoning process."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4b947b581c605c12da80f9dda19854ee024d71127d1b57d8b838c2311e337261",
+    "tldr": "CoVRL couples reasoning sampling with answer information to improve verifier-free reinforcement learning on mathematical and general reasoning tasks."
+  },
+  "icml-2026-distribution-transformers-fast-approximate-bayesian-inference-with-on-the-fly-prior-adap-c5aa60c623": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Bayesian inference updates an initial belief, called a prior, after observing data to produce a posterior. Computing that update exactly is often impractical. Approximate methods can still be slow, and some require expensive retraining when the prior changes. This is particularly inconvenient for sequential tasks that repeatedly update uncertain beliefs.",
+      "Distribution Transformers learn mappings between distributions. For Bayesian inference, they receive a prior and data and produce an approximate posterior. Both distributions are represented as Gaussian mixtures, which combine several Gaussian components into a flexible distribution. Self-attention connects the mixture components, while cross-attention lets them incorporate information from the observed data.",
+      "The evaluated models accommodate changing priors and reduce inference times from minutes to milliseconds. Their expected log-likelihood performance matches or exceeds compared approximate methods on sequential inference, quantum parameter estimation, and Gaussian-process prediction with hyperpriors. The contribution combines speed with a flexible input representation: the prior itself is supplied to the model, allowing inference to adapt as initial beliefs change."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a697718968d77dea7f2ab45c9383904f2547ab21b07940e173875d6bd685113e",
+    "tldr": "Distribution Transformers map changing priors and observed data to approximate posteriors, delivering millisecond inference in the evaluated tasks."
+  },
+  "icml-2026-dynamics-and-representation-structure-of-local-approximations-to-gradient-based-learning-cb9150a445": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Biological and neuromorphic recurrent networks cannot necessarily access all the information used by standard gradient-based learning. Information may be unavailable across distant connections or earlier moments in time. Algorithms such as random feedback local online learning, or RFLO, and truncated backpropagation through time address these constraints by dropping different non-local terms.",
+      "The paper studies what these approximations change about learning itself. Its main analysis uses linear recurrent networks aligned with the data, a setting where network dynamics separate into orthogonal modes. Dynamical systems tools then allow comparisons of stationary solutions, their stability, and convergence rates across RFLO, full backpropagation through time, and one-step truncation.",
+      "RFLO exhibits qualitatively different behavior from the two backpropagation methods. The authors also find that RFLO’s learned solutions differ from their initial parameters through low-rank changes, with this result extending beyond the data-aligned setting. These findings show how locality constraints can shape the structure of learned representations as well as learning dynamics, providing analytical guidance for models of biological learning and alternative recurrent-network optimizers."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "250097b71f097aabe8c36ac56a924dd334799b41cfea15cabecf175e05861878",
+    "tldr": "Analysis of linear recurrent networks shows that local learning approximations can change convergence behavior and restrict the structure of learned parameter updates."
+  },
+  "icml-2026-foam-blocked-state-folding-for-memory-efficient-llm-training-fc8ce78d5c": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Training a large language model requires memory for more than its parameters. Optimizers such as Adam also maintain auxiliary state, which can become a major memory cost. Existing approaches to reducing this cost can add computation, require their own projection storage, or reduce model performance.",
+      "Folded Optimizer with Approximate Moment, or FOAM, compresses optimizer state using averages of gradients within blocks. Averaging reduces the amount of information that must be stored, but also discards detail. FOAM therefore includes a residual correction intended to recover information lost in the compression, combining a compact representation with a mechanism for compensating for its approximation.",
+      "Under the standard non-convex optimization settings considered, the authors establish convergence rates equivalent to those of ordinary Adam. Empirically, FOAM removes up to 90% of optimizer-state memory overhead and speeds convergence. It also works alongside other memory-efficient optimizers, with evaluated performance and throughput matching or exceeding the compared methods. The memory figure concerns optimizer states specifically, while the theory concerns convergence rates under its stated optimization setting."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c82ca29a839071ae80168af235f3c712301fb7d620082127b4a9f3ffa8a9d618",
+    "tldr": "FOAM compresses optimizer states with block averages and residual correction, removing up to 90% of their memory overhead in experiments."
+  },
+  "icml-2026-hide-and-seek-in-embedding-space-geometry-based-steganography-and-detection-in-large-lan-de1ee6b924": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Fine-tuned language models can hide secrets from their prompts inside generated outputs. The paper examines how easily these hidden payloads can be recovered by a classifier, finding that earlier encoding schemes reach 100% recoverability under this measure. It introduces mappings derived from embedding geometry to make the payload less readily recoverable.",
+      "The experiments distinguish classifier-based payload recoverability from successful exact secret recovery through the steganographic scheme. The new mappings reduce the former while increasing the latter: exact recovery rises from 17% to 30% for Llama-8B, 24% to 43% for Ministral-8B, and 9% to 19% for Llama-70B in their respective training settings. This shows why the two measurements need separate interpretation.",
+      "For detection, the authors investigate internal activations because output-distribution changes also arise from fine-tuning itself. Linear probes on later layers detect secrets with up to 33% higher accuracy in fine-tuned models than in base models, including low-recoverability schemes. The findings suggest that malicious fine-tuning leaves internal evidence that could support interpretability-based defenses."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7b6aa152b8c50b372ee8ab02ad3dad389711fd38660c3f1285fdef4766639902",
+    "tldr": "Embedding-based secret encodings reduce classifier recoverability while improving secret transmission, and internal probes reveal potential detection signals."
+  },
+  "icml-2026-hyperpotter-spell-the-charm-of-high-order-interactions-in-audio-deepfake-detection-01c3e8f934": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Audio deepfake detectors often examine local timing or frequency features, or relationships between pairs of features. Some useful evidence may instead appear only when several components are considered together. HyperPotter targets these higher-order interactions: combinations whose detection value goes beyond what their individual components reveal.",
+      "The framework uses a hypergraph, where a connection can join multiple components rather than just two. It constructs these connections through clustering and initializes prototypes using class information. This gives the detector a way to represent grouped feature patterns associated with synergistic evidence for distinguishing authentic and synthetic audio.",
+      "Across 13 test sets, HyperPotter improves on its baseline in 11. The reported average relative reduction in equal error rate is 12.68% across all sets and 22.15% across the improved sets. These results support useful generalization across the evaluated scenarios, but the experiments also expose robustness limits under severe codec or channel distortion. Grouping features therefore helps across many tested conditions without resolving every form of audio degradation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0b5828a003072c6e9fad42e50a9428cd8a7671e66be28b7ddc0828104c365dba",
+    "tldr": "HyperPotter models interactions among groups of audio features, improving deepfake detection on 11 of 13 test sets."
+  },
+  "icml-2026-improved-bounds-for-private-and-robust-alignment-fdca3646d9": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Language-model alignment can rely on preference labels that are affected by privacy requirements, adversarial corruption, or both. This paper asks how close alignment algorithms can get to their objective under those conditions. It develops theoretical upper bounds on the remaining suboptimality in both offline and online learning settings.",
+      "The analysis separates privacy-first and corruption-first arrangements, accounting for different ways the two effects interact. With privacy alone, a maximum-likelihood-style algorithm using log loss achieves near-optimal rates. With privacy and corruption together, the authors establish stronger guarantees for existing offline algorithms than were previously known, improving dependence on both privacy parameters and corruption levels.",
+      "The strengthened analysis also improves bounds when corruption is the only concern. In addition, the paper presents what the authors identify as the first results for jointly private and robust online alignment. New uniform convergence guarantees for log loss and square loss underpin these findings. The contribution is a sharper account of algorithmic reliability under the analyzed conditions, including improved guarantees for methods that already existed."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b92e0c2636498472e04ab01a1df45065b614b2fcb420befe270b41af40ccc48d",
+    "tldr": "New theoretical bounds strengthen guarantees for language-model alignment when preference labels face privacy constraints and adversarial corruption."
+  },
+  "icml-2026-kernelfoundry-hardware-aware-evolutionary-gpu-kernel-optimization-2d0fe2e488": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Generating a fast GPU kernel requires understanding hardware, parallel execution, and profiling results as well as producing working code. KernelFoundry addresses this with an evolutionary search framework that incorporates hardware-sensitive optimization into the search process. It explores alternative kernels while also adapting how the language model is prompted.",
+      "Three mechanisms work together. MAP-Elites search maintains diverse candidates along kernel-specific behavioral dimensions, helping sustain exploration. Meta-prompt evolution changes prompts alongside kernels to discover strategies suited to the task. Template-based parameter optimization then tunes candidate kernels for particular inputs and hardware. These mechanisms target different parts of the optimization problem.",
+      "The authors evaluate SYCL and CUDA kernel generation on KernelBench, robust-kbench, and custom tasks. KernelFoundry consistently outperforms the compared baselines and reports an average SYCL speedup of 2.3 on KernelBench. Its distributed implementation can benchmark remotely on different hardware and accepts flexible user inputs. The findings support combining diverse code search, evolving prompts, and parameter tuning for the evaluated kernel-generation tasks."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "da0c3ce71cc4c55b68556728bdd08319d70ec95007ee76f5675dcbf9f6f88447",
+    "tldr": "KernelFoundry co-evolves GPU kernels and prompts, combining diverse search with hardware-specific tuning to improve benchmark performance."
+  },
+  "icml-2026-learning-efficient-guardrails-for-compliance-87c80832e8": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A web agent can carry out a long task while still violating the policies that govern how it should act. Evaluating this kind of compliance requires examining the agent’s actions in relation to a policy. The paper focuses on that problem, which the authors describe as less explored than standard safety objectives.",
+      "PolicyGuardBench contains 60,000 policy–trajectory pairs. It supports checking complete action sequences and a prefix-based task that examines an initial portion of a trajectory. These two views make it possible to study compliance over finished executions and over partial sequences, extending evaluation beyond a single final response.",
+      "Using the benchmark, the authors train PolicyGuard, a lightweight model for detecting policy violations. It achieves strong detection accuracy while keeping inference efficient, and retains high performance on unseen domains in the reported evaluations. Together, the dataset and model provide a framework for studying compliance in autonomous web agents. The results suggest that relatively small guardrail models can provide accurate detection and useful generalization across domains."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6d96a41d1537f8c1145d3fbcd770bff8a6f8f663df0149926ce001c7bd86ecf9",
+    "tldr": "PolicyGuardBench and the lightweight PolicyGuard model support efficient detection of web-agent policy violations, including on partial action sequences."
+  },
+  "icml-2026-learning-solving-and-optimizing-pdes-with-tensorgalerkin-an-efficient-high-performance-g-0ff2d03417": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Solving partial differential equations, optimizing systems constrained by them, and learning their behavior can share a computational foundation. For equations with a variational structure, this paper builds that foundation around Galerkin discretization. TensorGalerkin accelerates the assembly of the matrices and vectors needed for the resulting numerical systems.",
+      "The method groups element-level calculations into tensor operations in a Map stage. A Reduce stage combines them through sparse matrix multiplication, using the mesh’s connectivity as a message-passing graph. Both stages are designed together within PyTorch’s automatic differentiation system. The assembly graph has a constant number of nodes as the element count and local degrees of freedom grow; this property concerns graph structure rather than constant total computation.",
+      "The authors apply the framework to numerical solving, differentiable PDE-constrained optimization, and physics-informed operator learning. Benchmarks include two- and three-dimensional elliptic, parabolic, and hyperbolic equations on unstructured meshes. Across these applications, they report substantial efficiency and accuracy gains over varied baselines, supporting assembly as a shared target for improving scientific computation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "572948b2c91e2ea43afef57c3eddbb796b61ecc5853a1f484b03921d17b9ea6f",
+    "tldr": "TensorGalerkin accelerates differentiable PDE assembly through tensor operations and sparse reduction, improving solving, optimization, and learning benchmarks."
+  },
+  "icml-2026-magic-a-co-evolving-attackerdefender-adversarial-game-for-robust-llm-safety-6a5575fcde": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Safety training based on a fixed collection of attacks can fall behind adversaries whose strategies keep changing. MAGIC treats this mismatch as a learning problem involving two adapting agents. Its multi-turn reinforcement learning framework casts safety alignment as an asymmetric game between an attacker and a defender.",
+      "The attacker repeatedly rewrites original queries into deceptive prompts. At the same time, the defender learns to recognize and refuse those inputs. Because both policies change, the training process keeps generating new challenges. The authors observe that an attacker starting with reasoning ability develops previously unseen combinations of strategies, exposing vulnerabilities that a static training collection might not cover.",
+      "The paper provides theoretical analysis of a more robust game equilibrium and derives safety guarantees within its formulation. Experiments report higher defense success rates without reducing model helpfulness. These findings support co-evolving training as a way to improve responses to unfamiliar attack patterns: the defender learns from a changing adversary, while the attacker’s discoveries continually supply fresh training pressure."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e2c53e2eaa27878962f0841df8a2468861080178ae654d7a52eb2f01204e8020",
+    "tldr": "MAGIC jointly trains attacking and defending agents, generating evolving challenges that improve evaluated LLM safety without reducing helpfulness."
+  },
+  "icml-2026-on-the-variability-of-concept-activation-vectors-5078ceb7d6": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Concept-based explanations aim to describe model behavior using meaningful concepts rather than only assigning importance to individual features. Concept Activation Vectors, or CAVs, are a prominent tool for this purpose. Their construction involves randomly sampling training examples, so repeating the procedure can produce different vectors even when the model being explained stays the same.",
+      "The paper analyzes this source of variability in detail. It studies how the number of sampled random examples affects the variance of the resulting CAVs. The theoretical analysis is supported by experiments on real-world datasets spanning four modalities, connecting the mathematical account to several kinds of data.",
+      "The results point to an approximately inverse relationship: variance decreases roughly as 1/N, where N is the number of random examples. This gives a practical way to reason about how additional samples affect stability and supports the authors’ recommendations for resource-efficient use. The finding concerns variability caused by CAV construction, making it useful for deciding how much sampling effort to invest in a more consistent explanation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "29e90181821d4e59a4bc34c813895dc3a0f13df7e4dc2a534740c7f7637965cd",
+    "tldr": "Theory and experiments indicate that Concept Activation Vector variance decreases roughly inversely with the number of random examples used."
+  },
+  "icml-2026-prioritize-the-process-not-just-the-outcome-rewarding-latent-thought-trajectories-improv-f55c488a1d": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Looped language models perform several internal reasoning steps before generating tokens. This creates a credit-assignment problem for reinforcement learning: a reward attached only to the final internal state does not directly address the full sequence of computation. The paper identifies this mismatch in standard objectives such as Group Relative Policy Optimization, or GRPO.",
+      "Reward Latent Thought Trajectories, or RLTT, distributes reward across the internal reasoning trajectory. It supplies dense feedback without external verifiers and can replace GRPO with negligible overhead. The approach aligns the training signal with the model’s repeated internal processing, giving the intermediate stages a role in how learning assigns credit.",
+      "Under identical training and inference conditions, experiments with Ouro-1.4B/2.6B-Thinking show statistically significant gains over GRPO. Reported mean accuracy improvements across MATH-500, AIME24/26, and BeyondAIME are +5.8% and +10.9% at the respective model sizes. Models trained only on mathematics also improve on non-mathematical reasoning benchmarks. These results support trajectory-level credit assignment for the evaluated looped models."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f69e3e92851a3f82ece5e400b7524c6a799530c2ff808fee0bccf0a71e1c66c3",
+    "tldr": "RLTT rewards the full internal reasoning trajectory of looped language models, improving mathematical reasoning and transfer beyond mathematics."
+  },
+  "icml-2026-progressive-graph-structure-adjustment-for-homophily-shift-adaptation-3fffc29fa9": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Graph models can struggle to transfer when connected nodes share labels at different rates in the source and target graphs. This property is called homophily. PSAHS addresses the mismatch directly by progressively modifying graph structure alongside the representations used for prediction.",
+      "On the source graph, the method reweights edges and adds same-class connections for nodes with low homophily, aiming for a prescribed level. Target labels are scarce, so target changes rely on agreement between a graph neural network that uses structure and a multilayer perceptron that uses only node attributes. This agreement guides conservative refinement of the target graph.",
+      "After each refinement, domain-adversarial training aligns node representations across the two domains. Alternating these stages lets improved representations inform subsequent structural changes, while the revised structure supports further learning. Experiments across graph domain-adaptation benchmarks show consistent improvements over strong baselines, with especially large gains under severe homophily mismatch. The results support explicitly adjusting connectivity patterns as part of transferring knowledge between graphs."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0946346164f8a006386eceaed7a078b4a4a6a5a58f67b5620c094f0496d87949",
+    "tldr": "PSAHS alternates graph-structure refinement and representation alignment to improve transfer when source and target graphs differ in homophily."
+  },
+  "icml-2026-propose-solve-verify-self-play-through-formal-verification-8cc648af53": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Self-play could let language models improve by creating their own training challenges, but that process depends on trustworthy feedback. In code generation, rewards based on unit tests can be brittle and allow errors to propagate through training. This paper studies self-play where formal verification supplies the correctness signal.",
+      "Propose, Solve, Verify, or PSV, pairs a proposer that generates challenging synthetic problems with a solver trained through expert iteration. Verification signals help shape the proposer as well as support solver training. The framework connects problem generation and solution learning around a shared source of correctness feedback.",
+      "The resulting PSV-Verus model improves pass@1 by up to 9.6 times over inference-only and expert-iteration baselines across three benchmarks. Performance also increases with more generated questions and training iterations. Ablations identify formal verification and difficulty-aware problem proposal as essential ingredients in the studied setup. These findings support self-play for verified code generation when reliable checking and appropriately challenging tasks are part of the learning process."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "482e8cfe456c90477fb2c2f1731db85d3efa93a1237a80de76d0660f0244ca92",
+    "tldr": "PSV uses formal verification to guide problem generation and solver training, improving verified code generation through self-play."
+  },
+  "icml-2026-recurrent-structural-policy-gradient-for-partially-observable-mean-field-games-f98275c3d9": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Mean field games describe interactions within large populations. Learning methods face a trade-off: model-free approaches can have high variance, while exact methods can be difficult to scale. Hybrid structural methods exploit small individual state and action spaces and known transition dynamics to retain some exact computation while sampling shared randomness.",
+      "Existing hybrid methods had not handled partial observability. Recurrent Structural Policy Gradient, or RSPG, extends this approach to mean field games with public partial information. Its history-aware formulation allows behavior to depend on information accumulated over time, addressing a setting where current observations do not reveal everything relevant to a decision.",
+      "The paper reports convergence an order of magnitude faster than model-free reinforcement learning methods, while learning history-dependent behavior unavailable to the existing hybrid methods considered. It also introduces MFAX, a JAX framework supporting both analytic and sample-based mean-field updates. Together, the algorithm and framework extend structured learning to the studied partial-information setting and provide tools for investigating large-population decision problems."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "fcf35e525a2cd6d9ec13acfb7927a051d2828708f0e8f0dce4ec8c6e15e17f20",
+    "tldr": "RSPG adds history-aware learning to hybrid structural methods for partially observable mean field games, with substantially faster reported convergence."
+  },
+  "icml-2026-robust-sequential-experimental-design-for-a-b-testing-8c6788972b": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Experimental design can make A/B tests more sample-efficient by guiding how an experiment collects evidence. That benefit can depend on the model used to design the experiment being correct. This paper studies sequential design when the model is misspecified, focusing on the reliability of the estimated treatment effect.",
+      "The authors develop a unified framework covering contextual bandit and dynamic settings. Bringing these settings together allows the analysis to address sequential experiments across both forms of interaction. The central theoretical result bounds the worst-case mean squared error of the treatment-effect estimate. This measures estimation error directly and makes robustness to model misspecification part of the design objective.",
+      "The proposed approach is evaluated using synthetic data and real-world datasets from a leading technology company, with the authors reporting evidence of effectiveness. The combination of a worst-case error bound and empirical evaluation supports experimental design that accounts for imperfect models. Its stated contribution is a robust framework for sequential treatment-effect estimation, connecting sample-efficient experimentation with protection against the modeled uncertainty."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4f1b4f511e7820e67fa9973d46f10b8be1bde004c76deb9da954aa6b206f1cd7",
+    "tldr": "The paper develops sequential A/B-test designs with worst-case treatment-effect error bounds under model misspecification."
+  },
+  "icml-2026-scalable-bayesian-inference-for-nonlinear-conservation-laws-58d1aed1f6": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Nonlinear conservation laws describe many physical systems, but sparse or noisy measurements can make their unknown quantities difficult to infer reliably. Several explanations of the same observations may remain plausible. The paper addresses this uncertainty through a Bayesian numerical method that preserves the conservation structure of the equations.",
+      "The approach builds on interpreting classical numerical methods as inference under Gaussian-process priors. It adds a numerically conservative method for nonlinear conservation laws and uses sparse approximations to make larger problems manageable. This connects physical structure with a probabilistic description of uncertainty, covering both forward simulation and inference of unknown source fields.",
+      "For forward problems, the authors report the accuracy of classical solvers together with structured uncertainty estimates. For inverse problems, they recover posterior distributions over nonparametric source fields in seconds, outperforming neural baselines that require minutes for less accurate point estimates. The distinction matters because a posterior represents uncertainty across possible fields, giving the inference result more information than a single estimated field in the evaluated problems."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4f3fc991cc453d06e5fb4f79e3c94e88f46d13b9bb2e7e8aa68a21b0087b3a65",
+    "tldr": "A conservative Bayesian solver combines classical simulation accuracy with scalable uncertainty estimates and fast inference of unknown source fields."
+  },
+  "icml-2026-stand-self-aware-precondition-induction-for-interactive-task-learning-788c99592c": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "In interactive task learning, people teach an agent while it performs a task, often with only a small number of examples. The agent must learn the conditions under which its rules apply. STAND addresses this precondition-learning problem while also estimating its own training progress so instructors can judge where further teaching is useful.",
+      "The method efficiently represents a compact space of greedy classifiers consistent with the training data. This gives it a different way to maintain possible rules than keeping a finite ensemble of alternatives. Its self-awareness refers to measurable feedback about learning progress, including whether performance is improving on held-out examples.",
+      "In small-data evaluations, STAND outperforms XGBoost, decision trees, random forests, and version spaces. Its performance improves more monotonically than the compared models, with relatively few previously corrected errors returning. These properties support a steadier teaching experience: instructors can better estimate when training is sufficient, while identified trouble spots can guide additional examples. The findings connect predictive performance with the practical experience of teaching an agent."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "de8e6fced343898a5630cbdb8b976cc98448a580dea04554b5a7a8ff952eb57c",
+    "tldr": "STAND learns rule preconditions from limited instruction and estimates its learning progress to help people teach agents more consistently."
+  },
+  "icml-2026-the-marginal-value-of-a-search-ad-an-online-causal-framework-for-repeated-second-price-a-c46dfb389d": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Revenue following an ad impression or click does not necessarily measure how much the ad contributed. An advertiser might have earned some revenue through an organic search result even without winning the sponsored placement. Bidding on total observed revenue can therefore lead to spending on value that paid exposure did not create.",
+      "The paper models ad value as a treatment effect: the difference between outcomes when the advertiser wins and loses the auction. It studies how to learn bids over repeated second-price auctions using this causal definition. The objective is to make bidding sensitive to the incremental contribution of advertising.",
+      "The authors develop algorithms with rate-optimal regret under several feedback models, meaning their regret scales at the best achievable rate in the analyzed settings. A key ingredient is information revealed by the second-price payment rule. Exploiting it yields strictly better regret than analogous first-price learning problems. The results show that both causal valuation and the auction’s payment mechanism matter for how effectively a bidder can learn."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "68116e81c500d84aa908c2ce93ebd2360c1065256aa8f88669cfe1fe0d33f73d",
+    "tldr": "A causal bidding framework learns the incremental value of search ads and exploits second-price payments to achieve rate-optimal regret."
+  },
+  "icml-2026-the-role-of-target-update-frequencies-in-q-learning-42acd6670f": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Q-learning often stabilizes training by holding its learning targets fixed for a period before updating them. Choosing that period is usually treated as hyperparameter tuning. This paper develops a theoretical account in tabular Q-learning, asking how the update schedule affects learning speed and the number of samples required.",
+      "The authors view periodic Q-learning as nested optimization. Each outer step approximates a Bellman optimality update, while an inner optimizer works toward the current target. They derive finite-time convergence results under asynchronous sampling and specialize the analysis to an inner loop using stochastic gradient descent. This exposes a bias–variance trade-off controlled by the target update period.",
+      "Within the analyzed setting, constant schedules are suboptimal because they introduce a logarithmic sample-complexity overhead that adaptive schedules can avoid. The optimal target update frequency decreases geometrically as learning proceeds, so updates become progressively less frequent. The result gives a principled schedule for the studied tabular problem, connecting target timing to convergence rather than treating it solely as an empirical tuning choice."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1ff8128ca5d6b0b36e8f71fba176a2e81a13c0a1e9e271c2ca94221a5d4f6e15",
+    "tldr": "A tabular Q-learning analysis shows that geometrically decreasing target update frequency avoids the sample overhead of constant schedules."
+  },
+  "icml-2026-the-shape-of-addition-geometric-structures-of-arithmetic-in-large-language-models-a552f312f4": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Language models can fail at arithmetic even when their internal representations contain useful numerical structure. This paper investigates that gap by analyzing residual-stream geometry during addition with multiple operands. It identifies a structure called the Iso-Raw-Sum Trajectory, where digit meanings anchor representations and continuously varying carry-related components modulate them.",
+      "The proposed Noisy Quantization Model interprets errors as failures when continuous internal quantities are converted into discrete arithmetic outputs. In this account, neural noise can push a latent carry potential across a quantization threshold. The geometric description thus links an internal perturbation to an incorrect discrete result through a specific proposed mechanism.",
+      "The framework also explains how lightweight probes can extract conflicting signals, such as a correct answer and a hallucinated one, from the same activation vector. The authors validate their insights with a geometric consistency check that detects and corrects quantization failures during inference. The findings connect an analysis of addition representations to a practical correction method for the failures studied."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "cffd186dfdc9006e4295f093ffc9c465699b609ea7bd46f1a4828764ac1ac20d",
+    "tldr": "The paper links addition errors to noisy carry-related geometry and uses geometric consistency checks to detect and correct studied failures."
+  },
+  "icml-2026-when-llms-encounter-open-world-graph-learning-a-fresh-view-on-unlabeled-data-uncertainty-4141772498": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "In text-attributed graphs, nodes carry textual information as well as connections to other nodes. When labels are scarce, an unlabeled node may belong to a known category or to a category the model has never seen. Handling this uncertainty requires using both textual meaning and graph structure while also deciding what to do with newly discovered categories.",
+      "The Open-world Graph Assistant, or OGA, provides a two-stage LLM-based pipeline. Adaptive label traceability combines semantic and topological information to reject assignments to known classes when appropriate. A graph label annotator then labels unknown-class nodes, allowing previously unlabeled data to contribute to subsequent model training.",
+      "The authors position this pipeline as addressing both incomplete information integration and evaluation setups that assume knowledge such as a predefined number of unknown classes. They introduce a benchmark covering four aspects and report extensive experiments supporting effectiveness and practicality. OGA’s contribution is an automated path from recognizing unknown-class nodes to making them useful for model updates in the studied open-world environments."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b43d9d88768bb22d98e9feac246ef1bf89ddaebbb55e65c3361346103e93ef6e",
+    "tldr": "OGA combines text and graph structure to identify unknown-class nodes, annotate them, and incorporate unlabeled data into training."
+  }
+}

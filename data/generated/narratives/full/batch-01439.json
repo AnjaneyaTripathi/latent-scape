@@ -1,0 +1,327 @@
+{
+  "icml-2022-accelerated-federated-learning-with-decoupled-adaptive-optimization-d6b0f1faba": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Federated learning trains a shared model across clients while keeping training data on those clients. Adaptive optimizers offer ways to improve training, but moving a centralized optimizer into this distributed setting raises design questions. The paper develops a mathematical framework for deciding how adaptive optimization should operate across local client updates and global coordination.",
+      "The framework connects federated optimization algorithms to decompositions of ordinary differential equations describing centralized optimizers. This provides a way to reason about distributed updates through the dynamics of their centralized counterparts. From that connection, the authors develop FedDA, a method that separates momentum handling so that global momentum can be used throughout each client's local iterations.",
+      "FedDA is designed to accelerate convergence through this use of global momentum. Near the end of training, the approach also uses full batch gradients to imitate centralized optimization, ensure convergence, and address possible inconsistencies introduced by adaptive methods. The contribution therefore combines an analytic foundation, a momentum-based algorithm, and a final training mechanism that supports convergence."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3f5fb796083e19c0dbe80f5a7feee2ba4777b4bd31408c16b8145729091ce66d",
+    "tldr": "FedDA uses an ODE-based framework to bring global momentum into local federated updates and support faster, convergent training."
+  },
+  "icml-2022-agnostic-learnability-of-halfspaces-via-logistic-loss-3195848b66": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Logistic regression optimizes a smooth loss, while classification quality ultimately depends on incorrect predictions. This paper studies how closely those objectives align when learning homogeneous halfspaces, whose decision boundaries pass through the origin. Its reference quantity, OPT, is the smallest misclassification risk achievable by such a halfspace, even when the labels cannot be classified perfectly.",
+      "The authors construct a distribution within a broad well-behaved class where even the global logistic-loss minimizer has misclassification risk at least on the order of the square root of OPT. This matches an existing upper bound and closes the stated gap. The result concerns the loss itself: finding its global minimum does not remove this worst-case separation from classification performance.",
+      "The paper also identifies two routes to stronger guarantees. Adding a radial-Lipschitzness condition allows logistic regression within a bounded ball to achieve risk proportional to OPT up to logarithmic factors. Alternatively, without that additional condition, one extra convex optimization step using hinge loss achieves that stronger rate. This gives a two-step method where earlier approaches required a logarithmic number of minimizations."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d91aae16ea2cab85d59226c09048c686aad95bacf39ea554d898b940cbd71517",
+    "tldr": "The paper establishes logistic regression's worst-case classification limit and shows how an extra hinge-loss optimization step overcomes it."
+  },
+  "icml-2022-an-exact-symbolic-reduction-of-linear-smart-predict-optimize-to-mixed-integer-linear-pro-d2899c0281": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A predictive model can make accurate forecasts yet lead to poor downstream decisions. Smart Predict+Optimize addresses this mismatch by training predictions according to the loss of the decisions they produce. Existing local optimization methods and convex approximations can work well, but their solutions generally leave uncertainty about how much improvement a globally optimal solution could provide.",
+      "This paper represents the linear Smart Predict+Optimize problem as a two-level optimization program. The lower level describes the downstream decision problem. Symbolic Variable Elimination solves that lower optimization analytically, allowing the resulting training problem to be expressed as a mixed-integer linear program. Standard solvers can then solve this formulation to global optimality.",
+      "The authors describe their framework as the first, to their knowledge, to obtain a globally optimal solution for the linear version of the problem. In experiments against leading local solvers, the resulting solutions reduce decision regret by up to two orders of magnitude. That maximum improvement illustrates how consequential the gap between local and global solutions can be in the evaluated settings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9c86c7459139defdb6c8839dc6158179deb7031575f86d735b3752db4c3d312d",
+    "tldr": "An exact mixed-integer formulation finds globally optimal linear Smart Predict+Optimize solutions, with large decision-regret reductions in the reported experiments."
+  },
+  "icml-2022-antibody-antigen-docking-and-design-via-hierarchical-structure-refinement-e4689fd46c": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Designing an antibody requires considering how its binding region fits against an antigen in three dimensions. The antibody's interacting residues form the paratope, while the corresponding antigen region is the epitope. Because their interface governs binding affinity, predicting how these regions come together is central to generating a suitable antibody binding region.",
+      "The proposed Hierarchical Structure Refinement Network, or HSRN, connects docking with sequence design. For docking, a hierarchical message-passing network predicts atomic forces and repeatedly uses them to refine the binding complex. Its updates are equivariant, meaning that the geometric refinement respects changes in the coordinate frame used to represent the structure.",
+      "During generation, an autoregressive decoder chooses residues progressively. It docks the partially generated paratope and builds a geometric representation of its interface with the antigen, using that representation to guide the next residue choice. Geometry therefore informs the developing sequence throughout generation. The reported results show significant improvements over prior leading methods on paratope docking and design benchmarks, supporting this integration of structural refinement and residue selection."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4eed2fd84759e7f280791b21e7ae409c7f925208ffca8d0c0fe24b19fede7b95",
+    "tldr": "HSRN improves antibody docking and design by repeatedly refining binding geometry and using that geometry to guide residue generation."
+  },
+  "icml-2022-biological-sequence-design-with-gflownets-62ddf3ba85": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Biological sequence design often alternates between proposing candidates and evaluating them through costly laboratory experiments. Evaluation may involve several filtering stages, each offering greater precision at greater cost. This makes the composition of a candidate batch important: the search benefits from useful proposals that also explore different possibilities and provide information for later rounds.",
+      "The paper introduces an active learning algorithm that combines GFlowNets with estimates of epistemic uncertainty, or uncertainty arising from limited knowledge. GFlowNets generate diverse candidate sequences, while the overall procedure aims to produce batches that balance usefulness and informativeness. Usefulness is defined by a chosen utility function, such as predicted antimicrobial activity for peptides.",
+      "The authors also provide a way to incorporate existing labeled candidate datasets into GFlowNet learning alongside a reward function. This is intended to speed up learning by making use of previously evaluated sequences. Across several biological sequence design tasks, their method produces batches that are more diverse and novel while containing high-scoring candidates compared with existing approaches. These findings support diversity-aware proposal generation within an iterative design process."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a8551efa470e35806400af94e94076a2b070c79f7f173c7d8d9e9be464fb74be",
+    "tldr": "An active learning method combines GFlowNets and uncertainty estimates to propose diverse, novel biological sequences with high utility scores."
+  },
+  "icml-2022-combining-diverse-feature-priors-697dfa1bfc": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Model designers often influence generalization by restricting the features a model can use. Such restrictions encode feature priors: assumptions about which information should guide predictions. This paper examines how to combine models built with different explicit priors, treating each set of restrictions as a distinct perspective on the same data.",
+      "The authors find that models trained with diverse feature priors tend to make less overlapping mistakes. This matters because combining models is more useful when one model succeeds on cases where another fails. The relevant diversity therefore concerns their patterns of failure, giving a concrete reason to consider different feature restrictions when constructing a group of models.",
+      "The paper further shows that joint training on additional unlabeled data lets these models correct one another's mistakes. In the reported findings, this improves generalization and resilience to spurious correlations, or associations that can mislead prediction. The approach makes feature priors useful at two connected stages: they create complementary models, and those models then exchange useful learning signals through joint training."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9c93f26eecdf5be6255c1f0140c329da6b1e30ba362cb9af3a9d5f2aa72351c5",
+    "tldr": "Models with diverse feature priors make complementary mistakes and can improve generalization by learning together on unlabeled data."
+  },
+  "icml-2022-domain-adaptation-for-time-series-forecasting-via-attention-sharing-c98965de6d": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Deep forecasting models can capture complicated patterns across related time series, but their advantages depend on having enough data. A target application may contain too few series, too few observations per series, or both. Domain Adaptation Forecaster, or DAF, addresses this shortage by transferring statistical information from a relevant source domain with more data.",
+      "DAF combines a shared attention module and domain discriminator with modules specific to each domain. It learns queries and keys that are invariant across domains while retaining domain-specific values. This arrangement supports joint training while distinguishing the information used to match temporal patterns from the information that remains particular to each forecasting domain.",
+      "A central design insight is that aligning attention keys allows target forecasts to draw on source time series even when those series have different characteristics. Experiments across synthetic and real-world datasets show performance improvements over leading baselines. Ablation studies also support the effectiveness of the design choices. Together, these findings support sharing selected components of attention as a way to improve forecasting when target data are scarce."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1e5168b73967eaea9cc193a7ab693473da50b6e551ac30174e5e83a5c97a37a9",
+    "tldr": "DAF improves forecasting with limited target data by sharing attention features across domains while retaining domain-specific information."
+  },
+  "icml-2022-hyperimpute-generalized-iterative-imputation-with-automatic-model-selection-d50829f3ab": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Missing-value imputation fills gaps in a dataset using information in the observed entries. Iterative approaches learn conditional relationships for individual variables, making them flexible and customizable. Their practical difficulty is that each variable needs an appropriate model. Deep generative alternatives offer expressive neural models, but the paper notes their optimization difficulties and stronger data assumptions.",
+      "HyperImpute retains the iterative approach while automating the choice of models and their hyperparameters for individual columns. Its configuration adapts across the dataset, addressing the burden of manually specifying every variable's model. The core proposal is that better automated model selection can strengthen an established imputation strategy without abandoning its column-wise structure.",
+      "The authors supply an implementation with ready-to-use learners, optimizers, simulators, and interfaces that can be extended. They assess the framework through experiments and sensitivity analyses on multiple public datasets, reporting accurate imputations relative to a strong collection of benchmarks. These results support their broader argument that iterative imputation remains a competitive approach when its modeling choices are configured effectively."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b8c993c0dc949ff24ca19bb4389765cba1050e8d8dca235b178f005289f64993",
+    "tldr": "HyperImpute strengthens iterative missing-value imputation by automatically choosing and tuning models for each dataset column."
+  },
+  "icml-2022-improving-policy-optimization-with-generalist-specialist-learning-ca36fd59ae": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Learning across many environment variations can help a reinforcement learning agent handle unseen variations. The authors observe a training difficulty: a generalist often improves quickly at first, then spends a long time at a less effective plateau. Specialists trained on only a few variations can often achieve high returns within a limited computational budget.",
+      "Their framework turns these observations into a staged training procedure. It first trains a generalist across all variations. When progress stalls, it creates a large population of specialists by copying the generalist's weights. Each specialist then learns a selected small subset of variations, building on the shared starting point while concentrating its training.",
+      "Finally, the generalist resumes training with additional rewards derived from demonstrations by the specialists. This transfers assistance from the focused policies back into the broadly trained policy. The paper investigates when specialization should begin and compares ways for specialists to help the generalist. Results on Procgen, Meta-World, and ManiSkill demonstrate improved policy learning, supporting a schedule that alternates broad learning with focused expertise."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9e91d3d779417440daec596a2dfbb35db78d42c3737eaac891c6983d08c127a3",
+    "tldr": "A generalist policy improves with help from specialists cloned at a training plateau and trained on smaller groups of environment variations."
+  },
+  "icml-2022-maser-multi-agent-reinforcement-learning-with-subgoals-generated-from-experience-replay--8a67a1c4a9": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Cooperative reinforcement learning becomes difficult when rewards provide little guidance about useful intermediate behavior. MASER addresses this sparse-reward setting by assigning subgoals to individual agents. It draws those subgoals from the experience replay buffer, the collection of previously observed experience used during learning, so stored interactions become a source of intermediate objectives.",
+      "The method assumes centralized training with decentralized execution and a consistent decomposition of joint action values into individual values. Subgoal selection considers both each agent's Q-value and the team's total Q-value. This connects an agent's immediate learning target to the quality of the combined behavior, which matters when locally useful actions must support a shared objective.",
+      "MASER then constructs a separate intrinsic reward for each agent using an actionable representation relevant to Q-learning. These rewards guide agents toward their subgoals while seeking to maximize joint action value. Numerical results on the StarCraft II micromanagement benchmark show significant improvements over other leading multi-agent reinforcement learning algorithms. The reported gains support using replay-derived subgoals to provide more detailed guidance under sparse rewards."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "26a0ee606e12152e657467ce013fa6be323d64c6910f9250e735c22ec42e59de",
+    "tldr": "MASER uses replay-buffer subgoals and individual intrinsic rewards to improve cooperative multi-agent learning with sparse rewards."
+  },
+  "icml-2022-mitigating-modality-collapse-in-multimodal-vaes-via-impartial-optimization-cb1bb577de": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A multimodal variational autoencoder aims to learn related data types together, such as images and their captions. During training, however, it can concentrate on some modalities while neglecting others. The paper calls this modality collapse. A model that reconstructs images well while largely ignoring captions has failed to learn the intended joint representation.",
+      "The authors argue that conflicting gradients during training cause this imbalance. Gradients specify how parameters should change, and different modalities can push shared computation in competing directions. The proposed framework identifies the portions of the computational graph where those conflicts occur, called impartiality blocks, and applies existing gradient-conflict techniques from multitask learning at those locations.",
+      "This makes optimization across modalities the focus of the intervention. The authors apply the framework to several existing multimodal VAE models, objectives, and datasets. They report significant improvements in reconstruction, generation conditioned on another modality, and coherence of the shared latent space. These findings support addressing training conflicts as a practical way to mitigate modality collapse across the evaluated multimodal systems."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b704e2513a04a0d358b1909d060fecf92801eeaaab115cfc06ebc696788e7a5b",
+    "tldr": "Detecting and resolving conflicting training gradients helps multimodal VAEs learn modalities more evenly and improves their reported generation and reconstruction results."
+  },
+  "icml-2022-online-learning-and-pricing-with-reusable-resources-linear-bandits-with-sub-exponential--b7c80b08fc": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Pricing reusable resources requires accounting for both demand and how long each resource remains occupied. This paper studies a finite-horizon setting with a fixed number of interchangeable units. Customers arrive according to a price-dependent Poisson process, receive exponentially distributed service with a price-dependent duration, and wait in a queue when no unit is available.",
+      "The decision maker does not know how pricing affects arrival and service intervals. The model assumes those intervals depend linearly on a feature vector associated with the posted price. The proposed Batch Linear Confidence Bound algorithm, BLinUCB, learns these relationships while choosing prices, bringing online learning into a system where earlier customers can continue occupying resources.",
+      "Under this model, the authors prove a rate-optimal cumulative regret bound proportional to the feature dimension times the square root of the horizon, up to logarithmic factors. Their analysis uses a coupling argument to control temporary system behavior after price changes. It also extends linear-bandit analysis to sub-exponential rewards, providing tools for handling the reward behavior arising in this reusable-resource problem."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "608a2dfcf49d22dfc80c4ebae1e06a8010fb9f2f8b6d83d0aec651088452bbbb",
+    "tldr": "BLinUCB learns prices for a specified reusable-resource queueing model with rate-optimal regret, accounting for temporary effects after price changes."
+  },
+  "icml-2022-optimal-algorithms-for-stochastic-multi-level-compositional-optimization-0ab1c1d35b": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies stochastic optimization when the objective nests several smooth functions inside one another. The functions may be nonconvex, making optimization more demanding than finding a global minimum of a convex objective. Existing approaches either require more samples than the best possible rate or depend on very large batches at each iteration.",
+      "The proposed Stochastic Multi-level Variance Reduction method, SMVR, reaches an epsilon-stationary point for nonconvex objectives using O(1/epsilon³) samples. A stationary-point guarantee concerns reaching a point with a small gradient. When additional structure is available, a stage-wise version improves sample complexity to O(1/epsilon²) for convex objectives and O(1/(mu epsilon)) under the mu-Polyak–Łojasiewicz condition.",
+      "The latter guarantee also applies to mu-strongly convex functions. These complexities match lower bounds in their dependence on accuracy and, where relevant, mu, without requiring large batches per iteration. An adaptive-learning-rate version retains the same optimal complexity guarantees and converges faster in the reported practical results. The contribution thus pairs improved sample efficiency with variants tailored to stronger objective structure and adaptive updates."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5545850aa166fb45d5e07ae588a8c357898dd26555dbe3709ab8e417af337560",
+    "tldr": "SMVR achieves optimal sample complexities for nested stochastic optimization without large batches, with stronger guarantees under additional objective conditions."
+  },
+  "icml-2022-planning-with-diffusion-for-flexible-behavior-synthesis-0e26aefa67": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Model-based reinforcement learning often learns how an environment evolves and then hands decision-making to a separate trajectory optimizer. The paper questions how well that division works in practice. It explores a closer integration in which the learned model takes on much of the trajectory optimization process, making sampling and planning nearly the same operation.",
+      "The approach uses a diffusion probabilistic model that repeatedly denoises trajectories. A trajectory represents behavior over time, so refining it amounts to constructing a plan through successive model updates. This places the planning procedure inside the generative process and makes the model responsible for more than predicting isolated transitions in the environment.",
+      "The authors also reinterpret classifier-guided sampling and image inpainting as planning strategies. These connections provide ways to use diffusion generation for decision-making and motivate the framework's flexibility at test time. The paper examines properties of diffusion-based planning and demonstrates effectiveness in control settings emphasizing long-horizon decisions and flexible behavior. Its central contribution is a planning formulation built directly around learned trajectory generation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "69fdbde4cf8f33ed1c9a7424d87f3d9947c01a50c2116e7383d13c2984040e90",
+    "tldr": "A diffusion model plans by repeatedly denoising trajectories, integrating learned behavior generation with long-horizon, flexible decision-making."
+  },
+  "icml-2022-regret-minimization-with-performative-feedback-92544f2d23": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "In performative prediction, deploying a model changes the data distribution on which it operates. A learner must therefore discover the consequences of its own choices while searching for a good model. This paper studies how to keep cumulative regret low during that search, when the distribution changes caused by deployment are initially unknown.",
+      "The key distinction from ordinary bandit feedback is what deployment reveals. The learner receives samples from the induced distribution, giving it more information than a reward observation alone. The proposed approach carefully explores how distributions shift and uses that information to construct confidence bounds on the risk of models that have not yet been deployed.",
+      "The main regret bounds depend on the complexity of the distribution shifts rather than the complexity of the reward function. This separates the difficulty of learning deployment effects from the difficulty of describing rewards. The confidence-bound construction relies on smoothness of the shifts and does not require convexity. The work shows how bandit-style exploration tools can exploit this richer feedback structure under those conditions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "001609aeeb3e02e237826e696fe24c50fae973c75ac6715c729addc64937853f",
+    "tldr": "Learning how deployments shift data enables regret bounds governed by shift complexity rather than reward-function complexity."
+  },
+  "icml-2022-sequential-covariate-shift-detection-using-classifier-two-sample-tests-5249bdca86": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A predictive model can encounter inputs whose distribution differs from its training data. This paper studies covariate shift, where the input distribution changes while the conditional relationship between inputs and labels stays the same. Its detection strategy trains a discriminator to distinguish training inputs from current inputs, using classification accuracy as evidence of distributional change.",
+      "Conventional classifier-based tests work with a fixed test dataset, but deployed systems often receive observations one at a time. Shifts may also recur, reverse, or develop gradually. The proposed algorithm updates its discriminator online and evaluates its accuracy on each incoming observation before using that observation for a gradient update.",
+      "This ordering avoids setting aside a held-out test set and can improve sample efficiency. The authors prove that the resulting procedure preserves a desired bound on false positives, so the optimization does not sacrifice the stated statistical correctness. Experiments on ImageNet, IWildCam, and Py150 demonstrate efficient shift detection. The contribution connects a familiar classification-based test with the practical requirements of monitoring an evolving data stream."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7785e32231de326160456d4d4977c1745b003c07ed7a6478461369d487ad9596",
+    "tldr": "An online discriminator detects covariate shifts by testing each observation before training on it, while maintaining a proven false-positive bound."
+  },
+  "icml-2022-sharpened-quasi-newton-methods-faster-superlinear-rate-and-larger-local-convergence-neig-e39c15633b": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Quasi-Newton methods accelerate optimization by approximating curvature information. The paper examines two related approaches: classic BFGS, whose approximation of the Newton direction improves during optimization, and Greedy-BFGS, which directly improves its approximation of the Hessian matrix. Existing analyses give BFGS a superlinear convergence rate and Greedy-BFGS a faster local quadratic rate.",
+      "The difficulty is reaching that fast regime. Greedy-BFGS needs substantially more updates to attain its local quadratic behavior than BFGS needs to reach its superlinear behavior. The paper attributes this gap to the balance of approximation quality: directly improving the Hessian can leave the Newton direction less accurate than in classic BFGS.",
+      "The proposed method combines ideas from both algorithms to approximate the Hessian and Newton direction together. Its theoretical results show improved convergence rates over both alternatives and fewer steps before quadratic convergence than Greedy-BFGS. Numerical experiments on various datasets support those findings. The contribution addresses both the speed of the eventual convergence regime and how quickly the algorithm can enter it, within the local convergence setting studied."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "dfb852cc139bf251d5ded54731efd421d8678e68c2b174f064fba01151a4f5e7",
+    "tldr": "A combined BFGS strategy improves local convergence by approximating both curvature and the Newton direction, reaching quadratic convergence sooner than Greedy-BFGS."
+  },
+  "icml-2022-subspace-learning-for-effective-meta-learning-bf0590b7df": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Meta-learning uses experience from earlier tasks to make learning new tasks faster. A common approach, including MAML, learns one shared starting model for all tasks. This paper focuses on complex task environments where useful task-specific model parameters vary widely, making a single shared model insufficient to represent the different forms of reusable knowledge.",
+      "The proposed approach organizes task-model parameters into multiple subspaces. Each subspace represents a different type of knowledge that can be shared across tasks. The algorithm learns the bases defining those subspaces, so its meta-parameters describe several structured regions of parameter space rather than a single common model. This gives the shared representation a way to capture diversity among task models.",
+      "The authors theoretically examine how the learned subspaces generalize and evaluate the algorithm on regression and classification meta-learning datasets. The experiments support the method's effectiveness. The central contribution is a different form for meta-knowledge: multiple learned parameter subspaces that can accommodate varied task environments while still transferring information from historical tasks to new ones."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "77fcfa965d4ef2c56ed884ef283656ec6384c986b451d0cec3009d6e28ca2791",
+    "tldr": "Learning multiple parameter subspaces gives meta-learning a structured way to represent different kinds of reusable task knowledge."
+  },
+  "icml-2022-supervised-off-policy-ranking-353682d936": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Off-policy evaluation assesses a candidate policy using data collected by other policies. Often, the practical objective is to choose among candidates, making their relative ordering the immediate concern. This paper also observes that previously deployed policies can have known performance, providing supervision for learning how to compare policies from offline data.",
+      "The proposed supervised off-policy ranking method trains a policy-scoring model with a ranking loss. Its hierarchical Transformer receives state-action pairs: states come from the existing dataset, and a candidate policy supplies the actions it would take at those states. The model turns that collection into a score used to order candidate policies.",
+      "Known-performance policies teach the scoring model which comparisons it should make. This aligns the training objective with policy selection and avoids making precise performance estimation the central learning target. Experiments on public datasets show improvements over baselines in rank correlation, regret, and stability. The results support using available policy-performance supervision to learn comparative judgments useful for choosing a policy from offline evidence."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "cd44cd20de1bd4a857e9b2dc285508ad1f7f7c68d5ea402f929e72746742a876",
+    "tldr": "A supervised Transformer learns to rank candidate policies from offline state-action data and policies with known performance."
+  },
+  "icml-2022-surrogate-likelihoods-for-variational-annealed-importance-sampling-7d323bbf10": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Approximate Bayesian inference offers different strengths through variational methods and Markov chain Monte Carlo. Variational inference supports model learning and training with subsets of data. MCMC methods such as Hamiltonian Monte Carlo remain attractive for their asymptotic lack of bias. Combining these strengths is appealing, but supporting data subsampling in hybrid algorithms can be difficult.",
+      "This paper addresses that difficulty with a surrogate likelihood learned together with the other variational parameters. The surrogate becomes part of the inference procedure's learned components, providing a mechanism for handling the data-subsampling challenge in variational annealed importance sampling. The approach therefore targets an obstacle to making hybrid inference computationally practical.",
+      "The authors give a theoretical argument that the resulting algorithm offers an understandable trade-off between inference fidelity and computational cost. An extensive empirical comparison finds that it performs well in practice and is suitable for black-box inference in probabilistic programming frameworks. These findings support learned likelihood surrogates as a way to balance the quality and expense of approximate inference within this hybrid approach."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3d70fb331795a571a4980c033b69536f0bd88716f18afa434a881b21306e0f15",
+    "tldr": "A jointly learned surrogate likelihood supports data subsampling in hybrid Bayesian inference while providing a fidelity–computation trade-off."
+  },
+  "icml-2022-the-power-of-exploiter-provable-multi-agent-rl-in-large-state-spaces-13e7eb1d9d": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Large state spaces make function approximation central to reinforcement learning: a model must represent policies or values across many possible situations. Extending theoretical guarantees from one agent to multiple agents introduces strategic complications. This paper studies two-player zero-sum Markov games, where each player's decisions interact with an opponent pursuing the opposing payoff.",
+      "The proposed algorithm includes an exploiter that deliberately targets weaknesses in the main player's behavior. That opponent helps the main player learn through exposure to exploitable choices. To characterize which problems permit efficient learning, the authors introduce multi-agent Bellman-Eluder dimension, adapting a complexity measure previously used in single-agent reinforcement learning.",
+      "For games with low values of this complexity measure, the algorithm provably finds a Nash equilibrium policy using a polynomial number of samples. The low-complexity condition is central to that guarantee. The framework applies across a range of representations, including tabular games, linear and kernel function approximation, and rich observations. Its contribution combines a strategic training component with a general way to state sample-efficiency guarantees."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7bb818294965bc136153f107179e4d5dd6bece9b9ae4386b4b3801c7483fe408",
+    "tldr": "An exploiter helps learn Nash equilibrium policies with polynomial sample complexity in zero-sum Markov games with low multi-agent Bellman-Eluder dimension."
+  },
+  "icml-2022-the-role-of-deconfounding-in-meta-learning-ef1338d642": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Meta-learning seeks reusable knowledge that helps a model adapt quickly to tasks with few examples. It can instead memorize the training tasks so strongly that task-specific adaptation becomes less effective. Existing regularization and augmentation methods address this problem, but the paper seeks a common explanation of why these different interventions can help.",
+      "The authors develop a causal perspective that identifies the universal label space as a confounding factor behind memorization. Within this account, regularization-based and augmentation-based methods become different approaches to deconfounding. This reframes the issue as a problem with how shared task information influences learning and adaptation, providing a framework for interpreting existing remedies.",
+      "Using the causal inference principle of front-door adjustment, the paper derives two simple algorithms. One samples multiple versions of meta-knowledge through Dropout; the other groups meta-knowledge into multiple bins. Both aim to counter the identified confounding effect. Results across four benchmark datasets show improvements over previous methods for combating memorization, supporting the usefulness of this causal perspective for designing meta-learning algorithms."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5d082e6a60e26b401de31e9b95ea7c9c7f2a46df58f8e0d1bded65f940b49119",
+    "tldr": "A causal account of meta-learning memorization motivates two simple deconfounding methods that improve results across four benchmarks."
+  },
+  "icml-2022-towards-understanding-how-momentum-improves-generalization-in-deep-learning-923400633f": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Momentum is widely used to speed neural-network training, and it has also been associated with better generalization. Earlier explanations emphasized its effect on stochastic gradient noise. This paper examines another mechanism by showing empirically that momentum can improve generalization even with gradient descent, where the comparison does not depend on stochastic gradient sampling.",
+      "The authors construct a binary classification setting using an overparameterized convolutional network with one hidden layer. Under similar initialization, they prove that gradient descent with momentum generalizes better than gradient descent alone. The result is tied to this constructed setting and provides a concrete example in which optimization history changes what the network learns.",
+      "The key data property is a shared feature appearing in examples with different margins. In the analysis, ordinary gradient descent memorizes small-margin examples, while momentum continues to learn their shared feature by drawing on historical gradients. Empirical results validate the theoretical findings. This offers an explanation for momentum's generalization benefit based on feature learning, alongside previously proposed explanations involving noise stabilization."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "65705d29a7d289fbd9d79f5ee6659e2459eeca2db29dae908ac029ba8668e1b8",
+    "tldr": "In a constructed classification setting, momentum improves generalization by using past gradients to learn shared features instead of memorizing small-margin examples."
+  },
+  "icml-2022-training-your-sparse-neural-network-better-with-any-mask-70a7fa477f": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Pruning creates a sparse neural network by retaining only selected connections, described by a sparse mask. Much research focuses on finding masks that can be trained independently from scratch while preserving strong performance. This paper investigates another source of improvement: adapting the training procedure to the sparse network rather than relying on standard dense-network training protocols.",
+      "The proposed recipe introduces ghost neurons and skip connections early in training and strategically changes initialization and labels. These interventions customize how the pruned network learns. The approach is intended to work with various mask-generation methods, making the quality of sparse training a separate design consideration alongside the choice of which connections to retain.",
+      "The authors report significant gains over default training protocols across CIFAR-10, CIFAR-100, and TinyImageNet, using several ResNet variants, Vgg16, and MobileNet. Improvements span lottery-ticket masks, SNIP/GRASP, SynFlow, and random pruning, with particularly strong gains at high sparsity. The findings show that training choices can substantially improve the evaluated sparse subnetworks, extending the opportunities for better performance beyond developing more sophisticated pruning algorithms."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8fd324ad697d16dcae46a9f3b4d1a472af349043079f8def64c3743ec2b79716",
+    "tldr": "A customized sparse-training recipe improves networks built from varied pruning masks, especially at high sparsity."
+  },
+  "icml-2022-translatotron-2-high-quality-direct-speech-to-speech-translation-with-voice-preservation-c0bc1acc05": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Translatotron 2 translates speech directly into speech in another language using a neural model that can be trained end to end. Its architecture combines a speech encoder, a linguistic decoder, and an acoustic synthesizer, connected through one attention module. These components bring the processing of incoming speech, linguistic content, and generated audio into a unified model.",
+      "Experiments on three datasets consistently show large improvements over the original Translatotron in translation quality and speech generation quality. Translation gains reach up to 15.5 BLEU, and the system approaches the quality of cascade systems. These findings show substantial progress for the proposed direct speech-to-speech architecture across the evaluated datasets.",
+      "The paper also introduces a method for carrying speakers' voices from the source recording into translated speech. It preserves individual voices across speaker turns without requiring speaker segmentation. Compared with existing approaches, the authors report better preservation of speaker privacy and reduced potential misuse for voice-cloning spoofing. This is a qualified mitigation claim, alongside the method's ability to preserve voice identity during translation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0acd97292e65db8814c7f52f3e1259d9a1ddb3a852c3150e94b9682411d77646",
+    "tldr": "Translatotron 2 improves direct speech translation quality and preserves speakers' voices across turns without speaker segmentation."
+  }
+}

@@ -1,0 +1,327 @@
+{
+  "icml-2026-a-sketch-and-project-analysis-of-subsampled-natural-gradient-algorithms-f6936a18c9": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Subsampled natural gradient descent uses a small batch of data to construct an update that accounts for the model’s local geometry. Existing analyses struggle to explain its behavior with realistically small batches. The paper changes the mathematical viewpoint, treating each update as a sketch-and-project operation: a reduced problem that determines a projection-based step.",
+      "The analysis replaces a common theoretical simplification that uses independent batches for the gradient and its preconditioner. Instead, it introduces a proxy based on squared volume sampling, allowing those quantities to remain coupled. Under this proxy, the expected update equals a preconditioned gradient step. This yields global convergence guarantees for a single batch of any size and an explicit description of the convergence rate.",
+      "The results suggest that natural gradient methods can exploit declining spectral contributions in the model Jacobian more effectively than ordinary stochastic gradient descent. The paper also connects the structured momentum method SPRING to accelerated sketch-and-project algorithms. These conclusions explain small-batch behavior through the new analytical proxy."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "30ae8f2f3b9c26ef329e860caa109830ffe5cd5075d2fbefd70202076134b6c6",
+    "tldr": "A sketch-and-project analysis explains small-batch natural gradient updates and connects their convergence and momentum to projection methods."
+  },
+  "icml-2026-compact-conformal-subgraphs-fd52753be4": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Conformal prediction expresses uncertainty by returning a set of possible answers with a statistical coverage guarantee. For routing or planning, that set can become structurally unwieldy. This paper asks how to represent uncertainty with a compact subgraph while preserving the validity of conformal calibration.",
+      "The authors formulate compression as finding the smallest subgraph that retains a specified share of probability mass. They connect this problem to a weighted hypergraph version of densest-k-subgraph, focusing on a regime where the selected subgraph contains a large fraction of edges. Within that regime, their approximation algorithms provide constant-factor trade-offs between retained coverage and subgraph size.",
+      "A central contribution is proving that the relaxation is monotone through a connection to parametric minimum cuts. This supplies the nested family of predictions needed for valid conformal calibration, linking the compression algorithm to its statistical guarantee. Simulations in trip planning and navigation compare the approach with natural baselines. The contribution is therefore both computational and statistical: compact structure is designed together with the conditions supporting calibration."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e8158dcf700f1249dabf44bf9e8f8cd5114aa116296bc025329e71c17d489cdc",
+    "tldr": "Graph-based compression builds smaller conformal prediction subgraphs while preserving the nestedness needed for valid calibration."
+  },
+  "icml-2026-efficient-test-time-inference-for-generative-planning-models-with-ocl-search-4c9e54f7e1": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Generative planning models produce candidate solutions, but their performance remains shaped by the examples seen during training. Spending more computation during inference can improve those solutions. This paper studies how to organize that computation more effectively through a modified version of classical Open-Closed List search.",
+      "The approach combines two learned components with complementary responsibilities. A generative model quickly produces continuations from intermediate states, while a heuristic model prioritizes candidate reasoning paths. The search framework coordinates these components, and new exploration controls govern how it investigates alternatives. This gives the learned generator a structured procedure for deciding where further reasoning effort should go.",
+      "Across several combinatorial planning domains, the authors report better computational efficiency and solution quality than both neurosymbolic search baselines and classical solvers. These findings support improving the inference procedure itself as a way to strengthen generative planning. The demonstrated advantage comes from integrating fast learned rollouts, learned prioritization, and exploration control within a shared search process."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5475065f7fee9ac191df103b3cd090be24269268f4656a15fdf4ea39f278ce51",
+    "tldr": "A modified Open-Closed List search combines learned rollouts and heuristics to improve generative planning efficiency and solution quality."
+  },
+  "icml-2026-efficient-training-free-multi-token-prediction-via-embedding-space-probing-479bf1d4e6": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Language models trained to predict one token at a time can also contain useful information about several future tokens. Embedding-Space Probing, or ESP, accesses that ability without additional training, weight changes, or a separate draft model. It uses mask tokens constructed on the fly from the model’s embedding space to probe future predictions in parallel.",
+      "ESP turns these predictions into a speculative tree of possible continuations. It samples Top-K candidates from the mask-token outputs, then applies a lightweight pruning rule to keep promising branches. The model verifies predictions in parallel during generation. This verification supports lossless decoding while reducing the number of model calls needed to produce tokens.",
+      "The reported acceptance-length improvements over Lookahead Decoding are 7–11% on LLaMA3 and 7–8% on Qwen3, with throughput gains reaching 15–19% over the strongest baseline. Theoretical analysis and empirical evidence connect this behavior to decoder layers aligning mask representations with next-token states. The results suggest that existing model representations can support useful multi-step speculation without retraining."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0602f0422b91845bbfef6237685179b46627bd8cf0b08c7c625d82ad6c3ddcb1",
+    "tldr": "ESP probes existing model embeddings for parallel future-token predictions, accelerating verified decoding without training or a draft model."
+  },
+  "icml-2026-epc-fast-and-deep-predictive-coding-in-digital-simulation-bda68bd95e": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Predictive coding trains neural networks through dynamics that minimize an internal energy. Although this formulation is suited to analog implementation, practical use predominantly relies on digital simulation. The paper examines why the standard state-based formulation becomes expensive and struggles as networks get deeper.",
+      "The authors identify exponential signal decay within the canonical formulation as a cause of stalled numerical progress. They introduce error-based predictive coding, or ePC, which reparameterizes the dynamics to avoid this decay. This change preserves the ability to numerically compute exact predictive-coding weight gradients while making simulation orders of magnitude faster than the state-based method.",
+      "Across multiple architectures and datasets, ePC matches backpropagation’s performance, including on deeper networks where the original formulation struggles. The reparameterized method is no longer directly implementable in analog hardware, an explicit trade-off for its digital efficiency. The work shows how changing the simulated variables can retain the learning method’s gradients while making its numerical execution far more practical."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4d1735095641e9e40432d45896ec3546916da64227abd6654b9ead9d5c8c8aa1",
+    "tldr": "Error-based predictive coding avoids signal decay in digital simulation, computing exact PC gradients much faster and supporting deeper networks."
+  },
+  "icml-2026-equivalence-of-context-and-parameter-updates-in-modern-transformer-blocks-332a5331f8": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A transformer’s output changes when its context changes, even though its stored parameters remain fixed. Earlier theory represented this contextual effect through token-dependent rank-one changes to a vanilla transformer’s MLP weights. This paper extends that mathematical correspondence to the more varied blocks used in modern language models.",
+      "For a Gemma-style block, the authors give an analytical construction that exactly reproduces the context’s effect using rank-one patches to MLP weight matrices and a patch to the RMSNorm scale. They then provide a constructive proof and algorithm for multilayer models. The result describes an implicit parameter representation of contextual behavior.",
+      "The broader framework uses two properties called input controllability and output controllability. A perfect implicit patch is possible when the MLP’s inner function has the former property and its outer function has the latter. This is a sufficient condition supporting extensions across gating, normalization layouts, mixture-of-experts designs, and sequential or parallel blocks. It offers a common mathematical language for understanding how prompts act like effective weight changes."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a3ec91137ffd14416eee85dfa176904d344952ee5ea8a56d7771effddfbdec55",
+    "tldr": "The paper constructs implicit weight patches that exactly reproduce contextual effects in modern transformer blocks under stated controllability conditions."
+  },
+  "icml-2026-genda-generative-data-assimilation-on-complex-urban-areas-via-classifier-free-diffusion--84688d7328": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Reconstructing urban wind from a few sensors requires accounting for buildings, terrain, and the many locations without measurements. GenDA addresses this problem with a multiscale graph-based diffusion model trained on computational fluid dynamics simulations. It reconstructs detailed wind fields on unstructured meshes that represent irregular urban geometry.",
+      "The model combines an unconditional branch that learns geometry-aware flow patterns with a sensor-conditioned branch that incorporates observations during sampling. The authors interpret this classifier-free guidance as learned posterior reconstruction. The same procedure handles fixed sparse sensors and observations collected along trajectories, and generalizes without retraining to held-out meshes, wind directions, and sensor arrangements within the studied setting.",
+      "Experiments use RANS simulations of a Bristol neighborhood with complex buildings and irregular terrain. Against supervised graph neural networks and classical reduced-order assimilation methods, GenDA lowers relative root-mean-square error by 25–57% and raises structural similarity by 23–33% across tested meshes. These results support combining learned flow structure with sparse measurements for geometry-aware reconstruction in the evaluated urban environment."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b7024b35fdf4a63a45aca0ff9fb2f5f6ff00ee0c0b47d400f3b0a2f46b4bf38f",
+    "tldr": "GenDA combines geometry-aware diffusion with sparse sensor observations to improve simulated urban wind reconstruction across tested configurations."
+  },
+  "icml-2026-gift-bootstrapping-image-to-cad-program-synthesis-via-geometric-feedback-600752248d": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Turning an image into an executable CAD program requires connecting visible shape with symbolic construction instructions. The authors argue that a central obstacle is the shortage of diverse examples linking those representations. GIFT addresses that shortage by converting inference-time geometric feedback into additional training data.",
+      "Its two augmentation mechanisms make use of predictions that exact-match filtering would overlook. GIFT-REJECT retains diverse programs with high geometric fidelity even when they differ from the reference program. GIFT-FAIL converts near-miss predictions into synthetic examples aimed at difficult geometries. Together, they build a bootstrapped training set from the model’s own inference-time search.",
+      "Training on these examples transfers benefits of search into the model parameters, reducing the computation needed at inference. The paper reports an 80% reduction in inference compute and a 12% improvement in mean intersection-over-union over a strong supervised baseline. GIFT also remains competitive with more complex multimodal systems without extra human annotation or specialized architectures. The findings support geometric feedback as a source of useful supervision for image-to-CAD synthesis."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "04b81d486fd914719ee11977fac5b122a517199ee5b172950a4714184d3fbc15",
+    "tldr": "GIFT converts geometrically useful predictions and near misses into CAD training examples, improving accuracy while reducing inference computation."
+  },
+  "icml-2026-hippo-zoo-explicit-memory-mechanisms-for-interpretable-state-space-models-0962c01d6d": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Sequence models need compact memories that retain useful information about the past. HiPPO provides a mathematical approach by representing past signals through orthogonal polynomial projections, updated with structured differential equations. Modern state space models build on related dynamics, but how they prioritize history can remain difficult to interpret.",
+      "This paper revisits polynomial memory to make those mechanisms explicit. The authors introduce a unified collection of five extensions, each expressing a particular modeling capability through an interpretable change to the HiPPO framework. The extensions include support for adaptive memory allocation and associative memory while preserving a direct interpretation in the polynomial basis.",
+      "The resulting models can adjust memory online and train in streaming settings using efficient updates. Synthetic sequence tasks illustrate the behavior and advantages of the extensions. These demonstrations show that capabilities associated with modern state space models can also arise from explicitly structured polynomial memories. The contribution connects flexible memory behavior to a representation whose relationship with the stored history remains inspectable."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "78e27787737af2bcbfb8913b3b4b7c8f7943549f30c770f0e6a343872ae1c08b",
+    "tldr": "Five HiPPO extensions make adaptive and associative sequence memory explicit through interpretable polynomial representations."
+  },
+  "icml-2026-identifying-common-hubs-in-multiple-gaussian-graphical-models-5d93620104": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Gaussian graphical models describe conditional dependence among variables. Related populations can share some relationships while differing substantially elsewhere. This paper focuses on common hubs: variables that are highly connected in every population’s graph, even when other highly connected variables are specific to individual populations.",
+      "The proposed Joint Inverse Components for Hub Detection method, JIC-HD, targets these shared hubs without first estimating every complete population graph. Its mathematical tool is a set of joint minimax eigenspaces, which the authors show can support common-hub recovery. They also establish theoretical guarantees for that recovery. This focuses the analysis on the shared structural feature of interest.",
+      "In numerical simulations, JIC-HD detects common hubs better than existing methods, with particular advantages when shared and population-specific hubs coexist. An application to cancer gene-expression datasets identifies biologically meaningful hub genes shared across cancer subtypes. The findings support direct common-hub estimation as a useful strategy when related datasets combine common organization with substantial individual differences."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9601f55cff1bf4f3a6bf574fdb97279ff390241dc48c71e3cc931c76a4b5b872",
+    "tldr": "JIC-HD identifies highly connected variables shared across Gaussian graphical models without estimating every population’s full graph."
+  },
+  "icml-2026-impact-of-connectivity-on-laplacian-representations-in-reinforcement-learning-9ff94e25e1": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Large reinforcement learning problems benefit from compact state representations. One principled approach uses eigenvectors of the state graph’s Laplacian to capture its structure. When the graph is unknown or too large to construct, those features can be estimated from sampled trajectories. This paper studies how well the resulting representation supports value-function approximation.",
+      "The authors prove an upper bound on linear approximation error and show how it depends on the graph’s algebraic connectivity. This connects representation quality to the topology of the underlying decision process. They separately bound error from estimating the eigenvectors, producing an end-to-end decomposition that accounts for both representation and estimation.",
+      "The paper also reformulates the symmetrized MDP Laplacian to avoid a common interpretive pitfall. Its results apply to general, non-uniform policies without requiring symmetry of the induced transition kernel. Gridworld simulations validate the theoretical findings. Together, the results explain how graph structure and sampled feature estimation enter the quality of a learned spectral representation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ea6df2a4677eee368fd78257e5086c6136c3ee287edf76f1486744c06dfa5b99",
+    "tldr": "The paper bounds value-approximation error using state-graph connectivity and the error in estimating Laplacian features from trajectories."
+  },
+  "icml-2026-improved-stochastic-optimization-of-logsumexp-f5b6a77cf7": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "LogSumExp appears in optimization problems including entropy-regularized optimal transport and distributionally robust optimization. Its computational difficulty grows when the logarithm contains very many exponential terms, or an infinite collection of them. Computing the gradient then requires accounting for all those contributions, making optimization challenging.",
+      "The paper introduces an approximation designed for efficient stochastic gradient optimization while preserving convexity and smoothness. Its construction starts from the dual relationship between LogSumExp and Kullback-Leibler divergence. By modifying the divergence in that dual formulation, the authors obtain a new f-divergence called Safe KL and an associated approximation to the original objective.",
+      "Preserving convexity and smoothness matters because these are useful structural properties of the optimization problem, so the approximation retains more than just a similar numerical target. The authors provide theory and experiments for applications in distributionally robust optimization and continuous optimal transport, reporting advantages over existing baselines. The work offers a mathematically structured route to making large LogSumExp-based problems accessible to stochastic methods."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ab2ac950a6528aad8508cb72da3f5d56f9d1b36bad17dce0c848c77cb8974fbd",
+    "tldr": "A Safe KL-based approximation preserves LogSumExp’s convexity and smoothness while enabling efficient stochastic optimization."
+  },
+  "icml-2026-knowing-who-not-how-much-learning-augmented-mechanisms-for-consumer-utility-maximization-42f2806c70": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper studies consumer utility when strategic agents arrive one at a time in random order. Payments work against this objective, creating strong obstacles for mechanism design. The authors investigate whether predictions can help, and show that familiar predictions of agent values or the optimal value are not useful for this purpose in their setting.",
+      "They identify a different sufficient prediction: the identity of the highest-valued agent. The construction begins with a deterministic truthful online mechanism adapted from randomized offline techniques. Predictions then augment this mechanism, linking the information supplied by learning to the decisions made as agents arrive.",
+      "The resulting guarantees distinguish two benchmarks. With correct predictions, the mechanism achieves a constant approximation to the full-information optimum. Even with arbitrarily poor predictions, it retains a constant approximation to the best implementable solution. The second benchmark is therefore different from the first. The contribution shows how predicting the right kind of information can provide both benefits from accurate advice and a fallback guarantee when that advice fails."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c12ae4406c2754ead8f64fda7eae8e4f8c46295cbf916a67a2ce7ce63ba775d9",
+    "tldr": "Predicting the highest-valued agent’s identity enables a truthful online mechanism with distinct consistency and robustness guarantees for consumer utility."
+  },
+  "icml-2026-memory-efficient-llm-pretraining-via-minimalist-optimizer-design-7669a924c6": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Adaptive optimizers such as Adam consume memory by storing running statistics for model parameters. This paper asks how little must be added to plain stochastic gradient descent to obtain competitive language-model pretraining. Its bottom-up investigation identifies two targeted changes that form the SCALE optimizer.",
+      "First, SCALE normalizes gradients column-wise along the output dimension, improving SGD without requiring momentum throughout the model. Second, it applies first-order momentum only to the output layer, where the authors identify the highest gradient variance. This concentrates stored optimizer history in one part of the network while using gradient normalization more broadly.",
+      "Across models with 60 million to one billion parameters, SCALE matches or exceeds Adam’s performance using 35–45% of total memory. It also outperforms GaLore, Fira, and APOLLO in the reported comparisons. For LLaMA 7B, it improves on APOLLO and Muon in both perplexity and memory consumption. These findings support a minimalist optimizer design as a practical option for the evaluated pretraining settings under memory constraints."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "79cb0059b65d28649f5bd06db619759e7f176618ea463450c88a0ef80522499b",
+    "tldr": "SCALE combines column-wise gradient normalization with output-layer momentum to achieve competitive LLM pretraining with substantially less memory."
+  },
+  "icml-2026-mitigating-premature-exploitation-in-particle-based-monte-carlo-for-inference-time-scali-bf10c58d70": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Particle filtering can improve mathematical reasoning by maintaining and selecting among multiple candidate reasoning paths. However, process reward models may assign overly confident scores early. Resampling then concentrates computation on locally attractive paths and discards alternatives that might eventually succeed, a failure called particle impoverishment.",
+      "Entropic Particle Filtering, or ePF, addresses both declining diversity and poor assessment of a path’s future potential. Entropic Annealing monitors diversity through entropy and adjusts the resampling distribution when diversity falls, preserving exploration. Look-ahead Modulation adds information from successor states to assess how promising the current reasoning state may become.",
+      "The two components change how additional inference computation is allocated: diversity protection keeps alternatives available, while look-ahead guidance helps evaluate them. On challenging mathematical benchmarks, ePF significantly outperforms strong baselines, with relative improvements in task reward reaching 50%. The motivation is particularly relevant to constrained budgets, where early elimination of useful paths can be costly. The reported maximum gain describes the evaluated results rather than a uniform improvement."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b9ce5bf327fce3941f2d609e9511956a78e3564fcfc32ff7bab16590c0f5d749",
+    "tldr": "ePF preserves reasoning-path diversity and uses successor-based guidance to reduce premature commitment during inference-time search."
+  },
+  "icml-2026-multimodal-scaling-laws-for-task-data-optimized-models-of-visual-cortex-c61aaa1760": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Neural networks trained on tasks are widely used as computational models of sensory cortex, but it is unclear which modeling investments most improve their alignment with brain measurements. This study compares more than 600 models across eight neural datasets spanning electrophysiology, fMRI, EEG, and MEG, bringing several recording modalities into one analysis.",
+      "The authors report three trends. Larger pretraining datasets and more computation improve alignment, but those gains saturate across the studied modalities. Combining task optimization with neural-data optimization provides further improvements that generalize across datasets and modalities. Increasing the neural samples used to fit model-to-brain mappings produces log-linear gains and has the largest reported impact on alignment.",
+      "The paper also introduces a subject-shared cross-attention mapping that reduces parameter count substantially while improving alignment. Together, these findings distinguish scaling the pretrained model from improving its adaptation and mapping to neural data. Within the study, they provide evidence for allocating resources across those stages instead of treating pretraining scale as the sole driver of better brain models."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5178641a791d1412ca3ba88f1c9ad907d31789d95ceecc72c04771ce27bbb283",
+    "tldr": "A broad study finds saturating pretraining gains and substantial benefits from neural-data fine-tuning and larger model-to-brain mapping datasets."
+  },
+  "icml-2026-on-the-role-of-computation-in-reinforcement-learning-26c61c2524": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Reinforcement learning policies are often implemented with fixed neural architectures, making parameter count and computation difficult to study separately. This paper formalizes policies with bounded computation so that the amount of processing available to a policy becomes an explicit part of the analysis.",
+      "The theory proves that policies with more computation can solve problems and generalize to longer-horizon tasks beyond the capabilities of policies with less computation. Building on algorithmic learning and model-free planning, the authors also propose a minimal architecture that can vary how much computation it uses. This creates a practical way to investigate computational scaling separately from simply increasing model size.",
+      "Experiments cover 31 tasks across online and offline reinforcement learning. The architecture improves performance by using more computation and generalizes better to longer-horizon test tasks than feedforward or deep residual networks with up to five times as many parameters. These results support computation as a meaningful resource for policy capability, alongside parameter count, in the studied tasks."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8d4bbee170af20a468e2f89d5b87af60dd072d2d8e6e37fc36cc42fe5c75e1f6",
+    "tldr": "A formal model and variable-compute architecture show how additional computation can improve reinforcement learning without simply adding parameters."
+  },
+  "icml-2026-optimal-top-k-identification-from-pairwise-comparisons-8ec21e6b3c": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper studies how to identify the best k items using noisy comparisons between pairs. An algorithm chooses comparisons sequentially and stops when it can return a set with error probability at most a chosen threshold, delta. The goal is to achieve that confidence while minimizing the expected number of comparisons.",
+      "Under latent utility models, the authors characterize the information-theoretic lower bound on the required comparisons and express it as a saddle-point problem. This structure supports an efficient primal-dual procedure that learns how comparisons should be allocated. A second, adaptive component tracks that learned allocation when selecting which pairs to compare.",
+      "The authors prove that the resulting procedure is asymptotically optimal: as the allowed error probability approaches zero, its expected comparison count matches the lower bound. This covers both finding the single best item and identifying a larger top-k set. The guarantee concerns this high-confidence limit, making precise the sense in which the allocation uses comparisons optimally."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "309d60f3f6d31802e3be21e5102540c9caf56ed05605cfd9a2fe6fd0c23ebb3a",
+    "tldr": "An adaptive pairwise-comparison algorithm identifies top-k items with asymptotically optimal sample complexity under latent utility models."
+  },
+  "icml-2026-procedural-generation-of-algorithm-discovery-tasks-in-machine-learning-7666fd2f1a": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Systems that discover machine learning algorithms need diverse tasks for both improvement and evaluation. Existing suites can contain overly similar or saturated problems, suffer from data contamination, and use weak evaluation methods. DiscoGen addresses this bottleneck through procedural generation of algorithm-discovery tasks.",
+      "A small set of configuration parameters specifies tasks spanning multiple machine learning fields, with billions of possible tasks varying in difficulty and complexity. Examples include developing reinforcement learning optimizers and image-classification loss functions. The generated tasks can be used to optimize algorithm discovery agents, supplying a broad task space for their development.",
+      "The authors also introduce DiscoBench, a small fixed subset intended for principled evaluation. This pairs a large configurable source of tasks with a stable benchmark for assessing agents. Scaling experiments in automated prompt tuning demonstrate one use of DiscoGen for agent optimization, and the generator is released openly. The contribution is infrastructure for studying discovery systems, with a demonstrated optimization use case and proposed directions for further research."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a9242ef27b51d1f8b20e6480345a38e7839ae2c451e3776fd217240ac22b9473",
+    "tldr": "DiscoGen generates billions of configurable algorithm-discovery tasks, while DiscoBench supplies a fixed subset for evaluating discovery agents."
+  },
+  "icml-2026-projection-free-algorithms-for-minimax-problems-bd705d67a5": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Constrained minimax optimization balances a variable being minimized against another being maximized. Many methods repeatedly project updates back into feasible sets, an operation that can be expensive. This paper develops a common framework for algorithms that replace projection on one or both sides with a linear minimization oracle.",
+      "The framework uses dual dynamic smoothing to produce single-loop algorithms. Three variants apply the oracle to the minimization variable, the maximization variable, or both. The authors establish convergence results for smooth nonconvex-concave and nonconvex-strongly concave problems, and extend the analysis naturally to convex-concave problems. This brings several payoff structures and algorithmic choices into one treatment.",
+      "The convergence guarantees are anytime: the algorithms do not require the total iteration count to be fixed in advance. The analysis significantly narrows the performance gap between projection-free and projection-based minimax methods. Its practical motivation is strongest when maintaining feasibility through projection is costly, making alternative access to the feasible sets valuable."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a2ea6f9ab017e20ead9ba8180e6bcaff7f4810cb49f0fde1050454af1a7af4a9",
+    "tldr": "A unified smoothing framework gives projection-free minimax algorithms convergence guarantees without a predetermined iteration horizon."
+  },
+  "icml-2026-scalable-simulation-based-model-inference-with-test-time-complexity-control-d25b45c756": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Scientific inference can require choosing among many simulator structures as well as estimating their numerical parameters. Classical Bayesian selection becomes impractical over very large families, while learned approaches often fix a preference for model simplicity during training. PRISM makes that preference adjustable when observations are analyzed.",
+      "The method is a simulation-based encoder-decoder that infers a joint posterior over discrete model structures and continuous parameters. It conditions the network on a tunable model prior, allowing users to control complexity at test time. This means the learned inference procedure can accommodate different parsimony assumptions without requiring that one fixed assumption define every analysis.",
+      "On a synthetic symbolic-regression task, PRISM scales to model families containing up to billions of instantiations. The authors also apply it to diffusion MRI, selecting among several biophysical multi-compartment models using synthetic and in-vivo neuroimaging data. These demonstrations combine large-family inference with a scientific application, supporting adjustable complexity preferences as part of a reusable learned model-selection system."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "05fbba97bb3018506fe41364502c199b3a8076fe9a3521163fb57462c24abd3f",
+    "tldr": "PRISM jointly infers simulator structures and parameters while allowing model-complexity preferences to change at test time."
+  },
+  "icml-2026-sparse-autoencoders-are-topic-models-100aa2a222": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Sparse autoencoders break embeddings into a limited number of active features, but the interpretation and usefulness of those features remain debated. This paper develops a topic-modeling interpretation. It introduces a continuous topic model inspired by Latent Dirichlet Allocation and derives the sparse-autoencoder objective as maximum a posteriori estimation under that model.",
+      "Within this view, learned features represent thematic components rather than inherently steerable directions. The authors build SAE-TM around that interpretation: an autoencoder learns reusable topic atoms, downstream data gives those atoms word-distribution interpretations, and the atoms can be merged into different numbers of topics without retraining.",
+      "On text and image datasets, SAE-TM produces more coherent topics than strong baselines while maintaining diversity. Applications examine thematic structure in images and follow topic changes over time in Japanese woodblock prints. The theoretical connection therefore leads to a practical analysis workflow, where a single learned collection of atoms supports multiple topic granularities and thematic exploration across modalities."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5c2ada75fd2bbac292c0069789f32782280df8a0caec395ea315ad5eef4ac735",
+    "tldr": "A probabilistic topic-model interpretation of sparse autoencoders supports reusable topic atoms and coherent thematic analysis across text and images."
+  },
+  "icml-2026-torus-graphs-for-large-scale-neural-phase-analysis-8da9a8d3b3": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Relationships between the phases of brain oscillations help describe coordination across regions. Torus Graphs model dependencies among these circular variables, but their existing inference procedure limits analysis to roughly 100 variables. This paper introduces stochastic score matching with quadratic per-iteration cost, replacing the previous sixth-power scaling.",
+      "The computational change enables analysis of thousands of variables, including 1,860 frequency-phase features from multielectrode local field potentials. It also supports two extensions beyond static, undirected dependence. A Torus Graph Hidden Markov Model captures coupling patterns that change between states, while an autoregressive version estimates directional interactions through transfer entropy.",
+      "Applications to local field recordings reveal phase-interaction patterns that differ between wakefulness and NREM sleep, including the study of spindle-related states. The contribution combines scalable inference with models of changing and directional statistical relationships. Reducing per-iteration cost makes these richer analyses accessible at a scale closer to modern multichannel recordings, allowing many frequencies and recording channels to be studied together."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8859209519f6e8a518f7842fdcc6f5eeff38f2dc4790008d19442e75d9853938",
+    "tldr": "Scalable Torus Graph inference enables analysis of thousands of neural phase variables and extensions for changing and directional interactions."
+  },
+  "icml-2026-training-ai-co-scientists-using-rubric-rewards-f4df7180e9": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Generating a useful research plan requires judging its fit to a particular scientific goal. This paper uses existing research papers to supply that goal-specific supervision. It automatically extracts research goals and grading rubrics across domains, creating training material for language models that propose research plans.",
+      "Training uses reinforcement learning, with a frozen copy of the initial model grading candidate plans against the extracted rubrics. This provides a reward signal without executing the proposed research. In a human study covering 225 expert hours on machine learning goals, experts prefer the fine-tuned Qwen3-30B-A3B model over its initial version for 70% of goals and over Grok-4-Thinking for 59.6%.",
+      "Further evaluations use goals from medical papers and recent arXiv preprints, judged by a jury of frontier models. These report relative improvements of 12–22% and significant cross-domain generalization. The findings support rubric-based training for research planning, including settings where execution feedback is infeasible. They concern assessed plan quality, with human and model-based evaluations providing distinct forms of evidence."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3240bf5ba2c1333ac0a8f34abe5f69dd54eef21b25225a631e64dd46d300fd52",
+    "tldr": "Research goals and rubrics extracted from papers provide reinforcement-learning rewards that improve evaluated research-plan quality."
+  },
+  "icml-2026-var-jepa-a-variational-formulation-of-the-joint-embedding-predictive-architecture-bridgi-df23e9bca0": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Joint-Embedding Predictive Architectures learn by predicting representations, and are often described separately from probabilistic generative models. This paper argues that the architectures share a deeper structure. For a particular class of coupled latent-variable models, variational inference produces components corresponding to JEPA’s encoders and context-to-target predictor.",
+      "From this perspective, standard JEPA can be understood as a deterministic specialization whose regularization comes from architectural and training choices. The authors derive Var-JEPA to make the underlying latent generative structure explicit. It optimizes a single evidence lower bound, learns meaningful representations without ad-hoc anti-collapse regularizers, and supports uncertainty quantification in latent space.",
+      "The tabular implementation, Var-T-JEPA, improves on T-JEPA across real-world tabular benchmarks while remaining competitive with strong methods using raw features. These findings connect the probabilistic reformulation to practical representation learning. The broader contribution is a common framework for predictive and generative self-supervision, with an explicit objective that also gives uncertainty a defined role in the learned representation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "758393849b037f802e51e5653fa4aa384cba48a8c6f7e6bfc5599b26dd42140c",
+    "tldr": "Var-JEPA expresses representation prediction as variational learning, enabling latent uncertainty estimates and improved tabular results over T-JEPA."
+  }
+}

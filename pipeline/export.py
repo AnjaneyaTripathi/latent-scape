@@ -4,10 +4,27 @@ import shutil
 from collections import Counter, defaultdict
 from urllib.parse import urlsplit
 
-from .settings import Settings
 from .corpus import select, verify_meta, write_meta
-from .summaries import summary_eligibility_reason
+from .settings import Settings
+from .summary_evidence import summary_eligibility_reason
 from .util import read_json, shard_for, write_json
+
+# The public bundle is a reader product, not a mirror of the editorial and
+# pipeline records. Keep this allowlist close to the export boundary so a new
+# derived field cannot become public accidentally.
+PUBLIC_SUMMARY_FIELDS = (
+    "tldr", "paragraphs", "problem", "idea", "results", "limitations", "difficulty",
+)
+PUBLIC_PAPER_FIELDS = (
+    "slug", "title", "authors", "year", "venue", "abstract", "originalAbstract",
+    "abstractStatus", "abstractQuality", "url", "originalUrl", "sourceLinkLabel",
+    "codeUrl", "projectUrl", "citationCount", "references", "citedBy",
+    "similarPapers", "topicSlugs", "summary",
+)
+PUBLIC_TOPIC_FIELDS = (
+    "slug", "title", "area", "broadGroupId", "overview", "whyItMatters", "evolution",
+    "openQuestions", "prerequisites", "difficulty", "paperSlugs", "relatedTopics",
+)
 
 
 def _is_http_url(value: object) -> bool:
@@ -170,6 +187,28 @@ def _summary_coverage(papers: list[dict]) -> dict[str, int]:
     }
 
 
+def _public_summary(value: object) -> dict | None:
+    if not isinstance(value, dict):
+        return None
+    return {field: value[field] for field in PUBLIC_SUMMARY_FIELDS if field in value}
+
+
+def _public_paper(paper: dict, original_url: str | None, source_link_label: str) -> dict:
+    """Return the smallest reader-facing representation of one paper."""
+    public = {field: paper[field] for field in PUBLIC_PAPER_FIELDS if field in paper and field != "summary"}
+    public["summary"] = _public_summary(paper.get("summary"))
+    public["originalUrl"] = original_url
+    public["sourceLinkLabel"] = source_link_label
+    for field in ("codeUrl", "projectUrl"):
+        public[field] = normalize_optional_outbound_url(public.get(field))
+    return public
+
+
+def _public_topic(topic: dict) -> dict:
+    """Strip curation state and provenance from browser topic records."""
+    return {field: topic[field] for field in PUBLIC_TOPIC_FIELDS if field in topic}
+
+
 def _featured_slugs(papers: list[dict], count: int = 6) -> list[str]:
     """Choose stable, available starting points spanning venue and era."""
     candidates = [paper for paper in papers if paper.get("summary") and paper.get("abstract")]
@@ -203,9 +242,17 @@ def export_site_data(settings: Settings, corpus: str = "sample") -> dict:
         topics = read_json(topics_path, [])
     else:
         topics = []
-    coverage = read_json(settings.raw_dir / "coverage.json", {})
     output = settings.output_dir
     output.mkdir(parents=True, exist_ok=True)
+    # These reports are valuable for release review, but not for readers. An
+    # export must remove stale copies too, because Vite copies public files as
+    # it finds them rather than consulting the current application routes.
+    for stale in ("coverage.json", "corpus-report.json", "report.json", "schema.json"):
+        (output / stale).unlink(missing_ok=True)
+    # ``output`` is configurable for preview and CI exports. Clean the legacy
+    # review page there as well as from the canonical Vite public directory.
+    (output / "summary-review.html").unlink(missing_ok=True)
+    (settings.root / "site" / "public" / "summary-review.html").unlink(missing_ok=True)
     papers_dir = output / "papers"
     if papers_dir.exists():
         shutil.rmtree(papers_dir)
@@ -214,12 +261,8 @@ def export_site_data(settings: Settings, corpus: str = "sample") -> dict:
     shards: dict[str, list[dict]] = defaultdict(list)
     source_link_counts: Counter[str] = Counter()
     for paper in papers:
-        public = dict(paper)
-        for field in ("codeUrl", "projectUrl"):
-            public[field] = normalize_optional_outbound_url(public.get(field))
         original_url, source_link_label = _resolve_source_link(paper, corrections)
-        public["originalUrl"] = original_url
-        public["sourceLinkLabel"] = source_link_label
+        public = _public_paper(paper, original_url, source_link_label)
         source_link_counts[source_link_label] += 1
         shards[shard_for(paper["slug"])].append(public)
     paper_manifest = {}
@@ -261,6 +304,7 @@ def export_site_data(settings: Settings, corpus: str = "sample") -> dict:
     if vectors_file.exists():
         verify_meta(vectors_file, corpus, value, "embeddings")
         import numpy as np
+
         from .embedding import quantize_unit_vectors
         vectors = np.load(vectors_file)
         if len(vectors) != len(papers):
@@ -280,10 +324,8 @@ def export_site_data(settings: Settings, corpus: str = "sample") -> dict:
         vector_manifest["dimensions"] = int(encoded.shape[1])
     write_json(output / "vectors.json", vector_manifest)
     write_json(output / "search.json", search)
-    write_json(output / "topics.json", topics)
+    write_json(output / "topics.json", [_public_topic(topic) for topic in topics if isinstance(topic, dict)])
     glossary = read_json(settings.derived_dir / f"glossary-{corpus}.json", [])
     write_json(output / "glossary.json", glossary)
-    write_json(output / "coverage.json", coverage)
-    write_json(output / "corpus-report.json", report)
-    write_json(output / "manifest.json", {"snapshot": settings.snapshot_date, "totalPapers": len(papers), "totalTopics": len(topics), "coverage": coverage, "featuredSlugs": _featured_slugs(papers), "shards": {"papers": paper_manifest, "vectors": "vectors.json"}})
+    write_json(output / "manifest.json", {"snapshot": settings.snapshot_date, "totalPapers": len(papers), "totalTopics": len(topics), "featuredSlugs": _featured_slugs(papers), "shards": {"papers": paper_manifest, "vectors": "vectors.json"}})
     return report

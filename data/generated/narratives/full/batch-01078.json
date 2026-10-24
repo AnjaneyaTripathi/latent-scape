@@ -1,0 +1,345 @@
+{
+  "neurips-2025-accelerating-data-driven-algorithm-selection-for-combinatorial-partitioning-problems-6a093d2a0f": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Choosing a good algorithm from training examples can itself be expensive. Each candidate must usually be run on many representative inputs before its performance can be compared. Practitioners often reduce this cost by testing on smaller versions of the original problems, but the paper addresses the theoretical question behind that shortcut: when does performance on a subsample meaningfully reflect performance on the full input?",
+      "The authors formalize this relationship as size generalization. They establish guarantees for three clustering procedures—single-linkage, k-means++, and Gonzalez’s k-centers heuristic—and two max-cut procedures, Goemans-Williamson and Greedy. Their analysis characterizes subsample sizes sufficient to make the smaller evaluation representative of the larger problem.",
+      "These are sufficient-size guarantees, rather than a claim that every small proxy is reliable. Experiments support the theoretical findings. The contribution is a principled foundation for reducing the cost of algorithm selection in these settings: evaluating smaller inputs can provide useful evidence about larger ones when the subsampling requirements are met."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "16e43eb99831468118d08405fcb5c0755d9074bf70eb4f8b5d7e059c1928212c",
+    "tldr": "The paper establishes when evaluating selected clustering and max-cut algorithms on smaller subsamples can reliably reflect their performance on full inputs."
+  },
+  "neurips-2025-activation-informed-merging-of-large-language-models-86300d97b9": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Model merging combines multiple fine-tuned language models into one model, aiming to retain useful capabilities while keeping computation manageable. Deciding how to combine their parameters matters because some weights may be particularly important to the original model’s behavior. Activation-Informed Merging, or AIM, adds evidence about the model’s internal activity to that decision.",
+      "AIM uses a task-agnostic calibration set to identify and prioritize essential weights during merging. Its goal is to preserve critical parts of the base model, drawing inspiration from continual learning and model compression. The authors present it as a complementary technique that can be applied alongside existing merging methods, rather than as a single replacement merging rule.",
+      "Across multiple benchmarks, the authors report significant improvements in merged-model performance, with increases reaching up to 40%. That figure describes the largest reported improvement, rather than a uniform gain. The findings suggest that information about how a model activates can help guide parameter combination and improve the resulting model’s performance and robustness."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3a5ee2cc8b07616747ab253dd9a723481e85f612ab66fe7e0dc1a93270fb2d4e",
+    "tldr": "AIM uses activation information to prioritize important base-model weights during merging, improving merged language models across the reported benchmarks."
+  },
+  "neurips-2025-anacp-toward-upper-bound-continual-learning-via-analytic-contrastive-projection-5654e9bacc": {
+    "backgroundConcepts": [
+      "topic-083-online-continual-learning-from-imbalanced-data"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Class-incremental learning asks a model to learn successive groups of classes while retaining what it learned earlier. Updating both its feature representations and classifier can cause catastrophic forgetting. One efficient approach uses a pretrained model as a fixed feature extractor and combines it with an analytic classifier, but fixed features cannot continually adjust to the incoming tasks.",
+      "AnaCP addresses this restriction by enabling incremental feature adaptation while preserving the efficiency of analytic classification. Its adaptation does not require gradient-based training. This targets a specific source of forgetting: changes introduced by gradient updates. The central idea is to make the representation more suitable for successive classification tasks without giving up the computational advantages of analytic methods.",
+      "In the reported experiments, AnaCP outperforms existing baselines and reaches the accuracy of joint training, which the paper treats as the upper reference level for this setting. This is an empirical result, rather than a guarantee for every task sequence. It shows that adapting features analytically can substantially narrow the observed gap between sequential and joint learning."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "dee655f91c4cb1bda970b95bc80c12f73e6046e56a3753c106c8b5ee32606abc",
+    "tldr": "AnaCP adapts features without gradient training and matches joint-training accuracy in the reported class-incremental learning experiments."
+  },
+  "neurips-2025-bayesian-ego-graph-inference-for-networked-multi-agent-reinforcement-learning-1655e4af89": {
+    "backgroundConcepts": [
+      "topic-123-context-aware-bayesian-network-actor-critic-meth"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "In networked multi-agent reinforcement learning, each agent must act using local observations and limited communication over a physical network. Treating every agent’s neighborhood as static can make coordination inflexible. Learning a changing communication graph centrally offers another approach, but requires global information and infrastructure that decentralized systems may not have.",
+      "BayesG lets each agent learn which local connections to use in its current context. The agent samples a communication mask over its own neighborhood, producing a subgraph that guides both message passing and action selection. Bayesian variational inference learns a distribution over these masks. An evidence lower bound objective trains this distribution together with the actor–critic policy, connecting communication choices directly to decision-making.",
+      "The physical network still bounds the available neighbors; adaptation happens within that local structure. On traffic-control tasks involving up to 167 agents, BayesG outperforms strong multi-agent baselines, with reported benefits in scalability, efficiency, and performance. These results support learning sparse, context-sensitive interactions as part of decentralized control."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "156fe59865f6921eb1b51594325b7507a27eb7a7399e8c74137bf13d9e6b8a44",
+    "tldr": "BayesG learns context-sensitive local communication graphs alongside decentralized policies, improving performance on traffic-control tasks with up to 167 agents."
+  },
+  "neurips-2025-best-of-n-jailbreaking-f8b2f87241": {
+    "backgroundConcepts": [
+      "topic-049-a-coin-flip-for-safety-llm-judges-fail-to-reliab"
+    ],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Best-of-N Jailbreaking studies whether repeated, seemingly minor changes to an input can expose failures in an AI system’s safeguards. The method uses black-box access: it samples variations and checks whether a harmful response occurs. The research examines this behavior across text, vision, and audio systems, using variations appropriate to each input type.",
+      "With 10,000 augmented prompts, the authors report attack success rates of 89% for GPT-4o and 78% for Claude 3.5 Sonnet. They also find effectiveness against circuit-breaker defenses and reasoning models, and extend the approach to vision and audio language models. These results describe the tested systems and sampling conditions.",
+      "Increasing the number of samples reliably improves success in the experiments, with power-law-like scaling across many orders of magnitude. Combining the method with another black-box attack yields increases in attack success rate of up to 35%. The central finding is that safety behavior can be sensitive to small input changes, and that repeated sampling can amplify this sensitivity across modalities."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c0dab6e7242582b39196fd5b4c4560fadac6493b00a71144460cf913f47c9677",
+    "tldr": "Repeatedly sampling small input variations exposes substantial safeguard failures across the tested text, vision, and audio models."
+  },
+  "neurips-2025-bridging-crypto-with-ml-based-solvers-the-sat-formulation-and-benchmarks-6d35d58822": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Cryptographic problems can be expressed as Boolean satisfiability problems, but comparing machine-learning approaches to solving them is difficult when datasets, encodings, and evaluation methods differ. SAT4CryptoBench provides a shared benchmark covering multiple cryptographic algorithms, round counts, and key sizes. It includes both Arithmetic Normal Form and Conjunctive Normal Form representations.",
+      "The framework examines three roles for learning: classifying instances, guiding solver heuristics, and optimizing hyperparameters for particular problem distributions. In the reported experiments, networks using Arithmetic Normal Form learn cryptographic features more effectively than those using Conjunctive Normal Form. The authors also introduce BASIN, which works directly with plaintext and ciphertext bitstrings and performs particularly well on high-round problems.",
+      "The results show benefits from learned optimization, alongside concrete limits. Current methods struggle to transfer across algorithms and instance sizes, and their computational overhead can outweigh gains on simpler cases. Together, the benchmark and BASIN findings emphasize that both evaluation consistency and input representation materially affect conclusions about machine learning for cryptographic solving."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c4e0d52b22ae459671c6a8f382f415f1d7bfe25c111fde1f3ae7517d983a4120",
+    "tldr": "SAT4CryptoBench standardizes evaluation of learned cryptographic SAT solvers and shows that input representation strongly affects their benefits and generalization."
+  },
+  "neurips-2025-dymu-dynamic-merging-and-virtual-unmerging-for-efficient-variable-length-vlms-13587502e3": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Vision-language models process images through sequences of visual tokens, but a fixed sequence length can spend unnecessary computation on simpler content. DyMU adapts the number of visual tokens to what an image contains. It operates without training or additional fine-tuning, making the approach usable across many existing vision-language architectures.",
+      "The first component, Dynamic Token Merging, combines similar visual embeddings according to image complexity. The second, Virtual Token Unmerging, reconstructs the attention behavior expected from a full token sequence. These components address two connected requirements: reducing the visual representation and preserving the downstream language model’s ability to use it effectively.",
+      "Across image and video understanding experiments, DyMU reduces average visual token counts by 32%–85% while retaining performance comparable to full-length models. The reported token reductions should be understood as token-count results, rather than identical reductions in every computational cost. Qualitative analyses also suggest that its adaptive compression aligns with human perception and can support flexible control of computation when integrated with other vision tools."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a12d5ed486ad1fbc9b506c83fa77b5d086ecaaeed436e52f4253290cdb878dc5",
+    "tldr": "DyMU reduces visual token counts according to image content while preserving comparable task performance without additional training."
+  },
+  "neurips-2025-dynamics-aligned-latent-imagination-in-contextual-world-models-for-zero-shot-generalizat-97e3c23306": {
+    "backgroundConcepts": [
+      "topic-087-reinforcement-learning-with-prototypical-represe"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A reinforcement-learning agent may encounter changed environmental conditions, such as different friction or gravity, without receiving explicit measurements of those conditions. DALI addresses this problem within the Dreamer architecture by inferring hidden context from interactions. Its goal is to support adaptation to unseen conditions without costly retraining.",
+      "A self-supervised encoder learns representations by predicting forward dynamics: how the environment changes following actions. These representations condition both the world model and the policy, linking context inference to prediction and control. The paper provides a theoretical argument for the encoder’s essential role in efficient inference and robust generalization within its framework. It also demonstrates counterfactual consistency: changing a dimension encoding gravity changes imagined trajectories in physically plausible ways.",
+      "On contextual decision-process benchmarks, DALI significantly improves over methods that ignore context and often exceeds context-aware methods when extrapolating. These findings support using interaction-derived context for zero-shot generalization. The representations are useful because they influence imagined behavior and decisions, beyond merely describing observations."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "18d63b2cf28bce582a0d6c3829566544cfeca02285bd1c4099c521350b4e4663",
+    "tldr": "DALI infers hidden environmental context from dynamics and uses it to improve zero-shot control under unseen contextual changes."
+  },
+  "neurips-2025-flat-channels-to-infinity-in-neural-loss-landscapes-4ebc3bb361": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Training can appear to reach a flat local minimum even while a network’s parameters continue moving along a slowly descending path. This paper characterizes such paths as channels to infinity. Along them, the loss decreases extremely slowly while at least two neurons develop diverging output weights and increasingly similar input-weight vectors.",
+      "The parameter behavior has a specific functional interpretation. In the limit, the paired neurons implement a gated linear unit involving both the activation function and its derivative. Thus, unbounded parameter values can correspond to a structured limiting computation. Geometrically, these channels become parallel to lines of critical points created by network symmetries.",
+      "The authors report that gradient flow and related methods, including SGD and Adam, reach these channels with high probability across diverse regression settings. Without close inspection, the channels resemble finite-parameter minima. The work connects this potentially misleading training behavior to optimization dynamics, loss-landscape geometry, and the limiting computation, revealing an additional way fully connected layers can express gated behavior."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f59730754a9148140b4bcdfc492ee436e1f71031d8c5312eb88f4e8de9350cbb",
+    "tldr": "Some apparently flat minima are slowly descending channels where neuron weights diverge while their combined computation approaches a gated linear unit."
+  },
+  "neurips-2025-gnnxemplar-exemplars-to-explanations-natural-language-rules-for-global-gnn-interpretabil-e0bd9a2cbf": {
+    "backgroundConcepts": [
+      "topic-078-mathcal-m-4-a-unified-xai-benchmark-for-faithful"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Explaining a graph neural network’s individual prediction differs from explaining how it recognizes an entire class. Existing global approaches often search for recurring graph motifs, but repeated subgraphs may be rare in large graphs. Rich node attributes and interactions between attributes and structure further complicate this strategy.",
+      "GnnXemplar instead selects representative nodes from the network’s embedding space and derives natural-language rules from their neighborhoods. It formulates exemplar selection as maximizing coverage through reverse nearest-neighbor relationships, with an efficient greedy approximation. A language model then uses a self-refining prompting strategy to turn neighborhood information into interpretable rules. The exemplars provide a bridge between learned representations and class-level explanations.",
+      "Across diverse benchmarks, the authors report improvements over existing methods in fidelity, scalability, and human interpretability. A study involving 60 participants supports the interpretability findings. The contribution is an approach to global explanation that accommodates both structure and attributes, while expressing its account of the model’s predictions in language people can inspect."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6aed26d1862f76d1cbc68b14501bb5ddf7102b4c0e2351b47e538bafc42dcd2f",
+    "tldr": "GnnXemplar turns representative graph nodes and their neighborhoods into natural-language rules explaining class-level GNN behavior."
+  },
+  "neurips-2025-instance-dependent-regret-bounds-for-nonstochastic-linear-partial-monitoring-a99f271c68": {
+    "backgroundConcepts": [
+      "topic-171-a-bandit-learning-algorithm-and-applications-to-"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "In partial monitoring, an action produces feedback that need not directly reveal its loss. The linear version gives both losses and observations linear structure while allowing infinite outcome spaces. This paper studies the finite-action, adversarial setting, where the learning problem cannot rely on outcomes following a fixed random distribution.",
+      "The authors use a simple form of exploration by optimization that is amenable to efficient implementation. Their regret guarantees depend on quantities describing how well observations align with losses. This makes the role of the particular game more transparent: feedback is valuable according to how effectively it informs the learner about the losses that matter.",
+      "The bounds attain the standard square-root-of-time rate for easy, locally observable games and the two-thirds-power rate for hard, globally observable games. The paper applies these guarantees to several existing and new partial-information settings. It also shows that the dependence on game structure can be tight in interesting cases, meaning that those structural terms can reflect genuine difficulty rather than merely loose analysis."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "02d31c5ee4fd00eac451324ee1f73342490ab666d8dccb82bd89fc09be165ca2",
+    "tldr": "The paper derives adversarial partial-monitoring regret bounds that explicitly capture how informative a game’s observations are about its losses."
+  },
+  "neurips-2025-learning-long-range-dependencies-through-time-reversal-symmetry-breaking-ffdbf73652": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Recurrent models can be viewed as dynamical systems, raising the possibility of learning directly through physical dynamics. Recurrent Hamiltonian Echo Learning, or RHEL, develops this idea for non-dissipative Hamiltonian systems. It computes loss gradients through finite differences between physical trajectories, using three forward passes regardless of model size, without explicit Jacobians or variance in gradient estimation.",
+      "The continuous-time formulation is formally equivalent to the continuous adjoint state method. For simulation, the authors also develop a discrete-time version that is equivalent to backpropagation through time for their Hamiltonian Recurrent Units. They extend these units into hierarchical Hamiltonian state-space models, connecting the physical formulation to scalable sequence architectures.",
+      "Experiments train models with linear and nonlinear dynamics on classification and regression tasks with sequences reaching roughly 50,000 steps. RHEL consistently matches backpropagation-through-time performance across the tested models and tasks. The results establish a learning route compatible with these Hamiltonian dynamics; energy-efficient, self-learning physical implementations remain a possibility opened by the work."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "85d07a240b90b977755048d1e11d2719483d401936d6bebbbf7ae0d9225a3176",
+    "tldr": "RHEL obtains gradients through Hamiltonian trajectories and matches backpropagation performance in the reported long-sequence experiments."
+  },
+  "neurips-2025-multi-class-support-vector-machine-with-differential-privacy-5e924ef6e6": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Support vector machines are commonly extended to multiple classes by building several binary classifiers. Under differential privacy, this decomposition creates a problem: repeatedly accessing the same examples for different classifiers consumes privacy budget as the number of classes grows. The paper investigates a joint approach to multiclass classification that avoids this particular source of repeated access.",
+      "The proposed Private Multi-class SVM, or PMSVM, uses an all-in-one construction that accesses each example once to form multiclass decision boundaries with margin-maximization properties. It introduces methods based on perturbing weights and gradients. Sensitivity analysis supports the privacy guarantees, while convergence analysis examines the behavior of the resulting learning procedures.",
+      "The empirical results show PMSVM outperforming existing differentially private SVM methods in multiclass settings. The contribution connects classifier design with privacy accounting: how a multiclass problem is organized can affect the privacy cost of learning it. Jointly constructing the boundaries offers a way to preserve margin-based classification while addressing the budget burden identified in binary-decomposition approaches."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a8a0c58f63279764f09891763b472feb1a8e0a933288c031fab5fc1f9005f12d",
+    "tldr": "PMSVM learns multiclass SVM boundaries jointly to address repeated privacy-budget consumption and improves over existing private SVM methods in experiments."
+  },
+  "neurips-2025-neural-combinatorial-optimization-for-time-dependent-traveling-salesman-problem-0eaebe70c7": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "In the time-dependent traveling salesman problem, travel costs change with departure time. This complicates route planning because familiar properties of static routing can fail, and the pattern of those failures can itself change over time. The paper extends MatNet to this setting using an adjacency tensor that represents temporal variation and a decoder that accounts for time.",
+      "The authors also identify an evaluation problem: many practical instances retain the same optimal route despite time-varying edge costs. Averaging travel times across all instances can therefore obscure whether a method actually exploits temporal information. A strong static-routing method may perform well on instances where time awareness does not change the best solution.",
+      "The experiments evaluate both complete real-world datasets and filtered instances where temporal dependencies alter the optimal route. The proposed model achieves state-of-the-art average optimality gaps on full datasets and significant travel-time reductions on the time-sensitive subset. This paired evaluation makes its temporal reasoning benefits more visible than an aggregate score alone."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4e16fd58ec3e7a800f180c8aae83581f835df65035634a90dc6fdecad59ec93c",
+    "tldr": "A time-aware routing model improves TDTSP results, while targeted evaluation reveals whether methods actually benefit from changing travel costs."
+  },
+  "neurips-2025-no-regret-thompson-sampling-for-finite-horizon-markov-decision-processes-with-gaussian-p-3141abf27f": {
+    "backgroundConcepts": [
+      "topic-082-more-efficient-reinforcement-learning-via-poster"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Thompson sampling is widely used for sequential decisions, but reinforcement learning creates additional theoretical difficulties because actions affect later outcomes. This paper establishes no-regret guarantees for an episodic setting with joint Gaussian process priors over rewards and transitions. These structural assumptions define the model class addressed by the analysis.",
+      "The regret bound is approximately the square root of K times H times Γ(KH), apart from logarithmic factors. Here K counts episodes, H is the episode horizon, and Γ measures the Gaussian process model’s complexity. The expression makes model complexity part of the guarantee, alongside the amount and temporal organization of experience.",
+      "The proof handles a key complication: Gaussian model components do not make the resulting value functions Gaussian. It also addresses recursive Bellman updates and extends the elliptical potential lemma to multiple outputs. The contribution is theoretical support for Thompson sampling in this structured reinforcement-learning setting, showing how uncertainty and model assumptions enter its performance guarantees."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "47fc6348f5f1df986f9868b3c3e9bcd4e762d65f2ecd94e235b700d61ea829b4",
+    "tldr": "The paper proves a complexity-dependent no-regret guarantee for episodic Thompson sampling with joint Gaussian process reward and transition priors."
+  },
+  "neurips-2025-non-line-of-sight-3d-reconstruction-with-radar-cfdd5e6060": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Robots navigating cluttered environments benefit from knowing what lies beyond direct view. Existing approaches described in the paper focus on detecting or tracking hidden objects, leaving the broader occluded scene unreconstructed. HoloRadar aims to recover three-dimensional structure in both visible and hidden regions using a single millimeter-wave radar.",
+      "Its first stage produces high-resolution range images with multiple returns, retaining reflections from both line-of-sight and non-line-of-sight regions. The second stage interprets those observations through a physics-guided architecture that models ray interactions. In particular, it maps mirrored observations back to their physical locations, turning indirect reflection information into a reconstruction of the scene.",
+      "The authors deploy HoloRadar on a mobile robot and evaluate it in diverse real-world environments. They report accurate and robust reconstruction in both directly visible and occluded regions. The work’s significance lies in connecting indirect radar returns to scene geometry: reflections that do not directly indicate an object’s true location can still contribute to reconstructing hidden surroundings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "44d8ecf32e764f5ae1898daaf2bde10fb202222e409b364a616724b2ff21cafc",
+    "tldr": "HoloRadar uses a single radar and physics-guided reflection modeling to reconstruct visible and hidden 3D scenes."
+  },
+  "neurips-2025-position-benchmarking-is-broken-don-t-let-ai-be-its-own-judge-e78e82854e": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This position paper argues that AI evaluation needs stronger shared institutions and procedures. Data contamination, selective reporting, and inadequate data quality control can distort benchmark results, making genuine progress difficult to distinguish from exaggerated claims. The authors frame trustworthy evaluation as a requirement for scientific clarity and public confidence.",
+      "They propose PeerBench as a blueprint for community-governed, proctored assessment. Its elements include sealed execution, a bank of evaluation items that is renewed over time, and delayed transparency. Together, these are intended to improve security and credibility through the design of the evaluation process, rather than depending primarily on participants’ goodwill.",
+      "PeerBench is presented as an additional certificate-grade layer alongside open benchmarks. The paper does not claim that the blueprint already delivers proven reliability. It discusses trade-offs and identifies mechanism design, governance, and reliability guarantees as areas requiring further research. Its contribution is an argument and a concrete direction for organizing evaluation, with the aim of making claims about AI progress more dependable."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "eaaa26cfaeda0caa9c1a458693b97c5fddc04c85ef45391a1aa9655ad7c1a89e",
+    "tldr": "The paper proposes PeerBench, a community-governed evaluation blueprint intended to strengthen credibility alongside existing open benchmarks."
+  },
+  "neurips-2025-quantifying-distributional-invariance-in-causal-subgraph-for-irm-free-graph-generalizati-6bd0c35c17": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Graph neural networks can struggle when the data distribution changes between training and use. Existing approaches often use invariant risk minimization, which depends on environment annotations or artificially constructed environment splits. This paper develops another route to finding causal subgraphs, aiming to avoid those requirements.",
+      "The authors formalize an Invariant Distribution Criterion: causal subgraphs show substantially smaller distributional changes across environments than non-causal components. They provide a theoretical proof of this criterion and analyze a quantitative connection between distributional shift and representation norm. That relationship supplies a measurable signal for identifying graph components associated with more stable distributions.",
+      "The resulting method uses a norm-guided objective for both causal-subgraph discovery and prediction, without an invariant-risk-minimization framework. Experiments on two widely used benchmarks consistently outperform state-of-the-art graph-generalization methods. The contribution links a theoretical account of distributional stability to a practical learning objective, offering a way to search for useful invariant graph structure without relying on explicit environment labels or heuristic splits."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8c21184681cec6936677da4c63913bbc616871e71b0d95a76eb1996b1c8ee5db",
+    "tldr": "The paper uses a theoretical link between distributional stability and representation norm to discover causal subgraphs without invariant risk minimization."
+  },
+  "neurips-2025-relaxing-partition-admissibility-in-cluster-dags-a-causal-calculus-with-arbitrary-variab-d24be0a0e6": {
+    "backgroundConcepts": [
+      "topic-000-characterizing-and-learning-equivalence-classes-"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Cluster causal graphs group variables into larger units, allowing causal reasoning without specifying every relationship inside each group. They represent a class of underlying acyclic causal graphs that agree at the cluster level, including dependencies from unobserved confounding. Conventional rules reject a grouping if it creates cycles between clusters, restricting which abstractions can be used.",
+      "This paper relaxes that restriction and permits cyclic cluster-level representations for arbitrary variable groupings. The cycles arise in the clustered description; the framework still concerns classes of underlying acyclic causal graphs. The authors extend both d-separation and causal calculus so that reasoning can proceed with these more flexible abstractions.",
+      "The resulting calculus is sound and atomically complete relative to do-calculus. In the paper’s formulation, valid cluster-level interventional queries can be derived through rules corresponding to primitive do-calculus steps. This matters because users can choose meaningful variable groupings without having to discard them solely because aggregation creates a cycle, while retaining a formally justified calculus."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5277b8a1a82a0bfa23bfa49e4963e4e3efb582cbec5b0a7825fb02f43da7158f",
+    "tldr": "The paper extends causal reasoning to arbitrary variable clusters, allowing cyclic cluster representations with a sound, atomically complete calculus."
+  },
+  "neurips-2025-semantic-representation-attack-against-aligned-large-language-models-001379fe31": {
+    "backgroundConcepts": [
+      "topic-049-a-coin-flip-for-safety-llm-judges-fail-to-reliab"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Many attacks on aligned language models optimize toward a particular affirmative response. The paper argues that this exact-text objective restricts the search, contributing to convergence difficulties, unnatural prompts, and high computational costs. It instead studies objectives defined by meaning, allowing different responses to count when they express equivalent harmful content.",
+      "The proposed Semantic Representation Heuristic Search, or SRHS, searches incrementally while maintaining semantic coherence and interpretability. The authors provide theoretical guarantees for semantic convergence. The methodological shift is to evaluate progress in a representation of meaning, giving the search a broader target than a single required wording while seeking natural prompts.",
+      "The authors report an average attack success rate of 89.4% across 18 language models, including 100% on 11 tested models, together with substantially reduced computational requirements. Experiments consistently outperform existing approaches. These findings expose a weakness in the evaluated safeguards and support the paper’s claim that semantic objectives can improve both attack effectiveness and prompt naturalness in the studied setting."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d76190e709de601e547752cb254f53dcd4ebd2f37a8cbc2ceca200fc0e76ed26",
+    "tldr": "SRHS targets harmful meaning rather than exact response wording, achieving high reported attack success with coherent prompts and reduced computation."
+  },
+  "neurips-2025-space-group-equivariant-crystal-diffusion-9433feeddb": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Crystal structures obey discrete spatial symmetries known as space groups, and these symmetries strongly influence material properties. SGEquiDiff incorporates those constraints directly into a generative model for crystals. Its likelihoods remain invariant under space-group symmetries, making symmetry part of how structures are modeled and generated.",
+      "The generation process combines several components. A discrete sampler generates crystal lattices with rotational and translational invariance. A permutation-invariant autoregressive transformer samples Wyckoff positions, elements, and counts of symmetrically unique atoms. A space-group-equivariant diffusion process then generates atomic coordinates. The authors show that the corresponding vector fields automatically lie in the tangent spaces of the Wyckoff positions, connecting the dynamics to the allowed positional geometry.",
+      "On standard benchmark datasets, SGEquiDiff achieves state-of-the-art performance according to quantitative proxy measures and quantum mechanical calculations. These findings support incorporating crystallographic structure throughout generation. The approach matters for inverse materials design because it handles symmetry constraints that are central to crystals and their properties, rather than leaving symmetry outside the generative formulation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1e2fdaaea6d3f31626b37e0cbad260dc97732696159c83b261389e217d38d9f5",
+    "tldr": "SGEquiDiff builds crystal symmetries into lattice, atom, and coordinate generation and achieves state-of-the-art results on the reported benchmarks."
+  },
+  "neurips-2025-stratify-or-die-rethinking-data-splits-in-image-segmentation-5da9761b44": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Random dataset splits can give image-segmentation models unrepresentative test sets, distorting evaluation. Balancing labels is harder here than in ordinary classification because each image contains many labeled pixels and may include several highly imbalanced classes. The paper develops splitting methods that explicitly account for these segmentation label distributions.",
+      "Iterative Pixel Stratification is a straightforward label-aware sampling approach. Wasserstein-Driven Evolutionary Stratification, or WDES, uses a genetic algorithm to minimize a distance between label distributions across splits. The authors prove global optimality given enough generations. This qualification matters: the theorem concerns sufficient evolutionary search, rather than asserting that any finite run has already reached the optimum.",
+      "Using new statistical heterogeneity measures, the experiments find that WDES consistently produces more representative splits than random sampling. Across street-scene, medical, and satellite segmentation tasks, it lowers performance variance and improves evaluation. Its reported benefits are especially valuable for small, imbalanced, or low-diversity datasets, where split composition can have a particularly strong influence on measured performance."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7c372cd1faace87b6890f15f2ae9a802f5d207ce63e05c3d43ccffbb520e6838",
+    "tldr": "Label-aware segmentation splits, especially WDES, yield more representative evaluations and lower performance variance in the reported experiments."
+  },
+  "neurips-2025-univit-unifying-image-and-video-understanding-in-one-vision-encoder-f2ee5f2f85": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Image and video encoders often emphasize either spatial details or temporal behavior. UniViT aims to learn both within one self-supervised representation. It creates semantic clusters offline, using object-level clusters for images and event-level clusters at multiple granularities for videos, including segments containing structured sequences of events.",
+      "Clustering alone groups similar content without fully expressing relationships among objects or events. UniViT therefore uses cluster assignments as pseudo-labels in a contrastive objective that enforces temporal event relationships and spatial object co-occurrences. This brings structured image and video semantics into a shared representation space, extending the learning objective beyond recognizing isolated categories.",
+      "Two architectural components support this process. Unified Rotary Position Embedding combines relative position information with frequency-aware dimension allocation, while Variable Spatiotemporal Streams accommodate different frame lengths. Across multiple model scales, the authors report state-of-the-art performance in linear and attentive probing, question answering, and spatial understanding. The findings support learning spatial and temporal structure jointly through coordinated clustering, discrimination, and flexible input handling."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5d078432fae535d9bafc83ec6d0cfc073bc2874491c59a3ecc933920c1611428",
+    "tldr": "UniViT combines object and event clustering with structural learning objectives to unify image and video understanding in one encoder."
+  },
+  "neurips-2025-unlocking-dataset-distillation-with-diffusion-models-7bfd0f01e8": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Dataset distillation creates a small synthetic training set intended to represent a much larger dataset. Diffusion models are attractive generators, but directly optimizing through their many denoising steps can cause gradients to vanish. This prevents the synthetic training examples from being adjusted effectively through the full generation process.",
+      "LD3M learns distilled latent representations and class embeddings end to end through a pretrained latent diffusion model. It adds a skip connection from the initial noisy state into each reverse step, with its strength decreasing linearly. This preserves the gradient signal across dozens of steps while leaving the diffusion model’s own weights unchanged.",
+      "Across several ImageNet subsets at 128-by-128 and 256-by-256 resolution, LD3M improves downstream accuracy over the prior state of the art by up to 4.8 percentage points with one image per class and 4.2 points with ten. The results show that maintaining usable gradients can make diffusion-based generation effective for optimizing compact training datasets, rather than only sampling from a fixed generator."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0b571515985274303df330eb68588bee9165e116b77459067499c4e49ade3bd5",
+    "tldr": "LD3M preserves gradients through diffusion denoising to optimize compact synthetic datasets, improving downstream accuracy in the reported ImageNet-subset experiments."
+  },
+  "neurips-2025-value-diffusion-reinforcement-learning-498267cd6f": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Accurate value estimation is central to reinforcement learning because it guides policy improvement. Existing distributional approaches often use unimodal Gaussian assumptions or quantile representations. The paper argues that these choices can introduce mismatch with the true value distribution, particularly in some tasks where the policy changes during learning.",
+      "Value Diffusion Reinforcement Learning, or VDRL, uses a diffusion model to represent multimodal value distributions in online, model-free reinforcement learning. Its core training objective uses a variational loss that the authors prove is a tight lower bound on the optimization objective under a KL-divergence measure. A further component, double value diffusion learning with sample selection, aims to improve training stability and estimation accuracy.",
+      "Experiments on MuJoCo show significant improvements over some state-of-the-art model-free online baselines. The results support the usefulness of flexible value distributions in the tested continuous-control tasks. The contribution places diffusion modeling inside value estimation, addressing the quality of the learning signal that determines how a policy is optimized."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f8a6e221ff2b24665bd45188de059a0d64857cd5abe864c44e6878da19629a91",
+    "tldr": "VDRL models multimodal value distributions with diffusion and outperforms some state-of-the-art online reinforcement-learning baselines on MuJoCo."
+  }
+}

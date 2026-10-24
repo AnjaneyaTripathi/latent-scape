@@ -1,0 +1,376 @@
+{
+  "neurips-2025-3basil-an-algorithmic-framework-for-sparse-plus-low-rank-compression-of-llms-b7ea10e4cb": {
+    "backgroundConcepts": [
+      "topic-094-textit-trans-lora-towards-data-free-transferable"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "3BASiL-TM compresses a pretrained language model by approximating its weight matrices with two complementary parts: a sparse matrix and a product of low-rank matrices. This representation offers a way to reduce model size, but existing decompositions can substantially damage prediction quality. The paper addresses both the initial approximation and its subsequent refinement.",
+      "The first stage, 3BASiL, uses a three-block alternating optimization method to reduce reconstruction error within individual layers, with convergence guarantees. The transformer-matching stage then jointly adjusts the sparse and low-rank components across transformer layers. Its memory-efficient objective matches transformer outputs, extending the optimization beyond separate layer reconstructions. This refinement can also be applied to other decompositions, including purely sparse ones.",
+      "For LLaMA-8B with the reported 2:4 sparsity and rank-64 configuration, the method reduces the WikiText2 perplexity gap from the dense model by over 30% relative to prior methods. Compression itself runs over 2.5 times faster than the compared state-of-the-art method on an A100 GPU. These results concern compression runtime and retained prediction quality."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f5a706f01813910ab2ab68fef9f6bf1e951e4e7afc6fa4fb69256531829d4dce",
+    "tldr": "3BASiL-TM combines layer reconstruction and transformer-level refinement to compress language models more quickly while better preserving prediction quality."
+  },
+  "neurips-2025-a-stable-whitening-optimizer-for-efficient-neural-network-training-b3986ed752": {
+    "backgroundConcepts": [
+      "topic-069-pscaling-small-models-principled-warm-starts-and"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "SPlus is a neural network optimizer developed by investigating three practical weaknesses in Shampoo-style training. The first concerns reusing matrix inverses to save computation: when these cached quantities become too old, the straightforward algorithm can diverge. The paper replaces that update with a bounded alternative combining historical directional information with normalization from the current step.",
+      "Two further changes address how training settings behave across model sizes and learning rates. Shape-aware scaling supports transferring a learning rate across network widths. An iterate-averaging scheme reduces the impact of the large parameter noise observed at high learning rates, allowing faster learning. Together, these changes target the stability and computational costs that can prevent an optimizer's theoretical appeal from translating into practical speed.",
+      "The authors test the method using a Transformer benchmark spanning language modeling, image classification, and diffusion modeling at different training stages. On average, SPlus matches Adam's validation performance using 44–58% as many gradient steps and 62–83% of the elapsed time. The distinction matters because fewer optimization steps do not automatically imply proportional runtime savings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "16e5d4a8be15ad9835004a6d5200756fba42329e7fe0dc45c9d002807e8e6706",
+    "tldr": "SPlus stabilizes Shampoo-style updates and reaches Adam-level validation performance with fewer steps and less time in the reported Transformer benchmark."
+  },
+  "neurips-2025-curriculum-abductive-learning-2f9a4eb141": {
+    "backgroundConcepts": [
+      "topic-061-neural-symbolic-regression-that-scales"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Abductive learning connects predictions from raw inputs with logical domain knowledge. A learning model produces symbolic labels, reasoning revises those labels to fit the knowledge, and the revised labels become training feedback. The difficulty is that logical revision can admit many possible explanations. With a large, complex knowledge base, this search can become enormous and destabilize training.",
+      "Curriculum Abductive Learning changes how the knowledge base enters this loop. It divides the knowledge into a sequence of smaller sub-bases and introduces them progressively during training. This makes the internal organization of the knowledge base part of the learning method, rather than treating all available rules as a fixed package. The resulting curriculum reduces the abduction space and lets the model incorporate logical constraints more gradually.",
+      "Experiments across multiple tasks report better training stability, faster convergence, and higher final accuracy than previous abductive-learning implementations, especially with complex knowledge. These findings support organizing the reasoning problem itself as a curriculum: controlling which knowledge is available can improve the feedback used to train the predictive model."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c13497ce1cabb7bc9f928a879f34970e5480bd9f4ae12cf6d015c037429cab3a",
+    "tldr": "Curriculum Abductive Learning introduces logical knowledge progressively to make prediction-and-reasoning training more stable and effective."
+  },
+  "neurips-2025-differentiable-cyclic-causal-discovery-under-unmeasured-confounders-498a780132": {
+    "backgroundConcepts": [
+      "topic-232-a-fixed-point-approach-for-causal-generative-mod"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Many causal discovery methods assume that every relevant variable is measured and that causal relationships contain no feedback loops. Those assumptions can be unsuitable for systems such as biological networks. DCCD-CONF addresses a broader setting: nonlinear causal relationships that may form cycles and may also be influenced by unmeasured confounding variables.",
+      "The framework learns from interventional data, where the system has been deliberately perturbed. It alternates between updating the proposed causal graph and estimating the distribution of hidden confounders. Both parts are fitted by maximizing how well the model explains the observed data through its likelihood. This connects graph discovery and hidden-variable estimation within a differentiable learning procedure.",
+      "Experiments on synthetic data and gene perturbation datasets report better causal graph recovery and confounder identification than the compared state-of-the-art methods. The paper also provides consistency guarantees for the framework. Its contribution is therefore both methodological and theoretical: it tackles feedback and hidden influences together, while retaining intervention data as a central ingredient of the learning setting."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "817f40cc6667926bb3bea0fb2d66d2a590cad8984dcec4d120059724ec586f2c",
+    "tldr": "DCCD-CONF learns nonlinear causal graphs with feedback loops and hidden confounders from interventional data."
+  },
+  "neurips-2025-dsas-a-universal-plug-and-play-framework-for-attention-optimization-in-multi-document-qu-a2b5c987b4": {
+    "backgroundConcepts": [
+      "topic-012-quest-query-aware-sparsity-for-efficient-long-co"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Answering questions across several documents requires a language model to connect relevant information over long inputs. Two difficulties motivate DSAS: important connections can weaken with distance, and information near the middle of the input can receive insufficient attention. The paper proposes two cooperating attention adjustments to help models concentrate on the paragraphs that matter.",
+      "Contextual Gate Weighting tracks attention across layers to assess paragraph relevance, then incorporates paragraph position into its weighting. This targets the tendency to overlook the middle of an input. Reciprocal Attention Suppression reduces information exchange between important paragraphs and irrelevant text. Its purpose is to keep distracting material from interfering with the relationships needed to answer the question.",
+      "Across four benchmarks, the authors report effective results with Llama, Qwen, Mistral, and Deepseek models. The reported average F1 improvement is 4.2% for Llama-3.1-8B-Instruct and Qwen2.5-14B-Instruct. Ablation studies support contributions from both modules. Together, the results suggest that addressing positional neglect and distracting attention can improve multi-document question answering through complementary changes."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8bbf432456502069be6022d49afcd1c6703d8e9505c4329e118afe70334a1e0c",
+    "tldr": "DSAS improves multi-document question answering by reweighting relevant paragraphs and suppressing distracting attention."
+  },
+  "neurips-2025-dyflow-dynamic-workflow-framework-for-agentic-reasoning-4b6298122a": {
+    "backgroundConcepts": [
+      "topic-112-knowledge-evaluating-conversational-agents-over-"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "DyFlow addresses how language-model agents organize complex reasoning. A manually fixed workflow can fit one task while adapting poorly to another. Even automated workflow builders may remain tied to particular query types or make little use of intermediate results. The paper makes workflow construction an ongoing process informed by the task and the feedback generated while solving it.",
+      "The framework separates responsibilities between a designer and an executor. The designer breaks a problem into sub-goals expressed as high-level objectives, then uses intermediate outputs to decide what should happen next. The executor carries out those plans using dynamic operators whose parameters depend on context. This makes both the sequence of operations and their execution responsive to the developing solution.",
+      "Evaluations cover social reasoning, biomedical tasks, mathematics, and code generation. The authors report substantial Pass@k improvements over existing baselines and robust generalization across the tested domains. These findings support the value of revising reasoning procedures during execution, particularly when a single predefined workflow may not match the needs of different problems."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5ba0624f009dae620dd06399773dc5c43503fca6a114a732717bf9ceaff4590f",
+    "tldr": "DyFlow lets a designer and executor adapt an agent's reasoning workflow using task requirements and intermediate feedback."
+  },
+  "neurips-2025-dynamic-and-chemical-constraints-to-enhance-the-molecular-masked-graph-autoencoders-1714613047": {
+    "backgroundConcepts": [
+      "topic-092-pocket2mol-efficient-molecular-sampling-based-on"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Masked graph autoencoders learn molecular representations by hiding parts of a molecular graph and reconstructing them. The paper identifies a problem with using a predetermined masking ratio and fixed reconstruction targets: the resulting exercise may be too easy, too difficult, or poorly matched to chemical knowledge. Such proxy tasks can produce weak learning or negative transfer.",
+      "Dynamic and Chemical Constraints, or DyCC, changes both what gets hidden and what the model predicts. Its GIBMS masking strategy adapts the amount and content of masking for each molecule while preserving essential semantic information. A Soft Label Generator replaces hard reconstruction labels with learnable prototypes. These two components allow the training exercise to change dynamically while following chemical constraints.",
+      "The framework is designed to work with different masked graph autoencoders, and the authors integrate it into several such models. Their experiments report significant performance improvements. The central finding is that molecular representation learning benefits from adapting the reconstruction task to the molecule and its chemical structure, rather than relying solely on a fixed corruption-and-reconstruction setup."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e92df2d891094be6cf3744e8b7e3422113a21fd5514961f424f3770e3d9ab6f9",
+    "tldr": "DyCC improves molecular graph learning with molecule-specific masking and learnable reconstruction targets that follow chemical constraints."
+  },
+  "neurips-2025-envisioning-beyond-the-pixels-benchmarking-reasoning-informed-visual-editing-8d0e86c4b7": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Visual editing requires models to connect an instruction to the changes an image needs. This paper studies edits that demand reasoning, alongside the need to maintain a consistent appearance. Its motivation is that progress in understanding and generating images has not resolved the challenges of following complex editing instructions.",
+      "The authors introduce RISEBench, a benchmark organized around four kinds of reasoning: temporal, causal, spatial, and logical. These categories examine reasoning about time, cause and effect, spatial relationships, and logic. By curating test cases for each category, the benchmark gives researchers a structured way to investigate reasoning in visual editing.",
+      "The evaluation considers three aspects of an edited image: whether it follows the instruction’s reasoning requirements, whether its appearance remains consistent, and whether the result is visually plausible. Both human judges and large multimodal models serve as evaluators. This combination examines instruction fulfillment alongside the visual qualities of the output.",
+      "The authors evaluate nine editing models, including open-source and proprietary systems, and report substantial difficulties with these tasks. GPT-image-1, the strongest model evaluated, reaches only 28.8% accuracy. That result points to a considerable gap on this benchmark between existing editing capabilities and successful reasoning-based edits. RISEBench provides a way to expose that gap and inform future research."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2893b8ccf05c9876d545c458c38b970258a203fab4b95b27be9b680d36690b68",
+    "tldr": "RISEBench tests reasoning in visual editing and finds substantial challenges across nine models, with the strongest evaluated model achieving 28.8% accuracy."
+  },
+  "neurips-2025-l2dgcn-learnable-enhancement-and-label-selection-dynamic-graph-convolutional-networks-fo-964c8ca296": {
+    "backgroundConcepts": [
+      "topic-044-a-collective-learning-framework-to-boost-gnn-exp"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Graph neural networks classify nodes partly by passing information along graph connections. Nodes with few connections can receive less useful information, creating a bias associated with node degree. This becomes especially challenging when only a small number of nodes have human-provided labels. L2DGCN addresses the combination of limited supervision and uneven access to information.",
+      "Its teacher model uses an improved label-propagation mechanism to distribute label information over longer distances among nodes. The student model learns how to perturb graph edges so that low-degree nodes can exchange information more effectively while preserving the global graph structure. A separate label selector reduces the influence of unreliable pseudo-labels, which are labels supplied by the learning system itself.",
+      "The authors evaluate semi-supervised node classification under several settings with few annotated nodes and report significant benefits from their graph enhancement approach. The method brings together three connected interventions: spreading supervision farther, improving information exchange for poorly connected nodes, and filtering uncertain supervision. Their combination targets the mechanisms through which sparse labels and degree imbalance can undermine classification."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "797e1776bf9be1b8cba72825117a66b2a94d1fd07843a0879ca75d3a98cf8e23",
+    "tldr": "L2DGCN combines label propagation, learned graph changes, and pseudo-label selection to improve node classification with sparse supervision."
+  },
+  "neurips-2025-langsplatv2-high-dimensional-3d-language-gaussian-splatting-with-450-fps-8950d0e868": {
+    "backgroundConcepts": [
+      "topic-140-1000-fps-4d-gaussian-splatting-for-dynamic-scene"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "LangSplatV2 accelerates 3D scene representations that support language-based queries. Its predecessor embeds image-derived language features into a scene represented by Gaussian splats, allowing text to interact with the scene's semantic content. A timing analysis identifies a heavyweight decoder as the main speed bottleneck, motivating a different way to represent those features.",
+      "The new method treats each Gaussian as a sparse code in a shared global dictionary. It learns a field of sparse coefficients instead of depending on the expensive decoder. A specialized splatting procedure, supported by CUDA optimization, uses this sparsity to render high-dimensional feature maps at a cost comparable to splatting very low-dimensional features. The representation change and rendering implementation work together to reduce computation.",
+      "The paper reports 476.2 frames per second for feature splatting and 384.6 for open-vocabulary text querying on high-resolution images. These correspond to reported speedups of 42 and 47 times over LangSplat, respectively. Query accuracy is better or competitive in the experiments, indicating that the large speed gains need not come with worse semantic querying performance in those evaluations."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "57b84eaf4fa01ca6c22fe2778a1fa1967bce0d5148daf78229c2d2b7e29fff00",
+    "tldr": "LangSplatV2 replaces an expensive decoder with sparse dictionary coefficients, greatly accelerating 3D language querying while retaining competitive accuracy."
+  },
+  "neurips-2025-latent-policy-barrier-learning-robust-visuomotor-policies-by-staying-in-distribution-41b8465080": {
+    "backgroundConcepts": [
+      "topic-019-a-bayesian-approach-to-generative-adversarial-im"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A robot trained to imitate expert demonstrations can struggle after a small mistake puts it in an unfamiliar situation. Further mistakes can then compound. Latent Policy Barrier addresses this distribution shift by using the internal representations of expert demonstrations as an implicit boundary around familiar states, drawing inspiration from control barrier functions.",
+      "The framework separates imitation from recovery. A base diffusion policy learns only from expert demonstrations, preserving its focus on expert behavior. A dynamics model learns from both expert data and suboptimal policy rollouts. During execution, this dynamics model predicts future latent states and optimizes them to remain within the expert distribution. The additional rollout data therefore supports recovery without becoming imitation targets for the base policy.",
+      "Experiments in simulation and the real world report improved robustness and data efficiency, including reliable manipulation with limited expert data and no additional human correction or annotation. The results support using a learned model of future states to counter departures from demonstrated behavior. The implicit barrier is the framework's mechanism for encouraging familiar behavior during execution."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "804767f954fcc97c18029c52484aade27736b09184619de20ae57a859aa11ea5",
+    "tldr": "Latent Policy Barrier improves imitation-based robot control by predicting future states and steering them toward the expert distribution."
+  },
+  "neurips-2025-lora-vs-full-fine-tuning-an-illusion-of-equivalence-bbd5802a05": {
+    "backgroundConcepts": [
+      "topic-094-textit-trans-lora-towards-data-free-transferable"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "LoRA can adapt a language model with far fewer trainable parameters than full fine-tuning, but similar task performance does not establish that the resulting models have similar internal structure. This paper examines their weight matrices through singular value decomposition, which exposes influential directions in those matrices. The authors find new high-ranking directions in LoRA-trained weights, termed intruder dimensions, that do not appear in their full-fine-tuning results.",
+      "The study connects these directions to forgetting of the pretraining distribution. Although LoRA forgets less overall in the reported comparison, its forgetting is strongly concentrated in the intruder dimensions. By changing their associated singular values after fine-tuning, the authors causally test their effect. Reducing those values substantially improves modeling of the pretraining distribution with only a small downstream performance loss.",
+      "The paper also investigates sequential adaptation during continual learning. LoRA models accumulate intruder dimensions and tend to perform worse in that setting. These findings show why inspecting the structure of weight changes can reveal consequential differences that downstream performance alone may obscure."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "864a389ef260bc6f044255251787d5e3248ead911419a6cf2be645833b28d878",
+    "tldr": "LoRA and full fine-tuning produce different weight structures, with LoRA's intruder dimensions causally linked to forgetting in the reported experiments."
+  },
+  "neurips-2025-meta-d2ag-causal-graph-learning-with-interventional-dynamic-data-00207a5649": {
+    "backgroundConcepts": [
+      "topic-232-a-fixed-point-approach-for-causal-generative-mod"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Meta-D2AG learns causal graphs from time series whose relationships may change over time. It allows both the parameters of relationships and the graph structure itself to vary, including potentially nonlinear behavior. This addresses a setting beyond the observational, offline, or stationary cases emphasized by much previous work.",
+      "The method treats time points associated with distribution shifts as distinct domains and assumes those shifts arise from external interventions. An online meta-learning framework uses the temporal transitions between existing domains to help adapt to a new domain with few measurements. A first-order optimization approach makes the learning procedure efficient. The key idea is to learn from the history of changes as well as from observations within each domain.",
+      "The theoretical analysis establishes conditions for identifiability and convergence of the learning process. Benchmark experiments report better accuracy and sample efficiency than state-of-the-art baselines. These findings support rapid adaptation of causal structure in changing systems, within a formulation that explicitly links distribution changes to interventions and represents causal relationships using directed acyclic graphs."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7376b3c76176d8d15aba05614ac57c38e29d8ca7b7f6b87b05b8653e56522ec5",
+    "tldr": "Meta-D2AG uses online meta-learning to adapt causal graphs across changing time-series domains assumed to result from interventions."
+  },
+  "neurips-2025-metags-a-meta-learned-gaussian-phong-model-for-out-of-distribution-3d-scene-relighting-9e85f21d09": {
+    "backgroundConcepts": [
+      "topic-214-a-hypertoroidal-covering-for-perfect-color-equiv"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "MetaGS tackles rendering a 3D scene from new viewpoints under lighting that differs substantially from the observed images. Relighting methods can degrade when they assume training and testing lights follow similar distributions. The paper addresses this mismatch by combining a learning strategy aimed at generalization with a physically informed model of reflection.",
+      "The learning component applies meta-learning to 3D Gaussian splatting. It explicitly encourages geometry and appearance attributes that remain useful across diverse lighting conditions, including when the training data are biased. The modeling component incorporates physical priors from the Blinn-Phong reflection model. These priors help separate shading components, supporting more accurate reconstruction of the underlying scene.",
+      "Experiments on synthetic and real-world datasets demonstrate effectiveness under challenging lighting shifts. The method supports efficient point-light relighting and generalizes well to previously unseen environment lighting maps in the reported evaluations. The two contributions address complementary parts of the problem: learning attributes that transfer across lighting conditions and structuring the scene representation so that shading components can be more accurately distinguished."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6c4ee7e5836a39ed7e3024548e75f025eb705409b06c8730e4bb045248859b3e",
+    "tldr": "MetaGS combines meta-learning and reflection-model priors to improve 3D scene relighting under unfamiliar lighting conditions."
+  },
+  "neurips-2025-minimax-adaptive-online-nonparametric-regression-over-besov-spaces-adbd45d77f": {
+    "backgroundConcepts": [
+      "topic-056-optimistic-online-mirror-descent-for-bridging-st"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies sequential prediction when data may be adversarial and prediction quality is measured using convex losses. Performance is compared with a broad family of continuous functions that can still be highly irregular. These competitors belong to Besov spaces, whose parameters describe different aspects of smoothness and variation.",
+      "The proposed wavelet-based algorithm makes predictions without knowing the competitor's Besov parameters in advance. Wavelets support representing functions at different resolutions, fitting the goal of adapting prediction detail to function complexity. The authors establish minimax-optimal regret bounds for competitors in the stated class, with parameters between one and infinity and smoothness greater than the input dimension divided by p. Regret measures accumulated excess loss relative to a comparator.",
+      "A further extension adapts locally when smoothness differs across regions of the input space. It adjusts resolution across both time and space and yields bounds that reflect local regularity. In heterogeneous environments, these guarantees can substantially improve on those from global methods. The improvement is therefore tied to exploiting uneven smoothness rather than imposing a single resolution everywhere."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9c863f4f8f446fedbbe9b3d1f6eeef726d0b7c5d5385c5bc69da073ad82504cf",
+    "tldr": "An adaptive wavelet algorithm achieves minimax-optimal online regression guarantees and can exploit variations in local smoothness."
+  },
+  "neurips-2025-nesypr-neurosymbolic-proceduralization-for-efficient-embodied-reasoning-386cea042b": {
+    "backgroundConcepts": [
+      "topic-004-3d-vla-a-3d-vision-language-action-generative-wo"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "NeSyPr addresses embodied reasoning when a deployed agent cannot readily access a large inference engine or external symbolic planner. Latency, connectivity, and resource constraints make repeated online planning difficult. The framework prepares reasoning knowledge in advance so that a more compact language model can use it efficiently during execution.",
+      "A symbolic tool first generates task-specific plans from declarative knowledge. NeSyPr converts those plans into composable procedures that encode their implicit production rules. The composed procedures are then integrated into the language model's inference process. This proceduralization aims to abstract and generalize structured, multi-step symbolic reasoning into single-step language-model inference, following the idea of compiling knowledge into reusable procedures.",
+      "The authors evaluate the framework on PDDLGym, VirtualHome, and ALFWorld. They report efficient reasoning relative to large reasoning models and a symbolic planner while using smaller language models. The contribution is a way to move symbolic guidance into a preparatory stage: test-time reasoning can use the resulting procedures without depending on an external symbolic tool for guidance."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "553361a8515b584c028759ff8fcdb0ea35d3a014e12ba9d86fe4612175bbe9f7",
+    "tldr": "NeSyPr compiles symbolic plans into reusable procedures so compact language models can reason efficiently without external symbolic guidance at test time."
+  },
+  "neurips-2025-pac-bayes-bounds-for-multivariate-linear-regression-and-linear-autoencoders-06e87bd9b6": {
+    "backgroundConcepts": [
+      "topic-219-high-dimensional-structured-quantile-regression"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Linear autoencoders perform well in recommendation systems, but their empirical success has outpaced theoretical understanding. This paper studies their ability to generalize through PAC-Bayes bounds. It begins with the broader problem of multivariate linear regression, where a linear model predicts several outputs, extending an earlier bound for the single-output case.",
+      "The authors establish sufficient conditions for convergence of the new regression bound. They then connect linear autoencoders to this analysis: on bounded data and under a relaxed mean squared error, these autoencoders can be viewed as constrained multivariate linear regression models. That connection allows the bound to be adapted to them. Additional theoretical methods make optimizing the autoencoder bound computationally practical for large models and real datasets.",
+      "Experiments find the bound tight and well correlated with recommendation ranking measures including Recall@K and NDCG@K. This gives the theory practical relevance beyond the reconstruction criterion used in its formulation. The result links a generalization analysis under specified modeling and evaluation conditions with ranking quality observed in recommendation experiments."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "939e85d5f7192b56a869181936fd8986f026386d8936b5efdfd833fdba8a305e",
+    "tldr": "The paper develops practical PAC-Bayes generalization bounds for multi-output linear regression and, under stated conditions, linear autoencoders."
+  },
+  "neurips-2025-preference-optimization-on-pareto-sets-on-a-theory-of-multi-objective-optimization-23f0c8329b": {
+    "backgroundConcepts": [
+      "topic-124-a-catalyst-framework-for-minimax-optimization"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Multi-objective optimization often produces many Pareto-optimal decisions: improving one objective at such a decision requires worsening another. That leaves a separate problem of choosing which trade-off is preferred. This paper formalizes that choice by optimizing a preference function over the Pareto set, keeping the selection restricted to decisions that achieve optimal trade-offs.",
+      "The constraint is difficult because the Pareto set is defined indirectly and can be non-convex and non-smooth even when the individual objectives are strongly convex. The authors give an equivalent formulation with a simplex constraint, making notions of optimality and stationarity clearer. This reformulation provides a more tractable basis for designing an algorithm and analyzing its progress.",
+      "The algorithm has a last-iterate convergence rate of O(K^-1/2) to stationarity when the preference function is Lipschitz smooth and the objectives are both strongly convex and Lipschitz smooth. This is a conditional stationarity guarantee. The paper also extends the method to dueling feedback, where preferences are available through comparisons, motivated by applications such as reinforcement learning from human feedback."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7759350d9638c606e3ab56f3c16bfacc2d1f0ba0c4e319b42ad23221ef02fd52",
+    "tldr": "The paper formalizes preference-based selection among Pareto-optimal solutions and gives a conditionally convergent algorithm, including a comparison-feedback extension."
+  },
+  "neurips-2025-regret-lower-bounds-for-decentralized-multi-agent-stochastic-shortest-path-problems-3594972b1a": {
+    "backgroundConcepts": [
+      "topic-123-context-aware-bayesian-network-actor-critic-meth"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Decentralized multi-agent shortest-path problems model agents that must coordinate toward a shared objective under uncertainty. The paper studies the difficulty of learning in this setting, where individual agents operate without centralized control. It assumes linear function approximation: both transition dynamics and costs are represented using linear models.",
+      "The authors use symmetry-based arguments to characterize the structure of optimal policies. They then construct difficult learning instances for any number of agents. These constructions establish a regret lower bound, which describes unavoidable accumulated performance loss relative to an optimal policy on hard problems. The contribution concerns fundamental learning difficulty rather than the performance guarantee of a newly proposed learning algorithm.",
+      "The resulting lower bound grows as the square root of the number of episodes, expressed as Omega(sqrt(K)). This does not say that every instance must be equally difficult; it shows that hard instances prevent uniformly better regret in the studied setting. The result supplies a theoretical reference point for assessing future algorithms for decentralized control and understanding the complexity of learning coordinated behavior."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3aa712ce8d7241075caf258cc513bea9b6453ed8d2847f3ad9b41cb921337558",
+    "tldr": "The paper establishes a square-root-in-episodes regret lower bound for decentralized multi-agent shortest-path learning with linear models."
+  },
+  "neurips-2025-solving-and-learning-partial-differential-equations-with-variational-q-exponential-proce-b71f0eeaa0": {
+    "backgroundConcepts": [
+      "topic-054-a-dirac-frenkel-onsager-principle-instantaneous-"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper uses Q-exponential processes to solve partial differential equations and associated inverse problems. Gaussian processes offer probabilistic predictions, but may be less suitable for sharp transitions or non-smooth behavior. Q-exponential processes generalize them and are designed to better represent abrupt changes and derivative information, both relevant to the equations being modeled.",
+      "The proposed method combines this process model with sparse variational inference. This supplies a probabilistic approximation for learning solutions while retaining principled uncertainty quantification. The approach therefore aims to estimate both a solution and how uncertain that estimate is. Its motivation connects the choice of probabilistic model to the irregular behavior that can make equation solving difficult.",
+      "Experiments include the Eikonal equation, Burgers' equation, and an inverse Darcy flow problem. Across the reported experiments, the variational Q-exponential method consistently produces more accurate solutions while providing meaningful uncertainty estimates. These findings support its use as an alternative to Gaussian-process approaches for the tested problems, particularly where representing abrupt changes and derivatives is central to the modeling task."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0623ac8de65328aa064e750d6b6a4d829829bfcbc3b5123c47200ae46d434f15",
+    "tldr": "Variational Q-exponential processes improve solution accuracy in the reported PDE experiments while providing probabilistic uncertainty estimates."
+  },
+  "neurips-2025-sql-r1-training-natural-language-to-sql-reasoning-model-by-reinforcement-learning-43769f2f28": {
+    "backgroundConcepts": [
+      "topic-153-v-0-a-generalist-value-model-for-any-policy-at-s"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "SQL-R1 translates natural-language database questions into SQL, focusing on difficult cases such as queries that join several tables or contain nested queries. The paper argues that the dominant reliance on supervised fine-tuning may constrain adaptation and interpretability in new environments. It explores reinforcement learning as a way to strengthen reasoning for these complex SQL tasks.",
+      "The authors design a reward function specifically for natural-language-to-SQL training. They also examine how cold-start training and synthetic data affect the effectiveness of intensive training, making data preparation part of the investigation. The abstract reports competitive accuracy with only a small amount of synthetic data used for augmentation. This places attention on how training signals and augmented examples work together.",
+      "In the reported experiments, SQL-R1 achieves execution accuracy of 88.6% on Spider and 67.1% on BIRD. These results evaluate generated queries through execution, connecting the training approach to functional database-query performance. The contribution combines a reasoning model trained with reinforcement learning, a task-specific reward, and an investigation of the data choices supporting that training."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4e356a008c1624c4a95a4f022c3b5d07d6731abb50f01992ae1d48aff766cfee",
+    "tldr": "SQL-R1 uses a task-specific reinforcement-learning reward to strengthen natural-language-to-SQL reasoning, reporting competitive benchmark execution accuracy."
+  },
+  "neurips-2025-statistical-inference-for-linear-stochastic-approximation-with-markovian-noise-627229ee50": {
+    "backgroundConcepts": [
+      "topic-003-a-convergence-theory-for-svgd-in-the-population-"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies uncertainty estimates for linear stochastic approximation when the noise follows a Markov process. Such sampling introduces dependence between observations, which must be accounted for when constructing confidence intervals. The analysis focuses on Polyak–Ruppert averaging, where iterates of the learning algorithm are averaged to form the estimate being studied.",
+      "The authors derive finite-sample Berry–Esseen bounds describing how closely the averaged estimate's distribution approaches a Gaussian limit. The reported rate is O(n^-1/4) in Kolmogorov distance, a measure of discrepancy between distribution functions. This makes the Gaussian approximation quantitative at finite sample sizes, rather than only stating that a limiting distribution eventually exists.",
+      "They also establish finite-sample validity for a multiplier block bootstrap used to construct confidence intervals under Markovian sampling. The paper presents this as the first such convergence-rate guarantee for bootstrap confidence intervals in stochastic approximation with Markov noise. Finally, it recovers an asymptotic-variance estimation rate of order O(n^-1/8), up to logarithmic factors. Together, these results support statistically grounded uncertainty assessment for the studied dependent-data setting."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6307c2d8eeb5bfc7a4d608f8d2a41151874c7b6b0c3ce0e1fc17472136f2b08f",
+    "tldr": "The paper gives finite-sample Gaussian approximation and bootstrap confidence-interval guarantees for averaged linear stochastic approximation with Markovian noise."
+  },
+  "neurips-2025-think-rm-enabling-long-horizon-reasoning-in-generative-reward-models-d144441f61": {
+    "backgroundConcepts": [
+      "topic-100-3-in-1-2d-rotary-adaptation-for-efficient-finetu"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Think-RM trains generative reward models to reason more extensively before judging responses. These models generate reasoning and a verdict, but existing approaches can struggle with nuanced tasks because their reasoning remains shallow. The paper also addresses a mismatch between pairwise preference judgments and conventional reinforcement-learning pipelines that expect a separate numerical reward for each response.",
+      "Training begins with supervised fine-tuning on long reasoning traces, followed by rule-based reinforcement learning. The framework encourages flexible, self-directed reasoning that can include reflection, hypothetical alternatives, and divergent exploration. A separate pairwise RLHF pipeline optimizes policies directly from comparisons, avoiding the need to convert those judgments into individual reward scores.",
+      "Experiments report improvements on both in-distribution and out-of-distribution tasks. Reported gains exceed 10% on RewardBench's Chat Hard and 5% on its Reasoning category, with a 12% gain in RM-Bench's Math domain. Combined with the pairwise training pipeline, Think-RM also improves final policy performance relative to traditional approaches. The findings connect stronger preference evaluation with a training procedure designed to use its output directly."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "15c2e3e1cc2fc0aeac0ef15b291f0eae2f1ad4e5109a73efff535bcb096c168b",
+    "tldr": "Think-RM strengthens generative reward models through longer reasoning and uses their pairwise judgments directly for policy optimization."
+  },
+  "neurips-2025-towards-building-model-prompt-transferable-attackers-against-large-vision-language-model-dd28f715e9": {
+    "backgroundConcepts": [
+      "topic-223-efficient-black-box-adversarial-attacks-via-baye"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Adversarial images optimized for one vision-language model or prompt can lose effectiveness when either changes. This paper investigates how to produce perturbations that transfer across model architectures and prompts with different meanings. Its target is black-box transfer, where an attack developed elsewhere is applied to a different vision-language model.",
+      "The method uses information theory to examine dependence between model outputs and image content. It distinguishes adversarial patterns from benign patterns and studies their mutual information with the outputs. Empirical observations suggest that increasing dependence on adversarial patterns while decreasing dependence on benign ones helps produce more transferable perturbations. The authors express the difficult information-gain calculation as an estimation problem and incorporate informative constraints into adversarial learning.",
+      "Experiments across multiple models and prompts report significant transfer-attack performance. The evidence supports the proposed information-based constraints as a way to reduce the over-specialization of adversarial images to a particular target. The underlying relationship between mutual information and improved transfer is presented as an empirical observation, while the experiments assess its usefulness across the tested settings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "caa992862f71ed9412a0c2aa0f61216ef31e0f1eda3e764098a05eb830b7a9d2",
+    "tldr": "The paper uses information-based training constraints to improve adversarial-image transfer across vision-language models and prompts."
+  },
+  "neurips-2025-trident-tri-modal-molecular-representation-learning-with-taxonomic-annotations-and-local-51a68aa564": {
+    "backgroundConcepts": [
+      "topic-092-pocket2mol-efficient-molecular-sampling-based-on"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "TRIDENT learns molecular representations from three sources: SMILES descriptions of chemical structure, natural-language descriptions, and taxonomic functional annotations. The motivation is that textual and structured functional information have received insufficient attention in previous multimodal approaches. The authors curate molecule-text pairs with functional annotations organized across multiple levels to support this combination.",
+      "The framework aligns the three modalities globally using a volume-based objective that allows soft, geometry-aware agreement among their representations. It also aligns molecular substructures with corresponding parts of the text, capturing detailed structure-function relationships. A momentum-based mechanism dynamically balances global and local alignment. These components connect broad functional meaning with the finer molecular details associated with that meaning.",
+      "The authors report state-of-the-art performance on 18 downstream tasks. Their results support combining structural, textual, and taxonomic information for molecular property prediction. The contribution goes beyond bringing three inputs into one model: it explicitly trains agreement at both the whole-molecule level and the level of individual substructures and their descriptions, aiming to preserve complementary kinds of information."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "fd0694189b70bce843613627742e83bd7afa14c3468877449b3225888ccbfdbf",
+    "tldr": "TRIDENT aligns molecular structure, text, and functional taxonomy globally and locally, achieving reported state-of-the-art results on 18 downstream tasks."
+  }
+}

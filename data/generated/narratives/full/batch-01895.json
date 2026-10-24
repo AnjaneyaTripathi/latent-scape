@@ -1,0 +1,327 @@
+{
+  "icml-2026-astra-communication-efficient-acceleration-for-multi-device-transformer-inference-7ca78bf1b7": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Splitting Transformer inference across devices can reduce computation time, but exchanging information between devices can erase those savings when network bandwidth is limited. ASTRA addresses this communication bottleneck. It combines sequence parallelism, which distributes tokens across devices, with attention that uses different numerical precision for local information and information received from elsewhere.",
+      "The main design choice is to send non-local token embeddings as compact, low-bit vector-quantized codes while retaining full precision for local attention. This reduces the information transmitted between devices. To preserve accuracy despite aggressive compression, the framework adds Noise-Augmented Quantization and Distributed Class Tokens. Together, these components target the accuracy and communication costs of distributed inference.",
+      "Across vision and language models, the authors report speedups reaching 2.64 times over single-device inference and 15.25 times over earlier multi-device methods, at bandwidths as low as 10 Mbps. They also report robustness on Llama-3-8B under packet loss and changing networks. These findings support distributing inference even when connections are constrained, with the quoted speedups representing the strongest reported results."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1d28eb12b93d7bf1a53fab471ab52fa4ac60a3a5e93c6a61ff0146cf5333b093",
+    "tldr": "ASTRA compresses communication between devices while preserving local attention precision to accelerate Transformer inference over constrained networks."
+  },
+  "icml-2026-beyond-procedure-substantive-fairness-in-conformal-prediction-ce93468420": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Conformal prediction expresses uncertainty by returning sets of possible answers with statistical coverage guarantees. This paper asks how those sets affect fairness once people or systems use them to make decisions. Its focus is substantive fairness: the equity of downstream outcomes across the complete decision process, beyond the properties of the prediction procedure alone.",
+      "The authors derive an upper bound that separates disparities in prediction-set size into interpretable contributions. This analysis explains how label-clustered conformal prediction can help control the portion attributable to the method itself. They also introduce an evaluator that places an LLM within the evaluation process to approximate human judgments of substantive fairness across different modalities.",
+      "In the reported experiments, label-clustered conformal prediction often balances usefulness and substantive fairness favorably while reducing set-size disparities. Equalized set sizes correlate strongly with better substantive fairness, more so than coverage does. This is an empirical association rather than a guarantee that matching set sizes produces equitable outcomes, but it identifies a practical property worth evaluating alongside coverage."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d6ed921a594ec98240f357abb4af0714371cf98e842f5d3f02fd64584d2e9e41",
+    "tldr": "The paper connects conformal prediction to downstream fairness and finds that equalized prediction-set sizes correlate strongly with fairer outcomes."
+  },
+  "icml-2026-beyond-tokens-enhancing-rtl-quality-estimation-via-structural-graph-learning-1a002c934a": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Hardware designers need early estimates of properties such as circuit area and delay, without repeatedly running time-consuming logic synthesis. Models that represent register transfer level designs through code embeddings have shown promise, but the paper argues that they overlook structural information needed for accurate estimates. StructRTL makes that structure central to its learned representations.",
+      "The framework learns from control data flow graphs, which explicitly expose structural relationships within an RTL design. Its graph-based self-supervised learning approach builds representations informed by those relationships. It then adds knowledge distillation from post-mapping netlists, transferring lower-level design insights into the predictor that operates on the earlier graph representation.",
+      "This connects two stages of hardware design: structural information available in RTL and information revealed after mapping. The latter supplies additional training guidance for the former. Experiments report that StructRTL significantly outperforms prior methods across quality estimation tasks and establishes state-of-the-art results. The findings support using both graph structure and supervision from later design stages to improve early quality prediction."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "04155b808138b017ee94d44565d6591be0431fde9ea78f267c0767b8ffa221d2",
+    "tldr": "StructRTL improves early hardware quality estimates by learning circuit structure and distilling knowledge from post-mapping netlists."
+  },
+  "icml-2026-chaosnexus-a-foundation-model-for-ode-based-chaotic-system-forecasting-with-hierarchical-b89cb730b7": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Chaotic systems contain temporal patterns at multiple scales, including long-range dependencies and rapid fluctuations. ChaosNexus is a foundation model for forecasting chaotic systems described by ordinary differential equations. It addresses the difficulty of representing these different timescales and the distinct frequency characteristics that vary from one system to another.",
+      "Its ScaleFormer architecture processes historical observations through a hierarchy of different patch sizes. This supports capturing extended temporal relationships while preserving high-frequency variation. Mixture-of-Experts layers within each block accommodate differences among systems. A learned frequency fingerprint also conditions the final predictions, giving the forecasting process a global representation of the system's spectral characteristics.",
+      "Evaluations on more than 9,000 synthetic systems report superior preservation of long-term attractor statistics alongside competitive accuracy at individual time points. These measure different aspects of forecasting: overall dynamical behavior and agreement with particular observations. In a real-world application, the model also achieves a reported zero-shot mean error below 1°C for five-day station-based weather forecasts. Together, the findings support the architecture's treatment of temporal and spectral structure."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d31b614881fba1b571398d34a30a0da462d5204a1f6a0f2135dfb533a4af9749",
+    "tldr": "ChaosNexus combines multiple temporal scales and frequency-aware forecasting to preserve chaotic-system behavior while maintaining competitive point-wise accuracy."
+  },
+  "icml-2026-diffuse-to-detect-bi-level-sample-rebalancing-with-pseudo-label-diffusion-for-point-supe-1fcfc84dfc": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Marking a single point on an infrared target requires less annotation work than outlining its full shape. However, training a detector from these points requires constructing fuller labels, which can become unstable in cluttered, low-contrast images. The paper addresses this problem together with severe imbalance in the distribution of training samples.",
+      "Its annotation strategy uses the consistency between thermal radiation patterns and heat diffusion to expand point labels into pseudo-masks. A bi-level optimization framework then jointly adjusts detector parameters, sample weights, and diffusion parameters. A meta-classifier predicts how much weight each sample's loss should receive, while a differentiable diffusion module uses detector feedback to refine the pseudo-labels.",
+      "This creates an adaptive relationship between what the detector learns, which examples receive emphasis, and how its training masks evolve. Across multiple datasets, the authors report five-fold faster annotation and superior detection accuracy. They also report comparable performance using 30% of the training data. These findings indicate that jointly improving supervision and sample weighting can make point-supervised infrared detection more efficient."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "986d9c7b81ff90f60f3c7616b369d60f7154100543a24257953bc7acdcdaa6a5",
+    "tldr": "The method turns infrared point labels into adaptive masks while jointly reweighting samples to improve detection and annotation efficiency."
+  },
+  "icml-2026-dllm-cache-accelerating-diffusion-large-language-models-with-adaptive-caching-f00062befe": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Diffusion language models generate text through repeated denoising of masked segments. Their bidirectional attention makes conventional autoregressive key-value caching incompatible with this process, contributing to high inference latency. This paper identifies a different opportunity for reuse: the prompt stays fixed, and most response tokens remain stable between neighboring denoising steps.",
+      "dLLM-Cache uses that stability in a training-free caching framework. It retains prompt computations over longer intervals and updates only selected response computations, guided by feature similarity. This separates the relatively static prompt from the partially changing response, allowing the system to reuse intermediate work while still responding to changes during generation.",
+      "Experiments include LLaDA 8B and Dream 7B. On LongBench-HotpotQA, the method achieves up to a 9.1-fold reduction in floating-point operations while maintaining competitive output quality. The authors also report inference latency approaching that of autoregressive models in many settings. The computation reduction and latency finding are distinct results: together, they show how adaptive reuse can reduce the practical cost of iterative text generation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "13c39af00716ea90b924ae9fb1ca0b83d76741e39c36e529e1ff12c5bcabc531",
+    "tldr": "dLLM-Cache reuses stable prompt and response computations to accelerate diffusion language models without additional training."
+  },
+  "icml-2026-error-propagation-mechanisms-and-compensation-strategies-for-quantized-diffusion-models-056fa5ca13": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Post-training quantization can accelerate diffusion image generation by reducing numerical precision. However, diffusion models repeatedly denoise an evolving image, so quantization errors introduced at one step can carry into later steps and accumulate. The paper studies this propagation directly to understand how small numerical errors affect the final generated output.",
+      "The authors develop a theoretical framework with equations describing error propagation at each denoising step. They also derive a closed-form expression for cumulative error, which they describe as the first such solution. Building on this analysis, they propose compensation that depends on the timestep, addressing accumulated error according to its place in the generation process.",
+      "Experiments across multiple image datasets show that the compensation improves existing post-training quantization methods by mitigating error propagation. In the reported SDXL W4A4 setting, it improves PSNR by 1.2 over SVDQuant while adding less than 0.5% time overhead. This result connects the theoretical account to a practical correction: improved fidelity in the tested setting with a very small additional time cost."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6fcee124bcd135108e0ac6d38abb485ca7889a60d338a911971bba5648f5ed8a",
+    "tldr": "The paper models accumulated quantization error in diffusion generation and uses timestep-aware compensation to improve fidelity with minimal overhead."
+  },
+  "icml-2026-flowcloud-learning-continuous-spatiotemporal-dynamics-from-unpaired-sparse-point-cloud-s-f8632f65df": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "FlowCloud reconstructs continuous dynamics from sparse point-cloud snapshots that may be separated in time and lack point-to-point matches. This setting arises in human motion and developmental biology. Following individual points or repeatedly propagating estimates between adjacent frames can be problematic when correspondences are unavailable and propagation errors accumulate.",
+      "The method combines all observed time points into a joint latent representation that initializes a Neural Ordinary Differential Equation. This provides a continuous evolving state. Training uses several complementary signals: Sinkhorn distance aligns overall distributions, Chamfer distance supports local geometric agreement, trajectory regularization encourages smooth and physically plausible movement, and supervised losses train predictions of additional attributes.",
+      "The framework therefore represents geometry together with attributes and population changes, including the kinds of dynamics relevant to gene expression. Experiments on human motion and developmental biology datasets report better interpolation and promising short-term extrapolation. These findings support recovering intermediate states from disconnected observations and extending predictions a short distance beyond them, while the shared continuous representation helps maintain temporal consistency."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6e7b535280dacd984195099257c904c1842bc0959137ebd8ba845077cde0f272",
+    "tldr": "FlowCloud learns continuous geometry, attribute, and population dynamics from sparse snapshots without predefined point correspondences."
+  },
+  "icml-2026-from-retrieval-to-translation-translating-query-into-graph-level-clues-for-retrieval-aug-f65491217a": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Retrieval-augmented generation supplies language models with external passages to support their answers. Adding trees or graphs can help organize retrieval, but the paper identifies two problems in existing structured systems: retrieval may stall, and meaning may drift as retrieval proceeds. It attributes these problems to weak structures and embeddings that miss textual details.",
+      "KG-Translator changes the retrieval process by translating a question into graph-level clues. First, lightweight models identify named entities and parse syntax in the source corpus to construct ParseKG. The system then uses constrained decoding to produce clues, follows those clues back to the original passages, and applies a lightweight ranking model to select relevant material.",
+      "The approach makes the connection between a query, graph structure, and source passages central to retrieval. Its parsing stage establishes the structure used by the later translation and tracing stages. Across five datasets, the authors report significant improvements over baselines. These results support translating queries into explicit structural clues as an effective way to retrieve passages for generation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c829bf2b570df2e2ef0c9731f7106aa1b99ea4ea0db055095eb54627a8c04f0b",
+    "tldr": "KG-Translator converts queries into graph clues that lead back to source passages, improving retrieval across five datasets."
+  },
+  "icml-2026-hierarchical-representations-for-cross-task-automated-heuristic-design-using-llms-96449de297": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Designing heuristics for difficult optimization problems often requires substantial expertise. Language models can help automate this work, but representing each heuristic only as a program tends to tie it to a particular task. The paper addresses how automated design can also discover reusable search strategies that transfer across related problems.",
+      "Multi-Task Hierarchical Search separates a general-purpose metaheuristic from its task-specific program implementation. An LLM-guided evolutionary process develops both levels together across multiple design tasks. A knowledge-transfer mechanism also allows the search to learn from elite programs produced for other tasks, connecting successful implementations with the broader process of developing reusable strategies.",
+      "The hierarchy gives the method a place to represent general search behavior while retaining the concrete code needed for each problem. On distinct combinatorial optimization problems, the authors report improvements over commonly used heuristics and existing LLM-based automated design methods. The evolved metaheuristics also show strong generalization to related tasks. These findings support hierarchical representations as a useful basis for automated heuristic design across multiple problems."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "81392de0627185af8bb761d73bf30edbabdfeca44bcd8e49a34427462c5e94a5",
+    "tldr": "MTHS jointly evolves reusable search strategies and task-specific programs, improving automated heuristic design and transfer to related tasks."
+  },
+  "icml-2026-hunt-instead-of-wait-evaluating-deep-data-research-on-large-language-models-2b9af8533d": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "An agent conducting research must decide what is worth investigating as well as carry out individual instructions. This paper calls that ability investigatory intelligence, distinguishing it from executional intelligence, which concerns completing assigned tasks. Database analysis provides a useful setting because meaningful work can begin with raw data before anyone specifies a precise question.",
+      "The authors introduce Deep Data Research, an open-ended task in which language models independently extract important insights from databases. They also create DDR-Bench, a large-scale benchmark that uses checklists to make evaluation verifiable. This pairs freedom in choosing what to investigate with a structured way to assess what the investigation actually discovers.",
+      "Results indicate that frontier models show emerging agency, while sustained exploration over long sequences of decisions remains difficult. The analysis also finds that effective investigation depends on models' intrinsic strategies, alongside agent scaffolding and scale. The contribution is therefore both a task definition and an evaluation framework for studying how agents choose directions, pursue discoveries, and sustain an investigation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "92c59f6a4df6ddfbdbaf2ae1705f7a6f35cfced94254e240fee10c7780a62f60",
+    "tldr": "DDR-Bench evaluates whether language models can independently investigate databases and discover insights, revealing difficulties with sustained exploration."
+  },
+  "icml-2026-improving-backward-conformal-prediction-via-non-conformity-score-transformation-b100e104b9": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Conformal prediction constructs sets of possible answers with coverage guarantees, but does not control how large those sets become. Backward Conformal Prediction reverses this arrangement: it imposes an upper limit on set size and estimates the coverage that can be guaranteed. This is useful when the number of returned possibilities is itself constrained.",
+      "The paper targets a gap between that estimated coverage bound and the coverage observed empirically. In the existing framework, using Markov's inequality introduces looseness into the bound. ST-BCP addresses this by applying a data-dependent transformation to nonconformity scores, the quantities used to assess how well candidate answers fit the prediction process.",
+      "The authors construct a computable transformation and prove that it improves on leaving the scores unchanged. Experiments on common benchmarks reduce the average coverage gap from 4.20% to 1.12%. The reported improvement concerns how tightly the guarantee reflects observed coverage. It strengthens the usefulness of the size-constrained framework by making its coverage assessment less conservative in the evaluated settings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6f634ad1272423864257333469d5a5253906acdb87d78380c9bd0062bb0105d6",
+    "tldr": "ST-BCP transforms nonconformity scores to tighten coverage bounds for prediction sets with a predefined size limit."
+  },
+  "icml-2026-krause-synchronization-transformers-c07f7ccc4b": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Standard Transformer attention uses globally normalized weights, making all tokens compete for influence. Repeating this interaction across layers can push representations toward a dominant mode, a behavior associated with representation collapse and attention sinks. The paper examines this tendency through the perspective of synchronization among interacting elements.",
+      "Krause Attention replaces global similarity-based aggregation with localized, distance-based interactions inspired by bounded-confidence consensus. Tokens interact selectively within local neighborhoods, encouraging structured local synchronization. The authors connect this mechanism to theories that treat Transformer representations as interacting particle systems and show how bounded-confidence interactions moderate attention concentration and alleviate attention sinks.",
+      "Restricting these interactions also reduces the stated runtime complexity from quadratic to linear in sequence length. Experiments span vision Transformers, autoregressive image generation, existing language models including Llama and Qwen, and language models trained from scratch at 100M and 200M scales. Across these evaluated settings, the authors report consistent performance gains and better computational efficiency. The findings support localized consensus dynamics as a useful design principle for attention."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e53238ba0fa4d393af804b0c4bc0045e5fca0f841f639b8764c23fcbc66cd4ab",
+    "tldr": "Krause Attention uses selective local interactions to reduce attention concentration and computational cost while improving performance across evaluated domains."
+  },
+  "icml-2026-lookahead-path-likelihood-optimization-for-diffusion-llms-79790e28ac": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Diffusion language models can fill masked positions in different orders, and that order strongly affects their performance. Choosing the next position solely from immediate confidence provides limited guidance about whether the whole generation path will be accurate and consistent. This paper develops an objective and search method that account for future decoding decisions.",
+      "The proposed path log-likelihood objective evaluates a decoding trajectory in light of the path taken so far. The authors find that it strongly correlates with downstream accuracy. POKE estimates the expected future value of this objective from a partial trajectory, providing a lookahead signal. POKE-SMC incorporates that estimate into a Sequential Monte Carlo search over unmasking paths.",
+      "Across six reasoning tasks using LLaDA models, POKE-SMC consistently improves accuracy, with reported average gains of 2%–3% over strong decoding-time scaling baselines at comparable inference overhead. The results improve the observed accuracy–compute tradeoff. They support choosing decoding steps with a forecast of future path quality, extending the information available beyond immediate token confidence."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b3a0791763357c4c87d28168d6d2184c26c8e86e8bc30ca9f0e10b4f05b77aa0",
+    "tldr": "POKE-SMC improves diffusion-language-model reasoning by using predicted future path likelihood to guide the order of unmasking."
+  },
+  "icml-2026-modeling-spectral-energy-shifts-in-spatio-temporal-graph-anomaly-detection-c9d8625c91": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Graph anomaly detection aims to identify unusual nodes through their relationships and attributes. Existing spectral methods look for increased variation in energy distributions, but the paper identifies another pattern: anomalies can reduce variation and appear deceptively normal. The authors find these camouflaged anomalies across multiple datasets and show that existing spectral approaches miss them.",
+      "To detect this pattern, they formulate spectral energy at the node level in a way that works directly with message passing. Their energy-aware graph learning framework then models shifts in energy through the messages exchanged among nodes. This allows the learning process to address the overlooked direction of spectral change.",
+      "The same architecture handles static graphs and graphs observed over time, without adding specialized sequence modules for temporal processing. The authors report efficient learning with long sliding windows and effective, scalable performance on large benchmarks. The contribution broadens the spectral patterns that anomaly detectors can use while retaining a unified graph-learning approach across static and temporal settings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "46f1335d5cdc7d2684341964b491491ceb81d2472b69944329adf6a78376a410",
+    "tldr": "The method detects camouflaged graph anomalies by modeling spectral energy shifts that existing increased-variation approaches overlook."
+  },
+  "icml-2026-neural-implicit-action-fields-from-discrete-waypoints-to-continuous-functions-for-vision-e3c3c3da40": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Vision-language-action models commonly predict robot movements as chunks of discrete waypoints. The paper argues that this representation fits fixed-rate data collection but poorly matches continuous physical motion. It ties actions to particular sampling rates, introduces quantization artifacts, and does not naturally provide analytically consistent derivatives for smooth, precise control.",
+      "Neural Implicit Action Fields represents each action chunk as a continuous function of time. A vision-language model acts as a hierarchical spectral modulator over a learned motion prior to generate these functions. The resulting actions can be evaluated at arbitrary temporal resolution and differentiated analytically, connecting the predicted motion directly to its velocity and higher-order derivatives.",
+      "This allows explicit velocity supervision and regularization of higher-order derivative signals to encourage consistent, physically plausible, smooth movement. The authors report strong results on CALVIN and LIBERO across multiple backbones. Real-world experiments also demonstrate support for stable impedance control. Together, the results connect a continuous policy representation with the smooth execution needed for compliant physical interaction."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f19fc95fe9e29f492544f0707a4f155e51a17587ddb050e6e819eb1e27213831",
+    "tldr": "NIAF represents robot action chunks as continuous functions, enabling flexible sampling and derivative-based supervision for smoother control."
+  },
+  "icml-2026-provable-training-data-identification-for-large-language-models-6f05a39edb": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Determining whether examples were used to train a language model matters for auditing and evaluation. The paper argues that judging examples individually is insufficient when the goal is statistically reliable evidence about an identified collection. PTDI therefore treats training-data identification as a set-level inference problem with explicit control over false identifications.",
+      "The method requires a collection of data known to be unseen during training. It uses this reference set to calculate conformal p-values for candidate examples. A Jackknife-corrected Beta boundary estimator then estimates the proportion of training examples in the candidate set, allowing the p-values to be scaled before applying the Benjamini–Hochberg selection procedure.",
+      "The resulting distribution-free approach provides provable, strict control of the false identification rate for the selected subset. This is a guarantee about errors in the identified set, rather than certainty about every individual example. Experiments across models and datasets report higher power than prior methods while retaining the stated error control, supporting more effective identification within a statistically controlled procedure."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5c9fbe60c4e2a93e50317108490e3209fd85e7450495801270b8a0a24418e5c5",
+    "tldr": "PTDI identifies sets of likely training examples with provable false identification rate control using known unseen data."
+  },
+  "icml-2026-redvisor-reasoning-aware-prompt-injection-defense-via-zero-copy-kv-cache-reuse-600da2610a": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Prompt injection hides adversarial instructions in retrieved material to redirect a language model's behavior. RedVisor combines attack detection with guidance for producing a safe response. It targets the tradeoff between defenses that can degrade normal usefulness through fine-tuning and separate detection pipelines that impose substantial latency and memory costs.",
+      "A lightweight removable adapter sits on a frozen backbone and operates during a dedicated reasoning phase. It produces an explanation locating the injection and describing the threat, which then conditions the model to reject the malicious instruction. The adapter is muted during subsequent response generation. The authors state that this architecture mathematically preserves the backbone's original utility on benign inputs.",
+      "The design also enables reuse of the key-value cache, avoiding redundant prefill computation between detection and response stages. The authors integrate the defense into vLLM using custom kernels. Experiments report better detection accuracy and throughput than state-of-the-art defenses with negligible utility loss. These findings connect interpretable attack analysis with an implementation designed for efficient serving."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b8427cb70f5b1ab716aa3529f00fa02d7cd8867891e59c621f2fdbd1f8ac0911",
+    "tldr": "RedVisor uses a temporary reasoning adapter to detect prompt injections and guide safe responses while reusing cached computation."
+  },
+  "icml-2026-resolution-as-a-direction-vector-panning-feature-alignment-for-cross-resolution-re-ident-f9a2d9b6df": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Person re-identification becomes harder when a low-resolution query must be matched against high-resolution reference images. Differences in camera quality or capture distance can shift the extracted features. The paper investigates that mismatch directly, seeking an efficient way to align representations produced at different resolutions.",
+      "In an analysis that averages out identity-specific variation, the authors find a consistent resolution-related direction in the feature differences produced by standard re-identification backbones. Canonical Correlation Analysis and Pearson correlation analyses support this empirical observation. Motivated by it, Vector Panning Feature Alignment learns to shift low-resolution features along a learned resolution direction, producing pseudo-high-resolution representations.",
+      "VPFA operates after feature extraction and can be added to existing systems with negligible overhead. This makes feature alignment a lightweight additional stage in the recognition pipeline. Experiments on multiple cross-resolution benchmarks report state-of-the-art performance and better efficiency than super-resolution-based or jointly trained alternatives. The findings support using the observed directional structure of resolution mismatch to improve matching without reconstructing higher-resolution input images."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3caedca0c99a15e5a3260972eb138dbb9389af7a37869fa618c1454968c5be2e",
+    "tldr": "VPFA improves cross-resolution person matching by shifting low-resolution features along an empirically observed resolution-related direction."
+  },
+  "icml-2026-safeharbor-defining-precise-decision-boundaries-via-hierarchical-memory-augmented-guardr-5988e5c68f": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Agents that reason and execute tools can be manipulated into harmful actions, but aggressive defenses can also block legitimate requests. SafeHarbor aims to sharpen the boundary between these cases. Its central idea is to supply context-sensitive defense rules through a changing memory system, helping the guardrail distinguish benign ambiguity from malicious intent.",
+      "The framework extracts rules through enhanced adversarial generation and stores them in a local hierarchical memory. Relevant rules can then be injected dynamically without retraining the agent. An information-entropy-based mechanism updates the memory structure by splitting and merging nodes, allowing the organization of defensive knowledge to evolve over time.",
+      "Experiments cover both ambiguous benign tasks and explicitly malicious attacks. The authors report state-of-the-art performance, including peak benign utility of 63.6% on GPT-4o while maintaining a refusal rate above 93% for harmful requests. These figures describe the evaluated safety–utility balance. The results support a training-free, plug-and-play guardrail that uses adaptive rule organization to improve decisions about when an agent should comply or refuse."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d919c6acbaff9e58db629e6a497edef89435711ec3090b6c18bff871b480403b",
+    "tldr": "SafeHarbor dynamically supplies context-aware safety rules from hierarchical memory to balance harmful-request refusal with benign usefulness."
+  },
+  "icml-2026-tabswift-an-efficient-tabular-foundation-model-with-row-wise-attention-bd7339b7a8": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Tabular foundation models predict test labels directly from labeled examples supplied in context. They can perform competitively on small-to-medium datasets, but increasingly complex architectures raise inference costs. TabSwift revisits the original TabPFN design to investigate how much performance a simpler backbone can retain with a small number of targeted enhancements.",
+      "The model uses only row-wise attention in its backbone. A gating mechanism stabilizes attention, while a small collection of learned register tokens supplies global context and improves pretraining quality. These additions support both classification and regression while keeping the central architecture lightweight. The authors report competitive performance against stronger models such as TabPFN v2 and TabICL, with more efficient inference.",
+      "For applications where response time matters, TabSwift also introduces adaptive early exit across layers. This adjusts inference depth separately for each sample, making computation responsive to the prediction being processed. Together, the compact architecture and variable-depth inference support efficient, anytime tabular prediction, with the reported results showing that architectural complexity is not required for competitive performance in the evaluated settings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b104a441b54e7b141b9447d82aee8cf09a5e707a87f610ec3933cbf52e92216c",
+    "tldr": "TabSwift combines a lightweight row-attention backbone with stabilization, global-context tokens, and adaptive early exit for efficient tabular prediction."
+  },
+  "icml-2026-todoevolve-learning-to-architect-agent-planning-systems-e3518b5ef4": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Agents tackling long tasks need planning structures that fit the problems they encounter. Fixed, manually designed planners can lack flexibility across open-ended tasks. TodoEvolve addresses this by learning to construct and revise the planning architecture itself, making the organization of planning an adaptive part of the agent system.",
+      "The authors first build PlanFactory, a shared codebase and modular design space covering planning topology, initialization, adaptation, and navigation. This provides a common interface for different planning patterns. They then collect high-quality planning trajectories and train Todo-14B using Impedance-Guided Preference Optimization, a multi-objective reinforcement learning objective that encourages performance, stability, and efficient token use.",
+      "The resulting model synthesizes task-specific planning systems and can update them dynamically as planning proceeds. Across five agentic benchmarks, TodoEvolve consistently outperforms carefully engineered planning modules while maintaining economical API costs and runtime overhead. These findings support learning how to organize an agent's planning process, alongside the decisions made within that process, as a practical way to improve performance across evaluated tasks."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "86bbe229346768924284de23a4f7925b60ae2a9680c7e305cb9550b45c8f2972",
+    "tldr": "TodoEvolve learns to generate and revise task-specific planning architectures, improving agent performance while keeping costs economical."
+  },
+  "icml-2026-towards-the-explainability-of-temporal-graph-networks-via-memory-backtracking-and-topolo-d31f2781d6": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Temporal Graph Networks retain information about earlier events in node memories, so explaining a prediction requires tracing how those memories were formed. The paper argues that existing explanation methods overlook this central mechanism. Its method connects the graph relationships used for a prediction with the historical events recorded inside node states.",
+      "A topology attribution tree first tracks the influence of neighboring nodes and their memory vectors. A memory backtracking tree then quantifies how past events contributed to those vectors. The authors apply layer-wise relevance propagation so that total event contributions equal the model's logits, the scores that precede conversion into prediction probabilities.",
+      "The paper also observes that simply choosing the highest-ranked events may produce unfaithful explanations because logits map nonlinearly to probabilities. It therefore introduces optimization objectives for selecting important events. Experiments on nine temporal graph datasets cover node property prediction, link prediction, and graph classification. The reported explanations are faithful and outperform state-of-the-art baselines, supporting explicit memory tracing as a way to explain predictions grounded in event history."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "71897c80cfcdc984a45aa6f876b384e2c1d223b801ae4a85560850f0c4ce183a",
+    "tldr": "The method explains Temporal Graph Network predictions by tracing both neighbor influence and the historical events embedded in node memory."
+  },
+  "icml-2026-unirtl-unifying-code-and-graph-for-robust-rtl-representation-learning-7a7b52a429": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Learning useful representations of register transfer level designs can accelerate hardware design tasks. UniRTL combines two complementary views: code explicitly expresses semantic and functional information, while a control data flow graph exposes the design's structure. The paper argues that relying on either view alone restricts the expressiveness and generalization of the resulting representation.",
+      "UniRTL is a multimodal pretraining framework that aligns code and graph information through mutual masked modeling. Its hierarchical training process includes a pretrained graph-aware tokenizer. It first aligns functional summaries with code, then integrates the graph view, building the unified representation through staged alignment rather than treating all information as an undifferentiated input.",
+      "The authors evaluate the learned representations on performance prediction and code retrieval under multiple settings. UniRTL consistently outperforms prior methods in these experiments. The two tasks test complementary uses of the representation: estimating design performance and finding relevant code. Together, the results support combining functional meaning with structural relationships to build a more robust foundation for hardware design automation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8ba7ad081bd463b2aae559714fac4a3555f4e557beaad7376e141ca38bf18dc1",
+    "tldr": "UniRTL aligns RTL code, functional summaries, and control data flow graphs to improve performance prediction and code retrieval."
+  },
+  "icml-2026-when-replanning-becomes-the-bottleneck-budgeted-replanning-for-embodied-agents-819f7dab6c": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Embodied agents replan to handle execution drift, incomplete observations, and coordination problems. As accumulated textual context grows, some replanning calls become exceptionally slow and miss real-time deadlines, even when overall task success remains high. The paper focuses on these latency tails, which averages and success rates alone can conceal.",
+      "BRACE treats replanning as a budgeted control loop. It decides whether to replan, chooses a mode, and assigns token and latency targets while accounting for optional efficiency modules. Its reusable E-RECAP component predicts token usefulness and progressively prunes context across Transformer layers, preserving critical tokens at the beginning and end.",
+      "Across Meta Habitat, RoboFactory, and AirSim, the combined system reduces replanning tokens by 62–92%. Where success is already saturated, deadline violation rates fall from 85.5–100.0% to 4.7–50.0%. In a harder RoboFactory setting where the reported comparison methods fail, it reaches 80.0% success with 4.6% violations. These findings show that explicit per-call budgeting can improve timing reliability and, in the harder setting, task completion."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b56c320869204023941cc776b66e2320af4779c190d38beec55ac0abf4acadbb",
+    "tldr": "BRACE budgets each replanning call and prunes context to reduce deadline violations while supporting embodied-agent task success."
+  }
+}

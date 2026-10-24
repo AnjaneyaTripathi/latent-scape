@@ -1,0 +1,377 @@
+{
+  "icml-2025-almtokenizer-a-low-bitrate-and-semantic-rich-audio-codec-tokenizer-for-audio-language-mo-9d4f462e0c": {
+    "backgroundConcepts": [
+      "topic-077-voice-benchmarking-full-duplex-voice-agents-on-r"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Audio tokenization turns a continuous sound signal into discrete units that a language model can process. The paper asks how those units can carry more meaning while requiring less data. It identifies a weakness in earlier approaches such as Encodec: encoding individual frames without explicitly using context across frames can miss information that emerges over a longer stretch of audio.",
+      "ALMTokenizer introduces learnable query tokens that gather information across frames. These queries provide a way to compress audio using its broader context, producing shorter token sequences while capturing more semantic information. The method also adds three mechanisms intended to strengthen that information: a masked autoencoder loss, vector quantization guided by semantic priors, and an autoregressive prediction loss.",
+      "The reported results connect compression quality with usefulness for language modeling. ALMTokenizer reconstructs audio competitively with leading approaches while using a lower bitrate. When evaluated within the same audio language model framework, it improves both understanding and generation over earlier tokenizers. This comparison supports the value of its audio representation for downstream tasks."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b975e0eab1e71c5dbf61ca60472f36e508105ab414aa8110680957d29c71eda9",
+    "tldr": "ALMTokenizer uses context across audio frames to produce compact, semantically informative tokens that improve audio understanding and generation."
+  },
+  "icml-2025-bame-block-aware-mask-evolution-for-efficient-n-m-sparse-training-8cbe197588": {
+    "backgroundConcepts": [
+      "topic-001-a-fast-post-training-pruning-framework-for-trans"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "N:M sparsity constrains each group of M consecutive weights to contain at most N nonzero values. This structured compression can produce practical speedups, but finding a useful sparse pattern can itself be expensive. Many existing methods still update every weight during backward propagation, keeping a substantial part of training dense even when the forward computation is sparse.",
+      "BAME maintains sparsity in both forward and backward propagation throughout training. It adapts the mask, which specifies which weights remain active, by pruning and regrowing weights within selected blocks. Block selection combines two signals: how often the mask has changed and how much loss reduction a mask adjustment is expected to provide. This directs adaptation toward selected portions of the model.",
+      "The experiments report performance comparable to or better than methods that retain dense backward propagation. One example reaches 72.0% top-1 accuracy for a 1:16 sparse ResNet-50 on ImageNet, exceeding SR-STE while reducing training computation. The finding matters because it demonstrates that updating the sparse pattern need not require dense gradient computation throughout training."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f000eda4457d228c59824a4d734d13379d2fb88d9ada6fad010a6be55af5f194",
+    "tldr": "BAME adapts structured sparse masks while keeping both forward and backward training computations sparse."
+  },
+  "icml-2025-cabs-conflict-aware-and-balanced-sparsification-for-enhancing-model-merging-559f227f32": {
+    "backgroundConcepts": [
+      "topic-060-learning-to-branch-for-multi-task-learning"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Model merging combines models trained for different tasks into a single multitask model without retraining. In the setting studied here, each specialized model shares a base model, and its task vector records the parameter changes made during fine-tuning. Combining these vectors can create conflicts when different tasks depend on incompatible changes to the same parameters.",
+      "The paper identifies two problems with existing attempts to reduce those conflicts through sparsification: retained parameters still overlap substantially, and the remaining weights are distributed unevenly. CABS addresses them with two components. Conflict-Aware Sparsification applies masks during sequential pruning so that task vectors retain distinct, non-overlapping parameters. Balanced Sparsification uses n:m pruning to preserve important weights while keeping their distribution across layers even.",
+      "These components address different aspects of the merge: which tasks retain particular parameter locations, and how the retained weights are distributed. Experiments across varied tasks and model sizes report improvements over leading merging methods. The findings support treating overlap and balance together when deciding which fine-tuning changes should survive a merge."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0b7defe8c5f6e7ed2d8bd457a4cf0a7805d1016f4d8c8900ca23c3329308ccb2",
+    "tldr": "CABS improves model merging by assigning task vectors non-overlapping parameters and balancing retained weights across layers."
+  },
+  "icml-2025-cannot-see-the-forest-for-the-trees-invoking-heuristics-and-biases-to-elicit-irrational--0228fff011": {
+    "backgroundConcepts": [
+      "topic-049-a-coin-flip-for-safety-llm-judges-fail-to-reliab"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies how language-model safety mechanisms can fail under prompts designed around ideas from human cognitive biases. Its proposed framework, ICRT, investigates vulnerabilities through the organization and perceived complexity of requests. The motivation is that brute-force optimization and manually designed attacks may leave important risks in realistic interactions unexplored.",
+      "At a conceptual level, ICRT combines two ideas. Cognitive decomposition draws on the simplicity effect to reduce the complexity of malicious prompts. Prompt reorganization draws on relevance bias to strengthen semantic alignment. The paper uses these concepts as design principles for eliciting harmful responses; this framing does not itself establish that language models possess the same cognitive processes as humans.",
+      "The work also proposes assessing harmful outputs through rankings rather than only classifying attacks as successful or unsuccessful. It aggregates rankings using Elo, HodgeRank, and Rank Centrality to quantify differences in harmfulness. Experiments report consistent safety bypasses and high-risk outputs across mainstream models. Together, the attack framework and evaluation method examine both vulnerability and the severity of resulting content."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "dbe7c790794cff8c855423778a4351500dfd0cbda7b3457f93b72a5a9aac8599",
+    "tldr": "ICRT studies jailbreaks inspired by cognitive biases and introduces ranking-based evaluation of harmful outputs."
+  },
+  "icml-2025-concept-centric-token-interpretation-for-vector-quantized-generative-models-96e3fbae84": {
+    "backgroundConcepts": [
+      "topic-183-artificial-spectator-developing-ai-audiences-for"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Vector-quantized generative models build images using discrete tokens drawn from a learned codebook. Although these models can generate compelling images, the role of individual tokens and their combinations is difficult to understand. This paper focuses on a concrete interpretation question: which combinations of tokens matter for generating a particular concept?",
+      "CORTEX, short for Concept-Oriented Token Explanation, addresses that question at two levels. Its sample-level method assigns importance to tokens within individual images, explaining their contribution in a specific example. Its codebook-level method searches across the full token collection to identify tokens with broader relevance to a concept. The two views connect explanations of particular outputs with the model's overall vocabulary.",
+      "Experiments across multiple pretrained models report clearer explanations of token usage and better results than the evaluated baselines. The paper also shows usefulness for targeted image editing and detecting shortcut features. These applications make interpretation actionable: identifying concept-related token combinations can help locate what to change in an image or what unintended cues a model may be using."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "04e695c8d8f40e6fb28cfbcc77e749cfcaf84f8caaf30d8cc67f75bbf2f5836d",
+    "tldr": "CORTEX explains image-generation codebooks by identifying token combinations associated with specific concepts."
+  },
+  "icml-2025-disentangled-graph-spectral-domain-adaptation-438bd2bdd3": {
+    "backgroundConcepts": [
+      "topic-179-s-2-fgl-spatial-spectral-federated-graph-learnin"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Graph models face a difficult transfer problem when the data distribution changes and labels are scarce. Their representations combine node attributes with graph connectivity, so aligning representations across domains can mix together two different sources of mismatch. Existing approaches that align topology also depend on the expressiveness of their topology model and the quality of estimated labels.",
+      "DGSDA separates attribute alignment from topology alignment and works directly with flexible graph spectral filters. These filters offer a way to describe how graph structure influences the representation. The method approximates them with Bernstein polynomials, allowing it to capture complicated topological characteristics without performing an expensive eigenvalue decomposition. This changes both the object being aligned and the computational machinery used to represent it.",
+      "The paper provides a tight graph domain adaptation bound and theoretical support for regularizing the polynomial coefficients. Quantitative and qualitative experiments report advantages over the compared methods. Together, these findings support separating the sources of domain shift and aligning structural behavior through spectral filters, rather than relying only on a combined embedding."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c697d79d9409b837632b42e33d3cc0e7b833ae48428fb02c51029439513b4750",
+    "tldr": "DGSDA separates attribute and topology alignment and uses polynomial graph spectral filters to improve adaptation across graph domains."
+  },
+  "icml-2025-do-we-really-need-message-passing-in-brain-network-modeling-09c1696c58": {
+    "backgroundConcepts": [
+      "topic-173-a-complete-expressiveness-hierarchy-for-subgraph"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper questions a common modeling choice for brain networks: using message passing to combine information across connected brain regions. Its analysis concerns networks constructed from pairwise Pearson correlation coefficients between regions of interest. For this construction, theoretical analysis and experiments indicate that the message-passing capabilities of graph neural networks and Transformers cannot be fully exploited.",
+      "The authors compare matrix multiplication, the matrix form of message passing, with the Hadamard product, which multiplies corresponding entries individually. They observe substantial performance and efficiency advantages for the latter when processing these brain networks. This motivates the Brain Quadratic Network, or BQN, which incorporates quadratic networks with stronger universal approximation properties.",
+      "Theoretical analysis further shows that BQN implicitly performs community detection while learning representations. Its learned representation therefore also captures grouping structure within the network. Evaluations report better results than message-passing approaches to brain network modeling. The conclusion is tied to the correlation-based construction examined in the paper: it supports reconsidering the computation used for these networks, rather than establishing that message passing is unnecessary for every graph."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "637b347761c5797f5dad8e16ed8de8efac156db604f7c1c73c9bc768850ec3a1",
+    "tldr": "For correlation-based brain networks, BQN uses quadratic modeling to improve performance and efficiency over message-passing approaches."
+  },
+  "icml-2025-embodiedbench-comprehensive-benchmarking-multi-modal-large-language-models-for-vision-dr-d356d1a517": {
+    "backgroundConcepts": [
+      "topic-004-3d-vla-a-3d-vision-language-action-generative-wo"
+    ],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "EmbodiedBench evaluates multimodal language models as agents that use visual information to act in an environment. The paper addresses a gap in evaluation: language-centered agents have received considerable attention, while vision-driven agents have lacked a comprehensive framework for assessing their abilities. A model's ability to understand a request is only one part of completing an embodied task.",
+      "The benchmark contains 1,128 tasks across four environments. These span high-level semantic tasks, such as household activities, and low-level actions involving navigation and manipulation. Six curated subsets examine capabilities including commonsense reasoning, understanding complex instructions, spatial awareness, visual perception, and long-term planning. This structure allows evaluation across different demands instead of treating embodied performance as a single undifferentiated ability.",
+      "The authors test 24 proprietary and open-source models. They find strong performance on high-level tasks but substantial difficulty with low-level manipulation; the best model, GPT-4o, achieves an average score of 28.9%. These results identify a gap between broad task understanding and effective action, while providing a standardized platform for tracking improvements across those capabilities."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c670c9c1e60cab71af20cd9cf6bf2cab3be1945538ad25b73850ac7ac6416b40",
+    "tldr": "EmbodiedBench tests vision-driven agents across 1,128 tasks and reveals substantial weaknesses in low-level manipulation."
+  },
+  "icml-2025-evolving-minds-logic-informed-inference-from-temporal-action-patterns-008739ed8f": {
+    "backgroundConcepts": [
+      "topic-087-reinforcement-learning-with-prototypical-represe"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Inferring intentions and desires from behavior is difficult because actions happen at irregular times and the mental events behind them are unobserved. This paper models both the timing of actions and their relationship to hidden mental events. Its goal is to recover sequences of those events while predicting how a person may act next.",
+      "The framework combines a temporal point process with logic rules used as prior guidance. The rules influence the process's intensity function, which describes when events are likely to occur. This gives the model structured guidance about relationships between actions and mental events and reduces its dependence on large datasets. Learning uses amortized variational Expectation-Maximization to jointly optimize the model, logic rules, and inference networks.",
+      "Because directly inferring the hidden mental states is intractable, the method approximates their posterior distribution with a discrete-time renewal process. Experiments on synthetic and real-world datasets report better mental-state inference and action prediction than existing approaches. The contribution is a combined account of irregular timing, logical structure, and hidden event sequences for modeling human behavior."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4ddec0b9d33b61e63975cb46235b303b1a27a0e8addd083a068af3c81adbeef6",
+    "tldr": "The framework combines logical guidance and temporal event modeling to infer hidden mental-event sequences and predict actions."
+  },
+  "icml-2025-federated-disentangled-tuning-with-textual-prior-decoupling-and-visual-dynamic-adaptatio-be79b81b6e": {
+    "backgroundConcepts": [
+      "topic-029-delta-mathrm-energy-optimizing-energy-change-dur"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Adapting vision-language models across distributed participants is difficult when each participant has a different data distribution. Parameter-efficient fine-tuning limits how much of the model must change, but collaboration still needs to accommodate those differences. FedDDA targets this personalization problem by addressing both the language prompts used for adaptation and the visual features aligned with them.",
+      "The paper identifies two weaknesses in existing personalized methods. Combining decoupled prompts at the feature level can undermine their textual properties, while diverse visual features make direct image-text alignment difficult. FedDDA uses prior knowledge to guide prompt decoupling and preserve coherent linguistic context. It also introduces a visual adaptation model that reshapes the visual representation to align more effectively with the text representation.",
+      "These two components treat textual coherence and visual diversity as linked parts of distributed adaptation. Experiments on multiple image classification tasks show effectiveness in addressing heterogeneous participant data. The findings support adapting both sides of the vision-language relationship: preserving useful structure in prompts while changing the visual space to improve their alignment."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ac9449ca8e07f1d11c8653b1142007177e6857d98c678029236fdf9683843010",
+    "tldr": "FedDDA combines text-prior-guided prompt decoupling with visual adaptation to handle heterogeneous data in federated vision-language tuning."
+  },
+  "icml-2025-generative-audio-language-modeling-with-continuous-valued-tokens-and-masked-next-token-p-3d861c9f69": {
+    "backgroundConcepts": [
+      "topic-077-voice-benchmarking-full-duplex-voice-agents-on-r"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Language models commonly generate sequences by predicting the next discrete token. Audio presents a different problem because the underlying signal is continuous. This paper investigates a causal language model that generates continuous-valued audio tokens directly, using a diffusion process for each token to model the distribution of what should come next.",
+      "The authors also introduce masked next-token prediction, bringing masked prediction into the causal language-model framework. The method therefore changes both the token representation and the prediction task. Continuous-valued tokens retain a continuous modeling target, while token-wise diffusion provides the mechanism for predicting it within sequential generation.",
+      "On AudioCaps, the continuous-token approach reports relative improvements of 20% in Frechet Audio Distance and 40% in KL divergence over AudioGen. With masked next-token prediction, the reported relative FAD improvements are 41% over AudioGen Base and 33% over AudioGen Large, with results comparable to leading diffusion models. The proposed Base and Large models contain 193 million and 462 million parameters, respectively. These findings support continuous audio generation within a causal framework at smaller model sizes than the named AudioGen comparisons."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a7317e35cb8d41a3fd8b6a102ed955006ee3157783643a44684c68f1ae9965f8",
+    "tldr": "Continuous-valued audio tokens and masked next-token prediction improve reported audio-generation metrics with fewer parameters than the compared AudioGen models."
+  },
+  "icml-2025-haplovl-a-single-transformer-baseline-for-multi-modal-understanding-1f6e508caf": {
+    "backgroundConcepts": [
+      "topic-121-pi-tuning-transferring-multimodal-foundation-mod"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Many large multimodal models process visual and textual information with separate components. Native multimodal models instead seek to handle both within a single Transformer, but the paper identifies two obstacles: substantial resource requirements and performance gaps relative to compositional models. HaploVL presents a baseline intended to make this unified approach more effective and efficient.",
+      "The model uses early fusion, bringing multimodal inputs together near the beginning of processing. It then produces responses to visual instructions autoregressively, generating the response sequentially. A second contribution is the training recipe, which draws on knowledge from pretrained models. This recipe is designed to address both the difficulty of achieving strong performance and the resources required to train a unified model.",
+      "The reported results exceed those of other evaluated single-Transformer multimodal models and substantially narrow the gap with compositional alternatives. The claim is a reduction of that gap, rather than complete elimination. The work provides a concrete baseline for studying how early integration and pretrained knowledge can strengthen end-to-end multimodal understanding in one Transformer."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e29e4b1f27d852c86238d314089d8e99c3a40b3d64606a63c0916f0c294375c7",
+    "tldr": "HaploVL combines early multimodal fusion with an efficient training recipe to strengthen a single-Transformer vision-language model."
+  },
+  "icml-2025-hgformer-hyperbolic-graph-transformer-for-collaborative-filtering-0a962fbc39": {
+    "backgroundConcepts": [
+      "topic-179-s-2-fgl-spatial-spectral-federated-graph-learnin"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Collaborative filtering predicts preferences from past interactions between users and items. Graph neural networks can model this interaction structure, but the paper identifies limitations in local structure modeling and distortion in learned embeddings. Hgformer addresses these issues with a hyperbolic graph architecture aimed at improving recommendations, including the long-tail problem.",
+      "The architecture combines local and global processing. A Local Hyperbolic Graph Convolutional Network performs graph convolution entirely within the hyperbolic manifold to capture each node's neighborhood. A Hyperbolic Transformer adds cross-attention to capture global information. Using both components allows the model to combine nearby interaction structure with information beyond the local neighborhood.",
+      "To make the global component feasible on large datasets, the authors introduce an unbiased approximation to cross-attention with linear computational complexity and a theoretical guarantee on approximation error. Experiments report better performance than leading collaborative filtering methods and substantial mitigation of the long-tail issue. The contribution joins a representation choice, a local-global architecture, and an efficient attention approximation in one recommendation model."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0cfff1196336efaae0d9e488504accca5f82d0bd5db4955e7e8aa58899299e55",
+    "tldr": "Hgformer combines local hyperbolic graph convolution and efficient global attention to improve collaborative filtering and mitigate long-tail problems."
+  },
+  "icml-2025-hyperiv-real-time-implied-volatility-smoothing-defdc05930": {
+    "backgroundConcepts": [
+      "topic-069-pscaling-small-models-principled-warm-starts-and"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "HyperIV addresses the problem of constructing a complete implied-volatility surface from a small set of market observations. Such a surface needs to adapt quickly as market conditions change. The paper replaces traditional calibration with a learned mechanism that produces the parameters needed to construct the surface, targeting the demands of real-time use.",
+      "The mechanism is a hypernetwork: a neural network that generates parameters for another network. Here, it supplies a compact neural network that builds the volatility surface. The authors report constructing complete surfaces within two milliseconds from nine market observations. They also guarantee that the resulting surfaces are free of static arbitrage, adding a financial consistency property to the speed and data-efficiency claims.",
+      "Experiments across eight index options report better accuracy than existing methods while preserving computational efficiency. The model also shows strong cross-asset generalization, suggesting applicability beyond a single instrument. These findings make the combination significant: sparse observations, rapid surface construction, and a stated arbitrage guarantee address different requirements of real-time trading applications."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0822ccb592b6d7f454508695627f097094517db0dde744882d6ac2ca71be1aee",
+    "tldr": "HyperIV generates statically arbitrage-free volatility surfaces within two milliseconds from nine market observations using a hypernetwork."
+  },
+  "icml-2025-improved-discretization-complexity-analysis-of-consistency-models-variance-exploding-for-f4f105392b": {
+    "backgroundConcepts": [
+      "topic-200-do-diffusion-models-dream-of-electric-planes-dis"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Consistency models can generate samples in one step, but training them involves a diffusion process divided into K time points. This paper studies how large K needs to be. That training discretization cost is distinct from the number of steps used to generate a sample, so fast generation alone does not resolve the theoretical training question.",
+      "The authors identify a mismatch between earlier theory and empirical practice. Previous analyses considered variance-preserving diffusion with uniform step sizes, while practical consistency models use variance-exploding diffusion and decaying step sizes. The paper analyzes the latter combination and proves improved discretization complexity, described as state of the art for consistency models and competitive with results for diffusion models.",
+      "The analysis also examines two-step sampling, an approach previously introduced to balance computation and performance. It shows that allowing two generation steps improves discretization complexity compared with one-step generation. The contribution is therefore theoretical support for practical design choices: both the diffusion schedule used in training and the number of sampling steps affect the complexity guarantees."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9922c3a43ce750b32200d0457840cf3dd491a16d4ca299079323fba831180738",
+    "tldr": "The paper tightens consistency-model discretization bounds by analyzing practical diffusion schedules and shows a benefit from two-step sampling."
+  },
+  "icml-2025-incentivize-without-bonus-provably-efficient-model-based-online-multi-agent-rl-for-marko-abd0869795": {
+    "backgroundConcepts": [
+      "topic-076-varepsilon-fractional-core-stability-in-hedonic-"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "In multi-agent reinforcement learning, agents must learn about a shared unknown environment while responding to one another. Markov games formalize this problem, with learning often aimed at reaching an equilibrium efficiently. Existing sample-efficient methods can require specialized uncertainty estimates for the chosen function approximation or carefully coordinated updates among players.",
+      "VMG encourages exploration by changing how the environment model is estimated. It favors model parameters with larger collective best-response values: values reflecting how well each player could do when the others' policies are fixed. This bias encourages departures from the current equilibrium to gather more information. The algorithm permits simultaneous, uncoupled policy updates and does not require a separate design for each form of function approximation.",
+      "The theoretical guarantees have a specific scope: online learning with linear function approximation. Within that setting, VMG achieves near-optimal regret for finding Nash equilibria in two-player zero-sum games and coarse correlated equilibria in multiplayer general-sum games. Its bounds nearly match those obtained using more elaborate uncertainty quantification, supporting model-estimation bias as an efficient exploration mechanism."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "66f0311bdd3e969eb2ffe928fd74ec1870f5349059e82cd03c30c3d61cb10a8e",
+    "tldr": "VMG encourages multi-agent exploration through biased model estimation and achieves near-optimal regret guarantees under linear function approximation."
+  },
+  "icml-2025-kea-keeping-exploration-alive-by-proactively-coordinating-exploration-strategies-1cb1d69be6": {
+    "backgroundConcepts": [
+      "topic-043-exploration-a-study-of-count-based-exploration-f"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Soft Actor-Critic, or SAC, performs well on continuous control tasks but can struggle when rewards are rare. Novelty-based exploration offers an additional reason to visit unfamiliar states. However, combining that incentive with SAC's stochastic policy can create inefficient exploration and repeated collection of similar experience. The paper focuses on coordinating these two sources of exploration.",
+      "KEA combines a standard SAC agent with a version augmented by novelty and uses a switching mechanism to coordinate them proactively. This coordination maintains stochastic behavior in regions of high novelty, supporting more efficient exploration and reducing redundant sampling. The central design question is therefore how the exploration strategies interact during learning, rather than simply whether to add a novelty incentive.",
+      "The authors first examine the interaction in a two-dimensional navigation task. They then evaluate KEA on DeepSea and sparse-reward control tasks from the DeepMind Control Suite. Compared with leading novelty-based exploration baselines, the experiments report improved learning efficiency and robustness. These results support active coordination as a useful part of exploration in sparse-reward settings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4fc00f935533c26991a8b6dd30c8d68316de877ea60830475ce2a0feefa1d4d7",
+    "tldr": "KEA switches between standard and novelty-augmented SAC to improve exploration efficiency and robustness when rewards are sparse."
+  },
+  "icml-2025-learning-adaptive-lighting-via-channel-aware-guidance-d8996ae51a": {
+    "backgroundConcepts": [
+      "topic-214-a-hypertoroidal-covering-for-perfect-color-equiv"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Lighting problems such as exposure correction and high dynamic range imaging are often studied separately. This paper looks for shared structure across those tasks. It identifies two relevant properties: color channels respond differently to light, and those differences appear differently in spatial and frequency representations. LALNet uses these observations to build a multitask lighting-adaptation framework.",
+      "The network maintains both color-separated features and conventional features that mix channels. Light Guided Attention uses the separated features to guide the mixed features toward relevant channel differences while preserving visual consistency across channels. Dual-domain channel modulation generates the separated features, while mixed-channel modulation and a light state space module produce the mixed features.",
+      "This arrangement gives the network access to channel-specific lighting information without losing a combined representation of the image. Experiments on four representative lighting tasks report substantial improvements over state-of-the-art methods on benchmark tests while using fewer computational resources. The findings support a shared channel-aware approach to several lighting problems, rather than requiring each task to be handled in isolation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "360003d6591e61e6bd2526112437f586f2c47040a49cc29f50057465d05c4de0",
+    "tldr": "LALNet combines channel-specific and mixed-color features to improve multiple lighting tasks with lower computational requirements."
+  },
+  "icml-2025-let-llm-tell-what-to-prune-and-how-much-to-prune-34909db3ec": {
+    "backgroundConcepts": [
+      "topic-236-beta-dpo-direct-preference-optimization-with-dyn"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Structured pruning compresses a large language model by removing organized parts of its computation, making it attractive for practical hardware. The paper argues that pruning only one kind of structure can produce a poor performance-efficiency balance. Different structural units have different inference costs and functions, so treating one type in isolation overlooks those differences.",
+      "A second issue is assigning a fixed pruning ratio in advance. The authors propose targeting multiple modules and dynamically distributing how much pruning each receives. Their method quantifies interactions within the language model to estimate module importance. Those intrinsic properties then guide both the choice of what to remove and the amount of compression assigned to it.",
+      "The approach makes pruning allocation responsive to the roles of different components rather than imposing a uniform burden. Experiments across multiple benchmarks and language-model variants report an effective balance between efficiency and performance. The stated result supports using information about internal interactions to coordinate compression across modules, with the objective of preserving useful behavior while reducing deployment cost."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "dd35506e24933e54ec5c0da3571343fbe33befd1930084a1e4ff8ec9c0c99b76",
+    "tldr": "The method uses internal model interactions to choose which LLM modules to prune and dynamically allocate pruning ratios."
+  },
+  "icml-2025-moma-modulating-mamba-for-adapting-image-foundation-models-to-video-recognition-9315f085a7": {
+    "backgroundConcepts": [
+      "topic-027-4dgcpro-efficient-hierarchical-4d-gaussian-compr"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Adapting an image foundation model to video requires handling how visual content changes over time. Parameter-efficient methods can reuse an image model's capabilities, but many process spatial and temporal information separately. The paper argues that this separation may miss some of the interactions that make video dynamics difficult to understand.",
+      "MoMa introduces an adapter framework that integrates Mamba's selective state space modeling into image foundation models. Its SeqMod operation injects spatial-temporal information while preserving the original pretrained features. SeqMod is placed within a Divide-and-Modulate architecture, allowing the adaptation mechanism to model space and time together while maintaining computational efficiency.",
+      "The reported experiments cover multiple video benchmarks and show superior performance with reduced computational cost. These results support the value of joint spatial-temporal adaptation when transferring image models to video recognition. The main contribution is a way to add dynamic information to existing visual features efficiently, connecting the strengths of pretrained image representations with a mechanism designed to capture the relationships that unfold across video."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7853c5310665c9ae0b7faa81e5731fdcf1451047858d2b26e89a01c4a1519983",
+    "tldr": "MoMa uses Mamba-based adapters to add joint spatial-temporal modeling to image foundation models for efficient video recognition."
+  },
+  "icml-2025-on-the-tension-between-byzantine-robustness-and-no-attack-accuracy-in-distributed-learni-36349f0736": {
+    "backgroundConcepts": [
+      "topic-111-d-2-decentralized-training-over-decentralized-da"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Distributed learning combines updates from multiple workers, some of which may be faulty or malicious. Robust aggregators aim to protect training against these Byzantine workers. This paper examines what happens when such defenses are used even though every worker is behaving correctly, asking whether greater attack tolerance can affect accuracy in an attack-free setting.",
+      "The authors analyze aggregation error and show that its worst-case value without Byzantine workers increases as an aggregator's tolerated number of Byzantine workers grows. This is a worst-case tradeoff, so it does not mean every attack-free training run must become less accurate. It establishes that stronger tolerance can come with a larger possible error even when the anticipated threat is absent.",
+      "The paper also derives tight lower bounds on gradient-descent convergence for non-convex objectives and objectives satisfying the Polyak-Lojasiewicz condition. These bounds reveal a similar tension between robustness and no-attack accuracy. Empirical results support the theoretical findings, showing why evaluating robust aggregation should include its behavior under normal operation as well as under attacks."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e6b990cd83d747e6754efd6acc3f267b48ad1e571688079e57c8e27af62c64ec",
+    "tldr": "The paper proves a worst-case tradeoff between Byzantine tolerance and attack-free accuracy for robust distributed-learning aggregation."
+  },
+  "icml-2025-pencil-long-thoughts-with-short-memory-1ee6e73aff": {
+    "backgroundConcepts": [
+      "topic-100-3-in-1-2d-rotary-adaptation-for-efficient-finetu"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Long chains of thought can help language models reason, but they also accumulate intermediate computations in the context. Some of that material is no longer needed for later reasoning. PENCIL addresses this memory problem by changing autoregressive generation so that intermediate thoughts can be removed according to patterns learned during training.",
+      "The method alternates generation with a recursive reduction mechanism that cleans up the working context. This allows reasoning to continue without retaining every previous intermediate step. The authors report that the resulting process can solve harder problems with shorter context and less computation. As an empirical example, a 25-million-parameter Transformer with a context length of 2,048 solves Einstein's puzzle, which the paper describes as challenging for much larger models.",
+      "The theoretical contribution concerns computational capacity: PENCIL can simulate any Turing machine with optimal time and space complexity. This supports universal efficient computation and the ability to express computable tasks that are intractable for vanilla chain-of-thought processing. That capacity result is distinct from showing that a particular trained model has learned to solve every such task."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c75f291322a21455cdd6d5b8ca30d4cce9e10a60bff70118c794150ffa90ef1c",
+    "tldr": "PENCIL alternates generating and erasing intermediate thoughts to support deeper reasoning with shorter working context."
+  },
+  "icml-2025-scissor-mitigating-semantic-bias-through-cluster-aware-siamese-networks-for-robust-class-f302c33758": {
+    "backgroundConcepts": [
+      "topic-002-boldsymbol-lambda-orthogonality-regularization-f"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Shortcut learning occurs when a model relies on correlations that do not support reliable generalization to new distributions. This paper looks beyond superficial input features and identifies another source: imbalance in the semantic distribution of sample embeddings. Such imbalance can create misleading semantic correlations within the model's representation space.",
+      "SCISSOR uses a Siamese network-based approach to reshape that space. It discourages latent clusters that the model exploits as shortcuts, targeting the organization of learned representations. The method does not require data augmentation or rewriting, so its intervention operates through the semantic space rather than through those forms of input modification.",
+      "The evaluation covers six models and four benchmarks spanning vision and language. Reported absolute F1 gains over the compared baselines are 5.3 points on GYAFC, 7.3 on Yelp, 7.7 on Chest-XRay, and 1 on Not-MNIST. The paper also reports benefits for lightweight models. These results support semantic cluster imbalance as a useful target for debiasing, extending the treatment of shortcuts beyond visibly superficial features."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e53e137429185679ffcf3b6aaaaf08de5b7b2893b912b934d1fa312a19ba0ae2",
+    "tldr": "SCISSOR reduces semantic shortcuts by reshaping embedding clusters, improving reported classification results across vision and language benchmarks."
+  },
+  "icml-2025-sharp-generalization-for-nonparametric-regression-by-over-parameterized-neural-networks--f986547102": {
+    "backgroundConcepts": [
+      "topic-073-4-3-phases-of-compute-optimal-neural-scaling-law"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies how well an over-parameterized, two-layer neural network generalizes in nonparametric regression when trained by gradient descent with early stopping. It proves a risk rate of O(ε_n²), matching early-stopped classical kernel regression. Here, ε_n is the critical population rate associated with the network's Neural Tangent Kernel, or NTK.",
+      "The distribution-free claim has a specific geometric scope: covariates must lie on the unit sphere, but their distribution there need not take a prescribed form. Under an additional NTK eigenvalue-decay condition, which holds for certain distributions including the spherical uniform case, the result yields the minimax-optimal rate O(n^(-d/(2d-1))). That explicit rate is a conditional special case of the broader result.",
+      "The required network width depends on dimension and ε_n rather than the minimum eigenvalue of the empirical NTK matrix. The proof combines uniform convergence toward the NTK during training with local Rademacher complexity analysis. This connects finite-width neural-network training to kernel-regression guarantees while avoiding distributional restrictions beyond spherical support in the general theorem."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ecba466f581da3d5577f5db95701285c9408502a15aa7cd4305e464b185f9777",
+    "tldr": "Early-stopped two-layer networks achieve sharp kernel-like regression guarantees for arbitrary covariate distributions supported on the unit sphere."
+  },
+  "icml-2025-tensor-var-efficient-four-dimensional-variational-data-assimilation-150ecb2b1e": {
+    "backgroundConcepts": [
+      "topic-113-a-call-to-lagrangian-action-learning-population-"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Four-dimensional variational data assimilation estimates a dynamical system's state by reconciling a numerical model with observations over time. In complex nonlinear systems, this optimization can be expensive, and the mapping from states to observations may be imperfect. Deep learning offers expressive approximations, but its nonlinearities complicate integration and theoretical analysis.",
+      "Tensor-Var combines kernel conditional mean embedding with variational assimilation to represent nonlinear dynamics linearly in a learned feature space. The resulting optimization is convex in that space. The paper also supplies theoretical guarantees of consistency between assimilation results in the original and feature spaces, linking the transformed problem back to the state-estimation problem it is intended to solve.",
+      "For large-scale applications, the framework learns deep features using neural networks. Experiments on chaotic systems and global weather prediction with real-time observations report better accuracy than conventional and deep-learning hybrid 4D-Var baselines, alongside a ten- to twenty-fold speed improvement. These findings support using a learned representation to simplify assimilation while retaining a theoretically grounded connection to the original dynamics."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a4684967b1a89a3df797e3d4907a698ba4bfefe42c47bb8f4d2db747cff3e5f1",
+    "tldr": "Tensor-Var turns nonlinear data assimilation into convex optimization in a learned feature space, with consistency guarantees and reported accuracy and speed gains."
+  }
+}

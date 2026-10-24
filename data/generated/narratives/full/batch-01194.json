@@ -1,0 +1,327 @@
+{
+  "neurips-2025-a-clean-slate-for-offline-reinforcement-learning-4348462cf0": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Offline reinforcement learning trains agents without collecting new experience from an environment. Comparing methods becomes difficult, however, when researchers quietly use online interactions to choose training settings. This paper addresses that evaluation problem alongside a software problem: implementations contain enough unrelated infrastructure to obscure which algorithmic choices actually explain their performance.",
+      "The authors introduce a taxonomy and evaluation protocol that explicitly accounts for the online budget used in tuning. They also provide minimal, single-file implementations of both model-free and model-based methods. These implementations make the algorithms easier to inspect and compare, while also delivering substantial speed improvements. The contribution therefore connects clearer experimental accounting with clearer algorithm design.",
+      "Building on this common foundation, the authors introduce Unifloral, which expresses multiple earlier approaches within one shared hyperparameter space. They use it to develop TD3-AWR and MoBRAC, respectively model-free and model-based algorithms that substantially outperform established baselines under their protocol. The stated findings show how simplifying implementation and making tuning costs visible can support both more interpretable comparisons and new algorithmic improvements."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3913832d915406d0252b97c3a48d326022bc782d9236b8754a7f49d3ae68908f",
+    "tldr": "A transparent evaluation protocol and unified implementation framework clarify offline RL comparisons and support two improved algorithms."
+  },
+  "neurips-2025-calm-pde-continuous-and-adaptive-convolutions-for-latent-space-modeling-of-time-dependen-336c7e07e2": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Time-dependent partial differential equations describe how spatial systems evolve, including fluids and climate phenomena. Computing their evolution on a dense spatial representation can be expensive. Neural surrogate models reduce this burden by working in a compressed latent representation, but handling irregularly spaced samples often introduces another cost: the memory demands of Transformer attention.",
+      "CALM-PDE uses continuous convolutions to encode spatial information into a compressed representation and decode it again. Its convolution kernel only considers an epsilon neighborhood, restricting each operation to nearby locations. The model also learns adaptive query points where those operations are applied. Together, these choices allow convolution-based processing to accommodate spatial discretizations beyond regular grids.",
+      "The authors evaluate the approach across several equations with both regular and irregular spatial sampling. CALM-PDE matches or exceeds the performance of existing baselines and improves memory use and inference time relative to Transformer-based methods. The result matters because it combines the flexibility needed for irregular domains with the efficiency advantages motivating convolutional architectures, while retaining the computational savings of modeling evolution in latent space."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7abefb4aa4aaf90fd2a532bbd3f98d8469cb67ae0cd6eb13b91baf5d9bea21fb",
+    "tldr": "CALM-PDE uses adaptive continuous convolutions to model evolving PDEs in compressed space efficiently across regular and irregular spatial samples."
+  },
+  "neurips-2025-compute-optimal-scaling-for-value-based-deep-rl-ead336d520": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "For online, value-based reinforcement learning, a fixed computing budget creates a choice between increasing model capacity and performing more learning updates for each amount of collected data. The paper studies how to divide that budget to improve data efficiency. It also examines batch size, because the amount of data processed per update changes how these choices interact.",
+      "The central finding is a phenomenon the authors call TD-overfitting. In their analysis, increasing batch size quickly damages the accuracy of the learned Q-function for small models. The same effect is absent in large models, allowing those models to use larger batches effectively. Thus, a batch-size choice that works well at one model scale can behave differently at another.",
+      "The authors develop an explanatory account of this phenomenon and practical guidelines for choosing batch size and the update-to-data ratio together. Their contribution is a starting point for compute-aware scaling adapted to temporal-difference learning. The findings suggest that allocating more computation effectively requires coordinating model size and training settings, rather than treating additional updates or larger batches as independently beneficial."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f1f40d36450d0681fe508adc78d5bd2c313a4e61a41aafac3aba3d4d8c11ad1d",
+    "tldr": "The study shows how model size, batch size, and update frequency interact when allocating a fixed compute budget in value-based RL."
+  },
+  "neurips-2025-decoupled-entropy-minimization-bb4347ca04": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Entropy minimization encourages a classifier to make more concentrated predictions, assigning greater probability to fewer classes. This can help separate classes and reduce uncertainty, but the paper argues that the usual objective contains competing effects. Understanding those effects provides a way to improve the objective instead of simply applying stronger pressure toward confident predictions.",
+      "The authors separate the objective into a component that rewards dominant classes and another that dampens gradients according to predicted confidence. They identify two problems arising from their coupling. One limits how much highly certain examples contribute to learning; the other favors easy classes and can pull the predicted class distribution away from the label distribution.",
+      "Their method, Adaptive Decoupled Entropy Minimization, normalizes the reward component and replaces the original gradient calibrator with a marginal entropy calibrator. The authors report better performance than DEM*, which they describe as an upper-bound variant of classical entropy minimization, across several imperfectly supervised tasks in noisy and changing environments. The stated result supports adjusting how confidence is encouraged and calibrated together, rather than relying on the classical coupled formulation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c8c47ecfd6dc3d0a950c6567e023cde9dc02c5bc88f78b0e2691469a4932ed8e",
+    "tldr": "AdaDEM separates competing effects in entropy minimization and revises their calibration to improve learning with imperfect supervision."
+  },
+  "neurips-2025-dingo-constrained-inference-for-diffusion-llms-bc6fe15810": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Diffusion language models predict blocks of tokens in parallel, creating opportunities for faster generation. That same parallelism complicates enforcing formal output requirements, such as a regular expression describing valid structured text. Constraint-handling algorithms built around sequential token generation do not preserve the intended output distribution when transferred directly to this setting.",
+      "DINGO addresses this problem with a constrained decoding strategy based on dynamic programming. The authors establish that the strategy preserves the distribution while strictly satisfying a user-specified regular expression. It enables sampling of high-probability valid strings under the model's predicted distribution. This connects two requirements that matter together: producing an admissible output and retaining the model's probability structure.",
+      "The paper evaluates DINGO on symbolic mathematics and JSON generation benchmarks, reporting improvements of up to 68 percentage points over unconstrained inference. That is a maximum reported gain across the evaluated settings, rather than a uniform improvement. The contribution makes formal constraints compatible with parallel diffusion generation and provides evidence that enforcing those constraints can substantially improve results on tasks where output structure matters."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "479062aa75ec4ad136376b19003057c295e6a28b909807d6df17b023711f4ee8",
+    "tldr": "DINGO provides provably distribution-preserving decoding for diffusion language models while enforcing user-specified regular expressions."
+  },
+  "neurips-2025-do-language-models-use-their-depth-efficiently-c626775f3d": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Adding layers to a language model often improves performance, but this paper asks what those extra layers actually accomplish. The authors examine the residual stream, the representation carried through the layers, in Llama 3.1, Qwen 3, and OLMo 2 models. Their question is whether depth enables new combinations of computations or mostly finer adjustments to existing ones.",
+      "Several observations point toward the second interpretation. Layers in the latter half make much smaller contributions to the residual stream, with a distinct transition between the halves. Skipping later layers also has less effect on subsequent computation and predictions. On multihop tasks, the authors do not find evidence that additional depth combines intermediate results across many reasoning hops.",
+      "They also learn linear mappings between shallow and deep models' representations. Layers at matching relative positions align best, suggesting that deeper models distribute similar computations across more layers. Taken together, the evidence supports the authors' interpretation of increasingly fine-grained adjustments. It does not establish that depth can never enable new computations, but may help explain diminishing returns from scaling stacked Transformers."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "34107cd07b4a7e210ada37b65e16d0261941285a7540646ba33202f061c2efc5",
+    "tldr": "Analyses of three model families suggest extra depth often spreads similar computations across more layers instead of introducing new kinds of computation."
+  },
+  "neurips-2025-estimating-model-performance-under-covariate-shift-without-labels-f7713dbc61": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A deployed classifier may encounter inputs whose distribution differs from the data it previously saw. Detecting that shift alone does not reveal how much predictive performance has changed, especially when correct labels are unavailable or delayed. This paper introduces Probabilistic Adaptive Performance Estimation, or PAPE, to estimate performance for binary classifiers on unlabeled tabular data under covariate shift.",
+      "PAPE works independently of the classifier's internal architecture, using its predictions and probability estimates. The method supports any metric expressible through confusion-matrix entries, connecting its estimates to familiar ways of measuring classification performance. According to the authors, it learns from data without requiring assumptions about the particular form of the covariate shift.",
+      "The evaluation covers more than 900 combinations of datasets and models drawn from US census data, with comparisons across several metrics and benchmarks. PAPE outperforms the other evaluated approaches. These results support estimating the consequences of a distribution change directly, rather than using the presence of drift as a substitute for performance measurement. The stated setting remains binary classification on tabular data under covariate shift."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "adc1435e984882519c268e853d816b1e4d8f3beff39e297a0f9f81bcd52af864",
+    "tldr": "PAPE estimates binary-classifier performance on unlabeled tabular data under covariate shift using predictions and probability estimates."
+  },
+  "neurips-2025-graph-few-shot-learning-via-adaptive-spectrum-experts-and-cross-set-distribution-calibra-220ace7af0": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Graph few-shot learning uses a small number of labeled nodes to adapt to a new task. The paper identifies two reasons this can fail. A single filtering rule across an entire graph may overlook differences between local structures, while a tiny labeled support set may poorly represent the distribution of the query nodes the model must classify.",
+      "GRACE addresses both issues within one framework. Adaptive spectrum experts adjust the treatment of graph signals to local structural variation, rather than applying one predefined spectral operation everywhere. Cross-set distribution calibration addresses the mismatch between the support and query sets. The two components therefore target different sources of error: how graph structure is processed and how limited labels represent the prediction problem.",
+      "The authors provide a theoretical account of improved generalization through these adaptations and report consistent gains over state-of-the-art baselines across a broad range of experimental settings. The findings support treating local graph heterogeneity and support-query mismatch as connected concerns in few-shot learning. Better adaptation requires attention both to the graph's varying structure and to what a small labeled sample can represent."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "bed1b35540c38748617aa6718498cb31bf57d515c991ddf33ce90f716dd513be",
+    "tldr": "GRACE improves graph few-shot learning by adapting spectral processing locally and calibrating differences between support and query distributions."
+  },
+  "neurips-2025-graph-persistence-goes-spectral-ab8cf9a494": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Graph representations can benefit from topological information, such as cycles, that ordinary message-passing networks struggle to distinguish. Persistent homology provides one way to summarize this information. Yet the paper argues that existing descriptors, including versions enriched with vertex and edge features, still miss basic structural differences between graphs.",
+      "The proposed descriptor, SpectRe, incorporates spectral information into persistent homology diagrams. This combines two kinds of structural information in a single representation. The authors prove that SpectRe is strictly more expressive than the existing graph descriptors considered, meaning it can distinguish structures those descriptors cannot. That is a claim about representational capability, separate from performance on any particular prediction task.",
+      "The paper also introduces global and local notions of stability and establishes local stability for SpectRe. This adds a formal account of stability alongside the expressivity result, without claiming global stability. Experiments on synthetic and real datasets demonstrate the descriptor's effectiveness and suggest it can improve graph models on relevant learning tasks. Together, the theoretical and empirical findings support enriching topological summaries with spectral structure."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b11bfeb6b918a3b4118ad6c77da0c392015c0208c451a998395629ce5a7121e7",
+    "tldr": "SpectRe adds spectral information to graph persistence diagrams, achieving greater expressivity than existing descriptors with a local stability guarantee."
+  },
+  "neurips-2025-ground-compose-reinforce-grounding-language-in-agentic-behaviours-using-limited-data-b38319e460": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "An agent that follows high-level instructions must connect those instructions to what it perceives and does. Building that connection has often required manually specified grounding or large collections of language-environment examples. Ground-Compose-Reinforce studies whether agents can instead learn from limited labeled experience by reusing and combining pieces of task structure.",
+      "The framework represents high-level tasks with Reward Machines, automata that encode how a task is organized. In some cases, these representations can be produced automatically from natural language. The method combines symbolic task structure with learned grounding and reinforcement learning, without manually designed reward functions or domain-specific oracles. Its central idea is to exploit compositionality when grounding the Reward Machines.",
+      "In a custom Meta-World domain, the authors use only 350 labeled pretraining trajectories. They report that the resulting agents faithfully perform complex specified behaviors, including behaviors absent from pretraining, while non-compositional approaches fail. This provides evidence that combining grounded components can extend the usefulness of limited demonstrations. The result concerns the evaluated domain and supports compositional learning as a route to more data-efficient instruction grounding."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "71c79c992b32224083fc9419970dc96ef5bb01b9400d94d13b637e12efbba5d2",
+    "tldr": "Ground-Compose-Reinforce uses compositional Reward Machines to learn complex agent behaviors from limited labeled trajectories."
+  },
+  "neurips-2025-improved-representation-steering-for-language-models-03f6a8a419": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Language-model steering aims to encourage or suppress particular concepts in generated text. Changing internal representations offers an interpretable form of control, but earlier methods often trail ordinary prompting. This paper investigates whether a different training objective can make representation steering more effective while keeping the number of added parameters small.",
+      "The proposed Reference-free Preference Steering, or RePS, uses a bidirectional preference-optimization objective that jointly trains concept promotion and suppression. The authors test three parameterizations on AxBench using Gemma models ranging from 2B to 27B parameters. RePS outperforms existing steering methods trained with a language-modeling objective and substantially reduces their performance gap with prompting.",
+      "Suppression results vary by model family: RePS matches the language-modeling objective on Gemma-2 and exceeds it on larger Gemma-3 variants. It also remains resilient to the evaluated prompt-based jailbreak attacks that defeat prompting. The findings suggest an interpretable alternative for controlling model behavior, with benefits for both encouragement and suppression. They support improved effectiveness and evaluated attack resilience without establishing that representation steering universally surpasses prompting."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1b5004e6dbc077d3ca944b61eb4ade9627889ca8c188d52b5bbf3610f76c3ccf",
+    "tldr": "RePS improves internal representation steering through joint preference training for concept promotion and suppression, narrowing the gap with prompting."
+  },
+  "neurips-2025-joint-velocity-growth-flow-matching-for-single-cell-dynamics-modeling-07650ba0b2": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Single-cell measurements provide snapshots of a population, but the measurement process destroys the observed cells. Researchers therefore cannot directly pair the same cells across time. Cell division and death also change population size, so learning biological dynamics requires explaining both changes in cell state and changes in population mass.",
+      "Velocity-Growth Flow Matching, or VGFM, models those two processes jointly. It constructs ideal dynamics containing a velocity for state transitions and a growth term for population mass. The construction draws on a two-period dynamic interpretation of semi-relaxed optimal transport, which connects datasets that are both unpaired and unbalanced. Neural networks then approximate these ideal dynamics for practical use.",
+      "VGFM also includes a distribution-fitting loss to improve agreement with observed snapshots. Experiments on synthetic and real datasets show that it can capture dynamics involving both state and mass variation, outperforming existing approaches in the reported evaluations. The contribution matters because a changing snapshot distribution can reflect several biological processes at once; explicitly modeling movement through cell states alongside growth gives the framework a way to account for both."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b153ec8bb9dc3ce58f852c49eaef12b55ffba52b9c6f0f0ebd5981ce92f5862f",
+    "tldr": "VGFM jointly learns cell-state transitions and population growth from unpaired, unequal-sized single-cell snapshots."
+  },
+  "neurips-2025-l2rsi-cross-view-lidar-based-place-recognition-for-large-scale-urban-scenes-via-remote-s-e8c689cac6": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "LiDAR-based place recognition typically compares a current point cloud with a previously collected three-dimensional map. Building that map can be costly and slow. L2RSI instead uses high-resolution overhead imagery as a map proxy, aiming to locate LiDAR observations across large urban areas with less prior mapping effort.",
+      "The challenge is to match information that differs in both viewing direction and sensing modality. L2RSI learns to align point-cloud submaps and remote-sensing submaps through semantic features. It then refines location predictions using a particle-estimation-based probability propagation method that incorporates spatial and temporal information. The authors also introduce LiRSI-XA, containing approximately 110,000 remote-sensing submaps and 13,000 LiDAR point-cloud submaps.",
+      "On this dataset, the top-ranked retrieved location falls within 30 meters of the correct position for 83.27% of point-cloud submaps across a 100-square-kilometer search area. The authors also report cross-scene generalization without fine-tuning. These findings support overhead imagery as a practical reference for large-area LiDAR localization, with semantic alignment bridging the sensing differences and probability propagation refining predictions across space and time."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "78d8cf97441cdf86b7e4b22d75332e16fc94566d71b2577fe2eefe9dd8b71f76",
+    "tldr": "L2RSI locates urban LiDAR scans using overhead imagery, combining semantic alignment with spatial and temporal prediction refinement."
+  },
+  "neurips-2025-learning-skill-attributes-for-transferable-assessment-in-video-948cd2e2c0": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Assessing physical skill from video involves judging performance quality and explaining how a person could improve. Models specialized for individual sports need expert supervision that can be expensive and scarce. This paper explores whether a representation of shared skill attributes can make assessment transfer more effectively between sports.",
+      "CrossTrainer discovers attributes such as balance, control, and hand positioning whose meaning extends across particular activities. It uses this representation to train a multimodal language model that produces both a proficiency assessment and actionable feedback for a new video. The goal is to connect what the model observes to reusable aspects of skilled behavior, so its assessment can draw on more than sport-specific patterns.",
+      "The authors evaluate the method on multiple datasets in both within-sport and cross-sport settings. They report gains of up to 60% relative to state-of-the-art methods and substantially stronger generalization than several existing approaches. The maximum gain does not describe every evaluation, but the overall findings support shared skill attributes as useful building blocks for transferable assessment and more informative video-based feedback."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "dfb91493fda9fb612daa660d68b0fae1794c5e464d46e1ea3eed65b69285ed24",
+    "tldr": "CrossTrainer learns skill attributes shared across sports to generate transferable proficiency assessments and actionable video feedback."
+  },
+  "neurips-2025-learning-to-zoom-with-anatomical-relations-for-medical-structure-detection-d1b2dc5b5f": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Medical images can show the same anatomical structure at different apparent sizes because clinicians adjust magnification and field of view. The paper argues that these zoom-related changes contain useful information that detection algorithms often overlook. It also draws on prior knowledge about anatomical relationships to guide which detections are plausible.",
+      "ZR-DETR combines three components: embeddings sensitive to zoom and scale, constraints representing anatomical relations, and a detection head based on a Gaussian Process. Together, these components let the model incorporate semantic context, impose anatomical plausibility, and quantify uncertainty in its detections. The architecture therefore treats scale variation and known structure as information to model explicitly.",
+      "The authors evaluate ZR-DETR on three medical imaging benchmarks. It consistently outperforms strong baselines in both single-domain evaluation and unsupervised domain adaptation, where the method must adapt across domains without target-domain supervision. These results support combining zoom awareness, anatomical relationships, and probabilistic detection within one framework. The contribution concerns detecting anatomical structures, a preliminary step toward identifying diseases associated with structural abnormalities."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "36cceee7050b29245e9cc3c76ee3c5876abc7361e7a9b5ed9393a5f982bbb916",
+    "tldr": "ZR-DETR combines zoom-sensitive features, anatomical constraints, and probabilistic detection to improve medical structure localization."
+  },
+  "neurips-2025-moe-gyro-self-supervised-over-range-reconstruction-and-denoising-for-mems-gyroscopes-6fc03e98cb": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "MEMS gyroscopes face a trade-off between measuring fast rotation and maintaining low noise. Hardware changes can add cost and complexity, while many learning methods focus only on denoising and require precisely aligned reference signals. MoE-Gyro addresses both saturated measurements and noise within a self-supervised framework.",
+      "The model divides the work between two experts. An over-range reconstruction expert uses Gaussian-decay attention to recover saturated signal segments. A denoising expert combines complementary masking in two branches with frequency-guided augmentation. A lightweight gating module routes input segments to the appropriate expert, allowing the framework to handle different signal problems through specialized processing.",
+      "The authors also introduce ISEBench, a signal-enhancement evaluation platform containing the GyroPeak-100 dataset and a unified benchmarking setup. In this evaluation, MoE-Gyro extends the measurable range from ±450 to ±1500 degrees per second and reduces Bias Instability by 98.4%, achieving state-of-the-art performance. These reported results support jointly reconstructing over-range motion and suppressing noise, rather than evaluating signal enhancement only through its ability to denoise measurements already within range."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a2b02e140deeb41e3263d1de216d2fddfe2613eecb2378ace566f50ae2c6a96d",
+    "tldr": "MoE-Gyro uses two self-supervised experts to reconstruct saturated gyroscope signals and reduce noise, improving both range and stability in its benchmark."
+  },
+  "neurips-2025-multivariate-time-series-anomaly-detection-with-idempotent-reconstruction-2d13c6e5e6": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Reconstruction-based anomaly detection relies on a model representing normal time-series behavior well while struggling with abnormal inputs. A problem arises when the model reconstructs anomalies well too, making them harder to distinguish. The paper also emphasizes the need to tolerate noise while remaining sensitive enough to detect subtle abnormalities early.",
+      "The proposed Idempotent Generation for Anomaly Detection module, IGAD, approaches this through the geometry of the learned representation. It modifies the manifold representing acceptable reconstructed behavior so normal time points can map onto it while abnormal points are excluded by tightening that manifold. IGAD can be combined with reconstruction-based methods without adding trainable parameters.",
+      "The authors integrate IGAD with several methods and evaluate them on four real-world datasets. The resulting systems improve over their predecessors on VUS-PR. These findings support the module's potential to improve existing detectors by changing what their reconstruction process accepts as normal. Its significance lies in addressing excessive generalization within reconstruction itself, while keeping the parameter count of the underlying model unchanged."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "cc5a75eb174eca13428bb96cefe0da90ff10a52ac2d81cf448be8e7809fec4a2",
+    "tldr": "IGAD improves reconstruction-based time-series anomaly detectors by tightening their representation of normal behavior without adding trainable parameters."
+  },
+  "neurips-2025-revisiting-end-to-end-learning-with-slide-level-supervision-in-computational-pathology-99b57784a4": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Computational pathology commonly processes a slide in two stages: a pretrained encoder extracts patch features, then a multiple-instance learning model combines them into a slide-level prediction. This separates feature extraction from the downstream task. Training both parts together could improve coordination, but earlier end-to-end approaches have faced high computational costs and disappointing results.",
+      "The authors identify an optimization difficulty associated with sparse attention in multiple-instance learning. Their proposed aggregator, ABMILX, addresses it through attention refinement based on global correlations and multiple attention heads. They combine this with random patch sampling at multiple scales, allowing the encoder and aggregator to learn jointly from slide-level supervision while keeping computation manageable.",
+      "Across multiple challenging benchmarks, the resulting ResNet-based system surpasses state-of-the-art foundation models used in the two-stage setup. The authors report a computational cost below ten RTX3090 GPU hours. These findings suggest that earlier end-to-end results partly reflected optimization challenges, and that addressing those challenges can make joint training both competitive and efficient in computational pathology."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "35416e2cce3e25c9d5b51a3bcf2109110dbad2ba521d5e685ba3653bc5737987",
+    "tldr": "ABMILX improves end-to-end pathology training by addressing sparse-attention optimization, outperforming two-stage foundation-model systems on several benchmarks."
+  },
+  "neurips-2025-scaling-physical-reasoning-with-the-physics-dataset-92fd1a6924": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Physics problems require reasoning across concepts, mathematical expressions, and quantities with units. This paper introduces PHYSICS, a collection of 16,568 problems intended to support both training and evaluation of language models on this domain. The problems come from more than 100 textbooks through a curation pipeline designed for quality control.",
+      "The dataset spans mechanics, electromagnetism, thermodynamics, optics, and modern physics, with difficulty ranging from high-school material to graduate coursework. It includes separate training and test sets. For the training portion, the authors provide reasoning paths generated by powerful reasoning models, giving model training access to worked reasoning alongside the problems.",
+      "The paper also addresses evaluation: existing frameworks show biases involving units, expression simplification, and numerical precision. Its Rule+Model framework combines rule-based and model-based assessment to balance efficiency with accuracy for physics answers. Evaluations of leading open-source and proprietary models reveal continuing limitations on physics tasks. The contribution pairs broader training material with domain-aware assessment, so progress can be supported and measured using the same subject-focused resource."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f2f00e9a8e9172c9c5a81c6723a61214b8506ae6d95b603f174d5dcc8a28b241",
+    "tldr": "PHYSICS provides 16,568 textbook-derived problems and a physics-aware evaluation framework to train and assess language-model reasoning."
+  },
+  "neurips-2025-seal-semantic-aware-hierarchical-learning-for-generalized-category-discovery-a21614f440": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Generalized category discovery asks a model to organize unlabeled images that may belong either to known classes or to previously unseen ones. The available labels cover only part of the dataset. SEAL addresses this problem by using naturally available semantic hierarchies, providing relationships at several levels of detail instead of relying on a single level.",
+      "Its contrastive learning component uses hierarchical similarity to construct informative soft negatives. This allows differences between examples to influence learning according to their semantic relationship, instead of treating every negative equally. A second component enforces consistency across levels of granularity, aligning predictions made at broader and finer levels within the hierarchy.",
+      "The authors report state-of-the-art performance on fine-grained benchmarks including SSB, Oxford-Pet, and Herbarium19, together with generalization to coarse-grained datasets. The results support using accessible hierarchical structure to guide category discovery. The approach matters because recognizing whether two images differ is only part of the problem; representing how their categories relate can also help organize both known and unknown classes."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c70651428204d3f87724b8564c5599ea885ef151eb204cb2f35b428561bd1db4",
+    "tldr": "SEAL uses semantic hierarchies and consistency across category levels to improve discovery of known and unknown image classes."
+  },
+  "neurips-2025-the-computational-advantage-of-depth-in-learning-high-dimensional-hierarchical-targets-d4fa581a8c": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Why should a deep network learn some problems more efficiently than a shallow one when both are trained by gradient descent? This paper studies that question using a carefully defined family of hierarchical target functions. These Gaussian targets contain nested latent subspaces with different dimensionalities, making it possible to analyze how learning progresses through their structure.",
+      "The main theorem shows that feature learning successively lowers the effective dimensionality of the problem. Instead of treating all input dimensions as equally relevant throughout training, the deep network turns the task into a sequence of lower-dimensional learning problems. Under the analyzed conditions, this allows the target to be learned with far fewer samples than a shallow network requires.",
+      "The proofs apply in a controlled training setting and a high-dimensional limit. The authors also discuss more common training procedures and argue that the same mechanism operates there, distinguishing that argument from the proven result. The contribution provides a concrete theoretical account of how depth can help with hierarchical targets: successive feature learning exposes simpler subproblems within a larger one."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "634e514e4ddf14e1ec0d0ab83f8f8f514f06b3d8d3dc1b9f1cb403a3f407c236",
+    "tldr": "For a controlled class of hierarchical targets, the paper proves that deep feature learning successively reduces effective dimension and sample requirements."
+  },
+  "neurips-2025-the-cost-of-robustness-tighter-bounds-on-parameter-complexity-for-robust-memorization-in-8882ea6a9b": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Memorizing training examples requires a network to predict their labels correctly. Robust memorization adds a local requirement: predictions must remain consistent within a specified neighborhood around each example. This paper asks how many parameters a ReLU network needs to meet that requirement for datasets whose differently labeled points have a specified separation.",
+      "The analysis tracks the ratio between the robustness radius and the separation scale. The authors establish tighter upper and lower parameter-count bounds throughout the ratio range from zero to one. Upper bounds describe sufficient network capacity, while lower bounds describe capacity requirements. Considering both helps characterize how the cost of robustness changes as the requested neighborhood becomes larger relative to separation.",
+      "The bounds show that small robustness ratios have the same parameter complexity as ordinary memorization, while larger ratios increase the cost. When input dimension is comparable to or greater than dataset size, the bounds agree up to logarithmic factors throughout the analyzed range. This gives a particularly precise characterization in that setting of how local prediction consistency changes the capacity needed for memorization."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "46519ecc829f6d7f81a8c9af793819857de0030228761e8b1ea9de5e1a615fdd",
+    "tldr": "Tighter bounds characterize how ReLU-network parameter requirements grow as robust memorization demands larger neighborhoods relative to label separation."
+  },
+  "neurips-2025-towards-unsupervised-training-of-matching-based-graph-edit-distance-solver-via-preferenc-647fbd0395": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Graph edit distance measures graph similarity through the edits needed to transform one graph into another, but computing it is NP-hard. Matching-based solvers approach the task by predicting correspondences between nodes and extracting an edit path from those correspondences. Training such predictors with correct node matchings can be difficult because those supervision targets are costly to obtain.",
+      "GEDRanker replaces ground-truth matching supervision with preferences between candidate matchings. Its GAN-based framework contains a matching solver and an interpretable preference-aware discriminator. Edit-path lengths provide the preference signals: candidate matchings can be compared through the edit paths they produce. The discriminator uses those comparisons to guide the solver toward better node correspondences.",
+      "Experiments on benchmark datasets show that this training approach enables near-optimal solution quality without ground-truth supervision. That finding concerns the evaluated solutions rather than a guarantee of exact graph edit distance for every graph pair. The contribution demonstrates how relative quality signals available from candidate outputs can train a matching-based solver when obtaining the correct matching itself is expensive."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "cade4b892baae9d43e7b44c2a5c3c7179da8c30d1598ee9176ea6b7a6994061c",
+    "tldr": "GEDRanker trains graph-edit matching solvers without ground-truth matchings by learning preferences derived from candidate edit-path lengths."
+  },
+  "neurips-2025-vmdt-decoding-the-trustworthiness-of-video-foundation-models-52364b6912": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Video foundation models need evaluation beyond whether they produce convincing videos or useful descriptions. VMDT provides a unified platform for assessing text-to-video and video-to-text systems across safety, hallucination, fairness, privacy, and resistance to adversarial inputs. The authors use it to evaluate seven text-to-video models and nineteen video-to-text models.",
+      "Among the open-source text-to-video systems evaluated, all fail to recognize harmful queries and often produce harmful videos. They also exhibit more unfairness than image-modality models in the reported comparisons. For video-to-text systems, larger models show increasing unfairness and privacy risks, while hallucination and adversarial robustness improve with scale, although overall performance remains low.",
+      "Safety shows no correlation with model size in the evaluation, suggesting that scale alone does not explain the observed safety levels. These differing trends matter because improvement on one trustworthiness dimension can coexist with deterioration on another. VMDT supplies a common framework for exposing those differences and tracking progress, while the findings describe the evaluated models rather than every possible video system."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a8e953626c0a299e73372efc4cdea5a8ccd759422da858e3df6ea64f77f0fc32",
+    "tldr": "VMDT evaluates video models across five trustworthiness dimensions and finds that larger scale improves some dimensions while worsening others."
+  },
+  "neurips-2025-zeroth-order-optimization-finds-flat-minima-5a098bd742": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Zeroth-order optimization uses function evaluations when gradients are unavailable or expensive. Much of its theory asks whether optimization reaches a stationary point. This paper instead examines which solutions the method tends to favor, investigating an implicit preference that arises from the optimization procedure without an explicitly added regularization objective.",
+      "The authors show that the standard two-point estimator favors solutions with a small Hessian trace, a curvature measure used to distinguish flatter from sharper minima. They also provide convergence rates toward approximate flat minima for convex, sufficiently smooth functions. In that result, flat minima are defined specifically as optimal solutions with the smallest Hessian trace among all optimal solutions.",
+      "Experiments on binary classification with convex losses and on language-model fine-tuning support the theoretical findings. The result offers a more detailed picture than convergence alone: the gradient-free estimator can influence the geometry of the solution reached. The formal convergence guarantee depends on convexity and sufficient smoothness, while the language-model experiments provide empirical support in a different application setting."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "493c0da6bd7fa17e8fd89de568b19a6181618fd91b61dd830534975adfedee16",
+    "tldr": "Zeroth-order optimization with a two-point estimator favors low-curvature solutions, with flat-minimum convergence guarantees for convex, sufficiently smooth functions."
+  }
+}

@@ -1,0 +1,377 @@
+{
+  "neurips-2023-accelerated-training-via-incrementally-growing-neural-networks-using-variance-transfer-a-b8288d0b07": {
+    "backgroundConcepts": [
+      "topic-069-pscaling-small-models-principled-warm-starts-and"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Training a large network from the beginning spends computation on its full architecture throughout training. This paper studies a different approach: start with a smaller network and grow it incrementally. The central challenge is making those architectural changes compatible with learning, so that adding capacity does not disrupt the network’s behavior or create poorly balanced updates.",
+      "The authors design a parameterization that stabilizes the scales of weights, activations, and gradients as the network grows, while preserving its inference functionality. They also address a second problem: components introduced at different stages receive different amounts of training. A learning-rate adaptation mechanism rebalances the gradient contributions of these components to account for that uneven training effort.",
+      "In the reported experiments, growing networks achieve accuracy comparable to or better than large networks trained at a fixed size, while using substantially less training computation. The savings also translate into measured wall-clock speedups. Together, the findings support coordinating network growth with optimization, rather than treating expansion as an architectural operation alone."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a931730de26d6b1e788ab52e4bd6acd17ce0813d7ea728f637c8a89f3a64a7e2",
+    "tldr": "Carefully stabilizing network growth and adapting learning rates reduces training computation while preserving or improving accuracy in experiments."
+  },
+  "neurips-2023-an-varepsilon-best-arm-identification-algorithm-for-fixed-confidence-and-beyond-5d68db62fd": {
+    "backgroundConcepts": [
+      "topic-040-concentration-bounds-for-cvar-estimation-the-cas"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "In stochastic bandits, an algorithm samples options with uncertain rewards to identify a good choice. Approximate best-arm identification allows a tolerance, epsilon, rather than demanding the exact best option. This paper introduces EB-TCε, a sampling rule from the Top Two family, and provides the first analysis of that family for approximate identification.",
+      "The rule is anytime: it can keep sampling without knowing the eventual budget. The same sampling procedure therefore supports both a fixed-confidence setting, where reliability determines when to stop, and a fixed-budget setting. The authors bound expected sample requirements for fixed confidence and establish asymptotic optimality when the exploration parameter is tuned adaptively. That tuning is part of the stated optimality result.",
+      "The analysis also bounds error probabilities at any time and for any slack parameter. These results yield bounds on simple regret, which measures the reward shortfall of the recommended option. Numerical simulations show favorable performance against existing algorithms across different approximate identification tasks, complementing the theoretical guarantees with empirical comparisons."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "436dac1804b20b61ace091f30c1a13963fe7bfd68268a5c9a66cec3dac7e50e8",
+    "tldr": "EB-TCε provides an anytime sampling rule for approximately identifying the best bandit option, with sample-complexity, error, and regret guarantees."
+  },
+  "neurips-2023-any-to-any-generation-via-composable-diffusion-d05294c289": {
+    "backgroundConcepts": [
+      "topic-059-a-cat-is-a-cat-not-a-dog-unraveling-information-"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "CoDi addresses generation across combinations of language, images, video, and audio. Its goal is to accept combinations of these input types and produce combinations of outputs, including several outputs in parallel. This matters because separate capabilities, such as generating an image or producing audio, do not by themselves ensure that jointly generated media will agree.",
+      "The approach aligns modalities in both the input and output spaces. On the input side, alignment enables conditioning on different combinations of information. On the output side, the model builds a shared multimodal space through alignment within the diffusion process. This composable strategy supports coordinated outputs, including video and audio whose timing matches, even when particular modality combinations are absent from training data.",
+      "The authors report strong quality for joint generation and performance that matches or exceeds unimodal state-of-the-art systems for single-modality synthesis. The contribution is therefore both flexibility in choosing inputs and outputs and synchronization among generated outputs. The reported results suggest that supporting multiple modalities together need not come at the expense of single-modality generation quality."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "04cb97db871d59edb57734b312d9e2ba0d5f15b609fe3aa2c476bcd12f4e872d",
+    "tldr": "CoDi aligns diffusion models across modalities to generate coordinated combinations of text, images, video, and audio from mixed inputs."
+  },
+  "neurips-2023-debiased-and-denoised-entity-recognition-from-distant-supervision-7ae67ade36": {
+    "backgroundConcepts": [
+      "topic-125-alpha-req-assessing-representation-quality-in-se"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Distantly supervised named entity recognition learns from automatically supplied labels that can contain errors. Self-training methods attempt to improve these labels by selecting examples and producing new predictions for further learning. This paper argues that two overlooked biases interfere with that process: distant-label errors have structure, and self-training itself introduces bias into selection and prediction.",
+      "The proposed framework, DesERT, addresses both sources. It expands the usual prediction pathway into a dual form so that sample selection can account for the distributional structure of the bias. A separate debiasing module improves token representations, with the aim of producing better pseudo-labels. The method thus changes both which training signals are selected and the representations used to generate them.",
+      "Across five standardized datasets, the authors report a new state of the art and an average F1 improvement of +2.22%. They also demonstrate effectiveness on a benchmark incorporating additional distant supervision from ChatGPT. These findings support treating label noise and self-training bias as distinct, interacting problems rather than relying on sample selection alone."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0591bec070d8780feaee6d7c2f33990754fe9673840dc6fbffd2b93acdac324d",
+    "tldr": "DesERT improves distantly supervised entity recognition by addressing structured label noise and bias introduced during self-training."
+  },
+  "neurips-2023-diffusion-self-guidance-for-controllable-image-generation-2d0b78380a": {
+    "backgroundConcepts": [
+      "topic-059-a-cat-is-a-cat-not-a-dog-unraveling-information-"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Text prompts can describe an image in detail while still leaving object placement, size, or appearance difficult to specify precisely. This paper introduces self-guidance, which controls image generation through representations already present inside a pretrained diffusion model. The authors show that these representations contain extractable information about those object properties.",
+      "Self-guidance uses that information to steer the sampling process. Its operation resembles classifier guidance, but the guiding signals come from the diffusion model itself, so the method requires neither an additional model nor additional training. This turns internal representations into practical control signals: a desired change can be expressed through properties of the developing image rather than solely through a rewritten prompt.",
+      "Demonstrations include moving or resizing one object while retaining the rest of an image, combining appearance from one image with layout from another, and assembling objects from multiple images. The authors also introduce a reconstruction method that extends self-guidance to real-image editing. These examples establish a range of controls available from a pretrained model’s own internal information."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6e5393c6f8887d1c474e0da929b7c5909b4c70e0e9e5fda99aa2dde57cf69aa7",
+    "tldr": "Self-guidance uses a diffusion model’s internal representations to control object properties and edit images without extra models or training."
+  },
+  "neurips-2023-expert-load-matters-operating-networks-at-high-accuracy-and-low-manual-effort-0bc1c95f4b": {
+    "backgroundConcepts": [
+      "topic-105-epsilon-softmax-approximating-one-hot-vectors-fo"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A human-AI classification system can refer low-confidence cases to experts while letting the model handle more confident predictions. Its usefulness depends on both prediction accuracy and how much work reaches the experts. This paper argues that training should account for both objectives, especially when expert time is scarce or expensive.",
+      "The authors describe their relationship using a confidence operating characteristic curve. Changing the confidence threshold changes the balance between accuracy and the number of delegated cases. They propose a complementary classification loss that maximizes the area under this curve. The training objective therefore encourages the network to improve its decisions while reducing the need for manual review across operating points.",
+      "Experiments on computer vision and medical-image classification datasets show higher classification accuracy and fewer delegated decisions compared with existing losses. The authors also report better detection of out-of-distribution samples and comparable calibration. These results indicate that confidence-based delegation can be considered during learning itself, with expert workload serving as an explicit part of the objective."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5536731e03dd21125976939a199521f6c1ecd0eff41a748c8419aef753a06adf",
+    "tldr": "A classification loss that accounts for confidence-based delegation improves accuracy and reduces expert workload in the reported experiments."
+  },
+  "neurips-2023-expressive-sign-equivariant-networks-for-spectral-geometric-learning-5764fb878a": {
+    "backgroundConcepts": [
+      "topic-163-3d-steerable-cnns-learning-rotationally-equivari"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Eigenvectors have an inherent sign ambiguity: reversing an eigenvector’s sign still gives a valid eigenvector. Models using these features must handle that ambiguity consistently. Earlier approaches promote sign invariance, meaning that a sign reversal leaves the output unchanged. This paper shows that such invariance creates theoretical limitations for some geometric and graph-learning tasks.",
+      "The authors instead study sign equivariance, where outputs respond predictably to sign changes. They demonstrate its advantages for constructing orthogonally equivariant models and learning node positional encodings for graph link prediction. The distinction matters because requiring identical outputs can discard distinctions that a structured transformation of the output could retain.",
+      "To realize these benefits, the paper develops neural architectures based on a new analytic characterization of sign-equivariant polynomials. That foundation supplies provable expressiveness properties. Controlled synthetic experiments show that the networks can achieve the benefits predicted by the theory. The evidence connects a specific symmetry choice to representational capability, with experimental validation in the controlled settings studied."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "20cbf7a930e6c83863a33f2a99425ebd9c83685eaed79e7cebb854cae9abea45",
+    "tldr": "Sign-equivariant networks retain useful structure that sign-invariant models can lose, with provable expressiveness and supporting synthetic experiments."
+  },
+  "neurips-2023-facilitating-graph-neural-networks-with-random-walk-on-simplicial-complexes-384ba27e3a": {
+    "backgroundConcepts": [
+      "topic-173-a-complete-expressiveness-hierarchy-for-subgraph"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Random walks help graph neural networks represent structure, but most attention has focused on walks between nodes. This paper examines walks on edges and higher-order simplices as well. Its central question is how information from these different levels improves theoretical expressivity: the ability of a network to distinguish structural patterns.",
+      "At the node level, the authors connect existing positional and structural encodings through random walks. At the edge level, they relate random walks to Hodge 1-Laplacians and develop two encodings. EdgeRWSE uses edge walks directly in the spatial domain. Hodge1Lap uses spectral analysis to construct an expressive edge positional encoding that transforms consistently when the graph’s elements are relabeled.",
+      "The theory then extends to higher-order simplices, giving a general principle for designing positional encodings from random walks and Hodge Laplacians. Walks between levels also provide a way to unify a range of simplicial networks. Extensive experiments support the effectiveness of the proposed methods, complementing the theoretical account of how different structural levels can enrich graph representations."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f751c25b5486ae79c8cf47c4906c1a949f96cfcb30520c7471bb50c653878e08",
+    "tldr": "Random walks on nodes, edges, and higher-order simplices provide a unified basis for more expressive graph encodings."
+  },
+  "neurips-2023-fast-optimal-locally-private-mean-estimation-via-random-projections-70306f1bc2": {
+    "backgroundConcepts": [
+      "topic-016-optimal-algorithms-for-mean-estimation-under-loc"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Estimating an average under local privacy requires each participant to protect their own data before contributing it. For high-dimensional vectors in the Euclidean ball, existing methods face a difficult balance between estimation error, communication, and computation. This paper introduces ProjUnit to achieve nearly optimal error while reducing the practical costs of participation.",
+      "Each participant first projects their vector into a randomly chosen lower-dimensional subspace. They then apply an optimal private estimation procedure, such as PrivUnitG, in that smaller space. The authors analyze how the properties of the random projection ensemble affect error and study two concrete instantiations. Their guarantees place the resulting error within a factor of 1+o(1) of optimal.",
+      "Experiments on private mean estimation and private federated learning show nearly the same utility as optimal algorithms, with significantly lower communication and computational costs. The result supports using dimensionality reduction as part of the privacy mechanism. Its value lies in preserving statistical quality closely while making the required local processing and communication more efficient."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a4efc27ef8540fec0cc208fe7f0fd8b65a4d4d198d77df6a523a0b3a9de1851f",
+    "tldr": "ProjUnit combines random projections with lower-dimensional privacy mechanisms to estimate means with nearly optimal error and lower costs."
+  },
+  "neurips-2023-find-what-you-want-learning-demand-conditioned-object-attribute-space-for-demand-driven--a040dd200b": {
+    "backgroundConcepts": [
+      "topic-004-3d-vla-a-3d-vision-language-action-generative-wo"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Object navigation typically asks an agent to locate a named object. That formulation assumes the user knows what to request and that the requested object exists in the scene. This paper introduces Demand-driven Navigation, where the instruction expresses a need and the agent searches for an object that could satisfy it.",
+      "The method obtains textual descriptions of object attributes by extracting common-sense knowledge from a large language model. It then aligns those descriptions with visual attribute features using CLIP. The resulting visual features serve as prior knowledge for navigation, connecting the user’s demand to properties the agent can recognize. This allows the task to consider suitable objects without requiring the user to name a particular one.",
+      "Experiments in AI2Thor using ProcThor show that these visual attribute features improve navigation performance. The method outperforms the tested baselines from object navigation, vision-and-language navigation, and approaches using language models. The findings support attribute-based navigation in the evaluated simulator setting, where matching a need can offer more flexibility than searching only for a specified object category."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "602bd89d4e55062c31fa6ff95361d5b8c071000124a69e70c94ffce3e7c1024d",
+    "tldr": "Demand-driven navigation connects user needs to visual object attributes so an agent can search for suitable objects without a specified name."
+  },
+  "neurips-2023-flair-a-country-scale-land-cover-semantic-segmentation-dataset-from-multi-source-optical-964a40ecfa": {
+    "backgroundConcepts": [
+      "topic-136-sparse-attention-to-the-details-preserving-spect"
+    ],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "FLAIR is a dataset for identifying land cover at the level of individual image pixels. Developed by France’s National Institute of Geographical and Forest Information, it combines detailed aerial images with optical satellite time series. The resource supports studying landscapes using information that differs in spatial detail, spectral content, and coverage over time.",
+      "The aerial imagery has a ground sample distance of 20 centimeters, and the dataset contains more than 20 billion labeled pixels. Its acquisitions cover over 817 square kilometers and represent France’s landscape diversity. Satellite observations add temporal and spectral information alongside the fine spatial detail of the aerial images, creating a setting for studying how these sources can be combined.",
+      "The contribution includes both the dataset and baseline models using single or multiple sensors. These models provide reference points for evaluating new methods and supporting downstream applications. FLAIR’s mixture of resolutions also creates concrete challenges for data fusion and geospatial analysis, making it useful for testing how segmentation methods handle diverse sources rather than a single uniform imagery collection."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "67412146dc1897d6ae2b1ebb20bafe2d244b265e46315c24ea6f69042874b8c0",
+    "tldr": "FLAIR combines finely labeled aerial imagery and satellite time series to support large-scale land-cover segmentation and multisensor research."
+  },
+  "neurips-2023-getting-vit-in-shape-scaling-laws-for-compute-optimal-model-design-d09b82f884": {
+    "backgroundConcepts": [
+      "topic-118-a-closer-look-at-self-supervised-lightweight-vis"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Choosing a model for a fixed training budget involves more than deciding how many parameters it should have. This paper extends scaling-law methods to choose model shape, including width and depth. The authors apply this approach to vision transformers, producing a shape-optimized model called SoViT.",
+      "The resulting model competes with models containing more than twice as many parameters despite using an equivalent pretraining compute budget. In the highlighted example, SoViT-400m/14 reaches 90.3% fine-tuning accuracy on ILSRCV2012. Under identical settings, it exceeds ViT-g/14 and approaches ViT-G/14, while requiring less than half the inference cost. This comparison makes architectural proportions a consequential part of compute allocation.",
+      "Evaluation spans image classification, captioning, visual question answering, and zero-shot transfer. The authors report broad effectiveness while also identifying limitations. The central finding is that increasing parameter count alone is an incomplete strategy for scaling vision models: selecting how capacity is distributed across the architecture can improve the relationship between training resources, model size, and inference cost."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "82b90030119c20776ceb2dd72db0e0f12f3ec45bd0b36b8b49c374161d79716b",
+    "tldr": "Scaling laws that optimize transformer width and depth produce SoViT models competitive with much larger models at lower inference cost."
+  },
+  "neurips-2023-koopman-kernel-regression-9bd9abc5da": {
+    "backgroundConcepts": [
+      "topic-113-a-call-to-lagrangian-action-learning-population-"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Decision-making methods often need forecasts of evolving states or rewards. When those dynamics are highly nonlinear, using predictions inside optimization becomes difficult. Koopman theory offers a route to describing forecasts through linear, time-invariant dynamics, allowing multistep prediction to be expressed through sparse matrix multiplication.",
+      "This paper addresses the learning guarantees behind such models. The authors derive a universal Koopman-invariant reproducing kernel Hilbert space, a function space restricted to transformations into linear time-invariant dynamical systems. This construction underpins Koopman Kernel Regression. By connecting the dynamics problem to function approximation, it makes statistical learning tools available for analyzing the resulting forecasts.",
+      "The framework yields convergence results and generalization-error bounds under weaker assumptions than existing work. These results address uncertainty about how learned models behave as the amount of data and dimensionality increase. Experiments also report better forecasting than the compared Koopman-operator methods and sequential predictors in reproducing kernel Hilbert spaces. The contribution combines a structured forecasting representation with theory about learning that representation from data."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1702f23b39c355dc04ae0c51b7189d334745f9d48e763a5b7e2a6fecf0158eaa",
+    "tldr": "Koopman Kernel Regression combines linear representations of nonlinear dynamics with new convergence guarantees and strong experimental forecasting results."
+  },
+  "neurips-2023-large-scale-distributed-learning-via-private-on-device-lsh-e80a6e4952": {
+    "backgroundConcepts": [
+      "topic-093-mathbbr-2k-is-theoretically-large-enough-for-emb"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Locality-sensitive hashing can select hidden-layer weight vectors that closely match an input, enabling dynamic pruning during training. However, repeatedly projecting an entire layer’s weights is expensive for devices with limited memory and computation. Moving that work to a central host also creates scaling problems and requires input access that conflicts with the federated setting considered here.",
+      "The authors introduce a family of hash functions that lets devices construct their own hash tables from compressed weights. Each device can choose settings such as table count and hash length. Tables can also be constructed and discarded sequentially when memory is tight. Consequently, the hashing analysis does not require storing either the full-sized model or many tables locally.",
+      "The paper proves statistical and sensitivity properties of its hash functions and evaluates large-scale recommender training. The framework remains competitive with other hashing approaches that assume unrestricted device capacity. Its practical contribution is to make hashing-based selection compatible with local input handling, device-specific configuration, and constrained memory, without relying on a central host to perform the analysis."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e300645244e9a8a3f1c2fa3000427f6f35b3b642d0145283fea4a68c72e49469",
+    "tldr": "A new on-device hashing framework enables personalized dynamic pruning from compressed weights without centralized input access or unrestricted device memory."
+  },
+  "neurips-2023-likelihood-based-diffusion-language-models-a56bdc6205": {
+    "backgroundConcepts": [
+      "topic-248-a-partition-cover-approach-to-tokenization"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper examines whether diffusion language models can become competitive on likelihood, a measure of how well a model assigns probability to benchmark text. The authors frame their work as an initial step toward closing the gap with autoregressive language models. Their concrete target is to outperform a small, widely recognized autoregressive model.",
+      "The approach combines improvements to maximum-likelihood training, scaling analysis, and increased computation. The scaling study identifies compute-optimal training regimes that differ substantially from those of autoregressive models. This matters for allocating resources: training choices suited to one model family need not be the best choices for diffusion-based language modeling.",
+      "Using these methods, the authors train and release Plaid 1B. It outperforms GPT-2 124M in likelihood on benchmark datasets and generates fluent text in unconditional and zero-shot control settings. The result establishes progress against the stated reference model while linking that progress to both algorithm design and resource allocation. The reported achievement concerns this specific comparison, rather than a general superiority claim over autoregressive language models."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "98fb22a9a7e470a94edee20b11b463ffd848a79a329e181f020edbe6cfe4f82a",
+    "tldr": "Improved training and diffusion-specific scaling analysis enable Plaid 1B to exceed GPT-2 124M on benchmark likelihood."
+  },
+  "neurips-2023-neural-tangent-kernel-collapse-ced924157d": {
+    "backgroundConcepts": [
+      "topic-184-c-2m-3-cycle-consistent-multi-model-merging"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Well-trained classification networks can develop striking symmetry and structure in their final-layer features, a phenomenon called neural collapse. This paper connects that phenomenon to the neural tangent kernel, which describes aspects of how a network evolves during training. The aim is to explain structured final representations through the dynamics that produce them.",
+      "The analysis assumes that the empirical neural tangent kernel develops blocks aligned with class labels: examples from the same class have stronger correlations than examples from different classes. Under that assumption, the authors derive training dynamics for networks optimized with mean squared error and divide those dynamics into interpretable phases.",
+      "They also identify an invariant, a quantity preserved through the analyzed dynamics, and use it to prove that neural collapse emerges for networks with the specified block-structured kernel. Large-scale numerical experiments across three architectures and three benchmark datasets support the theory. The explanation is therefore conditional on the stated kernel structure and training loss, connecting those conditions to the geometry observed in learned features."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "936a2e2eb4a169cf0348168e200be8e5c99932f5f4a8a51dd4f3cf1e2e33602c",
+    "tldr": "Under a class-aligned block structure in the neural tangent kernel, the paper proves neural collapse for mean-squared-error training."
+  },
+  "neurips-2023-on-the-convergence-of-no-regret-learning-dynamics-in-time-varying-games-2cfc4a1abb": {
+    "backgroundConcepts": [
+      "topic-231-doubly-exponential-lower-bounds-for-follow-the-r"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Learning in games is often analyzed with an unchanged game repeated over time. This paper studies optimistic gradient descent when the game itself changes. The question is how close the learning dynamics remain to equilibrium as the environment varies, extending convergence analysis beyond the static setting.",
+      "For zero-sum games, the authors derive sharp bounds on the equilibrium gap in terms of measures of variation across the sequence of games. These bounds include known static-game results as a special case. They also obtain improved second-order variation bounds under strong convexity-concavity, provided that each game is repeated multiple times. Both requirements are part of that stronger result.",
+      "A bilinear formulation of correlated equilibria extends the framework to changing general-sum games with multiple players. The authors derive implications for meta-learning and more refined variation-dependent regret bounds, addressing questions from prior work. The same framework also gives insights into dynamic regret in static games. Overall, the analysis makes the amount and structure of environmental change explicit in learning guarantees."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "756097aeaf26bcbcfa74831a6ff065f7f5b99640152dbc4271d6f1ac76c20590",
+    "tldr": "The paper bounds optimistic gradient descent’s equilibrium gap in changing games using measures of how much the games vary."
+  },
+  "neurips-2023-optimal-time-complexities-of-parallel-stochastic-optimization-methods-under-a-fixed-comp-64e961d9a2": {
+    "backgroundConcepts": [
+      "topic-106-a-composite-randomized-incremental-gradient-meth"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Parallel optimization distributes computation across workers, but understanding its best possible running time requires accounting for how quickly those workers operate. This paper develops a theoretical framework for that question. It focuses on a fixed computation model in which each worker takes a constant amount of time to calculate a stochastic gradient, with that time allowed to differ between workers.",
+      "The authors propose a protocol that generalizes the classical oracle framework used to analyze optimization algorithms. Algorithms receive unbiased stochastic gradient estimates with bounded variance. Within this setting, the paper establishes minimax time complexities: limits on the performance achievable in the worst case by the best available methods.",
+      "The contribution includes both lower bounds and algorithms that attain them. This combination identifies achievable time guarantees and shows their optimality under the stated computation and oracle assumptions. The authors also report consequences for the theory of asynchronous optimization. The central value is a rigorous connection between heterogeneous worker speeds and optimal parallel optimization time, rather than a complexity analysis based only on sequential gradient counts."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b203e5f6f4d3b96b6d912625f31898ca45fc35ba1ae592ac2254f970f9e6b757",
+    "tldr": "A generalized oracle framework establishes optimal parallel optimization times when workers have fixed, potentially different gradient-computation speeds."
+  },
+  "neurips-2023-prodigy-enabling-in-context-learning-over-graphs-36086052e4": {
+    "backgroundConcepts": [
+      "topic-035-texttt-g1-teaching-llms-to-reason-on-graphs-with"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "In-context learning lets a pretrained model adapt to a task from examples supplied at prediction time, without updating its parameters. PRODIGY develops this capability for graphs. The intended outcome is a model that can perform new classification tasks on previously unseen graphs by using example-based context.",
+      "Its central representation is a prompt graph that connects demonstration examples with the queries to be answered. The authors design a graph neural network to operate on this representation and a corresponding family of pretraining objectives. Together, these components teach the model to use the relationship between examples and queries as the basis for task adaptation.",
+      "Experiments on citation networks and knowledge graphs show strong in-context performance. Across the evaluated setups, the authors report average accuracy improvements of 18% over contrastive pretraining baselines with hard-coded adaptation and 33% over standard fine-tuning with limited data. These comparisons support the value of pretraining explicitly for graph-based prompting, so that new examples can guide predictions without a separate parameter-optimization stage."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9d1dc9967f434c32bcc0e3cc56e9856855cae698bf37e52b1a20572d2d28b35e",
+    "tldr": "PRODIGY pretrains graph networks to solve new classification tasks from connected prompt examples without updating model parameters."
+  },
+  "neurips-2023-rank-detr-for-high-quality-object-detection-6d4a67e2ed": {
+    "backgroundConcepts": [
+      "topic-224-alpha-iou-a-family-of-power-intersection-over-un"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Detection transformers predict candidate object boxes and rank them by classification confidence. A high confidence score, however, does not necessarily mean that a box closely matches an object’s location and extent. This mismatch can put poorly localized boxes near the top of the results, limiting detection quality even when classification looks confident.",
+      "Rank-DETR introduces architectural and training changes centered on ranking. Its architecture promotes positive predictions and suppresses negative ones to reduce false positives. Its loss function and matching cost favor predictions with better localization, helping the ranking reflect box quality. This is especially relevant under high intersection-over-union thresholds, where a detection needs precise overlap to count as successful.",
+      "The authors apply their designs to H-DETR and DINO-DETR and report strong COCO results with ResNet-50, Swin-T, and Swin-L backbones. The findings support treating ranking as a distinct part of detector design. Improving which predictions are selected can help convert accurate candidate boxes into better final detections, particularly when evaluation demands precise localization."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "965b89b69d8e22121ecbc9f11464c963317b7f14bfc14aedab4d53bbb814a870",
+    "tldr": "Rank-DETR aligns prediction ranking with localization quality to reduce false positives and improve demanding object-detection performance."
+  },
+  "neurips-2023-simple-and-asymmetric-graph-contrastive-learning-without-augmentations-832cd6f452": {
+    "backgroundConcepts": [
+      "topic-044-a-collective-learning-framework-to-boost-gnn-exp"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Graph contrastive learning often depends on constructed graph augmentations and the assumption that connected nodes are similar. That assumption is poorly suited to heterophilic graphs, where neighbors can have different labels and features. This paper studies how to learn graph representations across both similar-neighbor and dissimilar-neighbor settings.",
+      "The proposed method, GraphACL, uses an asymmetric view of neighboring nodes. It avoids graph augmentation and does not require homophily. The authors provide theoretical and empirical evidence that it captures both immediate neighborhood information and two-hop monophily similarity. These offer complementary structural signals, allowing useful relationships to be represented even when a direct edge does not connect similar nodes.",
+      "Experiments show significant improvements over state-of-the-art graph contrastive and self-supervised methods on both homophilic and heterophilic graphs. The result gives a simple, implementable alternative to approaches built around predefined augmentations. Its significance is that the learning objective can exploit neighborhood structure without first assuming that neighboring nodes should share the same kinds of attributes or labels."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2dd531da9b0d0b6738b27e3e62ee66102e195c91967b791a4c6fe0644faabb4b",
+    "tldr": "GraphACL uses asymmetric neighborhood learning to obtain strong graph representations without augmentations or assumptions that connected nodes are similar."
+  },
+  "neurips-2023-strategic-data-sharing-between-competitors-7cc22173da": {
+    "backgroundConcepts": [
+      "topic-033-2d-shapley-a-framework-for-fragmented-data-valua"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Collaborative learning can improve a firm’s model while allowing training across organizations privately. Yet a firm may still hesitate to collaborate with competitors: the same exchange can strengthen rival models and reduce its own profits. This paper studies that economic trade-off, treating technical learning gains as one part of the incentive to share.",
+      "The authors introduce a framework with three components: firms’ production decisions, the effect of extra data on model quality, and the process through which firms negotiate data sharing. They then analyze an instance based on a conventional economic market model. This connects improvements in prediction quality to competitive outcomes and negotiated collaboration.",
+      "The analysis finds that market conditions have a substantial effect on sharing incentives. In the studied setting, reduced competition associated with less similar products and harder learning tasks encourage collaboration. These findings show why better models alone do not determine whether firms will cooperate. The economic value of learning depends on how much competitors also gain and how their products compete."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "fcf0e7749f7326370d9a4345f8b05608326bfe5ca40bcb1a4d9311a01cd9f316",
+    "tldr": "An economic framework shows how product competition and learning difficulty shape competing firms’ incentives to share data."
+  },
+  "neurips-2023-structural-pruning-for-diffusion-models-3a1db90064": {
+    "backgroundConcepts": [
+      "topic-080-text-s-2-q-vdit-accurate-quantized-video-diffusi"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Diffusion models can produce impressive outputs but require substantial computation during training and inference. Diff-Pruning aims to obtain a lightweight model from an existing pretrained diffusion model without extensive retraining. The challenge is identifying which parts can be removed while retaining the generative behavior already learned.",
+      "The method uses a Taylor-expansion-based assessment over selected diffusion timesteps. It disregards steps that do not contribute useful information to this assessment and combines informative gradients to identify important weights. This makes information from the diffusion process part of the pruning decision, rather than treating weight importance as independent of the model’s progression across timesteps.",
+      "Across several datasets, the authors report approximately a 50% reduction in floating-point operations at a cost of 10% to 20% of the original training expenditure. They also find that the pruned models preserve generative behavior consistent with their pretrained counterparts. These results support compression as a way to reuse an existing model’s learned capabilities while reducing its computational requirements."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "17be70147008708fede251cc2d1398e50457375146bf08bd86fc0351e1b03e0d",
+    "tldr": "Diff-Pruning uses informative timestep gradients to compress pretrained diffusion models, roughly halving FLOPs in the reported experiments."
+  },
+  "neurips-2023-towards-automated-circuit-discovery-for-mechanistic-interpretability-dd576f079b": {
+    "backgroundConcepts": [
+      "topic-078-mathcal-m-4-a-unified-xai-benchmark-for-faithful"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Mechanistic interpretability seeks to explain model behavior through the internal components and connections that produce it. Prior investigations have required substantial researcher effort and intuition. This paper organizes that workflow and automates one step: finding the connections among abstract neural-network units that form a circuit for a chosen behavior.",
+      "The broader process begins with a dataset and metric that bring out the behavior of interest. Researchers then use activation patching to investigate which units participate, varying the data, metric, and units to understand their roles. The proposed algorithms operate within this investigative setup, targeting circuit connections rather than automating the entire interpretation process.",
+      "The authors validate their algorithms by reproducing earlier findings. In a GPT-2 Small circuit for a Greater-Than operation, ACDC rediscovers all five previously identified component types. It selects 68 edges from 32,000, all of which had been manually identified in prior work. This result demonstrates that automated connection discovery can recover a compact, previously studied mechanism for a specified behavior."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b7cecaf14bf068b2306cf6e019d4f9698a7ae19a8f6074cb4310554e4765bc15",
+    "tldr": "Circuit-discovery algorithms automate finding behavior-relevant connections and recover previously identified components of a GPT-2 Small circuit."
+  },
+  "neurips-2023-towards-efficient-pre-trained-language-model-via-feature-correlation-distillation-3659484778": {
+    "backgroundConcepts": [
+      "topic-145-a-kernel-perspective-on-distillation-based-colla"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Knowledge distillation compresses a language model by training a smaller student to learn from a larger teacher. The success of that transfer depends on what the student is asked to reproduce. This paper argues that directly matching transformer output features can impose overly strict constraints, while attention-based relationships can add computation and depend on the number of attention heads.",
+      "Feature Correlation Distillation, or FCD, instead constructs relationships directly from output features. It combines token-level and sequence-level relationships to transfer information at both scales. A correlation-based loss relaxes the demand for exact matching associated with conventional mean-squared-error or KL-divergence objectives. The student is therefore trained using relational information rather than only precise agreement in individual feature values.",
+      "The authors apply FCD to BERT, RoBERTa, and GPT architectures, covering base and large teacher sizes. Their experiments report that the resulting smaller models significantly outperform existing distillation methods across multiple NLP tasks. These findings support feature relationships and correlation as useful choices for transferring knowledge across different language-model architectures and sizes."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "aa443698354b57cf7c7d02942b8b4ad22bf531a5f879400fa538f8e58791fdfd",
+    "tldr": "FCD compresses language models by transferring token and sequence feature relationships through a correlation-based distillation loss."
+  }
+}

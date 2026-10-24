@@ -1,0 +1,327 @@
+{
+  "neurips-2025-avcd-mitigating-hallucinations-in-audio-visual-large-language-models-through-contrastive-b18c00105e": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Audio-visual language models can produce unsupported claims because of interactions among sound, images, and text. Contrastive decoding tries to reduce such errors by comparing predictions from original inputs with predictions from deliberately perturbed inputs. The paper argues that methods designed around corrupting a fixed visual input do not adequately address these three-way interactions.",
+      "AVCD adapts that comparison to the modalities involved in each prediction. It uses attention distributions to identify less dominant modalities, then selectively masks information to obtain perturbed prediction scores. Its revised contrastive formulation jointly accommodates audio, visual, and textual inputs. The method operates during decoding and does not require additional model training.",
+      "The framework also uses prediction entropy, a measure of uncertainty, to selectively skip unnecessary decoding steps. Experiments report consistent improvements over existing decoding methods. On AVHBench, accuracy improves by 2% for VideoLLaMA2 and 7% for video-SALMONN. These findings support adapting hallucination control to a model's changing use of different modalities, while the confidence-based component addresses the computational cost of doing so."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5d6028ab50dcf791551ea9a8ddff3bffd8e52c1454b7e67e3dd4f74fc2de58d6",
+    "tldr": "AVCD uses modality-aware, training-free contrastive decoding to reduce hallucinations in audio-visual language models."
+  },
+  "neurips-2025-balanced-token-pruning-accelerating-vision-language-models-beyond-local-optimization-60906b8fa0": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Vision-language models can represent an image with thousands of tokens, making visual processing expensive, especially with dynamic high-resolution inputs. Token pruning reduces this burden by removing some image tokens. The paper's empirical analysis finds that existing selection methods often inadequately account for both immediate changes to a layer's output and consequences for later layers.",
+      "Balanced Token Pruning addresses this problem by changing its priorities across the model. A small calibration set helps divide pruning into stages. Early stages emphasize how removing tokens affects subsequent layers. Deeper stages place more emphasis on keeping the current layer's output consistent. This makes pruning sensitive to where it happens, rather than treating token importance as an exclusively local decision.",
+      "Experiments across multiple vision-language models and benchmarks report a 78% compression rate while retaining, on average, 96.7% of original performance. The result demonstrates a substantial reduction in token representation with a comparatively small average performance loss. As a plug-and-play method, BTP offers a way to incorporate this balance into existing models' visual processing."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "80c337d4e15161312433b2a6d708ab570562959f0f3d1f676c3ddec92765dacb",
+    "tldr": "Balanced Token Pruning changes pruning priorities across model depth to compress image tokens while retaining most original performance."
+  },
+  "neurips-2025-bmmr-a-large-scale-bilingual-multimodal-multi-discipline-reasoning-dataset-1866b8a304": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "BMMR expands multimodal reasoning evaluation beyond a strong focus on mathematics. It contains 100,000 university-level questions across 300 UNESCO-defined subjects, with Chinese and English coverage. Questions come from sources including books, examinations, and quizzes, and use multiple-choice, fill-in-the-blank, and open-ended formats. Each instance includes a curated reasoning path.",
+      "The dataset combines automated processing with human involvement in curation and filtering. Its evaluation portion contains 20,000 instances, while 80,000 training instances support model development across disciplines. The authors also introduce BMMR-Verifier, which evaluates reasoning processes at a finer level. This adds a way to examine reasoning chains alongside the broader assessment of knowledge and answers.",
+      "Experiments find substantial room for improvement even among leading models. Reasoning models outperform other large multimodal models only in particular subjects, revealing uneven strengths across disciplines. Open-source models trail proprietary models in the reported evaluations, but fine-tuning on BMMR-Train narrows that gap. Together, these findings show why multidisciplinary evaluation matters: success in selected subjects does not establish equally strong reasoning across the full dataset."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a5805d175b2356328022f757d9faac527c2bc013fd47ea65b64852a01cd59567",
+    "tldr": "BMMR provides bilingual training and evaluation data that reveal uneven multimodal reasoning ability across academic disciplines."
+  },
+  "neurips-2025-c3po-cross-view-cross-modality-correspondence-by-pointmap-prediction-786073f6ce": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Matching a ground-level photograph to a floor plan requires connecting views that differ in both perspective and visual representation. The paper examines this difficult correspondence problem, where geometric models successful on pairs of photographs can struggle. Existing datasets leave important gaps, either in modality variation or in the correspondence annotations needed to learn and evaluate these connections.",
+      "The authors construct C3 by reconstructing scenes in three dimensions from Internet photo collections using structure-from-motion. They then manually align those reconstructions with floor plans collected online. That alignment allows them to derive matches between photograph pixels and floor-plan locations. The resulting dataset contains 90,000 paired floor plans and photos across 597 scenes, with 153 million pixel-level correspondences and 85,000 camera poses.",
+      "Evaluations show that leading correspondence models struggle on this task. Training with the new data yields a reported 34% improvement in root mean squared error over the best-performing method. This supports the value of dedicated photo–floor-plan supervision, while the paper also identifies remaining challenges in geometric reasoning across different visual modalities."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "120104c4fecd60fe26fdc7b507a80a108059621dfc1d70ebfa7280d05707ac4d",
+    "tldr": "C3 supplies dense photo–floor-plan correspondences that improve performance on a difficult cross-view, cross-modality matching task."
+  },
+  "neurips-2025-can-we-infer-confidential-properties-of-training-data-from-llms-7d2aa64b20": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A fine-tuning dataset can contain sensitive information about a population as a whole, such as patient demographics or disease prevalence. The paper asks whether someone can infer these confidential dataset-level properties from a language model trained on that data. Earlier property-inference research on other model types did not establish whether the same vulnerability extended to language models.",
+      "The authors introduce PropInfer, a benchmark built from ChatDoctor that covers multiple property types and task configurations. It evaluates models fine-tuned for both question answering and chat completion. They also develop two attacks tailored to language models: one elicits generated responses through prompts, while the other uses shadow models and signals from word frequencies.",
+      "Experiments across multiple pretrained language models show that these attacks can succeed in the evaluated settings. The finding broadens the privacy issue associated with fine-tuning: a model's behavior can expose characteristics of its training population. PropInfer makes that risk an explicit evaluation target across two common fine-tuning formats, rather than leaving it as an unresolved analogy to attacks on other model families."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c7176073db964e9d5e83bafd0bb67c33daa63554b393e63a5c377db8ef93a878",
+    "tldr": "PropInfer demonstrates that attacks on fine-tuned language models can reveal confidential properties of their training datasets."
+  },
+  "neurips-2025-coreaspeech-korean-speech-corpus-via-jamo-based-coreset-selection-for-efficient-and-robu-2355da7a13": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper addresses several obstacles to Korean text-to-speech development: inconsistent preprocessing, limited systematically constructed datasets, and a shortage of standardized benchmarks and Korean-specific optimization. Its approach begins with refining speech data and normalizing text, particularly numerals and English terms. These steps address language-specific details that affect the material a speech model learns from.",
+      "The authors then select a core subset using Jamo-based linguistic and phonological features specific to Korean. From 2,058 hours of existing Korean datasets, they produce CoreaSpeech: 700 hours covering 21,449 speakers. The subset balances utterances across durations from zero to thirty seconds. The selection process therefore structures the corpus around both Korean language features and utterance length.",
+      "The work includes cross-lingual fine-tuning experiments and a new Korean speech-synthesis benchmark with clean, noisy, and numeric subsets. The authors report that their text-normalization module reliably improves performance across underlying text-to-speech architectures. Releasing the corpus, processing pipeline, and benchmarks connects data preparation with evaluation, providing resources for reproducible Korean and multilingual speech-synthesis research."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0e74db63407f5e818c72e3dcf325dd25063484f430b41f5b8f7cc2b7883f616f",
+    "tldr": "CoreaSpeech combines Korean-specific text normalization and Jamo-based data selection to support efficient speech synthesis and standardized evaluation."
+  },
+  "neurips-2025-distributionally-robust-feature-selection-020b19abc0": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Selecting model inputs becomes a practical resource decision when each feature requires a survey question or physical sensor. This paper studies how to choose a limited set of features that supports useful prediction across multiple subpopulations. The objective accounts for the different populations that will depend on the selected information, rather than considering only a single downstream prediction setting.",
+      "The method replaces a discrete feature-selection problem with a continuous relaxation built around a noising mechanism. This provides a continuous optimization route for deciding which information to preserve. Its objective uses the variance of a Bayes-optimal predictor, giving the selection process a predictive criterion while avoiding the need to backpropagate through the training of downstream models.",
+      "The resulting framework is model-agnostic and aims to balance downstream predictive performance across populations. The authors evaluate it on synthetic datasets and real-world data. The contribution is a way to connect limited information collection with performance across different groups, using an optimization formulation that does not require differentiating through each downstream model's learning procedure."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "daf975884bcad30ffa04549e29cb6b62b3237fb5730ce7638c34d706002bfa18",
+    "tldr": "The paper proposes a model-agnostic method for selecting limited features while balancing predictive performance across subpopulations."
+  },
+  "neurips-2025-enhancing-multilingual-llm-pretraining-with-model-based-data-selection-e3c45f1329": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Selecting useful pretraining text can substantially affect language-model performance, but model-based filtering has largely concentrated on English. This paper develops a multilingual filtering framework that seeks diverse, structured, knowledge-rich samples. It uses Transformer-based and FastText-based classifiers, with an emphasis on keeping the filtering process transparent, simple, efficient, and broadly accessible.",
+      "The authors investigate the framework on the FineWeb-2 web crawl through ablation studies spanning different language families, scripts, and levels of data availability. These comparisons examine the approach across varied multilingual conditions. Training experiments use a one-billion-parameter Llama model with runs of 70 billion and 119 billion tokens.",
+      "The selected data can match the baseline MMLU score using as little as 15% of the training tokens, while improving other benchmark results and mitigating the curse of multilinguality. That token figure describes a reported outcome, rather than a guaranteed saving for every language or task. The authors interpret the broader experiments as strong evidence of generalizability and extend the framework to release refined pretraining datasets for twenty languages."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ed7d183935cb1a4f87e78e582aa74f15ae0fcc1bd61907e39b450cc4d9458b9e",
+    "tldr": "Model-based multilingual data filtering improves pretraining efficiency, matching a baseline MMLU score with as little as 15% of its training tokens."
+  },
+  "neurips-2025-enhancing-safety-in-reinforcement-learning-with-human-feedback-via-rectified-policy-opti-619df90857": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Language-model alignment must balance helpfulness with avoiding harmful responses. Existing approaches often model these goals separately and enforce safety through an expected constraint. The paper identifies a potential problem with that formulation: satisfying a safety condition on average can allow uneven behavior across prompts, with excessive restriction on some and unsafe responses on others.",
+      "The authors call this effect safety compensation. Their proposed Rectified Policy Optimization, or RePO, replaces the expected safety constraint with critical constraints imposed on every prompt. Its update rule uses rectified policy gradients to penalize strict safety violations at the prompt level. This changes which violations drive training, so acceptable aggregate behavior does not conceal the individual violations targeted by the objective.",
+      "Experiments show that RePO outperforms strong baseline methods and substantially improves safety alignment. The abstract describes enhanced safety across nearly all prompts, which is narrower than a guarantee that every generated response is safe. The central contribution is a training formulation that treats prompt-specific safety failures directly while addressing the broader helpfulness–safety alignment problem."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2f3a43716a1caa9923885624615367f8b5bf81e41c74b2161f34261b12659cb1",
+    "tldr": "RePO improves safety alignment by penalizing prompt-level safety violations that average constraints can conceal."
+  },
+  "neurips-2025-explaining-and-mitigating-crosslingual-tokenizer-inequities-f0f857f537": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Equivalent text can require different numbers of tokens in different languages. These token premiums affect training throughput and inference costs. The paper shows that substantial disparities remain even when monolingual tokenizers are compared while controlling dataset size, vocabulary size, and content. It investigates which aspects of tokenizer design and language are associated with those differences.",
+      "The authors train approximately 7,000 comparable monolingual tokenizers across 97 languages, varying tokenization algorithms, vocabulary sizes, and dataset sizes. Their analysis examines training–evaluation data similarity, pre-tokenization, writing systems, and word length. In the reported experiments, data similarity does not affect token premiums, whereas vocabulary size and pre-tokenization do.",
+      "Simply enlarging vocabularies does not consistently reduce the disparities. Instead, the authors identify an appropriate vocabulary size for each language that substantially reduces premium effects. They also train superword tokenizers that permit merges across whitespace, finding reduced premiums and better overall compression. The results point to concrete tokenizer-design interventions for reducing cross-language differences in how much token capacity equivalent content consumes."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c8414eec8b57631523ee3930210c4118c4c92a7bc9571dff989a8c3c7933e44c",
+    "tldr": "Language-specific vocabulary sizes and tokenization across whitespace reduce disparities in token counts between languages."
+  },
+  "neurips-2025-fantastic-bugs-and-where-to-find-them-in-ai-benchmarks-04ace8c265": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Faulty benchmark questions can undermine model evaluations, but reviewing thousands of items manually creates a major bottleneck. This paper proposes a statistical screening framework that identifies questions worth closer expert attention. It examines patterns in model responses, using unusual item-level behavior as evidence that a question may be problematic.",
+      "The method rests on an explicit assumption: a model's mean benchmark score adequately summarizes its performance. That assumption implies a single underlying dimension of ability in the measurement setup. From this structure, the authors derive expected ranges for item statistics. Questions whose observed statistics fall outside those ranges are flagged as more likely to contain problems, rather than automatically declared invalid.",
+      "Across nine widely used benchmarks, the screening process guides expert review with precision reaching 84%. The authors also introduce an initial review by an LLM judge to reduce human effort further. The framework's value lies in directing scarce review capacity toward suspicious items, while retaining expert inspection as part of systematic benchmark revision."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ec0d10316ee5d796e1191cd08761cc2d02bd2ff4f48b7cb8098027000f2d0589",
+    "tldr": "Statistical response patterns help prioritize potentially faulty benchmark questions for expert review, reaching up to 84% precision."
+  },
+  "neurips-2025-gsrf-complex-valued-3d-gaussian-splatting-for-efficient-radio-frequency-data-synthesis-8b698c269e": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Predicting radio-frequency measurements from transmitter and receiver positions supports applications such as wireless networking and indoor localization. The task is difficult because signals undergo reflection, diffraction, and scattering. Neural radiance field methods can synthesize detailed RF data, but their training time and prediction latency motivate a more efficient representation.",
+      "GSRF adapts three-dimensional Gaussian splatting from optical rendering to radio signals. Its complex-valued Gaussians represent phase-dependent behavior, while a hybrid Fourier–Legendre basis models directional variation. Orthographic splatting helps identify intersections between rays and Gaussians efficiently. These components adapt the representation and geometric processing to the specific requirements of RF synthesis.",
+      "A complex-valued ray-tracing algorithm then generates RF data using wavefront propagation principles and CUDA kernels customized for the task. Evaluations across multiple RF technologies report high-fidelity synthesis alongside improved training efficiency, shorter training times, and lower inference latency, including real-time generation. The findings show that adapting both signal representation and computation can preserve synthesis quality while reducing the cost of modeling radio propagation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "cb76e1e7f9fde279a28d76229c8330f39c712f725e6b76342e27d589c53e969f",
+    "tldr": "GSRF adapts Gaussian splatting to radio waves for high-fidelity RF synthesis with faster training and real-time inference."
+  },
+  "neurips-2025-information-retrieval-induced-safety-degradation-in-ai-agents-1430c48765": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Giving an AI agent access to external information changes the material it encounters when answering or acting. This study examines how that access affects safety, moving from no retrieval to Wikipedia retrieval and then open web search. The evaluation covers censored and uncensored language models and agents, considering reliability, bias propagation, and harmful content generation.",
+      "Across the reported benchmarks, broader retrieval access is associated with consistent deterioration in refusal behavior, bias sensitivity, and safeguards against harmful outputs. The authors call this safety degradation. A particularly notable finding is that agents using aligned language models with retrieval often behave less safely than uncensored models operating without retrieval.",
+      "The effect remains even when retrieval accuracy is strong and prompt-based mitigation is applied. The authors interpret this as evidence that retrieved content itself can reshape model behavior in structurally unsafe ways. These findings challenge the expectation that accurate retrieval and an aligned underlying model are sufficient safeguards. They motivate stronger mitigation for the interaction between agents and their external information sources."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "476677bfa146f164b13211bcbd15128f8828dc149d2e1e443f66487c626a8044",
+    "tldr": "Benchmarks find that broader retrieval access can weaken agent safety, even with aligned models, accurate retrieval, and prompt-based mitigation."
+  },
+  "neurips-2025-integrating-drug-substructures-and-longitudinal-electronic-health-records-for-personaliz-45d88543d6": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Drug recommendation systems use patient histories to suggest combinations that balance therapeutic benefit and safety. This paper argues that existing approaches often underuse two sources of structure: clinical preferences for particular drugs under particular conditions, and molecular substructures that influence drug effects. SubRec combines representations of patients and drugs to bring these sources together.",
+      "A conditional information bottleneck extracts drug substructures most relevant to a patient's condition. The goal is to concentrate the representation on clinically meaningful molecular information and improve interpretability. An adaptive vector-quantization mechanism also organizes patient–drug interaction patterns into a condition-aware codebook. This supplies reusable discrete patterns and a controllable representation space while reducing training overhead.",
+      "SubRec combines condition-specific substructure learning with discrete patient prototypes to produce personalized recommendations. Experiments on the MIMIC III and IV datasets demonstrate advantages for the model. The stated findings concern recommendation performance on these records; the approach's contribution is integrating molecular detail and longitudinal patient information in a representation designed to reflect clinical patterns."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1068ba09bc3cb8801c251d55d71c86cea1afb99755828f77af8842025f185a4e",
+    "tldr": "SubRec combines condition-relevant drug substructures with reusable patient–drug patterns to improve personalized drug recommendations."
+  },
+  "neurips-2025-knot-so-simple-a-minimalistic-environment-for-spatial-reasoning-466f8f14e4": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "KnotGym is an interactive environment for studying spatial reasoning through goal-directed rope manipulation. An agent must choose actions using only images of the scene. Although the observation space is simple, successful manipulation requires combining detailed visual perception, reasoning about spatial relationships, and actions that move the rope toward a goal.",
+      "The environment defines task complexity through the number of knot crossings. This provides a clear, measurable way to vary difficulty and test generalization. Researchers can examine how methods cope as crossing complexity changes, keeping the evaluation tied to an explicit property of the task. The minimal observation space also supports scalable development without removing the need for grounded manipulation.",
+      "The authors evaluate several classes of methods, including model-based reinforcement learning, model-predictive control, and chain-of-thought reasoning. Their evaluations illustrate the challenges posed by the environment. KnotGym's contribution is a compact setting in which perception, spatial reasoning, and control must work together, with a quantifiable difficulty axis for studying how those capabilities extend to more complex rope configurations."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e5e634e7413b21d77d5ead7129e3111ed7dc4c921b77b6f66abde6def1e07a79",
+    "tldr": "KnotGym tests image-based spatial reasoning and manipulation through rope tasks whose complexity is measured by knot crossings."
+  },
+  "neurips-2025-multi-swe-bench-a-multilingual-benchmark-for-issue-resolving-a9dbd78b5d": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Resolving a software issue requires modifying a codebase to produce a patch that addresses the reported problem. Existing benchmarks focus heavily on Python, leaving limited evidence about performance across programming languages. Multi-SWE-bench broadens evaluation to Python, Java, TypeScript, JavaScript, Go, Rust, C, and C++, making language coverage an explicit part of assessing issue-resolution ability.",
+      "The benchmark contains 2,132 instances curated by 68 expert annotators. Human annotations also divide issues into three difficulty levels. The authors evaluate leading models using both procedural and agent-based issue-resolution frameworks. This setup supports comparisons across languages, human-assessed complexity, and issues that require changes spanning multiple files.",
+      "The results expose three weaknesses. Strong Python performance does not translate into equally strong generalization to other languages. Agent resolution rates decline as human-assigned difficulty rises. Performance also deteriorates substantially on cross-file issues. These findings show why a broader benchmark matters: language diversity and changes distributed across a codebase reveal capability gaps that a predominantly Python-focused evaluation may not adequately capture."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0e984f07e6ac716c7aeebe42ff86ae2505344b773b1f836e9a76aaff61e45ae1",
+    "tldr": "Multi-SWE-bench evaluates issue resolution across eight programming languages and reveals weaknesses beyond Python and on cross-file tasks."
+  },
+  "neurips-2025-on-reasoning-strength-planning-in-large-reasoning-models-aa132dbef7": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Large reasoning models often spend more reasoning tokens on harder questions. This paper investigates the internal mechanism behind that behavior. It finds evidence that reasoning length is planned in model activations before answer generation begins: linear probes can predict the eventual number of reasoning tokens using only activations associated with the question.",
+      "The authors identify a direction in activation space whose magnitude controls reasoning strength. Intervening on that direction supplies causal evidence beyond prediction alone. Subtracting the vector can reduce both reasoning length and performance; adding it can increase reasoning length and sometimes improve performance. The direction also changes the prediction scores of the token that ends reasoning, connecting the internal signal to when generation stops.",
+      "These findings suggest that some control over reasoning effort is already encoded before the model starts producing its reasoning sequence. The paper demonstrates two potential applications: detecting overthinking and making reasoning more efficient on simple problems. The reported performance changes remain qualified: increasing the direction can help, but the abstract does not claim that longer reasoning invariably improves answers."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "49a46647cc4f5a857c573b6d9dbd3e8730d01039364c018ea3e137a147bce5cc",
+    "tldr": "The paper finds a pre-generation activation direction that predicts and causally influences reasoning length in large reasoning models."
+  },
+  "neurips-2025-progressive-inference-time-annealing-of-diffusion-models-for-sampling-from-boltzmann-den-72535926ef": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Sampling from an unnormalized target density is important in scientific applications, including molecular systems. Diffusion-based samplers offer a promising approach, but the paper identifies scaling to even simple molecular systems as a major obstacle. Progressive Inference-Time Annealing, or PITA, combines temperature annealing of a Boltzmann distribution with diffusion smoothing to address this difficulty.",
+      "The framework builds a sequence of diffusion models that progresses from higher-temperature distributions toward lower-temperature targets. It arranges easier access to temperature-annealed samples for training, then uses a trained model to procure samples at a lower temperature for the next model. This inference-time transition combines a new Feynman–Kac partial differential equation with Sequential Monte Carlo.",
+      "The resulting process links model training to a staged sampling procedure, allowing one stage to provide data for the next. Empirically, the authors report equilibrium sampling of N-body particle systems, alanine dipeptide, and tripeptides in Cartesian coordinates, with dramatically fewer energy-function evaluations. These results support the approach's ability to extend diffusion-based sampling to the molecular systems examined."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "fc24da3f6693240338db4b13ffbcce93372509d91e06e3773cd1ddc4d45a1d90",
+    "tldr": "PITA combines diffusion smoothing and progressive temperature annealing to sample molecular equilibrium distributions with fewer energy evaluations."
+  },
+  "neurips-2025-quari-query-adaptive-retrieval-improvement-f1e69add41": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Vision-language models provide representations useful for searching images with either images or text. Yet challenging instance-retrieval tasks in very large collections remain difficult. Previous work improves retrieval by learning linear transformations that emphasize features relevant to a particular domain. QuARI takes that specialization further by adapting the transformation to the individual query.",
+      "The method learns to map a query to its own feature-space transformation. Consequently, the representation used for matching can emphasize different information for different searches. The transformation remains linear, allowing it to be applied to millions of stored image embeddings at minimal computational cost. This makes the approach suitable both for large-scale retrieval and for reordering an existing set of search results.",
+      "The reported results consistently outperform leading alternatives, including methods that require many orders of magnitude more computation at query time. The significance is the combination of fine-grained adaptation and low computational overhead: query-specific specialization improves retrieval in the experiments without sacrificing the efficiency needed to work with very large image collections."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c6b467bb8f62bb9a6b408c827be455cfd430c51e401c743845ae731dc3d5e88f",
+    "tldr": "QuARI learns query-specific linear transformations that improve large-scale image retrieval with minimal computation."
+  },
+  "neurips-2025-set-llm-a-permutation-invariant-llm-0ce6107353": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A language model can change its answer when the same options appear in a different order, or systematically favor an option's position. This creates reliability problems for multiple-choice questions, multidocument tasks, and automated evaluation. Set-LLM addresses the architectural source of this order sensitivity when some input elements should be treated as an unordered set.",
+      "The method adapts pretrained language models to handle inputs containing both sets and ordinary text. It introduces an attention mask and positional encodings designed specifically for set elements. These changes come with a theoretical proof of permutation invariance: reordering the elements represented as a set does not introduce the order dependence the architecture is designed to eliminate.",
+      "Experiments show that Set-LLM can be trained effectively, with comparable or improved performance while maintaining the original model's runtime. The contribution combines a structural guarantee with empirical evidence that the adaptation remains practical. Its scope is the treatment of set-valued portions of mixed inputs, allowing models to preserve ordinary textual structure while eliminating sensitivity to the ordering of set elements."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c069092d0e0b2126fb25581bd3bace6a917894c5d1d087c3ab89f5857dbb2c0a",
+    "tldr": "Set-LLM modifies attention and positional encoding to guarantee order invariance for set inputs while retaining model performance and runtime."
+  },
+  "neurips-2025-simultaneous-swap-regret-minimization-via-kl-calibration-086f9fc492": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Calibration asks whether probabilistic predictions agree with observed outcomes. This paper connects calibration to swap regret, which measures how much a forecaster could improve by systematically replacing its predictions. It introduces KL-Calibration and proves its equivalence to swap regret under log loss, establishing a stronger calibration criterion with implications for other proper losses.",
+      "The theoretical results extend beyond smooth univariate loss forms to proper losses with twice continuously differentiable univariate forms, including Tsallis entropy. They also cover actual swap regret, measured on realized predictions, as well as pseudo swap regret, measured using the forecaster's distributions over predictions. The central bounds scale approximately as T to the one-third power, apart from logarithmic factors.",
+      "The authors prove existence of an algorithm attaining this rate for KL-Calibration and provide an explicit algorithm for pseudo KL-Calibration. They additionally establish a high-probability swap-regret bound for smooth proper losses, implying a corresponding squared-error calibration rate. A new randomized rounding procedure and nonuniform discretization support the log-loss analysis, allowing one forecasting approach to provide guarantees across multiple loss measures."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2455e9a684a9e49309ff07d04e825904ce9e74456c20d6de0d28b42dccb73cb7",
+    "tldr": "KL-Calibration links log-loss swap regret to broader calibration and simultaneous regret guarantees across classes of proper losses."
+  },
+  "neurips-2025-solidgeo-measuring-multimodal-spatial-math-reasoning-in-solid-geometry-e78c2addf0": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Multimodal mathematics benchmarks commonly emphasize plane geometry, leaving three-dimensional geometric reasoning less thoroughly assessed. SolidGeo targets this gap with a benchmark devoted to solid geometry. The task requires models to use visual context together with mathematical reasoning about spatial objects, extending evaluation to problems that the paper describes as more challenging than plane geometry.",
+      "The benchmark contains 3,113 real-world problems from K–12 education and competitions. Each includes visual context, a difficulty annotation, and detailed geometry categories. Covered subjects include projection, unfolding, spatial measurement, and spatial vectors. These categories organize evaluation around several different demands of three-dimensional reasoning, rather than treating solid geometry as a single undifferentiated skill.",
+      "Experiments reveal substantial challenges for multimodal language models and a considerable performance gap relative to humans on SolidGeo. The authors also analyze inference efficiency and error patterns alongside performance. Together, these measurements provide a more detailed view of current spatial mathematical reasoning capabilities and establish a dedicated evaluation resource for tracking improvements in solid geometry."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "782afcaacab3c9463063afcbb5ed7045351c3eb3bd5d7d1e27be4a29f35d6d0c",
+    "tldr": "SolidGeo evaluates three-dimensional mathematical reasoning and reveals substantial gaps between multimodal models and human performance."
+  },
+  "neurips-2025-stackelberg-self-annotation-a-robust-approach-to-data-efficient-llm-alignment-70eb25d214": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Aligning a language model with human preferences often requires expensive labels that can also contain errors. Stackelberg Game Preference Optimization models alignment as a two-player interaction: the policy acts as leader, and a worst-case preference distribution acts as follower. This makes robustness to uncertain preference annotations part of the optimization problem.",
+      "The framework provides a regret bound proportional to epsilon within an epsilon-radius Wasserstein ball, a specified neighborhood of preference distributions. That scope matters: the formal robustness guarantee concerns annotation changes within that neighborhood. The authors instantiate the framework as Stackelberg Self-Annotated Preference Optimization, starting with a small set of human preferences and iteratively labeling additional prompts itself.",
+      "At each iteration, distributionally robust reweighting adjusts the influence of synthetic annotations to resist noisy or biased self-labels. With 2,000 seed preferences, approximately one-thirtieth of the stated standard human-label requirement, the method achieves strong win rates against GPT-4 across multiple benchmarks within three iterations. These results support combining self-annotation with explicit robustness modeling to reduce dependence on human preference data."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5b7dc7b700a83fc7d11ea14bc2fff7cc5110cc0401da4f7f450dd361f664897b",
+    "tldr": "A robust game-based alignment framework expands a small human preference seed through self-annotation while controlling annotation-noise sensitivity."
+  },
+  "neurips-2025-towards-understanding-the-mechanisms-of-classifier-free-guidance-f4bb54adb5": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Classifier-free guidance is widely used in diffusion image generation, but its mechanisms are not fully understood. This paper studies a simplified linear diffusion model to make those mechanisms easier to analyze. The authors find that its guided behavior closely resembles nonlinear guidance over a broad range of noise levels, making the simplification informative.",
+      "The linear analysis separates guidance into three components. A mean-shift term approximately moves samples toward class means. A positive contrastive principal-components term amplifies features specific to the class. A negative contrastive principal-components term suppresses generic features common in unconditional data. Together, these terms explain improved generation quality through both strengthening relevant structure and reducing broadly shared structure.",
+      "The authors then examine these insights in real-world nonlinear diffusion models. The similarity holds across a broad noise range, but the linear and nonlinear behaviors eventually diverge at low noise levels. The analysis therefore offers a useful account of guidance mechanisms within a stated range of correspondence, while also discussing how its insights can inform understanding of the nonlinear regime."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6d4a973b8e8bf2de7ac1683d7707129e53949998741cfc5c55d800a573daf270",
+    "tldr": "A linear analysis explains classifier-free guidance through mean shifts, class-feature amplification, and generic-feature suppression, with broad but imperfect nonlinear correspondence."
+  },
+  "neurips-2025-web-shepherd-advancing-prms-for-reinforcing-web-agents-732e723515": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Web agents must make long sequences of decisions to complete navigation tasks. Evaluating individual steps can help guide those sequences, but using general multimodal language models as reward models creates speed and cost constraints. Web-Shepherd provides a specialized process reward model that assesses web-navigation trajectories at the level of individual steps.",
+      "The authors build the WebPRM Collection to support this capability. It contains 40,000 step-level preference pairs and annotated checklists across varied domains and difficulty levels. They also introduce WebRewardBench to evaluate process reward models themselves. This pairs a training resource for step assessment with a benchmark for testing how accurately that assessment works.",
+      "On WebRewardBench, Web-Shepherd achieves about thirty points higher accuracy than using GPT-4o. In a separate WebArena-lite evaluation with GPT-4o-mini generating actions, using Web-Shepherd as verifier improves performance by 10.9 points at one-tenth the cost of using GPT-4o-mini as verifier. These results connect better step evaluation with improved agent performance and lower verification cost in the tested setup."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3f624050e701505759e9197b58afc23175414b086d822a31ef7fb7b5ee3a6b5e",
+    "tldr": "Web-Shepherd provides specialized step-level feedback that improves web-agent verification accuracy, task performance, and cost in reported evaluations."
+  }
+}

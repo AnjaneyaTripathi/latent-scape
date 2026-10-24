@@ -1,0 +1,333 @@
+{
+  "neurips-2025-a-practical-guide-for-incorporating-symmetry-in-diffusion-policy-a1a83b6c59": {
+    "backgroundConcepts": [
+      "topic-163-3d-steerable-cnns-learning-rotationally-equivari"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Robot policies can benefit from recognizing when a situation has changed only by a rotation or translation. Networks built to respect these symmetries have shown improvements in data efficiency and generalization, but their specialized mathematics and architecture make them difficult to integrate into diffusion policies. This paper studies simpler ways to obtain those benefits.",
+      "The authors investigate three design choices: representing actions relative to the robot’s trajectory while using a camera attached to its hand, incorporating equivariant vision encoders, and extracting symmetric features from pretrained encoders through Frame Averaging. They prove that combining eye-in-hand perception with relative or delta actions produces SE(3) invariance, meaning invariance to three-dimensional rotations and translations.",
+      "Their experimental study finds that combining an invariant representation with equivariant feature extraction substantially improves policy performance. The resulting approach matches or exceeds fully equivariant architectures in the reported comparisons while simplifying implementation. The contribution is both a mathematical justification for particular representation choices and practical evidence that symmetry can help without requiring a fully specialized policy architecture."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "85c2ecef63c4f37c508d575a2078e0b747dbdeefb80d4d2ba57f1f7cfec7eec8",
+    "tldr": "Careful perception, action, and feature representations bring symmetry benefits to diffusion policies with substantially simpler implementation."
+  },
+  "neurips-2025-aggregation-hides-out-of-distribution-generalization-failures-from-spurious-correlations-bdd7c152b3": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Models that score better on familiar data often also score better on benchmarks containing unfamiliar data. This relationship, called accuracy-on-the-line, is sometimes interpreted as evidence that misleading training correlations rarely cause practical problems. The paper challenges that interpretation by asking whether averaging together different kinds of unfamiliar examples hides failures.",
+      "The authors introduce OODSelect, a simple method using gradients to identify meaningful subsets of out-of-distribution examples. Across commonly used distribution-shift benchmarks, it finds subsets where the usual relationship reverses: models with higher in-distribution accuracy have lower accuracy on those subsets. Some of the identified subsets contain more than half of the original out-of-distribution evaluation set.",
+      "These findings show that a favorable overall relationship can coexist with substantial failures on coherent groups of examples. They do not establish that every aggregate benchmark result is misleading; they demonstrate that aggregation can conceal the very behavior such benchmarks are intended to reveal. The released code and subsets provide material for investigating robustness beyond a single average accuracy."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3b49c14c9af96d15c7ecf2fc135890e87734ec8b1be3d1aaf7249b926339d52b",
+    "tldr": "Aggregate benchmark accuracy can hide large, meaningful subsets where better performance on familiar data predicts worse generalization."
+  },
+  "neurips-2025-amortized-sampling-with-transferable-normalizing-flows-775875c115": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Sampling molecular shapes at equilibrium is expensive because conventional simulation methods must repeat substantial computation for each molecular system. Learned samplers offer a way to spread training costs across future sampling tasks, but previous approaches have transferred poorly between systems. This paper introduces Ensemble to make that reuse possible across peptide systems and sequence lengths.",
+      "Ensemble is a normalizing flow with 200 million parameters that represents all atoms and is trained on peptide simulation trajectories containing up to eight residues. It produces uncorrelated proposal samples for peptide systems without system-specific training, including transfer across sequence length. Its flow structure also preserves efficient evaluation of sample likelihoods, which supports its use within sampling algorithms.",
+      "The authors evaluate Ensemble as a proposal generator for several sampling methods. They find that a simple fine-tuning procedure based on importance sampling outperforms established methods such as sequential Monte Carlo in their evaluations. The distinction between proposals and equilibrium samples matters: the framework supplies reusable learned proposals that sampling procedures can exploit. Code, weights, and training data are released to support further work."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "906622e68b01834592e9ffcb0b53e56fcba9f8d185d82f23a44e0c14c34be272",
+    "tldr": "Ensemble learns transferable molecular sampling proposals that work across peptide lengths and support effective importance-sampling-based fine-tuning."
+  },
+  "neurips-2025-bayesian-concept-bottleneck-models-with-llm-priors-6dcf8020e6": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Concept bottleneck models make predictions through human-readable concepts, allowing people to inspect the information behind a decision. Typically, developers first choose candidate concepts, extract them from examples, and select a small subset for a transparent predictor. Exploring more concepts can improve the model, but obtaining all those concept values becomes expensive.",
+      "BC-LLM replaces this fixed candidate list with an iterative search over a potentially unlimited concept space. Within a Bayesian framework, a large language model supplies both concept extractions and prior information. This lets concept discovery and statistical modeling work together as the search progresses, rather than requiring a broad set of extractions before choosing useful concepts.",
+      "The authors prove that the method can support rigorous statistical inference and uncertainty quantification despite language models being capable of hallucination and miscalibration. Evaluations cover images, text, and tabular data. BC-LLM outperforms interpretable baselines, surpasses black-box models in some settings, reaches relevant concepts faster, and shows greater robustness to out-of-distribution examples. These findings support adaptive concept discovery as a route toward useful, interpretable prediction."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "dd8e1ddb7c4540a6b5fe5fc21f8c5bf3872ca06506b632e548d533830f857df0",
+    "tldr": "BC-LLM uses language models within Bayesian concept search to improve interpretable prediction while supporting rigorous uncertainty quantification."
+  },
+  "neurips-2025-conditional-gradient-methods-with-standard-lmo-for-stochastic-simple-bilevel-optimizatio-08f7686c4d": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Simple bilevel optimization seeks a solution that minimizes an outer objective while also solving an inner optimization problem. Even with a convex inner problem, working directly with its solution set can require costly projection or linear optimization operations. This paper develops stochastic methods that only need linear optimization over the original feasible set.",
+      "The approach uses conditional gradients with a regularization schedule that shrinks over time. As optimization progresses, the schedule places increasing emphasis on satisfying the inner problem while still favoring solutions with desirable outer objective values. This provides a way to pursue the two objectives without repeatedly invoking optimization routines over a more complicated derived set.",
+      "Under the stated convexity assumptions, the authors prove finite-iteration rates of O(t^(-1/4)) for both objectives with one stochastic sample, and O(t^(-1/2)) with finite sums and mini-batches. For a nonconvex outer objective, the corresponding reported rates are O(t^(-1/7)) and O(t^(-1/4)). Experiments on over-parameterized regression and dictionary learning demonstrate practical advantages over existing methods, complementing the convergence analysis."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f664b243e093e34f0b80596b2f27d89edd48fe7380f58361d94e445110314b43",
+    "tldr": "Regularized conditional-gradient methods solve stochastic bilevel problems using simpler linear optimization operations while retaining provable convergence rates."
+  },
+  "neurips-2025-curv-coherent-uncertainty-aware-reasoning-in-vision-language-models-for-x-ray-report-gen-13072dbe07": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "An X-ray report needs to communicate both what an image suggests and how confidently those observations support a clinical impression. Existing vision-language approaches often leave diagnostic uncertainty and the connection between findings and conclusions implicit. CURV trains a model to express uncertainty and provide intermediate explanations as explicit parts of report generation.",
+      "The framework combines three components. An uncertainty mechanism teaches appropriate confidence language, a structured reasoning component connects visual findings to clinical impressions, and a coherence reward encourages agreement among findings, explanations, and conclusions. Training proceeds through uncertainty-aware fine-tuning, reasoning initialization, and reinforcement learning. Its reward function evaluates medical terminology, uncertainty expressions, and semantic consistency together.",
+      "The reported experiments show clinically relevant reports with appropriate uncertainty language and visible reasoning traces, with significant improvements over previous methods. The contribution is therefore broader than generating fluent medical text: it targets how evidence, confidence, and conclusions fit together within a report. These findings support progress toward more interpretable radiology reporting, with relevance to clinical settings where readers need to understand the basis and confidence of generated impressions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9a8e47bb8d8b01bf6897ee723e697d9f5d7e9729560a76231b29bf90a281f8ef",
+    "tldr": "CURV improves X-ray report generation by jointly training diagnostic uncertainty, explanatory reasoning, and consistency between findings and impressions."
+  },
+  "neurips-2025-dynamic-diameter-in-high-dimensions-against-adaptive-adversary-and-beyond-03cea64483": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies geometric summaries of a changing collection of high-dimensional points. One task tracks the diameter, or greatest distance between points; another maintains a k-center clustering. The challenge is to update these summaries efficiently as points arrive or disappear, even when future changes depend on everything the algorithm has revealed.",
+      "The adversary considered here knows previous outputs and all random choices already used. Against this strong form of adaptation, the authors maintain a diameter approximation within a factor of two, with worst-case update time polynomial in dimension and logarithmic stream length. Their method identifies a robust dataset representative that changes infrequently, then distributes maintenance work to avoid expensive individual updates.",
+      "The paper also gives an adaptive-adversary-resistant k-center algorithm with approximation factor 4 plus epsilon. Its amortized update time improves the dependence on the number of centers from k^6 to k^2.5, retaining the stated dimension and other parameter factors. The diameter result controls every update’s cost, while the clustering result controls the average cost across updates; these are distinct efficiency guarantees."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "60874c8389a9a16059f52d21fbaf9924b8b9446eae9dff6e7a81db825d8d9603",
+    "tldr": "New dynamic geometry algorithms maintain approximate diameter and clustering efficiently even when updates adapt to their outputs and past randomness."
+  },
+  "neurips-2025-elasticmm-efficient-multimodal-llms-serving-with-elastic-multimodal-parallelism-c8af09beea": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Serving a multimodal language model involves more than generating text: images, video, and audio also require feature extraction and projection. Different requests therefore place different demands on the system, and their inference stages need different resources. Tightly coupled serving designs struggle to accommodate this variation, delaying initial responses and leaving resources poorly utilized.",
+      "ElasticMM builds on Elastic Multimodal Parallelism, which adapts resource use across request types and processing stages. A modality-aware load balancer separates requests into groups and dynamically allocates resources. Elastic partition scheduling separates inference stages so parallelism and capacity can change independently. The system also combines multimodal prefix caching with non-blocking encoding to improve processing efficiency.",
+      "Experiments using diverse real-world datasets report up to a 4.2-fold reduction in time to the first token and 3.2–4.5 times higher throughput than state-of-the-art serving systems while satisfying service-level objectives. These are measured improvements in the evaluated settings. They show how coordinating resource allocation, stage scheduling, and computation reuse can improve both responsiveness and serving capacity for mixed multimodal workloads."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1ca32e122dec60493f0d61ca22819b4858907350e41cab455f97cf0ba91f05c4",
+    "tldr": "ElasticMM adapts resources across modalities and inference stages to improve multimodal model responsiveness and throughput."
+  },
+  "neurips-2025-flow-based-policy-for-online-reinforcement-learning-12d6e0425a": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A reinforcement-learning policy may need to represent several very different useful actions in the same situation. Flow-based generative models can express such complex action distributions, but their usual training objective imitates a fixed dataset. Online reinforcement learning instead needs to improve actions according to estimated value while its experience buffer keeps changing.",
+      "FlowRL addresses this mismatch by representing a policy as a state-dependent velocity field. Starting from noise, it generates an action through deterministic integration of an ordinary differential equation. Its policy-search objective raises estimated action value while constraining the Wasserstein-2 distance from a behavior-optimal policy implicitly obtained from the replay buffer. The distance constraint links improvement to the available experience.",
+      "This formulation connects the expressive flow model directly to the reinforcement-learning objective, rather than relying only on imitation-oriented training. Evaluations on DMControl and Humanoidbench show competitive online learning performance. The findings support flow-based policies as a practical option when paired with an optimization objective designed for value improvement and a changing experience distribution."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "87468ab1ac9ecf7f8e0c614ed85f3273694167e7857fc9c587158b9597afc363",
+    "tldr": "FlowRL combines expressive flow-based action generation with constrained value optimization for competitive online reinforcement learning."
+  },
+  "neurips-2025-from-bytes-to-ideas-language-modeling-with-autoregressive-u-nets-ecaed1cf35": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Conventional tokenization chooses how text is divided before a language model learns from it. That choice fixes both the units the model reads and the units it predicts. This paper moves token formation into the network, allowing a model that starts from raw bytes to learn representations at several levels of textual structure.",
+      "The proposed autoregressive U-Net pools information into words, word pairs, and groups of up to four words. Its deeper stages predict farther ahead in the sequence, encouraging them to capture broader semantic patterns. Earlier stages remain responsible for finer details. The architecture therefore links the scale of a representation to the distance into the future that it must anticipate.",
+      "With careful tuning and controlled pretraining compute, shallow hierarchies match strong byte-pair-encoding baselines. Deeper hierarchies show a promising trend, rather than an established universal advantage. Because tokenization is internal to the model, the same system can also address character-level tasks and transfer knowledge across low-resource languages. The results support learned multiscale tokenization as a viable alternative to a fixed vocabulary."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d6270cf52798fef875b69dff701c0d4f4d14adff7f8a4c79b2b076e8d55cedee",
+    "tldr": "An autoregressive U-Net learns text representations from bytes at multiple scales, with shallow versions matching strong fixed-tokenization baselines."
+  },
+  "neurips-2025-geraf-neural-geometry-reconstruction-from-radio-frequency-signals-5bd8f3c53d": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Radio-frequency sensing can reveal objects through occlusion, making it attractive for reconstructing three-dimensional geometry. Its signals are also noisy and low-resolution. Unlike camera imaging, where lenses organize measurements along rays, radio signals spread throughout space and reflect from surfaces in a direction-dependent way. These differences make ordinary image-based reconstruction strategies difficult to reuse.",
+      "GeRaF develops a neural reconstruction method around those physical differences. It filters rendering contributions to suppress irrelevant signals and uses a physics-based pipeline for radio-frequency volumetric rendering. A lens-less sampling method and corresponding alpha-blending strategy make sampling throughout the full space feasible during training, addressing the computational burden of modeling signals across a volume.",
+      "The method learns geometry through signed distance functions, alongside reflectiveness and signal power, using neural networks and trainable parameters. The authors present it as the first neural implicit approach to near-range geometry reconstruction from radio-frequency signals and a first step toward millimeter-level reconstruction in real-world settings. Its significance lies in combining learned geometric representations with a rendering process tailored to radio propagation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "201069959b1b1f678595bd2b28b625a22a504ecd752b12580077fe40dd2dc732",
+    "tldr": "GeRaF combines neural geometry representations with radio-specific rendering and sampling as a step toward fine-scale reconstruction from RF signals."
+  },
+  "neurips-2025-gsalign-geometric-and-semantic-alignment-network-for-aerial-ground-person-re-identificat-73d9296ef5": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Matching a person seen by an aerial camera with the same person seen from the ground is difficult because the views can show different poses, proportions, and visible body regions. Earlier cross-view representations remain limited when these differences are severe. GSAlign addresses both the geometric distortion and the mismatch in which body information is available.",
+      "Its Learnable Thin Plate Spline module uses learned keypoints to adaptively warp pedestrian features, compensating for changes in apparent geometry. Alongside this, a Dynamic Alignment Module estimates masks that emphasize visible body regions at the semantic level. Together, the modules seek to align comparable information while reducing the influence of occlusion and partial observations.",
+      "On the CARGO benchmark, the authors report improvements of +18.8% in mean average precision and +16.8% in Rank-1 accuracy over previous state-of-the-art methods. These results support the value of addressing geometric alignment and visibility together for aerial-ground matching. The evidence concerns this challenging benchmark and shows that explicitly handling viewpoint distortion can materially improve learned cross-view representations."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c3053354a5923b4088edfcb42b0fedcc099cf83f0c4c126814c0c6cc6df7216b",
+    "tldr": "GSAlign improves aerial-ground person matching by jointly correcting feature geometry and emphasizing visible body regions."
+  },
+  "neurips-2025-hamiltonian-descent-algorithms-for-optimization-accelerated-rates-via-randomized-integra-d0fe1490da": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Hamiltonian flow offers a physics-inspired way to minimize an objective: simulate motion for a period, then reset velocity to zero so the objective decreases. With short simulation periods, this procedure converges at the same rates as gradient descent on strongly and weakly convex functions. The paper asks whether changing the duration of these motion segments can yield acceleration.",
+      "The key change is to randomize the integration time. The authors prove that this randomized Hamiltonian flow achieves accelerated convergence in continuous time, with rates similar to accelerated gradient flow. They then turn the continuous process into a discrete algorithm called randomized Hamiltonian gradient descent, making the approach available as an iterative optimization method.",
+      "For smooth strongly and weakly convex objectives, the discrete algorithm matches the accelerated convergence rates of Nesterov’s accelerated gradient descent. Numerical experiments also find it competitive with classical accelerated methods across the evaluated settings and better in certain regimes. The contribution connects randomized simulation timing to both theoretical acceleration and an implementable algorithm, without claiming that it always outperforms existing accelerated methods."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "613da3a5940785532f2e4e64a4a4f1f642d6cd81bd159cd69e19271c90c0aee9",
+    "tldr": "Randomizing Hamiltonian integration time yields an optimization algorithm that matches Nesterov’s accelerated rates under the stated smoothness and convexity conditions."
+  },
+  "neurips-2025-interpreting-emergent-features-in-deep-learning-based-side-channel-analysis-c9306248e8": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Side-channel analysis extracts secret information from unintended physical signals produced by secure devices. Security evaluation laboratories use these techniques to assess defenses, but highly effective neural approaches can be difficult to interpret. Knowing that a model succeeds does not by itself explain which leakage it exploits or how its internal computation uses that leakage.",
+      "This work applies mechanistic interpretability to networks trained for side-channel analysis. The authors focus on abrupt improvements in performance as opportunities to reverse engineer emerging representations. Their analysis identifies both the information present in side-channel traces and the model mechanisms that use it, ultimately recovering secret masks and making the evaluation process more transparent.",
+      "The reported results show that this approach can work in realistic settings where useful inputs are sparse, model accuracy is low, and protections prevent standard interventions on the inputs. That combination matters because those conditions make ordinary probing difficult. The contribution demonstrates a way to move from observing attack performance toward understanding its internal basis, providing security evaluators with information relevant to designing better countermeasures."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "219b7ea802b399c0ae036ca172404028c2ed03a1cd89a559ed532aedd072d469",
+    "tldr": "Mechanistic interpretability reveals how side-channel neural networks exploit physical leakage, including in difficult realistic evaluation settings."
+  },
+  "neurips-2025-llm-query-scheduling-with-prefix-reuse-and-latency-constraints-7df6f241db": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Language-model servers can reuse computation when requests share an initial text sequence. Scheduling requests to exploit that reuse can improve efficiency, but users also need timely responses. This paper examines how request ordering interacts with latency requirements, particularly the delay before the first token, and exposes limitations in first-come-first-served and longest-prefix-match scheduling.",
+      "The authors develop a theoretical framework for RadixAttention, which stores reusable intermediate representations in a radix tree. They prove that scheduling with prefix reuse under time-to-first-token constraints is NP-hard. They then introduce k-LPM, a scheduling algorithm that generalizes existing approaches by balancing opportunities for prefix reuse with fairness in processing waiting requests.",
+      "The theoretical improvement in time to the first token holds under traffic patterns represented by the paper’s data-generating model. Experiments in a realistic serving environment also show substantial reductions in P99 time to the first token, a measure of delay near the slow end of requests. The findings connect scheduling decisions to user-visible responsiveness while making the assumptions behind the theoretical guarantee explicit."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0ac45d4ad599b7e442be9b8c489a8b124ec72f35547ee85d06b37de88ce5befb",
+    "tldr": "The k-LPM scheduler balances prefix reuse and fairness, improving first-token latency theoretically under modeled traffic and empirically in realistic serving."
+  },
+  "neurips-2025-llm-safety-alignment-is-divergence-estimation-in-disguise-400e8fbf62": {
+    "backgroundConcepts": [
+      "topic-230-a-mechanistic-understanding-of-alignment-algorit"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Safety alignment changes how a language model responds to preferred and harmful inputs, but different alignment methods can appear to have separate mathematical foundations. This paper offers a common framework: popular approaches, including reinforcement learning from human feedback and its variants, can be interpreted as estimating divergence between aligned and unaligned distributions.",
+      "Divergence measures how distributions differ. Through this perspective, the authors explain why representations of safe and harmful prompts become separated in a model’s latent space after alignment. They use the framework to develop KLDO, an alignment method based on KL divergence, and provide empirical evidence of its effectiveness. The theory therefore motivates a concrete training approach.",
+      "The paper also finds that compliance–refusal datasets produce stronger separation and better safety alignment than standard preference datasets. To measure this effect, it introduces a distance-based statistic in the space of prompt representations. That statistic is a statistically significant indicator of model safety. Together, these results connect alignment objectives, training-data choices, and internal representations within one theoretical account."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9474c5c6c6e34dac5a88278de92fdc32dc800342b54b69c8d83dab0267969b90",
+    "tldr": "A divergence-estimation view of alignment explains representation separation and motivates a new method, dataset choice, and safety indicator."
+  },
+  "neurips-2025-optimistic-online-to-batch-conversions-for-accelerated-convergence-and-universality-78973d3b9a": {
+    "backgroundConcepts": [
+      "topic-056-optimistic-online-mirror-descent-for-bridging-st"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Online-to-batch conversion connects algorithms that learn through successive decisions with methods for optimizing a fixed objective. Earlier work used this connection to understand Nesterov-style acceleration, emphasizing optimistic online algorithms. This paper places optimism into the conversion itself, simplifying the online algorithm needed to obtain accelerated convergence.",
+      "The authors show that their conversion achieves optimal accelerated convergence when paired with ordinary online gradient descent. For objectives that are both smooth and strongly convex, combining the new conversion with an optimistic online algorithm also reaches the optimal accelerated rate. They identify this as the first such strongly convex result obtained through the online-to-batch viewpoint.",
+      "The conversion additionally supports universality to smoothness: it can handle smooth and nonsmooth objectives without knowing the smoothness coefficient in advance. It requires only one gradient query per iteration, preserving the stated efficiency of non-universal methods. A precise correspondence with Nesterov’s accelerated gradient method ties these results back to a familiar algorithm. The contribution is a reusable theoretical route to acceleration and adaptation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b2cb6442adda375505d9dd840fbb976e6b77aa161c8cb025450d091c07ab23d4",
+    "tldr": "New optimistic online-to-batch conversions yield optimal acceleration and adaptation to unknown smoothness with one gradient query per iteration."
+  },
+  "neurips-2025-physx-3d-physical-grounded-3d-asset-generation-3216cb5d82": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A generated three-dimensional object can have convincing geometry and texture while lacking the physical information needed for simulation or embodied AI. PhysX addresses this gap by combining a physically annotated dataset with a generation framework that predicts physical properties alongside structure. The paper presents this as an initial step toward assets grounded in physical use.",
+      "The dataset covers five dimensions: absolute size, material, affordance, kinematics, and functional description. These annotations describe how large an object is, what it is made from, what interactions it supports, and how it can move or function. A scalable annotation process combines vision-language models with human involvement to enrich existing raw assets.",
+      "PhysXGen adds physical knowledge to a pretrained representation of three-dimensional structure. Its two branches model relationships between structure and physical properties, producing plausible physical predictions while preserving geometry quality. Experiments report superior performance and promising generalization. The contribution combines the data needed to learn these relationships with a model designed to express them, expanding asset generation beyond appearance alone."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "fc180fc78cdb991aa8ae75ebc4a01ebe270cb73b18ede8f1be9f234548ceaee9",
+    "tldr": "PhysX combines physical annotations and a dual-branch generator to produce 3D assets with plausible physical properties while preserving geometry quality."
+  },
+  "neurips-2025-shortcut-features-as-top-eigenfunctions-of-ntk-a-linear-neural-network-case-and-more-af499a9ea4": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A model can learn a feature that is common in its training data yet unreliable elsewhere. This paper investigates that shortcut learning through the Neural Tangent Kernel, focusing first on linear neural networks. It defines features mathematically as the kernel’s eigenfunctions, allowing the authors to analyze how different features influence learning and predictions.",
+      "For clustered data where shortcut behavior arises from unequal sample counts, the authors find that shortcut features correspond to larger eigenvalues. These features also retain substantial influence over network outputs after training because of variation within the clusters. The analysis therefore connects shortcut preference to both the balance of examples across clusters and the variability inside them.",
+      "The preference persists even when the model’s output margin is controlled, showing that a bias toward maximum-margin solutions is not the sole major explanation for shortcut learning. Experiments with a two-layer ReLU network and ResNet-18 extend the observed patterns beyond linear models. The theoretical conclusions concern the analyzed linear setting, while the more complex networks provide empirical evidence for broader relevance."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "fa73e060c4929c4aaa93c1af188270c2d75583d0380245022715ce3cd7050db2",
+    "tldr": "An NTK analysis links shortcut learning in linear networks to dominant eigenfunctions, with supporting empirical patterns in more complex networks."
+  },
+  "neurips-2025-sparse-meets-dense-unified-generative-recommendations-with-cascaded-sparse-dense-represe-46ff302aca": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Generative recommenders predict item identifiers from a user’s interaction history, but separating identifier construction from sequence modeling can lose useful information. Dense retrieval represents items with richer vectors and can offer finer distinctions. COBRA combines these representations in one generative framework to connect broad semantic organization with more detailed recommendation signals.",
+      "The model first generates sparse semantic identifiers, then uses them to condition the generation of dense vectors. End-to-end training allows the dense representations to change as the recommendation task is learned, incorporating semantic information and patterns in user-item interactions. Inference follows the same coarse-to-fine progression. BeamFusion further combines beam-search scores with nearest-neighbor scores to support flexible inference and recommendation diversity.",
+      "The authors evaluate the framework on public datasets, through offline tests, and in online A/B tests on an advertising platform serving more than 200 million daily users. They report robustness and substantial improvements in key online metrics. These findings support the practical value of training sparse and dense recommendation representations together and combining their strengths during retrieval."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "dd8a8638fa6b8d82868b411cc2925aa4b86561845b86e0922ce471d73ca02ee1",
+    "tldr": "COBRA generates sparse item identifiers and conditioned dense vectors together, improving recommendation quality in offline and large-scale online evaluations."
+  },
+  "neurips-2025-time-embedded-algorithm-unrolling-for-computational-mri-43305d743a": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Algorithm unrolling reconstructs MRI images by turning a fixed number of optimization iterations into a trainable network. Each iteration typically combines learned regularization with an operation that enforces agreement with measured data. Sharing the same regularization network across iterations can cause blur or artifacts, while separate networks add parameters and make overfitting harder to prevent.",
+      "This paper makes the learned operations depend on iteration time. Drawing on approximate message passing and diffusion-model time embeddings, it represents the iteration-dependent proximal operation and its Onsager correction with a time-embedded network. Weights governing data fidelity and the corresponding correction also become time-dependent learnable parameters, allowing reconstruction behavior to change across the unrolled sequence.",
+      "Experiments on fastMRI across different acceleration rates and datasets show reduced aliasing artifacts and noise amplification, with state-of-the-art reconstruction performance. The authors also apply the time-embedding strategy to existing unrolling approaches and improve reconstruction quality without a significant increase in computational complexity. The central contribution is a structured way to adapt learned reconstruction steps to their position in the algorithm."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3cfbed71ac34ecf3a62726170e231d62df428e68089dc09136047bec5b67fad7",
+    "tldr": "Time embeddings let unrolled MRI reconstruction networks adapt across iterations, improving image quality without significantly increasing computational complexity."
+  },
+  "neurips-2025-uniteformer-unifying-node-and-edge-modalities-in-transformers-for-vehicle-routing-proble-2ed11c61bb": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Routing problems can be represented through information about locations, connections between locations, or both. Neural solvers that depend on only one of these input forms have limited flexibility when the available representation changes. UniteFormer trains a single model to work with node-only, edge-only, and combined inputs.",
+      "Its mixed encoder combines graph convolutional networks and attention to process location and connection features together, capturing interactions between them. A parallel decoder uses query mapping and a feed-forward layer to improve its representations. During training with REINFORCE, the model sees randomly selected input types across batches, so support for different representations is built into the learning procedure.",
+      "Experiments on the Traveling Salesman Problem and Capacitated Vehicle Routing Problem report state-of-the-art performance. The model also generalizes effectively to instances from TSPLib and CVRPLib. These findings support the value of learning across node and edge information within one solver. The broader promise is greater flexibility across routing tasks, while the reported evidence comes from the specific problem families and instance collections evaluated."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1f0f974b3d67456adb10f8175ebc88b77480574d4fb4973bad7a2fddb9602ea0",
+    "tldr": "UniteFormer trains one routing model across node, edge, and combined inputs, achieving strong performance and generalization on evaluated routing problems."
+  },
+  "neurips-2025-unlearning-aware-minimization-9710e7ffba": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Machine unlearning aims to remove the influence of selected training examples while preserving a model’s performance on the examples that remain. Approximate methods can fail in either direction: they may leave too much of the unwanted influence or damage useful performance. Unlearning-Aware Minimization treats these competing requirements as a coupled optimization problem.",
+      "The method uses a min–max framework. It first perturbs model parameters to increase loss on the data designated for forgetting, then uses the associated gradients to reduce loss on retained data. The authors derive an efficient way to optimize this objective. The design makes the retain-data update explicitly account for parameter changes that target forgetting.",
+      "Experiments cover image classification on CIFAR-10, CIFAR-100, and TinyImageNet, along with language-model multiple-choice question answering on WMDP-Bio and WMDP-Cyber. The authors report better performance than existing methods and access to favorable optima that conventional approaches miss. These findings support jointly optimizing forgetting and retention as a way to improve approximate unlearning across the evaluated vision and language tasks."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "084a97df9510494e3a6c8c7655799a994c27ae64bd23a41fc1a092029d13818d",
+    "tldr": "Unlearning-Aware Minimization couples forgetting-oriented parameter perturbations with retained-data optimization to improve approximate machine unlearning."
+  },
+  "neurips-2025-unsupervised-learning-for-optimal-transport-plan-prediction-between-unbalanced-graphs-32af11bff3": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Optimal transport provides a way to compare and align graphs by assigning correspondence between their parts. Powerful graph-based formulations require solving nonconvex optimization problems, which becomes costly for large graphs. ULOT learns to predict transport plans directly, reducing the amount of optimization needed each time a pair of graphs is compared.",
+      "The model is trained by minimizing the fused unbalanced Gromov-Wasserstein loss. Its architecture uses cross-attention to relate the two input graphs and is conditioned on the hyperparameters that control the loss’s tradeoffs. This makes the prediction depend on both the graph pair and the chosen alignment settings, rather than treating those settings as fixed outside the model.",
+      "On synthetic stochastic block model graphs and cortical surface data from fMRI, ULOT produces plans with competitive loss up to two orders of magnitude faster than classical solvers. Its predictions can also initialize those solvers to speed convergence. Because predicted plans are differentiable with respect to graph inputs and tradeoff parameters, they can participate in further optimization of quantities computed from the alignment."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "097a14b63d7c8cdf95d3642bff7c21e4011e2428af8b5f2aa6d7c1625b715220",
+    "tldr": "ULOT predicts differentiable graph transport plans with competitive loss and up to two orders of magnitude faster inference than classical solvers."
+  },
+  "neurips-2025-wide-horizon-thinking-and-simulation-based-evaluation-for-real-world-llm-planning-with-m-e88fd06333": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Real-world planning requires combining many constraints that may interact or conflict. In travel planning, a model must bring together real-world information and user preferences while accounting for how earlier activities affect later ones. The paper argues that extending a single chain of reasoning is insufficient for managing this breadth of information.",
+      "Multiple Aspects of Planning, or MAoP, introduces a strategist that examines different aspects before the final plan is produced. Its output serves as a blueprint for planners. Increasing the number of aspects considered provides a way to scale inference-time effort toward a broader set of constraints, which the authors describe as wide-horizon thinking.",
+      "The paper also introduces Travel-Sim, an agent-based benchmark that evaluates plans through simulation. Its motivation is that checking constraints independently can miss causal dependencies, such as an earlier activity changing what becomes possible later. Simulation evaluates these dependencies as the plan unfolds. Together, MAoP and Travel-Sim address both how language models organize complex planning and how such plans are assessed in interconnected scenarios."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "fdc22ee41e217ad5515ff9a28703803e3d83c802f68b0d6379c5a1b544d06fb8",
+    "tldr": "MAoP organizes planning across multiple aspects, while Travel-Sim evaluates plans through simulation that captures dependencies between constraints."
+  }
+}

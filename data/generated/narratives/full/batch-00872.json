@@ -1,0 +1,353 @@
+{
+  "neurips-2024-an-efficient-recipe-for-long-context-extension-via-middle-focused-positional-encoding-e248c2d1ac": {
+    "backgroundConcepts": [
+      "topic-012-quest-query-aware-sparsity-for-efficient-long-co"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Extending a language model’s context involves more than allowing a longer input. The model also needs to use information throughout that input, including passages in the middle. Existing extension methods often require training at the desired long context length, while still struggling to use those middle passages effectively.",
+      "CREAM addresses both issues by manipulating the position indices used in positional encoding. This interpolates the model’s position representations while requiring fine-tuning only at its original context length. The abstract gives the example of extending a model with a 4K training window to a 256K target window. During fine-tuning, a truncated Gaussian sampling scheme gives additional emphasis to positions in the middle of the context.",
+      "Experiments on both the Base and Chat versions of Llama2-7B report successful context extension. The approach matters because it connects training efficiency with where the model learns to attend: longer supported inputs and better use of their middle are addressed together. The stated benefit is alleviating the lost-in-the-middle problem, alongside avoiding fine-tuning at the full target length."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8352a8156f522792e5ec19d973ed8fc789e6b37442af4116db9ec012e331f7c5",
+    "tldr": "CREAM extends language-model context using short-window fine-tuning and position sampling that emphasizes the middle of long inputs."
+  },
+  "neurips-2024-autoregressive-image-generation-without-vector-quantization-660db5e78e": {
+    "backgroundConcepts": [
+      "topic-080-text-s-2-q-vdit-accurate-quantized-video-diffusi"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Autoregressive image generators commonly represent images using discrete tokens produced through vector quantization. That representation makes it convenient to predict a categorical distribution over the next token. This paper separates that convenient choice from the underlying idea of autoregressive generation: a model can predict successive image tokens without requiring their values to be discrete.",
+      "The proposed method uses a diffusion procedure to represent each token’s probability distribution in a continuous space. A Diffusion Loss replaces the categorical cross-entropy objective ordinarily used for discrete predictions. This changes how the model learns a token’s distribution and eliminates the need for a tokenizer that converts image information into discrete values.",
+      "The authors evaluate the approach with standard autoregressive models and generalized masked autoregressive variants. They report strong image-generation results while retaining the speed advantage of sequence modeling. The contribution is therefore a way to combine continuous token representations with autoregressive generation. Applying the same idea to other continuous-valued domains is presented as a direction the work could encourage, rather than an established experimental result."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b24bff70e6e7dfeba668e2dbdee4a17571d7d2e63d625c43355e601b04552143",
+    "tldr": "A diffusion-based token loss enables autoregressive image generation with continuous tokens, removing the need for vector quantization."
+  },
+  "neurips-2024-bam-just-like-that-simple-and-efficient-parameter-upcycling-for-mixture-of-experts-2689a97852": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Training a large mixture-of-experts language model from scratch is expensive. One alternative is to initialize it from several already trained, specialized dense models. Existing approaches reuse these models’ feed-forward parameters as separate experts but merge their remaining parameters, limiting how much of each model’s specialization survives the conversion.",
+      "BAM, short for Branch-Attend-Mix, also preserves specialized attention weights by creating mixture-of-attention layers. The paper explores two versions. One keeps separate query, key, and value projections for each attention expert. The other keeps separate query projections while sharing keys and values across experts, a design intended to make inference more efficient.",
+      "Experiments use seed models ranging from 590 million to 2 billion parameters. Under the same data and compute budgets, BAM outperforms the compared state-of-the-art approaches on perplexity and downstream tasks. These results support reusing attention specialization alongside feed-forward specialization when building an expert model. The two attention variants also make the treatment of shared parameters an explicit part of the upcycling design."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "bb186eb8e6c419edeb30e37efe50a3b0246d8073b11aca7f73b9c2a53f7a4e70",
+    "tldr": "BAM improves mixture-of-experts initialization by preserving specialized attention weights as well as feed-forward weights from dense models."
+  },
+  "neurips-2024-bayesian-adaptive-calibration-and-optimal-design-7551daad26": {
+    "backgroundConcepts": [
+      "topic-242-a-bayes-sard-cubature-method"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Calibrating a physical simulator means using real observations to infer appropriate values for its unknown parameters. Many machine-learning approaches repeatedly simulate the experimental designs already represented in the observed data. The paper argues that this can miss useful relationships across the wider design space and require many simulation runs.",
+      "The proposed method treats calibration as an adaptive experimental-design problem. It chooses new simulations in successive batches, seeking runs that provide the most information about the calibration parameters. At each round, it jointly estimates the parameters’ posterior distribution and selects designs by maximizing a variational lower bound on expected information gain.",
+      "A Gaussian-process model links simulator outputs, real observations, and the unknown calibration parameters. This provides a way to use correlations across designs when deciding which simulations to run next. Comparisons on synthetic and real-data problems demonstrate benefits over related approaches. The central contribution is to couple learning the parameters with choosing informative simulations, so that the simulation budget can respond to what the calibration process has already learned."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "66c022fef6c497fa7c8e3223aff9d539d29990fc4afaa6ffea5eec38a796c6f9",
+    "tldr": "An adaptive Bayesian method jointly learns simulator parameters and selects informative simulation designs to make calibration more data-efficient."
+  },
+  "neurips-2024-bileve-securing-text-provenance-in-large-language-models-against-spoofing-with-bi-level--2a83719f66": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A text watermark can help identify which language model produced a passage, but source detection alone does not establish that the passage is intact. Someone could change a generated response’s meaning or forge harmful content and create misleading evidence about its origin. Bileve addresses this spoofing problem alongside the need to keep text traceable.",
+      "The method embeds two levels of signals using a rank-based sampling strategy. Fine-grained signature bits support integrity checks, helping detect tampering or forgery. A coarser signal supports source tracing when the finer signature is invalid. The design therefore allows the detector to distinguish questions about a text’s source from questions about whether its signature remains valid.",
+      "Unlike a conventional detector that produces a binary decision, Bileve distinguishes five detection scenarios. Experiments with OPT-1.3B and LLaMA-7B report effectiveness against spoofing attacks and improved detectability. The stated findings support richer provenance judgments: an invalid integrity signature need not eliminate all evidence about where text came from, and a source signal need not be treated as proof that its meaning is unchanged."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b6487856e8ba158d31597d32120366db19d86739da72795b38b24c817cd91d54",
+    "tldr": "Bileve combines integrity signatures with a separate source-tracing signal to resist text-watermark spoofing and provide richer provenance decisions."
+  },
+  "neurips-2024-can-simple-averaging-defeat-modern-watermarks-0549ecefb7": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Image watermarks are used for copyright protection and source identification, but their repeated structure can create a weakness. This paper distinguishes methods that adapt their watermark to image content from those that embed a fixed pattern regardless of content. It investigates how collecting multiple watermarked images can expose such a pattern.",
+      "The authors show that averaging a collection of images can reveal the underlying watermark. They then use the extracted pattern to remove watermarks in both greybox and blackbox settings, including collections containing multiple watermark patterns. For some methods, including Tree-Ring watermarks, the recovered pattern can also be used to place convincing forged watermarks on clean images.",
+      "Quantitative and qualitative evaluations cover twelve watermarking methods. The findings highlight a threat to content-agnostic schemes from analysis across images, beyond examining each marked image individually. The authors recommend content-adaptive designs and explicit evaluation against steganalysis attacks. They also suggest assigning multiple keys as a potential mitigation, without presenting that suggestion as a guaranteed solution to the identified vulnerability."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "66565f3967840c72c2e36dfa56b144e617d428ad211275148281055a3d93e635",
+    "tldr": "Averaging watermarked images can expose reusable patterns that enable watermark removal and, for some methods, convincing forgery."
+  },
+  "neurips-2024-clustering-with-non-adaptive-subset-queries-63349c32d0": {
+    "backgroundConcepts": [
+      "topic-089-distributed-and-provably-good-seedings-for-k-mea"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper studies recovering an unknown partition of n points into k clusters through queries. Instead of asking whether two points share a cluster, a subset query reports how many clusters intersect a chosen group of points. All queries must be selected before any answers arrive, making the process non-adaptive and allowing parallel querying.",
+      "This richer query format substantially changes what is possible in one round. Non-adaptive pairwise queries require quadratically many queries even for three clusters. The authors provide a subset-query algorithm using O(n log² n log k) queries, improving to O(n log k) when cluster sizes differ by at most a constant factor. For constant k, another algorithm uses O(n log log n) queries.",
+      "The paper also studies limits on subset size. For constant k and subsets of at most s points, with s no greater than √n, it achieves approximately n²/s² queries up to logarithmic factors, within a log n factor of optimal. For arbitrary k, the stated dependence becomes approximately n²/s. These results quantify how larger queries can reduce the number needed for exact recovery."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "25c75c5440826d54c0dbfe1006de0ab1738d072bcc346e93abddd10fbb0b2e9e",
+    "tldr": "Counting clusters within queried subsets enables near-linear, single-round clustering algorithms, with additional guarantees when query sizes are restricted."
+  },
+  "neurips-2024-deep-homomorphism-networks-db6d6a00dd": {
+    "backgroundConcepts": [
+      "topic-173-a-complete-expressiveness-hierarchy-for-subgraph"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Many graphs contain meaningful local structures, such as triangles in social networks, cliques in web graphs, or cycles in molecular networks. A graph neural network needs enough expressive power to recognize relevant structures while remaining practical on large graphs. This paper makes a chosen collection of structural patterns central to the network’s design.",
+      "Its graph homomorphism layer enumerates local matches to predefined patterns, transforms node features nonlinearly, and aggregates information along those patterns. Stacking the layers produces a deep homomorphism network. The initial pattern set supplies domain knowledge about the structures the model should use when processing the graph.",
+      "The authors completely characterize the network’s expressive power through patterns generated from that initial set by graph-theoretic operations. This makes the architecture a theoretical tool for analyzing other graph neural networks as well. Its runtime has the same complexity as the graph-homomorphism computations it uses, which the abstract describes as fast on many real-world graphs. The efficiency claim therefore accompanies an explicit connection between chosen patterns, representational power, and computational work."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6b2f9aa15c52b26da1adc92f29f21154b5b5bc519a2f5e139186d8f160e1f12d",
+    "tldr": "Deep homomorphism networks use predefined graph patterns to build expressive graph models with a precise theoretical characterization."
+  },
+  "neurips-2024-deep-submodular-peripteral-networks-b0045b589c": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Submodular functions are useful for scoring sets, but acquiring them through practical learning methods remains a challenge. This paper connects that problem with learning from graded pairwise preferences: feedback that says how strongly one object is preferred to another, rather than supplying only a binary preference.",
+      "The authors introduce deep submodular peripteral networks, a parameterized family of submodular functions, together with a training strategy based on graded comparisons. Their peripteral loss uses numerical relationships between pairs of sets. Those sets may contain any number of elements, so the comparisons are not restricted to sets of two items. The numerical grades provide information beyond which set wins a comparison.",
+      "The framework also includes automatic ways to select training examples, including a strategy inspired by active learning that uses submodular feedback. Experiments demonstrate learning from a costly target submodular function and report superior performance in experimental-design and online-streaming applications. The contribution brings together a structured function family, a loss that uses preference strength, and sampling procedures for choosing useful comparisons during training."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "890598628666357e534cdcfd1eb0084f26f11eb8da4bacff1a3067c723608f63",
+    "tldr": "Deep submodular peripteral networks learn set-scoring functions from numerically graded preferences, using a specialized loss and automatic sampling strategies."
+  },
+  "neurips-2024-deer-vla-dynamic-inference-of-multimodal-large-language-models-for-efficient-robot-execu-3cae20f871": {
+    "backgroundConcepts": [
+      "topic-004-3d-vla-a-3d-vision-language-action-generative-wo"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Large multimodal models can interpret visual inputs and language instructions for robots, but their memory and computation requirements can exceed what robotic hardware supports. DeeR builds on the observation that much of a robot’s task execution consists of relatively easy situations, where a smaller model can already choose the correct action.",
+      "The framework gives the model multiple exit points and adjusts how much of it is activated for each situation. Processing stops once an appropriate amount of the model has been used. The authors develop termination criteria conditioned on resource demands, including average computation, peak computation, and GPU memory. They also introduce a training method that incorporates temporal information into action prediction within this multi-exit architecture.",
+      "On the CALVIN manipulation benchmark, DeeR reports computational-cost reductions of 5.2–6.5 times and a twofold reduction in GPU memory without compromising performance. These findings support adapting inference effort to the current control situation. The approach links early stopping with explicit resource constraints, allowing robot execution to use less computation while retaining competitive task performance in the reported evaluation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "26a81efa8e729de97c23270a4959fbbcc9eb24fd7209c070acf0df8fb5e5a962",
+    "tldr": "DeeR adapts a robotic multimodal model’s active size to each situation, substantially reducing computation and memory on CALVIN without compromising performance."
+  },
+  "neurips-2024-diversity-is-not-all-you-need-training-a-robust-cooperative-agent-needs-specialist-partn-5d88b63dff": {
+    "backgroundConcepts": [
+      "topic-123-context-aware-bayesian-network-actor-critic-meth"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Training a cooperative agent to work well with different partners requires a useful population of training partners. This paper argues that diversity alone is insufficient: partner specialization also matters for the robustness of the generalist agent trained with that population. It introduces a mutual-information-based method for quantifying both properties.",
+      "The authors examine cross-play minimization, a technique that produces partners with diverse and specialized behaviors. They find that these partners are also overfit, which reduces their usefulness for training a generalist. This separates having desirable population-level properties from actually providing training interactions that lead to robust cooperation.",
+      "To retain the useful behaviors, the paper proposes extraction methods based on reinforcement learning and supervised learning. The aim is to transfer diversity and specialization without carrying over the source partners’ overfitness. Empirical results show that the methods remove overfitness and that agents trained with the extracted populations are more robust than agents trained with the original cross-play-minimization populations. The findings make the quality of specialization, alongside diversity, part of designing a productive training population."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1231ac8609a03f42f4c359278b192ca3f25c81032b30238a5f0815ca3d9413c6",
+    "tldr": "Extracting diverse, specialized behaviors from overfit training partners produces more robust cooperative generalist agents in the reported experiments."
+  },
+  "neurips-2024-do-counterfactually-fair-image-classifiers-satisfy-group-fairness-a-theoretical-and-empi-7426848d21": {
+    "backgroundConcepts": [
+      "topic-041-understanding-instance-level-impact-of-fairness-"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Evaluating counterfactual fairness in images requires examples that differ in a sensitive attribute while representing the relevant counterfactual comparison. Such examples are difficult to obtain from existing photographs. The authors use high-quality image editing and careful human annotation to create CelebA-CF and LFW-CF, extending benchmarks that already support group-fairness evaluation.",
+      "These datasets allow both fairness notions to be assessed together. The experiments show that counterfactual fairness does not imply group fairness in the studied image-classification settings. The theoretical analysis identifies a possible explanation: a latent attribute can be correlated with a sensitive attribute without being caused by it. Reliance on that attribute can help explain why the two fairness criteria diverge.",
+      "The authors propose Counterfactual Knowledge Distillation to mitigate the relevant correlations. Experiments on both datasets show that models achieving counterfactual fairness also satisfy group fairness when their reliance on the latent attribute is successfully reduced. The condition matters: the result connects the fairness notions through a successful reduction in that reliance, rather than establishing that counterfactual fairness alone guarantees group fairness."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "cefa47449cc9b926321fcf345667282dedabdfa2202871b4c6eac2812985390a",
+    "tldr": "New image datasets show that counterfactual fairness need not imply group fairness, with correlated latent attributes offering a possible explanation."
+  },
+  "neurips-2024-era3d-high-resolution-multiview-diffusion-using-efficient-row-wise-attention-2312c026a7": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Era3D generates images of an object from multiple viewpoints using a single input image. The paper addresses two problems in existing multiview diffusion methods: assumptions about the input camera can distort the inferred shape, and dense attention across views becomes costly as image resolution increases.",
+      "The method first predicts the input image’s focal length and camera elevation with a diffusion-based module. Estimating these properties addresses mismatches between the actual image and a predefined camera assumption. It then uses row-wise attention to combine information across views while enforcing epipolar geometric constraints. This gives the generation process a structured way to share information across images without using full-image multiview attention.",
+      "The authors report output resolutions up to 512×512 and a twelvefold reduction in multiview-attention computational complexity relative to state-of-the-art methods. Their experiments also show reconstruction of detailed, high-quality 3D meshes from diverse single-view inputs, outperforming baseline multiview diffusion methods. These findings connect better handling of camera properties with more efficient cross-view processing, addressing both shape quality and the cost of higher-resolution generation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "67a75a0d47558d82e3ee9008402f153b77ac6b382e01d61701418d45ad7816cf",
+    "tldr": "Era3D combines camera prediction and row-wise attention to generate high-resolution multiview images efficiently from a single image."
+  },
+  "neurips-2024-fasterdit-towards-faster-diffusion-transformers-training-without-architecture-modificati-f2e6302fc8": {
+    "backgroundConcepts": [
+      "topic-080-text-s-2-q-vdit-accurate-quantized-video-diffusi"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "FasterDiT targets slow convergence in diffusion transformers while keeping the model architecture unchanged. The authors identify two training problems: strategies that work well on some data do not consistently transfer to other data, and supervision at certain diffusion timesteps provides limited benefit. Their approach changes the training strategy and supervision.",
+      "To understand variation across data, the paper slightly extends the definition of signal-to-noise ratio and examines its probability density. This shifts attention toward how signal-to-noise conditions are distributed during training. Drawing on more than one hundred experimental results, the authors empirically derive a unified acceleration strategy and add a new supervision method for further speed gains.",
+      "The resulting FasterDiT strategy requires only a few lines of code changes. The abstract reports an FID of 2.30 on ImageNet at 256×256 resolution with 1000 iterations, compared with 2.27 for DiT, alongside sevenfold faster training. This is a reported comparison of similar generation quality at substantially lower training cost, supporting the value of revising optimization and supervision without changing the architecture."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6067df40fb95966c3d276264d675d96613b1a53cfa4d0b35d29ae4156d84b53a",
+    "tldr": "FasterDiT revises diffusion-transformer training and supervision, reporting sevenfold faster training with comparable ImageNet generation quality."
+  },
+  "neurips-2024-iteratively-refined-behavior-regularization-for-offline-reinforcement-learning-367d5cf5b5": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Offline reinforcement learning must learn a useful control policy from a fixed dataset, whose behavior may be strong or poor. Behavior regularization helps control this learning process by keeping updates related to a reference policy. The paper addresses the difficulty of making this approach work reliably across different offline data distributions.",
+      "The proposed algorithm repeatedly refines the reference policy rather than leaving it fixed. Its conservative policy updates provide gradual improvement while implicitly avoiding queries about actions outside the data. This combination is intended to prevent catastrophic learning failures while letting the policy improve beyond the behavior initially used as its reference.",
+      "The theoretical guarantee is specific to the tabular setting: the algorithm can learn the best policy supported by the offline dataset, called the in-sample optimal policy. The authors also investigate implementation choices with function approximation, producing an algorithm that needs only a few lines of changes to existing methods. On D4RL, it outperforms previous state-of-the-art baselines on most tasks. The results support iterative reference refinement, while the formal optimum remains tied to dataset coverage and the tabular setting."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1c0dc2a2eabf7cbb0039c77082970025837da03e4a1c6eabbd5f15f6bc3246ba",
+    "tldr": "Repeatedly refining behavior regularization’s reference policy improves offline learning and provably reaches the dataset-supported optimum in the tabular setting."
+  },
+  "neurips-2024-large-pre-trained-time-series-models-for-cross-domain-time-series-analysis-tasks-1d2778a5af": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Time-series analysis often relies on a separate model trained from scratch for each task, using data and expertise from its particular domain. Building a shared pretrained model introduces a representation problem: time series from different domains must be converted into tokens that carry useful meaning despite their differences.",
+      "Large Pre-trained Time-series Models, or LPTM, address this problem through adaptive segmentation. During pretraining, the method automatically identifies a dataset-specific strategy for dividing time series into segments. Those segments supply tokenized inputs, allowing the representation process to accommodate heterogeneous datasets rather than imposing the same segmentation strategy across all of them.",
+      "The authors report performance similar to or better than domain-specific state-of-the-art models across downstream tasks, both after fine-tuning and in zero-shot settings. For forecasting and classification, they report superior results using up to 40% less data and 50% less training time than state-of-the-art baselines. The findings support adaptive segmentation as a component of reusable time-series pretraining, with the stated savings describing the reported comparisons rather than a fixed reduction for every task."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d8beb231ca0e58c7de90b80e3fbe828c5c711f0c530d854f5bd75b425c78a26a",
+    "tldr": "LPTM uses dataset-specific adaptive segmentation to pretrain transferable time-series models, reporting strong results with reduced data and training requirements."
+  },
+  "neurips-2024-learning-in-markov-games-with-adaptive-adversaries-policy-regret-fundamental-barriers-an-95956bba43": {
+    "backgroundConcepts": [
+      "topic-231-doubly-exponential-lower-bounds-for-follow-the-r"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "When an opponent adapts to a learner’s behavior, assessing the learner requires accounting for how different choices would have changed the opponent’s responses. This paper studies Markov games using policy regret, a counterfactual comparison with the return obtainable by following the best fixed policy sequence in hindsight. It argues that conventional external regret is inadequate in this adaptive setting.",
+      "The authors establish barriers to sample-efficient learning. Such learning is impossible when the opponent has unbounded memory or is non-stationary. Even an opponent with bounded memory and stationary behavior leaves a statistically hard problem when the learner’s feasible strategy set is exponentially large. These results identify distinct sources of difficulty rather than treating all adaptation alike.",
+      "To obtain a learnable setting, the paper introduces consistent adaptive adversaries, which respond similarly to similar learner strategies. It provides algorithms with policy regret scaling as √T against adversaries that are simultaneously memory-bounded, stationary, and consistent. The positive guarantee therefore depends on these restrictions, showing how structure in an opponent’s reactions can make counterfactual performance guarantees attainable."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c7d1f51e0c940d8261e4f6be6068d89b4e297e956f97a52e2c489329a54639a8",
+    "tldr": "The paper identifies barriers to learning against adaptive opponents and achieves √T policy regret under bounded-memory, stationary, consistent responses."
+  },
+  "neurips-2024-maximum-entropy-reinforcement-learning-via-energy-based-normalizing-flow-b388c67fdb": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Maximum-entropy reinforcement learning methods for continuous actions commonly alternate between evaluating a policy and improving it. A critic learns the soft Q-function, and an actor then adjusts its behavior using that estimate. This paper proposes an energy-based normalizing-flow framework that integrates these two steps into a single training objective.",
+      "The framework also changes how quantities needed for learning and action selection are computed. It can calculate the soft value function used in the policy-evaluation target without a Monte Carlo approximation. Its action distribution can contain multiple modes, allowing several distinct action regions to receive high probability, while still supporting efficient sampling.",
+      "The authors evaluate the method on MuJoCo and on high-dimensional robotic tasks simulated in Omniverse Isaac Gym. They report better performance than widely used representative baselines. The contribution combines a unified learning objective with a flexible action distribution and direct soft-value calculation. Together, these properties offer an alternative to the alternating actor-critic formulation in the continuous-control settings studied, with the empirical comparisons supporting the effectiveness of that combination."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1c329911335e6ddd14dd09f615480602a804eb7a20454421ec99d4e872f37e99",
+    "tldr": "An energy-based normalizing flow unifies maximum-entropy policy evaluation and improvement while supporting multimodal actions and direct soft-value calculation."
+  },
+  "neurips-2024-parametric-model-reduction-of-mean-field-and-stochastic-systems-via-higher-order-action--55d99ca25a": {
+    "backgroundConcepts": [
+      "topic-113-a-call-to-lagrangian-action-learning-population-"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper develops learned substitutes for numerical models of population dynamics that involve stochastic effects, mean-field effects, and changing physics parameters. The aim is to predict how a population behaves across parameter choices while generating sample trajectories more efficiently than the classical numerical models being approximated.",
+      "Building on action matching and the Benamou-Brenier formulation of optimal transport, the method solves a variational problem to infer gradient fields that depend on time and physics parameters. These fields approximate the population dynamics and can generate trajectories that reproduce the system’s behavior at the population level. The authors emphasize combining Monte Carlo sampling with higher-order quadrature to estimate the training objective accurately and stabilize optimization.",
+      "Demonstrations cover Vlasov-Poisson instabilities, high-dimensional particle systems, and chaotic systems. The method accurately predicts population dynamics over a wide parameter range and outperforms the compared diffusion and flow approaches that simply condition on time and physics parameters. The findings connect the physical-dynamics formulation with careful numerical estimation of its objective, making both parts central to the reported surrogate-model performance."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "62c0fa73cb869750ec5769cda2f2f94d31a170da76cabd7d2e31ce3431c4b4e9",
+    "tldr": "Higher-order action matching learns parameter-dependent population dynamics, enabling efficient surrogate trajectories with strong results across several physical systems."
+  },
+  "neurips-2024-piecewise-stationary-bandits-with-knapsacks-0a57361f4f": {
+    "backgroundConcepts": [
+      "topic-171-a-bandit-learning-algorithm-and-applications-to-"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Bandits with Knapsacks studies sequential decisions that earn rewards while consuming limited resources. This paper considers a piecewise-stationary environment, where conditions can change between otherwise stable periods. Resource use is especially consequential in this setting because spending inventory now affects what remains available after conditions change.",
+      "The authors propose an inventory-reserving algorithm and analyze it against a dynamic benchmark. This comparison differs from the static benchmark used in existing adversarial Bandits with Knapsacks work: the reference used to assess performance can reflect changing conditions. The analysis assumes parameters η_min and η_max in (0,1] that bound per-round reward and resource consumption as specified in the problem.",
+      "Under those assumptions, the algorithm achieves a competitive ratio of O(log(η_max/η_min)), with a matching lower bound supporting near-optimality. The guarantee also avoids requiring bounded global variation, an assumption used in existing non-stationary work. The contribution is a resource-reservation strategy whose performance is theoretically characterized against a changing benchmark, without placing that global bound on how much the environment varies."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "fca48005e19899fc4339e488e48fd31a79f7b7d0b47cd2cf39bed34386a3fd81",
+    "tldr": "An inventory-reserving bandit algorithm achieves a near-optimal logarithmic competitive ratio against a dynamic benchmark in piecewise-stationary environments."
+  },
+  "neurips-2024-precipitation-downscaling-with-spatiotemporal-video-diffusion-a8cdc697d2": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Producing local precipitation predictions at high resolution through simulation is computationally expensive. Statistical downscaling starts with a coarser prediction and estimates finer detail. For weather applications, however, plausible-looking detail is insufficient: the method needs to represent the distribution of fine-scale precipitation compatible with the coarse input, including patterns relevant to heavy rain.",
+      "This paper adapts video diffusion models to that task. A deterministic downscaler first produces an initial higher-resolution estimate. A diffusion model then uses temporal conditioning to capture noise characteristics and high-frequency patterns. The temporal component brings the relationship between successive precipitation patterns into the generation process, rather than treating downscaling solely as spatial image enhancement.",
+      "The authors test the approach using output from the FV3GFS global atmosphere model and compare it with six state-of-the-art baselines. Their evaluation includes CRPS, MSE, precipitation distributions, and qualitative examples from California and the Himalayas. They report results positioning the method as a new standard for data-driven downscaling. The evaluation’s distributional emphasis reflects the goal of supporting reliable ensemble averages and estimates of extreme precipitation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "434ab462431753f226193f6f13fe0bf79ed4231964eac085168c215ed3f0855a",
+    "tldr": "A deterministic downscaler followed by temporally conditioned diffusion generates fine-scale precipitation patterns and performs strongly against six downscaling baselines."
+  },
+  "neurips-2024-rethinking-llm-memorization-through-the-lens-of-adversarial-compression-fd64803d28": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Whether a language model has memorized training text depends partly on what counts as memorization. This paper proposes measuring it through adversarial compression: asking whether a short prompt can make the model produce a much longer target string. Under this definition, the model helps compress the string when the eliciting prompt requires substantially fewer tokens.",
+      "The proposed Adversarial Compression Ratio turns that relationship into a metric. It uses adversarially constructed prompts to assess how compactly a target can be elicited, giving memorization an operational meaning based on model behavior. The authors describe the approach as flexible enough to assess arbitrary strings at reasonably low computational cost.",
+      "This perspective is intended to support monitoring unlearning and compliance with data-use requirements. It shifts the assessment toward how much prompting is needed to recover specific text, rather than leaving memorization as an informal claim about the model’s training. The authors also present it as a potential legal tool for identifying problematic data use. That proposed application is a possible use of the definition, rather than a determination that any particular model violates legal obligations."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6d4c05cd691e30f1d355312fa7e35edc10b58ec478477851eb47765995c38807",
+    "tldr": "Adversarial Compression Ratio measures memorization by how much shorter an eliciting prompt can be than the text a language model reproduces."
+  },
+  "neurips-2024-self-calibrated-tuning-of-vision-language-models-for-out-of-distribution-detection-3960c94d0b": {
+    "backgroundConcepts": [
+      "topic-103-poem-out-of-distribution-detection-with-posterio"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Out-of-distribution detection asks a model to recognize inputs outside the distribution it is meant to handle. Some CLIP-based methods tune prompts using out-of-distribution features extracted from available in-distribution images. This can go wrong when inaccurate foreground-background separation produces misleading contextual features, making the resulting regularization less useful.",
+      "Self-Calibrated Tuning addresses that problem using only the supplied few-shot in-distribution data. It adds modulating factors to both components of the original learning objective. These factors adapt the balance between the two tasks according to prediction uncertainty, calibrating how strongly the out-of-distribution regularization influences optimization during training.",
+      "The framework is compatible with many prompt-tuning approaches to out-of-distribution detection. The authors report extensive experiments and analyses demonstrating its effectiveness. Its central contribution is an adaptive treatment of the training signal: features mined from known data need not influence optimization in the same way across examples with different uncertainty. This provides a way to improve detection while working with the limited in-distribution examples already available to the method."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b0ff2e61b58afe170683f2fb64ddb3042420237fe08f5b1540ab281f74482356",
+    "tldr": "Self-Calibrated Tuning uses prediction uncertainty to regulate prompt-training objectives and improve out-of-distribution detection from few-shot in-distribution data."
+  },
+  "neurips-2024-what-variables-affect-out-of-distribution-generalization-in-pretrained-models-0b403b6f6d": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Features extracted from pretrained neural networks can vary substantially in how well they transfer to new tasks or distributions. This paper examines that variation through the tunnel effect hypothesis, which suggests that deeper layers compress representations in a way that harms out-of-distribution generalization. The hypothesis is closely related to intermediate neural collapse.",
+      "The authors investigate architecture, training data, image resolution, and data augmentation as factors that can affect transferability. Their experiments show that the proposed harmful compression in deeper layers is not universal. In particular, training on high-resolution datasets with many classes greatly reduces representation compression and improves transferability in the reported results.",
+      "These findings change how the tunnel effect should be interpreted: its occurrence depends on the conditions under which a model is trained and studied. The paper emphasizes the danger of extending conclusions from toy datasets to broader settings. Its contribution is an empirical examination of those conditions, showing why the usefulness of pretrained representations cannot be inferred from network depth alone or from a narrow experimental setting."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0b13c649a07591db98aaba2b134fc8b0423a9367463f475cfa3185e319dc39b5",
+    "tldr": "Experiments show that harmful representation compression in deep layers is not universal and is reduced by high-resolution training data with many classes."
+  },
+  "neurips-2024-when-to-act-and-when-to-ask-policy-learning-with-deferral-under-hidden-confounding-6a7f0f383f": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A decision system working with a human expert can either recommend an action or defer to the expert. Learning that choice from observational data is difficult because hidden confounders can bias conclusions about which actions lead to better outcomes. The paper studies how to learn a collaborative policy while accounting for this source of uncertainty.",
+      "The approach builds on learning with expert deferral through a cost-sensitive classification objective. Here, however, the task is causal, so the required costs cannot simply be read from ordinary labels. The authors use a causal model to learn costs that are robust to a bounded degree of hidden confounding, then use them to guide action and deferral decisions.",
+      "The paper proves that its approach can combine the strengths of the model and expert to obtain a policy better than either alone. Experiments on synthetic and semi-synthetic data show advantages over baselines. The result supports treating deferral as part of policy learning itself, with the robustness claim explicitly tied to the assumed bound on hidden confounding."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8fac2c44a7cddc263f51225d514e363f3ccdfac77d31542dea6394395d1e7876",
+    "tldr": "A causal policy-learning method chooses when to act or defer to an expert while remaining robust to a bounded degree of hidden confounding."
+  }
+}

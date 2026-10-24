@@ -5,13 +5,16 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 from collections import Counter
 from pathlib import Path
 from typing import Any
 
-
 MAX_FILE_BYTES = 100_000_000
 MAX_SITE_BYTES = 1_000_000_000
+ABSTRACT_PLACEHOLDERS = {
+    "abstract unavailable", "abstract not available", "unavailable", "none", "n/a",
+}
 
 
 def read_json(path: Path, fallback: Any = None) -> Any:
@@ -41,6 +44,41 @@ def paper_rows(root: Path, manifest: dict[str, Any]) -> list[dict[str, Any]]:
         if isinstance(value, list):
             rows.extend(row for row in value if isinstance(row, dict))
     return rows
+
+
+def venue_year_counts(papers: list[dict[str, Any]]) -> dict[str, int]:
+    """Return stable reader-corpus counts for the internal release report."""
+    return dict(sorted(
+        Counter(f"{paper.get('venue', 'unknown')}:{paper.get('year', 'unknown')}" for paper in papers).items()
+    ))
+
+
+def summary_eligibility_reason(abstract: str, abstract_quality: str = "") -> str | None:
+    """Mirror the export evidence gate without requiring pipeline dependencies."""
+    if abstract_quality == "official-landing-page-possibly-full-text":
+        return "abstract quality requires source cleanup"
+    normalized = abstract.casefold().strip()
+    if not abstract.strip() or normalized in ABSTRACT_PLACEHOLDERS:
+        return "official abstract unavailable"
+    if len(re.findall(r"\b[\w’'-]+\b", abstract)) < 40:
+        return "insufficient abstract evidence (fewer than 40 words)"
+    return None
+
+
+def summary_coverage(papers: list[dict[str, Any]]) -> dict[str, int]:
+    """Classify public records with the same evidence gate used at export time."""
+    counts = {"narrative": 0, "legacy": 0, "pending": 0, "unavailable": 0}
+    for paper in papers:
+        summary = paper.get("summary")
+        if isinstance(summary, dict):
+            counts["narrative" if summary.get("paragraphs") else "legacy"] += 1
+        elif summary_eligibility_reason(
+            str(paper.get("abstract") or ""), str(paper.get("abstractQuality") or "")
+        ):
+            counts["unavailable"] += 1
+        else:
+            counts["pending"] += 1
+    return counts
 
 
 def _usage_totals(value: Any) -> dict[str, int]:
@@ -133,21 +171,27 @@ def main() -> int:
     root = Path(args.directory).resolve()
     data = root / "data"
     manifest = read_json(data / "manifest.json", {})
-    coverage = read_json(data / "coverage.json", {})
     topics = read_json(data / "topics.json", [])
-    corpus = read_json(data / "corpus-report.json", {})
-    model = read_json(root / "models/Xenova/all-MiniLM-L6-v2/ASSET-AUDIT.json", {})
-    destination = data / "report.json"
+    coverage = read_json(repo / "pipeline" / "data" / "raw" / "coverage.json", {})
+    model = read_json(repo / "pipeline" / "model-audits" / "Xenova" / "all-MiniLM-L6-v2" / "ASSET-AUDIT.json", {})
+    destination = repo / "docs" / "build-report.json"
     papers = paper_rows(root, manifest)
     files = artifact_files(root)
     largest = max(files, key=lambda path: path.stat().st_size) if files else None
     citation_matches = sum(paper.get("citationCount") is not None for paper in papers)
     venue_totals = dict(sorted(Counter(str(paper.get("venue", "unknown")) for paper in papers).items()))
+    rendered_summary_coverage = summary_coverage(papers)
+    corpus = {
+        "papersByVenueYear": venue_year_counts(papers),
+        "curatedTopics": len(topics),
+        "summaryCoverage": rendered_summary_coverage,
+        "citationMatchRate": round(citation_matches / len(papers), 4) if papers else 0,
+    }
     report = {
         "snapshot": manifest.get("snapshot"),
         "scope": "Static corpus snapshot; coverage and incomplete curation states are reported explicitly.",
-        # Keep the original report contract for the static-artifact validator
-        # and downstream consumers while the nested fields carry richer detail.
+        # This release-review report intentionally lives outside the browser
+        # artifact. Readers need the atlas, not operational build metadata.
         "siteBytes": 0,
         "papers": manifest.get("totalPapers", len(papers)),
         "topics": manifest.get("totalTopics", len(topics)),
@@ -162,7 +206,7 @@ def main() -> int:
         "corpus": {
             "papers": manifest.get("totalPapers", len(papers)),
             "papersByVenue": venue_totals,
-            "papersByVenueYear": corpus.get("papersByVenueYear", {}),
+            "papersByVenueYear": corpus["papersByVenueYear"],
             "topics": manifest.get("totalTopics", len(topics)),
             "curatedTopics": corpus.get("curatedTopics", 0),
             "summaryCoverage": corpus.get("summaryCoverage", {}),
@@ -173,8 +217,8 @@ def main() -> int:
         "knownCoverageGaps": "ICML 1980 and 1985 original workshop inventories remain unverified; see data/generated/earliest-proceedings-audit.json.",
         "validation": {"artifactMeasured": True, "deployment": "pending"},
     }
-    for _ in range(3):
-        report["artifact"]["bytes"] = size_of(root) - (destination.stat().st_size if destination.exists() else 0)
+    for _ in range(2):
+        report["artifact"]["bytes"] = size_of(root)
         report["siteBytes"] = report["artifact"]["bytes"]
         report["artifact"]["megabytesDecimal"] = round(report["artifact"]["bytes"] / 1_000_000, 2)
         report["artifact"]["withinGitHubPagesLimits"] = report["artifact"]["bytes"] <= MAX_SITE_BYTES and all(path.stat().st_size <= MAX_FILE_BYTES for path in files if path != destination)
@@ -184,7 +228,6 @@ def main() -> int:
     report["artifact"]["megabytesDecimal"] = round(report["artifact"]["bytes"] / 1_000_000, 2)
     report["artifact"]["withinGitHubPagesLimits"] = report["artifact"]["bytes"] <= MAX_SITE_BYTES and all(path.stat().st_size <= MAX_FILE_BYTES for path in artifact_files(root))
     write_json(destination, report)
-    write_json(repo / "docs" / "build-report.json", report)
     write_json(repo / "data" / "generated" / "summary-provenance-report.json", provenance_report(repo, corpus))
     print(json.dumps({"report": str(destination), "siteBytes": report["artifact"]["bytes"], "provenance": "data/generated/summary-provenance-report.json"}, sort_keys=True))
     return 0

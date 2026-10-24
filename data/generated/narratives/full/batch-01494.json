@@ -1,0 +1,347 @@
+{
+  "icml-2023-a-unified-optimization-framework-of-ann-snn-conversion-towards-optimal-mapping-from-acti-ef6aa1e22c": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Converting an artificial neural network into a spiking neural network offers a way around the difficulty of learning directly with discrete spikes. But conversion can introduce two distinct losses: changing the original network’s activation function can hurt its performance, and mapping that modified network into spikes can introduce additional error. This paper builds an optimization framework that accounts for both.",
+      "The proposed activation function, SlipReLU, combines a thresholded ReLU with a step function through a weighted sum. This gives the conversion procedure a way to coordinate the artificial network’s activations with the spiking network’s firing rates. The theoretical analysis shows that conversion error can be zero for shift values throughout the interval from −0.5 to 0.5, rather than requiring the single shift value 0.5.",
+      "On CIFAR datasets, the authors report better accuracy and latency than the conversion and supervised training methods they compare against. They also report spiking inference with just one time step, which they describe as a first for ANN–SNN conversion. The findings connect conversion quality with the performance of the network being converted."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8865df66f0276c8cf2435ed13c0570ce9580d50b65beb640613590ab1a2f9a63",
+    "tldr": "SlipReLU jointly addresses activation changes and spike-conversion error, with reported accuracy and latency gains and single-time-step spiking inference."
+  },
+  "icml-2023-bidirectional-adaptation-for-robust-semi-supervised-learning-with-inconsistent-data-dist-b970bb7eb2": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Semi-supervised learning uses labeled examples together with unlabeled data, often assigning predicted labels to the latter. This strategy can deteriorate when the two sources follow different distributions. The paper develops a theoretical framework explaining how discrepancies associated with pseudo-label prediction and final target prediction can create large errors when generalizing.",
+      "The analysis identifies three problems in earlier methods: the predictor generating pseudo labels is coupled to the target predictor, the pseudo labels can be biased, and the allowed sample weights can be too restrictive. These are connected problems because the learning process must both interpret the available unlabeled examples and produce predictions appropriate for the target distribution.",
+      "Bidirectional Adaptation addresses these two prediction roles through adaptation in both directions. It adapts to the unlabeled-data distribution to reduce pseudo-label bias and to the target distribution to reduce target-prediction bias. Extensive experiments support the framework’s effectiveness. Its contribution is a theoretically motivated way to manage distribution mismatch while treating pseudo-label generation and target prediction as distinct adaptation needs."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "efb93e096b635394f98af2b2f7fe5e4a74691e1d3df4bd5fbd32521dd6ab91bb",
+    "tldr": "Bidirectional Adaptation addresses distribution mismatch by separately adapting pseudo-label prediction to unlabeled data and final prediction to the target distribution."
+  },
+  "icml-2023-birt-bio-inspired-replay-in-vision-transformers-for-continual-learning-34a23b90a0": {
+    "backgroundConcepts": [
+      "topic-083-online-continual-learning-from-imbalanced-data"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Continual learning asks a model to learn a sequence of tasks while retaining earlier knowledge. Rehearsing past information can help, and storing abstract representations offers an alternative to replaying raw images. However, the paper identifies a problem with representation rehearsal in vision transformers: insufficient diversity can cause overfitting and substantially worse performance than image rehearsal.",
+      "BiRT draws inspiration from the rehearsal of abstract experiences in complementary biological learning systems. It introduces controllable noise at several stages of a vision transformer, adding variation to the learning process. It also encourages predictions to remain consistent with an exponential moving average of the working model, providing a reference that changes through averaging rather than following each update directly.",
+      "Across several continual-learning benchmarks, the authors report consistent gains over both raw-image replay and ordinary representation replay. They also report memory efficiency and robustness to natural and adversarial corruptions. These results support the combination of controlled variation and prediction consistency as a way to make representation rehearsal more effective for retaining knowledge across tasks."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ad9272a362cfe3f201a6dd28cf4a25f8a3459c932cb801182c6da7bc6c0f6fda",
+    "tldr": "BiRT combines controlled noise and averaged-model prediction consistency to improve memory-efficient representation replay for continual learning."
+  },
+  "icml-2023-co-bed-information-theoretic-contextual-optimization-via-bayesian-experimental-design-f68f6a3489": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Contextual optimization concerns choosing actions while accounting for the context in which they are used. This paper approaches that problem through Bayesian experimental design: experiments are selected according to an information-based objective. CO-BED turns this perspective into a general framework intended to work across different models, reducing the need to design a separate experimental strategy for each one.",
+      "The computational challenge is that the information objective must be estimated while the experiment design is being optimized. CO-BED uses black-box variational methods to perform both operations within one stochastic-gradient scheme. For discrete actions, it introduces continuous relaxations that fit into the same objective, allowing gradient-based design machinery to accommodate choices that are originally discrete.",
+      "Experiments show competitive performance against alternatives tailored to particular models. That finding supports the usefulness of a general, automated approach even when specialized methods are available. The contribution combines a formulation of contextual optimization with a practical optimization procedure, linking what an experiment should teach the learner to how its design is computed."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "40c186cfddfa30debcca2591a25eb994eba272d909cd090aed0fe4b05406ae0e",
+    "tldr": "CO-BED uses an information-based objective and joint variational optimization to automate contextual experiment design across models."
+  },
+  "icml-2023-curiosity-in-hindsight-intrinsic-exploration-in-stochastic-environments-e86a22e13c": {
+    "backgroundConcepts": [
+      "topic-043-exploration-a-study-of-count-based-exploration-f"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Curiosity-based exploration rewards an agent when outcomes differ from its predictions. This can help when external rewards are scarce, but randomness creates a trap: an unpredictable distraction can keep producing prediction error without offering useful discoveries. The paper addresses this distinction between learning something new and repeatedly encountering irreducible noise.",
+      "Curiosity in Hindsight learns representations of future outcomes intended to capture their unpredictable components. Those representations become additional inputs to the prediction model, so the curiosity reward reflects the predictable part of the environment’s dynamics. Drawing on structural causal models, the framework uses hindsight information to separate stochastic variation from novelty that the agent can learn about.",
+      "The authors apply the framework to BYOL-Explore, producing BYOL-Hindsight. They examine different kinds of randomness in a grid world and report improvements on difficult exploration games in Atari with sticky actions. In Montezuma’s Revenge with sticky actions, they report state-of-the-art exploration results while retaining performance without sticky actions. The findings support making curiosity selective about which prediction errors deserve attention."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "25db32d00a804556a65e03de161d0c7e1f618103c16e9f88bc409ff0aa3d147a",
+    "tldr": "Curiosity in Hindsight separates unpredictable noise from learnable novelty, improving exploration in the reported stochastic environments."
+  },
+  "icml-2023-data-driven-subgroup-identification-for-linear-regression-92d73c8790": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A single linear regression can obscure relationships that differ across a population. In medical data, for example, a feature may have a consistent relationship with an outcome within one subgroup while behaving differently elsewhere. DDGroup searches for interpretable regions of the data in which one linear relationship is appropriate, making subgroup discovery part of the modeling process.",
+      "The method identifies groups whose features and labels follow a uniform linear relationship. Its output describes a region where the fitted linear model is expected to hold, giving the model an interpretable scope. The authors characterize the procedure as simple to implement and computationally tractable. Their theoretical result is conditional: with enough samples, it recovers a region supporting a well-specified, low-variance linear model if such a region exists.",
+      "Experiments on real medical datasets show regions where local linear models perform better. They also reveal subgroups with qualitatively different relationships that whole-dataset parametric models miss. The findings show how identifying where a simple model applies can expose meaningful heterogeneity without requiring one relationship to describe everyone."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8e8fb5e0ad9067a89a7021ca813aab90bb7f408eb1582f4ac1852aac68c38a3b",
+    "tldr": "DDGroup discovers interpretable subgroups where linear regression fits well and can reveal relationships hidden by whole-population models."
+  },
+  "icml-2023-dog-is-sgds-best-friend-a-parameter-free-dynamic-step-size-schedule-318fde0dc4": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Stochastic gradient descent requires step sizes that determine how far each update moves the model. Choosing their scale usually involves tuning a learning rate. Distance over Gradients, or DoG, replaces that choice with a dynamic formula based on quantities observed during optimization: distance from the starting point and the sizes of gradients.",
+      "The formula has no learning-rate parameter, making the update scale responsive to the optimization trajectory itself. For stochastic convex optimization, the authors analyze a slight variation of DoG and establish strong convergence guarantees that hold with high probability, together with bounds on how far the iterates move. These theoretical claims apply to the analyzed variation and setting.",
+      "Empirically, DoG performs close to learning-rate-tuned SGD across a broad collection of vision and language transfer tasks. A layer-specific version generally surpasses tuned SGD and approaches tuned Adam in those evaluations. The results suggest that simple measurements gathered during training can replace substantial learning-rate tuning while preserving much of the performance of carefully tuned optimizers."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "42115cede62879394a4926ae4c8c4a312f993150d0ea72d3c30ce4ee79cce8a3",
+    "tldr": "DoG sets SGD step sizes from observed distances and gradient norms, achieving performance close to tuned SGD without a learning-rate parameter."
+  },
+  "icml-2023-efficient-training-of-language-models-using-few-shot-learning-a72dc5970c": {
+    "backgroundConcepts": [
+      "topic-099-a-closer-look-at-few-shot-classification-again"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Large language models can learn effectively from few examples, yet training the models themselves is expensive. This paper investigates whether the fast-learning behavior of few-shot learners can help with that training cost. Its approach builds larger models in stages, using components that already provide a useful starting point for the next stage.",
+      "The central insight is that stacking a good few-shot learner on top of a good small language model can produce a good initialization for a larger language model. The authors use this idea to develop training methods based on progressive stacking. The quality of the smaller model and the added learner matters to the stated insight: the construction builds on capabilities already acquired by those components.",
+      "A theoretical framework and empirical studies support this view of initialization, giving progressive stacking a theoretical foundation. Further experiments demonstrate reduced training time for few-shot learners. The contribution therefore links a model’s ability to learn quickly with a strategy for constructing and training larger networks, making staged growth an explicit part of the training approach."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2ddd69326c7af311b6cf76509458f2b997031c172de497d3fa811c8dc8858148",
+    "tldr": "The paper uses few-shot learners to initialize progressively larger language models, supporting staged training with theory and reported training-time reductions."
+  },
+  "icml-2023-exploring-the-benefits-of-training-expert-language-models-over-instruction-tuning-8e81333c24": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Instruction tuning on many tasks is a common route to language models that handle unseen tasks. This paper examines whether increasing the number of training tasks necessarily produces stronger generalization. It reports a striking counterexample: a language model trained as an expert on one task can outperform a multitask model trained on more than 300 tasks.",
+      "The reported average advantages are 3.20% across 11 unseen datasets and 1.29% across 13 BIG-bench datasets. These comparisons challenge the idea that task count alone is a reliable guide to generalization quality. They motivate a distributed approach in which multiple expert models are trained for zero-shot inference, with expertise developed separately across tasks.",
+      "The authors report several benefits of that approach: avoiding harmful transfer between tasks during instruction tuning, learning new tasks without retraining on previous ones to prevent catastrophic forgetting, and combining individual experts to obtain compositional capabilities. Together, these findings present expert training as a useful alternative to placing all task learning inside one multitask model, rather than establishing universal superiority for single-task training."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "467f7e253ec6f2e8fe9abc4b9763d852ec20ac7a4507e3a1e25551392e5887c3",
+    "tldr": "Single-task experts outperform a broadly instruction-tuned model in reported unseen-task evaluations and offer benefits for continual learning and expert composition."
+  },
+  "icml-2023-graph-ladling-shockingly-simple-parallel-gnn-training-without-intermediate-communication-6f9e9c8974": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Increasing a graph neural network’s depth or width can worsen gradient problems, over-smoothing, and information compression, alongside memory demands. Graph Ladling investigates another way to increase the capacity of graph learning systems: divide the graph data, train several smaller models independently, and then combine what they have learned.",
+      "The approach adapts the idea of model soups, which merge trained model weights. Graph sampling and partitioning create data portions for comparatively weaker GNNs that can train in parallel without intermediate communication. A greedy interpolation procedure then combines their weights. This makes data division and subsequent model combination the central mechanisms for scaling, without requiring deeper or wider individual networks.",
+      "The paper presents several ways to prepare these model combinations using graph sampling and partitioning techniques suited to large graph structures. Experiments across real-world graphs of different sizes report state-of-the-art performance and demonstrate the approach’s effectiveness. The findings support independent training followed by weight combination as an additional direction for GNN scaling, addressing trainability and memory bottlenecks through how training is organized."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6b45e1c250e1a1248c1940a59ef1058183a575dbf3e92b58539d632476724a47",
+    "tldr": "Graph Ladling trains GNNs independently on divided graph data and greedily combines their weights, reporting strong performance without intermediate communication."
+  },
+  "icml-2023-instant-soup-cheap-pruning-ensembles-in-a-single-pass-can-draw-lottery-tickets-from-larg-21c3c54cc0": {
+    "backgroundConcepts": [
+      "topic-001-a-fast-post-training-pruning-framework-for-trans"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Pruning can produce smaller subnetworks with performance similar to a large pretrained model, but finding those subnetworks can itself be expensive. Iterative magnitude pruning repeatedly trains and removes parameters, making the search increasingly burdensome as model size grows. Instant Soup Pruning aims to obtain lottery-ticket-quality subnetworks with a fraction of that procedure’s cost.",
+      "The method replaces expensive intermediate pruning stages with short runs that generate many imperfect pruning masks. These runs vary training protocols and data subsets, producing weak and noisy candidate subnetworks. Aggregating the masks is intended to average away noise and recover a higher-quality subnetwork. The approach borrows the broader model-soup idea that combining several imperfect candidates can improve the result.",
+      "Experiments and ablations on CLIP and BERT across vision and language benchmarks support its effectiveness relative to several leading pruning methods. The authors also show a modification that delivers benefits comparable to model soups with little additional overhead, without first producing multiple fully fine-tuned candidate models. Both uses emphasize obtaining useful combinations from cheaper intermediate candidates."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "876c31f4f65ae630527ea3a05f56c60ae7da38af3be5b56af51a552c9c114c43",
+    "tldr": "Instant Soup Pruning combines cheaply generated noisy masks to find strong subnetworks at a fraction of iterative magnitude pruning’s cost."
+  },
+  "icml-2023-learning-to-boost-training-by-periodic-nowcasting-near-future-weights-6e1e9c4aa7": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Training a large network requires many costly updates to its weights. This paper explores whether some near-future weights can be predicted from earlier ones, allowing training to advance without explicitly executing every intervening epoch. The approach builds on observations about correlations between past and future weights, conditions under which prediction helps, and the feasibility of predicting those weights.",
+      "The proposed Weight Nowcaster Network, or WNN, operates as an add-on module. Periodically, it forecasts the weights the main network is expected to reach in the near future, skipping a handful of training epochs. The framework is intended to apply across tasks and architectures, making weight evolution itself the object of learning.",
+      "Experiments show substantial savings in actual training time, with only marginal additional time spent training WNN. The authors also evaluate its ability to generalize across tasks and report that it works well on unseen tasks. These findings support periodically forecasting short stretches of training as a practical acceleration mechanism, with the reported benefit accounting for the extra cost of the forecasting model."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b630b77fde78995c713718cc2197399acf4ee52c526b71881318b412a46837d9",
+    "tldr": "WNN periodically predicts near-future model weights to skip training epochs, yielding reported time savings with little forecasting overhead."
+  },
+  "icml-2023-leveraging-label-non-uniformity-for-node-classification-in-graph-neural-networks-7091c5d043": {
+    "backgroundConcepts": [
+      "topic-044-a-collective-learning-framework-to-boost-gnn-exp"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A graph neural network assigns each node scores for possible class labels, which a softmax converts into a probability distribution. This paper shows that these outputs can also reveal hidden structural information about the graph. It introduces label non-uniformity, measured using the Wasserstein distance between the predicted class distribution and a uniform distribution.",
+      "Small non-uniformity means the predicted probabilities are relatively close to being evenly spread across labels. The authors show that such nodes are harder to classify correctly and theoretically analyze how the quantity varies throughout a graph. This connects the shape of a node’s prediction distribution with structural patterns relevant to model performance.",
+      "The analysis motivates two interventions: increasing training samples with high label non-uniformity, and removing edges to reduce the maximal cut size associated with the set of low-non-uniformity nodes. Both can be added to an existing GNN. Experiments show improvements across many benchmark base models, suggesting that prediction distributions can guide changes to training data and graph connectivity as well as produce final labels."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "95cbdec6bb6db0876944c2d9eecf39598b3d3959c3df1c49a869a0aed3758e5b",
+    "tldr": "Label non-uniformity extracts graph-relevant information from prediction distributions and guides sampling and edge removal that improve benchmark GNNs."
+  },
+  "icml-2023-maximal-initial-learning-rates-in-deep-relu-networks-21fb6d7891": {
+    "backgroundConcepts": [
+      "topic-046-the-loss-surface-of-deep-and-wide-neural-network"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The largest useful learning rate at the start of training may differ from the largest rate a network can tolerate later. This paper defines the maximal initial learning rate as the largest value that allows a randomly initialized network to begin training successfully and reach at least a specified accuracy threshold. It develops a simple way to estimate that quantity.",
+      "For fully connected ReLU networks whose hidden layers have constant width, the estimates behave differently from maximum learning rates later in training. A power of the product of depth and width predicts the initial limit well under two stated conditions: width must be sufficiently large relative to depth, and the input layer must use a relatively small learning rate.",
+      "The paper also studies initialization sharpness and finds a close relationship with the maximal initial learning rate, though not an inverse one. It proves sharpness bounds in terms of depth times width that agree with the empirical observations. These results clarify how network dimensions relate to early training behavior while preserving the distinction between empirical learning-rate scaling and formally established sharpness bounds."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a1fd06e8e8a0d0a2a69c4ee83d8360d0d7778e3ef5a7eb30731bfcc5bc62becf",
+    "tldr": "The paper characterizes the largest successful starting learning rate in deep ReLU networks and connects its conditional scaling to initialization sharpness."
+  },
+  "icml-2023-multi-objective-gflownets-334d5f0f77": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Design problems often involve competing objectives, so there may be several worthwhile tradeoffs instead of one best candidate. Moreover, objective scores can be imperfect stand-ins for the properties that ultimately matter. This paper therefore targets both strong tradeoffs and diverse candidates, giving expensive downstream evaluations multiple distinct options to investigate.",
+      "Multi-Objective GFlowNets use GFlowNets to generate diverse Pareto-optimal solutions: candidates whose objectives cannot be improved without sacrificing something elsewhere. The paper introduces two variants. MOGFN-PC uses reward-conditioned GFlowNets to represent a family of subproblems defined by scalarization, which combines multiple objectives into a single score. MOGFN-AL instead follows a sequence of subproblems determined by an acquisition function within an active-learning loop.",
+      "Experiments across synthetic and benchmark tasks show advantages in Pareto performance and, especially, candidate diversity. The authors identify the diversity improvement as the main contribution. This matters because strong objective scores alone may leave a downstream evaluator with very similar options, whereas diverse candidates provide a broader set of possibilities when those scores only imperfectly reflect the desired properties."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "cbfb25dd6d26224fa704da1c3bd793f235456af2f23ef84ea1c0cb578501fd76",
+    "tldr": "Multi-Objective GFlowNets generate diverse candidates across competing objectives, with reported gains in tradeoff quality and especially diversity."
+  },
+  "icml-2023-neural-network-accelerated-implicit-filtering-integrating-neural-network-surrogates-with-7d05b5eac9": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Optimizing a noisy black-box function is difficult when derivatives are unavailable. Neural Network Accelerated Implicit Filtering, or NNAIF, combines an established derivative-free optimization method with a neural network that approximates the objective. The goal is to accelerate unconstrained optimization while retaining the convergence properties of implicit filtering.",
+      "The neural surrogate has a fixed number of parameters, potentially as few as roughly 13,000, and its parameters are updated as optimization proceeds. The authors show that the combined method inherits implicit filtering’s convergence properties. Under appropriate assumptions, it therefore converges toward a critical point of the objective; this is a conditional guarantee about a critical point, rather than a claim of finding a global optimum.",
+      "Numerical experiments use 31 noisy CUTEst benchmark problems to examine both benefits and costs. The reported benefits include much faster minimization of structured functions with several thousand variables than CMA-ES, finite-difference versions of gradient descent and BFGS, and implicit filtering itself. The results demonstrate how a learned surrogate can accelerate an established search procedure while preserving its theoretical foundation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "116c55130c0623ed0de613f48d182993f48230c4a4a2a562d19705fd92068fc9",
+    "tldr": "NNAIF adds an evolving neural surrogate to implicit filtering, accelerating reported noisy optimization problems while inheriting conditional convergence guarantees."
+  },
+  "icml-2023-principled-offline-rl-in-the-presence-of-rich-exogenous-information-7635ceb6d7": {
+    "backgroundConcepts": [
+      "topic-087-reinforcement-learning-with-prototypical-represe"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "An agent learning from previously collected visual data must distinguish information useful for control from distracting detail. The paper studies exogenous information: parts of an observation that do not matter for controlling the agent. Such information can be visually complex and evolve over time, making it harder to ignore than simple independent noise.",
+      "The authors introduce offline reinforcement-learning benchmarks designed to study this setting. They find that contemporary representation-learning methods can fail when the distracting process is complex and time-dependent. Their proposed method, Agent-Centric Representations for Offline-RL, or ACRO, uses multi-step inverse models to learn representations through the relationship between observed changes and the actions involved.",
+      "ACRO’s representation-learning objective does not require rewards, and the authors describe the method as simple. They provide theoretical and empirical support for representations that substantially outperform the baselines considered. The contribution addresses what the agent should preserve from rich visual observations: information relevant to its control problem, even when other visible processes are elaborate and persistent. The new benchmarks also make this distinction available for systematic study."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9804d405deac3809a2f264d0ec9b9258831e1c1c8e6adbeaca2a80a25513a0f4",
+    "tldr": "ACRO learns reward-free, agent-centric representations using multi-step inverse models to handle complex, time-dependent visual distractions in offline reinforcement learning."
+  },
+  "icml-2023-recovering-top-two-answers-and-confusion-probability-in-multi-choice-crowdsourcing-7cb4333078": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Crowdsourced labeling usually aims to recover the correct answer from multiple workers’ responses. This paper also seeks the strongest competing answer and the probability of confusing it with the correct one. Those additional outputs describe ambiguity in a task, preserving information that a single final label would discard.",
+      "The proposed model assumes each task has two especially plausible answers, distinguished from all remaining choices. It separates task difficulty from worker reliability: difficulty concerns confusion between the top two answers, while reliability concerns the probability that a worker chooses either of them. A two-stage inference algorithm estimates the two answers and their confusion probability under this model.",
+      "The authors prove a minimax-optimal convergence rate, meaning the rate matches the best possible worst-case rate for the modeled problem. Synthetic and real-data experiments show better performance than other recent algorithms. They also demonstrate uses in estimating task difficulty and training neural networks with top-two soft labels. The contribution therefore extends label aggregation into a richer account of both the answer and its most plausible alternative."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "768b04a45bac704902927984380d000b255925ad489a585407bf5fe5e2864e93",
+    "tldr": "A two-stage crowdsourcing algorithm recovers the correct answer, its strongest competitor, and confusion probability with a minimax-optimal rate under a top-two model."
+  },
+  "icml-2023-scalable-adaptive-computation-for-iterative-generation-4f01e2e75a": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "High-dimensional images and videos contain redundancy, yet many architectures distribute computation uniformly across them. The Recurrent Interface Network, or RIN, concentrates its main computation in latent tokens. Cross-attention transfers information between those tokens and the data tokens, separating the central self-attention workload from the dimensionality of the generated data.",
+      "Stacked RIN blocks allow information to travel from data to latents and back, creating deeper routing between the two. Learning that routing is challenging, but iterative generation offers a helpful property: the task changes gradually between steps. RIN uses latent self-conditioning, supplying each reverse-diffusion pass with latent information from prior computation so that the recurrent process can carry useful computational context forward.",
+      "The authors report state-of-the-art pixel diffusion models for images and videos, including generation at 1024 × 1024 resolution without cascades or guidance. They also report efficiency improvements of up to tenfold over 2D and 3D U-Nets. These findings support adaptive information routing and recurrence as a way to scale generation while concentrating expensive computation in a latent representation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "cfc78145b3118d65596bb624c7daef8b9a9d795aec64b62a1eb81ce5df172500",
+    "tldr": "RIN routes data through recurrent latent computation, enabling high-resolution pixel diffusion with reported efficiency gains of up to tenfold over U-Nets."
+  },
+  "icml-2023-short-lived-high-volume-bandits-4312e9fa45": {
+    "backgroundConcepts": [
+      "topic-171-a-bandit-learning-algorithm-and-applications-to-"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "When new alternatives arrive rapidly and disappear soon afterward, an online learner has little time to decide which ones deserve attention. This paper studies that setting using a multiplay bandit model. Each round introduces n^ρ actions that remain available for w rounds, and the learner makes n selections at a time, allowing repeated selections.",
+      "The model assumes action means are drawn from a fixed, known distribution. The proposed Layered Sieve Policy progressively narrows the action space through at most w refinement layers. This organizes learning around the limited lifetime of each action: the policy must refine its choices while those choices are still available.",
+      "For any positive ρ, a suitable number of layers gives a regret upper bound whose dependence on n reflects both arrival volume and lifetime. A complementary lower bound shows a fundamental limit with a related, though different, exponent. The authors also validate the policy through simulations and a field experiment on a large content-card platform. The work links theoretical performance to settings where substantial decision volume coexists with rapidly expiring options."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b155801f2e3099d797c8eedf886369158261ee1e0309bca7b43fa631b7505fe7",
+    "tldr": "A layered sieve progressively filters rapidly arriving, short-lived actions, with regret bounds and validation in simulations and a content-platform field experiment."
+  },
+  "icml-2023-smooth-non-stationary-bandits-8512bc5fa7": {
+    "backgroundConcepts": [
+      "topic-171-a-bandit-learning-algorithm-and-applications-to-"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Bandit algorithms must balance learning about alternatives with selecting rewarding ones, and changing rewards make that balance harder. Many approaches protect against relatively irregular changes and achieve regret scaling as T^(2/3). This paper asks whether smoother change permits better performance because the learner can exploit information about how rewards evolve.",
+      "The analysis considers two arms whose mean rewards are β-Hölder functions of normalized time. For the integer smoothness levels studied, this constrains the differentiability and variation of those reward functions. In the β = 2 case, the authors construct a policy with regret scaling as T^(3/5), establishing a separation from the less smooth regime.",
+      "They also prove a lower bound of T^((β+1)/(2β+1)) for every integer β of at least one. At β = 2, this matches the policy’s upper bound, establishing the optimal regret exponent for that case. The result shows that temporal smoothness can have a concrete statistical payoff: under the stated assumptions, a learner can achieve a better regret rate by accounting for how gradually the environment changes."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "35486ec0c60f83f28e00c8f505de1ec8f8b558afd789a1c769c94dc9319348f2",
+    "tldr": "For two-arm bandits with β = 2 smooth reward changes, the paper achieves a matching optimal regret rate of T^(3/5)."
+  },
+  "icml-2023-the-price-of-differential-privacy-under-continual-observation-18838c259c": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A continual-release system receives sensitive data over time and publishes an updated answer after every input. Each answer must describe everything received so far while preserving differential privacy. This paper studies how much accuracy that repeated-release requirement can cost compared with a batch algorithm that processes the dataset together.",
+      "For two fundamental problems closely connected to empirical risk minimization, the authors prove that every continual-release algorithm has worst-case error larger than that of the best batch algorithm by a factor scaling as T^(1/3), up to logarithmic factors. Earlier results established only a logarithmic gap. The new lower bounds therefore show a substantially greater accuracy cost for continual observation in these problems.",
+      "The paper also formalizes a setting where inputs can be chosen adaptively, capturing dependencies that arise during ongoing use. Although privacy and accuracy are generally harder in that setting, simple algorithms still match the new lower bounds. The combination of lower bounds and matching algorithms identifies both an unavoidable cost and an achievable level of accuracy, including when the input stream is adaptive."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "842f289429e2dd5e63fd2a61bef50b27bd04c51a257f46ddd02d0d6eaa4573a2",
+    "tldr": "For two central problems, continual private release has a much larger worst-case error cost than batch release, with matching algorithms even for adaptive inputs."
+  },
+  "icml-2023-unconstrained-online-learning-with-unbounded-losses-7d7e0ee1fc": {
+    "backgroundConcepts": [
+      "topic-056-optimistic-online-mirror-descent-for-bridging-st"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Online-learning guarantees often assume decisions lie in a bounded region or that losses have uniformly bounded slopes. This paper removes both restrictions while imposing a different control on the problem: subgradient size may grow at most linearly with the size of the learner’s current decision. That permits unbounded domains and non-Lipschitz losses within a specified growth condition.",
+      "The proposed algorithm bounds regret against a fixed comparator u by terms proportional to G‖u‖√T and L‖u‖²√T, up to logarithmic factors. G and L describe the allowed subgradient growth. The authors show this bound cannot be improved without further assumptions. They then use the algorithm to construct saddle-point methods that converge in duality gap on unbounded domains, even without meaningful curvature.",
+      "The paper also provides a nontrivial dynamic-regret guarantee, which evaluates performance against changing comparators, for unbounded domains with non-Lipschitz losses. A matching lower bound accompanies that result. When losses are smooth, the algorithm automatically obtains an improved L* bound, demonstrating additional adaptation within this broader online-learning setting."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7ca50bde2437b388930ae48adeb34e75f674eed63f37fa7859843dd88e9ef048",
+    "tldr": "The paper establishes optimal online-learning guarantees on unbounded domains under linear subgradient growth, with extensions to saddle points and dynamic regret."
+  },
+  "icml-2023-unscented-autoencoder-2af6a3123e": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A variational autoencoder reconstructs data by passing samples from a latent posterior through a nonlinear decoder. This paper revisits how that posterior is represented during reconstruction. It applies the Unscented Transform, a distribution-approximation technique from filtering, to use a finite collection of deterministically selected sigma points.",
+      "The authors argue that these points provide a more informative, lower-variance representation than the noise-scaling approach used in the standard reparameterization trick, improving reconstruction quality. They also replace the Kullback–Leibler divergence with a Wasserstein distribution metric, which allows a sharper posterior. Together, these changes produce the Unscented Autoencoder, a deterministic-sampling variant trained with regularization-like terms on each sample’s posterior.",
+      "Experiments show competitive Fréchet Inception Distance scores relative to closely related models and lower training variance than the VAE. The contribution connects a technique for approximating transformed distributions with the reconstruction process of a generative model. Its reported benefits concern both the quality of the posterior representation used during learning and the empirical behavior of the resulting autoencoder."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "15188af800444c62e6b2b14c6625b74b063f27cb2ef1f6d84f9c7e5c27860fc4",
+    "tldr": "The Unscented Autoencoder combines deterministic sigma-point sampling with Wasserstein regularization, reporting competitive generation scores and lower training variance than a VAE."
+  },
+  "icml-2023-unveiling-the-latent-space-geometry-of-push-forward-generative-models-e9f3ed0235": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Many generative models create samples by applying a continuous generator to Gaussian latent variables. When the target distribution has disconnected parts, these models can produce samples outside the regions where real data belong. This paper investigates how the geometry of latent space relates to that problem and to the performance of such generators.",
+      "Using geometric measure theory, the authors prove a sufficient condition for optimality when the latent-space dimension exceeds the number of modes. A sufficient condition establishes one way optimality can be obtained; it does not establish that every optimal model must satisfy that condition. The result ties a model’s performance to the organization of its latent space under the stated dimensional relationship.",
+      "Experiments with GANs support the theoretical findings and provide further insight into latent geometry. The authors also introduce a truncation method that enforces a simplicial cluster structure in latent space and improves GAN performance. The work thus connects a mathematical characterization of latent structure with a concrete modification to generation, addressing how latent samples are organized when the desired output distribution contains separated modes."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "404b380e53360f1d3996f50214916569965267e80a74b94a2e4b908f6bb1c8d9",
+    "tldr": "The paper links latent geometry to disconnected-distribution modeling, proves a conditional sufficient optimality result, and improves GANs with structured latent truncation."
+  }
+}

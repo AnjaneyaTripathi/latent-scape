@@ -1,0 +1,327 @@
+{
+  "neurips-2025-aligning-transformers-with-continuous-feedback-via-energy-rank-alignment-fa9ab22a02": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Generating a chemically valid molecule is only part of molecular design: the molecule must also have desired properties. The search is difficult because possible structures multiply rapidly as atoms are added. This paper approaches that challenge as an alignment problem, using an explicit reward function to steer an autoregressive generator toward externally specified goals.",
+      "The proposed energy rank alignment algorithm, ERA, converts that reward into an objective suitable for gradient-based optimization without requiring reinforcement learning. The authors establish theoretical connections to proximal policy optimization and direct preference optimization. They also show that the objective's minimizer converges to an ideal Gibbs-Boltzmann distribution, with the reward acting as an energy function that shapes which outputs are favored.",
+      "The authors apply ERA to molecular transformers and protein language models, reporting robust generation with requested properties while exploring diverse regions of chemical space. They also report favorable performance relative to direct preference optimization when each pairing has few preference observations. Together, these findings support using explicit, evaluable rewards to guide chemical generation while retaining diversity."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "dabe7d1d200376abb8f10dae31a3b6bdf173a671e337742ff63f4d9a4cc0aa55",
+    "tldr": "ERA uses explicit rewards to align molecular and protein generators toward desired properties through a scalable objective that does not require reinforcement learning."
+  },
+  "neurips-2025-angular-constraint-embedding-via-spherepair-loss-for-constrained-clustering-fab1c9ac7c": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Constrained clustering uses knowledge about pairs of examples to guide how a dataset is grouped. The challenge is to convert those relationships into a representation that makes useful clusters easy to recover. The paper argues that existing deep approaches can be restricted by their integrated clustering structures or by difficulties learning sufficiently distinctive representations in Euclidean space.",
+      "SpherePair instead encodes pairwise constraints through an angular geometry. Its loss shapes the learned representation so that relationships are expressed through angles, producing features suited to a separate clustering step. This separation matters because learning a useful representation no longer requires committing to an exact number of clusters as part of the same process.",
+      "The authors report that SpherePair preserves pairwise relations without conflict, handles unseen examples, and supports rapid estimation of the cluster count. They provide theoretical guarantees and empirically examine the associated insights. Across diverse benchmarks, the method outperforms the compared deep constrained clustering approaches, supporting its claimed advantages in performance and scalability."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0b7437b96fc386e07a86f3cdcc00da61d7c48d3f287d1476e41c8e441101bb65",
+    "tldr": "SpherePair learns angular representations from pairwise constraints, separating representation learning from clustering without requiring an exact cluster count upfront."
+  },
+  "neurips-2025-automatic-synthetic-data-and-fine-grained-adaptive-feature-alignment-for-composed-person-94cdce7dac": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Person retrieval usually searches with either an image or a text description. This paper introduces composed person retrieval, where both are supplied together to locate a person in an image database. The combined query can use complementary visual and textual information, but developing this task first requires suitable annotated examples.",
+      "The authors address that shortage with an automatic synthesis pipeline. It first creates textual quadruples, then uses fine-tuned generative models to synthesize images while maintaining identity consistency. A multimodal filtering stage produces SynCPR, a fully synthetic dataset containing 1.15 million triplets. Breaking generation into these stages provides a scalable route to training data for the newly introduced task.",
+      "The paper also proposes FAFA, a framework that combines fine-grained dynamic alignment with reasoning over masked features to improve representations of composed queries. For evaluation, the authors manually annotate a separate test set called ITCPR. Their experiments support the usefulness of SynCPR and show that FAFA outperforms the compared state-of-the-art methods, addressing both the data and modeling needs of composed retrieval."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "01946b0ca67ff268387b44914a0bc5458a0e89029203574630c1a4c743907be5",
+    "tldr": "The paper introduces person retrieval using combined image and text queries, supported by a large synthetic dataset and a fine-grained alignment framework."
+  },
+  "neurips-2025-benfords-curse-tracing-digit-bias-to-numerical-hallucination-in-llms-3c69e54479": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Language models can perform sophisticated reasoning yet still produce incorrect numbers. This paper investigates whether uneven digit frequencies in pretraining text contribute to those errors. The motivating pattern is Benford's law, under which smaller digits appear more often as leading digits. The authors examine digit frequencies in the OLMo2 pretraining corpus to investigate that hypothesis.",
+      "They then construct seven numerical reasoning tasks whose correct digits are uniformly distributed. This design makes uneven model outputs informative: a preference for certain digits cannot simply be explained by those digits being more common among the correct answers. Leading open-source models nevertheless show a consistent bias resembling Benford's law.",
+      "Tracing internal predictions and examining individual neurons locates much of the bias in a small set of strongly digit-selective feed-forward neurons in deeper layers. Pruning those neurons reduces disproportionate digit generation and corrects some errors. This intervention provides causal evidence that digit bias can affect numerical outputs, while the partial correction indicates that removing the identified bias does not resolve every numerical failure."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b444481c9f4190948614880c8e4457c413f75e3a36b5cf1270717a256cd21787",
+    "tldr": "The paper links biased numerical generation to a small set of digit-selective neurons and shows that pruning them partially corrects numerical errors."
+  },
+  "neurips-2025-critical-batch-size-revisited-a-simple-empirical-approach-to-large-batch-language-model--1072bb221e": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Larger training batches enable more parallel computation, but excessively large batches can reduce how efficiently a language model learns from tokens. Critical batch size describes a threshold below which increasing the batch should not substantially worsen loss. Existing estimates use gradient noise as a proxy, a connection whose justification requires strong assumptions.",
+      "This paper introduces a direct empirical measurement of critical batch size and tracks it throughout training. For OLMo models with one billion and seven billion parameters, the measured threshold starts near zero, rises quickly, and later levels off. The shared pattern suggests that smaller training runs may help inform batch choices for larger runs.",
+      "These observations motivate batch size warmup: begin with small batches and increase them as the measured threshold grows. Using this strategy, the authors train OLMo 1B to slightly better loss than its original run with 43% fewer gradient steps. The result demonstrates a practical way to increase data parallelism while preserving performance; the reported reduction concerns gradient steps rather than a specified reduction in total training time."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1bbaa3353efbe2900a2fab5f37e07bba5801094fbcfafe632743274cae895bee",
+    "tldr": "Direct measurements of critical batch size motivate gradually increasing batches, yielding slightly better OLMo 1B loss with 43% fewer gradient steps."
+  },
+  "neurips-2025-degauss-defending-against-malicious-3d-editing-for-gaussian-splatting-a0e97f01fb": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Protecting a three-dimensional scene from unwanted editing is harder than protecting a single image. A defense must remain effective from multiple viewpoints, and its protective changes must survive the editing process. This paper identifies both problems when existing image-based perturbation methods are applied to scenes represented through Gaussian splatting.",
+      "DEGauss introduces perturbations optimized for the three-dimensional editing process. A view-focal gradient fusion mechanism gives greater weight to viewpoints that are hardest to protect, helping the defense account for spatial relationships across views. A second component pushes the editing guidance away from both its intended semantic meaning and its intended edit direction, aiming to keep disrupting the editing trajectory as optimization proceeds.",
+      "The authors report resistance to editing across viewpoints while maintaining photorealistic rendering quality. Experiments cover different scenes and show generalization across several state-of-the-art editing pipelines. The contribution is therefore a defense designed around the repeated, multiview nature of three-dimensional editing, with evidence of effectiveness across the tested settings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9c8d58af05120ad8c6eb9d504739b5fa02fcd1cd34b02871c3ba094c28d7cd61",
+    "tldr": "DEGauss protects Gaussian-splatting scenes against unwanted editing by optimizing multiview perturbations that disrupt editing guidance while preserving rendering quality."
+  },
+  "neurips-2025-from-programs-to-poses-factored-real-world-scene-generation-via-learned-program-librarie-03edaf1b3c": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Real indoor scenes are difficult to capture, leaving limited data for learning how to generate believable rooms. A useful generator must represent both room organization and variation in how objects are positioned. FactoredScenes addresses these requirements by separating high-level room programs from object poses within a hierarchical scene representation.",
+      "To learn room structure, the framework builds a library of functions representing reusable layout patterns. A language model generates high-level programs, with the learned library regularizing those programs toward the captured patterns. This gives scene generation a structured vocabulary for organizing rooms rather than treating every arrangement as an unrelated example.",
+      "A separate model learns pose variation from lived-in scenes and predicts object poses hierarchically, conditioned on the room program. The system then retrieves three-dimensional objects and places them in the scene. The authors report generated rooms that are difficult to distinguish from real ScanNet scenes. Their results support combining reusable layout structure with learned pose variation as a way to synthesize realistic indoor environments from limited real-world data."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ea73eb19cfb98c67600c4296188ecb3811ea8cf250204e16037b0bcb9b607cbc",
+    "tldr": "FactoredScenes generates realistic rooms by combining language-model programs grounded in learned layout libraries with hierarchical object-pose prediction."
+  },
+  "neurips-2025-greenhyperspectra-a-multi-source-hyperspectral-dataset-for-global-vegetation-trait-predi-5ecbd8eff0": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Plant traits such as leaf carbon content and leaf mass help researchers study biodiversity and climate change. Field measurements alone cannot feasibly capture their variation across ecologically meaningful areas. Hyperspectral remote sensing offers data for predicting these traits, but labeled examples are scarce and measurements differ across sensors and ecosystems.",
+      "GreenHyperSpectra is a pretraining dataset designed around those cross-sensor and cross-ecosystem differences. It supports benchmarking methods that learn from partly labeled or unlabeled data. The accompanying evaluation framework includes both familiar distributions and shifted ones, making transfer across data conditions an explicit part of assessing trait prediction.",
+      "The authors use the dataset to pretrain regression models that predict multiple traits while making efficient use of labels. These models outperform the compared state-of-the-art supervised baseline. Their empirical analyses also show improved spectral representations for trait prediction. The contribution combines data and evaluation methodology, providing a setting in which researchers can study how representation learning addresses scarce labels and the domain shifts encountered in vegetation monitoring."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "eefd1c8e158dd1f5471977ace724af0f00c7f796d5bd9039c280626e40dffd7d",
+    "tldr": "GreenHyperSpectra supports label-efficient vegetation trait prediction by providing hyperspectral pretraining data and evaluation across sensors and ecosystems."
+  },
+  "neurips-2025-interactive-anomaly-detection-for-articulated-objects-via-motion-anticipation-b44516e625": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Some faults in objects with movable parts become apparent only when those parts move. A passive visual inspection can therefore miss functional anomalies even when the object is visible. This paper introduces interactive anomaly detection for articulated objects, combining visual observation with deliberate actions and predictions of the motion those actions should produce.",
+      "During learning, the method interacts exclusively with normal objects. It learns both a sequence of actions and the normal motion expected in response. At inference time, it applies its predicted actions to the object being examined and compares the observed movement with its anticipation. The discrepancy provides the basis for detecting a functional anomaly.",
+      "The authors also introduce PartNet-IAD, a benchmark containing articulated objects with realistic functional anomalies. Experiments show strong generalization to anomalies in both previously seen and unseen object categories. The central contribution is to make interaction part of detection itself: actions expose behavior that appearance alone may hide, while learned normal-motion predictions supply a reference for judging that behavior."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3d24aef0c772849d708f97cc347b36e4dd651ffdb0544abef41dcc986dc52c6b",
+    "tldr": "The method detects functional faults by manipulating articulated objects and comparing their observed motion with motion learned from normal objects."
+  },
+  "neurips-2025-interpretable-next-token-prediction-via-the-generalized-induction-head-912b698bd0": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Accurate predictions are harder to trust in high-stakes settings when the model's reasoning is opaque. This paper proposes the Generalized Induction-Head Model, or GIM, as an interpretable approach to next-token prediction. It takes inspiration from induction heads observed in language models and builds prediction around retrieving similar sequences from the available context.",
+      "GIM combines two ways of finding those sequences. Exact matching recognizes repeated groups of tokens, while a learned neural similarity measure supports fuzzy matches when sequences are related without being identical. This combination broadens the material the retrieval module can use while keeping similar contextual sequences central to the prediction process.",
+      "The authors evaluate GIM in language modeling and prediction of fMRI responses. For language modeling, they report improvements of up to 25 percentage points over interpretable baselines, narrowing the gap with black-box language models. In the fMRI setting, they report a 20% improvement in response prediction and insights into the brain's language selectivity. These results support retrieval-based modeling as a route toward combining predictive performance with interpretability across the two settings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8f0096da84b3b2bf241af01eea93df30366936d5582a39bac1c7c7e6d42f994a",
+    "tldr": "GIM combines exact and learned sequence matching to improve interpretable language prediction and fMRI response prediction."
+  },
+  "neurips-2025-is-limited-participant-diversity-impeding-eeg-based-machine-learning-e8175ea75d": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "An EEG dataset can contain many training samples while representing relatively few people. Researchers commonly divide recordings into short segments, greatly increasing the sample count without adding participants. This paper asks how that distinction affects the ability of machine learning models to improve with more data and generalize across people.",
+      "The authors describe EEG data through a multilevel generation process that distinguishes samples from the recordings and participants behind them. Large-scale empirical studies then examine performance scaling with both total sample size and participant diversity. The same framework is used to study data augmentation and self-supervised learning, two strategies intended to help when data are limited.",
+      "The findings show that shifts in the participant distribution can severely constrain performance scaling. Consequently, a growing number of segments need not remove the difficulties associated with transferring a model across participant populations. The paper's contribution is a framework for separating these sources of data growth and examining their consequences, providing guidance for EEG data collection and research on learning from limited data."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d288e6d8534ef96e591993e3b97dad30fe88740d0f336cc76cd13c82a912280f",
+    "tldr": "The study shows that participant distribution shifts can severely limit EEG model improvements even as the number of segmented training samples grows."
+  },
+  "neurips-2025-laser-learning-to-adaptively-select-reward-models-with-multi-arm-bandits-9ddceb8505": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A reward model that judges writing well may not judge mathematics equally well. Choosing one fixed reward model can therefore be suboptimal, while consulting several together adds computation and can introduce conflicting signals. LASeR addresses this tradeoff by learning which reward model is best suited to each training instance.",
+      "The framework treats reward selection as a multi-armed bandit problem and uses its selections during iterative language-model training. This makes the choice of evaluator adaptive rather than relying on one evaluator throughout or always combining all scores. The approach targets both the quality of the training signal and the cost of obtaining it.",
+      "On three commonsense and mathematics datasets, LASeR improves Llama-3-8B's average accuracy by 2.67 percentage points over an ensemble of reward scores, with a reported twofold speedup. On WildChat, it achieves a 72.69% AlpacaEval win rate against that baseline. In long-context experiments using best-of-n sampling, it improves average F1 by 2.96 points for single-document question answering and 2.97 points for few-shot learning, supporting adaptive selection across several task types."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2e245cccbf32bc1e2d034c389dc0e5905c85b0b420dd4cd1a313664d291d2db5",
+    "tldr": "LASeR learns to select a suitable reward model per instance, improving measured performance and efficiency over combining reward-model scores."
+  },
+  "neurips-2025-learning-to-reason-under-off-policy-guidance-422051d03f": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Reinforcement learning with verifiable rewards can develop multistep reasoning, but learning only from a model's own outputs restricts the reasoning examples it encounters. LUFFY introduces externally supplied reasoning traces into this process. Its aim is to let a model learn from demonstrations beyond its current behavior while continuing to explore through its own generated solutions.",
+      "The framework combines off-policy demonstrations with on-policy rollouts and dynamically balances imitation and exploration. Its Mixed-Policy GRPO component has a theoretically guaranteed convergence rate. A second component shapes the policy through regularized importance sampling, addressing the risk that mixed-policy learning becomes superficial or overly rigid imitation of the supplied traces.",
+      "Compared with previous methods, the authors report an average gain exceeding 6.4 points across six mathematics benchmarks and an advantage exceeding 6.2 points on out-of-distribution tasks. They also demonstrate successful training of weak models in scenarios where on-policy training fails completely. These results provide evidence that external reasoning guidance can overcome capability barriers encountered by learning solely from self-generated outputs in the tested settings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "389ce4b585a1a5c380d8a739272f3a90a03b282c45c608d6f431a1fe3945bed7",
+    "tldr": "LUFFY mixes external reasoning demonstrations with a model's own rollouts, improving reasoning and enabling training where on-policy methods fail."
+  },
+  "neurips-2025-low-rank-head-avatar-personalization-with-registers-879b7875da": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A head-avatar model trained on many identities can animate faces well while missing the details that distinguish a particular person. The paper focuses on those fine facial features, including wrinkles and tattoos. It finds that ordinary low-rank adaptation remains challenged by these details when personalizing a generic model to an unseen identity.",
+      "The proposed Register Module strengthens low-rank adaptation while requiring only a small number of personalization parameters. It operates on intermediate features of a pretrained model and stores and repurposes information in a learnable three-dimensional feature space. This adds a dedicated mechanism for representing subject-specific information within the adaptation process.",
+      "To evaluate the method, the authors collect talking videos of people with distinctive facial details. They report that their approach captures unseen faces faithfully and outperforms existing methods in both quantitative and qualitative comparisons. The result supports the value of changing the architecture used for low-rank personalization: a compact adaptation can better preserve individual appearance when it has a suitable feature representation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4653d5467a085271863ed5b28172d79c19f777826091208b079c68f48125aee2",
+    "tldr": "A learnable three-dimensional Register Module improves low-rank head-avatar personalization, helping capture distinctive facial details with few adaptation parameters."
+  },
+  "neurips-2025-real-world-reinforcement-learning-of-active-perception-behaviors-283d2ae85d": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A robot's current observations may omit information needed to complete a task. In such situations, useful behavior often includes taking actions specifically to learn more about the environment. This paper presents a real-world training approach for acquiring those active perception behaviors, which standard robot learning techniques struggle to produce.",
+      "Asymmetric advantage weighted regression, or AAWR, uses extra sensors available during training. These privileged observations support high-quality value functions that help estimate how advantageous actions are for the target policy. Training starts from a small set of demonstrations, which may be suboptimal, together with a coarse policy initialization that is easy to obtain.",
+      "Across eight manipulation tasks on three robots, the authors report reliable information-gathering behaviors and stronger performance than all compared prior approaches. AAWR also improves a generalist policy that initially struggles with active perception, enabling manipulation under severe partial observability. The stated training-time sensor access is central: richer observations help teach a target policy how to act when its own immediate view does not reveal everything it needs."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b79446f4671f9121bab75d121e8d0a5125c90377bcfcb31e27eca299bedcf9cb",
+    "tldr": "AAWR uses privileged training-time sensors to teach robots information-gathering actions that improve manipulation under partial observability."
+  },
+  "neurips-2025-reasoning-beyond-points-a-visual-introspective-approach-for-few-shot-3d-segmentation-f1b39ebfcf": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Few-shot point-cloud segmentation assigns semantic categories to points in a new scene using only a few annotated support examples. This is difficult when examples of the same category vary substantially, support and query scenes differ, or local geometry is poorly represented. VIP-Seg addresses these challenges without requiring a pretraining stage.",
+      "Its Visual Introspective Prototype module refines category representations through alternating steps. One component makes prototypes more discriminative and reduces variation within a class. Another uses differences between support and query features to learn shared representations and remove semantic inconsistencies associated with domain gaps. Repeating these complementary operations progressively improves the prototypes used for segmentation.",
+      "The network also introduces Dynamic Power Convolution, which uses learnable power functions to capture local geometry and detailed point-cloud features. This component complements prototype refinement by improving how individual points are represented. Experiments on S3DIS and ScanNet show significant gains over the compared state-of-the-art methods, supporting the combination of iterative category refinement and stronger local geometric modeling for few-shot segmentation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7f4dcc40e48f7e14cd6522b6beb9cb0b2248fc2869d3819fdffc04dba181d7fc",
+    "tldr": "VIP-Seg improves few-shot point-cloud segmentation through alternating prototype refinement and learnable local geometric features, without requiring pretraining."
+  },
+  "neurips-2025-safety-depth-in-large-language-models-a-markov-chain-perspective-711572d49e": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Language-model safeguards can be bypassed by jailbreak prompts or weakened through benign fine-tuning. This paper examines a proposed source of fragility: alignment concentrated in only the first output tokens. It introduces safety depth as a designated position in the generated output where the model refuses to continue with harmful content.",
+      "The authors use the equivalence between autoregressive language models and Markov chains to derive a theoretical result for identifying an optimal safety depth. This turns the question of where refusal should occur into a mathematical object of study. They also propose cyclic group augmentation as a strategy for reaching the chosen depth effectively.",
+      "The augmentation improves safety scores across six language models. The paper additionally finds an interaction between safety depth and ensemble width: larger ensembles can compensate for shallower alignment. This suggests that safety behavior depends not only on where refusal is established within a response but also on computation used at inference time. The findings identify test-time computation as a potentially useful part of safety alignment."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0328a6a67c454407a4c863119bf5c2ff75f00ed492308ba0904cfa52fa5f9ef0",
+    "tldr": "A Markov-chain analysis identifies optimal safety depth and shows that wider ensembles can compensate for shallower alignment."
+  },
+  "neurips-2025-second-order-convergence-in-private-stochastic-non-convex-optimization-48b108bc6a": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "In non-convex optimization, a small gradient can indicate either a useful minimum or a saddle point. This paper studies how to reach second-order stationary points while preserving differential privacy. It identifies errors in earlier saddle-escape analyses that overlooked gradient variance, alongside utility losses from additional private procedures used to select a suitable model.",
+      "The proposed framework combines perturbed stochastic gradient descent, Gaussian noise, and general gradient estimators. Its key idea is to use the distance the model moves to determine whether it has escaped a saddle point. This supports convergence to approximate local minima without consulting second-order information or running an additional private identification procedure.",
+      "Using adaptive DP-SPIDER as the gradient estimator, the authors derive an algorithm with corrected convergence error rates. They extend it to distributed learning with arbitrarily heterogeneous data and provide formal guarantees for finding private second-order stationary points there. The analysis highlights the damage private selection can cause in high-dimensional distributed settings, while experiments on real-world datasets support the proposed approach."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "57e00b0d997f67ab4a90e7078eaec55d1a9e0e26f027dc37a8bd344824de77cb",
+    "tldr": "The paper uses model movement to analyze private saddle-point escape, correcting convergence rates and extending guarantees to heterogeneous distributed learning."
+  },
+  "neurips-2025-seeds-of-structure-patch-pca-reveals-universal-compositional-cues-in-diffusion-models-3f2f336eeb": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Diffusion models begin with random noise, yet different seeds can influence how an eventual image is composed. This paper studies that relationship using principal component analysis applied to patches. Its empirical analysis finds that low-frequency components of the starting noise predominantly influence the broad compositional structure of generated images.",
+      "The authors observe similar structural attributes when identical seeds are used across different datasets and model architectures. These findings suggest shared compositional cues in the noise-to-image mapping. The observed cues persist in both pixel-space and latent diffusion models, extending the evidence across two different ways of representing the generation process.",
+      "Building on this analysis, the paper develops a Patch PCA denoiser that extracts structure from noise using generic natural-image statistics and provides a theoretical justification for it. It also introduces a zero-shot editing method for injecting compositional control into generated images without fine-tuning or additional training. The contribution connects an empirical account of seed-dependent structure with a practical method for guiding image composition."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "109722075172d7265f73296e0bcf4b5e3b0948af27e99321e698a9724b7a0f01",
+    "tldr": "Patch-wise PCA reveals shared compositional cues in diffusion noise seeds and enables compositional editing without additional training."
+  },
+  "neurips-2025-simplestrat-diversifying-language-model-generation-with-stratification-ff271944da": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Repeatedly sampling a language model can produce a narrow set of answers even when many answers are valid. Increasing temperature is one way to broaden outputs, but it can sacrifice quality. SimpleStrat instead asks the model to divide the solution space into strata, or distinct regions, from which answers can be sampled.",
+      "The authors introduce CoverageQA, a dataset of underspecified questions with multiple equally plausible answers. They measure diversity using the distance between the output distribution and a uniform distribution over valid answers, expressed as KL divergence. For proprietary models, they use recall as an alternative measure of how many valid answers sampling reaches.",
+      "On CoverageQA, SimpleStrat improves diversity across all tested temperatures, with up to twice the recall for GPT-4o and an average KL-divergence reduction of 0.36 for Llama 3. In creative writing, it produces more resampling diversity at temperature zero than increasing temperature to one. These findings support structuring the answer space as a complementary way to diversify repeated generation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "13d9a5819581e8a9618485cf5557d8b1bd0607a1856d42894246ab230f8cf49a",
+    "tldr": "SimpleStrat improves repeated-output diversity by having a language model partition the answer space and sample across its regions."
+  },
+  "neurips-2025-spectral-graph-coarsening-using-inner-product-preservation-and-the-grassmann-manifold-cd997441c1": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Graph coarsening creates a smaller representation of a graph while trying to retain useful information. This paper argues that preserving structural relationships alone overlooks relationships among node features. Its method treats those features as functions on the graph and explicitly seeks to preserve their inner products during coarsening.",
+      "The authors introduce Inner Product Error, or IPE, to quantify how much those relationships change. They formulate an optimization objective using the geometry of the Grassmann manifold and minimize IPE, including for unseen smooth functions. This makes feature relationships a direct target of the coarsening procedure alongside the graph's structural information.",
+      "The paper shows that reducing IPE also improves standard coarsening metrics, connecting its proposed objective to established measures of graph preservation. Visual examples illustrate the method's clustering behavior, and experiments on graph-coarsening and node-classification benchmarks show gains over the compared state-of-the-art approaches. These results support preserving feature interactions as a useful principle for constructing smaller graphs that remain effective for downstream learning."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "164c8564e9c848d7f202a3ce360007ddfb0b32c65d56daa07f09aab4ecfd565c",
+    "tldr": "The method coarsens graphs by preserving inner products among node features, improving both coarsening measures and node-classification results."
+  },
+  "neurips-2025-spot-scalable-policy-optimization-with-trees-for-markov-decision-processes-09d12ee02a": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Decision trees can express reinforcement-learning policies through compact, interpretable decisions, but finding good trees for a Markov decision process is computationally difficult. SPOT tackles this optimization problem directly. It represents the search for a decision-tree policy as a mixed-integer linear program, making tree structure part of an explicit optimization formulation.",
+      "To make the search more efficient, SPOT uses a reduced-space branch-and-bound method. It separates the environment's transition dynamics from the constraints describing the decision tree, enabling parallel search. The paper states that each iteration yields the optimal decision tree, connecting its computational approach with an optimality property for the tree search.",
+      "On standard benchmarks, SPOT runs substantially faster than previous methods and handles Markov decision processes with many more states. The resulting policies remain compact and interpretable while preserving performance. The reported order-of-magnitude speed advantage supports the paper's main practical claim: improved optimization can make transparent tree policies feasible at scales that were harder for earlier approaches."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ab12bb25e89a0c52bcf972da0b0564a2b62b2c52a6d3fe8e2076403ffa6ea2e1",
+    "tldr": "SPOT accelerates decision-tree policy optimization through a mixed-integer formulation and parallel search that separates environment dynamics from tree constraints."
+  },
+  "neurips-2025-tada-improved-diffusion-sampling-with-training-free-augmented-dynamics-48cf307c59": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Diffusion models can generate detailed images, but sampling often requires many model evaluations. TADA introduces a training-free sampler that works with existing pretrained models. It uses an ordinary differential equation solver and higher-dimensional initial noise to produce detailed samples with fewer function evaluations.",
+      "The method draws on momentum dynamics. The authors establish an equivalence between momentum diffusion models and conventional diffusion models with respect to their training paradigms, providing a basis for the sampler. They also observe that the added noise dimensions produce behavior resembling stochastic differential equations. A hyperparameter controls the level of detail without adding computational cost.",
+      "On ImageNet512, the authors report sampling up to 186% faster than the compared state-of-the-art solver at comparable FID. They also demonstrate strong results with EDM, EDM2, and Stable-Diffusion 3, covering pixel and latent representations as well as class- and text-conditioned generation. The findings support modifying sampling dynamics as a way to improve speed and detail control without retraining the image generator."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "bd12f89e7c991334c6bef0d2d9a3d1f91347a3f3b6ad58e9e36f04322a7a2b73",
+    "tldr": "TADA uses higher-dimensional noise and momentum-inspired dynamics to accelerate pretrained diffusion sampling while offering cost-free control over detail."
+  },
+  "neurips-2025-the-promise-of-rl-for-autoregressive-image-editing-084dd76fbe": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Producing an image from a detailed prompt does not mean a model can reliably carry out a short editing instruction. This paper investigates how to improve text-guided image editing by comparing supervised fine-tuning, reinforcement learning, and chain-of-thought reasoning. All three are studied within one autoregressive multimodal framework.",
+      "The shared model processes visual and textual tokens in a unified way, giving the authors a consistent setting for examining the training and reasoning strategies. Among the approaches studied, reinforcement learning paired with a large multimodal language-model verifier is the most effective. The verifier supplies the assessment component associated with the successful reinforcement-learning approach.",
+      "The resulting model, EARL, performs competitively with strong baselines across a diverse range of edits despite using much less training data. The finding supports reinforcement learning with multimodal verification as a promising route for improving autoregressive editing models. Its significance lies in the combination of broad editing performance and lower data use relative to the compared systems."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1bf94bbc686083cf952b7ef6f804d2cbbf9c5e2f9cbc5183a9fbfc3d4898bd62",
+    "tldr": "EARL combines reinforcement learning with a multimodal verifier to achieve competitive image editing while using much less training data than strong baselines."
+  },
+  "neurips-2025-unlocking-slm-potential-for-data-analysis-code-generation-via-non-parametric-knowledge-d-5663ca85ac": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Small, locally hosted language models offer advantages such as privacy protection for data-analysis code generation, but transferring capabilities from larger models can require expensive training. This paper investigates transfer through in-context learning instead. The goal is to give a smaller model useful knowledge without relying on intensive parameter fine-tuning.",
+      "DarGO organizes the process into three phases. It first explores through a model orchestration interface, then collects successful trajectories into memory, and finally uses that knowledge during inference. Knowledge transfer therefore operates through retained examples of successful problem solving and their use in context, rather than through a resource-intensive training procedure.",
+      "Across WikiTQ, TabMWP, and Bird-SQL, the authors report an average relative performance improvement of 27.5% for student models. Those benchmarks include in-domain training sets that support analysis of the transfer process. Further evaluations examine different teacher-student combinations, transfer scenarios, and unified memories for more advanced test-only tasks. The results support memory-based, in-context distillation as a practical way to improve smaller models for data-analysis code generation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e3ab0263c50e6bde32310bcf63c64a17dc3cea7035f325090e970a3a74f14dd6",
+    "tldr": "DarGO transfers knowledge to small language models through stored successful trajectories and in-context learning, improving data-analysis code generation without intensive fine-tuning."
+  }
+}

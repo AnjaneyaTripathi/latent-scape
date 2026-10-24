@@ -1,0 +1,327 @@
+{
+  "icml-2025-accurate-and-efficient-world-modeling-with-masked-latent-transformers-ecc4f6857c": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "World models let reinforcement learning agents learn from simulated trajectories. Their usefulness depends on both how faithfully they represent the environment and how efficiently agents can learn from them. This paper identifies a tension: heavily compressed representations can discard important information, while generating pixels can make agent training less efficient and prevent direct use of the world model’s internal representations.",
+      "The authors introduce EMERALD, which predicts trajectories in a spatial latent representation using a masked latent transformer and MaskGIT predictions. Keeping the state spatial provides an alternative to the compressed representation discussed in the abstract. The approach aims to preserve useful environmental information while allowing the agent to learn directly from latent trajectories.",
+      "On Crafter, EMERALD reports state-of-the-art performance and becomes the first method to exceed human expert performance within 10 million environment steps. It also unlocks each of the benchmark’s 22 achievements at least once during evaluation. These findings support the proposed combination of accurate latent simulation and efficient agent learning on this benchmark."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d44ef332f9c9782c832cf553c44311d258e7d010b962bbfc7bfb5d20f131079a",
+    "tldr": "EMERALD generates spatial latent trajectories for efficient agent learning and surpasses human expert performance on Crafter within 10 million environment steps."
+  },
+  "icml-2025-attention-level-speculation-8089b79ede": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Generating tokens becomes increasingly expensive as language models and their contexts grow. Distributing inference across more devices does not automatically solve this problem, because conventional parallelization strategies offer diminishing returns. This paper targets the waiting time caused by attention: later computations ordinarily depend on attention outputs and therefore cannot start until those outputs are available.",
+      "ALSpec predicts self-attention outputs so that subsequent operations can begin early on separate devices. This speculative execution overlaps attention with other computation. The paper establishes foundations for this execution strategy and presents an implementation paradigm. It also distinguishes speculative use of approximations from attention approximation alone, which its evaluations find inadequate for advanced reasoning and mathematics despite working well on simple retrieval.",
+      "On Tenstorrent NPU devices, ALSpec reduces attention latency overhead at 128K context by up to a factor of five and improves end-to-end decoding latency by up to 1.65 times without sacrificing quality. Combined with speculative execution, it approximates up to 90% of self-attention without harming model correctness in the reported results."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ee4d41f52f994f266b90edc10644e6062a4183a096bb3ebe35e310426917cd7e",
+    "tldr": "ALSpec speculatively predicts attention outputs to overlap computations across devices, improving reported decoding latency without sacrificing quality."
+  },
+  "icml-2025-competitively-consistent-clustering-4324a14797": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "When data points continually arrive and depart, a clustering algorithm must balance solution quality against the disruption of changing its centers. This paper studies that balance for dynamic k-center, facility location, and k-median problems. It measures disruption through recourse: the total number of center additions and deletions over time, with centers chosen from a fixed finite set of possible locations.",
+      "For a parameter beta of at least one, the algorithms maintain solutions whose approximation factor is O(beta). Their recourse is compared with the smallest recourse achievable by an offline algorithm that maintains beta-approximate solutions throughout. The resulting overhead is O(log |F| log Delta), where F is the candidate-center set and Delta describes the metric’s distance range.",
+      "The method reduces clustering to Positive Body Chasing, obtaining fractional solutions online before rounding them into clustering solutions. The central contribution is rounding while preserving both quality and recourse guarantees. Logarithmic lower bounds show that the resulting bounds are nearly tight, clarifying how much stability can be achieved alongside approximate clustering quality."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8498087ff8b39e1f8a729d4ab3c415b42d89fff331a3b0ec864c67edd5cf6f21",
+    "tldr": "The paper gives dynamic clustering algorithms with approximate solution quality and nearly tight bounds on center changes relative to an offline comparator."
+  },
+  "icml-2025-deep-reinforcement-learning-from-hierarchical-preference-design-949b89165b": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Designing a reinforcement learning reward often requires combining several feedback signals into one numerical objective. That can be difficult when signals have different scales or depend on one another. This paper asks whether a known ordering of their importance can make reward design easier, without requiring the designer to resolve every interaction through a handcrafted reward formula.",
+      "HERON addresses two settings: feedback signals that naturally form a hierarchy, and sparse rewards accompanied by less important surrogate feedback. In either setting, the importance ranking induces a hierarchical decision tree for comparing trajectories. Those comparisons produce preference data, which is then used to train a reward model for policy learning.",
+      "The experiments apply HERON to several reinforcement learning applications and report high-performing agents on difficult tasks, alongside benefits in sample efficiency and robustness. The contribution is therefore a structured route from ranked feedback to learned rewards. Its intended applicability rests on the stated hierarchical or sparse-reward settings, where the relative importance of available signals can guide trajectory comparisons."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c8aa9d25ca91ae09f0e0d5a9145a50d1cb2d362b606d3e4141ae14b2ba4ac5e0",
+    "tldr": "HERON turns hierarchically ranked feedback into trajectory preferences and learned rewards, improving agent learning in the evaluated applications."
+  },
+  "icml-2025-distillation-scaling-laws-aa2b511db4": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Distillation trains a student model using a teacher, but the best way to spend computation depends on the cost of both models. This paper proposes a scaling law that estimates student performance from the overall compute budget and its allocation between teacher and student. The aim is to make large distillation projects more predictable and guide resource allocation.",
+      "The authors derive compute-optimal recipes for two different starting points: having an existing teacher and needing to train one. Their findings show that distillation can outperform supervised learning when a teacher already exists or when many students are involved. That advantage holds up to a compute level that varies predictably with student size.",
+      "The conclusion changes when only one student is needed and the teacher must also be trained: supervised learning is generally preferable in that setting. The practical message is conditional. Distillation’s value depends on the complete training arrangement, including whether teacher costs are already paid or shared across students, rather than on student training alone."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5c16b7262ea9a440096d3527d44834f633c6dedb2315b55d6bd97f7b5edf0ffa",
+    "tldr": "A distillation scaling law guides compute allocation and identifies when distillation is preferable to supervised learning."
+  },
+  "icml-2025-distributed-differentially-private-data-analytics-via-secure-sketching-563672f767": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Private data analysis faces a tradeoff between trust and noise. A central platform can perform arbitrary computations on client inputs, but distributing that flexibility securely can be expensive. Local privacy avoids a trusted platform by having clients protect their own data, at the cost of substantial noise. This paper introduces a model between these two arrangements.",
+      "In the linear-transformation model, the trusted capability is restricted to applying a public matrix to client inputs. The authors explain how this computation can be distributed securely across multiple servers using efficient secure multiparty computation. Restricting the available operation makes secure distribution more manageable while retaining a useful form of collective processing.",
+      "The resulting linear sketches support tasks including private low-rank approximation and private ridge regression. The paper reports that they largely preserve utility while introducing only small additional error that does not depend on the number of clients. The approach thus reduces reliance on a single trusted server while mitigating the noise burden associated with purely local analysis."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ea8669070c520a501f937e7171b850d087aacf7adabddd27280a20ab87ba5e72",
+    "tldr": "A distributed privacy model based on public linear transformations enables useful data sketches with small error independent of client count."
+  },
+  "icml-2025-fast-and-provable-algorithms-for-sparse-pca-with-improved-sample-complexity-be4e381c85": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Sparse principal component analysis seeks a direction with relatively few nonzero coordinates from noisy observations. This paper studies the single-spiked covariance model, where the target is a sparse unit vector. It addresses a gap between the roughly k log p observations sufficient from an information-theoretic perspective and the at-least-quadratic dependence on sparsity reported for existing polynomial-time methods.",
+      "The proposed thresholding algorithm works with a sample requirement on the k log p scale under an explicit signal-strength condition. Specifically, lambda must be at least on the order of the reciprocal of the vector’s largest absolute coordinate. This qualification is central: the improved sample requirement is established with that signal assumption, rather than as an unconditional resolution of the gap.",
+      "A second algorithm combines the thresholding procedure with truncated power iteration in a two-stage nonconvex method. It achieves the minimax-optimal statistical error rate under the stated sample complexity. Numerical experiments also report advantages in estimation accuracy and computational efficiency, complementing the theoretical guarantees for this covariance model."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c43a7a5baa6d6f42f2c25cdf47a53d531c0f7d9db6f962a08344572fc4bea602",
+    "tldr": "Under a stated signal-strength condition, thresholding and a two-stage refinement improve sparse PCA sample efficiency and achieve optimal statistical error."
+  },
+  "icml-2025-from-local-details-to-global-context-advancing-vision-language-models-with-attention-bas-af477238c3": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Pretrained vision-language models can classify images using text descriptions without task-specific training. Multiple image views and detailed language-model-generated descriptions can improve this ability, but randomly chosen crops may introduce distracting backgrounds or emphasize small details at the expense of the whole image. This paper addresses how to select useful visual and textual information more deliberately.",
+      "Attention-Based Selection, or ABS, uses attention-guided cropping in both the original image and the model’s feature space. Strategic feature selection supplements local information with global semantic context. The method also introduces soft matching to filter generated descriptions, improving their alignment with the visual information used for classification.",
+      "ABS requires no additional training. The authors report state-of-the-art results on zero-shot classification and out-of-distribution generalization, with performance that even rivals few-shot and test-time adaptation methods. These findings support the usefulness of coordinated selection across visual views, features, and descriptions: the contribution lies in how existing representations are used, alongside preserving both detailed and global image information."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2582053dd7c6d6873b1f3d9fd0306b843b15a0602f7c4338ce0fcee185a4107e",
+    "tldr": "ABS improves training-free vision-language classification through attention-guided visual selection and better matching of generated descriptions."
+  },
+  "icml-2025-gefa-a-general-feature-attribution-framework-using-proxy-gradient-estimation-ed6e91f60c": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Feature attribution explains a prediction by assigning contributions to its input features. Many methods need direct access to model gradients, which is unavailable when a model can only be queried for outputs. GEFA addresses this black-box setting by estimating gradients, extending a direction of work previously focused on explaining image classifiers.",
+      "The framework computes attributions in a proxy space rather than tying the explanation procedure to a particular input type. This design makes it applicable to arbitrary black-box models according to the paper. Its explanations follow a path built from estimated gradients, connecting the method closely to Integrated Gradients while operating under more restricted model access.",
+      "The authors also show that this path-based approach produces unbiased estimates of Shapley Values. Compared with traditional sampling procedures based on marginal contributions, GEFA avoids a potential source of information waste. Quantitative evaluations across several settings show improved explanation quality. The contribution combines broad applicability under query access with a theoretical connection to a well-established attribution target."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "016ea0f24aac133160fe090e978beb9fd4a38a951de2a7727a8d6327ead0c7ae",
+    "tldr": "GEFA estimates gradients in a proxy space to explain black-box models and produce unbiased Shapley Value estimates."
+  },
+  "icml-2025-hypernear-unnoticeable-node-injection-attacks-on-hypergraph-neural-networks-15419a299c": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Hypergraph neural networks model higher-order relationships in complex data, but security methods do not always account for their distinctive structure. This paper investigates attacks that add nodes to a hypergraph. Its empirical analysis finds these models particularly vulnerable to node injection, motivating an attack framework designed specifically for hypergraph neural networks.",
+      "HyperNear aims to make injected nodes effective while keeping the resulting changes relatively difficult to notice. It monitors changes in homophily and incorporates strategies that preserve that property. The authors use an observed self-regulating property of homophily to guide stealth, connecting the attack design to structural behavior identified in their analysis.",
+      "Experiments report strong attack performance and generalization. The authors present HyperNear as the first node injection framework tailored to these networks and the first comprehensive study of injection attacks on hypergraphs. The significance is that attack effectiveness and structural plausibility are treated together. The claimed stealth is relative, reflecting the abstract’s description of the attacks as relatively unnoticeable."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6a6d33f67b0744b31678389dbf7bb4f94e86d2d61495298d0d4c5d0d90b13eeb",
+    "tldr": "HyperNear exploits hypergraph neural networks through node injections designed to preserve homophily and remain relatively unnoticeable."
+  },
+  "icml-2025-learning-along-the-arrow-of-time-hyperbolic-geometry-for-backward-compatible-representat-a415ea3e56": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Updating an embedding model creates a compatibility problem when stored data still uses an earlier model’s representations. Backward-compatible learning aims to let the versions work together without reprocessing that data. This paper argues that existing Euclidean approaches can hinder improvement by making new embeddings reproduce older representations without accounting for their uncertainty or quality.",
+      "The proposed approach moves embeddings into hyperbolic space and uses time as an axis for representing model confidence and evolution. New embeddings must remain within the entailment cones of older ones. This geometric constraint is intended to preserve consistency across model generations while allowing uncertainty in earlier representations to influence how compatibility is maintained.",
+      "A contrastive alignment loss further adjusts the strength of alignment according to the uncertainty of old embeddings. Experimental results support the method’s superiority in achieving compatibility. Together, the geometry and uncertainty-weighted loss offer a way to respect previous representations while accommodating model evolution, addressing the tension between maintaining compatibility and learning from an improved model."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2fbb51512d39002e54b0378a9f0ea57b72df0b049cb88ff5fa820a2c2227d748",
+    "tldr": "Hyperbolic constraints and uncertainty-weighted alignment help updated embedding models remain compatible with earlier representations."
+  },
+  "icml-2025-learning-curves-theory-for-hierarchically-compositional-data-with-power-law-distributed--44a34f9fd1": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Learning curves describe how performance changes as more data becomes available. Existing theories connect power-law learning behavior either to unevenly distributed task components or to hierarchical composition in the data. This paper brings those explanations together using probabilistic context-free grammars, which generate data through a hierarchy of production rules with specified probabilities.",
+      "The authors study both classification and next-token prediction in this setting. For classification, power-law-distributed production rules produce a power-law learning curve. The frequency distribution of the rules determines its exponent, while the hierarchical structure contributes a large multiplicative constant. These are distinct influences: one changes the curve’s scaling rate, while the other changes its overall magnitude.",
+      "Next-token prediction behaves differently. There, the production-rule distribution affects finer details of the learning curve but does not determine the exponent governing large-scale behavior. The result shows that the same ingredients of data structure can influence learning differently depending on the task. It unifies the two theoretical perspectives while preserving this distinction between classification and prediction."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "fe4ace038baae1261bc9ad2d8a71e6e3aa33bfbfdabc84977adb6804b42c9987",
+    "tldr": "A grammar-based theory shows that hierarchical structure and rule frequencies affect classification and next-token learning curves differently."
+  },
+  "icml-2025-learning-multi-level-features-with-matryoshka-sparse-autoencoders-d77189cd20": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Sparse autoencoders extract concepts from neural network activations, but increasing their dictionary size can undermine interpretability. As more concepts become available, the sparsity objective can encourage broad features to split into narrower ones or be absorbed by them. This leaves some high-level concepts distorted or absent even as the dictionary becomes more expressive.",
+      "Matryoshka sparse autoencoders train several nested dictionaries of increasing size together. Each smaller dictionary must reconstruct the input independently, without relying on features available only in larger dictionaries. This creates pressure for small dictionaries to retain general concepts while larger ones capture more specific concepts, reducing the incentive to absorb broad features.",
+      "Experiments on Gemma-2-2B and TinyStories report better sparse probing and targeted concept erasure, more disentangled representations, and less feature absorption. These benefits come with a small reconstruction-performance tradeoff. The authors argue that retaining interpretable concepts at multiple abstraction levels makes the approach preferable for practical tasks, even when reconstruction alone is not improved."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8279fe434c013f6c23930ba26c9955bd207f62a9c28de275556d16a843ecec2f",
+    "tldr": "Matryoshka sparse autoencoders preserve broad and specific concepts through nested dictionaries, improving interpretability tasks with a small reconstruction tradeoff."
+  },
+  "icml-2025-near-neural-electromagnetic-array-response-d0299ba5e8": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Multi-antenna radar can computationally construct a larger virtual sensing system from relatively few physical antennas to improve angular resolution. Hardware constraints, noise, and sparse measurements can limit that benefit. This paper also identifies a difficulty with conventional supervised approaches: extensive pretraining does not necessarily provide good generalization to environments absent from the training data.",
+      "NEAR uses an untrained implicit neural representation to predict radar responses at unobserved locations from sparse measurements. Its design exploits harmonic structure in radar wave propagation. The authors establish theoretical connections between antenna array responses and the expressive capacity of these neural architectures, then introduce a regularizer informed by both physics and latent geometry.",
+      "The approach brings classical signal representation into neural modeling, aiming for radar reconstructions that are interpretable and generalizable. Simulations and experiments on real radar platforms demonstrate effectiveness and adaptation to unseen environments. The central contribution is therefore a reconstruction framework guided by the structure of radar signals, with theoretical analysis supporting its architectural design."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2a1a723cf8dcd4443d1422e9a5ef31fea007cf8ec49e7b3d0500579e3112d5da",
+    "tldr": "NEAR uses an untrained, physics-informed neural representation to reconstruct radar responses from sparse measurements and adapt to unseen environments."
+  },
+  "icml-2025-nearly-optimal-sample-complexity-for-learning-with-label-proportions-eb9d64d10b": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Learning from label proportions provides supervision for groups of examples rather than individual examples. Training data is divided into bags, and only aggregate label values are observed. The learner must nevertheless make accurate predictions for individual inputs. This paper studies how many samples are needed to achieve small individual-level regret under square loss.",
+      "The authors establish essentially optimal sample-complexity results, improving previous understanding of how the required data depends on bag size. Their algorithms use carefully adapted versions of empirical risk minimization and stochastic gradient descent. These are combined with specially designed variance-reduction techniques to handle the partial information supplied by aggregate labels.",
+      "Experiments on several datasets show better accuracy with fewer samples than recent baselines. The theoretical and empirical contributions address the same practical question: how effectively can group-level supervision support individual predictions? The findings sharpen the data requirements for this learning setting and show that the proposed procedures can turn those improvements into stronger observed performance under the evaluated conditions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0e73c9a9b489864c7e139c26726a86f49be043b494352443ce0c6d9525e24206",
+    "tldr": "The paper establishes nearly optimal data requirements for learning individual predictions from aggregate labels and develops empirically stronger algorithms."
+  },
+  "icml-2025-o-mapl-offline-multi-agent-preference-learning-8ce81f4542": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Learning rewards from preferences becomes difficult when several agents act together. Their joint state-action space is large, and interactions between agents complicate the interpretation of desirable behavior. Existing approaches commonly learn a reward model first and then run a separate multi-agent reinforcement learning procedure. The paper identifies unstable training as a problem with that separation.",
+      "O-MAPL introduces an end-to-end preference-learning framework for cooperative multi-agent reinforcement learning. It uses the inherent relationship between reward functions and Q functions, which represent action values. A specially designed multi-agent value decomposition strategy supports the framework and improves training efficiency, addressing the complexity of learning about coordinated behavior.",
+      "The authors evaluate the method on SMAC and MAMuJoCo using preference data produced by both rule-based procedures and large language models. It consistently outperforms existing methods across the tested tasks. These results support connecting preference learning more directly with multi-agent value learning, while the use of two preference-generation approaches broadens the empirical evidence beyond a single feedback source."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "853438c9ffcf21318ca3ff8688375d84f2162b4dfabb4238cdb639dc1daec8af",
+    "tldr": "O-MAPL connects preferences and multi-agent value learning in an end-to-end framework that outperforms existing methods on the evaluated cooperative tasks."
+  },
+  "icml-2025-on-efficient-estimation-of-distributional-treatment-effects-under-covariate-adaptive-ran-505907b7f6": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Randomized experiments often group participants by baseline characteristics and balance treatment assignment within those groups. This paper studies distributional treatment effects under such covariate-adaptive randomization. The available data may contain useful characteristics beyond those used to define the groups, raising the question of how to incorporate that information to obtain more precise estimates.",
+      "The authors propose a flexible distribution regression framework that uses standard machine learning methods to adjust for these additional covariates. They establish the estimator’s asymptotic distribution and provide a valid inference procedure. These results connect flexible prediction tools with statistical inference that accounts for the experiment’s treatment-assignment design.",
+      "The paper also derives the semiparametric efficiency bound for distributional treatment effects under this randomization setting and shows that its adjusted estimator attains that bound. This is an asymptotic efficiency result, describing the estimator’s precision in the relevant large-sample framework. Simulations and real-data analyses demonstrate practical advantages, supporting the use of additional covariates alongside the original balancing strata."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "057b0572c63081f81031e7d0c0c5dda453869d34fbfbd5da59b9b3bc0639df63",
+    "tldr": "Machine-learning-based regression adjustment improves distributional treatment-effect estimation and attains the asymptotic efficiency bound under covariate-adaptive randomization."
+  },
+  "icml-2025-prodiff-prototype-guided-diffusion-for-minimal-information-trajectory-imputation-908e74972a": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Trajectory imputation reconstructs missing portions of movement records. Existing methods often depend on sparse observations or travel information such as velocity, assuming that the available measurements retain useful behavioral patterns. ProDiff studies a more minimal input setting: reconstructing a trajectory when only its two endpoints are supplied, reducing the information needed for each trajectory.",
+      "The framework combines prototype learning with a denoising diffusion probabilistic model. Prototype learning embeds human movement patterns, while diffusion performs spatiotemporal reconstruction. The components are trained jointly using a tailored loss. This lets the method draw on learned movement structure when the endpoints alone provide only a small amount of trajectory-specific information.",
+      "ProDiff reports accuracy improvements of 6.28% on FourSquare and 2.52% on WuXi over state-of-the-art methods. Further analysis finds a correlation of 0.927 between generated and real trajectories. These results support the effectiveness of combining learned movement prototypes with diffusion in the endpoint-only setting, where the reconstruction draws on both the supplied endpoints and patterns learned during training."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0c81b623b05df8d4d7dc878ff10847bd3f79edef359540da059389d193f7cba7",
+    "tldr": "ProDiff combines movement prototypes and diffusion to reconstruct trajectories from two endpoints, improving reported accuracy on FourSquare and WuXi."
+  },
+  "icml-2025-robot-gated-interactive-imitation-learning-with-adaptive-intervention-mechanism-fe155a5d93": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Interactive imitation learning lets a human correct an agent while it learns, but deciding when to intervene can demand sustained attention. This paper introduces the Adaptive Intervention Mechanism, or AIM, which places the decision to request demonstrations with the agent. Its goal is to reduce human monitoring effort while obtaining useful expert assistance.",
+      "AIM learns a proxy Q-function that imitates the human intervention rule. High values indicate that the agent’s actions deviate from expert behavior, while values decrease as the agent becomes proficient. Intervention requests therefore adapt to the alignment between agent and expert actions, allowing the request criterion to change as learning progresses.",
+      "Expert-in-the-loop experiments show reduced monitoring effort in continuous and discrete control tasks. Against Thrifty-DAgger, the paper reports a 40% improvement in human take-over cost and learning efficiency. AIM also identifies safety-critical states for assistance and collects higher-quality demonstrations, reducing the expert data and environment interactions needed. These findings support learning when to request help as part of the imitation-learning process."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "bc21ee8b6997aae87dd46d6f5d138b7d597f1633410cafc45457819ee1ba82a5",
+    "tldr": "AIM learns when an agent should request human demonstrations, reducing monitoring effort and improving learning efficiency in the reported control experiments."
+  },
+  "icml-2025-shortcut-connected-expert-parallelism-for-accelerating-mixture-of-experts-f7b039b776": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Mixture-of-experts models distribute specialized computation across devices through expert parallelism. Moving information among those devices requires All-to-All communication, which can become a major bottleneck. Existing optimizations partly reduce the cost, but dependencies between communication and computation still impose an execution order that limits how much work can happen simultaneously.",
+      "ScMoE combines a shortcut-connected mixture-of-experts architecture with a parallelization strategy designed for overlap. It decouples communication from its conventional sequential ordering, enabling communication to overlap with computation by up to 100%. The architectural change and execution strategy work together to address the dependency that constrains conventional expert parallelism.",
+      "Compared with a top-2 MoE baseline, the method reports training speedups of 1.49 times and inference speedups of 1.82 times. Experiments and analyses also find comparable model quality, with improvements in some cases. These results indicate that changing execution dependencies can improve distributed MoE efficiency while retaining competitive quality, with complete overlap presented as an achievable upper extent rather than a universal outcome."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7ac43d773304eba4f06b49929fb6e47da235a921c314d5aec6d4a43c6d71e986",
+    "tldr": "ScMoE overlaps expert communication and computation, reporting 1.49-fold training and 1.82-fold inference speedups with competitive model quality."
+  },
+  "icml-2025-symmetric-reinforcement-learning-loss-for-robust-learning-on-diverse-tasks-and-model-sca-4386e07bf6": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Reinforcement learning can receive unstable guidance because targets move and gradients have high variance. Human- or AI-feedback training adds further difficulties, including diverse preferences and reward-model errors on unfamiliar outputs. This paper interprets these problems as ambiguity over whether an action’s probability should increase or decrease, drawing a connection to noisy labels in classification.",
+      "The authors focus on reinforcement learning algorithms with difficulties resembling those of cross-entropy loss, particularly for low-probability predictions. They adapt reverse cross-entropy, used in supervised learning with noisy data, to define a symmetric reinforcement learning loss. The resulting variants include Symmetric A2C and Symmetric PPO, bringing the proposed objective into established policy-learning algorithms.",
+      "Experiments report performance improvements across Atari, MuJoCo, and Box2D tasks, covering discrete and continuous actions. Symmetric PPO also performs strongly across different hyperparameters. The loss is further evaluated with PPO-based human-feedback learning for positive-sentiment generation and summarization. This range of evaluations supports the proposed loss as a way to improve learning robustness across several settings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "94c182f32f8c188ea6f4db3ee184aa1d68637f16af89aabd02b44aa824ccb0d6",
+    "tldr": "A symmetric reinforcement learning loss adapted from noisy-label learning improves reported performance across control tasks and language-model feedback training."
+  },
+  "icml-2025-targeted-unlearning-with-single-layer-unlearning-gradient-0d032fe016": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Machine unlearning aims to remove unwanted information from an already trained model. Broad model updates can be computationally expensive and can damage performance on both related and unrelated tasks. This paper investigates whether targeted removal can be achieved through a much more localized change, reducing the amount of model updating required.",
+      "Single Layer Unlearning Gradient, or SLUG, updates one critical layer using a one-time gradient computation. It selects the layer through measures of layer importance and gradient alignment, with the aim of removing the target information while preserving model utility. Layer selection is therefore central to the method’s combination of efficiency and targeted intervention.",
+      "The authors demonstrate SLUG on CLIP, Stable Diffusion, and vision-language models, covering concrete concepts such as identities and objects as well as abstract concepts such as artistic styles. On UnlearnCanvas, it achieves unlearning performance comparable to existing methods with substantially fewer computational resources. These findings support selective single-layer updates as a practical approach to the evaluated unlearning tasks."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "76266ee19fbb4c26b9d841d6401215cf6e9cdcebab4cabbd5e612f12b01c8ab0",
+    "tldr": "SLUG targets unwanted concepts through a single-layer update, matching reported unlearning performance with substantially less computation."
+  },
+  "icml-2025-understanding-and-improving-length-generalization-in-recurrent-models-96b8428668": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Recurrent models can process sequences with computation that grows linearly with length, yet their performance may deteriorate beyond the contexts used in training. This paper investigates why the ability to keep running does not necessarily translate into reliable long-sequence behavior. It studies state space models and linear attention through empirical and theoretical analysis.",
+      "The analysis supports the unexplored states hypothesis: training on shorter sequences exposes a model to only part of the internal-state distribution attainable on longer sequences. The authors test interventions intended to broaden that coverage. These include starting from Gaussian noise and starting from the final state produced by another input sequence.",
+      "With 500 post-training steps, approximately 0.1% of the pretraining budget, the interventions enable generalization to sequences orders of magnitude longer than the training context, including an example from 2K to 128K. They also improve long-context task performance. The results support state coverage as a useful explanation and intervention target for length generalization in the recurrent models studied."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9808c312e03e492503556a9c249c109db656c9ccb5a86b69b962a289b1892d34",
+    "tldr": "Broadening the internal states seen during training helps recurrent models handle much longer sequences with a small post-training budget."
+  },
+  "icml-2025-what-limits-virtual-agent-application-omnibench-a-scalable-multi-dimensional-benchmark-f-258d0d55f0": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Evaluating virtual agents requires tasks with meaningful differences in difficulty and measurements that reveal their individual capabilities. Existing benchmarks can make complexity hard to control, require extensive manual annotation, and provide limited evaluation dimensions. OmniBench addresses these issues with an automated process for generating tasks represented as graphs.",
+      "The benchmark composes subtasks to produce tasks with controllable complexity. Its companion framework, OmniEval, evaluates performance at the subtask level, uses graph-based metrics, and tests ten capabilities. This combination connects the structure used to generate tasks with the structure used to assess agent behavior, providing more detailed information than an undifferentiated overall result.",
+      "The generated dataset contains 36,000 graph-structured tasks across 20 scenarios and achieves a 91% human acceptance rate. Training on this data improves generalization across environments in the reported experiments. The multidimensional evaluations also reveal differences across agent capabilities. Together, these findings support automated task composition as both an evaluation resource and a source of training data for virtual agents."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "07924c8c01ab40c361c48c81437c7c0e93828c232a481042b83f541bf992aaf3",
+    "tldr": "OmniBench automatically generates controllable graph-structured tasks, while OmniEval measures virtual agents across subtasks and ten capabilities."
+  },
+  "icml-2025-where-is-the-truth-the-risk-of-getting-confounded-in-a-continual-world-e9704c6c8a": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A model can solve a dataset by relying on a convenient correlation that fails on new data. This paper studies that problem when tasks arrive sequentially and the misleading correlations change over time. It argues that dealing with such continual confounders creates a challenge beyond the usual continual-learning concern of forgetting earlier tasks.",
+      "The authors formally describe continual confounders and compare joint learning with sequential learning. They identify that spurious correlations are generally easier to ignore when all tasks are available together, while avoiding them is harder when tasks are encountered one after another. This distinction motivates studying confounding as a separate issue in continual learning.",
+      "Using that formal description, the paper builds ConCon, a continually confounded dataset based on CLEVR. Evaluations show that standard continual learning methods fail to ignore its confounders. The results demonstrate that retaining past task performance does not by itself resolve the challenge identified here, and motivate methods that explicitly address changing spurious correlations throughout a task sequence."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c520c6df02e32ccc977dd0d8cefa9fb10337002ad120382c0574e54ac833f3ea",
+    "tldr": "ConCon exposes how changing spurious correlations challenge continual learning beyond forgetting, with standard methods failing to ignore its confounders."
+  }
+}

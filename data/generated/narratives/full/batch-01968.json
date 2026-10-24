@@ -1,0 +1,327 @@
+{
+  "icml-2026-adahc-accelerating-multi-token-prediction-with-adaptive-head-chunking-with-pipeline-para-1bceb43f72": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Multi-token prediction adds blocks to a language model so it can predict additional tokens during training. These extra blocks create a scheduling problem when training is divided into pipeline stages: some stages wait while others finish their work. Such idle periods, called pipeline bubbles, reduce the benefit of distributing training across devices.",
+      "AdaHC addresses this problem by reorganizing the work performed by prediction heads. The authors analyze the architecture and loss functions and identify parallelism within the multi-token prediction blocks. Their scheduler divides output heads into smaller chunks and rearranges those chunks into more balanced pipeline stages. It also adaptively forwards intermediate activations to preserve numerical equivalence with the original computation.",
+      "Across the evaluated language models and multi-token prediction configurations, AdaHC increases training throughput by an average of 1.35 times. The finding shows that better scheduling can make these architectures more efficient while preserving their numerical computation. Its contribution is a practical way to exploit parallel work that the original pipeline arrangement leaves underused."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b1e40bb6ce023edc41178ad6ece74338a40b7bd4b41c76ae15df275804491b07",
+    "tldr": "AdaHC reorganizes multi-token prediction heads into balanced pipeline stages, improving measured training throughput by 1.35 times on average."
+  },
+  "icml-2026-anomaly-preference-image-generation-e46551e4ff": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Generating anomalous images from limited examples requires balancing realism with variety. Samples should resemble genuine anomalies without simply reproducing the narrow set available for training. The paper identifies distribution mismatch and overfitting as obstacles to achieving both goals, and introduces Anomaly Preference Optimization, or APO, to treat generation as a preference learning problem.",
+      "APO uses real anomalies as positive references. It obtains training signals from deviations along the diffusion model’s denoising trajectories, avoiding the need for costly human preference annotations. A separate capacity allocation module adjusts where the model concentrates its capacity during generation. High-noise stages emphasize variation in overall structure, while low-noise stages emphasize realistic fine details.",
+      "At inference time, a hierarchical sampling strategy provides control over the trade-off between coherence and alignment. The reported experiments show improvements over existing baselines in both realism and diversity, reaching state-of-the-art performance on those dimensions. The approach matters because it addresses the two goals through coordinated training and sampling choices, rather than leaving their balance to a single undifferentiated generation process."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a4943286897626f37550aaf26a4b2ae5f4beaf4419874369eae404beb252004e",
+    "tldr": "APO learns from real anomaly references and allocates diffusion capacity across noise levels to improve generated anomalies’ realism and diversity."
+  },
+  "icml-2026-beyond-buffer-limits-energy-based-data-reassembly-for-continual-learning-3303c94e51": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Continual learning asks a model to acquire new knowledge while retaining what it learned earlier. Replaying stored examples helps prevent forgetting, but a limited memory buffer restricts how much past experience can be revisited. This paper proposes increasing the usefulness of that memory by constructing replay examples from reusable pieces of training data.",
+      "The method partitions current-task data into elementary patches instead of storing complete raw examples. An energy-based optimization process assembles patches into replay instances, evaluating both whether they fit the intended label and whether the pieces form a globally coherent sample. These two requirements matter together: label-compatible fragments alone need not make a consistent whole. An efficient variational inference algorithm makes the assembly process tractable and produces a compact, diverse replay set.",
+      "The authors support the approach with theoretical analysis and experiments across multiple continual learning benchmarks. They report consistently better retention than existing memory-based methods while maintaining competitive computational efficiency. The central result is that replay memory can represent more useful variation when stored material can be recombined into coherent training instances."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "282ab58edaea73c110f812231f04eb505615f7831c7f6a9b023014022514c420",
+    "tldr": "Energy-based data reassembly builds coherent replay examples from reusable patches, improving memory efficiency and knowledge retention in continual learning."
+  },
+  "icml-2026-cocoemo-composable-and-controllable-human-like-emotional-tts-via-activation-steering-8e464751ea": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Human speech can convey several emotions at once, and its emotional delivery can differ from the literal meaning of the words. Many expressive text-to-speech systems instead assign one emotion to an entire utterance. CoCoEmo investigates how steering a model’s internal activations can give speech synthesis more flexible and composable emotional control.",
+      "The paper systematically studies activation steering in hybrid text-to-speech architectures. It examines whether internal emotion representations can be adjusted through direction vectors and where those adjustments should occur. The proposed framework makes steering quantitatively controllable and introduces evaluation protocols involving multiple raters. These protocols assess mixed emotions and cases where the spoken emotion intentionally diverges from the text’s emotional content.",
+      "The results attribute emotional prosody and expressive variation primarily to the language module in the studied systems, rather than the flow-matching module. This finding helps identify where emotional control should be applied. The work also provides a lightweight steering approach for natural, human-like emotional speech, supporting mixtures and mismatches that a single utterance-level emotion label would suppress."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "76bb0f658ba48732b1e6f81fa5be26706bda0c1124b3f4e8374de1194a1c3445",
+    "tldr": "CoCoEmo steers internal TTS activations to compose emotions and control delivery even when it differs from the text’s emotional content."
+  },
+  "icml-2026-conformal-thinking-risk-control-for-reasoning-on-a-compute-budget-158ea19a0a": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Giving a reasoning language model more tokens can improve accuracy across a dataset, but deciding how much computation to spend on each instance is difficult. Conformal Thinking treats this decision as a risk-control problem: reduce computation while keeping error within a user-specified target. This connects stopping decisions to an explicit reliability objective.",
+      "The framework uses two stopping mechanisms. An upper threshold ends reasoning when confidence is sufficiently high, accepting the possibility of an incorrect answer. A parametric lower threshold stops instances judged unlikely to be solved, accepting the possibility of ending too soon. Given a validation set and a target risk, distribution-free risk control selects these mechanisms to balance their risks against computation.",
+      "Experiments across several reasoning tasks and models show efficiency gains from the lower threshold and ensemble stopping mechanisms while adhering to the specified risk target. The lower threshold contributes a distinct source of savings: it can curtail unproductive reasoning as well as ending successful reasoning early. The reported control concerns the chosen risk objective, rather than a promise that every individual stopping decision is correct."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "cea277477e6423d1bd31f6115cb18f072c2b4531d36ce2cc415fdac80b9ed13c",
+    "tldr": "Conformal Thinking calibrates when to stop confident or apparently unproductive reasoning to reduce computation while meeting a chosen risk target."
+  },
+  "icml-2026-d2-improving-reasoning-in-diffusion-language-models-via-trajectory-likelihood-estimation-afa4ec3285": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The d2 framework improves reasoning in masked diffusion language models through reinforcement learning. Its central challenge is estimating the likelihood of the sampling trajectory that produced an answer. The proposed policy gradient algorithm depends on accurate trajectory estimates, but computing them directly can be expensive for this class of language model.",
+      "The authors develop different estimators for different model capabilities. For models that support any-order decoding, d2-AnyOrder computes an exact trajectory likelihood in a single model pass. Their empirical investigation finds that widely used diffusion language models do not universally support this decoding method. For standard masked diffusion models, d2-StepMerge instead provides an approximation with an analytically tractable trade-off between computational expense and estimation accuracy.",
+      "In the reported experiments, d2 substantially outperforms widely used reinforcement learning baselines on popular diffusion language models. It also achieves new state-of-the-art results for diffusion language models on Countdown, Sudoku, GSM8K, and MATH500. The contribution links stronger reasoning to practical likelihood estimation while explicitly accounting for differences in which decoding procedures models support."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e16fcd42332a7708fb137100f3e3a7d18f0bb2934ba43ac1f1345f0f0d37f3b6",
+    "tldr": "d2 improves diffusion-model reasoning with reinforcement learning estimators that compute exact or approximate sampling-trajectory likelihoods according to model capabilities."
+  },
+  "icml-2026-degradation-aware-metric-prompting-for-hyperspectral-image-restoration-98b32cba11": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A unified hyperspectral restoration model must handle different forms of image corruption within one system. The paper argues that explicit prior requirements can be impractical, while opaque learned representations can overfit the training distribution. DAMP addresses this by describing corruption through interpretable measurements of its spatial and spectral characteristics.",
+      "These measurements become degradation prompts that guide restoration. They characterize shared properties across tasks, giving the model a way to respond to unfamiliar corruption. A degradation-adaptive mixture of experts uses the prompts to route processing toward specialized modules. Those modules combine spatial and spectral processing through learnable fusion coefficients, allowing different experts to specialize in different degrees of degradation.",
+      "Experiments on natural and remote sensing hyperspectral imagery report state-of-the-art restoration performance and strong zero-shot generalization to unseen restoration tasks. The result supports using an interpretable corruption profile to select suitable processing within a single model. The approach’s practical significance is the connection between describing what has gone wrong in an image and choosing which restoration expertise to activate."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8916c67b740bb5f7e3f7ee881189a6021d786a49957881d17bc913f8b2135f12",
+    "tldr": "DAMP uses interpretable spatial-spectral corruption measurements to route hyperspectral images through specialized restoration experts."
+  },
+  "icml-2026-finding-the-minimal-parameter-budget-for-implicit-reasoning-a-data-complexity-driven-sca-a6c0b1d0b6": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies how much model capacity is sufficient for implicit reasoning: inferring new facts from learned knowledge without explicit chain-of-thought supervision. To isolate that capability, the authors pretrain language models from scratch on synthetic data designed to resemble the structure and distribution of real-world knowledge graphs. Evaluation asks models to infer missing connections through multiple reasoning hops.",
+      "The authors connect the required parameter budget to graph search entropy, a measure of the complexity of the relevant graph search. Their theoretical and empirical analysis identifies a scaling relationship between this data complexity and an optimally sized model. They examine that relationship across model sizes, training durations, and graph complexities.",
+      "Within the studied setting, an optimally sized model can reliably reason over at most approximately 0.008 bits of information per parameter. This quantifies a capacity relationship for the controlled implicit-reasoning problem, rather than establishing a universal budget for all reasoning. The findings offer guidance for matching model size to knowledge complexity and characterize a minimal sufficient capacity during pretraining."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f0bb2d1c1ef6d8f784cb4f587818d2f931b6017141dc889f33a127f46e8a9ab1",
+    "tldr": "Controlled knowledge-graph experiments and theory link the parameter budget sufficient for implicit reasoning to graph search entropy."
+  },
+  "icml-2026-generalized-discrete-diffusion-with-self-correction-311c999e1e": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Discrete diffusion models can use self-correction to maintain parallel sampling with limited loss of quality. Earlier approaches introduce correction during inference or post-training, but can generalize poorly or impair reasoning. A pretraining approach called GIDD addresses correction earlier, although its interactions between uniform transitions and absorbing masks make tuning and practical performance difficult.",
+      "The proposed Self-Correcting Discrete Diffusion model, SCDD, reformulates this pretraining process using explicit state transitions and directly learns in discrete time. It simplifies the noise schedule, removes a redundant remasking step, and learns correction using uniform transitions alone. These changes make the correction mechanism more explicit and reduce the interacting components of the earlier training pipeline.",
+      "Experiments at GPT-2 scale show more efficient parallel decoding while preserving generation quality. The stated result supports simplifying how self-correction is learned during pretraining, rather than relying on later additions to the model. Its demonstrated scope is the evaluated scale and generation setting; the abstract’s efficiency and quality findings do not establish broader reasoning improvements."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c7e91d6cfa4550292c5bed23d84bd59e235dfddc94bdf5172c5ebbe0e1061b9c",
+    "tldr": "SCDD simplifies pretraining-based self-correction with explicit discrete transitions, improving parallel decoding efficiency while preserving quality at GPT-2 scale."
+  },
+  "icml-2026-how-few-shot-examples-add-up-a-causal-decomposition-of-function-vectors-in-in-context-le-b83b02586e": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Few-shot prompts can teach a language model a task through demonstrations, but the internal mechanism remains difficult to explain. This paper studies function vectors: activation directions that causally influence how the model performs the task on a query. The authors ask how individual examples contribute to the vector formed by a complete prompt.",
+      "Across the examined tasks and models, the full function vector is well approximated by a linear combination of contributions from individual demonstrations. Those contributions are also contextual: earlier examples change how later examples are represented. Attention consequently shifts toward demonstrations that are more informative and less ambiguous in the surrounding context. Approximate additivity therefore coexists with adaptive weighting.",
+      "A causal decomposition separates Query–Key routing, which governs attention alignment, from Value updates. The most consistent benefits of contextualization come from Query–Key alignment, particularly when examples are ambiguous; Value-related effects vary more. Together, these findings give a testable account of how demonstrations combine and why their context changes which examples most strongly shape task behavior."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7eb3700bc77a183396b16f3f934bfbcd14e8efd0914f52bd22fba826a01a7b6f",
+    "tldr": "Few-shot demonstrations contribute approximately additive function vectors whose influence is adaptively reweighted through context-dependent attention."
+  },
+  "icml-2026-inference-time-conformal-reasoning-with-valid-factuality-control-for-large-language-mode-c3ae7ea075": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Multi-step reasoning contains dependencies: later claims can rely on earlier ones. The paper represents these relationships as directed acyclic graphs and argues that factual uncertainty must account for their structure. Treating claim errors as an uncomplicated accumulation misses how the correctness of a claim is conditioned on the claims supporting it.",
+      "Inference-Time Conformal Reasoning, or ITCR, brings conformal calibration into graph generation itself. It learns a graph-level uncertainty function that combines factuality signals from individual claims without complex modeling assumptions. That uncertainty defines a non-conformity score, and a calibrated threshold determines when generation should stop. This allows factuality control to shape the reasoning process while it is still unfolding.",
+      "The authors theoretically establish a nested-generation property that yields valid coverage guarantees for factuality control. Experiments across datasets and coverage targets also show empirically valid coverage. On downstream reasoning tasks, graphs calibrated during generation produce more accurate outputs than graphs pruned afterward. The contribution is therefore both calibrated factuality control and evidence that intervening during construction can improve the resulting reasoning."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "57f52a4e0b4329db55e4042f8e7e99c8ba64b3d6fdf09c2d532b2f473bc29dbc",
+    "tldr": "ITCR calibrates graph-level factual uncertainty during reasoning generation to determine when to stop, with theoretical and empirical coverage support."
+  },
+  "icml-2026-learnable-kernel-density-estimation-for-graphs-and-its-application-to-graph-level-anomal-0095b368a3": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Estimating graph density means characterizing which graphs are typical while accounting for both their structure and their semantic features. Conventional combinations of graph kernels and kernel density estimation use fixed, handcrafted features that can limit performance. LGKDE instead learns how graphs should be represented and compared for density estimation.",
+      "A graph neural network represents each graph as a discrete distribution. Maximum mean discrepancy supplies the basis for learning a graph metric used in density estimation at multiple scales. Training favors higher density for original graphs relative to deliberately perturbed counterparts. Perturbations affect node features and graph spectra, helping define the boundary around regions of normal data.",
+      "The paper establishes consistency and convergence guarantees, including bounds concerning estimation error, robustness, and generalization. Experiments test whether LGKDE recovers synthetic graph distributions and whether it detects anomalous graphs across benchmark datasets. It outperforms state-of-the-art baselines on most evaluated benchmarks. These results connect a learned notion of graph similarity to useful density estimates, while retaining a theoretical analysis of the estimator."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "04fea6f7f67512108fa97cd3c10008a3639eeb3dbf055acd2ee1f0573e66ee83",
+    "tldr": "LGKDE learns graph representations and similarity measures for density estimation, combining theoretical guarantees with strong graph anomaly detection results."
+  },
+  "icml-2026-mergemix-optimizing-mid-training-data-mixtures-via-learnable-model-merging-25d8688c1f": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Choosing the proportions of different training data sources can substantially affect a language model’s performance. Searching for those proportions is expensive when each candidate requires heuristic experimentation or proxy training. MergeMix proposes using the weights that combine domain-specific models as a cheaper indicator of which data mixtures will work well.",
+      "The method first trains domain experts using small token budgets. It then optimizes their model-merging weights against downstream benchmarks and uses those weights to determine data mixing ratios. This substitutes a learnable merging problem for repeated full-scale mixture evaluation. The key question is whether performance under merging predicts the relative value of candidate data mixtures accurately enough to guide selection.",
+      "Experiments with 8-billion- and 16-billion-parameter models report performance matching or exceeding exhaustive manual tuning while substantially reducing search costs. The proxy shows strong ranking agreement, with Spearman correlation above 0.9, and transfers well across model scales. These findings support merging weights as a useful empirical proxy for mixture search, enabling more automated selection without evaluating every mixture through full-scale training."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "dc95f277334e8b080cc20ec6812336cb4c098af417a4eeb384a49fc8774c4932",
+    "tldr": "MergeMix uses optimized model-merging weights as a low-cost proxy for selecting effective mid-training data mixtures."
+  },
+  "icml-2026-mixture-prototype-flow-matching-for-open-set-supervised-anomaly-detection-d45dec9522": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Open-set supervised anomaly detection uses limited labeled anomalies to identify anomalous cases that were not seen during training. The paper focuses on a weakness in prototype methods that represent normal data with one Gaussian distribution. When normal data contains several distinct groups, collapsing them into a single mode can blur the boundary between normal and anomalous examples.",
+      "Mixture Prototype Flow Matching learns a continuous transformation from normal feature distributions into a structured space of Gaussian mixture prototypes. Its velocity field explicitly uses a Gaussian mixture, with each component corresponding to a different normal class. This makes the transformation sensitive to distinct normal modes and their semantic organization, rather than imposing one shared distributional shape.",
+      "A mutual-information regularizer discourages prototypes from collapsing together and promotes separation between normal and anomalous data. Experiments report state-of-the-art performance across diverse benchmarks with both single- and multi-anomaly settings. The results support preserving the internal diversity of normal data as part of learning a useful boundary for detecting unfamiliar anomalies."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0d6238353cf4d907e9957f91cb9784ad32cad2dfde50396faa6e1e681f3f4677",
+    "tldr": "MPFM preserves distinct normal-data modes through Gaussian mixture flow matching to improve detection of unseen anomalies."
+  },
+  "icml-2026-online-continual-learning-with-dynamic-label-hierarchies-7565a5b587": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Real-world categories evolve in more than one direction: new sibling classes appear, and existing concepts acquire broader or finer labels. This paper introduces an online continual learning setting that captures both changes. Each incoming example supplies a label at only one level of an evolving hierarchy, leaving other levels without direct supervision.",
+      "The authors identify two resulting difficulties. A label at one point in the hierarchy provides incomplete guidance for maintaining consistency along the full category path. Changes in granularity also create interference that can destabilize replay and regularization, worsening forgetting. HALO addresses these problems by adaptively combining complementary classification heads and regularizing them with organized, learnable hierarchical prototypes.",
+      "The prototypes provide structure for adaptation and knowledge consolidation as the taxonomy changes. Across multiple benchmarks, HALO consistently outperforms existing methods in hierarchical accuracy, mistake severity, and continual performance. These outcomes matter because a changing hierarchy requires more than recognizing newly introduced labels: a learner must preserve relationships across category levels and retain earlier knowledge as those relationships develop."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9b5d9ce984614c9c7a52a6d65cb459e45e23ac399cc923605de6a4fa86cdf5fe",
+    "tldr": "HALO combines adaptive classification heads with hierarchical prototypes to learn continually as category hierarchies expand and change granularity."
+  },
+  "icml-2026-quantwear-quantum-scale-wear-particle-detection-for-jet-engine-diagnosis-9da17c97fe": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The number and three-dimensional shapes of wear particles provide evidence about jet engine health. Measuring them is difficult because the particles are tiny, move extremely quickly, and appear against intense flame noise. QuantWear introduces a quantum sensing system for directly quantifying and profiling particles at sub-millimeter scale under these challenging conditions.",
+      "The system tracks spectral signatures from sodium and potassium atoms that naturally adhere to particle surfaces through electrochemical reactions during high-temperature combustion. A custom atomic detector uses quantum jump and Faraday rotation effects to isolate these signals and suppress broad-spectrum flame noise. A deep learning component estimates particle quantities in dynamic vaporous backgrounds, and multiple two-dimensional images support three-dimensional reconstruction.",
+      "Field tests and high-fidelity simulations report an imaging signal-to-noise ratio of 22.5 dB and reconstruction similarity above 95%, outperforming state-of-the-art technologies in the evaluation. The contribution combines physical signal isolation with learned measurement and reconstruction. This makes particle quantity and shape more accessible as diagnostic indicators in an environment where direct imaging is particularly difficult."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1dcf0124383692bf1b4ce72c44a1379dc384277d20945e416d3c1d118fd82a99",
+    "tldr": "QuantWear combines atomic sensing and deep learning to count and reconstruct sub-millimeter wear particles amid noisy jet flows."
+  },
+  "icml-2026-reason-with-thumbnails-answer-with-focus-an-efficient-and-effective-paradigm-for-multimo-243db9bd46": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Grounded visual reasoning makes a model select relevant image regions before answering, improving the interpretability of its response. Repeated visual inspection and reasoning can be costly. RTAF reduces this burden by using a low-resolution thumbnail to locate relevant areas, then supplying high-resolution crops for the final answer.",
+      "The approach rests on the observation that thumbnails often contain enough information to identify where to look. When they do not, the model can invoke a tool to access higher-resolution imagery, avoiding prolonged unguided region selection. Training uses GRPO reinforcement learning, rewards designed to supervise model behavior, and a data selection strategy that accounts for image resolution.",
+      "The Qwen2.5-VL-based model improves performance across evaluated benchmarks. Compared with the non-grounded Qwen2.5-VL model, the abstract reports a performance gain of 5.8 with comparable visual-token usage, 471 versus 391. Against state-of-the-art grounded reasoning methods, it uses half as many visual tokens while achieving better performance. These findings support allocating visual detail according to the stage of reasoning and the information needed."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d7c061c4cc6141f1a2d824d300edf3f65d1a616d40f49b83ce6fa14c04fade29",
+    "tldr": "RTAF locates relevant regions using thumbnails and answers from detailed crops, reducing visual-token costs while improving evaluated performance."
+  },
+  "icml-2026-rethinking-loss-reweighting-for-imbalance-learning-as-an-inverse-problem-a-neural-collap-c7d58d3c6e": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Long-tailed classification involves unevenly represented classes, and loss reweighting changes how strongly each class influences learning. Existing weighting rules often rely on heuristics without specifying the outcome those weights should produce. This paper begins with an explicit proposed target: equal average loss across classes, motivated by the ideal geometry associated with Neural Collapse.",
+      "That geometry is a simplex equiangular tight frame, a highly symmetric arrangement used here to motivate balanced class behavior. The authors treat reweighting as an inverse problem: infer the class weights needed to approach the desired equal-loss condition. Their method adjusts those weights dynamically, connecting the weighting rule to a defined training objective.",
+      "Empirical Neural Collapse measurements indicate reduced loss imbalance and closer alignment with the target geometry. The method also consistently outperforms strong long-tailed classification baselines across the tested datasets. These results support equal per-class loss as a productive reweighting target in the studied settings. The proposed symmetry serves as a principled design motivation, rather than a claim that equal loss is universally required for classification."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c76bcddaa53477de69f7696027c2f43a8a3573ec94196ec150090c628d81a66a",
+    "tldr": "The paper dynamically infers class weights to approach equal per-class average loss, improving long-tailed classification in its experiments."
+  },
+  "icml-2026-revisiting-spectral-representations-in-generative-diffusion-models-77e97ccfc7": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Aligning hidden representations can help diffusion models train and generate better samples, but the reason for these paired benefits is not fully understood. This paper investigates a connection between diffusion generation and self-supervised spectral representation learning. Both processes can be examined through the kernels that describe how data is randomly perturbed.",
+      "Diffusion models reverse a noise-injection process governed by Gaussian kernels. Spectral representation learning uses positive and negative relationships arising from perturbation kernels to form embeddings. Drawing on this shared structure, the authors propose self-supervised spectral alignment and explain its potential benefits geometrically. They also find that optimizing the alignment objective has an equivalent form to diffusion score distillation in representation space.",
+      "The practical method adds a spectral regularizer to the diffusion training objective. Experiments on images and three-dimensional point clouds show consistent improvements in generation quality across multiple datasets. The work therefore combines a conceptual explanation of representation alignment with a training modification, connecting the geometry of learned representations to the process used to generate samples."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "fb601e45a282954e1350b070da738cced650910def1fd208541cba69900f356c",
+    "tldr": "A shared perturbation-kernel perspective motivates spectral representation regularization that improves diffusion generation on images and 3D point clouds."
+  },
+  "icml-2026-sparseinfer-accelerating-large-language-model-inference-with-semantics-inspired-adaptive-f2e99ede88": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Sparse activation can reduce language-model inference costs by using only a subset of neurons for each token. However, repeatedly changing the active subset can erode efficiency gains. SparseInfer investigates whether sentence-level meaning provides a more stable basis for selecting neurons, avoiding frequent changes associated with existing token-level, MLP-based selection methods.",
+      "The authors identify core neurons that empirically suffice to maintain performance for an input sentence. They find that these neurons exhibit stability and similarity related to sentence semantics. Using this observation, they design two semantic prediction methods for different input scenarios. The active neurons are selected during prefilling and kept fixed during the encoding stage, using an MLP-free selection approach.",
+      "Experiments report good performance across various tasks and a 10.33-times speedup. The central finding is that semantic regularity can support a more stable activation pattern, reducing the overhead of repeatedly deciding which neurons to use. The reported preservation of performance and acceleration are empirical results from the evaluated settings, rather than a universal speed or quality guarantee."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2802f28ed3dbb29ecfb8c75a04272a32adaf6dac6006c6ce2e3547b907ebca72",
+    "tldr": "SparseInfer predicts stable, sentence-dependent core neurons to accelerate sparse inference, reporting a 10.33-times speedup in its experiments."
+  },
+  "icml-2026-speculative-safety-honeypot-toward-proactive-defense-against-multi-turn-agent-attacks-07658ec2aa": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Attacks against language-model agents can unfold over several interactions, with malicious intent distributed across turns. A detector that examines only past and current behavior may miss how apparently limited steps could develop into a harmful trajectory. Speculative Safety Honeypot addresses this temporal problem by exploring possible future actions before they occur.",
+      "The framework uses multiple small language models to simulate the target agent’s future behavior. It asynchronously builds a branching trajectory tree that exposes potential risks. As the target agent actually acts, a verification stage calibrates and prunes the tree using those observations. This feedback is intended to reduce false positives arising from speculative futures that do not match real behavior.",
+      "SSH is designed as an add-on for existing detectors, supplying evidence beyond the current interaction. Risk assessment uses the evolving tree rather than one isolated decision point, reducing dependence on the precision of individual detection components. The abstract reports improved resilience and earlier warnings against complex multi-turn attacks. Its contribution is a proactive, continuously revised view of risk grounded in actual agent actions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d2fb747c4b6ecfe51083149acaeece8647605186af9b85d386cd2c685c402ad9",
+    "tldr": "SSH simulates possible future agent actions and checks them against real behavior to provide earlier, more resilient detection of multi-turn attacks."
+  },
+  "icml-2026-target-oriented-pretraining-data-selection-via-neuron-activated-graph-b009d70c79": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Target-oriented pretraining selects data to develop capabilities relevant to particular tasks. This paper proposes a training-free selection framework that examines influential neurons in an existing language model. Its goal is to rank candidate training examples using an interpretable account of how the model processes target inputs.",
+      "For each target example, the method measures neuron impact and selects a sparse set of influential neurons across layers. These form a compact Neuron-Activated Graph, or NAG. Candidate data is ranked by similarity to the target examples’ graphs. This makes the selection criterion depend on shared patterns of influential internal activity, with the graph providing an explicit representation of that activity.",
+      "Across six benchmarks, NAG-based ranking improves target-oriented pretraining by 4.9% on average over random sampling and outperforms state-of-the-art baselines by 5.3% accuracy on HellaSwag. It also remains effective for multiple targets. Deactivating selected neurons, only 0.12% of the total, causes a reported 23.5% performance collapse; using only the final layer causes a 4.1% average drop. These interventions support the importance of sparse, cross-layer information."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "fb1db96adbebe0c327f8a23609c2b5a434d129ad7e328140434d6ebed3262665",
+    "tldr": "NAG-based ranking selects pretraining data by similarity in influential cross-layer neurons, improving target-task performance without training a separate selector."
+  },
+  "icml-2026-thetaevolve-test-time-learning-on-open-problems-c5be0e7682": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Program-evolution systems use language models to search for programs that improve bounds on open optimization problems. ThetaEvolve extends this process with test-time learning, allowing a model to update from its search experience as well as use examples in context. The framework is open source and operates with a single language model.",
+      "Its search infrastructure includes a large program database for exploration and batch sampling for throughput. Lazy penalties discourage stagnant outputs, while optional reward shaping provides more stable training signals. Together with reinforcement learning, these mechanisms let the model internalize evolving strategies during the search, addressing a limitation of inference-only evolution systems.",
+      "The authors report new best-known bounds on circle packing and the first auto-correlation inequality using DeepSeek-R1-0528-Qwen3-8B. Across two models and four open tasks, test-time reinforcement learning consistently outperforms inference-only baselines. Trained checkpoints also progress faster and finish better on both their target task and other unseen tasks. These transfer results support the claim that training develops useful evolving capabilities beyond retaining a record of successful candidates."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "22b5c1e391315e6199f5b7e88647873869567045efa178c5fb72e001e7cdad6c",
+    "tldr": "ThetaEvolve combines program evolution with test-time reinforcement learning, improving open-problem search and transferring learned capabilities to unseen tasks."
+  },
+  "icml-2026-towards-diverse-scientific-hypothesis-search-with-large-language-models-b0e66cb8db": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Scientific discovery often benefits from several strong hypotheses because validation is expensive and uncertain. A search that concentrates too quickly on one promising direction can discard useful alternatives. This paper frames hypothesis generation as sampling a diverse, high-quality set under a fixed validation budget, making exploration part of the objective.",
+      "EvoDiverse uses an evolutionary search inspired by parallel tempering. It searches at multiple temperature levels and exchanges information between them through a principled mechanism. This arrangement is intended to improve exploration without disrupting convergence. It addresses diversity collapse caused by selection pressure in evolutionary recipes that emphasize optimization more strongly than exploring alternative possibilities.",
+      "Across molecular, equation, and algorithm discovery, the method consistently improves both hypothesis quality and diversity under the same validation budget. Its candidates also remain robust under more expensive downstream computational checks. These findings support maintaining multiple promising alternatives as a useful search outcome. They concern the evaluated discovery domains and computational validations, where a broader candidate set can hedge against uncertainty in choosing the eventual best solution."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b107d1f522ad98d074288ace4f6236c1179c7649efc31542fb9c4aa7727a4583",
+    "tldr": "EvoDiverse searches across interacting temperature levels to produce higher-quality, more diverse scientific hypotheses within a fixed validation budget."
+  },
+  "icml-2026-zero-shot-3d-question-answering-via-hierarchical-view-to-token-transportation-d2f04413ef": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A pretrained two-dimensional vision-language model can answer questions about a three-dimensional scene by inspecting views rendered from its point cloud. The challenge is selecting enough relevant scene information within a limited input budget. KeyVT addresses this at two levels: which views to include and which tokens to retain from those views.",
+      "View selection combines pixel features with camera parameters, evaluating both semantic relevance and geometric position. This encourages views that are useful for the question and spatially consistent. Token selection then reduces redundancy across the chosen images. An optimal transport formulation treats view tokens and representative key tokens as two discrete distributions in embedding space and minimizes the distance between them to encourage feature coverage.",
+      "On three benchmarks, KeyVT significantly improves over existing tuning-free methods and achieves performance comparable to training-based approaches. The findings show that organizing the input context can materially improve zero-shot 3D question answering. The method connects scene-level coverage with token-level compression, addressing both the choice of visual perspectives and repeated information within them."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "fb67c8d4da085713da5fc8d7dbfa25a903883a100c544aca9a1b40dbb471f63c",
+    "tldr": "KeyVT selects geometrically informed views and representative visual tokens to improve zero-shot 3D question answering within a limited input budget."
+  }
+}

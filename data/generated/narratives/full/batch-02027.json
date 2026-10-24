@@ -1,0 +1,327 @@
+{
+  "icml-2026-active-o3-empowering-mllms-with-active-perception-via-pure-reinforcement-learning-b765b154ec": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Active-o3 addresses how a multimodal language model chooses where to look for useful information. The paper defines active perception tasks for these models and treats zooming into an image as one instance. Its motivation is that effective perception requires selecting informative regions efficiently, especially when relevant objects are small or densely packed.",
+      "The proposed framework uses Group Relative Policy Optimization, or GRPO, to learn region selection through reinforcement learning. A modular sensing-action design and a reward with two forms guide this learning without explicit supervision of the selection strategy. This makes choosing what to inspect part of the model’s learned behavior, rather than simply requiring it to interpret a fixed view.",
+      "The authors introduce a benchmark spanning object grounding, remote sensing, autonomous driving, and interactive segmentation. They report substantially better active perception than Qwen2.5-VL-CoT while preserving general understanding. They also find that active perception training can provide a way to use perception data that improves broader evaluation performance, including RealWorldQA."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d0034d7eb3d33d4872e46bcec57d89c5c8b15370bde33866fc1d3684080c3eb2",
+    "tldr": "Active-o3 uses reinforcement learning to teach multimodal models efficient region selection while preserving their general understanding."
+  },
+  "icml-2026-beyond-pixels-mining-compressed-domain-artifacts-for-efficient-ai-generated-video-detect-4e08ade66a": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "STREAM detects AI-generated videos using information already present in compressed video files. The paper argues that analyzing decoded pixels mixes useful forensic clues with semantic content unrelated to detection, creating redundant computation. It instead focuses on motion vectors and residual errors, which contain information about temporal and spatial generation artifacts.",
+      "The framework combines these signals with I-frames in a lightweight network. A motion-guided alignment module helps relate evidence across movement, while a gated fusion mechanism adaptively combines spatial artifacts and nonlinear temporal behavior. This design matters because the authors identify useful compressed-domain traces that decompression filters can smooth away before a conventional detector sees them.",
+      "In the reported experiments, STREAM reaches a mean average precision of 0.965 and runs inference 2.5 times faster than previous leading baselines. These results support the paper’s central claim that compressed representations can improve both detection quality and efficiency. The contribution is therefore a change in the evidence the detector examines, together with a network designed to combine that evidence effectively."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2ed20af00b6dc157fd0376e33d26bc85cfbd26ac179434dd9e44ebcbb7d092fc",
+    "tldr": "STREAM detects AI-generated video from compressed-file signals, reporting leading detection performance and 2.5 times faster inference."
+  },
+  "icml-2026-camel-confidence-gated-reflection-for-reward-modeling-814d893396": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "CAMEL addresses the cost of judging which language-model response better matches human preferences. Fast preference models provide limited explanations, while judges that generate reasoning require more computation. The paper observes that the difference between verdict-token log probabilities strongly correlates with correctness, providing an inexpensive signal of which decisions may need more attention.",
+      "The model first produces a lightweight, single-token preference judgment. It then reflects only when confidence is low, allocating additional reasoning to difficult cases. To make reflection capable of changing an initial answer, the authors train with reinforcement learning and counterfactual prefix augmentation. This exposes the model to different initial verdicts and encourages meaningful correction rather than merely defending the first choice.",
+      "Across three reward-model benchmarks, CAMEL reports 82.9% average accuracy, exceeding the best prior model by 3.2%. Its 14-billion-parameter model also outperforms tested 70-billion-parameter models. The reported accuracy-efficiency tradeoff improves on prior approaches, suggesting that selectively invoking reflection can make a smaller preference judge both more capable and more economical."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ed81a305d8a21c15864eaf4cfd2a247007d8dfc14b552973d2e25c16331e1834",
+    "tldr": "CAMEL improves preference judging by making quick initial decisions and reserving trained self-correction for low-confidence cases."
+  },
+  "icml-2026-causal-forcing-autoregressive-diffusion-distillation-done-right-for-high-quality-real-ti-491d4c4a2e": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Causal Forcing examines a mismatch in converting video diffusion models into fast autoregressive generators. A bidirectional teacher can use information from across a video, while an autoregressive student uses causal attention. The paper argues that this difference undermines the ODE-based initialization used by existing distillation approaches.",
+      "The key condition is frame-level injectivity: under an autoregressive teacher’s probability-flow ODE, each noisy frame must correspond to a unique clean frame. According to the analysis, using a bidirectional teacher for this initialization violates that condition. The student then learns a conditional-expectation solution instead of recovering the teacher’s flow map, degrading performance. Causal Forcing uses an autoregressive teacher for initialization and subsequently applies the same distribution-matching distillation procedure as Self Forcing.",
+      "The authors report improvements over all evaluated baselines across all measured metrics. Against Self Forcing, gains include 19.3% in Dynamic Degree, 8.7% in VisionReward, and 16.7% in Instruction Following. These findings connect better video generation to a specific correction in how the student is initialized."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4cdec8506ca99baf78c5f4e3427a23ccb08d762dd905aab9696ac37385695426",
+    "tldr": "Causal Forcing improves autoregressive video diffusion distillation by using a teacher with matching causal structure during initialization."
+  },
+  "icml-2026-diversity-driven-offline-multi-objective-optimization-via-nested-pareto-set-learning-d5183274c2": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "DOMOO tackles optimization with several competing objectives when only a fixed dataset is available. The goal is a Pareto set: designs offering useful tradeoffs among those objectives. Without access to the true objective functions, an optimizer depends on surrogate predictions. Errors on unfamiliar designs can produce poor solutions and concentrate selections near the extremes of the predicted tradeoff surface.",
+      "The method combines three mechanisms. Accumulative risk control estimates candidate risk to reduce problems caused by leaving the training distribution. Nested Pareto set learning jointly learns preference parameters and the parameters that generate tradeoff solutions, supporting different Pareto-front shapes. A final diversity-driven selection step chooses representative, well-distributed candidates.",
+      "For this selection, the authors introduce IGD_offline, an indicator designed to consider both diversity and convergence while avoiding the hypervolume bias they identify. On synthetic and real-world benchmarks, DOMOO achieves the best average rank among compared methods for both properties. The result concerns average performance across tasks, supporting the value of jointly managing surrogate risk and solution coverage."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "613de1130a7fe2dc1983b693712fd4c1a7cf09e867fa85df18bfe4d186a24bba",
+    "tldr": "DOMOO combines risk control, adaptive Pareto-set learning, and diversity-aware selection to improve offline multi-objective optimization."
+  },
+  "icml-2026-drive-best-data-scheduling-practices-for-reinforcement-learning-with-verifiable-reward-i-cf89af6b98": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "DRIVE studies how training data should be scheduled for competitive code generation with verifiable rewards. Its focus includes which examples to use for supervised fine-tuning, which prompts to select during reinforcement learning, and how to collect generated attempts. These decisions determine what challenges the model encounters as its abilities develop.",
+      "The pipeline begins with supervised data curated to prioritize difficulty using arena learning and classification. Reinforcement learning then proceeds in two stages. The first reduces the maximum rollout sequence length to increase entropy and reduce repetition. The second uses many rollouts per prompt together with a curriculum, encouraging exploration on challenging problems. Different stages therefore use different data-generation settings to support the intended learning behavior.",
+      "The authors implement DRIVE on Qwen2.5-32B and an internal 389-billion-parameter mixture-of-experts model. Evaluations include difficult LeetCode and Codeforces weekly contests. They report effective scaling and leading competitive-code performance among 32-billion-parameter models, supporting data scheduling as a consequential part of reasoning-model training alongside the reinforcement learning algorithm itself."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8948d0d5fbb634be9fa682b85bf1bc07a5f3517ec8732a8b40313eecffc10b9a",
+    "tldr": "DRIVE improves competitive code generation through difficulty-prioritized supervision and a two-stage reinforcement learning data schedule."
+  },
+  "icml-2026-forensic-prompting-with-dual-action-policy-optimization-for-vision-language-forgery-dete-7bfe7f25c2": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "FPDA addresses both detecting image forgery and identifying its location. The paper motivates its approach by noting that forensic traces are increasingly subtle and can be weakened by post-processing. Language prompts can supply useful prior information, but unconstrained generated prompts and naive descriptions can also disturb the semantic evidence used for detection.",
+      "Its Forensic Prompting Module creates a structured, reproducible bank of forensic prompts. Optional text is incorporated as a cue whose reliability informs conditioning. A second component, Dual-Action Policy Optimization, learns how to use evidence for each image. Its two actions route forensic prompts and schedule refinement of the localization result, aiming to stabilize discriminative clues and improve the spatial consistency of predicted masks.",
+      "The evaluation covers manual image manipulations, diffusion-generated content, face forgeries, and settings with text input. Under comparable evaluation protocols, the authors report favorable detection and localization performance against representative leading methods. The approach links controlled language guidance with adaptive visual refinement, so that prompt choice and localization effort respond to the particular image."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "20c8b2ca72c12a57838b82aeb49c698633745267fd78feae47113b5a427cc505",
+    "tldr": "FPDA combines structured forensic prompts with per-image policy decisions to improve forgery detection and localization."
+  },
+  "icml-2026-freeret-mllms-as-training-free-retrievers-4631f80501": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "FreeRet investigates whether an existing multimodal language model can retrieve relevant material without additional training. Converting such models into retrieval encoders often requires substantial training after pretraining. The proposed framework instead organizes retrieval into two stages: a fast search using embeddings from the model, followed by more precise reranking using its reasoning abilities.",
+      "Three design choices support this conversion. FreeRet bypasses lexical alignment layers to extract representations that better preserve semantics, uses explicit priors to condition representation generation, and presents reranking choices neutrally to reduce framing effects. Together, these choices address both how candidates are represented and how the model compares them after the initial search.",
+      "On MMEB and MMEB-V2, the authors report substantial gains over models trained on millions of pairs. They describe the framework as applicable across model families, sizes, and modality combinations while retaining generative capabilities. This allows one model to handle retrieval, reranking, and generation within a retrieval-augmented generation workflow, reducing the need to train a separate retrieval capability."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1a247e251114e98c20c6bf7dad1b2c74eccde4e55966ab1652c271e114188feb",
+    "tldr": "FreeRet turns pretrained multimodal language models into two-stage retrievers without additional training."
+  },
+  "icml-2026-how-do-humans-process-ai-generated-hallucination-contents-a-neuroimaging-study-f030c4a643": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This study examines what happens in the brain when people evaluate hallucinated AI content. It focuses on the difference between recognizing an incorrect description and being misled by it. The researchers record EEG signals from 27 participants who judge whether image descriptions generated by a multimodal language model are correct.",
+      "The analysis uses averaged event-related potentials, examining neural responses associated with processing the descriptions. The authors identify different patterns for hallucinated and non-hallucinated content in processes including semantic integration, inference, memory retrieval, and cognitive load. This provides a view of verification that goes beyond whether a participant ultimately gives the right answer.",
+      "Neural responses also differ significantly between hallucinations participants judge correctly and those they misjudge. The authors interpret this as indicating that missed hallucinations do not trigger the standard neurocognitive pathway for fact verification. Within this image-description task, the findings connect susceptibility to AI errors with differences in how verification unfolds, rather than treating all encounters with false content as cognitively equivalent."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "265e51f1e5b09d044fcb603ca348134bc189b21153a0719fb8d0690d2c924af5",
+    "tldr": "EEG recordings reveal distinct neural responses when people correctly recognize versus misjudge hallucinated AI image descriptions."
+  },
+  "icml-2026-hsmad-heterophily-driven-spectral-and-manifold-learning-for-graph-anomaly-detection-44f072b3a3": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "HSMAD detects anomalies in graphs where connected nodes may have different labels. Many graph methods assume the opposite: that neighbors are similar. The paper observes that reducing the weight of edges connecting dissimilar nodes concentrates spectral energy compared with original or randomly weighted graphs, making discriminative spectral representations easier to learn.",
+      "The framework uses this observation in two complementary components. Heterophily-Weighted Spectral Filtering rebuilds the graph Laplacian using edge weights based on heterophily, changing how the graph is filtered. Heterophily-Routed Manifold Update sends neighborhood messages to appropriate manifold spaces for node updates. This allows the geometry of the representation to adapt through curvature, rather than restricting every representation to Euclidean space.",
+      "HSMAD combines these spectral and geometric representations for anomaly detection. Across six real-world datasets, it reports leading average F1-Macro, AUROC, AUPRC, and G-Mean results. Average F1-Macro improves by 2.66% over the best-performing comparison method. These findings support using neighbor dissimilarity to guide both graph filtering and representation geometry."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ca804d911c97b84995feae3a9e02179400d6682e81d35e9d9b14e7d1a376a2c4",
+    "tldr": "HSMAD uses differences between connected nodes to guide spectral filtering and geometric representations for graph anomaly detection."
+  },
+  "icml-2026-hybrid-policy-distillation-for-llms-8c9bf7e045": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Hybrid Policy Distillation studies how to transfer a large language model’s behavior into a compressed model. The paper treats several distillation choices as connected: the direction of the divergence being minimized, the optimization strategy, and the source of training data. It develops a unified view by expressing existing approaches as token-level log-likelihood objectives with different weights.",
+      "The proposed method combines forward and reverse KL divergence. These encourage complementary behaviors: covering the teacher’s range of outputs and concentrating on its preferred modes. HPD also mixes off-policy data with lightweight approximate on-policy sampling. The resulting design combines different forms of distribution matching with different ways of obtaining the sequences used during training.",
+      "The authors evaluate long math-reasoning generations and shorter dialogue and code generations across multiple model families and scales. They report improved optimization stability, computational efficiency, and final performance. The contribution is both an organizing account of existing distillation methods and a hybrid training approach that brings their complementary choices into one framework."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5838c63a6651f5b931bdb80da0013feb79146ef8ae55e0e6d93374c747160652",
+    "tldr": "HPD combines complementary divergence objectives and data regimes to improve language-model distillation stability, efficiency, and performance."
+  },
+  "icml-2026-mambo-g-magnitude-aware-mitigation-for-boosted-guidance-333e242dfa": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "MAMBO-G accelerates text-to-image and text-to-video generation by adjusting classifier-free guidance during sampling. Guidance helps steer generation toward the prompt, but the paper observes that standard schedules apply excessively large updates early in the process. Those updates can slow convergence, making high-quality generation require more computation.",
+      "The method tracks the ratio between the magnitude of a guidance update and the magnitude of the model’s prediction. It uses that ratio to change the guidance scale dynamically, stabilizing the sampling trajectory and enabling faster convergence. Because this intervention operates during sampling, it requires no additional training and can be integrated into existing generation pipelines.",
+      "The reported speedups reach up to three times on Stable Diffusion v3.5 and four times on Lumina. For the 14-billion-parameter Wan2.1 video model, the authors report a twofold speedup while maintaining visual fidelity. These results make the approach especially relevant to expensive video synthesis, where reducing sampling computation can materially change the cost of using a large model."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a13f9662ac716b961e1b66b2dc05b3e117fc001104d16df785b4db1257bf0648",
+    "tldr": "MAMBO-G accelerates diffusion generation without training by dynamically scaling guidance to avoid disproportionately large updates."
+  },
+  "icml-2026-mitigating-error-propagation-in-low-rank-approximation-of-large-models-via-distribution--480f0c7ea2": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies why low-rank model compression can accumulate errors across layers. Approximating a layer changes the features passed to later layers, so assumptions based on the original feature distribution may become misaligned. The authors connect these distribution shifts to amplified approximation errors and unstable inference.",
+      "Their framework dynamically whitens each layer’s inputs using the evolving feature distribution. Whitening makes the inputs isotropic in their second-order statistics, giving the approximation a distribution-aware basis for deciding what to discard. The intended effect is to remove components with minimal influence on model outputs and control the distortion that accumulates through the network.",
+      "The theoretical analysis explains how distribution mismatch propagates errors and establishes tighter control of layerwise distortion with the proposed method. Experiments across several large language models report superior post-training compression performance. The authors also find that the method provides an effective initialization for LoRA-style fine-tuning. Together, these findings emphasize that useful low-rank approximations depend on the features a compressed model actually receives."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ed38c5e541b839dc52fa51010db4d8d075d2a64109ee7e309edad807a06683f3",
+    "tldr": "Distribution-aware whitening reduces error propagation in low-rank compression by adapting to the changing inputs of successive layers."
+  },
+  "icml-2026-pace-post-causal-entropy-modeling-for-learned-lidar-point-cloud-compression-1032ea59a1": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "PACE addresses the decoding cost of learned LiDAR point-cloud compression. Existing octree-based entropy models achieve strong compression, but their causal, multistage context processing can be slow. The paper attributes this partly to coupling the context-processing backbone tightly with probability prediction, which also makes the compression-versus-latency tradeoff difficult to adjust.",
+      "The proposed architecture separates these responsibilities. It uses a non-causal backbone for ancestral context aggregation and keeps causality within a lightweight predictor. This avoids repeatedly executing the backbone during staged prediction. The predictor supports an arbitrary number of stages, allowing the same model parameters to serve different performance and latency requirements without being reloaded.",
+      "Experiments report leading compression efficiency, bitrate savings measured by BD-BR, and more than a 90% reduction in decoding latency in autoregressive mode. The practical contribution is therefore twofold: less repeated computation and a more flexible operating tradeoff. Both matter for autonomous systems that must process large volumes of high-resolution LiDAR data under changing resource constraints."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9ba4822020b912a9d64bf033d199ca06bc0994f68b62e54beab6197a29303769",
+    "tldr": "PACE separates context aggregation from causal prediction to improve LiDAR compression and sharply reduce decoding latency."
+  },
+  "icml-2026-proact-a-benchmark-and-multimodal-framework-for-structure-aware-proactive-response-abdd9d5d1a": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "ProAct studies agents that monitor an environment and decide when and how to help in pursuit of a broader objective. It introduces ProAct-75, covering assistance, maintenance, and safety monitoring across 75 tasks. The dataset contains 91,581 step-level annotations together with explicit graphs describing task structure.",
+      "These graphs encode which steps depend on others and which can proceed in parallel. The proposed ProAct-Helper baseline combines this structure with a multimodal language model and state detection. It uses an entropy-driven search heuristic to select actions, enabling the agent to pursue independent task threads rather than simply reproduce the human’s next action. This connects proactive behavior to both the observed situation and the organization of the task.",
+      "The reported experiments show improvements over strong closed-source models: trigger-detection mF1 increases by 6.21%, online one-step decisions save 0.25 additional steps, and the rate of parallel actions rises by 15.58%. These findings suggest that explicit task dependencies help agents identify opportunities for useful, timely assistance."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a670aa092fe10873dd9877a0612027dbb18845b0b78ac192480b5f450506956f",
+    "tldr": "ProAct pairs a structured benchmark with a multimodal agent that uses task dependencies to choose timely and parallel assistance."
+  },
+  "icml-2026-promecd-unifying-long-tailed-and-noisy-label-learning-via-white-box-control-07fa0bfa9d": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "ProMeCD tackles two problems that can coexist in training data: rare classes and incorrect labels. Both can make examples difficult to learn, yet they call for different responses. The paper replaces sample reweighting guided by a clean, balanced validation set with a transparent control mechanism that uses signals from learning itself.",
+      "A proportional-integral controller monitors learning uncertainty through cognitive entropy derived from von Mises-Fisher gradient statistics. It distinguishes cases using gradient magnitude and directional consistency. When directions remain consistent, accumulated magnitude deficits boost rare classes. When consistency collapses, proportional feedback suppresses noisy examples. The separation is intended to avoid treating every difficult example as either valuable minority data or label noise.",
+      "The authors prove convergence and prevention of the initial minority-performance drop, with monotonic rare-class improvement in their theoretical treatment. Experiments cover imbalanced and noisy-label benchmarks, including iNaturalist and Clothing1M. They report gains exceeding 10% over FMW-Net under severe imbalance, supporting explicit, validation-free control as an effective way to handle these two data problems together."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "74faaad43946a16d52168c6e9b13b8a7c78a4a03befe454e611c713b2b32db66",
+    "tldr": "ProMeCD uses transparent feedback control to support rare classes and suppress label noise without a clean validation set."
+  },
+  "icml-2026-re-trac-recursive-trajectory-compression-for-deep-search-agents-5078a648f3": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Re-TRAC addresses the difficulty of coordinating long research searches with a language-model agent. The paper argues that linear ReAct trajectories make it hard to revisit earlier states, explore alternative directions, and retain a global view. These difficulties can trap search in local optima or lead to repeated, inefficient exploration.",
+      "After each trajectory, Re-TRAC creates a structured state recording evidence, uncertainties, failures, and future plans. The next trajectory is conditioned on this compressed state. This lets later search attempts build on the overall investigation, including what has already failed, while supporting reflection and new directions across trajectories. Research becomes a sequence of connected attempts with an explicit account of accumulated progress.",
+      "With frontier language models, Re-TRAC reports gains of 15–20% over ReAct on BrowseComp. For smaller models, framework-aware supervised fine-tuning achieves leading results at comparable scales. Tool calls and token usage decrease monotonically across the observed rounds, which the authors interpret as evidence that accumulated reflection makes exploration progressively more targeted."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6378106c6b245ef963b74a729710e5dc786da5a635ced65a5779ee789ea1e287",
+    "tldr": "Re-TRAC improves deep-search agents by carrying structured summaries of evidence, uncertainty, and failed attempts between search trajectories."
+  },
+  "icml-2026-rethinking-convergence-in-moe-training-the-role-of-routing-sparsity-d5baab2f2b": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies how many experts a mixture-of-experts model should activate for each token. Choosing the top K experts makes computation sparse, but K also affects training convergence. The authors use stochastic optimization theory to examine this choice, which is commonly set through empirical experimentation.",
+      "Their first convergence upper bound scales as (1 + M/K) divided by the square root of T, where M is the number of experts and T is the number of iterations. In this analysis, activating more experts improves the bound at a fixed iteration count. That comparison alone does not capture the extra computation required by each iteration.",
+      "With a fixed FLOP budget R, the refined bound contains two terms: the square root of K/R and M divided by the square root of KR. These terms move in opposite directions as K increases, expressing the tradeoff between per-iteration cost and convergence progress. The analysis identifies an optimal K within the available expert range, and experiments across diverse settings support the theoretical account."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "57bb019f24ee1c039f7d646fda23a764a6c922c04d0e00b8a09452354355507b",
+    "tldr": "The paper derives convergence bounds showing how expert activation count trades training progress against computation in mixture-of-experts models."
+  },
+  "icml-2026-robustifying-vision-language-models-via-test-time-prompt-adaptation-806d0ac052": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "RITA improves the adversarial robustness of pretrained vision-language models through prompt adaptation at test time. The paper identifies a weakness in approaches that trust individual high-confidence predictions: an adversarially corrupted prediction can still be confident. Its motivating observation is that semantic structure often survives across a distribution of augmented image views even when the overall representation is corrupted.",
+      "RITA uses optimal transport to align these augmented visual features with textual prototypes. Looking at the distribution allows the method to reduce the influence of adversarial outliers and correct misalignment between visual and textual semantics. A dynamic cache then accumulates reliable cues from the incoming test stream to support continued online refinement.",
+      "The authors report substantial robustness improvements without sacrificing accuracy on clean inputs. These results support using consistency across augmented views as a stronger adaptation signal than confidence in a single sample. The approach rests on the observed preservation of semantic information across views, which the paper describes as frequent rather than universal."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "406a12620439db50380803c0e67d8d16e77acc25a73e0fd2db6a747bcee8968b",
+    "tldr": "RITA improves adversarial robustness by aligning distributions of augmented visual features with text during test-time prompt adaptation."
+  },
+  "icml-2026-safesci-safety-evaluation-of-large-language-models-in-science-domains-and-beyond-dfd9e50221": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "SafeSci addresses how to evaluate and improve the safety of language models used in scientific contexts. The authors identify limited risk coverage and subjective scoring as weaknesses of existing benchmarks. Their framework includes SafeSciBench, with 250,000 samples across scientific disciplines, and SafeSciTrain, with 1.5 million samples for safety training.",
+      "The benchmark separates safety knowledge from risk and uses objective measures, including questions with determinable answers, to reduce evaluation bias. This distinction matters because knowing about safety and responding safely to a potentially risky request are different evaluation concerns. The authors also emphasize context: the safety of a scientific question should depend on its particular use rather than a universal safe-or-unsafe label.",
+      "An evaluation of 24 advanced language models reveals critical vulnerabilities alongside varying levels of excessive refusal on safety-related topics. Fine-tuning with SafeSciTrain significantly improves safety alignment in the reported experiments. The framework therefore provides resources for both identifying unsafe behavior and studying improvement, while also drawing attention to unnecessary refusals."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6691c2dd27461198ac03138b14297e793875918dfcbe4b0d7694f60b73e80755",
+    "tldr": "SafeSci introduces scientific safety evaluation and training datasets that expose vulnerabilities, measure excessive refusals, and improve safety alignment."
+  },
+  "icml-2026-semi-lar-semi-supervised-contrastive-learning-with-linear-attention-for-removal-of-night-84a17dcbf6": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Semi-LAR removes nighttime lens flares while reducing reliance on large collections of paired training images. Flares are difficult to separate from genuine scene structure because they can cover extensive regions and overlap with meaningful content. The framework uses unlabeled images, concentrating on the reliability of generated training targets and the ability to distinguish flare patterns.",
+      "An adaptive pseudo-label repository progressively improves the supervision supplied by those generated targets. It combines quality assessment without a reference image, momentum-based updates, and filtering of invalid labels to limit accumulating errors. A flare-aware contrastive loss also treats contaminated inputs as negative examples and compares image patches, encouraging representations that resist flare patterns while agreeing with reliable pseudo targets.",
+      "Experiments across multiple flare benchmarks show consistent improvements in performance and robustness. The authors describe the framework as model-agnostic, making its supervision and representation-learning mechanisms applicable across restoration models. The central contribution is the combination: unlabeled data becomes more useful when its training targets are refined and its flare-specific distinctions are explicitly learned."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8f54a1d669c13600f9baf0fcb745c3cb15957b6b686f407e3d7fd064401b2412",
+    "tldr": "Semi-LAR improves nighttime flare removal using refined pseudo-labels and flare-aware contrastive learning on unlabeled images."
+  },
+  "icml-2026-stochastic-gradient-methods-under-heavy-tailed-noises-in-weakly-convex-optimization-069ae7269e": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper analyzes stochastic gradient descent when gradient noise has heavy tails in weakly convex optimization. Heavy tails allow unusually large noise values, complicating convergence analysis. The work extends understanding beyond the convexity and smoothness settings that underpin much of the existing theory.",
+      "The guarantees distinguish both noise assumptions and optimization domains. For ordinary SGD on a bounded constrained domain, the authors establish convergence in expectation when the noise has a bounded p-th central moment. On an unbounded domain, they establish a high-probability guarantee under a heavy-tailed sub-Weibull noise assumption. These are different statements: an expectation guarantee describes average behavior, while a high-probability guarantee controls failure likelihood.",
+      "With gradient clipping, SGD obtains high-probability convergence on an unbounded domain under the bounded p-th central moment assumption. All reported high-probability bounds depend on failure probability through polynomial-logarithmic factors. Experiments support the theoretical findings. The contribution clarifies how clipping, domain constraints, and noise assumptions change the convergence guarantees available in the weakly convex setting."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8d379acb47278e0a7689edaa2fe9b5cc18b20db05823dfb99e9e0b11645f43c4",
+    "tldr": "The paper establishes assumption-specific convergence guarantees for ordinary and clipped SGD under heavy-tailed noise in weakly convex optimization."
+  },
+  "icml-2026-training-free-adaptation-of-diffusion-models-via-doobs-h-transform-95a6c39593": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "DOIT adapts pretrained diffusion models to favor high-reward outputs without additional training. It accommodates rewards that are not differentiable, addressing a restriction of some guidance methods. The authors frame adaptation as transporting the model’s original generation distribution toward a target distribution that emphasizes reward.",
+      "Doob’s h-transform supplies a dynamic correction to the sampling process. The correction can be computed through simulation without modifying the pretrained model. The paper introduces two versions: DOIT-Proto uses full rollout simulations, while DOIT-Practical uses an efficient surrogate. This separates a direct simulation-based formulation from an implementation intended to retain practical sampling efficiency.",
+      "For DOIT-Proto, the authors analyze approximation error in the correction and prove convergence to the high-reward target distribution with high probability. The empirical results concern DOIT-Practical, which consistently outperforms leading baselines on D4RL offline reinforcement learning benchmarks while preserving sampling efficiency. Keeping these contributions distinct matters: the stated convergence guarantee is for the prototype, while the reported efficiency and benchmark gains are for the practical variant."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7052862f4c523f2cc32eca410b7713d2cef5937681e56921c7605a6973139a29",
+    "tldr": "DOIT uses Doob’s h-transform to steer diffusion sampling toward high-reward outputs without retraining or requiring differentiable rewards."
+  },
+  "icml-2026-trust-it-or-not-evidential-uncertainty-for-feed-forward-3d-reconstruction-with-trust3r-cdcff55647": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Trust3R adds probabilistically interpretable uncertainty to feed-forward 3D reconstruction from uncalibrated images. Existing confidence maps can indicate confidence heuristically without specifying how much geometric uncertainty a point carries. The paper aims to provide a more grounded reliability signal for deciding which predicted geometry deserves trust.",
+      "The framework combines gated residual refinement of the predicted mean with a Normal-Inverse-Wishart evidential head. This yields a closed-form multivariate Student-t distribution for each point’s geometry, expressing uncertainty through a probability distribution. The authors describe the framework as lightweight, with moderate additional inference cost.",
+      "Evaluations span indoor and outdoor benchmarks and compare against MASt3R confidence, heteroscedastic regression, MC dropout, and deep ensembles. Trust3R consistently improves risk–coverage and sparsification results, generally improves geometric accuracy, and strengthens uncertainty ranking. On ScanNet++, it reports 25% lower AURC and 41% lower AUSE. These findings support using its uncertainty estimates to weight geometry in downstream processing, with the accuracy improvement explicitly described as general rather than universal."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8cf175d3d36c11cd0224cfbf115a424db6fb62ce279bd190eb0950b27153238d",
+    "tldr": "Trust3R equips feed-forward 3D reconstruction with probabilistic per-point uncertainty that improves the ranking of unreliable geometry."
+  },
+  "icml-2026-unbiased-dynamic-pruning-for-efficient-group-based-policy-optimization-37a80e5167": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Dynamic Pruning Policy Optimization reduces the training expense of Group Relative Policy Optimization, which uses extensive groups of sampled responses. Selecting only some training data can save computation, but it can also change the effective sampling distribution. The paper focuses on preventing that selection from biasing the gradient estimate or changing the full-batch optimization objective.",
+      "DPPO applies importance-sampling corrections through mathematically derived rescaling factors. These adjustments allow dynamic pruning while preserving unbiased gradient estimation. A complementary mechanism, Dense Prompt Packing, addresses the sparse data left after pruning. Its window-based greedy strategy packs valid tokens more densely to improve hardware utilization, connecting the statistical correction with practical execution efficiency.",
+      "Experiments report training acceleration across models and benchmarks. In one stated example, Qwen3-4B trained on MATH achieves a 2.37-fold speedup and exceeds GRPO by 3.36% in average accuracy across six mathematical reasoning benchmarks. The result shows that retaining the original objective through corrected sampling can coexist with substantial runtime savings and improved measured accuracy."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2950e51b8590836b6427164859c6d47378aa647e9895b9d7db3d4e8ba4ffda52",
+    "tldr": "DPPO speeds up group-based policy training through bias-corrected pruning and denser prompt packing while preserving the full-batch objective."
+  }
+}

@@ -1,0 +1,327 @@
+{
+  "icml-2019-arsm-augment-reinforce-swap-merge-estimator-for-gradient-backpropagation-through-categor-a5f5c08333": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Training models that make categorical choices requires estimating how those choices affect the objective. ARSM addresses this problem with a gradient estimator that is unbiased and has low variance. Unbiasedness means the estimator targets the correct gradient on average; low variance makes its individual estimates less noisy.",
+      "The method constructs several equivalent ways to express the same gradient. It first combines variable augmentation, REINFORCE, and Rao-Blackwellization to write the gradient as an expectation involving a Dirichlet distribution. Swapping variables produces additional equivalent expressions. Sharing random numbers across these expressions then reduces the variance of the combined estimate.",
+      "The experiments connect this construction to several uses. In univariate optimization, ARSM behaves similarly to using the true gradient. In categorical variational autoencoders, it substantially outperforms the compared estimators. For policy gradients with discrete actions, it also supplies a self-criticism mechanism: generated pseudo actions and their estimated values replace the need to estimate baselines. These results support the usefulness of coordinating randomness across equivalent gradient expressions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c257febe434a368759ef7ce5714908a879fa91a36f0cbc60c0b2c2b3a8118d77",
+    "tldr": "ARSM combines equivalent gradient expressions with shared randomness to provide unbiased, low-variance learning signals through categorical choices."
+  },
+  "icml-2019-calibrated-approximate-bayesian-inference-2cc50a5d97": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Approximate Bayesian inference can produce credible sets whose actual coverage differs from their intended coverage. Coverage measures how often those sets contain the true parameter values. This paper develops a computational framework for estimating the coverage distortion introduced when an inference procedure substitutes tractable approximations for an otherwise intractable model or prior.",
+      "The framework applies when the ideal observation model and prior can still be simulated, even though direct inference with them is impractical. This distinction matters: being able to generate data from the intended model provides a route to checking an approximation's uncertainty statements. The authors address shortcomings of earlier coverage estimators, which can be biased and fail to scale.",
+      "Their example involves approximate inference for clustering group labels in a hierarchical model with a Dirichlet process. They exploit the fact that relabeling low-level groups leaves the coverage error symmetric, and smooth estimates using Bayesian Additive Regression Trees. This analysis reveals poor coverage in the original approximate inference, showing how calibration can uncover unreliable uncertainty estimates in a complex application."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c315b60d05beadbda3a9c1bb0a3a8fbef1f5527c386b911676ac30b0f671c0c7",
+    "tldr": "The paper estimates how Bayesian approximations distort credible-set coverage and exposes unreliable uncertainty estimates in a hierarchical clustering application."
+  },
+  "icml-2019-defending-against-saddle-point-attack-in-byzantine-robust-distributed-learning-22f33e2c11": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Distributed learning can involve workers that behave arbitrarily or deliberately send misleading information. This paper identifies a particular danger when optimizing a nonconvex loss: malicious workers may create apparent local minima near saddle points, far from any genuine local minimum. The problem can persist even when the system uses robust gradient estimators.",
+      "The proposed algorithm, ByzantinePGD, addresses this obstacle with a robust first-order optimization method. The authors prove that it can escape both saddle points and the fake local minima created around them, and reach an approximate true local minimizer with low iteration complexity. The target is therefore more specific than merely finding a point where the estimated gradient appears small.",
+      "The paper also examines median, trimmed-mean, and iterative-filtering gradient estimators as components of ByzantinePGD. It characterizes their performance in concrete statistical settings and argues for near-optimality across low- and high-dimensional regimes. A further contribution is a simpler algorithm and analysis for escaping saddle points without Byzantine workers, connecting the adversarial problem to ordinary nonconvex optimization."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "be59c5365377b341ace0845259f81e1e4624577c0bf7b90759462857da5bbe44",
+    "tldr": "ByzantinePGD provably escapes saddle points and adversarially induced fake minima to reach an approximate true local minimizer."
+  },
+  "icml-2019-differentiable-linearized-admm-6c89458f02": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Learning-based optimization combines the structure of an optimization algorithm with parameters learned from data. Such methods have shown strong empirical results for ill-posed inverse problems, but their convergence is harder to establish. This paper addresses the additional challenge of linear constraints, which existing analyses focused on unconstrained problems do not cover.",
+      "Differentiable Linearized ADMM turns the classical Linearized ADMM algorithm into a neural network with K layers. The construction introduces trainable weights into the algorithm and replaces its proximal operator with a learnable activation function. This lets the method learn parts of its update rule while retaining an architecture inspired by a solver for constrained optimization.",
+      "The theoretical result establishes that a set of learnable parameters exists for which the method produces globally convergent solutions. The authors also show that appropriate training can attain those parameters. This is a qualified guarantee about suitable parameters and training, rather than a guarantee for every trained network. Its significance is that learned optimization for constrained problems receives a rigorous convergence analysis."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e80e08d7725c5c8d9cd0acc38bca86c2fc25b42e899c9419578ec89aa0689bd0",
+    "tldr": "D-LADMM learns an optimization network for linearly constrained problems and establishes convergence for suitable parameters attainable through appropriate training."
+  },
+  "icml-2019-efficient-nonconvex-regularized-tensor-completion-with-structure-aware-proximal-iteratio-9bc369d3b1": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Low-rank tensor completion fills missing entries in multiway data by exploiting a compact underlying structure. This paper brings nonconvex regularizers, previously successful in low-rank matrix learning, to the more challenging tensor setting. Its central concern is making the resulting optimization efficient enough to benefit from that modeling choice.",
+      "The solver builds on the proximal average algorithm and preserves a sparse-plus-low-rank representation throughout its iterations. Maintaining this structure makes individual proximal updates faster and avoids expensive folding and unfolding of tensors. Adaptive momentum is added to accelerate empirical convergence, so both the data representation and the update process contribute to the computational approach.",
+      "The authors provide convergence results to critical points under smoothness and Kurdyka-Lojasiewicz conditions. These results concern critical points rather than a guaranteed global optimum. On synthetic and real-world datasets, the method is reported to use less time and space and achieve higher accuracy than existing approaches. Together, the results support combining nonconvex regularization with an implementation that explicitly preserves useful tensor structure."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "aeafd3a26711638dcdaf9b2274a866256e9d0cc5a407a195fa144cc1fae24d84",
+    "tldr": "A tensor-completion solver preserves sparse-plus-low-rank structure to improve efficiency and accuracy, with conditional convergence guarantees to critical points."
+  },
+  "icml-2019-gromov-wasserstein-learning-for-graph-matching-and-node-embedding-c307cf673c": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Graph matching seeks correspondences between nodes in different networks, while node embedding assigns each node a vector representation. This paper learns the two together. The motivation is that a useful correspondence can guide the representations, and useful representations can help establish how the graphs align.",
+      "The framework uses Gromov-Wasserstein discrepancy to measure differences between graphs and learns an optimal transport that expresses their correspondence. That transport guides the node embeddings. Distances in the learned representation reflect the structure within each graph while also supporting alignment across graphs, tying the two tasks to the same structural information.",
+      "The authors unify these mutually beneficial steps in an objective that minimizes Gromov-Wasserstein discrepancy with structural regularizers, then solve the resulting optimization problem using a proximal point method. Experiments on matching tasks in real-world networks show better performance than the alternative approaches considered. The contribution is a shared learning framework in which alignment and representation can inform each other, with empirical evidence that this coupling improves graph matching."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "82bb6010d8a878a5ab47002eb9c006208ad53f0fc94815b2aa8a2c0949d2fd12",
+    "tldr": "The framework jointly learns graph correspondences and node embeddings through a structurally regularized Gromov-Wasserstein objective."
+  },
+  "icml-2019-hierarchically-structured-meta-learning-d25f72c880": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Meta-learning uses experience from previous tasks to help a model learn new tasks from few examples. A difficulty arises when those tasks differ substantially or their relationships are uncertain. Sharing the same knowledge globally cannot adequately handle this heterogeneity, motivating a way to customize what transfers between tasks.",
+      "Hierarchically Structured Meta-learning builds on gradient-based meta-learning and organizes tasks into a hierarchy of clusters. Transferable knowledge is tailored to different clusters, while similar tasks within a cluster still benefit from shared knowledge. The hierarchy therefore gives the method a structure for deciding which prior experience is relevant to which group of tasks.",
+      "The authors also extend the hierarchy to continual learning, where task relationships can change over time. Experiments on toy regression and few-shot image classification show that the approach can achieve state-of-the-art performance. These findings support organizing transfer around task relationships: customization can address differences between groups while preserving generalization among related tasks, instead of requiring a single globally shared source of knowledge."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a97aa00538e51233d835396338aedad2305c8cf65c74931979d10cfe137499fa",
+    "tldr": "HSML organizes tasks hierarchically so that transferable knowledge can be customized to task clusters while remaining shared among similar tasks."
+  },
+  "icml-2019-learning-a-prior-over-intent-via-meta-inverse-reinforcement-learning-b9021cda0c": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Reinforcement learning requires a reward function that specifies the intended task. Inverse reinforcement learning attempts to infer that function from expert demonstrations, but a small demonstration set may be compatible with several different rewards. Collecting enough demonstrations to cover the variety of real-world tasks can also be impractically expensive.",
+      "This paper uses demonstrations from other tasks to constrain the reward functions considered for a new task. It learns a prior specifically optimized to support the inference of expressive rewards from limited demonstrations. The transferred knowledge therefore concerns how to infer intent, helping narrow the ambiguity that remains when examples of the current task are scarce.",
+      "The authors demonstrate efficient recovery of rewards from images for novel tasks and explain how their approach is analogous to learning a prior. This result connects experience across tasks to the practical problem of reward specification. Its significance is that earlier demonstrations can contribute useful structure to a new inference problem, reducing reliance on an extensive set of demonstrations for every individual task."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "44221b26461184619ea944972de349564e781f6cb07e40ab9b57a587b0c16835",
+    "tldr": "The method learns from demonstrations across tasks to help infer expressive reward functions for new tasks from limited examples."
+  },
+  "icml-2019-learning-to-prove-theorems-via-interacting-with-proof-assistants-cc38b37c7e": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Proof assistants express mathematical statements in formal logic and let users build proofs through high-level tactics. Those tactics provide a structured interface for mathematical reasoning, but experts normally have to supply them manually. This paper studies how machine learning can automate that interaction and generate useful steps in a formal proof.",
+      "The authors introduce CoqGym, a dataset and learning environment containing 71,000 human-written proofs drawn from 123 Coq projects. They also develop ASTactic, a deep-learning model that produces tactics as programs represented by abstract syntax trees. The model therefore generates structured tactic programs, making the form of the assistant's commands part of the learning problem.",
+      "Experiments show that ASTactic trained on CoqGym can generate effective tactics and help prove new theorems that existing automated methods had not proved. The work contributes both the environment for learning from human proofs and a model for acting within it. Its stated findings demonstrate that learned tactic generation can extend the reach of automated interaction with a proof assistant."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "31384ebc2497c2e149dd53284be27e4dfb75635619253dcb5b125e5c828e6d4e",
+    "tldr": "CoqGym and ASTactic enable learning from human proofs to generate structured tactics and prove theorems beyond the tested automated methods."
+  },
+  "icml-2019-legonet-efficient-convolutional-neural-networks-with-lego-filters-355f5975ec": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Convolutional networks often gain capability through carefully designed high-level modules. LegoNet applies a similar idea at the level of individual filters: it constructs filter modules by assembling a shared collection of smaller Lego filters. This makes reuse within the filters themselves the basis for building more efficient convolutional networks.",
+      "The Lego filter weights and the binary masks that specify their assembly are learned together through end-to-end optimization. The method also introduces a split-transform-merge strategy that exploits intermediate Lego feature maps for efficient convolution. The approach therefore links how filters are represented with how their computations are carried out, addressing both model construction and execution.",
+      "The paper discusses the resulting compression and acceleration theoretically and evaluates the approach on benchmark datasets and deep models. Those experiments demonstrate advantages of the proposed filters and suggest potential applications on mobile devices. The findings support shared, lower-dimensional filter components as a useful design choice for efficient networks, while the mobile-device relevance is presented as a potential application."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "02698fb09a6b692fe5dba6de760f35b79d1d7d3899daeb28a0b4235ee14f359c",
+    "tldr": "LegoNet assembles convolutional filters from shared smaller components and reuses intermediate feature maps to support compression and acceleration."
+  },
+  "icml-2019-me-net-towards-effective-adversarial-robustness-with-matrix-estimation-734c4230f9": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Adversarial image attacks exploit perturbations that cause neural networks to make incorrect predictions. ME-Net tackles this problem through image preprocessing based on matrix estimation. Its aim is to disrupt the structure of adversarial noise while retaining the broader image structure that supports recognition.",
+      "The preprocessing has two stages. It first removes randomly chosen pixels and then reconstructs the image using matrix estimation. The authors show that this process destroys the adversarial structure of the noise while reinforcing global structure in the original image. They connect that emphasis on global structure to human image classification, arguing that it makes the network's behavior more compatible with human perception.",
+      "The method is evaluated on MNIST, CIFAR-10, SVHN, and Tiny-ImageNet. Across the reported comparisons, ME-Net consistently improves on prior defenses against both black-box and white-box attacks. These findings provide empirical support for random pixel removal followed by structured reconstruction as an adversarial defense. The reported robustness improvements concern the evaluated attacks and benchmarks."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d0fc4a4355588ed86e7bf46fceb053559943188951ebcbf247b467db0140c5c9",
+    "tldr": "ME-Net randomly removes pixels and reconstructs images with matrix estimation, improving adversarial robustness in the reported benchmark comparisons."
+  },
+  "icml-2019-nas-bench-101-towards-reproducible-neural-architecture-search-da05dc201d": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Neural architecture search can demand enough computation to make experiments difficult to reproduce and inaccessible to researchers with limited resources. NAS-Bench-101 addresses this problem by making previously computed architecture evaluations available as a public dataset. Researchers can use those stored results to assess search methods without repeatedly performing the underlying training.",
+      "The authors construct a compact but expressive search space containing 423,000 unique convolutional architectures. They identify equivalent graph structures so that architectural duplicates do not count as distinct designs. Each architecture is trained and evaluated multiple times on CIFAR-10, producing a collection of more than five million trained models.",
+      "Querying the dataset returns model evaluations in milliseconds, substantially changing the computational requirements of experiments within this search space. The authors demonstrate its usefulness by analyzing the collection and benchmarking architecture optimization algorithms. The contribution is a reusable experimental resource that supports comparisons on a shared set of measured outcomes, with the stated coverage defined by its convolutional architectures and CIFAR-10 evaluations."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8bc9fadb24e0d9d75cd4e89e343ebc2b25e0cb5384e4a2229c72f562100ce97e",
+    "tldr": "NAS-Bench-101 makes precomputed evaluations of 423,000 convolutional architectures available for fast, reproducible architecture-search experiments."
+  },
+  "icml-2019-position-aware-graph-neural-networks-955c638ad0": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A node's position within a graph can matter for predicting its relationships and community membership. Existing graph neural networks have limited ability to represent a node's location relative to all other nodes. Position-aware Graph Neural Networks address this by making distances to sampled reference groups part of the node representation.",
+      "The method samples sets of anchor nodes, computes the target node's distance to each set, and learns a nonlinear aggregation weighted by those distances. The anchor sets provide reference points for representing where the target sits in the graph. P-GNNs can also incorporate node features, and the authors describe the approach as inductive and scalable.",
+      "The experiments include link prediction and community detection. P-GNNs consistently outperform the state-of-the-art graph neural networks used in the comparisons, with reported ROC AUC improvements reaching 66%. This maximum improvement is a result from the evaluations, rather than a uniform gain for every task. The findings support explicitly representing relative graph position as useful information for prediction."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b120787585f312b9d1bc9cfa6e6cfcc9f4be98567bcbcb04ef2e143d5c3684bf",
+    "tldr": "P-GNNs learn node representations from distances to sampled anchor sets, improving prediction by capturing position within the broader graph."
+  },
+  "icml-2019-power-k-means-clustering-1debf5c3ca": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Ordinary k-means is commonly optimized using Lloyd's algorithm, whose speed and simplicity make it attractive. Its greedy updates, however, can lead to poor local solutions and sensitivity to the initial cluster centers. Power k-means seeks to reduce this difficulty while preserving the computational qualities that make the standard approach useful.",
+      "The method places the k-means objective within a continuous family of related problems that have fewer local minima. It then gradually moves through that family toward ordinary k-means. A majorization-minimization procedure drives this annealing process, retaining a descent property and low computational complexity comparable to Lloyd's algorithm.",
+      "The approach also works alongside existing strategies for choosing initial cluster centers. Experiments on simulated and real datasets show marked improvements when power k-means and those seeding strategies are combined. The result supports changing the optimization path as a complement to choosing better starting points. The method mitigates trapping in local minima; the stated contribution does not require a guarantee of finding the global optimum."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6d31de5677eacf88073a4604a736543f69cfc65d886d49ce085705823f55da8d",
+    "tldr": "Power k-means gradually approaches the ordinary k-means objective through easier related problems, reducing local-minimum difficulties while retaining efficient updates."
+  },
+  "icml-2019-rademacher-complexity-for-adversarially-robust-generalization-f04ad5e663": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A model can resist adversarial perturbations on its training examples yet remain vulnerable on new data. This paper studies that generalization problem for attacks constrained in the infinity norm. It uses Rademacher complexity to analyze how the difficulty of robust generalization depends on the classifier family and the input dimension.",
+      "For binary linear classifiers, the authors prove tight bounds and show that adversarial Rademacher complexity is at least as large as its ordinary counterpart. They also identify unavoidable dimension dependence unless the weight vector has bounded one-norm. The results extend to multiclass linear classification, and dimension dependence also appears in their analysis of nonlinear neural networks.",
+      "For a one-hidden-layer ReLU network, the paper studies a surrogate adversarial loss and proves margin bounds. Together, the findings suggest that one-norm constraints on weight matrices might improve adversarial generalization. This is presented as a potential direction, rather than a universal prescription. Experiments validate the theoretical findings, connecting the complexity analysis to observed behavior under adversarial evaluation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2957b9077b487942ac957f7018e23ee5b5af92e31fb8c64c4aba0abbccf231c8",
+    "tldr": "The analysis reveals dimension dependence in adversarial generalization complexity and suggests one-norm weight constraints as a possible way to improve it."
+  },
+  "icml-2019-sample-optimal-parametric-q-learning-using-linearly-additive-features-1341be1d23": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies reinforcement learning in Markov decision processes whose transition probabilities can be expressed linearly through state-action features. Under that structural assumption, the authors propose a parametric Q-learning algorithm whose sample requirement scales with the feature dimension K and is independent of the number of states.",
+      "To obtain the stronger efficiency result, the method assumes anchor state-action pairs that provide implicit nonnegativity in feature space. It exploits the Bellman operator's monotonicity and noise structure through variance reduction, monotonicity preservation, and confidence bounds. These components help control uncertainty while retaining useful structure in the learning updates.",
+      "The resulting guarantee is an epsilon-optimal policy from any initial state with high probability, using a number of sample transitions proportional to K divided by epsilon squared and by the cube of one minus the discount factor, up to polylogarithmic factors. A matching information-theoretic lower bound establishes sample optimality up to those factors. The conclusion applies to the stated structured setting, showing how feature structure can remove state-count dependence from sample complexity."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "979bce262d391b82fbecc210c61d2ea8048e7c7ef58904e469289d6a51bac16e",
+    "tldr": "Under linear transition features and an anchor condition, the proposed Q-learning method achieves sample-optimal policy learning up to polylogarithmic factors."
+  },
+  "icml-2019-stochastic-optimization-for-dc-functions-and-non-smooth-non-convex-regularizers-with-non-55c91e8932": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A difference-of-convex function expresses an objective as one convex function minus another. This representation covers a broad range of nonconvex objectives, including ones that are nonsmooth or nondifferentiable. Although deterministic methods for these problems have received extensive attention, this paper focuses on stochastic optimization, which is better suited to learning with large datasets.",
+      "The authors propose stochastic algorithms and analyze their first-order convergence for a broad family of difference-of-convex problems. They report improvements over existing algorithms and theory from both practical and theoretical perspectives. The contribution therefore addresses how to optimize these objectives and how to characterize the progress that the stochastic procedures make.",
+      "The methods are also extended to objectives with general nonconvex, nondifferentiable regularizers. Such regularizers need not admit a difference-of-convex decomposition, but they must have an efficient proximal mapping. For this broader setting, the paper provides non-asymptotic convergence results, describing behavior over finite computation rather than only in the limit. This expands the analyzed class beyond objectives directly covered by the original decomposition."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a3bd77e58ab380b48c971b8f718a65afe1deaa50582ee16c044ca24ac331ee27",
+    "tldr": "The paper develops stochastic optimization methods with finite-time convergence analysis for difference-of-convex objectives and broader proximally tractable nonconvex regularizers."
+  },
+  "icml-2019-supervised-hierarchical-clustering-with-exponential-linkage-dc1ab6d06a": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Supervised clustering learns how dissimilar two items are, but the objective used to learn those distances may not match the clustering procedure that later consumes them. That mismatch can produce poor clusters. This paper couples distance learning to hierarchical clustering, beginning with a training method designed around single linkage.",
+      "Because the best linkage rule for a dataset is often unknown, the authors introduce Exponential Linkage. A learnable parameter lets this function move smoothly between single, average, and complete linkage. The training procedure learns both the pairwise dissimilarity function and the linkage function, allowing the rules for measuring distances and combining clusters to adapt together.",
+      "Across four datasets, joint training consistently matches or surpasses the next-best combination of training procedure and linkage function. It improves dendrogram purity by as much as eight points over mismatched combinations. These results support aligning the learning objective with the eventual clustering algorithm, while also learning which linkage behavior suits the data. The reported maximum improvement describes the tested comparisons."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4e3163c843d807276c7bbf92a5c04aed5331899d19de07776ff315e5c11e0f5c",
+    "tldr": "Exponential Linkage jointly learns item dissimilarities and the hierarchical clustering rule, reducing the mismatch between training and clustering."
+  },
+  "icml-2019-swalp-stochastic-weight-averaging-in-low-precision-training-5b3cebcf41": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Training with low-precision numbers can reduce memory requirements and support scalability, portability, and energy efficiency. The optimization method must nevertheless work with the coarser numerical representation. SWALP addresses this by averaging the successive parameter values produced by low-precision stochastic gradient descent and using a modified learning-rate schedule.",
+      "The approach is described as easy to implement and can match full-precision SGD performance even when all numbers are quantized to eight bits. That statement includes gradient accumulators, making the precision reduction broader than just the stored model weights. The result identifies averaging as a useful ingredient for retaining training performance under extensive quantization.",
+      "The paper also provides guarantees for particular objective classes. For quadratic objectives, SWALP can converge arbitrarily close to the optimum. In strongly convex settings, it converges to a noise neighborhood that is asymptotically smaller than the one reached by low-precision SGD. These distinct findings explain why averaging can improve low-precision optimization, while keeping the theoretical claims tied to the objective classes analyzed."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d08759537b941dc3f9881c799e5f19eff00a50b15bf8b0655c1fe89095d36441",
+    "tldr": "SWALP averages low-precision SGD iterates and can match full-precision performance with eight-bit numbers, including gradient accumulators."
+  },
+  "icml-2019-tapnet-neural-network-augmented-with-task-adaptive-projection-for-few-shot-learning-7de795959f": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Few-shot learning asks a model to handle previously unseen tasks after seeing only a small number of training examples. TapNet addresses this challenge by combining representations learned across tasks with a projection that adapts to each individual task. The aim is to make shared features useful for the particular classification problem currently being solved.",
+      "During episode-based meta-training, the method learns both a neural network and a set of per-class reference vectors across varied tasks. Within each episode, it linearly projects embedded features into a new space for quick task-specific conditioning. The training loss uses distances between query examples and reference vectors in that projected space.",
+      "The projection connects shared learning with immediate task adaptation: comparisons are made in a space conditioned on the current episode. Evaluations on Omniglot, miniImageNet, and tieredImageNet achieve state-of-the-art classification accuracy across various few-shot settings. These results support task-adaptive projection as a useful addition to a learned embedding and reference-vector system for generalizing from few examples."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5e3a8153ca8bb74a42b3e9fcf885814e54011e8be43c24c6e875e76702ab0c88",
+    "tldr": "TapNet adapts few-shot classification to each task by projecting learned features and comparing queries with learned class reference vectors."
+  },
+  "icml-2019-tight-kernel-query-complexity-of-kernel-ridge-regression-and-kernel-k-means-clustering-7db936f92e": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Kernel methods replace pairwise inner products with kernel evaluations, allowing algorithms to operate through similarities associated with a higher-dimensional feature space. This paper asks how many such evaluations are required to approximately solve kernel ridge regression and kernel k-means. It establishes lower bounds that are nearly tight.",
+      "For kernel ridge regression, the lower bound scales as the number of data points times the effective statistical dimension, divided by the relative-error tolerance. For kernel k-means, it scales as the number of points times the number of clusters, divided by that tolerance. Each bound matches achievable complexity up to a logarithmic factor, identifying how those parameters constrain kernel-query efficiency.",
+      "The regression result resolves a variant of an open question about whether effective statistical dimension lower-bounds sampling complexity. The paper also presents algorithms for inputs drawn from mixtures of Gaussians that bypass the general lower bounds. This distinction matters: nearly tight bounds for the general problem can coexist with more efficient algorithms when additional distributional structure is available."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6051afa18585348ed3baefcc5a2448ff11216afac0adc7062bc53c2539c438d5",
+    "tldr": "The paper gives nearly tight kernel-evaluation lower bounds for regression and clustering, while showing how Gaussian-mixture structure can permit better complexity."
+  },
+  "icml-2019-towards-accurate-model-selection-in-deep-unsupervised-domain-adaptation-95329cfa10": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Deep unsupervised domain adaptation uses labeled source data to improve predictions on related target data without target labels. Choosing between trained models is difficult in this setting because ordinary target-domain validation is unavailable. Existing selection procedures can be biased, unstable, restricted, or dependent on labeled target data that conflicts with the intended setup.",
+      "Deep Embedded Validation incorporates the adapted feature representation into the validation procedure. The authors establish an unbiased estimate of target risk with bounded variance. This directly addresses the quantity needed for model selection: how well a candidate is expected to perform in the target domain, despite the absence of target labels.",
+      "The method further reduces variance using a control variate, a technique for stabilizing an estimator. Both theoretical analysis and empirical results support its effectiveness. The contribution concerns evaluating and selecting adaptation models, an essential part of making algorithm comparisons reliable. By treating validation as a dedicated problem, the paper provides a more principled basis for comparing models intended for an unlabeled target domain."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7e70ca520e0887a73f070ae0fd7b8abfc39a836f8813757a74840b4b2956621f",
+    "tldr": "Deep Embedded Validation uses adapted features to estimate target risk without bias and controls variance for unsupervised domain-adaptation model selection."
+  },
+  "icml-2019-understanding-geometry-of-encoder-decoder-cnns-7ec64d55ff": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Encoder-decoder convolutional networks perform well on inverse problems in areas such as computer vision and medical imaging, but their success is difficult to explain geometrically. This paper develops a unified mathematical framework for understanding these architectures, drawing on convolutional framelets and theoretical perspectives on expressivity, generalization, and optimization.",
+      "The framework connects encoder-decoder CNNs to nonlinear basis representations built from combinatorial convolution frames. In this view, the architecture supplies a structured way to represent signals, and its expressibility grows exponentially with network depth. This gives depth a mathematical interpretation in terms of representational capacity, rather than treating it solely as an architectural setting.",
+      "The authors also demonstrate the importance of skip connections for both expressibility and the optimization landscape. Their analysis therefore links two architectural choices, depth and skipped connections, to properties of representation and learning. The contribution is a coherent theoretical account of encoder-decoder geometry. Exponential growth in expressibility describes what the representation can express; it is not itself a claim of exponential improvement in task accuracy."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b31462b5bcb4912244b274cb1d42d8f7c83c14c70a5f8ff490e1aaed50574c97",
+    "tldr": "A unified geometric framework connects encoder-decoder CNNs to nonlinear basis representations and explains how depth and skip connections affect expressibility."
+  },
+  "icml-2019-variational-russian-roulette-for-deep-bayesian-nonparametrics-866a0f8586": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Bayesian nonparametric models allow model complexity to adapt to the amount of available data, but inference is computationally difficult. Efficient amortized variational methods commonly impose a fixed finite cutoff on an infinite model. Choosing that cutoff is challenging, and its interaction with amortized inference can lead to over-pruning.",
+      "This paper replaces the fixed truncation with a variational approximation based on Russian roulette sampling, a method originating in statistical physics. The resulting variational distribution can change its complexity during inference. Crucially, the procedure still produces an unbiased estimate of the gradient of the original variational objective, keeping the gradient target tied to that objective.",
+      "The authors demonstrate the method with infinite-sized variational autoencoders using a Beta-Bernoulli, or Indian buffet process, prior. The contribution combines adaptive inference complexity with unbiased gradient estimation, addressing a tension between computational efficiency and the flexibility of an infinite model. The unbiasedness claim concerns the gradient estimator; the inference procedure remains a variational approximation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f817f80a63ba890330e089227975dac19c0c67e48c951ecf5003e04b5c116f57",
+    "tldr": "Russian roulette sampling lets variational inference adapt model complexity without fixed truncation while preserving unbiased estimates of the original objective's gradient."
+  },
+  "icml-2019-zeno-distributed-stochastic-gradient-descent-with-suspicion-based-fault-tolerance-a7987dab61": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Distributed training relies on multiple workers contributing to optimization, but some workers may be faulty. Zeno studies how stochastic gradient descent can continue under this kind of failure. Its central assumption is unusually permissive: it requires only one non-faulty worker, extending earlier results that assumed a majority of workers were reliable.",
+      "The method treats potentially defective workers with suspicion and uses a ranking-based preference mechanism. Ranking matters because suspicion can produce false positives, mistakenly treating a functioning worker as defective. The design explicitly accommodates that uncertainty when deciding which contributions to prefer, rather than relying on a reliable-worker majority as its starting assumption.",
+      "The authors prove convergence of SGD for nonconvex problems under the scenarios they consider and report experimental performance above existing approaches. The theoretical result concerns continued optimization despite extensive worker faults, while the experiments provide evidence of practical benefit in the tested comparisons. The one-good-worker assumption remains essential to how the stated tolerance claim should be understood."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7d3db4a218fa51b9d0d9f3f906e6b4862386845b537c7453b0f134c4dccd80c2",
+    "tldr": "Zeno uses suspicion-based ranking to support convergent distributed SGD with faulty workers, assuming only one worker is non-faulty."
+  }
+}

@@ -1,0 +1,327 @@
+{
+  "icml-2025-a-forget-and-grow-strategy-for-deep-reinforcement-learning-scaling-in-continuous-control-c4cc7ef225": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "An agent learning continuous control can become overly shaped by its earliest experiences. Because those experiences remain in its replay buffer, they can continue influencing learning even after the agent has collected better information. This primacy bias can reduce how efficiently the agent learns and how well it generalizes. Periodically resetting the agent helps address the problem, but the paper argues that early experiences can still leave an influence.",
+      "Forget and Grow, or FoG, combines two changes during training. Experience Replay Decay gradually reduces the influence of early experiences, balancing the agent’s memory. Network Expansion adds parameters as training proceeds, increasing its capacity to discover patterns in the available data. The inspiration comes from the connection between growing new neurons and forgetting early memories.",
+      "The authors evaluate FoG on four continuous control benchmarks covering more than 40 tasks. They report stronger performance than leading methods including BRO, SimBa, and TD-MPC2. These findings support combining changes to experience influence with growth in model capacity as a strategy for improving continuous control learning."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f7f66b03538d4b8baa9f8213ad6d4b63347ebd14cbb3f6692f98b2b2f9ec86b6",
+    "tldr": "FoG improves continuous control learning by gradually reducing early experiences’ influence while expanding the agent’s network."
+  },
+  "icml-2025-adversaries-can-misuse-combinations-of-safe-models-cea3cf6642": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Safety evaluations often ask whether a particular model can complete a harmful task. This paper investigates a broader threat: an adversary can divide a task across several models, even when no individual model can successfully carry out the whole task. A capable, aligned model might handle difficult but benign components, while a weaker, misaligned model supplies the harmful components.",
+      "The authors study both human-designed and automated task decomposition. In the automated approach, a weaker model creates benign requests for a frontier model, then uses the returned solutions as context when tackling the original task. The critical issue is how otherwise acceptable contributions become useful when combined.",
+      "Experiments find substantially higher rates of harmful outputs from model combinations than from either model alone, across vulnerable code, explicit images, hacking scripts, and manipulative tweets. The authors suggest that even perfectly aligned frontier systems could contribute to misuse without themselves producing malicious outputs. Their findings motivate evaluating connected model workflows alongside individual systems."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4d9b61bf967129b04f25bb281415f8a88d5946105e34cc024028649eaa8a0322",
+    "tldr": "Combining models can enable harmful tasks that neither model completes alone, exposing a gap in isolated safety evaluations."
+  },
+  "icml-2025-agent-centric-actor-critic-for-asynchronous-multi-agent-reinforcement-learning-802d1a2af5": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Teams of learning agents face a timing problem when their decisions represent extended sequences of actions. These macro-actions help with long-term planning when rewards are sparse, but different agents can finish them at different times. That makes it harder to train agents together while allowing each to operate independently afterward.",
+      "Existing approaches handle unequal timing by padding experience sequences. The paper identifies a risk that this can misalign experiences and introduce misleading correlations. Agent-Centric Actor-Critic, or ACAC, instead processes each agent’s trajectory independently through an agent-specific perspective. An attention-based module then brings those histories together for a centralized critic, which evaluates behavior using information across the team.",
+      "ACAC trains this structure with a PPO-based method and modifies Generalized Advantage Estimation to accommodate asynchronous experience. The experiments report faster convergence and better performance than baselines on complex multi-agent tasks. The contribution connects the representation of individual histories with the training procedure, allowing centralized learning to account for agents whose meaningful decisions occur on different schedules."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3542bffd41d7ed1a246ea8a862c88e46ad18d8976e5dc63e6eeaa9978d505996",
+    "tldr": "ACAC improves asynchronous multi-agent learning by processing each agent’s history independently before combining histories in a centralized critic."
+  },
+  "icml-2025-algorithmic-recourse-for-long-term-improvement-e8fbe6c46e": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Algorithmic recourse recommends actions that turn an unfavorable model prediction into a favorable one. But changing a prediction is different from improving the underlying outcome. An action that helps someone receive loan approval, for example, need not improve their ability to repay. The paper makes this real-world improvement the target of its recommendations.",
+      "The authors formulate an online learning problem in which actions are assigned to a sequence of instances. A central assumption is that delayed feedback eventually reveals whether earlier recommendations achieved improvement. The system uses this feedback to estimate which action could improve the outcome for each new instance, allowing experience with past recommendations to inform future choices.",
+      "Two proposed approaches use contextual linear bandits and contextual Bayesian optimization. Experiments show that they can assign improvement-oriented actions to more instances than existing methods. The result supports treating recourse as an ongoing learning process grounded in observed outcomes. It does not turn the experimental success into an unconditional guarantee that every recommended action improves the real world."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1100ab027a889089821908db4b8328ec8fb79de5d8e240c1fe869c0c77b69eef",
+    "tldr": "The paper learns recourse recommendations from delayed outcome feedback to target real-world improvement alongside favorable predictions."
+  },
+  "icml-2025-all-atom-diffusion-transformers-unified-generative-modelling-of-molecules-and-materials-51e2aaa01b": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Molecules and materials are often generated with models designed separately for each type of atomic system. The All-atom Diffusion Transformer, or ADiT, brings periodic materials and non-periodic molecules into one generative framework. Its goal is to share a model across systems that follow the same underlying physics but have usually received specialized treatments.",
+      "ADiT first uses an autoencoder to map an all-atom representation into a shared latent space. A diffusion model learns to generate new embeddings in that space, and the autoencoder decodes them into molecular or material structures. Both components use standard Transformers with minimal built-in structural assumptions.",
+      "On MP20, QM9, and GEOM-DRUGS, joint training produces realistic, valid structures with state-of-the-art results comparable to specialized molecule and crystal models. The authors also report significant training and inference speedups over equivariant diffusion models. Increasing ADiT to half a billion parameters predictably improves performance. Together, these findings support shared generative modeling as a step toward more broadly applicable models for chemistry."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2239669008815af304cfe62013ed8d185d8e3df04f02a38869459696ed985690",
+    "tldr": "ADiT uses one latent diffusion framework to generate molecules and materials with performance comparable to specialized models."
+  },
+  "icml-2025-an-analytic-theory-of-creativity-in-convolutional-diffusion-models-e228c23cec": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Diffusion models can generate images that differ greatly from their training examples, yet optimal score-matching theory suggests memorization. This paper explains that apparent conflict through two architectural biases: locality and equivariance. These biases prevent the idealized optimum and enable a form of creativity based on recombining information from training images.",
+      "The authors derive analytic local score and equivariant local score models whose operations can be interpreted directly. After calibrating one time-dependent hyperparameter, these models predict the outputs of trained convolution-only diffusion networks with high accuracy. The proposed mechanism constructs locally consistent mosaics by combining training-image patches across locations and scales, supporting exponentially many novel combinations.",
+      "Across four image datasets, the strongest analytic model achieves median r-squared values between 0.94 and 0.96 for convolution-only networks. Its predictions are less complete for an attention-enabled UNet, reaching about 0.77 on CIFAR10. This difference suggests a role for attention in organizing local patch combinations into semantically coherent images, while the theory explains much of the convolutional contribution."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d66e7fcf944518804891fbe4131fedf98c7d8fd383b472287a476e26a2424aba",
+    "tldr": "An analytic theory explains convolutional diffusion creativity as locally consistent recombination of training-image patches."
+  },
+  "icml-2025-approximate-differential-privacy-of-the-ell-2-mechanism-1815f362fc": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper studies a mechanism for releasing a statistic with several components while providing approximate differential privacy. Its setting assumes bounded ell-2 sensitivity: the statistic’s change is limited when measured using Euclidean distance. Within this setting, the question is how much error the ell-2 mechanism incurs compared with the Laplace and Gaussian mechanisms.",
+      "The central finding depends on the statistic’s dimension. Across a range of privacy parameters, the ell-2 mechanism’s error approaches that of the Laplace mechanism as the dimension approaches one. As the dimension becomes very large, its error approaches that of the Gaussian mechanism. Its behavior therefore connects two different comparison points through the number of components being released.",
+      "At intermediate dimensions, the authors find that the ell-2 mechanism outperforms both alternatives in error. This makes the middle of the dimensional range especially important to the comparison. The stated advantage is tied to the studied privacy parameters and bounded-sensitivity setting; the abstract does not present it as an unrestricted advantage across every possible privacy configuration."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8f65c7ce5ce74bb41597bbb1e4910b72903aa73b20d42489439259b15df7b4ee",
+    "tldr": "Across a range of privacy parameters, the ell-2 mechanism beats Laplace and Gaussian error at intermediate dimensions."
+  },
+  "icml-2025-broadband-ground-motion-synthesis-by-diffusion-model-with-minimal-condition-26dfdd2e80": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Realistic synthetic earthquake waveforms can help efforts to reduce earthquake losses, but generating convincing ground motion remains challenging. This paper introduces HEGGS, a system that learns to generate three-component seismic waveforms. Its design combines a conditional latent diffusion model with a model that constructs high-fidelity waveforms.",
+      "The complete generator is differentiable end to end and uses characteristics of earthquake data in its learning process. The authors demonstrate that it can be trained on a single-GPU machine. They assess it using earthquake databases from North America, East Asia, and Europe, combining evaluation criteria from waveform generation with criteria relevant to seismology.",
+      "The reported outputs accurately reproduce several important waveform properties, including P- and S-wave arrival timing, envelope correlation, signal-to-noise ratio, and frequency content. The evaluation also includes ground-motion prediction equation analysis and section plots. These findings support the system’s ability to reproduce multiple aspects of seismic signals rather than relying on just one measure of waveform quality. The contribution concerns synthesizing ground motion, with superior performance reported in the studied regional data."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "88c6923cb009705eb3025e405d2ad3746ba046c382833271808f1a8933306f79",
+    "tldr": "HEGGS combines latent diffusion and waveform construction to generate realistic three-component earthquake signals with single-GPU training."
+  },
+  "icml-2025-editable-noise-map-inversion-encoding-target-image-into-noise-for-high-fidelity-image-ma-dae1845c0d": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Text-guided image editing must preserve the relevant content of an original image while making the changes requested in a prompt. Diffusion editing methods often begin by converting the source image into noise maps from which it can be reconstructed. The paper identifies a tension: noise maps that reconstruct the original faithfully can constrain the flexibility needed for the edit.",
+      "Editable Noise Map Inversion searches for noise maps that support both content preservation and editability. The authors analyze what makes a noise map suitable for editing, then introduce a refinement step informed by that analysis. This step minimizes the difference between reconstructed and edited noise maps to better align the representation with the desired change.",
+      "Across a wide range of image editing tasks, the authors report improvements over existing approaches in preserving source content and matching target prompts. They also describe applying the method to video editing, where it enables content changes across frames while maintaining temporal consistency. The result makes the inversion stage an explicit part of achieving the intended edit."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a4fd341dedd3d1000d83fa9f05b64d7b13052938a4151ecfe49c185f96af116b",
+    "tldr": "Editable Noise Map Inversion refines diffusion noise maps to improve both source-content preservation and fidelity to requested edits."
+  },
+  "icml-2025-ficgcn-unveiling-the-homomorphic-encryption-efficiency-from-irregular-graph-convolutiona-f4cc5ac73a": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Homomorphic encryption allows a service to compute on encrypted data, making it relevant to graph learning with sensitive information. However, graph convolutional networks require matrix operations that become expensive under encryption. Sparse graphs offer opportunities to skip work, but their irregular structure can introduce extra operations that reduce those potential savings.",
+      "FicGCN is designed to use that sparsity while balancing graph aggregation and feature combination operations. It combines a packing scheme that accounts for latency, a sparse aggregation method within ciphertexts that reduces rotation overhead, and regional data reordering based on local adjacency structure. These components address how graph data are arranged as well as how encrypted computations are executed.",
+      "The authors report the best performance across all datasets they tested, including an improvement of up to 4.10 times over the latest design used for comparison. The result highlights the importance of matching encrypted computation to graph structure. Sparse data alone do not deliver the reported efficiency; FicGCN coordinates data organization and operation costs to realize those gains."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e594ae25af7bcb5e5201e96c6c8a8729e875f0ea69e9fc64f0e87a73ef967766",
+    "tldr": "FicGCN speeds encrypted graph convolution by coordinating sparse aggregation, data packing, and graph-aware reordering."
+  },
+  "icml-2025-grokking-beyond-the-euclidean-norm-of-model-parameters-63adadbc32": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Grokking is the delayed emergence of generalization after a neural network has already overfit its training data. This paper investigates how regularization can produce that pattern. It extends the discussion beyond weight decay to properties such as sparse or low-rank weights, which can favor different kinds of solutions.",
+      "The key result is conditional: when a model with a property P generalizes on the problem, gradient descent with small but nonzero regularization toward P results in grokking. The analysis also finds that adding depth can make grokking appear or disappear through implicit regularization, without an explicit regularization term. The authors distinguish this possibility from the shallow cases they analyze.",
+      "These findings challenge the use of the Euclidean weight norm as a general indicator of learning quality. When training favors another property, that norm can grow while the model still generalizes. The paper additionally shows that data selection alone can amplify grokking while other hyperparameters remain fixed. Together, the results connect delayed generalization to the property favored by training, model depth, and the selected data."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "584432cd3899b0840f9dd603a7742cccf0afe1d0e8422e403329d9ad9a23aca6",
+    "tldr": "Grokking can arise from regularization toward generalizing properties beyond small weight norms, including sparsity and low rank."
+  },
+  "icml-2025-learning-parametric-distributions-from-samples-and-preferences-a7941c3e7c": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper asks when preference feedback adds useful information for estimating an unknown continuous distribution. Its learner observes sample pairs together with a preference between them. Crucially, both the samples and the preferences depend on the same unknown parameter, so the comparisons provide another source of evidence about what the learner is trying to estimate.",
+      "The authors show that preference-based M-estimators achieve lower asymptotic variance than estimators using samples alone. Deterministic preferences provide additional benefits because they reveal hard constraints on the parameter. By using those constraints, the proposed estimator achieves error scaling as O(1/n), compared with the Theta(1/square root of n) rate attainable from samples alone.",
+      "A matching lower bound, up to problem-dependent constants, establishes the accelerated rate within the analyzed setting. The authors explicitly describe their assumptions as restrictive. They nevertheless cover notable cases, including Gaussian and Laplace distributions when preferences follow a log-probability reward. The contribution therefore identifies concrete conditions under which preference information changes the rate of estimation, beyond simply improving a constant factor."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e5163310987ee682670b1015ca5a29912d8b1d7547a842d312f4d5c464f5455d",
+    "tldr": "Under restrictive but meaningful assumptions, deterministic preferences improve distribution-parameter estimation from a square-root rate to O(1/n)."
+  },
+  "icml-2025-lra-qvit-integrating-low-rank-approximation-and-quantization-for-robust-and-efficient-vi-aebdba6bea": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Vision Transformers can be difficult to deploy on devices with limited resources because their weight matrices contain many parameters. Low-rank approximation compresses those matrices, but decomposition can discard information and reduce accuracy. The paper also addresses quantization, another deployment step whose interaction with low-rank compression has received insufficient attention.",
+      "The proposed framework uses reparameterizable branches and weight reconstruction to reduce information loss during low-rank approximation. It then combines this approach with knowledge distillation to improve accuracy. A separate quantization method accounts for the characteristics of low-rank approximation, specifically targeting the large outliers it can produce and making the quantized model more robust.",
+      "Experiments on ImageNet cover several Vision Transformer models. For Swin-B, the authors report 31.8% fewer parameters and a 30.4% reduction in GFLOPs with a reported accuracy drop of only 0.03%. Their quantization method further reduces accuracy loss by a reported 0.83% relative to naive quantization. These results support coordinating decomposition and quantization when compressing a model, since the first stage changes the weights that the second stage must handle."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ef36d2d7a423ca8ed521fe95bcf17423e55505db39f4fee5640eab4955362256",
+    "tldr": "LRA-QViT coordinates low-rank compression and quantization to reduce Vision Transformer size and computation while preserving accuracy."
+  },
+  "icml-2025-preference-cfr-beyond-nash-equilibrium-for-better-game-strategies-320231057d": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Strong game-playing systems often focus on payoff and equilibrium strategies, leaving less room for users to request different playing styles. This paper studies that gap in imperfect-information games. It builds on Counterfactual Regret Minimization, or CFR, to support strategic diversity alongside competitive performance.",
+      "Preference-CFR introduces two controls, preference degree and vulnerability degree. These let the system adjust its distribution over strategies within an acceptable performance-loss threshold. The resulting framework makes style preferences part of strategy construction, allowing different behavioral patterns to be pursued while accounting for the associated performance tradeoff.",
+      "In Texas Hold’em experiments, the method learns Aggressive and Loose Passive styles that match the original CFR-based strategies in performance while behaving distinctly. For some hand scenarios, its strategies differ substantially from both conventional expert heuristics and original CFR outputs. The authors suggest that these departures could offer insights to professional players. The evidence supports producing varied competitive styles in the tested setting, while the potential value of unusual decisions to experts remains a possibility."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9ffbe060c13e42ed97c3511d5e2709d96d5c812ba449fc7c67e0073df94acb0a",
+    "tldr": "Preference-CFR adds controls for playing style and vulnerability, producing distinct poker strategies with competitive experimental performance."
+  },
+  "icml-2025-provable-benefits-of-unsupervised-pre-training-and-transfer-learning-via-single-index-mo-a36a67fdcc": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Pre-training and transfer learning are commonly used to give a neural network a useful starting point, especially when labeled data are limited. This paper studies their benefit through sample complexity: how many samples are needed for supervised learning. It focuses on high-dimensional problems, where that requirement can depend strongly on the input dimension.",
+      "The theoretical setting involves training a single-layer neural network with online stochastic gradient descent. Within this framework, the authors establish that unsupervised pre-training and transfer learning under concept shift can reduce sample complexity by factors polynomial in the dimension. They state that these reductions hold under very general assumptions in their analyzed setting.",
+      "The paper also identifies particular settings where pre-training improves sample complexity exponentially compared with random initialization. That stronger result is specific to those settings, rather than a universal promise for pre-training. Together, the findings give a mathematical account of how initialization can change data requirements. The contribution concerns provable learning efficiency in the studied model, connecting a practical training choice to the number of examples required."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "25d2b4476d5fe8489a21eebcc4014ca9a17cb01afd85c9a11bad5a244b5eb92a",
+    "tldr": "For the studied single-layer networks, pre-training and transfer learning provably reduce sample needs, with exponential benefits in some settings."
+  },
+  "icml-2025-revisiting-neural-networks-for-few-shot-learning-a-zero-cost-nas-perspective-36f621a753": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Choosing a neural architecture for a new few-shot task creates a practical dilemma. Searching from scratch can be expensive, while reusing an architecture selected for another task may produce a poor fit. This paper proposes IBFS, a framework for ranking and selecting architectures without training them during the search.",
+      "The approach draws on information bottleneck theory to assess architectures through their expressivity. It develops a zero-cost scoring method tailored to few-shot learning, allowing candidate architectures to be compared without the training normally associated with architecture search. The paper also derives a global convergence guarantee for Model-agnostic Meta-learning using consideration of the first-order loss landscape.",
+      "The experiments report state-of-the-art few-shot learning performance from the proposed framework while avoiding training for architecture selection. This matters because the selection process can be repeated for new tasks without paying the full cost of training candidate networks. The central contribution is a task-relevant way to evaluate architecture suitability before that training expense, supported by both theoretical analysis and experimental results."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8dffe01c1d83b2082beedb7ad605144c84304c2ce82db4d5b7e1ccc2f685078c",
+    "tldr": "IBFS uses information bottleneck theory to rank architectures for few-shot tasks without training candidates during search."
+  },
+  "icml-2025-selective-preference-aggregation-f0a894a971": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Combining people’s votes, ratings, or pairwise comparisons usually produces a ranking that resolves disagreements into a shared ordering. This paper proposes allowing the output to leave some comparisons undecided. Its selective rankings are partial orders, so they can express collective agreement without requiring every pair of items to be ranked.",
+      "A disagreement threshold controls which comparisons are permitted. Items can be compared only when at least 100 times one minus tau percent of individuals agree. This creates an explicit tradeoff: the desired level of agreement determines how much of the ranking can be resolved. Disputed comparisons can remain open rather than being settled by the aggregation procedure.",
+      "The authors develop algorithms covering all possible tradeoffs between comparability and disagreement, together with formal safety and stability guarantees. Experiments on real-world datasets demonstrate how the approach functions in practice. The reported benefit is greater transparency and robustness through making disagreement visible. A selective ranking communicates both the comparisons supported by sufficient agreement and the places where the group has not reached that standard."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9cbc6c561140e82c030283de24eb066bb3c9dc073738341f0ce587747a662aa8",
+    "tldr": "Selective aggregation produces partial rankings that compare items only when a specified share of people agree."
+  },
+  "icml-2025-skip-the-equations-learning-behavior-of-personalized-dynamical-systems-directly-from-dat-4daf14230b": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Models of dynamical systems describe how quantities evolve over time, but their behavior can be difficult to understand. Black-box predictions may obscure useful properties, while discovering differential equations introduces a second challenge: analyzing the equations afterward. For complex equations, that analysis and subsequent model revision can be difficult.",
+      "This paper extends direct semantic modeling, which predicts behavioral descriptions such as trajectory shape from data. The earlier version handled one-dimensional trajectories and inputs. The new approach accommodates multidimensional trajectories and allows their evolution to depend on additional static features, such as patient covariates. This provides a route to personalized dynamics while keeping behavior central to the model.",
+      "In experiments, the authors demonstrate how practitioners can incorporate prior knowledge, understand the resulting dynamics, ensure desired behaviors, and revise the model when needed. The contribution makes behavioral requirements part of the modeling process rather than leaving them entirely to later equation analysis. Its extension to multiple evolving quantities and static personalization features broadens the kinds of systems this approach can represent."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4cf17a8967b292b821ff9ea4df414ee7e8f1e4643530983b680e24b218680a25",
+    "tldr": "The paper extends direct behavioral modeling to multidimensional, personalized dynamical systems without requiring post-hoc differential-equation analysis."
+  },
+  "icml-2025-solving-zero-sum-convex-markov-games-f18e14ef03": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies two-player zero-sum convex Markov games, where preferences are convex over occupancy measures describing how play visits states and actions. Despite that structure, optimizing the players’ policies remains difficult. The challenges include nonconvexity, an infinite horizon, and the absence of Bellman consistency, which prevents a familiar simplifying structure from being available.",
+      "The authors first use hidden convex-concave structure to analyze a regularized version of the game. A nonconvex regularization produces an objective satisfying a nonconvex–proximal Polyak–Łojasiewicz condition. This structure allows the analysis to show how regularization can stabilize independent policy-gradient updates and lead the players toward equilibrium.",
+      "The result provides the first stated global convergence guarantees to Nash equilibria for independent policy-gradient methods in these games. The paper then extends its analysis to constrained min-max optimization under specified proximal Polyak–Łojasiewicz conditions, covering stochastic nested and alternating gradient descent-ascent methods. These broader guarantees make the optimization reduction a contribution beyond the original game setting, while remaining tied to the stated structural conditions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3b85777e7ca21c68e0bc266e253d95b6127f14ce045fbd1508d7676442f83668",
+    "tldr": "A regularization-based analysis establishes global convergence of independent policy gradients in two-player zero-sum convex Markov games."
+  },
+  "icml-2025-spex-scaling-feature-interaction-explanations-for-llms-382f3cf410": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "An explanation that scores input features individually can miss cases where several features matter together. Existing interaction-attribution extensions scale only to relatively short inputs, around 20 features. SPEX addresses this gap with a model-agnostic method that handles input lengths of roughly 1,000, making interaction explanations feasible for much longer contexts.",
+      "The method relies on natural sparsity among interactions: only a limited subset needs to be identified as important. It uses a sparse Fourier transform together with a channel-decoding algorithm to find those interactions efficiently. This connects the computational shortcut directly to the structure the explanation is trying to recover.",
+      "Experiments span three challenging long-context datasets. For large inputs, SPEX improves faithful reconstruction of model outputs by up to 20% over marginal attribution methods. On HotpotQA, identified interactions align with human annotations. The authors also apply the method to explain abstract reasoning in GPT-4o mini and compositional reasoning in vision-language models. The results show how accounting for joint feature effects can produce more faithful explanations than individual importance scores alone."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "387c58e0824fcb21c7fd157f007f44b5a83a94843c49c6a28c2570117959b950",
+    "tldr": "SPEX uses sparse interaction structure to scale model-agnostic explanations to roughly 1,000 input features."
+  },
+  "icml-2025-the-logical-implication-steering-method-for-conditional-interventions-on-transformer-gen-b2d167aac6": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper builds on evidence for the linear representation hypothesis: high-level concepts can be represented by vectors in a Transformer’s internal activations. Prior steering work shows that adding a concept vector can shift generated text toward that concept. The authors use these ideas to construct interventions whose effects depend on a concept being present.",
+      "Logical Implication Model Steering, or LIMS, builds a form of logical implication into generation. A selected concept serves as the condition, and a chosen generation behavior serves as the response. This makes the intended relationship between trigger and intervention explicit, providing a transparent way to describe the adjustment being introduced.",
+      "The contribution combines symbolic logical structure with the internal representations of a pretrained neural model. The authors describe it as enabling new hand-engineered reasoning capabilities through interpretable adjustments. Its significance lies in making steering conditional: the intervention is organized around when a concept should cause a particular behavior. The abstract presents this as a form of logical implication within generation, without claiming a general guarantee of logical correctness."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ee24d0767afcb8b1aa9e20467f9af0dc79dff14a14990a50723595fb46d41a25",
+    "tldr": "LIMS uses concept representations to conditionally steer Transformer generation through interpretable logical-implication interventions."
+  },
+  "icml-2025-towards-better-than-2-approximation-for-constrained-correlation-clustering-a2c4e8bc2a": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Correlation clustering partitions a graph while penalizing two kinds of mismatch: edges connecting different clusters and missing edges inside a cluster. The constrained version additionally requires some pairs of nodes to stay together and others to stay apart. These hard requirements must be satisfied while minimizing the total mismatch.",
+      "The paper studies approximation quality for this difficult optimization problem. Against a stated best-known approximation factor of three, it shows that solving the Constrained Cluster linear program would be sufficient to obtain a factor better than two. This identifies a mathematical route to stronger clustering guarantees, centered on a linear program with exponentially many components.",
+      "The result is explicitly conditional. The peer-reviewed version claimed an efficient algorithm for solving that linear program, but the authors later found an error in its proof and revised the claim. The supported conclusion therefore depends on obtaining a valid linear-program solution. It establishes what such a solution would enable, while the supplied abstract does not establish an efficient way to obtain it."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8a136150b9c5956d8598e84bf8dcf3583e53b228d674434c918d5a21a0a146eb",
+    "tldr": "A valid solution to the Constrained Cluster linear program would suffice for better-than-two approximation, but efficient solvability remains unestablished."
+  },
+  "icml-2025-uncertainsam-fast-and-efficient-uncertainty-quantification-of-the-segment-anything-model-57ceaa59b0": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The Segment Anything Model can produce segmentation masks without being tied to predefined semantic classes. That flexibility also creates ambiguity about the task being requested, making uncertainty difficult to quantify. This paper introduces an uncertainty formulation that accounts for task uncertainty alongside aleatoric and epistemic uncertainty.",
+      "The formulation uses Bayesian entropy and provides the basis for training USAM, a lightweight method applied after the segmentation model. It traces uncertainty to different sources, including insufficient model capacity, inadequate prompts, and ambiguity in the image. Treating these sources together makes uncertainty estimation responsive to both the visual evidence and how clearly the user has specified the task.",
+      "The deterministic USAM method demonstrates superior predictive capabilities on SA-V, MOSE, ADE20k, DAVIS, and COCO in the reported evaluations. The authors describe it as computationally inexpensive and easy to use. Potential applications include supporting further user prompting, enhancing semi-supervised workflows, and managing accuracy-cost tradeoffs. The contribution is therefore an efficient way to assess uncertainty around segmentation, including uncertainty about which segmentation the prompt actually calls for."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0af5bf81055101124224b2f7344dae9f6ec325b3bc9d4db291c40e47324ad32b",
+    "tldr": "USAM efficiently estimates SAM’s uncertainty while accounting for ambiguous images, model limitations, and insufficiently specified tasks."
+  },
+  "icml-2025-visual-attention-never-fades-selective-progressive-attention-recalibration-for-detailed--c88eee1399": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Detailed image captions must include relevant content while keeping their claims accurate. The paper hypothesizes that multimodal language models struggle with this balance because attention to the image becomes weaker and noisier as a response grows. It proposes SPARC, a method that adjusts visual attention during generation without additional training.",
+      "SPARC selectively strengthens visual tokens rather than boosting every visual token. The authors observe that indiscriminate amplification reduces recall. To identify important tokens despite increasing noise, the method uses differences in attention across generation steps. It also progressively reinforces visual attention to maintain the image’s influence as the caption becomes longer.",
+      "Automated and human evaluations show that existing methods improve precision at the expense of recall, whereas SPARC improves both with minimal computational overhead. In practical terms, the reported captions become more accurate while also covering more relevant image content. The findings support selective attention adjustment as a useful intervention during decoding, while the proposed weakening-and-noise explanation is introduced as the authors’ hypothesis about the underlying problem."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5bce09c41cc7438b0beaeff1d7d243ec05adc65c21bc13d551b96ca8108e7046",
+    "tldr": "SPARC selectively reinforces visual attention during caption generation, improving both precision and recall without additional training."
+  },
+  "icml-2025-watch-out-your-album-on-the-inadvertent-privacy-memorization-in-multi-modal-large-langua-b740d81f0c": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A vision-language model may encounter private information in training images even when that information has nothing to do with its assigned task. This paper investigates whether such irrelevant content can nevertheless be memorized. It focuses on how partial mini-batch training dynamics can create accidental correlations between unrelated content and the learning objective.",
+      "The authors insert randomly generated, task-irrelevant watermarks into images used for visual question answering fine-tuning, varying how often the watermarks appear. They then introduce a probing framework to examine whether the model has encoded them. This design tests retention of information that was deliberately unrelated to the questions the model was learning to answer.",
+      "The experiments find notably different training behaviors when these watermarks are present in partial mini-batch settings. Layer-wise probes also reveal distinct internal patterns when models encounter previously seen irrelevant information, even when that information does not affect prompted outputs. The finding highlights a separation between visible answers and internal retention: a model can show evidence of remembering irrelevant content without mentioning it in its responses."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4ccd10a6b9e801d5caa045e7daf76250426cb0d0265b9255f88b16dd3c4b16e7",
+    "tldr": "Vision-language models can internally memorize task-irrelevant image content even when it does not affect their prompted answers."
+  }
+}

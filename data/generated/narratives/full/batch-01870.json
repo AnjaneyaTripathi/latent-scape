@@ -1,0 +1,327 @@
+{
+  "icml-2026-alignment-guided-score-matching-for-text-to-image-alignment-in-diffusion-models-1820980e19": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper addresses a familiar weakness of image generators: an image can look convincing while getting the prompt wrong. The authors focus on reward-free post-training that adjusts soft text tokens, or learnable text representations. Earlier contrastive alignment methods improve the connection between text and images, but excessively penalizing mismatched pairs can produce failures such as repeated objects and incorrect counts.",
+      "The proposed method moves contrastive alignment guidance into the diffusion model’s score-matching objective. Instead of relying on representation alignment alone, it assigns alignment directions at the score level, connecting the text correction to the diffusion process itself. It remains a lightweight approach that does not require external rewards or human preference signals.",
+      "Experiments report performance matching SoftREPA overall while substantially improving its characteristic failures, including over 35% improvement in counting accuracy on GenEval. The method applies to SD1.5, SDXL, and SD3 and is complementary to reinforcement-learning-based post-training. The result suggests that where alignment guidance enters training matters for producing coherent images that follow precise textual instructions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "fa2abaa766a45e9d849161d26fa37078aca76f73d24bf9bc15b53966a60b6e86",
+    "tldr": "Integrating text alignment into score matching improves diffusion models’ counting and repetition failures without external rewards."
+  },
+  "icml-2026-bit-llm-brain-instruction-tuned-llm-with-persistent-cross-attention-for-fmri-to-text-dec-830a1f26b1": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Generating captions from fMRI creates an evidence problem: a powerful language model may produce plausible text largely from its existing language knowledge. BIT-LLM addresses this by keeping tokens derived from fMRI available as persistent memory. Cross-attention adapters placed throughout the model let it consult that neural information repeatedly while generating a caption.",
+      "Training proceeds in three stages. Contrastive learning first aligns fMRI representations with semantic information. Supervised fine-tuning then teaches the interface between the brain representations and the language model while keeping the encoder and language backbone frozen. Finally, reward-based fine-tuning directly optimizes the quality of complete generated captions.",
+      "On the NSD benchmark, training on subjects S1–7 and testing on S8 produces substantially better captioning than prior baselines under greedy decoding. The authors also zero the fMRI inputs and shuffle voxel values to examine changes in internal representations and outputs. Sensitivity to these interventions supports the conclusion that BIT-LLM uses both voxel values and their spatial correspondence, alongside its language knowledge."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3f802646e3dbbff83d69b7fdeee70f1a7a2fdb468966e15473c037d3d2e17ff4",
+    "tldr": "BIT-LLM repeatedly accesses fMRI memory during caption generation, improving held-out-subject captioning and showing sensitivity to neural-input perturbations."
+  },
+  "icml-2026-clip-tricks-you-training-free-token-pruning-for-efficient-pixel-grounding-in-large-visio-a5d749a65c": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Pixel grounding requires a vision-language model to locate the image region described by text. Reducing the number of visual tokens can save computation, but the tokens worth keeping depend heavily on the requested object or region. The authors find a counterintuitive pattern in CLIP: tokens inside the referenced region often have low similarity to the corresponding text representation.",
+      "LiteLVLM uses this observation to reverse the usual visual-text similarity ranking when selecting tokens. That reversal helps retain image information covering the requested region. The method also recovers context tokens so the model can distinguish the foreground from the background. It operates during inference without training or fine-tuning.",
+      "Across different token budgets, the authors report improvements of over 5% compared with existing methods. LiteLVLM also retains 90% of the original performance while delivering a 22% speedup and a 2.3-fold memory reduction. These findings show why token selection for precise localization benefits from a task-specific interpretation of similarity, together with enough surrounding context to identify boundaries."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ccae5b03ae6e122050bc2d90e7220c27cd99c6d854b11cbf0e7c00dbf0a7e438",
+    "tldr": "LiteLVLM reverses CLIP similarity rankings and restores context to accelerate pixel grounding without training."
+  },
+  "icml-2026-decision-focused-learning-via-tangent-space-projection-of-prediction-error-526e08ee96": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Decision-focused learning trains predictions according to the decisions they produce. A prediction error matters most when it changes the quality of a downstream optimization result. Computing the corresponding training gradient often requires differentiating through an optimization solver or using a substitute loss, introducing computational expense or a mismatch with the actual decision objective.",
+      "The paper gives a geometric characterization under regularity conditions and locally stable active constraints. The regret gradient equals prediction error projected onto the tangent space of those constraints and scaled by local curvature. In plain terms, the calculation filters out error components that do not affect the decision locally, retaining the directions relevant to improving it.",
+      "PEAR implements this characterization through a reduced linear system over active constraints. It avoids differentiating through solver iterations and avoids additional optimization solves. On linear-programming benchmarks and a real-world quadratic-programming task, it achieves the best decision quality and computational efficiency among the evaluated baselines. The reported gains also persist under constraint shifts, extending the empirical usefulness of the geometric approach."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "501d8baac1d1f06c72943cf7e1caf349edbf4d76e6bbdd234f2157661a239ca7",
+    "tldr": "PEAR uses a conditional geometric formula for regret gradients to train decision-focused predictors efficiently."
+  },
+  "icml-2026-dyllm-efficient-diffusion-llm-inference-via-saliency-based-token-selection-and-partial-a-4903f58207": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Masked diffusion language models can decode multiple tokens in parallel, but they repeatedly revisit the sequence during denoising. Processing every token at every step makes that repetition expensive. The authors observe that most token representations remain stable between steps, while a smaller subset contributes meaningfully to the next update. This creates an opportunity to reuse computation.",
+      "DyLLM identifies these salient tokens by comparing their attention contexts between adjacent denoising steps using cosine similarity. It recomputes attention and feed-forward operations only for the selected tokens. For the others, it reuses cached activations. The framework therefore changes how much work happens at each step without requiring additional model training.",
+      "On reasoning and code-generation benchmarks, DyLLM achieves up to 9.6-fold higher throughput while largely preserving baseline accuracy for LLaDA and Dream. The finding supports using changes over time to allocate inference computation: tokens whose representations are stable can often reuse prior work, allowing more of the decoding effort to concentrate on the parts still changing."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8f5651821d164c9030917e5688ba1532dc9ccf4e9d79c4565f9086d752b567f2",
+    "tldr": "DyLLM accelerates diffusion language models by updating salient tokens and reusing cached computation for stable ones."
+  },
+  "icml-2026-dynamic-relational-priming-improves-transformer-in-multivariate-time-series-980d68616e": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A multivariate time series contains several channels whose relationships can differ substantially. Within one system, different channel pairs may follow different physical laws or temporal patterns. Standard transformer attention uses token representations that stay fixed across the pairwise comparisons within a layer, which may limit how well those representations fit each distinct relationship.",
+      "The paper introduces dynamic relational priming, also called prime attention. It modulates a token’s representation separately for each token pair, allowing the comparison to reflect the particular relationship being considered. This makes the attention mechanism more responsive to heterogeneous dependencies, rather than requiring one representation to serve every pairwise interaction equally well.",
+      "Across the evaluated benchmarks, prime attention consistently improves on standard attention, with forecasting accuracy gains of up to 6.5%. It also achieves comparable performance using up to 40% shorter input sequences. These results support stronger relational modeling and suggest potential data efficiency: adapting representations to individual relationships can help extract useful predictive information from less temporal context."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e3acad457cad7c18c54939bc49dc4e4ac39346084dd5c0f38b4a894139b01986",
+    "tldr": "Prime attention adapts token representations to each channel pair, improving time-series forecasting and reducing required sequence length."
+  },
+  "icml-2026-focusing-where-vision-matters-selective-training-for-large-vision-language-models-via-vi-aaae208ad0": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Vision-language models sometimes answer from patterns in language without sufficiently using the image. Training examples differ in how much visual evidence helps, and even within one answer some tokens depend on the image more than others. This paper introduces a quantitative way to identify those differences so training can emphasize information that actually requires vision.",
+      "Visual Information Gain, or VIG, measures how much visual input reduces prediction uncertainty using perplexity. It can be computed for whole samples and individual tokens. The authors find that it highlights visually grounded content, including colors, spatial relationships, and attributes. This provides a finer view of visual usefulness than treating every part of a training response alike.",
+      "The proposed training scheme selects high-VIG samples and tokens, focusing supervision on visually informative material. The authors report improved visual grounding, reduced language bias, and superior performance with significantly less supervision. The finding connects training efficiency with evidence use: selecting the parts whose prediction benefits from the image can improve how the model learns to rely on visual input."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1ecbe77c4e7717d80085c738de6b0ebeb26c3c95c5820baf2f299b804d943a2b",
+    "tldr": "Visual Information Gain guides selective training toward image-dependent samples and tokens, improving grounding with less supervision."
+  },
+  "icml-2026-from-volume-to-value-preference-aligned-memory-construction-for-on-device-rag-af8be1d14e": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Personal agents running on a device need local context to respond appropriately, but memory limits make storing everything impractical. This paper treats memory construction as a selection problem: which information will help retrieval remain aligned with the user? EPIC centers that selection on preferences, which the authors use as a compact and relatively stable representation of personal context.",
+      "EPIC retains preference-relevant information from raw data and incorporates preferences into retrieval as well. Storage and retrieval therefore work toward the same goal: supplying context that supports responses consistent with the user. The system also supports streaming updates when preferences change, allowing its retained context to adapt over time.",
+      "Across four benchmarks covering conversations, debates, explanations, and recommendations, EPIC reports 2,404-fold lower indexing memory, an 18.79-percentage-point increase in preference-following accuracy, and 32.17-fold lower retrieval latency than the best-performing baseline. On three device platforms, memory remains below 1 MB and query latency ranges from 5.21 to 29.35 milliseconds. These results show substantial benefits from selecting useful personal context before retrieval."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5b3f0cfd02f5c6674f47c1dcc1d54b3a77348a66a42f2758b7300e56a5fa70e8",
+    "tldr": "EPIC builds compact preference-focused memory for on-device retrieval, improving personalization while sharply reducing storage and latency."
+  },
+  "icml-2026-geometry-aware-image-flow-matching-54667733dd": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper investigates whether the geometry used by an image generator matches the structure of image data. The authors observe that semantic information is concentrated mainly in the direction of image representations, while their magnitudes can be approximated by a global average. They report this pattern in both RGB and latent spaces, suggesting that a hypersphere can be a useful modeling approximation.",
+      "They develop two flow-matching methods around that observation. Spherical Optimal Transport Flow Matching uses angular distance, making direction central to its geometry. Spherical Flow Matching constrains the generative dynamics directly to the spherical manifold. Both approaches incorporate the observed directional structure into the generation process.",
+      "Experiments show better performance than the evaluated Euclidean baselines. The findings support a connection between geometry-aware modeling and natural image generation: representing data on a suitable manifold can be useful even in this setting. The spherical interpretation rests on the reported concentration of semantic information in direction and the approximation of magnitudes, rather than an assertion that every image representation has exactly the same norm."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9c8dd6dbf988a9b37b5381512653e57d1116c6798b78f2439a8784811609bb4a",
+    "tldr": "Two spherical flow-matching methods exploit directional structure in image representations and outperform evaluated Euclidean baselines."
+  },
+  "icml-2026-hint-hypergraph-infusion-at-the-structural-layers-improves-table-understanding-a0f586e6bc": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Tables encode meaning through rows, columns, and headers, but language models receive them as serialized text. That conversion can obscure which cells belong together. The authors examine where decoder-only language models represent table structure and find that row and column relationships concentrate in a relatively small set of layers and attention heads.",
+      "HInT uses this finding to choose where structural information enters the model. It builds a hypergraph over table cells and headers, then uses lightweight message passing to derive structural features. Gated fusion combines those features with token hidden states at the layers where table relationships are concentrated. The architecture thus connects explicit table organization with the model’s internal representations.",
+      "Across diverse table reasoning tasks, HInT consistently improves on text-only baselines and earlier graph or hypergraph methods. These results support the importance of placement as well as representation: providing structural features at layers already involved in processing table relationships can help a decoder-only model use them during autoregressive reasoning."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "922c2c23e2544113f182f0dc269250b1c55b35c0c5ac93f950803ed17acfc126",
+    "tldr": "HInT improves table reasoning by injecting hypergraph features into the model layers that concentrate row and column relationships."
+  },
+  "icml-2026-interaction-breaking-adversarial-learning-framework-for-robust-multi-agent-reinforcement-3ca5a688e3": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Cooperative agents depend on their interactions to coordinate, so disturbances can damage performance by breaking those relationships. The paper identifies a gap in robust multi-agent reinforcement learning: previous methods have mainly emphasized value-oriented attacks, leaving interaction structure less directly addressed. Its focus is therefore the fragility of learned cooperation when agents’ observations or actions are perturbed.",
+      "The proposed interaction-breaking adversarial learning framework, IBAL, uses an information-theoretic perspective to construct attacks that impede coordination. These attacks perturb observations and actions, and the framework trains agents to operate reliably under the resulting disruptions. The training challenge explicitly includes damage to the interactions that cooperation depends on.",
+      "Empirically, IBAL improves robustness over existing robust multi-agent reinforcement learning baselines across diverse attack settings. It also delivers stronger performance in scenarios where agents are missing. Together, these findings support treating interaction disruption as a distinct training concern. The reported benefits concern robustness in the evaluated settings, including situations where the available team itself changes."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6e18173d2bbd5fff6f0de551cee6207e5e8e5a0e473b1eddc6891a12e0b8b372",
+    "tldr": "IBAL trains cooperative agents against attacks on their interactions, improving robustness across perturbations and agent-missing scenarios."
+  },
+  "icml-2026-lie-algebraic-acceleration-of-neural-koopman-dynamics-dbea79a52e": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper combines algebraic structure with a faster way to compose predictions over time in neural Koopman dynamics. Its central concern is that a useful model of nonlinear systems should preserve the mathematical structure of its evolution while remaining computationally manageable over long horizons. The proposed approach addresses both the form of individual time segments and their composition.",
+      "The model constrains neural generators to prescribed Lie subalgebras. A neural Magnus expansion then constructs finite-time flows that remain consistent with the corresponding Lie-group composition within each segment. These constraints give the learned evolution a specified algebraic organization, which is preserved when the segment transformations are combined.",
+      "For acceleration, the method uses the associativity of Lie-group composition to build segmentwise propagators through a prefix-scan algorithm. This reduces temporal composition depth from linear to logarithmic. The framework enables accurate long-horizon prediction with improved computational efficiency, according to the abstract. Its contribution is a structured route to scalable Koopman learning in which the algebra also supports more efficient temporal computation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a498c3c3009ccb7094b5c797993f33148df4b356cdd28a1e6d9d0d06b4862082",
+    "tldr": "Lie-structured neural dynamics and prefix-scan composition reduce temporal computation depth from linear to logarithmic."
+  },
+  "icml-2026-littlebit-2-maximizing-the-spectral-energy-gain-in-sub-1-bit-llms-via-latent-geometry-al-830c9011b1": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Extreme language-model compression must preserve useful information with very little storage. The authors identify a spectral advantage: for heavy-tailed spectra, low-rank binary approximations can outperform floating-point approximations restricted to tiny rank. Earlier methods have not fully realized that opportunity, however, and have remained behind leading one-bit approaches.",
+      "The paper attributes this gap to latent geometry misalignment. Standard singular vectors can be highly concentrated, or spiky, which the authors identify as a worst-case geometry for binary quantization. LittleBit-2 combines Internal Latent Rotation with Joint Iterative Quantization to align those latent distributions with the binary hypercube. This geometric preconditioning adds no inference overhead.",
+      "On Llama-2 and Llama-3, LittleBit-2 reports a new state of the art in the approximately one-to-0.1-bits-per-parameter regime, matching the fidelity of leading one-bit baselines. The result connects compression quality to the geometry presented to the quantizer. Realizing the potential of binary low-rank representations requires addressing how the latent factors align with the discrete values available to represent them."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "cc303f0c033bb5bc66dc456c60ecc8bcf7a4c78c90b48be2f4930010e3835906",
+    "tldr": "LittleBit-2 aligns latent geometry with binary quantization to improve extreme LLM compression without inference overhead."
+  },
+  "icml-2026-lookahead-unmasking-elicits-accurate-decoding-in-diffusion-language-models-985759ad24": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Masked diffusion language models generate text by repeatedly filling masked positions, and the order of those choices matters. A locally confident decision can still introduce an early error that affects later decoding. Lookahead Unmasking, or LookUM, uses additional inference computation to compare alternative unmasking orders and guide the model toward more promising generation paths.",
+      "The framework combines a path generator with a verifier. The generator proposes alternatives by sampling from pools of unmasking sets. The verifier measures uncertainty along those proposed paths and uses importance sampling to select final paths. The approach exploits the observation that mistaken unmasking increases uncertainty at the sequence level, without requiring an external reward model.",
+      "Across six benchmarks spanning mathematics, planning, and coding, LookUM consistently improves performance, reaching its peak with only two or three paths. LLaDA with LookUM matches RL-tuned LLaDA 1.5, and applying LookUM to LLaDA 1.5 brings further gains. These results suggest that better inference-time path selection can complement improvements obtained through reinforcement learning."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "dcd9ff9c65ae7b0d9230f8189c73d9e6fd8ec07214d83293c6a135246fa7d934",
+    "tldr": "LookUM improves diffusion-language decoding by comparing a few unmasking paths using sequence uncertainty."
+  },
+  "icml-2026-mec-machine-learning-assisted-generalized-entropy-calibration-for-semi-supervised-mean-e-c0bd485158": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Estimating a population mean can benefit from abundant unlabeled covariates when high-quality labels are expensive. Prediction-powered inference uses a machine-learning predictor to improve statistical efficiency, but model misspecification can weaken those gains. Reusing labels can also distort confidence-interval coverage, making uncertainty estimates less reliable.",
+      "MEC combines cross-fitting with calibration weights. It reweights labeled observations to better match the target population, using a calibration construction based on Bregman projections. This produces robustness to affine transformations of the predictor. The theory also replaces conditions on raw prediction error with weaker conditions on projection error, relaxing the requirements under which valid inference is obtained.",
+      "Under weaker assumptions than existing prediction-powered inference variants, MEC reaches the semiparametric efficiency bound. In simulations and a real-data application, it produces confidence intervals that are tighter than those from CF-PPI and vanilla PPI while maintaining coverage close to the intended level. The contribution joins improved precision with more forgiving theoretical requirements on how the predictor’s errors enter estimation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a6a7f4c3b6f326b1d01e14174c292611adbc57c79a15629642eaa3cd0e148386",
+    "tldr": "MEC uses cross-fitting and calibration weights to improve semi-supervised mean estimation and confidence intervals under weaker assumptions."
+  },
+  "icml-2026-minimax-optimal-strategy-for-delayed-observations-in-online-reinforcement-learning-cfcaf011fb": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies reinforcement learning when an agent learns the current state only after a random delay. The delay complicates decisions because the information available at action time is incomplete. The proposed algorithm combines an augmentation method with an upper-confidence-bound approach, bringing delayed observations into a framework for learning while managing uncertainty.",
+      "For tabular Markov decision processes, the authors bound regret by H times the square root of D_max times S times A times K, up to logarithmic factors. Here H is the horizon, D_max the maximum delay, S and A the numbers of states and actions, and K the number of episodes. A matching lower bound, also up to logarithmic factors, establishes minimax optimality in this setting.",
+      "The analysis places delayed-observation learning inside a broader class of decision processes whose transitions split into a known component and an unknown structured component. The authors establish general results for this class as well. Thus, the work gives both an optimal delayed-observation strategy and a wider analytical framework that may be useful independently."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a8e6948d795d948db47439679f860497608d1c96add11d18ffa8508fff012e11",
+    "tldr": "An augmentation-and-confidence algorithm achieves minimax-optimal regret up to logarithmic factors for tabular reinforcement learning with delayed states."
+  },
+  "icml-2026-on-the-collapse-of-generative-paths-a-criterion-and-correction-for-diffusion-steering-0bc36cd1e7": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Inference-time steering combines pretrained diffusion or flow models to satisfy new requirements without retraining. This paper identifies a mathematical failure in density-ratio compositions: even when the endpoints are valid distributions, an intermediate density can become impossible to normalize. Such Marginal Path Collapse can arise with mismatched noise schedules, negative exponents, or partially overlapping supports.",
+      "The authors provide a sharp sufficient criterion for intermediate path densities to be well-defined. They also introduce Adaptive Path Correction with Exponents, or ACE, extending Feynman–Kac steering to allow exponents that vary over time. Their analysis shows that ACE controls the intermediate distributions’ quantile radius, supplying a theoretical mechanism for the path stabilization seen experimentally.",
+      "In flexible-pose scaffold decoration for drug design, ACE composes de-novo, conformer, and protein-conditioned experts, prevents collapse, and substantially outperforms constant-exponent baselines. It also improves attribute success in compositional image generation. These findings connect mathematical path validity with practical sampling quality across the two evaluated applications, while the criterion remains a sufficient condition rather than a universal necessity."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "af19ba8cb6b288e4204b2f61482ec0f3f6c710cb89c6c3899a733abfcb77eee0",
+    "tldr": "ACE varies composition exponents over time to stabilize diffusion steering, supported by a sufficient path-existence criterion."
+  },
+  "icml-2026-regen-hierarchical-multi-prompt-representation-generation-for-efficient-waveform-diffusi-d6bd23bb0f": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Representation alignment can accelerate diffusion training, but the authors observe that regularizing intermediate diffusion-transformer representations may entangle latents and restrict generative capacity. ReGen addresses this with hierarchical multi-prompt representation generation. Within one diffusion model, it jointly estimates multiple vector fields for representations and data, making representation generation part of the modeling approach.",
+      "The paper also introduces generalized flow matching to improve the generalization of conditional flow matching. Tests on single-stage waveform diffusion models, including neural audio codec and Wave-VAE, show substantially better waveform quality from highly compressed latent representations at 12.5 Hz. This demonstrates the framework’s usefulness when the model must recover audio from a sparse latent sequence.",
+      "ReGenVoice applies the approach to latent-diffusion text-to-speech and achieves strong speech intelligibility and speaker similarity with a small dataset. Using semantic and acoustic latents at 6.25 Hz, it requires one day of training on four GPUs and reports an inference real-time factor of 0.08. The results connect informative compressed representations with efficient training and speech generation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0b46c9a55249a3c8ffcf6321438024384b8ef9effe0fab1bb28d4a2d1906a1de",
+    "tldr": "ReGen jointly models representations and waveforms to improve compressed-latent audio generation and support efficient text-to-speech."
+  },
+  "icml-2026-rethinking-contrastive-learning-for-graph-collaborative-filtering-limitations-and-a-simp-5f14af3ffd": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Graph collaborative filtering makes recommendations using relationships around users and items. This paper examines how its prediction mechanism interacts with contrastive training. By expanding the prediction calculation, the authors show that a user-item score aggregates learnable weights over many pairs drawn from the user’s and item’s multi-hop neighbors. Which pairs receive more weight therefore matters for optimization.",
+      "Empirically, effective recommendation can be achieved by emphasizing a small subset of pairs whose neighbors are structurally similar to the target user and item. The effect also differs across neighbor-pair types. This analysis gives a more specific account of useful training updates than treating all neighboring relationships as equally helpful.",
+      "The authors identify limitations in how Sampled Softmax updates these pair weights and introduce NT-SSM to produce type-aware update dynamics. Across multiple datasets and graph collaborative filtering models, NT-SSM consistently improves performance over Sampled Softmax. The contribution is a revised contrastive objective grounded in the structure of the score calculation and the observed usefulness of particular neighbor pairs."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "aebeec1197f9c6eaf56072b942c7d39e20c9ec97d51957093f2b4b8391d17a56",
+    "tldr": "NT-SSM improves graph recommendations by tailoring contrastive weight updates to different types of useful neighbor pairs."
+  },
+  "icml-2026-rl-sph-learning-to-achieve-feasible-solutions-for-integer-linear-programs-9e55fb45c4": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Integer linear programming requires solutions that satisfy constraints while assigning integer values to designated variables. Finding a feasible solution quickly is an important role of primal heuristics. The paper focuses on a weakness of recent end-to-end learned heuristics: they typically cannot independently produce feasible solutions, limiting their ability to provide a valid starting result.",
+      "RL-SPH uses reinforcement learning to build a start primal heuristic that can generate feasible solutions independently. Its scope includes problems with non-binary integer variables, so the approach is not restricted to integer choices of zero or one. The objective is to obtain valid, high-quality solutions rapidly at the start of optimization.",
+      "In the reported experiments, RL-SPH achieves a 100% feasibility rate and rapidly finds high-quality solutions. Compared with existing start primal heuristics, it reports an average 28.6-fold lower primal gap and a 2.6-fold lower primal integral. These empirical results support both solution quality and progress over time; the observed 100% rate describes the evaluation, rather than a guarantee for every integer linear program."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b71ed9669d3da8470d39560c76e2ce22e1ad209bbdca8b9b02c8a7cc77ad1404",
+    "tldr": "RL-SPH independently generates high-quality feasible integer-program solutions, achieving 100% feasibility in the reported experiments."
+  },
+  "icml-2026-sage-shaping-anchors-for-guided-exploration-in-rlvr-of-llms-037cba5515": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Reinforcement learning with verifiable rewards often improves the chance that a language model succeeds on one attempt more than its success across multiple attempts. That pattern raises questions about whether training expands available reasoning approaches or mainly makes existing ones easier to sample. This paper examines the exploration constraint imposed by reverse-KL regularization, which keeps the policy close to a reference distribution.",
+      "The authors argue that this anchoring can suppress alternative reasoning modes. Simply removing the KL term or switching to forward-KL does not resolve the trade-off: their analysis identifies problems involving reward hacking or probability assigned to off-target regions. SAGE instead reshapes the reverse-KL anchor distribution using a guide function, allowing controlled empirical expansion of the policy’s support.",
+      "Across challenging mathematical reasoning benchmarks, SAGE consistently improves both pass@1 and pass@k. These findings support modifying the reference distribution as a way to balance reliable sampling with broader successful exploration. The reported empirical support expansion offers evidence of improved coverage without requiring the stronger conclusion that every gain demonstrates a wholly new reasoning ability."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3429458e53b76f118aab116194c04e77ad17136819c512cd048ba1eef463071a",
+    "tldr": "SAGE reshapes the reference distribution in reverse-KL regularization to improve both single-attempt and multi-attempt reasoning success."
+  },
+  "icml-2026-stochastic-sparse-attention-for-memory-bound-inference-5b1a764c1c": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Long-context autoregressive decoding becomes limited by memory bandwidth because each new token requires reading cached keys and values. SANTA reduces value-cache access by sampling a small number of positions from the post-softmax attention distribution. It gathers and adds the selected value rows, producing an unbiased estimate of the full value aggregation while avoiding value-stage multiply-accumulates.",
+      "The authors develop stratified and systematic sampling variants to reduce variance and suit GPU execution. On Llama-3.1-8B-Instruct with 32,000-token contexts, S²ANTA matches baseline accuracy and achieves up to a 1.5-fold attention-kernel speedup over FlashInfer and FlashDecoding on an NVIDIA RTX 6000 Ada. Batched long-context generation sees up to a 1.25-fold end-to-end decode-latency speedup.",
+      "A complementary Bernoulli sampling technique uses stochastic ternary queries to reduce key-feature access during score computation. Both methods can complement quantization, low-rank projection, and cache compression or selection. The measured gains show the practical value of reducing cache traffic, while the broader prospect of sparse, multiplier-free, energy-efficient inference is presented as a direction these techniques support."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "325691afe54d8a5a7332a050579deb1525c281714c0cf5804a1a623806a012bc",
+    "tldr": "SANTA samples cached values to estimate attention efficiently, delivering measured kernel and end-to-end decoding speedups."
+  },
+  "icml-2026-toward-understanding-adversarial-distillation-why-robust-teachers-fail-f74282e933": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A more adversarially robust teacher does not always produce a more robust student. This paper explains that dependency through a mismatch between teacher confidence and what the student can represent. The authors identify a consistent subset of training examples, called the Robustly Unlearnable Set, on which confident supervision can push the student toward harmful learning behavior.",
+      "Their theoretical analysis studies feature learning in a two-layer neural network. Within that framework, confident teacher predictions on unlearnable examples force the student to memorize spurious noise, which eventually overwhelms the robust signal and causes robust overfitting. High teacher uncertainty on those examples instead suppresses noise memorization, letting the student generalize using the signal it can learn.",
+      "Synthetic simulations and real-image classification experiments support this account of how teachers interact with unlearnable samples. The authors also find that predictive entropy on those samples strongly indicates student robustness. This offers a teacher-selection guideline that considers the compatibility of supervision with student capacity, alongside the teacher’s own robustness, while keeping the theoretical claims grounded in the analyzed network setting."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1fa242a541d488bfcd30f21b594adc27a7091b25b4317debc199ddd89aff3314",
+    "tldr": "Teacher confidence on examples a student cannot robustly learn can drive noise memorization and robust overfitting."
+  },
+  "icml-2026-towards-efficient-and-expressive-offline-rl-via-flow-anchored-noise-conditioned-q-learni-989b128138": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Expressive flow policies and distributional critics have improved offline reinforcement learning, but both can be computationally expensive. A flow policy typically performs iterative sampling to produce an action, while a distributional critic uses multiple samples, such as quantiles, to estimate value. FAN targets these repeated computations while seeking to retain the performance benefits of the underlying methods.",
+      "Flow-Anchored Noise-conditioned Q-Learning introduces behavior regularization that uses a single flow-policy iteration. Its distributional critic requires only one Gaussian noise sample. These changes reduce repeated work in action generation and value estimation, addressing the two computational bottlenecks together within one offline learning algorithm.",
+      "The paper provides convergence analysis and performance bounds supporting the simplifications and their performance benefits. In robotic manipulation and locomotion experiments, FAN achieves state-of-the-art performance while substantially reducing training and inference runtimes. The findings indicate that the expensive sampling procedures used by these expressive components can be simplified effectively in the proposed framework, with empirical benefits for both task success and computational cost."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "64cea7bba0b16b82963ed79bb1fb199d9c76c99267ba9f6a341c1915921cc17f",
+    "tldr": "FAN simplifies flow-policy and distributional-critic computation to improve offline reinforcement learning performance and runtime."
+  },
+  "icml-2026-variable-length-tokenization-via-learnable-global-merging-for-diffusion-transformers-380e36755e": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Variable-length image tokenization lets a diffusion model adjust computation by changing how many latent tokens it processes. Conventional approaches shorten an ordered sequence by truncating it, but this can make token meaning depend on position and shift the latent distribution across lengths. Those changes make it harder for one diffusion model to work effectively at several token budgets.",
+      "The paper proposes shortening representations by merging tokens. Encouraging similar tokens to merge enables direct alignment across lengths when the diffusion transformer follows the merging pattern. Because a data-dependent pattern would be unavailable during generation, the authors introduce a learned global merging scheme that does not depend on the individual input.",
+      "On ImageNet generation at 256-by-256 resolution, the tokenizer and diffusion transformer achieve a better gFID–compute trade-off than prior variable-length tokenizers. The result supports maintaining representational consistency as token counts change. Merging provides a way to vary compression while preserving a usable relationship between longer and shorter representations, and the global pattern makes that relationship accessible during generation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b7668d7916126c91e142f1b81974c60ce2ee7052269336ac197daf2b84650264",
+    "tldr": "Learnable global token merging aligns image representations across lengths and improves the generation quality–compute trade-off."
+  }
+}

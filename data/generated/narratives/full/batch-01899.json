@@ -1,0 +1,377 @@
+{
+  "icml-2026-a-stronger-benchmark-for-online-bilateral-trade-from-fixed-prices-to-distributions-3cde898e22": {
+    "backgroundConcepts": [
+      "topic-155-dynamic-knapsack-optimization-towards-efficient-"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Online bilateral trade asks a learning system to arrange repeated exchanges between buyers and sellers while increasing the welfare created by trade. The system must avoid subsidizing the market, but that requirement can be enforced separately for every transaction or across the entire sequence. The paper studies the stronger performance benchmark made possible by the second interpretation.",
+      "Balancing the budget across time permits a distribution over pairs of prices, rather than restricting attention to a single fixed price. Earlier results show that this flexibility can double the gain from trade. Consequently, algorithms designed for the per-transaction constraint can accumulate regret proportional to time when compared with this stronger benchmark.",
+      "The paper provides an algorithm with sublinear regret against the global-budget benchmark in stochastic environments using only one-bit feedback. When the joint valuation distribution has bounded density, its regret grows as T to the three-quarters power, apart from logarithmic factors. The result shows that the two-dimensional price-distribution problem need not have a worse learning rate than the one-dimensional fixed-price problem."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5d7ce6a2e4c0b10cb8d10c6f8ed63d67b8e2b4b8425d3cddf1907c39e9c37364",
+    "tldr": "An algorithm learns globally budget-balanced trading strategies with sublinear regret under bounded-density stochastic valuations and one-bit feedback."
+  },
+  "icml-2026-asyncspade-efficient-test-time-scaling-with-asynchronous-sparse-decoding-8e9f589103": {
+    "backgroundConcepts": [
+      "topic-012-quest-query-aware-sparsity-for-efficient-long-co"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Long reasoning sequences can improve language-model answers, but they also enlarge the cache of attention keys and values. Sparse decoding reduces how much of that cache the model reads. Selecting the relevant entries can itself become expensive, especially with many concurrent requests, because selection normally waits for information from the current decoding step.",
+      "AsyncSpade uses the observation that a short window of recent attention queries can approximate the query needed next. A lightweight temporal prediction module supplies that estimate without additional training. The system then separates cache selection from the main decoding loop, allowing token-level selection to run alongside forward computation instead of delaying it.",
+      "On an A100 serving setup, the method reduces time per output token by over 20% against Quest and at least 50% against full attention for Qwen3-8B and Qwen3-32B, while matching or exceeding their tested reasoning accuracy. Within a particular workload range, cache operations overlap completely with inference, reaching the paper’s theoretical optimum for token latency. That optimum is explicitly workload-dependent."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2fe0f5b68a50677271303d679ef46db4640ecd8655fa8dc156fa7d394245a3db",
+    "tldr": "AsyncSpade predicts upcoming attention queries so cache selection can overlap with decoding, reducing reasoning latency while preserving tested accuracy."
+  },
+  "icml-2026-ateliereval-agentic-evaluation-of-humans-llms-as-text-to-image-prompters-35ebced8e1": {
+    "backgroundConcepts": [
+      "topic-112-knowledge-evaluating-conversational-agents-over-"
+    ],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Image-generation results depend partly on whoever translates a user’s intention into a prompt. Most benchmarks hold that prompt fixed and evaluate only the image generator, leaving this upstream skill unmeasured. AtelierEval instead evaluates the prompting proficiency of both people and multimodal language models through a shared collection of tasks.",
+      "The benchmark contains 360 expert-crafted tasks organized into three categories and grounded in a taxonomy of practical challenges. Separate interfaces let humans and models participate. For scalable scoring, the authors introduce AtelierJudge, an evaluator that uses skills and memory to assess prompt–image pairs along both subjective and objective dimensions.",
+      "AtelierJudge reaches a Spearman correlation of 0.79 with expert judgments, which the authors describe as approaching human performance. Experiments compare eight multimodal models with 48 people across four image-generation backends. The reported advantage of mimicry over planning motivates future prompters that incorporate images. The benchmark therefore examines how effectively a prompter converts intent into useful instructions, alongside the quality of the resulting image."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "677906c246fd51b77bc6ca31ebb5b3298ff2d2ff720e1eb4ea198d9bedf225e0",
+    "tldr": "AtelierEval measures human and model prompting skill, using an automated judge whose scores closely track expert assessments."
+  },
+  "icml-2026-attention-sparsity-is-input-stable-training-free-sparse-attention-for-video-generation-v-93e6640881": {
+    "backgroundConcepts": [
+      "topic-027-4dgcpro-efficient-hierarchical-4d-gaussian-compr"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Video diffusion transformers spend substantial inference computation on dense attention across space and time. Sparse attention can reduce this expense, but deciding what to remove matters. The paper identifies two weaknesses in existing training-free methods: treating layers too similarly and grouping queries and keys without adequately accounting for their interaction.",
+      "The central finding is that each layer’s attention sparsity changes relatively little across inputs. SVOO uses this stability to profile layers offline and assign different pruning levels according to their sensitivity. During generation, a bidirectional co-clustering procedure organizes queries and keys together, producing blocks on which sparse attention can operate.",
+      "This division lets the system determine layer-level pruning in advance while still adapting attention blocks to the current input. Across seven video-generation models, the authors report a better balance between quality and speed than existing methods. On Wan2.1, reported results reach up to 1.93 times speedup and PSNR up to 29 dB. These are reported maxima, rather than a uniform improvement promised for every model or input."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e42598109509667ce95a78599c5ac944a7ac937c73ab8fbf54b0c242847d8b0d",
+    "tldr": "SVOO combines offline layer-specific pruning profiles with online query–key co-clustering to accelerate video generation without additional training."
+  },
+  "icml-2026-boosting-cvar-policy-optimization-with-quantile-gradients-417fc24b70": {
+    "backgroundConcepts": [
+      "topic-101-characterizing-the-gap-between-actor-critic-and-"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Risk-averse reinforcement learning evaluates a policy partly through its poor outcomes, rather than relying only on average performance. Conditional Value-at-Risk, or CVaR, focuses on the tail of the outcome distribution. Standard policy-gradient optimization of this quantity can waste samples because many collected trajectories contribute little to the tail-focused update.",
+      "The paper augments optimization with an expected quantile term. Quantiles describe positions within an outcome distribution, and their optimization admits a dynamic programming formulation that can use all sampled data. The connection to the original goal is that CVaR equals an expectation of quantiles over the relevant tail, so the authors state that the underlying CVaR objective is preserved.",
+      "Experiments use domains where risk-averse behavior can be verified. Within the class of Markovian policies, the proposed algorithm substantially improves on CVaR policy gradients and consistently exceeds the other evaluated methods. The contribution is a way to extract more learning value from trajectories while retaining the intended emphasis on adverse outcomes, rather than requiring risk aversion to be traded away for sample efficiency."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2733679f3dd5689880469b57246d6a6b237aa5304ca844003c35d2a587098533",
+    "tldr": "Quantile-based updates help CVaR policy optimization use all sampled trajectories while preserving its risk-averse objective."
+  },
+  "icml-2026-collie-guiding-skill-discovery-in-semantically-coherent-latent-space-0a1dabb06a": {
+    "backgroundConcepts": [
+      "topic-087-reinforcement-learning-with-prototypical-represe"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Learning behaviors without a reward function can produce a diverse collection of skills, but diversity alone does not ensure usefulness or safety. Human guidance can focus exploration on meaningful behaviors. Existing approaches often need a separately trained guidance model, predefined rules, or demonstrations, which can be awkward when people provide only occasional feedback during learning.",
+      "COLLIE uses abundant unsupervised data to build a skill representation with coherent semantic structure. This structure makes sparse human feedback useful for directing skill discovery. It also supports constructing guidance signals without training an additional model beyond the skill-learning process itself, reducing the extra machinery needed to incorporate human intent.",
+      "The authors provide theoretical justification for this training-free guidance and evaluate it on tasks using both state information and pixels. In those experiments, COLLIE learns varied skills aligned with human preferences, avoids hazardous behaviors, and improves downstream performance with little feedback. The findings connect the organization of the learned skill space to how effectively a small amount of guidance can influence exploration."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f14a6365aacb332f94f1e3c94d6d1c5cc49cf11932a293d4f37e4dd046af66b9",
+    "tldr": "COLLIE organizes learned skills so sparse human feedback can guide useful, safer exploration without a separately trained guidance model."
+  },
+  "icml-2026-d-2-o-a-dual-debiasing-operator-for-training-free-test-time-adaptation-of-visionlanguage-493a7124d1": {
+    "backgroundConcepts": [
+      "topic-029-delta-mathrm-energy-optimizing-energy-change-dur"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Vision–language classifiers can adapt during inference without retraining, yet these methods may deteriorate when image style or environment changes substantially. The paper separates two causes. Style can dominate feature similarity and retrieve misleading evidence, while environment-dependent shifts in model scores can distort the quantities used as priors or to route decisions.",
+      "D²O addresses both through three outputs: a content feature for semantic retrieval, a style-aware coordinate for tracking bias, and corrected classification scores. These outputs can be inserted into retrieval-based adapters and closed-form Gaussian adapters. The framework supports both online adaptation and transductive settings, making the correction usable within multiple existing adaptation pipelines.",
+      "The theoretical analysis connects errors in identifying nuisance directions and estimating score shifts to bounded changes in pairwise decision scores. It then gives a margin-based condition under which the predicted label remains unchanged. This is a conditional guarantee. Experiments show the clearest improvements when shifts are dominated by style or environment, together with broader gains in other evaluated settings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c1ae79b40a1afbc848f357fb3be89498a549e54e4e3ba4f18fc3b6a646100083",
+    "tldr": "D²O corrects style-confounded retrieval and environment-biased scores to improve training-free adaptation of vision–language classifiers."
+  },
+  "icml-2026-diva-harnessing-the-representation-divergence-in-unified-multimodal-models-for-mutual-re-7826bcc709": {
+    "backgroundConcepts": [
+      "topic-121-pi-tuning-transferring-multimodal-foundation-mod"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A unified multimodal model may use one backbone for both understanding images and generating them, but these tasks reward different representations. Generation benefits from retaining fine visual details needed for reconstruction. Understanding favors features that distinguish meaning while ignoring irrelevant variation. The paper argues that optimizing both objectives together can make them interfere.",
+      "DIVA begins by analyzing this interference and identifying complementary structure inside the model’s representations. Its post-training framework separates visual information into shared components and components unique to each task. Two complementary information flows support transfer between understanding and generation, while mutual information estimation helps protect task-specific information from interference across those flows.",
+      "The purpose of this separation is to preserve the differences that each task needs while allowing useful information to pass between them. The authors report consistent improvements in both branches, with gains of 7.82% for visual understanding and 8.46% for generation. These findings support the approach of explicitly organizing representation differences as part of joint post-training, rather than assuming a shared backbone will automatically make the objectives mutually beneficial."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ea427a2957f37c3735730876aa2f38e95a22ab68b4cd815b2374106d80f25990",
+    "tldr": "DIVA separates shared and task-specific visual information to improve both understanding and generation in unified multimodal models."
+  },
+  "icml-2026-ecsel-explainable-classification-via-signomial-equation-learning-269b862f8b": {
+    "backgroundConcepts": [
+      "topic-078-mathcal-m-4-a-unified-xai-benchmark-for-faithful"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "ECSEL builds classifiers as explicit mathematical equations, so the predictive rule itself also provides an explanation. Its starting point is the observation that many symbolic regression benchmarks have compact signomial structure. The method learns expressions of that form directly, aiming to combine useful predictive accuracy with a representation people can inspect.",
+      "On symbolic regression benchmarks, ECSEL recovers more of the target equations than competing methods while using substantially less computation. The authors use that efficiency to support classification with accuracy competitive with established machine-learning models. They also establish desirable properties concerning overall feature behavior, analysis of decision boundaries, and attribution of individual predictions to features.",
+      "Experiments include benchmark datasets and case studies in e-commerce and fraud detection. The learned equations reveal dataset biases, support reasoning about changes that could alter a decision, and provide actionable insights. The significance is that interpretation can be grounded in the actual formula used to classify an input. The reported accuracy remains competitive, while the equation exposes aspects of the decision process for direct analysis."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "25f0769ed1587ed51fab3939818b5647a6854326c83ce9592b1445ae9a96caa6",
+    "tldr": "ECSEL learns compact mathematical classifiers that offer competitive accuracy and directly inspectable explanations."
+  },
+  "icml-2026-epicoco-de-novo-epitope-generation-via-mhc-context-co-modeling-and-contrastive-affinity--8827da2691": {
+    "backgroundConcepts": [
+      "topic-249-be-cautious-bio-foundation-models-are-not-yet-ro"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "EpiCoCo addresses the generation of new epitopes tailored to bind particular MHC proteins. The paper identifies two shortcomings in existing approaches: insufficient integration of the MHC context and inadequate use of examples with poor binding. Both matter because generation needs to account for the target protein while distinguishing promising candidates from weak ones.",
+      "The framework models the peptide–MHC complex jointly as a dynamic system whose components can adapt together, using a joint E(3) graph. It also introduces Contrastive Affinity Guidance during generation. This mechanism compares gradients from learned high-affinity and low-affinity distributions, steering candidates toward favorable regions while pushing them away from patterns associated with poor binding.",
+      "Evaluations report a mean binding free energy of −45.20 REU, described as a 23% improvement over the state of the art, while maintaining high structural plausibility. The authors interpret the results as validating the importance of joint context modeling and guidance informed by negative examples. The stated evidence concerns generated candidates’ binding-energy and structural evaluations, which are the concrete outcomes reported for the framework."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0f9dee428d1312cecc9b6cd38c92f8656806e2afd5961dfbccf9712ada2b5a57",
+    "tldr": "EpiCoCo jointly models epitopes and MHC context, using both favorable and unfavorable affinity signals to improve generated candidates."
+  },
+  "icml-2026-gipo-gaussian-importance-sampling-policy-optimization-09ba2ea8d3": {
+    "backgroundConcepts": [
+      "topic-209-a-deep-bayesian-policy-reuse-approach-against-no"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Reinforcement learning can improve multimodal agents beyond supervised imitation, but interaction data may be scarce and become outdated as the policy changes. Reusing these data requires accounting for differences between the policy that collected them and the current policy. Extreme importance ratios make that correction difficult and can destabilize learning.",
+      "GIPO changes how those ratios influence the optimization objective. Instead of hard clipping, it applies a Gaussian weight based on the logarithm of the ratio. This smoothly reduces the effect of extreme values while preserving nonzero gradients. Theoretical analysis identifies an implicit, adjustable constraint on update size, and concentration bounds address robustness and stability when estimates come from finite samples.",
+      "Experiments cover replay buffers ranging from nearly current-policy data to highly stale experience. Among the evaluated clipping-based baselines, GIPO achieves state-of-the-art performance while improving sample efficiency, training stability, and the bias–variance balance. The findings support softer control of importance weights as a way to keep learning from older interactions without letting unusually large corrections dominate updates."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "48b1ce35c638cc69cd814bcf477cafa99a7c7d904983db94ff0d0589e62aa6e6",
+    "tldr": "GIPO softly suppresses extreme importance ratios with Gaussian weights, improving the stability and efficiency of learning from reused interaction data."
+  },
+  "icml-2026-graph-of-states-solving-abductive-tasks-with-large-language-models-b052d060a2": {
+    "backgroundConcepts": [
+      "topic-100-3-in-1-2d-rotary-adaptation-for-efficient-finetu"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Abductive reasoning seeks explanations for observed evidence. The paper argues that language-model reasoning frameworks designed around static deduction handle this poorly because they do not explicitly organize or control the evolving reasoning state. The resulting failure patterns include invented evidence, loss of context, unsuccessful backtracking, and stopping before the task is resolved.",
+      "Graph of States gives collaborating agents a structured representation of their beliefs. A causal graph records logical dependencies, while a state machine specifies which transitions in the reasoning process are valid. The framework continually aligns the agents’ focus with these symbolic constraints, turning exploration into a more directed search through possible explanations.",
+      "Evaluations on two real-world datasets show significant improvements over all tested baselines. The contribution lies in combining language-model exploration with explicit machinery for tracking dependencies and governing progress. In this design, reasoning state becomes something the system can control directly, rather than leaving the entire process implicit in generated text. The empirical results support this structured approach for the complex abductive tasks evaluated."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "adc04ca315d39a2ca44a17deeb712da4b8d6dc457ef21032a1375365c46a2cd8",
+    "tldr": "Graph of States uses causal dependencies and explicit state transitions to guide multi-agent language models through abductive reasoning."
+  },
+  "icml-2026-graph-r1-towards-agentic-graphrag-framework-via-end-to-end-reinforcement-learning-327be0b46c": {
+    "backgroundConcepts": [
+      "topic-112-knowledge-evaluating-conversational-agents-over-"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Retrieval-augmented generation supplies language models with external knowledge to reduce hallucination. Retrieving isolated text chunks can miss relationships among facts, so GraphRAG represents knowledge through connected entities and relations. The paper targets remaining difficulties: costly graph construction, retrieval performed only once, and heavy dependence on long-context reasoning and carefully designed prompts.",
+      "Graph-R1 combines lightweight knowledge hypergraph construction with an agent that retrieves information over multiple turns. Retrieval becomes an interaction between the agent and its environment, rather than a fixed preliminary step. An end-to-end reinforcement-learning reward mechanism optimizes the overall agent process, connecting its retrieval behavior to the quality of the task outcome.",
+      "On standard retrieval-augmented generation datasets, Graph-R1 exceeds traditional GraphRAG and reinforcement-learning-enhanced RAG methods in reasoning accuracy, retrieval efficiency, and generation quality. These results support learning a sequence of retrieval actions over structured knowledge. The approach brings construction, interactive information gathering, and answer production into one framework, addressing several sources of cost and rigidity in existing graph-based retrieval systems."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f6c62621e8bb2c78a82fcff684b942d79d387e67b38020be82469dbebdc2303c",
+    "tldr": "Graph-R1 learns multi-turn retrieval over a lightweight knowledge hypergraph, improving accuracy, efficiency, and answer quality on tested RAG datasets."
+  },
+  "icml-2026-instance-specific-approximation-ratios-for-correlation-clustering-and-max-cut-f9be8ee504": {
+    "backgroundConcepts": [
+      "topic-239-a-divide-and-conquer-framework-for-distributed-g"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Practical optimization heuristics often perform better than pessimistic worst-case theory suggests, but measuring how close their answers are to optimal can be difficult. This paper develops efficiently computable bounds for correlation clustering. Those bounds produce certificates of solution quality for the particular graph being solved, yielding instance-specific approximation ratios.",
+      "The main technical tool approximates a linear-programming relaxation of a related triangle-covering problem. It uses multiplicative weights updates and runs in near-linear time on sparse graphs. The reported implementation processes graphs with millions of edges in a few minutes, making the certification approach relevant to problems large enough that exact optimization is difficult.",
+      "Across seven real-world datasets, the resulting bounds certify average approximation ratios of 0.94 for the agreement version of correlation clustering and 1.97 for the disagreement version. The authors also obtain similar results for max-cut. The contribution is an assessment of existing heuristics’ output quality: it provides evidence about the gap to optimum on observed instances, beyond what a worst-case guarantee alone can establish."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "15a4015835acf963da96b0476113ef1bee8a734accf28ea8b9515a59a0f2e9bc",
+    "tldr": "Efficient optimization bounds provide instance-specific certificates for the quality of correlation-clustering and max-cut heuristics."
+  },
+  "icml-2026-lassoflexnet-a-flexible-neural-architecture-for-tabular-data-4679b26df1": {
+    "backgroundConcepts": [
+      "topic-069-pscaling-small-models-principled-warm-starts-and"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Neural networks often trail tree-based models on tabular data. LassoFlexNet addresses this by building in properties suited to tables: resistance to irrelevant inputs, respect for individual feature axes, localized irregular behavior, differences among feature types, and stable training. These design choices make the architecture sensitive to how tabular variables are organized.",
+      "Per-feature embeddings assess each input’s linear and nonlinear contribution, while a tied group-lasso mechanism selects relevant variables sparsely. These components create optimization difficulties for standard proximal methods. The authors therefore analyze hierarchical proximal dynamics and develop a sequential adaptive-gradient optimizer with exponential moving averages to stabilize training in practice.",
+      "Across 52 datasets from three benchmarks, LassoFlexNet matches or exceeds leading tree-based models, with relative gains reaching 10%, while retaining lasso-like interpretability. Ablations support the design choices, and theoretical results establish enhanced expressivity and the structural removal of unwanted rotational invariance. Together, the results connect competitive tabular performance to an architecture that treats individual variables as meaningful and can explicitly suppress irrelevant ones."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b0edafac6e84785818d7cd90a33ce732dd836950b7ef15d84852d3f9d2d1fc59",
+    "tldr": "LassoFlexNet combines per-feature modeling, sparse variable selection, and specialized optimization to achieve competitive tabular prediction with interpretable feature selection."
+  },
+  "icml-2026-learning-a-generative-meta-model-of-llm-activations-96af05c66f": {
+    "backgroundConcepts": [
+      "topic-109-how-do-language-models-track-state"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Methods for interpreting neural activations often assume a particular structure, as in principal component analysis or sparse autoencoders. This paper explores learning the distribution of internal states with a generative model instead. The authors train diffusion models on one billion residual-stream activations, creating meta-models of another network’s internal activity.",
+      "The learned distribution serves as a prior for interventions that steer the underlying language model. Applying this prior improves fluency, and the improvements increase as diffusion loss falls. The authors also find that loss decreases smoothly with compute and reliably predicts downstream usefulness, connecting the meta-model’s training progress to the quality of its interventions.",
+      "A second finding concerns interpretability inside the meta-model itself. As loss decreases, individual neurons increasingly isolate concepts, with corresponding improvements in sparse probing scores. Together, these results suggest that generative modeling of activations could provide a scalable route to interpretation and more faithful interventions. The claim is a promising direction supported by the observed scaling behavior, rather than a complete account of the original model’s computation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4b70f825ef344c8c3be1399c0047f0df935d638349ff1beb03dfe6a02dbd2835",
+    "tldr": "Diffusion models trained on LLM activations learn useful priors for fluent steering and increasingly isolate concepts as training loss improves."
+  },
+  "icml-2026-little-by-little-continual-learning-via-incremental-mixture-of-rank-1-associative-memory-1cbda25e9d": {
+    "backgroundConcepts": [
+      "topic-083-online-continual-learning-from-imbalanced-data"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Continual learning asks a pretrained model to acquire new knowledge while retaining what it already knows. Adding separate low-rank experts and freezing earlier ones can still cause forgetting. The paper attributes part of this problem to experts that are too coarse: they store overlapping information, interfere with one another, and become increasingly difficult to route inputs among.",
+      "MoRAM replaces these larger experts with reusable rank-one adapters viewed as atomic associative memories. Each atom has a key–value interpretation, and its own key determines how relevant it is to the current input. This self-activation removes the need for an explicit mixture-of-experts router. Inference becomes retrieval and recall from an expanding collection of memory atoms.",
+      "Experiments on CLIP and language models show significant improvements over state-of-the-art continual-learning methods, including less forgetting, stronger generalization, and a better balance between acquiring knowledge and preserving it. The findings support using finer memory units to organize incremental learning. They also show why freezing old parameters alone may leave important interference and routing problems unresolved."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8aa353a8afec10660d1d6eb5c792c24089986d4a07db7f971cc9b8dc64201eee",
+    "tldr": "MoRAM incrementally adds self-activating rank-one memory experts to improve continual learning while reducing forgetting."
+  },
+  "icml-2026-model-fusion-via-retrofitting-181d28c5de": {
+    "backgroundConcepts": [
+      "topic-110-a-comparative-analysis-and-study-of-multiview-cn"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Independently trained networks can encode related capabilities in differently arranged internal representations. Random initialization, neuron permutations, and different training data complicate combining them into one model. This paper approaches fusion as a representation-matching problem, with particular attention to zero-shot settings and parent models trained on differently distributed data.",
+      "The proposed algorithms group intermediate neurons from the parent networks into target representations. Corresponding subnetworks in the fused model are then trained to approximate those targets. Neuron attribution scores influence the alignment, giving greater emphasis to salient features. Although the broader goal is fusion without retraining entire parent models, the described retrofitting procedure does include training the fused subnetworks.",
+      "The method applies to architectures that can be organized as a directed acyclic graph of levels, and experiments validate it on VGGs, ResNets, and vision transformers. Across standard benchmarks, it consistently improves on existing fusion methods, with the largest gains in zero-shot and non-IID settings. The results support feature-aware alignment as a practical response to representational differences among independently trained models."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "be8708d8ed682906f6c8a7f59d9f78ba49548658a7891c38ea7ebcf1f52f3e45",
+    "tldr": "Retrofitting fuses networks by aligning salient neuron representations and training fused subnetworks to reproduce the resulting targets."
+  },
+  "icml-2026-physically-guided-data-space-rectified-flow-for-precipitation-nowcasting-99a0e6ca3e": {
+    "backgroundConcepts": [
+      "topic-066-f-trajectory-balance-a-loss-family-for-tuning-gf"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Longer-horizon precipitation forecasts must preserve detailed echo shapes while moving weather systems coherently. Rectified Flow can generate detailed future sequences, but numerical integration accumulates errors in the predicted velocity field. The paper identifies this accumulation as a source of drift away from plausible sequences and distortion of echo morphology at later forecast times.",
+      "PDRF changes the model’s prediction target to the clean future sequence in data space. That prediction analytically determines a coupled vector field with an implicit restoring effect, helping suppress drift. The method also uses a soft Semi-Lagrangian teacher based on an advection prior to encourage physically coherent large-scale transport.",
+      "The physical guidance remains soft so the network can learn local growth, decay, and deformation from observations. Across four public benchmarks, the authors report consistent improvements in event-based forecasting skill and better preservation of intense-echo shapes over long horizons. The approach therefore combines a generative parameterization intended to resist accumulated error with transport guidance that still leaves room for locally evolving precipitation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "da43202013ed675a0f1747138d6c15b8b2542ebf357fd0ebd16ae3045ebc9e6b",
+    "tldr": "PDRF predicts clean future precipitation sequences and adds soft transport guidance to reduce drift and preserve intense-echo structure."
+  },
+  "icml-2026-ratio-variance-regularized-policy-optimization-e3f935a573": {
+    "backgroundConcepts": [
+      "topic-052-a-differential-and-pointwise-control-approach-to"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Policy optimization needs to control how far each update moves a reinforcement-learning agent. Hard clipping can discard useful learning signals when a high-return discovery also differs substantially from the previous policy. This paper proposes controlling the variance of policy probability ratios, giving a principled local approximation to a trust-region constraint.",
+      "R²VPO implements this constraint through primal–dual optimization. Its regularization acts as a soft brake across the ratio distribution, preserving gradient information that binary clipping can remove. The same mechanism down-weights outdated off-policy experience and allows that experience to be reused, connecting update stability with improved use of available data.",
+      "Evaluations span seven language-model scales, both fast and slow reasoning paradigms, and ten robotic control tasks. The method improves mathematical reasoning and sample efficiency, with particularly pronounced reasoning gains in smaller models. It also consistently exceeds PPO baselines in the evaluated continuous-control settings, especially sparse-reward and dynamic environments. These findings support ratio-variance control across both language and physical-control tasks, while the theoretical trust-region connection is explicitly local."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6757b361c7e4feaea7818586c96d66b406f70d4a438e8d70c068610262cd349a",
+    "tldr": "R²VPO controls policy-ratio variance to preserve useful updates, reuse stale data, and improve reasoning and robotic-control learning."
+  },
+  "icml-2026-regret-minimization-with-a-crowd-of-awakening-experts-c7f481befb": {
+    "backgroundConcepts": [
+      "topic-171-a-bandit-learning-algorithm-and-applications-to-"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The Awakening Crowd of Experts problem studies sequential decisions when a new expert arrives every round and remains available thereafter. The growing pool creates a difficult comparison problem: the learner must compete while its options continually expand. The paper asks whether this particular arrival structure permits better regret guarantees than general sleeping-expert settings.",
+      "In the stochastic case, an algorithm using pessimism under uncertainty achieves regret of order T to the two-thirds power, apart from logarithmic factors. The authors also characterize how regret depends on the stability of an optimal strategy. Matching lower bounds accompany both results, showing that the corresponding guarantees capture fundamental difficulty.",
+      "The adversarial setting is harder. A lower bound rules out sublinear alpha-regret with a constant competitive ratio. The proposed algorithm instead manages the trade-off between that ratio and regret, nearly matching the lower bound. When an optimal strategy earns reward linear in time, a corollary gives a competitive ratio growing roughly as log log T, up to suppressed logarithmic factors. This last guarantee depends on the stated reward-growth condition."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f6c6113eefb38c187c561b623eeee1dec002f79646307ba7ae3c1e7fee4a153e",
+    "tldr": "Learning with continually arriving experts permits sublinear stochastic regret, but adversarial settings impose a sharper trade-off between regret and competitiveness."
+  },
+  "icml-2026-targate-target-aware-data-selection-via-token-attenuation-gates-47880368a1": {
+    "backgroundConcepts": [
+      "topic-182-indirectly-parameterized-concrete-autoencoders"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Targeted instruction tuning requires finding useful examples in a large, mixed candidate dataset using a small reference set that represents the desired capability. Noise makes that selection difficult. TarGATE uses the model’s existing understanding of data to learn which candidate examples align with the target, rather than treating all available instructions as equally valuable.",
+      "The method introduces token-level gates that scale feed-forward-network outputs using an Information Retention Ratio. Averaging these ratios across an example yields its selection score. Joint optimization on the reference set and a subset of candidate data teaches the gates to retain more information for reference-aligned examples and suppress lower-quality samples.",
+      "Experiments in noisy and real-world scenarios show improvements over related selection baselines, along with better computational efficiency and strong transfer across models. In particular, a smaller selector can curate useful tuning data for a larger foundation model. The findings make the learned gates useful beyond modifying internal computation: their retention behavior becomes a target-aware signal for deciding which examples deserve inclusion in training."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9d22364927bfc0bc2584e2328329d48556520be76898281e1a62de5c1d102368",
+    "tldr": "TarGATE learns token-retention scores that identify target-relevant instruction data and transfer from smaller selectors to larger models."
+  },
+  "icml-2026-tdm-r1-reinforcing-few-step-diffusion-models-with-non-differentiable-reward-c369aa0b63": {
+    "backgroundConcepts": [
+      "topic-064-psi-sampler-initial-particle-sampling-for-smc-ba"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Few-step image generators reduce generation cost, but reinforcement-learning methods for them often require rewards through which gradients can be computed. This excludes useful signals such as binary human preferences or object counts. TDM-R1 addresses how to improve these generators when the original reward does not support direct backpropagation.",
+      "Built on Trajectory Distribution Matching, the method separates learning a surrogate reward from learning the generator. It also develops ways to obtain reward signals at individual steps along TDM’s deterministic generation trajectory. Together, these components provide a post-training procedure that can incorporate generic rewards while working with one-step and few-step generation.",
+      "Experiments cover text rendering, visual quality, and preference alignment, using text-to-image models ranging from 0.6 billion to 6 billion parameters. The authors report significant capability improvements and state-of-the-art performance on both in-domain and out-of-domain metrics. The contribution is a broader route for applying feedback to inexpensive generators, making reward differentiability less restrictive through a separately learned surrogate and step-level training signals."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9b9c239f63cc8cc2a095f25bbc4a1a7994aed619c582ab57a706cf255a552307",
+    "tldr": "TDM-R1 trains one-step and few-step image generators with non-differentiable feedback through surrogate rewards and step-level learning signals."
+  },
+  "icml-2026-vision-language-action-pretraining-from-large-scale-human-videos-ba6b716c47": {
+    "backgroundConcepts": [
+      "topic-131-textit-himacon-discovering-hierarchical-manipula"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Vision-language-action models need data that captures dexterous manipulation, but synthetic examples can differ from physical reality and teleoperated demonstrations are limited. This paper uses human hands as a manipulator template, drawing on the scale and variety of human manipulation videos available on the web to support action pretraining.",
+      "The proposed physical instruction tuning combines video-based pretraining, perspective spatial alignment into a shared physical space, and later adaptation in physical environments. A part-level motion tokenizer represents precise hand trajectories and achieves millimeter-level reconstruction accuracy. A curation pipeline brings heterogeneous sources together into millions of motion-based instructional examples.",
+      "The model shows superior hand-motion generation and instruction following in the reported experiments, with favorable scaling as model and dataset sizes increase. The authors also demonstrate promising robotic dexterous-manipulation capabilities. These results support human video as a scalable source of motion knowledge and provide evidence toward transferring it across human and robot embodiments. The millimeter-level result specifically concerns trajectory reconstruction, while the robotics claim is framed as promising capability."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9b40c7135064ac7c50fc95119e5462477f2d3f9e6e5f5c3518e40568cb7028a3",
+    "tldr": "Large-scale human manipulation videos support precise motion pretraining, improved instruction following, and promising transfer to dexterous robotics."
+  },
+  "icml-2026-vision-language-models-cannot-reason-about-physical-transformation-b2ea10fb28": {
+    "backgroundConcepts": [
+      "topic-004-3d-vla-a-3d-vision-language-action-generative-wo"
+    ],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Reasoning about physical change requires recognizing which quantities remain the same as a scene transforms. ConservationBench tests this ability through paired scenarios in which a property either is or is not conserved. It covers four properties, generating 23,040 questions and evaluating 112 vision–language models.",
+      "The paired design matters because a model can appear successful by repeatedly assuming that quantities stay unchanged. The results reveal near-chance performance, with improvements on conserving scenarios accompanied by declines on controls. Additional experiments find strong textual preferences for invariance, while providing visual content makes performance worse. This pattern points to answers driven by prior expectations rather than reliable interpretation of the transformations.",
+      "The tested changes to temporal resolution, prompting, and curated sampling do not resolve the problem. The authors conclude that current evaluated models fail to maintain representations of physical properties that remain consistent across dynamic scenes. The benchmark therefore exposes a systematic weakness in tracking conservation, using controls to distinguish actual sensitivity to physical change from a general tendency to answer that something stayed the same."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "48d7810f4a1429a2e608047017d0f30039fd07037e749aea48367326bcc6cb89",
+    "tldr": "ConservationBench finds systematic failures in tested vision–language models’ ability to track conserved physical properties across changing scenes."
+  }
+}

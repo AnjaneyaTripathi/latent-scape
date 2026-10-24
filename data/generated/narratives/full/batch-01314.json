@@ -1,0 +1,327 @@
+{
+  "icml-2019-adaptive-scale-invariant-online-algorithms-for-learning-linear-models-ccf79d2558": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Online linear learning makes predictions as feature vectors arrive, so it must choose how to update before seeing the full dataset. Performance is measured against the best linear predictor chosen afterward. A central difficulty is that effective learning rates can depend on feature scales and that eventual predictor, neither of which is known in advance.",
+      "The paper proposes algorithms that remove this tuning requirement. They need no advance information about the scale of incoming examples or the comparison predictor, and have no parameters to tune. Their predictions also remain unchanged under arbitrary rescaling of features. This connects the practical question of choosing measurement scales with the mathematical question of adapting updates during learning.",
+      "The theoretical result compares their regret with online gradient descent using optimally tuned, separate learning rates for each feature dimension. The new algorithms match that benchmark up to a logarithmic factor while retaining comparable runtime. Thus, the contribution is a way to approach a hindsight-tuned performance guarantee using decisions made entirely online."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f6388e489e841175002c00c55d5dfd58014570288f360adecf5d547469cedd7b",
+    "tldr": "Parameter-free online linear learners make scale-invariant predictions and nearly match gradient descent with optimally tuned per-feature learning rates."
+  },
+  "icml-2019-bilinear-bandits-with-low-rank-structure-3884942457": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies decisions that select a pair of items from two different entity types. Each item has known features, and the reward depends on how those features interact through an unknown matrix. The key assumption is that this matrix has low rank: its interactions have a much smaller underlying dimension than its full size suggests.",
+      "The proposed Explore-Subspace-Then-Refine algorithm separates learning into two stages. First, it deliberately explores to estimate the relevant subspace. Then, an almost-low-dimensional linear bandit algorithm uses regularization to exploit that estimate while continuing to refine it. This addresses the difficulty of benefiting from a compact structure before that structure is accurately known.",
+      "The regret bound scales as (d1 + d2)^(3/2) times the square root of rT, ignoring logarithmic factors, where r is rank and T is the time horizon. The authors show an improvement over the naïve linear reduction's d1d2 times square-root-T bound. A preliminary experiment also favors their method. Their further suggestion that the bound is essentially unimprovable remains a conjecture."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7c57ebe9cbc6e2bd37a308aee93ff6e63484fb4e84c060168714192f4b960c6b",
+    "tldr": "A two-stage bandit algorithm learns and exploits low-rank interactions between paired actions to improve regret over a naïve linear formulation."
+  },
+  "icml-2019-chive-varying-prosody-in-speech-synthesis-with-a-linguistically-driven-dynamic-hierarchi-23c7c4b382": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The same text can be spoken with different pitch patterns, energy, and timing. Speech synthesis that averages these properties across training examples can produce monotonous delivery. CHiVE models their variation so that a fixed sentence can support multiple synthesized renditions, rather than being associated with a single averaged prosodic pattern.",
+      "The model is a conditional variational autoencoder whose encoder and decoder follow the linguistic hierarchy of words, syllables, and phones. Different layers update at rates corresponding to those units. A sentence-level prosody embedding can be sampled during inference, and the resulting fundamental frequency, energy, and duration features can feed a vocoder or a generative speech model such as WaveNet.",
+      "Experiments show the dynamic hierarchical network outperforming a state-of-the-art non-hierarchical baseline. They also demonstrate that an embedding from one sentence can guide the prosody of another. These findings support both the hierarchical architecture and the possibility of transferring prosodic information across sentences, alongside generating variation by sampling the learned representation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "71ae9d32f265c0ad231584e0cbc351b455d2a31ab2974030965aeebbf237bc28",
+    "tldr": "CHiVE uses a linguistic hierarchy and sampled sentence embeddings to generate varied prosody and enable prosody transfer between sentences."
+  },
+  "icml-2019-classifying-treatment-responders-under-causal-effect-monotonicity-7db876ba62": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Predicting whether an outcome will occur differs from predicting whether treatment will change that outcome. A person might experience the outcome regardless of treatment, or never experience it either way. This paper focuses on identifying responders: people whose binary outcome depends on whether they receive treatment. Training examples reveal only the outcome under the treatment actually received.",
+      "The authors assume monotonicity of the treatment effect, excluding effects in the opposite direction. Under this assumption, the relevant categories are those whose outcome occurs either way, those whose outcome never occurs, and those whose outcome changes with treatment. The task is to predict membership in the last category from features despite the unobserved alternative outcome.",
+      "The paper formulates this as classification and develops both discriminative and generative algorithms using monotonicity. This changes the target from estimating a conditional average treatment effect to recognizing individual response categories. It also explores connections with corrupted data and policy learning. Synthetic and real datasets provide comparisons with standard benchmarks, although the abstract does not claim a particular performance advantage."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d687746a013fd82fc827295a4585ee322bb9d8e03699a81cb5eefe8b34f3ecdf",
+    "tldr": "Under a monotonicity assumption, the paper develops classifiers for identifying people whose binary outcomes would change because of treatment."
+  },
+  "icml-2019-differentially-private-learning-of-geometric-concepts-123e26d3b8": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper studies learning a geometric region made from a union of polygons in a two-dimensional discrete domain. The polygons need not be convex, so the target class includes regions with inward bends. Its contribution is an efficient learning approach that combines a statistical accuracy guarantee with differential privacy.",
+      "The statistical guarantee uses the PAC framework: alpha controls the tolerated prediction error, while beta controls the probability of failing to meet that accuracy target. The privacy guarantee uses epsilon and delta to constrain how much the learning procedure's output can change when an individual's example changes. Both guarantees apply to the same learning algorithms.",
+      "The stated sample requirement is approximately k log d divided by alpha epsilon, with additional logarithmic factors suppressed. Here, k counts edges in the polygon union, and the domain is a d-by-d grid. This expresses how the amount of data depends on geometric complexity, domain size, accuracy, and privacy. In particular, the displayed dependence is linear in the number of edges and logarithmic in the grid's side length."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4cffd286920706a73a769fd710dde9193d04ff79ba192bfcce3b721b5f909126",
+    "tldr": "Efficient private algorithms learn unions of possibly nonconvex polygons with sample bounds tied to their edge count and grid size."
+  },
+  "icml-2019-discovering-options-for-exploration-by-minimizing-cover-time-d8a0114d8b": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Sparse rewards make reinforcement learning difficult because an agent may need to travel far before receiving useful feedback. This paper connects that discovery problem to the graph defined by an environment's transition dynamics. It shows that the difficulty of reaching a distant rewarding state is bounded by the expected cover time of a random walk on that graph.",
+      "Cover time describes how long a walk is expected to take to visit all states. The authors use it as a target for discovering options, which are actions extending over multiple steps. Their algorithm connects the most distant states in the state-space graph with options, reducing expected cover time and giving exploration additional ways to traverse the environment.",
+      "This approach links option construction to a mathematical quantity associated with reward discovery. Instead of treating exploration improvements solely as a matter of immediate feedback, it considers the connectivity of the entire state space. Experiments show improved learning in several sparse-reward domains, supporting the usefulness of the proposed options in those settings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7c6fe20b15d56a663d9caa3711e6a8122953141631083e402235bf200960d933",
+    "tldr": "Options connecting distant states reduce graph cover time and empirically improve learning in sparse-reward environments."
+  },
+  "icml-2019-error-feedback-fixes-signsgd-and-other-gradient-compression-schemes-c4d30178d7": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Distributed neural-network training can spend substantial effort communicating gradients between workers. Sign-based compression reduces that information, but it introduces bias by discarding aspects of the gradient. The paper gives simple convex examples where signSGD fails to reach the optimum. It also shows that convergence alone does not prevent signSGD from generalizing worse than ordinary stochastic gradient descent.",
+      "The proposed repair is error feedback. After compressing an update, the algorithm retains the discrepancy between the intended update and its compressed version, then incorporates that discrepancy into the next step. This allows information lost during one compression step to influence a later update instead of being permanently discarded.",
+      "The authors prove that their EF-SGD algorithm, with an arbitrary compression operator, matches SGD's convergence rate without additional assumptions. The sense in which compression comes without cost is therefore the stated convergence-rate comparison. Experiments substantiate the theoretical findings. Together, the results identify biased compression as the source of the demonstrated failures and support retaining compression errors as a correction."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "bc2b810a345275368d7ed6fe82e8440bd9e53005af053e91ee44f2b6659ab386",
+    "tldr": "Carrying compression errors into later updates repairs demonstrated signSGD failures and lets EF-SGD match SGD's convergence rate."
+  },
+  "icml-2019-finding-options-that-minimize-planning-time-3374da3080": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Options provide extended actions that a planner can use alongside individual steps. This paper asks how to choose them specifically to accelerate planning. It defines a precise objective: find the smallest collection of options that lets planning converge within a prescribed limit on the number of value-iteration passes.",
+      "This formulation makes two resources explicit. The planner should use few options, but those options must reduce the required planning iterations enough to satisfy the chosen budget. The authors prove that finding the optimal collection is NP-hard even when the task is deterministic. Thus, removing randomness from the environment does not remove the computational difficulty of optimal option selection.",
+      "The paper then presents a polynomial-time approximation algorithm with a bound on its suboptimality, described as the first such algorithm for this setting. It evaluates the method in simple grid domains against optimal options and representative heuristics. The contribution combines a formal planning-speed objective, a hardness result, and a computationally tractable approximation; the abstract reports the evaluation without specifying its comparative outcomes."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6082226a6e3916d698b21802a5d1bb50002dd5e993efe79617f1fd9715cbc775",
+    "tldr": "The paper formalizes compact option selection for faster planning, proves it NP-hard, and provides a bounded polynomial-time approximation."
+  },
+  "icml-2019-goode-a-gaussian-off-the-shelf-ordinary-differential-equation-solver-749223cfe2": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "An ordinary differential equation describes how a quantity changes, while initial or boundary conditions constrain the desired solution. The paper focuses on a gap in probabilistic numerical methods: efficient, general-purpose treatment of nonlinear boundary value problems. Such a solver should provide both an approximate solution and useful information about its numerical uncertainty.",
+      "GOODE repeatedly applies Gaussian process regression to construct a posterior over the solution of a nonlinear differential equation. Its output therefore includes a distribution over possible solution curves. The predictive posterior standard deviation supplies an estimate of error, making uncertainty part of the solver's output rather than a separate addition to a single numerical answer.",
+      "The authors report that convergence is typically quadratic and that convergence theory can be transferred from earlier non-probabilistic work. On an established benchmark, the method performs comparably to standard solvers. These findings support the combination of competitive numerical performance and probabilistic error estimation; the quadratic convergence statement is explicitly typical rather than a guarantee for every problem."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d770f465263c4527bda9ad763bcf010b50a120be9702fd4bf393f2ac2b63492d",
+    "tldr": "GOODE uses iterated Gaussian process regression to solve nonlinear differential equations while providing posterior-based error estimates."
+  },
+  "icml-2019-improved-zeroth-order-variance-reduced-algorithms-and-analysis-for-nonconvex-optimizatio-25d6dd1dd9": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Zeroth-order optimization uses function evaluations rather than directly supplied gradients. This paper improves variance-reduced methods for nonconvex problems, where reducing noisy update estimates does not automatically reduce the total number of function queries. It addresses both SVRG-based methods with disappointing query bounds and a SPIDER-based method with practical implementation costs.",
+      "For the SVRG family, the authors introduce ZO-SVRG-Coord-Rand and give a new analysis of the existing ZO-SVRG-Coord algorithm. Their results show better function-query complexity than earlier SVRG-type zeroth-order methods and zeroth-order gradient descent and stochastic gradient descent. Part of the advance therefore comes from a new algorithm, and part from a stronger understanding of an existing one.",
+      "For the SPIDER family, ZO-SPIDER-Coord avoids generating Gaussian random variables and permits a large constant step size while preserving the compared method's convergence rate and query complexity. It also automatically attains linear convergence once iterates enter a local Polyak–Łojasiewicz region. That faster rate depends on entering this region and requires neither restarting nor modifying the algorithm."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e31b1bd02f03b727fe70d280844ff1727be1e0a7610620d81e71eb3c198d2706",
+    "tldr": "New algorithms and sharper analysis improve zeroth-order query efficiency while enabling constant-step SPIDER updates and conditional local linear convergence."
+  },
+  "icml-2019-kernel-mean-matching-for-content-addressability-of-gans-7679ad1e61": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "An unconditional generator can produce samples without offering a direct way to request content resembling particular examples. This paper adds that capability after training. A user supplies a set of desired examples, and the procedure guides generation toward samples consistent with that set. The input set can contain an arbitrary number of examples.",
+      "The approach uses kernel mean matching and applies to generative models that map latent vectors into samples, including GANs. It does not require retraining the original model. This makes the contribution a way of controlling an existing generative process at test time, using example content as the request rather than requiring a newly trained conditional generator.",
+      "Experiments cover several high-dimensional image-generation problems, including faces, bedrooms, bridges, and towers. The authors report images consistent with the supplied example sets while retaining the original generator's image quality. These results support the possibility of adding example-driven control to trained unconditional models. The broad applicability claim concerns the latent-vector-to-sample interface; the reported empirical evidence concerns the image tasks studied."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7feb418dd1f36aabd81ea35be6e3dbf4d50380d22ace3d092079bbb999437f95",
+    "tldr": "Kernel mean matching lets users steer a trained unconditional generator with example sets, without retraining it."
+  },
+  "icml-2019-learning-discrete-and-continuous-factors-of-data-via-alternating-disentanglement-2f050fe401": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Data can reflect both categorical distinctions and smoothly varying properties. This paper studies how to separate these explanatory factors without supervision. The challenge is to learn discrete and continuous representations together while preventing the continuous variables from becoming entangled and avoiding placing the entire joint inference task on one variational encoder.",
+      "The first component reduces total correlation, a measure of dependence among continuous latent variables, by cascading information flow within a beta-VAE framework. It does so without a discriminator network or importance sampling. The second component introduces a separate procedure for discrete inference, dividing responsibility between that procedure and the encoder.",
+      "Training alternates between finding the most likely discrete configuration given the continuous factors and updating the encoder using the inferred discrete factors. This gives the two parts a repeated opportunity to inform each other. Experiments report clear separation of discrete factors and significant improvements over the compared disentanglement methods on disentanglement and inference-network classification scores. The evidence supports the combined alternating approach on those reported measures."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "807de38fa4e836b0f2582f12f055663a160aa8ca52fca8510c22876c9615d093",
+    "tldr": "Alternating discrete inference with variational encoder updates improves unsupervised separation of discrete and continuous factors in the reported experiments."
+  },
+  "icml-2019-molecular-hypergraph-grammar-with-its-application-to-molecular-optimization-e7176e2bca": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Searching for molecules with desirable properties involves two separate difficulties: generated structures must satisfy chemical constraints, and evaluating their properties can be expensive. A variational autoencoder can map molecules into a continuous search space, where Bayesian optimization helps allocate limited property evaluations. However, that workflow also needs a reliable way to decode candidate vectors into valid molecules.",
+      "The paper introduces a molecular hypergraph grammar that encodes hard chemical constraints, including valency conditions. This grammar guides a single variational autoencoder so that its generated molecules are always valid under the encoded constraints. The authors also provide an algorithm that constructs the grammar from a collection of molecules.",
+      "The resulting MHG-VAE achieves the stated 100% validity without the auxiliary neural networks used by the prior architecture discussed in the abstract. Its main contribution is therefore to place chemical validity into the generative representation itself while simplifying the neural architecture. Validity addresses whether a generated structure meets chemical constraints; desirable properties remain the separate objective of molecular optimization."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "35d68b64379fcd0beb707b509cef387eed3c50fd5a91217729fab30ebbcd099a",
+    "tldr": "A molecular hypergraph grammar encodes chemical constraints so a single variational autoencoder can generate valid molecules."
+  },
+  "icml-2019-myopic-posterior-sampling-for-adaptive-goal-oriented-design-of-experiments-b5d6973876": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Adaptive experiments choose what data to collect next using what has already been observed. Existing methods often target a particular objective, such as optimization, learning, or search. The paper addresses situations where practitioners need combinations of these objectives or application-specific goals that do not fit a specialized method's formulation.",
+      "Myopic Posterior Sampling provides a general strategy inspired by posterior sampling in multi-armed bandits. Practitioners specify their desired outcome through a reward function and can incorporate knowledge about the system. The approach makes experiment selection responsive to that goal while using a myopic decision strategy, focusing on the immediate choice.",
+      "Across synthetic and real-world experimental-design tasks, the method is empirically competitive with more specialized approaches. The authors also apply it to complex goals for which no existing method appears applicable. On the theoretical side, they derive conditions under which its regret against natural benchmark policies is sublinear, using ideas from adaptive submodularity and reinforcement learning. This guarantee is conditional, rather than a claim that every possible reward-defined goal admits the same performance."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "74b42722c7870dfacb245739a6678beae9afa1b2ed63a2b299601016bcbc03e7",
+    "tldr": "Myopic Posterior Sampling supports adaptive experiments with user-defined goals and has conditional sublinear-regret guarantees."
+  },
+  "icml-2019-neural-inverse-knitting-from-images-to-manufacturing-instructions-0a9e3c5bad": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper introduces the task of generating machine instructions from a single image of a desired physical product, focusing on machine knitting. The motivation is the customization potential of whole-garment knitting machines. The learning problem is to connect the visible appearance of a knitted sample with instructions that describe how to manufacture it.",
+      "The authors propose learning this mapping directly from real images to regular machine instructions. They create paired data containing real samples and their corresponding instructions, then augment those data with synthetic images. These paired examples establish the connection between appearance and manufacturing commands, while the synthetic images become part of the training framework.",
+      "A central contribution is the way real and synthetic data are mixed. The authors give a theoretical motivation for their framework and report empirical evidence suggesting that making real images look more synthetic helps in this setting. The finding is specific and qualified: it supports that direction of image transformation for the studied inverse-knitting problem, rather than establishing a universal rule for combining synthetic and real data."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "fae712bb8a2502103b2303b8f672cdaaf1c5fd6176b0d2376e7fcd7fbc00801e",
+    "tldr": "The paper learns knitting instructions from product images and finds evidence that making real images more synthetic improves its data-mixing approach."
+  },
+  "icml-2019-neural-logic-reinforcement-learning-efbbc9f9d6": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A reinforcement-learning policy may perform well during training yet struggle when an environment changes slightly. Policies represented by deep neural networks can also be difficult to interpret. Neural Logic Reinforcement Learning addresses both concerns by representing policies in first-order logic, making learned behavior expressible through logical relationships.",
+      "The method combines policy-gradient learning with differentiable inductive logic programming. Policy gradients provide a way to improve behavior from rewards, while the logic-programming component supplies the policy representation. This combination brings a representation associated with interpretability and generalization into reinforcement learning, where the agent must learn which behavior produces useful outcomes.",
+      "Experiments on cliff-walking and blocks manipulation show that the approach can learn interpretable policies with near-optimal performance. The learned policies also generalize well to environments with different initial states and problem sizes. These results connect the policy's logical representation with both readable behavior and transfer across the tested changes. They establish those capabilities in the studied tasks without claiming that arbitrary environmental modifications will preserve performance."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8188275987e6004ee945cfc0e19d0ce79112122d67b714fbeaad6d5722520870",
+    "tldr": "Neural Logic Reinforcement Learning learns interpretable logical policies that perform near optimally and generalize across tested environment changes."
+  },
+  "icml-2019-policy-consolidation-for-continual-reinforcement-learning-cbd7b2ba3f": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A reinforcement-learning agent continually encounters new experience, and adapting to it can overwrite behavior learned earlier. This catastrophic forgetting is especially challenging when the environment changes continuously or offers no explicit markers separating tasks. The paper proposes policy consolidation to help an agent retain useful behavior while continuing to learn.",
+      "The current policy interacts with a cascade of hidden networks that preserve its history over multiple timescales. These networks regularize the policy using its own previous behavior. Keeping several timescales allows the mechanism to represent both more recent and more persistent policy history without requiring advance knowledge of how quickly experience will change.",
+      "The method does not need task-boundary information and is designed to adapt in continuously changing environments. Experiments report improved continual learning relative to baselines on continuous-control tasks, covering single-task learning, alternating between two tasks, and competitive multi-agent self-play. The findings support using a policy's history as a learning constraint across these settings, rather than claiming that the mechanism eliminates forgetting altogether."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1c71fcc589618ceda8ff385c1735cb4ac3708cc04eaa7d849aa43dfa34660f04",
+    "tldr": "A cascade of networks remembers policy history at different timescales to reduce forgetting without requiring task boundaries."
+  },
+  "icml-2019-processing-megapixel-images-with-deep-attention-sampling-models-4c881538d3": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Processing every high-resolution location in a large image can exceed available computation and memory. This paper proposes attention sampling: the model first examines a low-resolution view, then samples locations from a learned attention distribution and processes only part of the original full-resolution image. This enables images of several megapixels to be handled on a standard single GPU.",
+      "The sampling mechanism is integrated into a fully differentiable model. The authors show that attention-based sampling provides an unbiased estimator of the full model with minimal variance, and they derive an unbiased gradient estimator. These results connect selective image processing to ordinary end-to-end training with stochastic gradient descent.",
+      "On three classification tasks, the method reduces computation and memory use by an order of magnitude while matching the accuracy of classical architectures. The sampled locations also consistently concentrate on informative image regions. Together, the theoretical and empirical results explain how processing a fraction of the input can retain useful predictive information while substantially reducing resource demands in the evaluated tasks."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "834fa7097fbd544fe0a654044ae80741b158899923f70b0173e0010eeb19087c",
+    "tldr": "Attention sampling processes selected high-resolution regions, reducing computation and memory tenfold at matching accuracy on three classification tasks."
+  },
+  "icml-2019-riemannian-adaptive-stochastic-gradient-algorithms-on-matrix-manifolds-932ca58de8": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Adaptive gradient methods are harder to design on curved spaces than in ordinary Euclidean space. A manifold has nonlinear structure and lacks a canonical coordinate system, so familiar coordinate-based adaptations do not transfer straightforwardly. The paper focuses on matrix manifolds, where rows and columns carry useful structural information about the optimization problem.",
+      "The authors argue that flattening matrices into vectors can discard this information. In particular, constraints may act on row or column subspaces; the Grassmann manifold itself consists of column subspaces. Their proposed stochastic-gradient algorithms adapt the row and column subspaces of gradients, preserving the matrix organization when constructing adaptive updates.",
+      "The algorithms are proved convergent, with a stated rate of order log(T) divided by the square root of T after T iterations. Experiments show them outperforming existing adaptive stochastic algorithms for Riemannian optimization. The contribution therefore combines a structural design principle with convergence analysis and empirical comparisons: adaptation can use the matrix representation rather than overlooking the subspaces that help define the underlying geometry."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6bf4b74cd6deef5804596a2f4539ed6a2f5ca67b8f66cc6978ce8999321c74cb",
+    "tldr": "Adaptive gradient algorithms preserve row and column structure on matrix manifolds and provide convergence guarantees with favorable empirical results."
+  },
+  "icml-2019-robust-estimation-of-tree-structured-gaussian-graphical-models-5a5a529edf": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "For jointly Gaussian variables, the nonzero pattern of the inverse covariance matrix identifies the edges of their conditional-independence graph. Independent noise at each observed variable complicates this relationship. It adds an unknown diagonal matrix to the covariance, and inverting the noisy covariance can produce a dense matrix even when the original graph is sparse.",
+      "The paper asks what can still be recovered when the original graph is a tree. It proves that the original structure is not identifiable in general: the noisy observations can be compatible with multiple underlying trees. However, this ambiguity is confined to a small class of candidate trees, giving a more precise answer than simply declaring recovery impossible.",
+      "The authors also present additional constraints under which the tree becomes identifiable and provide an algorithm that finds the equivalence class in O(n^3) time. The result separates recovering the exact original tree from recovering all structurally indistinguishable candidates. That distinction gives an achievable recovery target even when independent observation noise prevents a unique answer."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "eb4665db9222dbeec67f2ba9a45302d15a6ce1bbd1b5749982025975c0e3a177",
+    "tldr": "Independent observation noise makes Gaussian tree recovery ambiguous, but the paper characterizes a small candidate class and computes it in cubic time."
+  },
+  "icml-2019-robust-influence-maximization-for-hyperparametric-models-b48d9d147e": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Influence maximization chooses where to initiate a spreading process in a network. This paper studies robustness when the probabilities of influence along edges are generated from user features and a shared global hyperparameter. Under this assumption, uncertainty is tied together through that parameter rather than specified independently for every edge.",
+      "The objective is to maximize the worst-case number of influenced users across possible hyperparameter values in the independent cascade model. This asks for a decision that remains effective despite uncertainty about the parameter. The authors show that obtaining a proper robust solution is NP-hard and develop an algorithm for improper robust optimization.",
+      "Their algorithm uses sampling techniques and multiplicative weight updates. The distinction between proper and improper optimization matters: the paper does not claim an efficient exact solution to the hard proper formulation. It also provides empirical validation and reports superiority over state-of-the-art robust influence-maximization techniques. The combined contribution is a feature-based uncertainty model, an analysis of its computational difficulty, and an algorithmic approach to its robust objective."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "78d1bc70eddc623ec6ed0148118acd21fe613e1b00b5a43c95c9870f7cb79004",
+    "tldr": "The paper optimizes worst-case network influence when edge probabilities depend on user features and an uncertain shared hyperparameter."
+  },
+  "icml-2019-shallow-deep-networks-understanding-and-mitigating-network-overthinking-cb94cbe2f2": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A deep network can arrive at a correct prediction before its last layer. Continuing computation may then waste resources or even change that correct answer into an error. The paper calls these effects overthinking and introduces Shallow-Deep Networks, which add internal classifiers to existing architectures so predictions can be examined during the forward pass.",
+      "The authors study four architectures on three image-classification tasks. Confidence-based early exits reduce average inference cost by more than 50% while preserving accuracy in their evaluation. Internal classifiers therefore serve both as a way to inspect how predictions develop and as a mechanism for stopping computation when an intermediate answer is sufficiently confident.",
+      "The study also finds that destructive overthinking accounts for 50% of misclassifications on natural inputs in the evaluated setting. A recent backdooring attack can induce this behavior adversarially. To address it, the authors propose a confusion metric measuring disagreement among internal predictions, which can indicate likely misclassification. This metric targets harmful prediction changes, complementing early exits that address unnecessary computation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e98689a2c21cc67d56e54e1be6d3a026120d08d4d7a10c0bba580442b77490fa",
+    "tldr": "Internal classifiers expose network overthinking and enable early exits that more than halve average inference cost while preserving tested accuracy."
+  },
+  "icml-2019-statistical-foundations-of-virtual-democracy-6be047ca86": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Virtual democracy makes decisions by predicting individual preferences and then aggregating those predictions through a voting rule. Prediction errors create an additional challenge: even a useful preference model may lead to a different collective outcome from the one obtained using people's true preferences. The paper studies voting rules from this statistical perspective.",
+      "Its robustness criterion asks whether a rule's output on noisy preference estimates is likely to match its output on the underlying true preferences. This focuses on the stability of the final decision, connecting the preference-prediction stage with the aggregation stage. The choice of voting rule therefore affects how prediction errors propagate into collective choices.",
+      "The authors prove that Borda count is robust in this sense, whereas rules in the broad pairwise-majority-consistent family are not. Empirical results further support and quantify Borda's robustness. These findings guide aggregation when predicted preferences are noisy; they concern the paper's statistical robustness criterion rather than establishing that Borda is superior according to every possible goal for collective decision-making."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9e1b8631b966465647712a6313e2f0d289436de94a16b13f4ec341d779305e18",
+    "tldr": "Borda count is robust to preference-prediction errors under the paper's criterion, while pairwise-majority-consistent voting rules are not."
+  },
+  "icml-2019-submodular-streaming-in-all-its-glory-tight-approximation-minimum-memory-and-low-adaptiv-aa2b9d2aa2": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper studies selecting at most k elements from a stream to maximize a monotone submodular objective. Such objectives capture diminishing returns: an additional element can contribute less when the selected set already contains useful information. A streaming algorithm must balance solution quality with limited storage and the cost of processing incoming data.",
+      "SIEVE-STREAMING++ makes one pass, stores O(k) elements, and achieves the tight one-half approximation guarantee. Earlier methods described in the abstract either used comparable memory for a one-quarter guarantee or required O(k log k) memory for a one-half guarantee. The new result combines the stronger approximation with storage proportional to the allowed selection size.",
+      "The authors further reduce sequentially dependent computational rounds by buffering a small fraction of the stream and filtering it carefully. They extend the results to multiple data sources, retaining the one-half guarantee with O(k) shared memory while addressing computation rounds and communicated bits. Experiments on tweet and YouTube-video summarization demonstrate the algorithms' efficiency for real-world streams."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "01d324010f94e9741b4e7f02d8fc86609c83af5ec56ce01da63e0116148b5841",
+    "tldr": "SIEVE-STREAMING++ achieves a tight one-half approximation with linear storage, with extensions reducing adaptive computation and multi-source communication."
+  },
+  "icml-2019-trainable-decoding-of-sets-of-sequences-for-neural-sequence-models-86040b7748": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Some prediction problems have multiple valid sequence outputs. Returning several outputs is useful only if the collection captures meaningful alternatives; standard procedures designed to find one best sequence can instead produce a set of nearly identical candidates. This paper treats the quality of the complete output set as a learning objective.",
+      "The proposed decoding method, ∇BS, integrates training with the procedure used to generate a set of sequences. It allows optimization of a task-specific metric applied to the whole set. This gives training a direct connection to the quality of the collection produced at decoding time, including aspects that individual sequence scores may fail to capture.",
+      "The authors also examine trade-offs among common set-level metrics and motivate a new metric for capturing variation in the output space. On image captioning, their model outperforms standard techniques and natural ablations. The findings support jointly considering decoding and set-level evaluation when multiple outputs are desired, with the reported performance evidence coming from the captioning task."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "fbaa1b0a620e957116fc59caa3e0356d6a88706d68c6b3ad3692a7c3fd76c7b4",
+    "tldr": "A trainable set decoder jointly optimizes sequence generation and set-level quality, improving image-caption collections in the reported evaluation."
+  }
+}

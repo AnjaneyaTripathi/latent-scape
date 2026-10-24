@@ -1,0 +1,327 @@
+{
+  "icml-2026-beyond-prediction-tail-aware-scheduling-for-llm-inference-bdbacb5629": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Serving language models involves requests with widely varying output lengths. Schedulers often predict those lengths and prioritize requests expected to finish quickly. This paper examines why that strategy can struggle when workloads change, requests arrive in bursts, or GPU memory becomes scarce. Its focus is tail latency: the long waits experienced by the slowest fraction of requests.",
+      "The proposed framework replaces individual length predictions with lightweight statistics about the workload. These signals drive gradual priority boosts controlled by a parameter called gamma. The scheduler also coordinates its decisions with cache-aware preemption, accounting for how pausing requests and managing cached information interact with memory availability during generation.",
+      "On Azure production traces, the authors report P99 time to last token reductions of up to 35–50% relative to shortest-remaining-processing-time scheduling with perfect length information. They also report 34–47% lower time to first token across varied workloads. The findings show that knowing request lengths can still leave substantial room for improvement when scheduling must manage memory and long waits together."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7cb5fa81ef685c0a7955a297d9e0d4284ede8d661cc4097389ef32f049e33c47",
+    "tldr": "A prediction-free scheduler improves long-wait latency by combining workload statistics, priority boosts, and cache-aware preemption."
+  },
+  "icml-2026-building-reliable-long-form-generation-via-hallucination-rejection-sampling-9bb03681cf": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "An incorrect statement early in a long response can become the foundation for further errors. This paper addresses that accumulation during generation itself. Its framework, SHARS, checks text in segments, aiming to prevent questionable material from entering the context on which the rest of the response depends.",
+      "SHARS uses a hallucination detector to reject suspect segments and generate replacements. Accepted segments become the basis for subsequent writing. The framework can accommodate different detectors; the authors instantiate it with semantic uncertainty and modify that detector for long-form text. This connects local checks of generated content to the broader problem of maintaining consistency across an extended answer.",
+      "Evaluations on standardized hallucination benchmarks show substantial reductions in hallucinations while retaining or sometimes improving informativeness. The method operates at inference time and does not require web search or external knowledge bases, although it can accommodate such resources. These findings support segment-level rejection as a way to reduce error propagation; the reported reductions do not establish that accepted text is always factually correct."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "26bbdf53321648a877e7b385eee349b45a78752c43ab3427454c7f6f25009941",
+    "tldr": "SHARS reduces long-form hallucinations by detecting, rejecting, and regenerating suspect segments before continuing."
+  },
+  "icml-2026-dimension-free-convergence-of-diffusion-models-for-approximate-gaussian-mixtures-f2d233fa9b": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Diffusion models generate samples through repeated denoising, yet theoretical estimates of the required number of steps can look much less favorable than practical behavior. This paper studies that mismatch for high-dimensional distributions that can be closely approximated by mixtures of Gaussian distributions. That approximation property defines the setting of its main result.",
+      "The authors show that DDPM can reach an error of epsilon in total variation distance using at most roughly one over epsilon iterations, with logarithmic factors suppressed. Total variation measures disagreement between the generated and target distributions. Up to those logarithmic factors, the iteration bound does not depend on either the ambient dimension or the number of Gaussian components.",
+      "The result also tolerates score estimation errors, connecting the analysis to denoising models whose learned quantities are imperfect. Its significance is a stronger explanation of efficient sampling for the studied distribution class. Gaussian mixtures have broad approximation capabilities, which makes this class interesting, but the stated approximation condition remains part of the guarantee."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "07b82a6ee70543f649c183472d783126a52b727e7d4bba788c9f6ecab1394950",
+    "tldr": "For distributions well approximated by Gaussian mixtures, DDPM has an iteration bound independent of dimension and mixture size up to logarithmic factors."
+  },
+  "icml-2026-do-activation-verbalization-methods-convey-privileged-information-3ae8ab0eef": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Activation verbalization uses one language model to describe another model’s internal representations in words. Such descriptions are intended to reveal how the target model processes information. This paper asks whether they actually expose knowledge available through those internal representations, or whether their apparent insight can come from the input and the describing model itself.",
+      "The authors evaluate popular methods and datasets from earlier work. They find that strong benchmark performance is possible without access to the target model’s internals. That creates a problem for interpreting the scores: success on these tasks does not necessarily demonstrate that a method has extracted information about the target’s internal operation.",
+      "Controlled experiments further show that verbalizations often reflect knowledge stored in the verbalizer’s own parameters rather than knowledge of the target model. Together, these findings motivate benchmarks and controls that distinguish those sources of information. The conclusion concerns what existing evaluations establish: fluent or accurate descriptions alone provide insufficient evidence that a method faithfully explains the model being examined."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6ca584312eb3d2a94f33b0947a815c4e4fd656968d55eea19086934c79c77eec",
+    "tldr": "Existing activation-verbalization evaluations can reward descriptions that reflect inputs or the verbalizer’s knowledge rather than target-model internals."
+  },
+  "icml-2026-dronedino-towards-heterogeneous-routed-mixture-of-experts-for-drone-based-unified-object-5be2f54222": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Drone detection systems may need to work with visible-light images, infrared images, or both together. A unified detector can share learning across these tasks, but uneven training data can cause its experts to specialize disproportionately in the most common tasks. DroneDINO addresses that imbalance within a single detection framework built on DINO.",
+      "Its mixture-of-experts architecture divides experts into shared, task-specific, and dynamic groups. The shared expert processes every input, while each task-specific expert activates only for its corresponding task. This gives common information and task-dependent information designated places in the architecture, alongside dynamically selected expertise. An auxiliary task-recognition objective penalizes features that fail to distinguish the tasks.",
+      "Experiments across multiple drone detection benchmarks report consistent improvements over leading unified detectors and detectors tailored to individual tasks. The stated contribution is therefore both architectural and empirical: organizing experts by distinct roles supports balanced feature learning, and the evaluated system generalizes effectively across the tested detection settings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "53d33306393b24d1431b4705195cf3dd42309da4bf31353c4c198c92cec3f93b",
+    "tldr": "DroneDINO combines shared, task-specific, and dynamic experts to improve unified visible-light and infrared drone detection."
+  },
+  "icml-2026-dynamics-within-latent-chain-of-thought-an-empirical-study-of-causal-structure-877944f9fb": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Latent chain-of-thought methods perform intermediate reasoning through internal representations instead of written explanations. Detecting information in those representations does not by itself reveal whether the model uses it. This paper studies their causal role by treating individual latent steps as variables in a structural causal model and intervening on them directly.",
+      "The authors examine Coconut and CODI on mathematical and general reasoning tasks. Their questions cover which steps matter for correctness, when answers can be decoded, how changes propagate between steps, and whether competing answers remain represented. They also compare the resulting influence structure with explicit textual chain-of-thought.",
+      "The findings suggest that latent steps perform staged functions with influence that can reach beyond neighboring steps, rather than behaving as interchangeable units of extra computation. An early output preference can coexist with much later commitment inside the representations. This motivates analyses that track competing answer modes and stability over time, along with training and decoding objectives informed by those distinctions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "47251d8e80a98428b0d7f0d2ba3d786eb2f0cbab1a8b4946d721ef27ea0a8a15",
+    "tldr": "Causal interventions reveal staged roles in latent reasoning and a gap between early answer preference and later internal commitment."
+  },
+  "icml-2026-imagination-helps-visual-reasoning-but-not-yet-in-latent-space-d3e6930d40": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Latent visual reasoning aims to support visual problem solving through hidden intermediate tokens, loosely resembling an imagination process. This paper investigates whether those tokens actually connect the input to the answer. It uses causal mediation analysis, treating the input as the starting cause, latent tokens as intermediates, and the answer as the outcome.",
+      "The authors report two weak connections in the systems studied. Large input perturbations cause little change in latent tokens, and perturbing those tokens has little effect on final answers. Additional probes find limited visual information and high similarity among the tokens. These observations question how much the examined latent computations contribute to reasoning.",
+      "Motivated by that diagnosis, the authors introduce CapImagine, which teaches the model to express its imagined visual content through text. On vision-centric benchmarks, it substantially outperforms the evaluated latent-space baselines. The results support explicit textual imagination as an effective alternative in these experiments, while the causal findings specifically concern the latent reasoning behavior investigated."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f1f7475f0f7704d2f523eb82b59bf54b35e17a4cd0392fb8f42c6944e2b2a713",
+    "tldr": "The studied latent visual reasoning tokens have weak causal influence, while explicit textual imagination improves benchmark performance."
+  },
+  "icml-2026-implicit-actor-critic-coupling-via-a-supervised-learning-framework-for-rlvr-58c4d852b2": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Reinforcement learning with verifiable rewards trains models using outcomes that can be checked, including answers to mathematics or programming problems. However, sparse feedback and unstable policy-gradient updates can make training difficult. PACS approaches these difficulties by reformulating the reward-learning problem as supervised prediction.",
+      "The method treats the outcome reward as a label to predict. A score function parameterized by the policy model is trained with cross-entropy loss, creating an implicit coupling between acting and evaluating outcomes. The authors analyze the resulting gradients and show that this supervised objective recovers the classical policy-gradient update while supporting more stable and efficient training.",
+      "Experiments report significant improvements over strong open-source models and reinforcement-learning baselines. Relative to base models, the reported average gains are +8.26% for the 4B model and +9.57% for the 8B model. The contribution is a connection between supervised objectives and reward-driven policy improvement: changing the training formulation can preserve the relevant update structure while improving the reported learning behavior."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a13fa3861f51a23373d9a2c5aff8d28530a19ccb9b677a94f9be9c55f55d9084",
+    "tldr": "PACS reformulates verifiable-reward training as supervised reward prediction while implicitly recovering policy-gradient updates."
+  },
+  "icml-2026-improving-the-robustness-utility-trade-off-in-decentralized-learning-over-sparse-network-d18b33f6a9": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Decentralized learning must coordinate updates across a network, sometimes while participants send malicious information. Sparse connectivity makes convergence harder, and combining robust aggregation with bias-correction methods can accumulate errors. This paper addresses that interaction through scaled dual ascent, which adjusts the size of dual updates in an augmented Lagrangian formulation.",
+      "The resulting method, BRED, combines this mechanism with Byzantine-robust Exact Diffusion. The authors prove linear speedup and, when the fraction of Byzantine participants is small, improve transient complexity from dependence on the inverse spectral gap to the sixth power to dependence on its square. The spectral gap captures a network property that affects coordination, so this change strengthens the treatment of difficult network topologies.",
+      "A momentum extension, BRED-M, further improves the Byzantine-dependent part of transient complexity, reducing its inverse-gap exponent from six to four while retaining the squared dependence on the Byzantine fraction. Benchmark experiments across different network structures support the proposed methods. The strongest stated BRED transient bound specifically depends on a small Byzantine fraction."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "948bac51010e389551303acf6fb50fc914381e4c7e4bf7c0bde0dbe68f522a37",
+    "tldr": "Scaled dual updates improve convergence guarantees for Byzantine-robust decentralized learning, with stronger bounds when the attacker fraction is small."
+  },
+  "icml-2026-improving-topic-modeling-by-distilling-soft-labels-from-language-models-3a7a3f0df8": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Neural topic models often learn by reconstructing which words appear in each document. That bag-of-words target discards context and provides sparse evidence when documents contain few words. This paper replaces the reconstruction signal with soft labels derived from a language model, aiming to give topic learning a richer account of document meaning.",
+      "The framework, DSL, obtains next-token probabilities under a specialized prompt and projects them onto a predefined vocabulary. These probabilities form context-sensitive targets rather than simple observed word counts. The topic model uses language-model hidden states and learns to reconstruct those soft targets, transferring contextual information into the topic-training process.",
+      "Experiments report substantial improvements in topic coherence and topic-assignment accuracy over existing baselines. The authors also introduce a retrieval-based metric and find stronger performance at identifying documents with similar meanings. These results connect the training change to two practical outcomes: topics better aligned with the corpus’s themes and representations more useful for finding related documents."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3684c50225a52c73d84d720abe28e54d8503a90f7e92664392e3a3b27ea87786",
+    "tldr": "DSL improves topic learning by replacing sparse word-count reconstruction targets with contextual soft labels from a language model."
+  },
+  "icml-2026-inside-the-visual-mind-neuroscience-motivated-concept-circuits-for-interpreting-and-stee-7a97f22da8": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A vision transformer can make accurate predictions while relying on misleading visual cues. ViSAE aims to expose and modify such behavior through interpretable concept circuits. It builds on sparse autoencoders, which decompose internal representations into features, while addressing limited concept coverage and the difficulty of interpreting features consistently at scale.",
+      "The toolbox includes a probing collection of 64,000 images and 16,000 visually grounded concepts. The authors report twentyfold better concept-coverage efficiency than ImageNet and 28.7% better interpretation accuracy than existing concept sets. Top-down concept reading and bottom-up circuit tracing then automate the recovery of concept circuits within the transformer.",
+      "The paper also applies these circuits to auditing and steering model behavior. Through concept editing, ViSAE improves worst-group accuracy on WaterBirds by a reported 48.2%, outperforming existing methods by 23.8%. This connects interpretation to intervention: the recovered concepts support changes to model behavior, with the reported application targeting performance on groups that the model handles least well."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "fb072ebe9a6619733bbfa1002fd66841e0dfe415a38844226b045264b8422807",
+    "tldr": "ViSAE identifies concept circuits in vision transformers and uses concept editing to improve reported worst-group performance."
+  },
+  "icml-2026-layert2v-a-unified-multi-layer-video-generation-framework-02816a77cf": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Generated videos usually arrive as finished composites, making their individual visual elements difficult to edit. LayerT2V instead generates the complete video alongside a separate background and multiple foreground color layers with alpha mattes. Those mattes describe how foreground content combines with other layers, providing the components needed for layered editing.",
+      "The framework uses the strong spatial and temporal compression of recent video backbones to arrange layer representations along the temporal dimension. It generates them jointly through a shared trajectory, making consistency across layers part of the modeling objective. LayerAdaLN and layer-aware cross-attention modulation address ambiguity between layers and leakage of conditioning information.",
+      "Training proceeds through alpha-mask VAE adaptation, joint multilayer learning, and extension to multiple foregrounds. The authors also introduce VidLayer, a large-scale dataset for this task. Experiments report substantial gains over prior methods in visual fidelity, temporal consistency, and coherence between layers. The result is an approach that couples editable outputs with joint generation of their visual relationships."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9c0194845fcbd8feaacece33bf525317f3dc0709276638249e521890711cb984",
+    "tldr": "LayerT2V jointly generates a complete video and consistent background, foreground, and transparency layers in one inference pass."
+  },
+  "icml-2026-metaphorvu-towards-metaphorical-video-understanding-106de26dd9": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Understanding a metaphorical video requires connecting what is shown to an idea from another domain. This paper develops MetaphorVU-Bench to evaluate that ability systematically in multimodal language models. The benchmark addresses a gap in assessing the higher-order interpretation needed for videos that communicate meaning indirectly.",
+      "The experiments find that current models perform far below humans on the evaluated task. The authors identify defective cross-domain mapping as the primary source of difficulty: models struggle to establish the relationship between the depicted content and the idea it represents. This diagnosis gives the work a specific target for improvement beyond a general measurement of video understanding.",
+      "The authors construct a metaphor knowledge graph to augment these mappings and introduce MetaphorBoost, which uses that support at inference time. The framework produces consistent performance improvements in the reported experiments. Together, the benchmark and method establish a way to measure metaphorical understanding and show that strengthening cross-domain connections can help address the observed weakness."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "de62cda7e0dc60209106174a3806ad1e0e00052828caeab096969c41824d9f62",
+    "tldr": "MetaphorVU benchmarks metaphorical video understanding and improves model performance with knowledge-graph support for cross-domain mappings."
+  },
+  "icml-2026-near-optimal-private-linear-regression-via-iterative-hessian-mixing-dda008edea": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies ordinary least squares under differential privacy when the input data and responses are bounded. It revisits Gaussian sketching, an approach previously viewed as less competitive than AdaSSP, which perturbs the sufficient statistics used in regression. The proposed algorithm, Iterative Hessian Mixing, builds on sketching and draws inspiration from Iterative Hessian Sketch.",
+      "The authors prove differential privacy and bound excess empirical risk, measuring the additional fitting error introduced by the private procedure. Compared with AdaSSP’s bounds, their guarantees remove a multiplicative factor that can grow as large as the square root of the data dimension. The size of this improvement therefore depends on the setting rather than being a fixed gain.",
+      "The design also rests on new accuracy guarantees for earlier Gaussian-sketching methods. These clarify when sketching should work well and how the iterative method addresses its inherent limitations. Across a large collection of datasets, the authors report consistent improvements over prior baselines, including AdaSSP, combining stronger theoretical guarantees with favorable empirical results."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7d5ebf05961f6aa999927ea0a899882dcb7352f51759819fa3e9a9f6862e7247",
+    "tldr": "Iterative Hessian Mixing strengthens private least-squares error bounds and consistently outperforms evaluated baselines on bounded-data regression."
+  },
+  "icml-2026-near-optimal-regret-for-policy-optimization-in-contextual-mdps-with-general-offline-func-5dd6de3b41": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper introduces OPO-CMDP for stochastic contextual Markov decision processes, where learning concerns sequences of decisions in context-dependent environments. The algorithm uses optimistic policy optimization with general offline function approximation. Its analysis allows finite function classes to represent both losses and environment dynamics, bringing those two modeling tasks into the guarantee.",
+      "The authors establish a high-probability regret bound proportional to the fourth power of the horizon times the square root of the number of episodes, states, actions, and the logarithm of the product of the two function-class sizes, with additional logarithmic factors suppressed. Regret measures accumulated loss relative to a benchmark policy, so the bound describes learning performance across repeated episodes.",
+      "The central theoretical improvement is optimal dependence on the numbers of states and actions, which improves the cited state of the art. The authors also characterize optimistic policy optimization as computationally superior and theoretically near-optimal for this setting. The optimality claim specifically concerns state and action dependence; the overall bound still includes its stated horizon and approximation-class factors."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "879921358597274824bb9091567e0a6a6ff25e5a2e6c67c464dba39eea131ce7",
+    "tldr": "OPO-CMDP provides a high-probability regret bound with optimal state and action dependence for contextual sequential decision problems."
+  },
+  "icml-2026-normalization-equivariant-diffusion-models-learning-posterior-samplers-from-noisy-and-pa-47c5a985f4": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Image-restoration diffusion models commonly rely on clean training images, which can be difficult to obtain. Learning from incomplete measurements introduces another obstacle when methods require several complementary acquisition processes. This paper proposes learning restoration diffusion models using only noisy measurements produced by a single measurement operator.",
+      "The theoretical starting point is a weak scale-equivariance property of diffusion models and minimum-mean-squared-error denoisers. It connects changes in signal amplitude with changes in noise intensity. The authors use that connection to construct a denoising score-matching strategy that generalizes to noise levels below those present in the training data, enabling learning from noisy observations.",
+      "For observations that are also incomplete, the approach incorporates equivariant imaging, a self-supervised framework that uses invariants of the imaging problem. This combination extends training to noisy, partial measurements from one operator. Experiments cover denoising, demosaicing, inpainting, and MRI reconstruction, with comparisons against leading methods. The contribution centers on reducing the clean-data and acquisition requirements for training restoration models."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ecef15248dcb66e4ff702d9a15c711d22138785fb98fb95dea5080bebb60e7d1",
+    "tldr": "A scale-equivariance-based training strategy learns restoration diffusion models from noisy, potentially incomplete measurements from a single operator."
+  },
+  "icml-2026-optimal-regret-for-policy-optimization-in-contextual-bandits-7e9e539db9": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Contextual bandit learning involves repeatedly choosing among actions using the available context and learning from the resulting losses. This paper asks whether policy optimization, a widely used way to improve decision rules, can achieve an optimal theoretical guarantee in the stochastic version of that problem with general offline function approximation.",
+      "The authors present an efficient algorithm whose regret is bounded with high probability by roughly the square root of the number of rounds times the number of actions times the logarithm of the loss-function class size. The notation suppresses additional logarithmic factors. Regret summarizes accumulated loss relative to a benchmark, while the function class represents the candidates used to approximate losses.",
+      "The stated advance is the first optimal high-probability regret bound for a policy-optimization technique in this setting. It provides theoretical support for an approach already common in practice, showing that this algorithm can achieve the desired learning rate. An empirical evaluation accompanies the analysis and supports the theoretical results."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d844a508c33fbaaf953a62e419b7400c8b56ede198f57735bc59bb17336de25c",
+    "tldr": "An efficient policy-optimization algorithm achieves an optimal high-probability regret bound for stochastic contextual bandits."
+  },
+  "icml-2026-praglocker-protecting-agent-intellectual-property-in-untrusted-deployments-via-non-porta-ba978d5128": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "An agent’s prompt can encode valuable task-specific behavior, but a deployment operator may be able to copy it and reuse it with another language model. PragLocker addresses this intellectual-property problem by transforming prompts so they preserve functionality on an intended model while becoming harder to transfer to other models.",
+      "The scheme anchors the prompt’s meaning using code symbols, then introduces noise guided by feedback from the target model. That feedback helps retain useful behavior on the intended model during obfuscation. The design addresses four requirements identified by the authors: proactive protection, protection during use, usability, and reduced portability across models.",
+      "Experiments span multiple agent systems, datasets, and foundation models. They show substantially reduced cross-model portability while maintaining target-model performance, along with robustness against the adaptive attackers evaluated. The practical idea is to tie the usefulness of a copied prompt more closely to its intended model. The empirical evidence supports reduced reuse in the tested settings rather than an unconditional guarantee against every attacker."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7632e80c07ccf21f3ff522e65fff7fdf1e8d0358e0c488024410c87be5184262",
+    "tldr": "PragLocker obfuscates agent prompts to preserve target-model performance while substantially reducing their usefulness on other models."
+  },
+  "icml-2026-scaling-behavior-in-model-fine-tuning-for-audio-deepfake-detection-aefad477e8": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Audio deepfake detectors increasingly use larger speech foundation models and more synthetic training data. Strong benchmark scores leave an important question: how do those increases affect reliability when deployment data differ from training data? This paper studies scaling during fine-tuning, focusing on detection performance alongside robustness and generalization.",
+      "The experiments use a controlled family of speech models that share architecture and pretraining, while examining model size and training-data scale. The evaluation considers distribution shifts, corrupted signals, and synthesis pipelines absent from training. This setup places ordinary detection gains and behavior under unfamiliar conditions within the same scaling study.",
+      "The central finding is an asymmetry between performance scaling and robustness scaling. Better detection performance as resources increase does not imply matching progress in resilience to deployment changes. The authors therefore conclude that increasing model capacity alone is insufficient for reliable real-world generalization. The work clarifies why model size and data quantity need to be assessed against several dimensions of detector quality."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ce94aee4e7c8d0ffdd47e85a03399e56817b3c46446d35f93b173cb7c794f7a1",
+    "tldr": "Audio deepfake detection performance and robustness scale differently, making larger models alone insufficient for reliable generalization."
+  },
+  "icml-2026-scaling-multi-agent-environment-co-design-with-diffusion-models-2e95511c94": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Agent-environment co-design improves both the agents’ policies and the environments in which they operate. In multi-agent settings, that creates a difficult moving target: changes to policies alter which environments work well, while environment changes alter the learning problem. Large environment-design spaces also make existing approaches expensive to explore.",
+      "Diffusion Co-Design, or DiCoDe, uses a guided diffusion model to support this joint search. Its Projected Universal Guidance mechanism explores environments that satisfy constraints while pursuing higher rewards. A critic-distillation mechanism transfers knowledge from reinforcement learning into the diffusion model, allowing the environment-design process to use information acquired during policy learning.",
+      "The combination produces better environment-policy pairs on challenging multi-agent benchmarks. In a warehouse setting, the authors report 39% higher rewards and 66% fewer simulation steps than the state of the art. Those figures describe that benchmark example. More broadly, the reported results support transferring learned reward information into constrained environment generation as a route to more scalable, sample-efficient co-design."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6ed920bd103c727a2d2ce2364b77dc87cc6fc7fd8610539a40c16996d891a7a8",
+    "tldr": "DiCoDe uses constrained diffusion guidance and critic distillation to jointly improve multi-agent policies and environment designs."
+  },
+  "icml-2026-someone-hid-it-query-agnostic-black-box-attacks-on-llm-based-retrieval-80f14fe8d5": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Language-model retrieval systems can change their treatment of documents after adversarial tokens are inserted into them. Earlier attacks often assume knowledge of the retrieval query or access to the target model. This paper examines whether document manipulation remains effective when neither the victim’s queries nor information about its model is available.",
+      "The proposed attack uses zero-shot surrogate language models to generate injection tokens that transfer to other retrievers. The authors first develop and empirically verify a theoretical framework for language-model retrieval. Within that framework, they express transferable attack generation as a min-max problem and use adversarial learning with learnable query samples to optimize the tokens.",
+      "Tests on benchmark datasets show effective attacks across popular language-model retrievers. The security implication is that limited access to the victim need not prevent manipulation of retrieval behavior in the evaluated settings. The authors also raise a broader robustness concern: benign or accidental document edits might produce similar effects. That possibility is presented as a concern, rather than an established universal outcome."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ee0203c9a3cb629230da783a6b1a1b969f63d7595615e92f0f971ee395fe7af4",
+    "tldr": "Transferable document injections manipulate tested language-model retrievers without knowing victim queries or accessing the victim model."
+  },
+  "icml-2026-stablei2i-spotting-unintended-changes-in-image-to-image-transition-11dc052b5a": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "An edited or restored image can look attractive and follow an instruction while still changing content that should have been preserved. StableI2I focuses evaluation on that issue: whether the output maintains meaningful correspondence with the input and preserves its spatial structure. These properties complement assessments of appearance and instruction following.",
+      "The framework measures content fidelity and consistency between the input and output across image-to-image tasks, including editing and restoration. It does not require a separate reference output image. The authors also introduce StableI2I-Bench to systematically assess how accurately multimodal language models judge these preservation properties.",
+      "Experiments find that StableI2I produces accurate, detailed, and interpretable evaluations that correlate strongly with human subjective judgments. This makes its scores useful for diagnosing unintended changes as well as comparing image-to-image systems. The contribution is an evaluation focus on what survives a transformation, supported by a benchmark for the models performing that assessment and evidence of agreement with human judgments."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b9c45468c940cfb81f73f27b061cb8e0ca7a6bc550bf5a813c3142607daac16a",
+    "tldr": "StableI2I evaluates whether image editing and restoration preserve content and structure without requiring reference output images."
+  },
+  "icml-2026-starembed-benchmarking-time-series-foundation-models-on-astronomical-observations-of-var-14c5dc3340": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Stellar light curves record how observed brightness changes over time. They challenge time-series models through irregular observation times, multiple variables, and noise whose variance changes across observations. StarEmbed introduces a public benchmark using real measurements from approximately 40,000 stars across seven classes, bringing these complexities into foundation-model evaluation.",
+      "The benchmark tests clustering, classification, and detection of sources outside the expected distribution. It compares time-series foundation models with different architectures and training strategies, as well as transformers designed for the domain. These tasks assess whether learned representations capture useful structure across several distinct uses of astronomical data.",
+      "The Chronos family achieves state-of-the-art results in light-curve clustering and out-of-distribution detection despite pretraining on regularly sampled, non-astronomical data. Classification presents a different picture: no tested time-series foundation model strictly exceeds the established domain baseline, although the models show strong generalization. The findings support transferable light-curve representations while preserving a clear distinction between success on different evaluation tasks."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b9670556cb12338ddc31f1166654e0403d2ab5b3ee9ff66ed47154b88d4f94cf",
+    "tldr": "StarEmbed finds strong astronomical transfer from Chronos for clustering and unusual-source detection, while classification retains a competitive domain baseline."
+  },
+  "icml-2026-toward-cybersecurity-expert-small-language-models-7ae7e2d4e0": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "CyberPal 2.0 is a family of cybersecurity-focused language models ranging from 4B to 20B parameters. The paper targets a shortage of high-quality specialized models and training data. Its approach emphasizes constructing task-grounded reasoning examples so smaller models can develop expertise for security work.",
+      "The SecKnowledge 2.0 pipeline generates an enriched instruction dataset with chain-of-thought reasoning. Experts steer the formats of those reasoning traces, while language-model-driven multistep grounding helps connect them to the tasks. This combines expert direction with automated data enrichment to improve the fidelity of the material used for training.",
+      "Across cybersecurity benchmarks, the models outperform their baselines and match or exceed various tested frontier models. On threat-investigation tasks connecting vulnerabilities and bug tickets to weaknesses, the 20B model ranks first ahead of the named competitors, and the 4B model ranks second. On threat-intelligence knowledge tasks, the family ranks behind only Sec-Gemini v1 among tested models. These results demonstrate strong specialization within a comparatively small parameter budget."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "76c521d44896b6edc98ba595a2543852c2191c30f2b39aeeb9089f699c61e3c0",
+    "tldr": "CyberPal 2.0 uses enriched cybersecurity reasoning data to make 4B–20B models competitive with tested frontier models on specialized benchmarks."
+  },
+  "icml-2026-unifying-heterogeneous-multi-modal-remote-sensing-detection-via-language-pivoted-pretrai-9ccd4b109e": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Remote-sensing object detection must work across sensors whose images differ substantially, including visible-light, radar, and infrared systems. Existing approaches often align those modalities while simultaneously learning the downstream detection task. BabelRS separates these stages, aiming to reduce the optimization difficulty caused by learning sensor correspondence and detection together.",
+      "Its Concept-Shared Instruction Aligning component maps each sensor modality to a common collection of linguistic concepts. Language provides a shared semantic reference for otherwise heterogeneous visual representations. A second component, Layerwise Visual-Semantic Annealing, progressively aggregates visual features at multiple scales to address the mismatch between broad language concepts and the fine-grained information required for detection.",
+      "Experiments report more stable training and consistent improvements over leading methods. The approach matters because its shared representation is established through language-guided pretraining before downstream task learning, while its multiscale mechanism preserves attention to detection detail. The findings support this separation of modality alignment and task optimization as an effective design for the evaluated remote-sensing systems."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ab22e5e7d348989b026cd0b9e17e11c002e4788913cea79147f1e0cb3c972f46",
+    "tldr": "BabelRS aligns remote-sensing modalities through shared language concepts before detection training, improving stability and reported detection performance."
+  }
+}

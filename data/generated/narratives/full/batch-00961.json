@@ -1,0 +1,377 @@
+{
+  "neurips-2024-4-bit-shampoo-for-memory-efficient-network-training-e37ce36cd1": {
+    "backgroundConcepts": [
+      "topic-194-1-bit-wonder-improving-qat-performance-in-the-lo"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Second-order optimizers use a matrix called a preconditioner to shape training updates. Storing this matrix and its inverse root can consume substantial memory, restricting the size of models that can be trained. This paper introduces 4-bit second-order optimization, using Shampoo as its example, to reduce that storage burden while retaining performance similar to the 32-bit version.",
+      "The central choice concerns what to compress. Instead of directly quantizing the preconditioner, the method quantizes its eigenvector matrix, which represents its underlying directions. The authors show theoretical and experimental advantages for this choice. They also correct the loss of orthogonality caused by quantization, improving the eigenvector approximation and the computation of the inverse fourth root.",
+      "Experiments on image classification and natural language modeling networks find comparable performance with lower memory use. The authors additionally find a slight advantage for linear square quantization over dynamic tree quantization. Together, these results support carefully compressing the optimizer’s mathematical representation rather than simply lowering the precision of every stored matrix."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ee5e3a509a56e5ca58d69948cd66e726c2274a03e00fa274bcaaf0778fe6ffa0",
+    "tldr": "4-bit Shampoo compresses second-order optimizer states through their eigenvectors, reducing memory use while achieving performance comparable to 32-bit Shampoo."
+  },
+  "neurips-2024-aucseg-auc-oriented-pixel-level-long-tail-semantic-segmentation-96b2eb7e1c": {
+    "backgroundConcepts": [
+      "topic-091-why-is-there-a-tumor-tell-me-the-reason-show-me-"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Semantic segmentation assigns a category to each pixel, and a long-tail distribution means some categories appear far less often than others. AUCSeg investigates whether optimizing the area under the ROC curve, or AUC, can help in this setting. Although AUC optimization has been studied for individual examples, applying it to pixels introduces additional dependencies and memory demands.",
+      "The difficulty is that pixel-level loss terms are linked both within an image and across pairs of images. Those links complicate analysis of how well a trained model will generalize. The authors develop a pixel-level AUC loss and analyze its generalization using a dependency graph, explicitly accounting for the relationships that make this setting different.",
+      "A second obstacle is that estimating the AUC loss from mini-batches requires larger batches, making memory use impractical. AUCSeg introduces a Tail-Classes Memory Bank to manage that demand. Experiments across several benchmarks support the method’s effectiveness. The contribution combines an objective tailored to pixel imbalance, a corresponding theoretical analysis, and a mechanism addressing the memory cost of using that objective."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "487cbcb6694b986f092d93eff5abdcd51c40c7f8f1366e789f4ea0f18de623c3",
+    "tldr": "AUCSeg adapts AUC optimization to imbalanced pixel classification with dependency-aware theory and a memory bank for rare classes."
+  },
+  "neurips-2024-automating-data-annotation-under-strategic-human-agents-risks-and-potential-solutions-088e5e402c": {
+    "backgroundConcepts": [
+      "topic-033-2d-shapley-a-framework-for-fragmented-data-valua"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "When a model makes decisions about people, those people may change their behavior in response. This changes the data the model encounters and can create pressure to retrain it. The paper studies what happens when new training labels come from the model itself, especially where obtaining high-quality human annotations is difficult.",
+      "The authors formalize the interaction between strategic people and repeated model retraining. In their analysis, people become increasingly likely to receive favorable decisions, even though the proportion with genuinely positive labels may decrease. This separates two quantities that can otherwise appear interchangeable: receiving a positive model decision and belonging to the positive underlying category.",
+      "The paper proposes a refined retraining process to stabilize these dynamics and also examines fairness over time. It finds that imposing common fairness constraints in every round may fail to benefit the disadvantaged group in the long run. Experiments using synthetic, semi-synthetic, and real data support the theoretical findings. The results make the evolving feedback between behavior, generated labels, and retraining central to evaluating such systems."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ebb154b3f152d9fd1cdcd8d7ee94e4c0e141fa5a72cf78da7328c974d47a0b31",
+    "tldr": "Repeated retraining on model-generated labels can produce harmful feedback with strategic human behavior, motivating a more stable retraining process."
+  },
+  "neurips-2024-avernet-all-in-one-video-restoration-for-time-varying-unknown-degradations-494922357d": {
+    "backgroundConcepts": [
+      "topic-132-4kagent-agentic-any-image-to-4k-super-resolution"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Restoring a video becomes harder when the type and strength of corruption change over time. A method designed for one degradation cannot readily handle several unknown ones, and handling multiple types alone does not address their variation between frames. AverNet targets this combined problem through a single restoration network with two cooperating modules.",
+      "The first module, Prompt-Guided Alignment, learns prompts that help align frames at the pixel level. It addresses pixel shifts associated with changing degradations, so the restoration process can relate corresponding image content across time. The second module, Prompt-Conditioned Enhancement, treats recovery as a conditional problem, implicitly learning a relationship between degraded inputs and their clean targets.",
+      "The two modules therefore address different parts of the task: aligning changing observations and conditioning their enhancement on the corruption. Experiments on two synthetic datasets, containing seven degradation types with randomly varied corruption levels, show that their combination can recover videos affected by time-varying unknown degradations. These results provide empirical support for jointly handling temporal alignment and adaptive restoration."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "48eb3dd11dac42b38d8f304ce027fa92152e173f0f2d32c08b35e9b8af1a775a",
+    "tldr": "AverNet combines prompt-guided frame alignment and conditional enhancement to restore videos whose unknown degradations change over time."
+  },
+  "neurips-2024-bridging-model-based-optimization-and-generative-modeling-via-conservative-fine-tuning-o-c26a1d747d": {
+    "backgroundConcepts": [
+      "topic-064-psi-sampler-initial-particle-sampling-for-smc-ba"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Design tasks such as choosing biological sequences require both plausible candidates and desirable properties. Generative models capture what feasible designs look like, while reward models estimate how valuable a design might be. This paper combines these roles by using reinforcement learning to fine-tune a diffusion model toward higher predicted rewards.",
+      "The setting is offline: the reward model must be learned from a fixed dataset rather than assumed to be accurate and available. This creates an overoptimization problem. Searching aggressively for high predicted rewards can lead into regions where the learned reward model is misleading because those designs differ from its training data.",
+      "BRAID addresses this with a conservative reward model that adds penalties outside the offline data distribution. The pretrained diffusion model contributes its representation of feasible designs, while the reward model supplies the ability to extrapolate toward improved candidates. Empirical and theoretical analyses support the approach’s ability to exceed the best designs in the offline data while avoiding invalid generation. The result presents conservative reward optimization as a way to combine improvement beyond observed examples with generative constraints."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7b809c45500c0391a901d55e54bbe7f144d586b82c486e3d4a8570c141dececa",
+    "tldr": "BRAID conservatively fine-tunes diffusion models using learned rewards to improve offline designs while controlling misleading extrapolation."
+  },
+  "neurips-2024-consistency-models-for-scalable-and-fast-simulation-based-inference-7f703b236c": {
+    "backgroundConcepts": [
+      "topic-242-a-bayes-sard-cubature-method"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Simulation-based inference uses observations to infer the parameters of a complex simulator. A useful inference method must represent uncertainty accurately while making it practical to draw parameter samples. The paper introduces consistency models for posterior estimation, or CMPE, to combine expressive conditional sampling with faster inference.",
+      "CMPE distills a continuous probability flow into a sampler that can generate results in only a few steps. Its architecture can be adapted to the structure of the estimation problem without the architectural constraints discussed in the abstract. The authors also provide default architectures and hyperparameters for consistency training across a wide range of dimensions, including low-dimensional problems that have been difficult for earlier consistency models.",
+      "The empirical results distinguish two settings. On difficult low-dimensional benchmarks, CMPE outperforms current leading algorithms. On two realistic problems involving high-dimensional data, parameters, or both, it delivers competitive performance with substantially faster sampling. These findings suggest that consistency-based sampling can address inference-time cost while remaining useful across the different dimensional regimes encountered in simulation-based workflows."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7bd00078df4a7eaba5d50390343a538c072bb6d85f3034c7abba4bbd6afeefad",
+    "tldr": "CMPE uses consistency models to produce posterior samples in a few steps, combining strong inference performance with faster sampling."
+  },
+  "neurips-2024-contextual-bilevel-reinforcement-learning-for-incentive-alignment-0285eb8a83": {
+    "backgroundConcepts": [
+      "topic-096-a-definition-of-continual-reinforcement-learning"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "An incentive designer chooses rules, but the outcome also depends on how others respond and on circumstances outside the designer’s control. Contextual Bilevel Reinforcement Learning models this interaction as a two-level decision problem. A leader and a random context jointly determine the environments in which one or more followers choose their best responses.",
+      "The lower-level problem is a contextual Markov decision process. This allows the framework to describe settings such as reward shaping and tax design, where changing incentives alters learned behavior. The authors propose Hyper Policy Gradient Descent, a stochastic algorithm for updating the leader’s policy, and demonstrate its convergence.",
+      "The algorithm estimates the leader’s learning signal from observed follower trajectories. Consequently, followers can use any training procedure without requiring the leader to know its specific implementation. The paper also considers a setting where the leader can influence follower training and introduces an accelerated algorithm for that case. Empirical demonstrations in reward shaping and tax design show how the framework can be applied to incentive problems with contextual variation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7acc9faba4c5288b64a6d66be6e8bffa557033642d2fb1525064b26287ffb118",
+    "tldr": "CB-RL learns incentives from followers’ observed behavior while accounting for random context and allowing unknown follower training procedures."
+  },
+  "neurips-2024-dat-improving-adversarial-robustness-via-generative-amplitude-mix-up-in-frequency-domain-5b415d9766": {
+    "backgroundConcepts": [
+      "topic-223-efficient-black-box-adversarial-attacks-via-baye"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Adversarial training teaches a network using deliberately perturbed examples. This paper approaches that process through an image’s frequency representation, which separates amplitude and phase. It builds on findings that attacks disproportionately affect phase patterns, where crucial semantic information typically resides, contributing to incorrect predictions.",
+      "The authors find that mixing a training image’s amplitude with that of a distractor image can encourage the model to rely on phase patterns that remain unaffected by adversarial perturbations. The challenge is choosing distractors that provide useful amplitude changes without disrupting those phase patterns. An optimized Adversarial Amplitude Generator is introduced to improve this tradeoff.",
+      "Dual Adversarial Training combines that generator with an efficient procedure for producing adversarial examples. Its purpose is to coordinate amplitude variation with the training examples used to build robustness, rather than depend on manually selecting suitable distractors. Experiments across multiple datasets report significant robustness improvements against diverse attacks. The findings support generated frequency-domain augmentation as a useful component of adversarial training in the evaluated settings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8c0ac98d0511103cedaf10f50a2b9e795dba687054faa231f5863910dd0cdff1",
+    "tldr": "DAT improves adversarial training with generated amplitude mixtures that encourage reliance on phase patterns unaffected by perturbations."
+  },
+  "neurips-2024-demystify-mamba-in-vision-a-linear-attention-perspective-2a591e2fad": {
+    "backgroundConcepts": [
+      "topic-086-a-capacity-based-rationale-for-multi-head-attent"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Mamba has shown strong efficiency on high-resolution vision inputs, while linear-attention Transformers have often been less competitive. This paper investigates that difference by expressing their computations in a shared mathematical formulation. The comparison makes it possible to examine which architectural choices account for their different practical performance.",
+      "The authors describe six distinctions: input and forget gates, a shortcut, the absence of attention normalization, a single attention head, and a different block design. They analyze the advantages and disadvantages of each and test their effects on vision tasks. The empirical findings identify the forget gate and block design as the main contributors to Mamba’s success, with the other four choices playing less crucial roles.",
+      "Using those findings, the paper proposes Mamba-Inspired Linear Attention, or MILA, which transfers the advantages of the two key designs into linear attention. It outperforms various vision Mamba models on image classification and high-resolution dense prediction while supporting parallel computation and fast inference. The work therefore connects an architectural explanation with a model constructed from the resulting evidence."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "21c9b7a6eb4fc60f90e29ff54ade05d917bafcceea95ca2b47b40f9dd0eaef44",
+    "tldr": "A unified analysis identifies Mamba’s forget gate and block design as key vision advantages and uses them to improve linear attention."
+  },
+  "neurips-2024-desparsify-adversarial-attack-against-token-sparsification-mechanisms-462aec7cda": {
+    "backgroundConcepts": [
+      "topic-223-efficient-black-box-adversarial-attacks-via-baye"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Vision Transformers become more computationally expensive as the number of image tokens grows. Token sparsification reduces this expense by dropping tokens judged uninformative for a particular input. Because the amount of computation depends on the input, however, an attacker can potentially manipulate the mechanism that decides what to retain.",
+      "DeSparsify targets this efficiency mechanism with crafted adversarial examples intended to push execution toward its worst case. The attack focuses on availability: it aims to consume operating-system resources while remaining stealthy. The relevant failure is therefore increased resource demand from the model’s adaptive processing, which can undermine the expected savings from sparsification.",
+      "The authors evaluate the attack on three sparsification mechanisms and report its effectiveness. They also examine whether attacks transfer between mechanisms and how GPU resources are affected, and propose countermeasures to reduce the impact. The work shows why average-case computational efficiency needs to be considered alongside adversarial input behavior when evaluating these dynamic mechanisms. The reported evidence concerns the tested mechanisms and resource effects."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1d0a312610416c979e8446d5bf77d61e1c9f2d7612fdcbe7294c53a03285e1e7",
+    "tldr": "DeSparsify manipulates token-dropping mechanisms to increase Vision Transformer resource use, exposing an availability risk in adaptive computation."
+  },
+  "neurips-2024-do-finetti-on-causal-effects-for-exchangeable-data-4ed3ae2ffe": {
+    "backgroundConcepts": [
+      "topic-090-a-causal-framework-for-decomposing-spurious-vari"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Causal inference asks how outcomes would change under an intervention. This paper studies that question for exchangeable data, where observations need not be independent even though their ordering does not change the joint distribution. Such processes can arise in data collected across multiple environments and extend beyond the independent, identically distributed setting commonly used in causal estimation.",
+      "The framework specifically assumes independent causal mechanisms. Within that setting, the authors introduce a generalized truncated factorization formula that supports both identifying causal effects and estimating them. This provides a way to connect intervention questions to the structure of an exchangeable generative process, where standard formulations do not directly extend.",
+      "A causal Pólya urn model illustrates potential applications and how an intervention’s effects propagate in this setting. The paper also develops an algorithm that jointly discovers causal structure and estimates effects from multi-environment data. Its contribution is an extension of causal reasoning to a specified dependent-data setting, with the independent-mechanisms assumption remaining part of the framework under which the results are established."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "28c76451b0e1e41ec3d1a442da829e566571d196b744956663a094c4ca899929",
+    "tldr": "Do Finetti extends causal identification and estimation to exchangeable data under an assumption of independent causal mechanisms."
+  },
+  "neurips-2024-fewviewgs-gaussian-splatting-with-few-view-matching-and-multi-stage-training-aa19784607": {
+    "backgroundConcepts": [
+      "topic-140-1000-fps-4d-gaussian-splatting-for-dynamic-scene"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Novel view synthesis reconstructs how a scene would look from viewpoints absent from the input images. Gaussian Splatting can render such views efficiently, but its flexible explicit representation tends to overfit when only a few training images are available. FewViewGS addresses this sparse-input setting by adding constraints that connect available observations to generated views.",
+      "The method uses several training stages and image matches to supervise views sampled between training frames. Color, geometry, and semantic losses encourage these new views to remain consistent with the available images. This supervision does not require pretrained depth estimators or diffusion models, making the matches themselves a central source of guidance.",
+      "A further regularization term preserves local color structure among the 3D Gaussians to remove rendering artifacts. Together, the matching constraints and locality preservation address consistency across views and coherence within the reconstructed scene. Evaluations on synthetic and real-world datasets show performance competitive with or superior to existing leading methods for few-shot novel view synthesis. The findings support using sparse image correspondences to better constrain Gaussian-based reconstruction."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "fa1a6d7fdaa3f57badadd6716225c81c1181bdc7b07ca0f9bb7fe859ce454295",
+    "tldr": "FewViewGS improves sparse-image Gaussian Splatting through multistage matching supervision and regularization that preserves local scene color."
+  },
+  "neurips-2024-general-bounds-on-the-quality-of-bayesian-coresets-83829f3717": {
+    "backgroundConcepts": [
+      "topic-242-a-bayes-sard-cubature-method"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Bayesian coresets replace a large dataset with a small weighted subset for posterior inference. The computational savings come from approximating the full log-likelihood, but that approximation changes the resulting posterior. This paper develops broader theoretical bounds on that error, measured by Kullback–Leibler divergence, than analyses restricted to particular model families or strong regularity assumptions.",
+      "The lower bounds use mild assumptions typical of Bayesian asymptotic analysis. They establish fundamental limits on coreset quality and help explain previously observed poor performance of construction methods based on importance sampling. The upper bounds require a generalized subexponentiality condition on log-likelihood functions, described as weaker than conditions in earlier work.",
+      "The authors use those upper bounds to analyze methods that first subsample data and then optimize the coreset. Validation experiments include posteriors with multiple modes, unidentifiable parameters, and heavy tails, illustrating the theory’s flexibility. The contribution is a paired account of what coreset approximations cannot achieve and what particular construction approaches can achieve under their respective assumptions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4cd3272fc1a5112cc38257ba2a310f3f92219f409939f8134c15f61e6d5b3a2f",
+    "tldr": "General upper and lower error bounds clarify the capabilities and limitations of Bayesian coresets under broader assumptions."
+  },
+  "neurips-2024-learning-group-actions-on-latent-representations-d7c112e117": {
+    "backgroundConcepts": [
+      "topic-252-3d-convolutional-neural-networks-for-human-actio"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Group actions describe structured transformations and how they compose. In an autoencoder, an encoder maps observations into a latent representation, and a decoder maps those representations back to the data space. This paper proposes learning group actions on the latent representation, allowing the transformations to operate on underlying factors rather than strictly on observations.",
+      "That change expands the range of situations the model can represent, particularly when group structure belongs to hidden factors in the data. The method also permits broad choices of encoder and decoder architecture without requiring layers designed for a particular group. The authors establish theoretically that their formulation contains methods learning group actions in data space as a special case.",
+      "The approach is evaluated on five image datasets with different groups acting on them and achieves better performance than recently proposed methods for modeling group actions. These results support the practical value of the broader formulation. The theoretical inclusion result and architectural flexibility together explain why moving the learned action into latent space can generalize the modeling setup."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b4959e13228c72f8cf54214877da5249735d3947bbb3392108dbd102bbb91ab7",
+    "tldr": "Learning group actions in an autoencoder’s latent space broadens transformation modeling without requiring group-specific network layers."
+  },
+  "neurips-2024-neuralsteiner-learning-steiner-tree-for-overflow-avoiding-global-routing-in-chip-design-12bb624718": {
+    "backgroundConcepts": [
+      "topic-108-a-1-000-neuron-system-with-one-million-7-bit-phy"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Global routing in chip design connects pins through routing paths that often form rectilinear Steiner trees. Existing learned route generators can produce substantial overflow, limiting their practical usefulness. NeuralSteiner addresses this by learning where to place intermediate Steiner points while accounting for both the full net’s spatial arrangement and overflow information.",
+      "The method separates prediction from route construction. A neural network first identifies likely Steiner point locations. A graph-based post-processing algorithm then selects suitable points, which are connected with the input pins to produce routes. This procedure guarantees connectivity while substantially reducing congestion, according to the paper.",
+      "The authors also report that NeuralSteiner scales to large nets and transfers to unseen chip designs without modification or fine-tuning. On public large-scale benchmarks, it reduces overflow by up to 99.8% relative to leading deep generative methods, speeds up generation, and incurs a wirelength penalty within 1.8%. The maximum overflow reduction is a reported best-case figure, while the overall result demonstrates a favorable routing tradeoff in the evaluated benchmarks."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1ca4efdb110e48abf0788f88a2c04cbb464f86b24b64dddc7bca1a429045ea5c",
+    "tldr": "NeuralSteiner combines learned Steiner point prediction with graph processing to generate connected chip routes with substantially less overflow."
+  },
+  "neurips-2024-probablistic-emulation-of-a-global-climate-model-with-spherical-dyffusion-e30e89516a": {
+    "backgroundConcepts": [
+      "topic-136-sparse-attention-to-the-details-preserving-spect"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Accurate short-range weather prediction does not by itself resolve the challenges of climate simulation, where a model must sustain long sequences of predictions. This paper introduces a conditional generative model that emulates a coarse version of FV3GFS and produces global climate ensembles. The stated goal is accurate, physically consistent simulation with manageable computational cost.",
+      "Spherical DYffusion combines the dynamics-informed DYffusion framework with a Spherical Fourier Neural Operator architecture. The resulting system supports stable simulations lasting 100 years at six-hour intervals. The authors report low computational overhead relative to single-step deterministic baselines, addressing the expense of producing such extended sequences.",
+      "The model achieves performance described as near the gold standard for climate model emulation, exceeds existing approaches, and shows promising ensemble skill. Its target is the behavior of a coarse climate-model configuration, which defines the emulation task being assessed. The findings support the potential for generative methods to provide efficient, long-duration climate ensembles, with possible value for understanding climate behavior and informing adaptation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3d508b34004e008569b0c0ab2f7412fd49f67e1b8e88bc9384026ac5078b299d",
+    "tldr": "Spherical DYffusion emulates a coarse global climate model with physically consistent ensembles and stable century-long simulations."
+  },
+  "neurips-2024-protein-nucleic-acid-complex-modeling-with-frame-averaging-transformer-638be46b49": {
+    "backgroundConcepts": [
+      "topic-249-be-cautious-bio-foundation-models-are-not-yet-ro"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Aptamers are nucleic acid-based candidates with therapeutic potential, but experimentally screening their binding to proteins is costly. Scarce labeled binding data also makes supervised prediction difficult. This paper develops an unsupervised binding approach that uses predicted pairwise contact maps between proteins and nucleic acids as evidence of interaction.",
+      "The underlying model, FAFormer, is an equivariant Transformer that incorporates frame averaging into every Transformer block. This allows geometric information to enter node features while retaining the spatial meaning of coordinates. The authors argue that this integration provides greater expressive power than standard frame-averaging models, making geometry more useful for contact prediction.",
+      "Across three protein-complex datasets, FAFormer improves contact-map prediction by more than 10% relative to existing equivariant models. The authors also assemble five real-world protein–aptamer interaction datasets and show that the predicted maps are strong indicators of binding. The findings connect a geometric architecture improvement to a screening-relevant signal, supporting contact prediction as a way to assess binding when labeled interaction data are scarce."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "196c8e742fd1efda72123652336302148a89f55de05a947fa8dfa46bc01ca7f5",
+    "tldr": "FAFormer improves protein–nucleic acid contact prediction, providing a useful signal for aptamer binding screening without supervised binding labels."
+  },
+  "neurips-2024-puzzles-a-benchmark-for-neural-algorithmic-reasoning-1b37b26e88": {
+    "backgroundConcepts": [
+      "topic-190-a-causal-world-model-underlying-next-token-predi"
+    ],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Reinforcement learning has achieved strong results in areas such as motor control and tasks involving perceptual or stochastic inputs. The authors argue that comparable progress in algorithmic and logical reasoning needs dedicated benchmarks. PUZZLES supplies such a test environment using Simon Tatham’s Portable Puzzle Collection as its foundation.",
+      "The benchmark contains 40 different logic puzzles, with adjustable sizes and varying complexity. Those dimensions make it possible to examine more than whether an agent succeeds on one fixed problem. They provide ways to characterize an agent’s strengths and study its generalization as the reasoning problems change in size or difficulty.",
+      "The paper evaluates several reinforcement learning algorithms and supplies baseline comparisons for subsequent work. Its central contribution is therefore an evaluation resource and an initial account of agent performance across diverse reasoning tasks. The environment and associated software are available, allowing further methods to be studied using the same benchmark. The reported evaluations establish a basis for research rather than claiming that reinforcement learning has already solved the collection’s reasoning challenges."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e0c04485797fb53f49ce4b8b981b04b6eb021b82ee4a2868d06f800ae4c90a43",
+    "tldr": "PUZZLES provides 40 adjustable logic puzzles and baseline evaluations for studying reasoning and generalization in reinforcement learning."
+  },
+  "neurips-2024-rle-a-unified-perspective-of-data-augmentation-for-cross-spectral-re-identification-f6f1d1f3c7": {
+    "backgroundConcepts": [
+      "topic-214-a-hypertoroidal-covering-for-perfect-color-equiv"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Cross-spectral re-identification must match identities despite differences between imaging modalities. This paper uses the Lambertian model to interpret those differences: the authors observe that much of the overall nonlinear discrepancy comes from different linear transformations acting locally on different material surfaces. This provides a common perspective on existing augmentation strategies.",
+      "Under that perspective, augmentations imitate local linear transformations and fall into moderate or radical categories. Random Linear Enhancement, or RLE, develops both directions. Its moderate version generates varied image transformations while preserving the original linear correlations under constraints. Its radical version directly generates local linear transformations without requiring external information.",
+      "The distinction gives the method two ways to vary training images: retain constrained relationships or explore more direct local changes. Experiments support RLE’s effectiveness and superiority in the evaluated cross-spectral re-identification setting. They also suggest potential as a broadly useful augmentation strategy for that task. The contribution combines a physical-model-based interpretation of modality differences with concrete augmentation methods derived from that interpretation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6012cc14e1189a72448acb48116c0835bdd6ed416f612ef7180af20e85658261",
+    "tldr": "RLE models cross-spectral appearance differences through local linear transformations and uses that perspective to design two augmentation strategies."
+  },
+  "neurips-2024-sample-selection-via-contrastive-fragmentation-for-noisy-label-regression-770aa29365": {
+    "backgroundConcepts": [
+      "topic-247-a-close-look-at-negative-label-guided-out-of-dis"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Regression learns numerical targets, but incorrect labels can distort that learning. ConFrag builds on a pattern found in much real-world data: nearby target values often correspond to related features. This ordered relationship provides evidence for deciding whether a sample’s label agrees with the surrounding data.",
+      "The method reorganizes regression data into disjoint, contrasting pairs of fragments. Learning to distinguish these fragments produces more distinctive representations, supporting the selection of clean samples. It then combines neighboring fragments and checks agreement among expert feature extractors to identify labels that do not fit their neighborhood.",
+      "The authors evaluate ConFrag on four newly assembled benchmarks spanning domains including age, price, and music production year prediction. They also introduce Error Residual Ratio, a metric intended to account better for different degrees of label noise. ConFrag consistently outperforms fourteen leading baselines in the reported experiments and is robust to symmetric and random Gaussian label noise. The findings support using ordered feature–label relationships as a practical signal for sample selection in noisy regression."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7418ae310f51c20949578d37a7b0fc52a3c2f79ecce416b5486d61dbb29229cd",
+    "tldr": "ConFrag identifies cleaner regression samples by learning contrasting data fragments and checking agreement among neighboring feature experts."
+  },
+  "neurips-2024-smoothie-label-free-language-model-routing-a2742aa695": {
+    "backgroundConcepts": [
+      "topic-199-a-benchmark-for-systematic-generalization-in-gro"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Different language models can be better suited to different inputs, making model selection consequential for applications handling many tasks. Routing chooses which model to use for each sample. Smoothie investigates how to make that choice without the human-labeled data commonly used to train auxiliary routing models.",
+      "Given outputs from several language models, Smoothie embeds those outputs and builds a latent-variable graphical model. The observed outputs are related to an unknown true output within this model. Drawing on weak supervision, the method estimates a quality score for each language model that depends on the sample, then selects the model with the highest estimated score.",
+      "The authors find that these estimated scores correlate with actual model quality. Smoothie identifies the optimal model on nine of fourteen tasks and improves routing accuracy over baselines by up to ten points. These results support the usefulness of unlabeled output-based quality estimation, while also showing that optimal selection is not achieved on every task. The approach makes the collection of candidate outputs itself the basis for routing decisions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8602bb82676ad0bd1051d501a1283f5910b6a53e8b9f5af2a461f343aaa2cfa5",
+    "tldr": "Smoothie routes inputs among language models without labeled data by estimating sample-specific quality from their output embeddings."
+  },
+  "neurips-2024-stark-benchmarking-llm-retrieval-on-textual-and-relational-knowledge-bases-c495139b64": {
+    "backgroundConcepts": [
+      "topic-095-g-2-reader-dual-evolving-graphs-for-multimodal-d"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Complex search requests can depend on both descriptive text and relationships between entities. A retrieval system may therefore need to combine information that earlier research often treated as separate tasks. STaRK creates a large-scale benchmark for this combined setting, covering product search, academic paper search, and precision-medicine queries.",
+      "The authors design a pipeline that generates realistic queries incorporating varied relational information and complex textual properties, together with their correct answer items. Human evaluation checks the quality of these synthetic queries. The benchmark also includes human-written queries, providing an additional reference grounded in directly authored requests.",
+      "This construction makes STaRK a test of retrieving items from knowledge bases that mix structured and unstructured information. Experiments suggest that the benchmark poses substantial difficulties for current retrieval systems and language models. The findings indicate a need for stronger methods that can jointly handle textual requirements and entity relationships. The contribution is both the evaluation resource and evidence that this combined retrieval setting remains challenging for the systems tested."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ff394f51990e16b8dfd719b8ef23ba78fc13e671e70074519286ce47cfa28b6f",
+    "tldr": "STaRK benchmarks retrieval that must combine textual properties with entity relationships across three application domains."
+  },
+  "neurips-2024-state-space-models-on-temporal-graphs-a-first-principles-study-15847e23fb": {
+    "backgroundConcepts": [
+      "topic-058-amag-additive-multiplicative-and-adaptive-graph-"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Temporal graphs represent changing relationships as a sequence of graph snapshots. Modeling them requires tracking both temporal behavior and graph structure. Recurrent networks can struggle with distant dependencies, while Transformers incur quadratic computational costs. This paper investigates how state space models, developed for sequence modeling, can be extended to this structured setting.",
+      "The authors incorporate graph information directly into the online approximation objective using a Laplacian regularization term. This connects the temporal modeling problem to the graph’s structure within the theoretical formulation. The resulting continuous-time system introduces new algorithmic challenges, motivating the development of GraphSSM.",
+      "GraphSSM is designed to model temporal graph dynamics using this extended state space foundation. Extensive experiments across temporal graph benchmarks demonstrate its effectiveness. The significance of the approach is that graph structure enters the derivation of the dynamic system itself, giving a principled basis for the resulting architecture. The work thus links a theoretical extension of state space modeling with an implemented framework and empirical evaluation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "80bd2813cf43fc46f0ca59846b76714f27bc7b4335622870f408cc73b0b27ded",
+    "tldr": "GraphSSM extends state space modeling to temporal graphs by incorporating graph structure into its underlying approximation objective."
+  },
+  "neurips-2024-theoretical-foundations-of-deep-selective-state-space-models-c5e620880b": {
+    "backgroundConcepts": [
+      "topic-109-how-do-language-models-track-state"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Selective state space models let inputs interact multiplicatively with hidden states, changing how information is processed over a sequence. Such mechanisms are central to several recent architectures and are often connected with in-context learning. This paper seeks a theoretical explanation for their expressive capabilities using tools from Rough Path Theory.",
+      "The authors develop a framework for generalized selective state space models and characterize their expressive power. Their analysis identifies gating as the crucial architectural choice and provides a closed-form account of what modern models such as Mamba can express. It also quantifies the theoretical improvement associated with moving beyond earlier architectures such as S4.",
+      "This shifts the discussion from observed model performance to the functions these architectures can represent. The framework is intended to support analysis of future state space variants as well as explain current selective designs. One implication is that interactions across channels could be important for further improvements. That direction is a suggestion from the theory, rather than a demonstrated universal requirement for better models."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "08073c437dbe2ae9a836a82ff2256ed729da0e56ba5c950279444b7a62f8d9ea",
+    "tldr": "A Rough Path Theory framework characterizes selective state space models’ expressive power and identifies gating as a crucial architectural mechanism."
+  },
+  "neurips-2024-understanding-the-role-of-equivariance-in-self-supervised-learning-474db656a5": {
+    "backgroundConcepts": [
+      "topic-125-alpha-req-assessing-representation-quality-in-se"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Self-supervised contrastive learning often encourages representations to ignore data augmentations, which can discard useful information such as color. Equivariant self-supervised learning instead makes features aware of those transformations. This paper develops an information-theoretic account of why such awareness can help models learn features useful for later tasks.",
+      "The analysis identifies an explaining-away effect that links the transformation-prediction task with classification. Under this account, extracting class-relevant information can help a model predict the transformation. Learning that information then benefits downstream tasks that need semantic features. This gives a mechanism for understanding the usefulness of equivariant prediction beyond simply retaining more augmentation details.",
+      "The authors use this perspective to analyze how different data transformations influence learning and derive principles for practical method design. Their theory aligns with existing equivariant self-supervised approaches and suggests additional directions involving model equivariance. The contribution is a theoretical explanation connecting augmentation-aware training, semantic feature extraction, and generalization, intended to guide more principled choices of transformations and architectures."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c1643ebbe70fd57fccf76da21b8731907bfc6cb3940df94514a44aa71f5a0b2a",
+    "tldr": "An information-theoretic analysis explains how predicting transformations can encourage semantic features that help downstream tasks."
+  }
+}

@@ -1,0 +1,327 @@
+{
+  "icml-2026-are-large-reasoning-models-interruptible-9af966609a": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper asks whether strong reasoning models remain dependable when the task changes during their work. Standard evaluations typically give a model a fixed problem and let it finish. The authors examine two different pressures: interruptions that constrain how much output the model can produce, and updates to the context while reasoning is already underway.",
+      "The evaluation uses mathematics and programming benchmarks requiring extended reasoning. Across these tests, static evaluations consistently make robustness look stronger than it is under dynamic conditions. Even highly accurate models can fail unpredictably after interruptions or updates. The reported performance drop reaches 60% when new information arrives late in the reasoning process.",
+      "The analysis also distinguishes several ways failure happens. Some models spill unfinished reasoning into the final answer; others abandon reasoning under pressure or become less accurate while incorporating an update. These findings make timing part of the evaluation problem: answering a fixed question well does not establish that a model can reliably revise or conclude its work when circumstances change."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2cae846b39fc1e6fe19f491dc2e8490ea84c1de1cbefb47ab27015d029ca1db2",
+    "tldr": "Reasoning models that excel on static tests can fail unpredictably when interrupted or given new information mid-reasoning."
+  },
+  "icml-2026-attention-sinks-in-diffusion-transformers-a-causal-analysis-210a93bf96": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Attention sinks are tokens that attract an unusually large share of a model’s attention. This paper investigates what those tokens actually do in text-to-image diffusion transformers. Rather than inferring importance from attention patterns alone, the authors intervene during generation to see how suppressing the dominant recipients changes the resulting images.",
+      "The method identifies sinks separately at each generation timestep and applies paired interventions to the attention score and value paths without training the model. Tests cover 553 GenEval prompts with Stable Diffusion 3, with corroborating evidence from SDXL. At intervention strength k = 1, suppression does not degrade measured text-image alignment or the reported preference proxies.",
+      "The images nevertheless change: perceptual shifts are roughly six times larger than those caused by random masking with the same intervention budget. Stronger interventions, at k ≥ 10, expose a boundary in HPS-v2, while CLIP-T remains robust. The finding separates influence over the generation trajectory from measured semantic alignment: a token can substantially affect appearance without being essential to prompt alignment under the tested interventions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f279573985ecc3d35bafbb980a9c44b5207d0c183acbfe57b6e4c9278b2c3c7a",
+    "tldr": "Suppressing attention sinks changes generated images substantially while preserving measured prompt alignment across the tested intervention strengths."
+  },
+  "icml-2026-autowebworld-synthesizing-infinite-verifiable-web-environments-via-finite-state-machines-a1b67091b6": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Training web agents requires examples of actions that successfully complete tasks, but collecting and checking those examples on real websites is expensive. AutoWebWorld addresses this by generating websites from explicit finite state machines. Each machine specifies the available states, permitted actions, and rules governing how actions move the environment between states.",
+      "Coding agents turn these specifications into interactive websites. Because the underlying rules are known, correctness can be checked programmatically: individual actions are compared with transition rules, and completion is verified by reaching a designated goal state. This supports an automated search-and-verification pipeline that produced more than 11,663 verified trajectories across 29 environments at a reported cost of $0.04 per trajectory.",
+      "The authors report that training on these synthetic interactions improves performance on real-world web benchmarks. Their 7B agent achieves state-of-the-art results on WebVoyager within a 15-step budget. Increasing synthetic data also consistently improves results on WebVoyager and Online-Mind2Web in their experiments. The contribution connects controllable training environments with verifiable supervision and demonstrated transfer to real website tasks."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "001c4a7d40355c4affb972f3cb2aa609411a2b0203ee0b5c4a30fcb116b01c58",
+    "tldr": "AutoWebWorld generates websites with explicit transition rules, enabling inexpensive verified training trajectories that improve real-world web-agent performance."
+  },
+  "icml-2026-beyond-majority-voting-self-reflective-test-time-reinforcement-learning-for-llm-reasonin-b537f39dce": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Test-time reinforcement learning needs a way to judge answers without access to ground truth. A common approach treats the most frequent sampled answer as correct. This paper identifies a weakness in that strategy: on difficult reasoning problems, correct solutions can be a minority, so voting can reward repeated mistakes and undervalue successful reasoning.",
+      "SR-TTRL replaces frequency-based selection with a self-reflective comparison. It groups sampled reasoning trajectories by final answer and chooses one representative from each group. Each representative is summarized to retain its central reasoning while reducing verbosity. The model then compares these candidates and selects the most plausible trajectory to supply a pseudo-label for learning.",
+      "Across the reported benchmarks and model families, the approach improves pseudo-label fidelity, sample efficiency, and generalization to new problems relative to majority-voting methods. For Qwen3-8B on AIME24, Pass@1 rises from 29.1 to 55.8, exceeding standard TTRL by another 9.1 points. The findings support examining competing reasoning paths rather than treating answer popularity as the primary evidence of correctness."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "70bf86c4a7826a004a7ff8b42588e55ccddc14e0dff549220101b4d9bb038207",
+    "tldr": "SR-TTRL improves test-time learning by comparing representative reasoning paths instead of assuming the most common answer is correct."
+  },
+  "icml-2026-can-agents-generalize-to-the-open-world-unveiling-the-fragility-of-static-training-in-to-e73210416d": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "An agent can perform well on a fixed tool-use benchmark yet struggle when its working environment changes. This paper formalizes that problem through OpenAgent, a setting where shifts can affect user queries, available actions, observations, and task domains. The goal is to examine generalization beyond the conditions represented during training.",
+      "The authors construct a controlled sandbox and organize environmental changes into four tiers: perception, interaction, reasoning, and internalization. This structure allows them to investigate different kinds of change systematically rather than treating every failure as the same problem. Their experiments show performance degradation of varying severity for agents trained with either supervised fine-tuning or reinforcement learning.",
+      "Building on those observations, the paper proposes Perturbation-Augmented Fine-Tuning, an intervention that introduces disturbances into supervised fine-tuning. Its role is to lay groundwork for more robust agents in changing environments. The central contribution combines a defined evaluation setting, controlled diagnosis, and a training direction; the abstract presents the intervention as a foundation for improvement rather than a complete solution to open-world generalization."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1dca9d9814443dfff1a640327d4f4e9a8ef144ba856885faec51e30930b31d6f",
+    "tldr": "OpenAgent reveals tool-use agents’ vulnerability to controlled environmental shifts and motivates disturbance-augmented supervised fine-tuning."
+  },
+  "icml-2026-certifying-capabilities-from-finite-tests-when-is-it-possible-b4c35dde6a": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Claims that a model possesses reasoning, safety, or robustness usually extend beyond the examples actually tested. This paper asks when such an extension is mathematically justified. It treats evaluation as inference over a family of tasks and studies whether testing only a strict subset can certify behavior across that entire family.",
+      "For stochastic evaluation across multiple environments, the authors characterize when uniform certification is possible. The number of samples needed depends on a chi-squared radius describing the environment family. Under a natural overlap condition, they provide evaluation protocols with near-optimal sample requirements and matching lower bounds, connecting achievable guarantees to properties of the environments.",
+      "The result changes for worst-case capabilities defined by rules that must hold globally. Here, black-box tests cannot generally certify the desired property, even when the candidate models belong to structured classes such as bounded-size Boolean circuits. These two regimes clarify why finite evaluation can support some broad claims while failing to establish others: the answer depends on the kind of guarantee and the structure of the task family."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "825acd4d2140341c4513d6ca4174d116923e7c00d9c1bdb7b73199185379ff2e",
+    "tldr": "Finite tests can certify some statistical capabilities under suitable conditions, but generally cannot certify worst-case global rules through black-box evaluation."
+  },
+  "icml-2026-excytin-bench-evaluating-llm-agents-on-cyber-threat-investigation-45bc93eb68": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Cyber threat investigation requires connecting evidence scattered across different security logs. ExCyTIn-Bench evaluates whether language-model agents can follow these multi-step connections to answer investigation questions. The benchmark comes from a controlled Azure tenant and includes a SQL environment spanning 57 log tables from Microsoft Sentinel and related services.",
+      "The construction process starts with logs selected using expert-written detection logic. These logs form threat investigation graphs, and language models generate questions from pairs of graph nodes. The starting node supplies the question’s context, while the ending node supplies its answer. Explicit connections between them provide an explainable basis for automatically establishing ground truth.",
+      "The resulting benchmark contains 7,542 generated questions. Because its questions are anchored to graph structure, the authors describe the pipeline as reusable and extensible to additional logs. Experiments with different models show substantial remaining difficulty: the best tested model reaches a reward of 0.606. The benchmark therefore provides both a structured way to evaluate evidence-following agents and a concrete indication that these investigation tasks remain challenging."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a462c3a5ffcfccd987e24fc28feebb6493f49b6f538f8133e56007df2f6e9eec",
+    "tldr": "ExCyTIn-Bench uses investigation graphs to create explainable security questions that test agents’ ability to connect evidence across logs."
+  },
+  "icml-2026-f-divergence-regularized-rlhf-two-tales-of-sampling-and-unified-analyses-8ddc1e6de9": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Reinforcement learning from human feedback often uses reverse KL regularization to constrain how a model’s behavior changes during optimization. Other divergences have also attracted empirical interest, but studying each separately leaves the broader picture fragmented. This paper develops a common theoretical treatment for online RLHF objectives regularized by the wider family of f-divergences.",
+      "The authors propose two algorithms with different approaches to sampling. One extends optimism-based exploration by adding a carefully constructed exploration bonus. The other uses how the optimal policy responds to perturbations in the reward under f-divergence regularization. These approaches connect data collection to the structure of the regularized objective in two distinct ways.",
+      "The theoretical analysis establishes achievable regret of O(log T) and a sub-optimality gap of O(1/T) for both algorithms. These rates describe how accumulated decision loss and distance from the optimum behave as the online process continues. The contribution is a set of provable efficiency results across a general regularization class, extending theoretical coverage beyond the reverse-KL formulation commonly used in RLHF."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8668f639b41f388b849ecbf7d194e5cb6e7a92bf37a8f4e58a5033d6476f9ab9",
+    "tldr": "Two sampling algorithms provide provable online RLHF efficiency across general f-divergence regularizers."
+  },
+  "icml-2026-from-conflict-to-consensus-boosting-medical-reasoning-via-multi-round-agentic-rag-46ad8e3411": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Medical question answering can be undermined by hallucinated or outdated information, even when a language model has strong reasoning abilities. MA-RAG tackles this through repeated retrieval and reasoning. Its central idea is to use disagreement among candidate responses as a signal identifying what evidence the system should seek next.",
+      "At each round, the agent turns semantic conflicts into retrieval queries and gathers external evidence to address them. It also refines the stored reasoning history to reduce degradation from long contexts. Both the evidence and the reasoning record therefore evolve during inference. This extends self-consistency from a way of identifying agreement into a process that actively investigates inconsistency.",
+      "The authors compare the iterative refinement to boosting, with successive rounds working on residual errors toward a more stable consensus. Across seven medical question-answering benchmarks, MA-RAG consistently exceeds the tested retrieval and inference-time scaling baselines and improves average accuracy by 6.8 points over its backbone model. The reported gain supports using unresolved disagreements to direct additional reasoning and retrieval effort on these tasks."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7d90421ecc493ebdacb2560705ee4de666ea5e0c79c177dc562f9ae7be4976f0",
+    "tldr": "MA-RAG turns disagreement between medical answers into targeted retrieval, improving reasoning through repeated evidence and history refinement."
+  },
+  "icml-2026-from-interactions-to-principles-experience-driven-self-distillation-for-evolving-llm-age-040a8b520d": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Many tool-using agents finish an episode without retaining reusable strategies from what happened. EvolveR introduces a cycle for turning an agent’s own interaction history into both stored guidance and changes to its policy. The experience base contains concise strategic principles distilled from previous successes and failures.",
+      "During the offline phase, the agent derives these principles, removes semantic duplicates, and assigns empirical utility scores that support maintenance and pruning. During the online phase, it retrieves highly ranked principles to guide reasoning and tool use. Those interactions produce fresh trajectories, supplying further experience for the system’s learning cycle.",
+      "The framework also applies reinforcement learning to trajectories generated with this guidance, reinforcing behavior that retrieves and uses useful principles effectively. This links memory to policy improvement rather than leaving accumulated experience solely as text to consult. On complex multi-hop question-answering benchmarks, EvolveR outperforms the strong agentic baselines evaluated by the authors. The results support combining distilled experience, selective retrieval, and training as a route toward agents that improve from the consequences of their own actions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9c79f8ac3d6e841e6c8d93e1fb166e8debc5b443e1629f1c5b08f17849a7931f",
+    "tldr": "EvolveR converts past interactions into reusable principles and trains agents to retrieve and apply them effectively."
+  },
+  "icml-2026-genome-factory-a-library-for-tuning-deploying-and-interpreting-genomic-foundation-models-09ad168f65": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Genome-Factory brings the main stages of genomic foundation-model development into one Python library. Its contribution is workflow integration: collecting and preparing sequence data, adapting models, running inference, evaluating downstream performance, and interpreting learned representations. This gives researchers a common framework for work that spans several distinct modeling activities.",
+      "The library automates sequence downloading and preprocessing, and supports both full and parameter-efficient fine-tuning across different genomic models. Its inference functions cover embedding extraction and DNA sequence generation. For evaluation, it includes two existing benchmarks and an interface for adding others, allowing benchmarking to remain part of the same development workflow.",
+      "Interpretability is addressed through an open-source biological interpreter built around a sparse auto-encoder. The authors validate the library through compatibility with multiple models and tuning methods, downstream evaluation on two open-source benchmarks, and interpretation of DNABERT-2 representations. These demonstrations establish its practical scope across adaptation, assessment, and analysis. The paper’s emphasis is on making these capabilities work together for genomic research rather than presenting a single new genomic prediction model."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3aadb48fa4b439c857d928f9c2d18fadab159485f2fa946afaf9b4c7dc81f80c",
+    "tldr": "Genome-Factory unifies genomic model data preparation, fine-tuning, inference, benchmarking, and representation interpretation in one Python library."
+  },
+  "icml-2026-language-model-networks-supervision-efficient-learning-through-dense-communication-5c7cebe573": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "When several language models work together, they commonly communicate by generating text for one another. This is convenient, but the discrete messages can make information transfer inefficient and complicate optimization from the final task’s supervision. LMNet explores a network in which pretrained language models are reusable computational nodes connected by learned communication modules.",
+      "Inside the network, intermediate nodes exchange dense vectors instead of natural-language messages. Stripped language models form the vertices, while trainable sequence-to-sequence modules form the edges. Natural language remains the format for the overall system’s input and output. Bypassing intermediate embedding and de-embedding makes the internal communication differentiable and supports end-to-end gradient optimization.",
+      "The approach allows communication itself to be learned rather than fully specified through hand-designed protocols. The reported experiments show effective adaptation with limited supervision and a small additional training cost. The broader contribution is an architecture for treating model collaboration as a trainable network: its internal connections can carry learned representations while the user still interacts through ordinary language."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "196ca281c150a8e5ba711360043661937a6be4090fa90b2e63e5eca1e5e16524",
+    "tldr": "LMNet connects language models through trainable dense-vector communication, enabling end-to-end adaptation with limited supervision."
+  },
+  "icml-2026-letting-trajectories-spread-quality-preserving-control-for-diverse-flow-matching-d08ccd3638": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Flow-based image generators follow deterministic generation trajectories, which can make exploring varied outputs costly when only a limited number of samples is available. This paper introduces an inference-time method that encourages trajectories to spread apart without retraining the model. Its organizing idea is to separate diversity-promoting changes geometrically from the flow’s quality-seeking direction.",
+      "The method combines a feature-space objective that pushes trajectories laterally apart with stochastic perturbations whose strength is scheduled over time. These perturbations are projected perpendicular to the generation flow. The intention is to introduce variation while protecting image details and fidelity to the prompt, addressing the quality tradeoff that can accompany diversity interventions.",
+      "The theoretical result shows monotonic growth of a volume surrogate while approximately preserving the marginal distribution. That approximation is part of the stated guarantee. Across multiple text-to-image settings with fixed sampling budgets, the authors report improvements in metrics including Vendi Score and Brisque over strong baselines while maintaining image quality and alignment. Together, the analysis and experiments support geometric control as a practical way to obtain more varied samples."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f7a3c436136ff2f89ac1e19936cde29b6d354a0a28ebc6ca011dc7ce9784376d",
+    "tldr": "An inference-time geometric control method increases flow-model output diversity while maintaining quality and prompt alignment in the reported experiments."
+  },
+  "icml-2026-motion-attribution-for-video-generation-b6dd1e7fea": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Video training clips influence both what a generated scene looks like and how it moves. Motive focuses on the second question: which fine-tuning examples improve or worsen temporal dynamics? The paper introduces a gradient-based attribution framework designed to identify motion-specific influence at the scale of modern video models and datasets.",
+      "The method uses motion-weighted loss masks to separate temporal dynamics from static appearance when computing influence. This makes attribution useful for selecting data according to its effect on movement rather than visual content alone. The authors apply it to text-to-video models and use the resulting influence estimates to guide fine-tuning data curation.",
+      "Data selected with Motive improves temporal consistency and physical plausibility in the reported evaluations. The resulting models improve both motion smoothness and dynamic degree on VBench, and achieve a 74.1% human preference win rate against the pretrained base model. These findings connect an attribution method to a concrete training decision: selecting influential clips can improve how generated videos move, not merely help explain which data affected them."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "67476d8bd3565f06d78d7b27429fa6f3aff509dee28bc963be5d6ee367281a3d",
+    "tldr": "Motive identifies training clips that influence generated motion and uses them to improve video dynamics through data curation."
+  },
+  "icml-2026-mulfcoder-framework-conditioned-multi-agent-for-mllm-based-multi-framework-front-end-cod-9a84c8d426": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Turning a screenshot into runnable front-end code requires more than reconstructing its visual layout. React, Vue, and Angular impose different structural requirements, and simply changing a prompt can produce framework-specific failures. MulFCoder makes those requirements explicit through rules that guide a coordinated four-agent generation process.",
+      "The Grounder organizes detected interface elements, content, and broad layout regions. The Planner converts that information into a hierarchical layout tree, a task schedule, and a framework-specific file contract. The Writer then produces structured file edits within a restricted window. The Judger checks lightweight constraints, accepts or rejects changes, and initiates bounded repairs without relying on expensive builds.",
+      "This division connects screenshot interpretation to concrete restrictions on how code is planned, written, and repaired. The framework-conditioned checks are intended to prevent drift and deadlocks during the process. Experiments report substantially higher compilation success and fewer framework-specific errors, with especially pronounced improvements for Angular. The findings support treating framework differences as explicit generation constraints rather than expecting a generic screenshot-to-code prompt to handle them implicitly."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b2c7f34283b69e91f29326e164b5967d4954bbc94e72eb3ffa313d039d290da4",
+    "tldr": "MulFCoder coordinates four agents around explicit framework rules to improve screenshot-to-code compilation success across front-end frameworks."
+  },
+  "icml-2026-neuralevolutionary-symbolic-regression-with-global-constraints-constraint-aware-decoding-b62384253b": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Symbolic regression searches for compact mathematical expressions that explain data. Although expressions have a tree structure, many neural generators represent them as token sequences. This can obscure relationships between operations and their arguments, making structural constraints harder to enforce. GCN-SR instead generates expressions in a form explicitly aligned with their trees.",
+      "The framework introduces Symbolic Perfect Binary Trees as a fixed structural scaffold. This preserves hierarchical relationships while allowing expressions with different effective topologies to be generated in batches through graph-based node-attribute prediction. Structural context is therefore available during decoding rather than being implicit in a linearized sequence.",
+      "GCN-SR also combines neural generation with genetic-programming refinement through Similarity-Weighted Policy Gradient. Refined expressions shape similarity-based rewards for samples from the current generator, instead of becoming elite examples that the generator directly imitates. On standard symbolic-regression benchmarks, the framework consistently improves exact expression recovery over strong neural and hybrid baselines under matched evaluation budgets. The results support combining explicit expression structure with an indirect reward-based use of evolutionary refinement."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "043051a6bf2b36980cae4bbc51e2d3e693621bb164a01f00d8c98e42fc1a76e9",
+    "tldr": "GCN-SR combines tree-aligned expression generation with evolutionary reward shaping to improve exact symbolic-expression recovery."
+  },
+  "icml-2026-portraitrl-reinforcement-learning-for-portrait-pose-transfer-with-multi-objective-reward-38243bc216": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Portrait pose transfer must change a person’s pose or image layout while preserving fine identity details. These objectives can be difficult to capture with a single training signal, and preference annotation can be costly. PortraitRL introduces a post-training framework that evaluates both objectives and uses them to guide reinforcement learning.",
+      "Its rewards come from large vision-language models assessing detail preservation and adherence to editing instructions. The method standardizes rewards within groups to remove differences in their scales. This allows both kinds of feedback to contribute effectively to optimization instead of having their numerical ranges determine their relative influence.",
+      "The proposed Negative-aware Score Preference Optimization algorithm identifies positive and negative preference samples through within-group advantages. It therefore obtains preference distinctions without requiring their annotation and uses both favorable and unfavorable learning signals. Extensive experiments report state-of-the-art performance with significant gains in detail preservation and editing accuracy. The contribution links task-specific evaluation, reward calibration, and preference learning to address the two central demands of portrait editing together."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "860ae42f8d46ed2bb142821e8cc7bf83878bd8663d31ad0fca9ba5fc6d9e92ce",
+    "tldr": "PortraitRL uses calibrated visual rewards and automatically derived preferences to improve identity preservation and pose-editing accuracy."
+  },
+  "icml-2026-reasoning-cache-continual-improvement-over-long-horizons-via-short-horizon-rl-ae32ae568d": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Giving a reasoning model more inference time is useful only if its answers continue to improve. This paper calls that ability extrapolation and examines why fixed-budget reinforcement learning can limit it. When evaluation allows much longer reasoning than training, the model faces a shift in both its operating budget and the reasoning process it must sustain.",
+      "Reasoning Cache replaces standard autoregressive decoding with an iterative procedure that uses summaries to condition subsequent reasoning. It exploits an asymmetry between models’ summarization and generation capabilities to support continued improvement across iterations. Training can further strengthen this summary-conditioned reasoning while avoiding the challenges of directly performing reinforcement learning over very long horizons.",
+      "In the reported experiment, a 4B instruction-following model is trained with a 16k-token budget and evaluated with up to 512k tokens. Its HMMT 2025 performance improves from 40% to 70%, substantially exceeding comparably sized models. The result demonstrates that the proposed decoding and training approach can make a much larger inference budget productive, rather than requiring training to span that entire reasoning horizon."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "04fa2dd2d94ab43902ccc717477f7ec76def19b7593b149122008a42787767cb",
+    "tldr": "Reasoning Cache uses iterative summary-conditioned reasoning to turn short-budget training into effective reasoning over much larger test-time budgets."
+  },
+  "icml-2026-reasoning-compartmentalization-bridging-the-concretization-gap-via-abstraction-based-rou-91a9fb8073": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The same logical problem can be expressed in formal notation or ordinary language, yet models may solve these versions differently. This paper studies paired tasks with identical logic to investigate that gap. Converting formal-language problems into natural language consistently reduces reasoning accuracy in the controlled setup.",
+      "The authors also examine internal representations and learning transfer. Formal and natural-language inputs activate largely separate representations, and learning in one formulation transfers weakly to the other. They call this reasoning compartmentalization. To address it, they train models to translate natural-language inputs into their corresponding formal forms, which significantly improves reasoning performance.",
+      "The improved accuracy does not coincide with merged representations: the two formulations remain largely distinct, and cross-formulation learning transfer stays limited. Activation-level interventions instead attribute the gains to improved routing between formulation-specific reasoning pathways. This distinction matters because successful abstraction can help a model access useful reasoning without making its internal treatment of different formulations identical. The results suggest that stronger connections between existing pathways can reduce sensitivity to how a problem is expressed."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "42706438b4b4f84f1da2e46d22ed2564c6a272b33f48b8a9a2b5601c9f019d90",
+    "tldr": "Translating natural-language problems into formal forms improves reasoning through better routing while leaving formulation-specific representations largely separate."
+  },
+  "icml-2026-refineevo-planning-guided-heuristic-evolution-with-bidirectional-experience-af20c32773": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Automatic heuristic design uses search to develop procedures for combinatorial optimization problems. Language models can help generate these procedures, but fixed evolutionary operators and poor reuse of search history can limit the process. RefineEvo introduces planning and reflection so that both the search actions and the guidance used to generate candidates can adapt over time.",
+      "A Planner chooses evolutionary operators according to the current search state and decides when refinement should occur. A Reflector distills lessons from previous search trajectories into an experience pool containing both successful ideas and pitfalls. This gives the system access to positive and negative experience conditioned on the situation it currently faces.",
+      "The two components connect historical learning to present search decisions: experience informs generation, while planning adjusts which search tools are used. On several classic combinatorial optimization benchmarks, RefineEvo consistently outperforms strong baselines, with better solution quality and improved token efficiency. These results suggest that organizing and reusing search experience can improve heuristic development while reducing the language-model resources needed to obtain strong solutions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "14285b3e89a8c5ef57d55998a435ec9002d98dddaaf941263530552129308446",
+    "tldr": "RefineEvo adapts heuristic search through planning and reusable lessons from both successful and unsuccessful search trajectories."
+  },
+  "icml-2026-revis-sparse-latent-steering-to-mitigate-object-hallucination-in-large-vision-language-m-e407c78637": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Vision-language models sometimes describe objects that are absent from an image. This paper focuses on one proposed contributor: visual features become entangled with pretrained textual representations in deeper layers, suppressing useful image information. REVIS aims to restore that information directly within the model’s internal representations without additional training.",
+      "The method uses orthogonal projection to extract a visual-information vector from the latent space. A calibrated intervention then acts sparsely at the network depth where suppression occurs. This makes the correction targeted both in what information it adds and where it acts, with the abstract reporting minimal computational cost.",
+      "On standard benchmarks, REVIS reduces object hallucination rates by approximately 19% compared with state-of-the-art baselines while preserving general reasoning capabilities. The result supports targeted internal steering as a way to improve visual grounding without retraining the model. Its explanatory scope remains tied to the stated mechanism: interference between visual and textual representations is presented as one reason for hallucination, and reactivating suppressed visual information addresses that contributor."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "122715a51e32d3d42a517a3893002b0f57cf0361aad08078e702a9b337cc16e7",
+    "tldr": "REVIS reduces object hallucination by selectively restoring suppressed visual information inside vision-language models without retraining."
+  },
+  "icml-2026-score-correction-for-generative-models-with-probabilistic-constraints-93ebf490ef": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "DualScore addresses how to adjust a score-based generative model when its outputs must satisfy probabilistic constraints. These constraints concern the marginal distribution obtained after applying a stochastic transformation to the modeled variable. The target is therefore a distributional requirement, expressed through transformed outputs, rather than simply a condition on one generated sample.",
+      "The authors formulate correction as constrained KL minimization and solve the associated dual problem. A neural network represents the infinite-dimensional dual variable. This construction produces an additive correction to the original score function, allowing the corrected score to be used directly during sampling while leaving the base model unchanged.",
+      "The correction supports both stochastic gradient Langevin dynamics and reverse diffusion sampling. Evaluations cover synthetic tasks and two applications: regularized nonparametric maximum likelihood estimation, and class-level constraints such as fairness in pretrained image diffusion models. The contribution is a common framework connecting a specified probabilistic requirement to an operational sampling correction. The abstract reports these evaluation settings without claiming a particular numerical improvement or making the fairness application a universal guarantee."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "49e7e188dc55dd9d97d143e29061d8f6abf047942317682ef955c28fa2965714",
+    "tldr": "DualScore adds a learned score correction to impose probabilistic constraints during sampling without modifying the base generative model."
+  },
+  "icml-2026-spatiolm-towards-general-physical-spatial-intelligence-in-vision-language-models-401f8d7a08": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Vision-language models can handle commonsense questions while still struggling to reason about spatial relationships in images. SpatioLM aims to improve this ability with a parameter-efficient addition to an existing model. It avoids requiring extra 3D prior inputs or a separate third-party spatial encoder, both of which can add complexity to spatial adaptation.",
+      "The approach introduces a plug-and-play spatio-vision module designed to elicit spatial knowledge already present in the underlying model. Training uses pseudo depth and camera information as supervision to encourage physically coherent representations. This distinction matters: depth-related information guides learning without being introduced as an extra 3D prior input requirement.",
+      "Experiments show significant improvements across spatial perception and understanding tasks while limiting degradation of general-purpose capabilities. SpatioLM reaches 71.6 on VSI-Bench, which the authors report as the first result above 70, and transfers competitively to embodied manipulation tasks. These findings support a focused adaptation strategy that strengthens spatial reasoning while reducing the disruption to broader model abilities that can accompany spatial fine-tuning."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "33030fc78408c36ed608849f7e663a488d36e7d1b77a27b95cc02b9c1932ba82",
+    "tldr": "SpatioLM improves visual spatial reasoning with a compact module and pseudo-depth supervision while limiting losses in general capabilities."
+  },
+  "icml-2026-the-mechanistic-emergence-of-symbol-grounding-in-language-models-082bb58285": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Symbol grounding concerns how symbols such as words connect to experiences of the world. This paper investigates evidence that such connections can emerge inside language models without an explicit grounding objective. Its focus is mechanistic: where grounding appears in the computation and which internal operations support it.",
+      "The authors introduce a controlled evaluation framework combining mechanistic inspection with causal analysis. They find that grounding concentrates in middle-layer computations. They describe an aggregate mechanism in which attention heads combine environmental grounding information to support prediction of linguistic forms, linking information about the environment to the model’s language output.",
+      "The phenomenon also appears in multimodal dialogue and across the tested Transformer and state-space architectures, but does not replicate in unidirectional LSTMs. That architectural distinction is part of the reported evidence, rather than a claim that grounding emerges in every model. Together, the behavioral and internal analyses support the possibility of emergent grounding in language models. They also motivate potential ways to predict and perhaps control generation reliability by understanding the computations that connect language to environmental information."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "61a7acaf5c4a864a7557a619cdab200b78d9e00641bcaed66ebd928975b2bb03",
+    "tldr": "Controlled causal analysis finds emergent symbol grounding concentrated in middle-layer computations across several tested model architectures."
+  },
+  "icml-2026-time-series-decomposition-as-a-standalone-task-a-mechanism-driven-diagnostic-benchmark-6e6782922d": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Time-series decomposition separates signals into components such as trends and cycles, but the quality of those components is often judged informally. This paper evaluates decomposition directly through a synthetic benchmark with known generating mechanisms. Explicit trend and cycle categories make it possible to compare how well different methods recover the underlying structure.",
+      "The benchmark provides a common interface for representative method families and evaluates distinct errors in shape, phase, and spectral fidelity. STL-family methods perform near the ceiling when periodic behavior is stationary. When frequency drifts or regimes switch, fixed-period assumptions cause phase degradation. Subspace and time-frequency approaches better preserve seasonal consistency in those settings, although adaptive spectral methods may need tuning.",
+      "A second track examines whether recovered components help scientific discovery through symbolic regression. Decomposing a series before fitting expressions materially improves recoverability and reduces expression complexity in the reported experiments. This connects decomposition accuracy to a downstream purpose: cleaner component recovery can make underlying mathematical structure easier to identify. The benchmark therefore exposes both mechanism-specific failures and their consequences for structure discovery."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d5bb5fcfd8e584fdcbbf661649af62e376cb580e01ba4347410923720e129b01",
+    "tldr": "A controlled benchmark reveals when decomposition methods recover time-series components well and how decomposition can improve symbolic discovery."
+  }
+}

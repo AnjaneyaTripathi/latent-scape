@@ -1,0 +1,327 @@
+{
+  "icml-2026-adamezo-adam-style-zeroth-order-optimizer-for-llm-fine-tuning-without-maintaining-the-mo-dbdce5af93": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "AdaMeZO addresses a trade-off in language-model fine-tuning: reducing memory use can make optimization slower. MeZO avoids backpropagation and uses only forward passes, substantially reducing GPU memory requirements. However, its updates do not adapt to the loss landscape in the way that Adam-style optimization does, which can slow convergence.",
+      "Adam uses first- and second-moment estimates to shape updates across parameter dimensions. Keeping those estimates in memory would undermine MeZO’s central advantage; the abstract states that directly applying Adam would triple memory requirements. AdaMeZO therefore introduces a zeroth-order optimizer that uses Adam-style moment estimates without retaining those moments in memory. Its contribution is to combine adaptive optimization with the forward-pass-based approach to fine-tuning.",
+      "The paper supplies theoretical analysis and experiments showing that AdaMeZO can outperform MeZO while using up to 70% fewer forward passes. Trajectory visualizations also support its ability to adapt to different loss landscapes. The reported reduction is a best-case improvement, while the broader result supports making memory-efficient fine-tuning more computationally practical."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "fd41422b806dab87243ae8fcf4f04fd1abea5c5fef93c6c988787f79ea5c8698",
+    "tldr": "AdaMeZO brings Adam-style adaptation to forward-pass-only fine-tuning without storing moment estimates, using up to 70% fewer forward passes than MeZO."
+  },
+  "icml-2026-all-erms-can-fail-in-stochastic-convex-optimization-lower-bounds-in-linear-dimension-4b12abfb79": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Empirical risk minimization chooses parameters that minimize loss on the observed training sample. This paper asks whether even the best possible choice among those minimizers can generalize poorly in stochastic convex optimization. The distinction matters because a failure caused only by choosing the wrong minimizer would leave open the possibility of fixing the selection rule.",
+      "The authors construct an instance where the sample size grows linearly with dimension and learning is possible, yet the empirical minimizer is likely to be unique and to overfit. Uniqueness removes the opportunity to choose a better empirical minimizer. The construction resolves the stated open question and extends to approximate minimizers, so requiring only near-optimal training loss does not eliminate the demonstrated failure.",
+      "The paper also establishes a possible overfitting failure for constrained gradient descent as learning rate and training horizon grow relative to sample size. Its generalization lower bound is Ω(√(ηT/m^1.5)), with learning rate η, horizon T, and sample size m. This exponentially narrows the stated gap to known upper bounds; it does not claim that every convex problem or gradient-descent run overfits."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "285f70fb475c7a674c7cb7b7178cae4cf19754830af4ebae082e360ce4112d7a",
+    "tldr": "The paper constructs learnable convex problems where even the best empirical risk minimizer can overfit and strengthens generalization lower bounds for gradient descent."
+  },
+  "icml-2026-beyond-euclidean-clipping-overcoming-exploration-collapse-in-llm-rl-via-riemannian-isome-1060738137": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies why reinforcement learning for language-model reasoning can lose its ability to explore. It attributes exploration collapse in PPO-Clip to a mismatch between how the algorithm measures policy changes and the geometry of the space of policies. According to the analysis, treating that space with a Euclidean metric distorts the size of updates.",
+      "The distortion produces updates that are overly cautious in low-probability regions and overly aggressive in high-probability regions. The proposed Riemannian Isometric Policy Optimization, or RIPO, instead guarantees isometric updates with respect to the policy manifold’s geometry. This gives the exploration–exploitation balance a geometric foundation. The paper also establishes a favorable bias–variance trade-off that helps stabilize optimization.",
+      "Experiments report significant improvements over existing language-model reinforcement-learning algorithms across seven competition-level benchmarks. The largest highlighted result is an improvement of up to 60% over GRPO on AIME24. Together, the theory and experiments support the paper’s central argument: the geometry used to control policy changes can materially affect both continued exploration and reasoning performance."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "776475033efc8f9a5900cb17c0c6fe9e77ac011c4827d886611cb5c348241e1f",
+    "tldr": "RIPO uses the geometry of policy space to address exploration collapse, with reported reasoning gains across seven competition-level benchmarks."
+  },
+  "icml-2026-beyond-structural-symmetries-linear-mode-connectivity-via-neuron-identifiability-ae58cbddb1": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Different neural-network parameter settings can represent the same function, making parameter symmetry relevant to how training behaves and how solutions connect. This paper investigates that relationship beyond symmetries visible in the network’s architecture. Its focus is how the data a neuron receives and the representations it learns affect which solutions are effectively equivalent.",
+      "The authors introduce effective function classes: the functions a neuron can realize on its input support, together with the norm cost of realizing them. They use this framework to formalize effective symmetry breaking through neuron identifiability across independent training runs. Their analysis shows that even structurally asymmetric networks can contain large families of approximately equivalent solutions.",
+      "The framework also connects identifiability to model merging. The authors show that identifiable neurons enable representations to be merged without a separate prior alignment step, and characterize when the merge admits a straight path through parameter space with low loss. This is a conditional characterization of linear connectivity. It explains why architectural symmetry alone does not determine the structure of the loss landscape."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1d701dc7ef7121246f13f3e3cf476158efa3f80e8c5d963e5eee0ff1c2c35b2a",
+    "tldr": "A theory of neuron function classes explains approximate solution equivalence and identifies when representations can merge along a linear low-loss path without prior alignment."
+  },
+  "icml-2026-bounded-hyperbolic-tangent-a-stable-and-efficient-alternative-to-pre-layer-normalization-4832066637": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Deep language models need mechanisms that keep internal activations stable as information passes through many layers. Pre-layer normalization helps, but repeatedly computing statistics adds overhead, and activation magnitudes and variances can still grow with depth. The paper also identifies fragility at depth in efficiency-focused normalization-free methods such as Dynamic Tanh.",
+      "Bounded Hyperbolic Tanh, or BHyT, is a drop-in replacement for pre-layer normalization. It combines a tanh transformation with explicit bounds determined from the data, keeping inputs in a range where the transformation does not saturate. The method prevents depth-wise growth in activation magnitude and variance and comes with a theoretical stability guarantee. It computes exact statistics once per block, then uses a lightweight variance approximation in place of a second normalization.",
+      "Experiments report improved training stability, an average 1.6% training-speed gain, and an average 1.77% increase in token-generation throughput compared with RMSNorm. BHyT also maintains strong language-understanding and reasoning performance both before and after supervised fine-tuning. These findings support a modest efficiency gain alongside the method’s stability benefits."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "53b5acefd2d73043bf3dcb8fc65e09005314e5745af5c79830878134bd0645d6",
+    "tldr": "BHyT combines bounded tanh activations with cheaper normalization statistics to improve depth stability and modestly increase training and generation speed."
+  },
+  "icml-2026-contextor-contextualized-high-order-contrastive-learning-c76f12dc6c": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Relations involving several entities often depend on the roles those entities play together. A fixed representation of each entity may miss this context, while treating every relationship as symmetric can obscure differences between roles. CONTEXTOR addresses these problems in high-order relational learning, with experiments focused on biomedical tasks.",
+      "The framework turns a complete relation into several query–response problems. Each query contains an incomplete tuple of entities, and the response is the entity that completes it. Candidate response representations are then adjusted according to the query through asymmetric conditional modulation. Multi-fold contrastive learning aligns each query with its matching contextualized response, allowing an entity’s representation to vary with the relationship being considered.",
+      "This approach makes context part of the inference process instead of requiring one static representation to capture every possible role. The authors describe CONTEXTOR as a general, plug-and-play framework and report consistent improvements over existing methods across multiple biomedical benchmarks and evaluation settings. The results support contextual and asymmetric modeling for the evaluated high-order relations."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1bf7a02e08b3d5d644d25b6b674fc3dffac6bbaf9c70d15ba92b3ed1c7003b24",
+    "tldr": "CONTEXTOR predicts multi-entity relationships by adapting candidate representations to each incomplete query, improving results across biomedical benchmarks."
+  },
+  "icml-2026-deriving-neural-scaling-laws-from-the-statistics-of-natural-language-c9ca0f5de0": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Neural scaling laws describe how model performance changes as training resources increase, but their exponents have largely been measured experimentally. This paper develops a theory for predicting those exponents in the data-limited setting. Its central claim is that two statistical properties of natural language are sufficient for the prediction.",
+      "The first property measures how correlations between token pairs weaken as the tokens become farther apart. The second measures how uncertainty about the next token decreases as more preceding context becomes available. Together, these describe both the reach of statistical relationships in text and the predictive value of additional context. The authors derive a formula for data-limited scaling exponents using these quantities, without fitted free parameters or synthetic models of the data.",
+      "They compare the predictions with scaling laws measured by training GPT-2-style and LLaMA-style models from scratch on TinyStories and WikiText. The reported close agreement connects observed scaling behavior to measurable language statistics. The scope is specifically data-limited scaling, with experimental support from the two stated benchmarks."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9b94b2b60f33ff85772cba0ef8b936eba81712c447909dab84810bfb845048e5",
+    "tldr": "The paper predicts data-limited scaling exponents from token-correlation decay and context-dependent uncertainty, closely matching experiments on TinyStories and WikiText."
+  },
+  "icml-2026-efficient-and-uncertainty-aware-diffusion-framework-for-offline-to-online-reinforcement--2699ee269b": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Offline-to-online reinforcement learning starts with a policy learned from existing data, aiming to reduce costly interactions with an environment. A central difficulty is that situations encountered online may differ from those represented in the offline data. DUAL addresses this transition by combining diffusion-based prior knowledge with explicit uncertainty handling.",
+      "During offline training, DUAL distills a diffusion model’s knowledge into a fast-sampling actor policy and a transition model. During online learning, it uses a Laplace approximation and distance-based detection of transition-state shifts to guide the balance between exploration and exploitation. These components connect efficient action generation with an assessment of how confidently the learned models apply to newly encountered experience.",
+      "The theoretical result shows that the actor loss with the Laplace approximation provides a proxy for a principled estimate of epistemic uncertainty, or uncertainty associated with limited knowledge. It is a proxy rather than an exact uncertainty guarantee. Across multiple settings and environments, DUAL improves online expected return over the evaluated offline-to-online baselines, supporting the combination of faster sampling and uncertainty-aware adaptation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3f6629adb7ade3fcb30660327f7b74b97d3b76ee1bd7510a577c04a51182268c",
+    "tldr": "DUAL combines distilled diffusion policies with uncertainty and distribution-shift detection to improve offline-to-online reinforcement-learning returns."
+  },
+  "icml-2026-elicitr-unlocking-latent-reasoning-in-dense-retrievers-via-generative-regularization-a98854ead5": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Retrieval that requires reasoning must capture relationships beyond shared words or broad semantic similarity. ElicitR starts from the hypothesis that language-model-based retrievers already contain useful reasoning capabilities, but contrastive training can suppress them through overfitting. The proposed solution supplements relevance training with a generative learning objective.",
+      "A small language model is co-trained on batches containing queries, positive documents, and negative documents. When predicting the next token of a text, it uses both that text’s prefix and other texts in the batch. The retriever’s similarity scores determine the weight of this cross-text information. This gives the retriever a training signal about nuanced relationships that binary relevance labels alone do not express.",
+      "Using only MS MARCO for paired query–document supervision and a 135M language model for regularization, ElicitR improves BRIGHT results by 16–29% relative across retriever sizes from 0.1B to 3B parameters while maintaining BEIR performance. The 3B retriever reaches 23.1 nDCG@10. Additional analyses report reduced overfitting, better calibration, and robustness to batch size, supporting the practical value of the generative objective."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b0ff97c5800f112814c43870b6365c81497c7a4349358027c28bb58ded2291fc",
+    "tldr": "ElicitR adds cross-text generative regularization to retriever training, improving reasoning-intensive retrieval while maintaining broader retrieval performance."
+  },
+  "icml-2026-flatness-aware-stochastic-gradient-langevin-dynamics-c6f9c856bf": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Flat regions of a loss landscape are regions where nearby parameter changes have relatively little effect on loss. This paper uses flatness to guide optimization, introducing Flatness-Aware Stochastic Gradient Langevin Dynamics, or fSGLD. The method biases learning toward flat basins while retaining the computational and memory efficiency associated with SGD and SGLD.",
+      "The theoretical analysis describes convergence to a Gibbs distribution biased toward flatness and provides explicit excess-risk guarantees. These results depend on a prescribed relationship between the noise scale and inverse temperature. The coupling is therefore part of the theoretical result: the guarantee is not presented as applying to arbitrary independent choices of these two quantities. The analysis is non-asymptotic, addressing behavior beyond a purely infinite-time limit.",
+      "Experiments cover optimizer benchmarks, Bayesian image classification, uncertainty quantification, and out-of-distribution detection. The authors report consistently strong performance and reliable uncertainty estimates. Separate experiments also support the prescribed coupling over decoupled choices. Together, the findings connect the method’s flatness preference and parameter coupling to both optimization quality and uncertainty behavior."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d177e54ef9cdd02adc57c8c6bafe2d2319a0a051f4bdca22f02fd34b2d4180a3",
+    "tldr": "fSGLD steers efficient stochastic optimization toward flat basins, with convergence guarantees under a prescribed noise–temperature coupling and strong empirical uncertainty estimates."
+  },
+  "icml-2026-from-player-to-master-enhancing-test-time-learning-of-llm-agents-via-reinforcement-learn-68d6015612": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "An agent that acts repeatedly can use explicit memory to improve future decisions without changing its underlying language model. However, hand-written rules for updating memory may not consistently preserve information that helps over several interactions. MemoPilot addresses this by training a separate memory copilot around a frozen language-model player.",
+      "The authors formulate memory updating as a multi-turn decision problem and optimize it with multi-turn GRPO. Their training procedure combines rewards at individual turns with context-independent, turn-level advantage estimates across rollouts. These mechanisms provide finer-grained credit assignment, helping training distinguish which memory-update decisions contribute to downstream performance and making optimization more stable across multiple turns.",
+      "Evaluation uses multi-round Rock-Paper-Scissors and Limit Texas Hold’em. MemoPilot improves the frozen player’s test-time learning over the evaluated baselines and ranks first in Elo on both games, reaching 1590 and 1762 respectively. The reported comparisons include baseline memory methods and proprietary models. These results demonstrate that training the memory-update process can improve sequential adaptation even when the player’s own model remains frozen."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1b2a6fa119197f2d1a9016f0dcd48bf4fb1459aba12c328c024ad7dc53e136cd",
+    "tldr": "MemoPilot trains memory updates with reinforcement learning, improving a frozen language-model player’s adaptation across two sequential game environments."
+  },
+  "icml-2026-grounding-multi-hop-reasoning-in-structural-causal-models-via-group-relative-policy-opti-c7e7c43a6e": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Verifying a claim across several pieces of evidence requires keeping track of how those pieces support one another. Written chains of thought can make reasoning visible while still leaving these dependencies unclear. This paper introduces a framework inspired by structural causal models that represents verification through explicit directed dependency graphs.",
+      "The framework treats building the graph as a constructive reasoning process. Its scope is structural dependency modeling, without the intervention or counterfactual semantics of full causal inference. The authors also find an inverted U-shaped empirical relationship between reasoning-chain length and accuracy: increasing structure helps only up to a point, after which excessive complexity can reduce performance.",
+      "To manage this trade-off, SCM-GRPO uses a rule-based reinforcement-learning strategy with Group Relative Policy Optimization. Training dynamically balances structural depth against conciseness, aiming to preserve useful dependencies without unnecessarily extending the reasoning. Experiments on HoVer and EX-FEVER show improvements over strong baselines and more traceable reasoning structures. The findings support explicitly organized evidence chains while showing that additional reasoning complexity is not automatically beneficial."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "db314e21d3f31b0771ecb778bd59f045da4879a066e557d65b8ec19f55815981",
+    "tldr": "SCM-GRPO organizes fact verification into explicit dependency graphs and trains a balance between reasoning depth and conciseness."
+  },
+  "icml-2026-hexst-hexagonal-shifted-window-transformer-for-spatial-transcriptomics-gene-expression-p-fdd988cd76": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Spatial transcriptomics measures gene expression at locations within tissue, but cost and throughput limit its use at scale. HEXST aims to predict those spatial expression patterns from routine stained histology images. It addresses two modeling problems: mismatched spatial geometry and predictions that smooth away meaningful differences between locations.",
+      "Many spot-array platforms sample tissue on a hexagonal layout. HEXST works directly with those coordinates, using a tailored shifted-window attention mechanism and hexagonal rotary positional encoding to connect local information with broader context. During training, it supplements point-wise regression with an objective sensitive to spatial differences and with transcriptomic priors from a pretrained single-cell foundation model. These additions target gene-specific contrast that ordinary regression can blur.",
+      "Across seven spatial transcriptomics datasets, the authors report consistent improvements over state-of-the-art models. The predicted profiles are described as accurate and robust while preserving gene-wise contrast and spatial heterogeneity. The contribution combines geometry-aware contextual modeling with training signals that value spatial variation, so performance reflects both prediction accuracy and the preservation of expression patterns across tissue."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e4a472adec208864011126e7f80143b1f0424e523aca86c1eb4db03ed441254e",
+    "tldr": "HEXST aligns attention with hexagonal tissue sampling and trains for spatial contrast to improve gene-expression predictions from histology."
+  },
+  "icml-2026-hierarchical-reinforcement-learning-for-sparse-reward-search-in-commutative-algebra-ae1b968266": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Searching for mathematical counterexamples can provide very little feedback: most candidate constructions do not produce a rewarding result. This paper studies that difficulty through Kalai’s algebraic Hirsch conjecture. It formulates the construction of counterexamples as a graph-based reinforcement-learning task with sparse rewards, making the search process itself the object of learning.",
+      "The proposed method uses constrained, options-based hierarchical reinforcement learning. Options provide temporal abstractions, allowing the policy to learn useful extended behaviors within the search rather than relying solely on individual decisions. An equivariant graph neural network supplies the policy, combining graph-based representations with the hierarchical organization of actions. The approach is designed to exploit structure in the mathematical search problem.",
+      "The authors evaluate the method across a wide range of degrees and report that it consistently outperforms both classical reinforcement-learning algorithms and greedy search. They present this as a first-of-its-kind application of hierarchical reinforcement learning to commutative algebra. The stated result concerns a more effective counterexample-search method, showing how learned temporal structure can help in a setting where rewards are extremely sparse."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e3658578538ec4a33b5df8d78a890834f1582ea3061c49725458fb8b40deade4",
+    "tldr": "An options-based hierarchical reinforcement-learning method improves sparse-reward graph search for counterexamples related to Kalai’s algebraic Hirsch conjecture."
+  },
+  "icml-2026-himap-travel-hierarchical-multi-agent-planning-for-long-horizon-constrained-travel-e7befeaf27": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Long travel itineraries require local choices to remain consistent with global budgets and diversity requirements. Sequential language-model agents can drift from these constraints as their context grows. HiMAP-Travel divides the work between a Coordinator that allocates resources across days and Day Executors that develop individual daily plans in parallel.",
+      "Parallel planning requires shared constraint enforcement. A transactional monitor tracks budget and uniqueness constraints across agents, while a bargaining protocol lets executors reject infeasible assignments and request replanning. All roles use one policy trained with GRPO, with role conditioning determining their behavior. This combines decentralized daily planning with mechanisms for maintaining a feasible overall itinerary.",
+      "On TravelPlanner, the Qwen3-8B-based system reaches 52.78% validation and 52.65% test Final Pass Rate. A controlled comparison using the same model, training, and tools shows an 8.67-percentage-point gain over sequential DeepTravel. On FlexTravelBench, pass rates are 44.34% for two-turn and 37.42% for three-turn scenarios, with a reported 2.5-fold latency reduction through parallelization. The results support both constraint-aware coordination and faster execution."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b0fb0d265779a885c2c3094c4b32ed1e2633a2e5b23d4de1bdec92956208fa61",
+    "tldr": "HiMAP-Travel coordinates parallel day-planning agents through shared constraints and replanning, improving itinerary pass rates and reducing latency."
+  },
+  "icml-2026-improving-classifier-free-guidance-of-flow-matching-via-manifold-projection-cb553e2229": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Classifier-free guidance helps steer generated images toward a prompt, but its linear extrapolation can be sensitive to the guidance scale. This paper gives guidance in flow matching an optimization interpretation. It connects the model’s velocity field to gradients of progressively smoothed distance functions that move latent variables toward a scaled target image set.",
+      "Within this interpretation, standard guidance approximates the relevant gradient. The gap between conditional and unconditional predictions governs sensitivity to guidance strength. The authors reformulate sampling as homotopy optimization with a manifold constraint, requiring a projection step to keep the process consistent with that constraint. They implement projection through incremental gradient descent during sampling.",
+      "Anderson Acceleration improves the efficiency and stability of the iterative procedure without requiring additional model evaluations. The methods are training-free, so their contribution changes sampling rather than retraining the generator. Evaluations across diverse benchmarks, including DiT-XL-2-256, Flux, and Stable Diffusion 3.5, report improvements in fidelity, prompt alignment, and robustness to guidance scale. The results connect a geometric interpretation of guidance to practical generation improvements."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3bff7b8c11a63d440a591408da1d6cf2d2e429886d907ffc2dd1355557d4f210",
+    "tldr": "A training-free manifold-projection method improves flow-model guidance, increasing image fidelity, prompt alignment, and robustness to guidance scale."
+  },
+  "icml-2026-mind-the-budget-accelerating-deep-reinforcement-learning-using-constrained-early-exit-ne-8a6a906a39": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A reinforcement-learning policy need not spend the same amount of computation on every input. Budgeted EXit Actor, or BEXA, brings this idea to actor–critic learning by adding early-exit branches to the actor network. These branches allow action computation to finish before the full network is evaluated, adapting inference effort to input complexity.",
+      "The central design question is when to exit while respecting a computational budget. BEXA formulates that choice as a constrained linear program during training. It then amortizes the solution so that runtime decisions can be made efficiently. An interpretable budget parameter controls the trade-off between performance and inference expenditure, giving the method an explicit resource constraint rather than leaving computation implicit.",
+      "The architecture is presented as compatible with any off-policy actor–critic method. The authors evaluate integrations with SAC and TD3 on MuJoCo tasks and report substantial inference-efficiency improvements with minimal or no performance loss. Those results support early exits as a practical way to reduce policy-execution cost in the tested settings while maintaining task performance."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d0ea6bcc177f7c68bd6f1e508ca12aee805dd64e04f39f2cff8fc0241bfa17ca",
+    "tldr": "BEXA adds budget-controlled early exits to actor networks, substantially reducing inference cost with minimal or no performance loss in MuJoCo evaluations."
+  },
+  "icml-2026-mode-seeking-meets-mean-seeking-for-fast-long-video-generation-9c60d78a2b": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Generating a longer video requires extending events and causal structure beyond what appears in short clips. The paper argues that this differs fundamentally from increasing image resolution, where interpolation can preserve the underlying patch distribution. High-quality short videos are abundant, while coherent long videos are scarce and cover narrower domains.",
+      "The proposed Decoupled Diffusion Transformer separates local visual fidelity from long-term coherence while using a unified representation. A global Flow Matching head learns narrative structure through supervised training on long videos. Alongside it, a local Distribution Matching head aligns sliding video windows with a frozen short-video teacher using a mode-seeking reverse-KL objective. The two heads assign different learning responsibilities to the available sources of information.",
+      "This arrangement enables minute-scale video synthesis by learning long-range coherence and motion from limited long-video data while obtaining local realism from the short-video teacher. Each sliding-window segment is aligned with that teacher, complementing the global training signal. The stated contribution is a training paradigm that combines long-horizon supervision with local distribution matching to address the mismatch between short-video abundance and long-video scarcity."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "02c33e240dea26f79fda308c4372abaf3cec4bf2a9274a37a75e2c8b9c73b508",
+    "tldr": "A decoupled video transformer learns long-range structure from limited long videos and local realism from a frozen short-video teacher."
+  },
+  "icml-2026-privacy-aware-data-integration-for-enhanced-quantile-inference-under-heterogeneity-facdc88c4f": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Quantiles describe positions within a distribution, and estimates at a target site can benefit from information held elsewhere. Combining sites is difficult when their underlying distributions differ or local differential privacy constrains the analysis. This paper develops a framework for improving quantile estimation and inference while accounting for both issues.",
+      "The method adaptively combines quantile estimates from the target and source sites using learned weights. It selects those weights by minimizing asymptotic variance, with an additional squared-norm penalty to account for parameter shifts between sites. This explicitly balances precision against differences in the quantities being estimated. A parallel stochastic-gradient algorithm estimates the weights and supports valid inference under local differential privacy constraints.",
+      "The authors also introduce a conservative weighted estimator intended to keep inference robust across heterogeneous settings. Their theoretical analysis establishes consistency, normality, and effectiveness of the proposed methods, with numerical studies and a real-data application supporting those findings. The contribution is a way to borrow statistical information across sites while explicitly accounting for heterogeneity and potential privacy requirements."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6fc02450d98f75251f6541517649762a2ced778ea1440503e95a8ebdb3bf0496",
+    "tldr": "Adaptive weighting combines quantile estimates across heterogeneous sites, with theoretical inference guarantees and support for local differential privacy."
+  },
+  "icml-2026-provable-sample-efficiency-of-curriculum-post-training-for-transformer-reasoning-a1f285a10a": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Curriculum post-training improves reasoning by organizing learning into progressively more demanding tasks. This paper develops an abstract theoretical framework explaining when that organization can dramatically reduce the number of samples required. Its guarantees rely on identified sufficient conditions, so the result establishes circumstances where a curriculum helps rather than a universal advantage.",
+      "The authors model chain-of-thought generation as an autoregressive reasoning tree conditioned on state. They study two ways to construct subtasks: gradually extending the reasoning horizon, and gradually withdrawing partial hints. Both strategies change the difficulty of the learning problem over time, providing a formal setting for analyzing how intermediate tasks affect the final reasoning objective.",
+      "Under the framework’s conditions, reinforcement-learning fine-tuning with either curriculum achieves high accuracy using polynomially many samples, while the corresponding non-curriculum approach faces an exponential bottleneck. The paper also establishes analogous guarantees for test-time scaling. Simulations support the theoretical results. The main significance is a precise account of how structured progression can transform sample requirements in the modeled reasoning setting."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "161cc5c19076b0621e70970d0ed3b3738d3eee2004009999c27568405cac2446",
+    "tldr": "Under sufficient theoretical conditions, increasing reasoning depth or gradually removing hints changes curriculum post-training sample complexity from exponential to polynomial."
+  },
+  "icml-2026-recovering-policy-induced-errors-benchmarking-and-trajectory-synthesis-for-robust-gui-ag-6b9e2a0ad4": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Graphical-interface agents must often continue a task after making a mistake. This paper treats recovery from the agent’s own errors as a capability that needs both dedicated evaluation and training data. It introduces GUI-RobustEval, a benchmark with 1,216 executable cases covering a broad range of realistic error modes.",
+      "For training, Robustness-driven Trajectory Synthesis, or RoTS, uses a tree-based pipeline to discover diverse errors and generate the steps needed to recover from them. The framework creates 800,000 training examples, giving models explicit experience with repairing failed action sequences. The authors fine-tune two models, RoTS-7B and RoTS-32B, using this synthesized dataset.",
+      "Both models improve significantly on the recovery benchmark and on traditional GUI evaluations. RoTS-32B reports state-of-the-art OSWorld performance, with a 47.4% success rate and a 33.8% All-Pass@4 score. The authors interpret these results as evidence suggesting that better long-horizon recovery contributes to overall performance as well as robustness. The study connects a targeted error-recovery benchmark with a scalable way to train the corresponding behavior."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5876904040165f48d1451d02a89adee4866507d1be13aeac3598423060178d47",
+    "tldr": "A new recovery benchmark and 800,000 synthesized training examples improve GUI agents’ ability to recover from errors and complete tasks."
+  },
+  "icml-2026-robust-human-ai-complementarity-under-uncertainty-a0dce56804": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "An AI prediction can contain useful information without improving a human’s final decision. This paper studies that gap when the human and AI have asymmetric information about the quality of the information available to each. The question is how a decision-maker can reliably extract complementary value despite that uncertainty.",
+      "The analysis identifies the relationship between human and AI errors as a key factor. In particular, when their prediction errors are negatively correlated, the decision-maker can construct robust strategies that guarantee an improvement in expected utility. This is a sufficient condition for the stated guarantee. It does not say that negative correlation is necessary for every possible gain, or that every AI-assisted decision improves.",
+      "The authors also investigate real-world forecasting benchmarks to examine whether the conditions for complementarity occur in practice. The contribution shifts attention from whether an AI supplies useful signal in isolation to how its mistakes relate to the human’s mistakes. That relationship helps explain when combining predictions can yield robust benefits under uncertainty about information quality."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f58fae5092f1ae0bb9c99132c0d7cde14c840d3e4fb321189bce0bd47625b208",
+    "tldr": "The paper shows that negatively correlated human and AI prediction errors enable robust strategies that improve expected utility under information-quality uncertainty."
+  },
+  "icml-2026-scaling-depth-capacity-via-zero-one-layer-model-expansion-7ec25d1f7f": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Progressive training grows a model during training, reducing the computation spent using its full capacity. This paper studies expansion in depth through optimization theory and feature learning. It examines how to initialize added layers, transfer hyperparameters, choose learning-rate schedules, and decide when expansion should happen.",
+      "The proposed zero/one-layer progressive-training strategy aims for an optimal trade-off between computation and loss, with ablations examining the expansion choices. The approach makes the model’s growth schedule part of training design. Its motivation is that obtaining the benefits of a deep final model need not require paying the full computational cost of that depth throughout training.",
+      "In the highlighted GPT2 experiment, the strategy saves approximately 80% of computation, equivalent to roughly fivefold acceleration, while reaching loss comparable to a fully trained 60-layer, 7B-parameter model. Scaling-law results for LLAMA3 and DeepSeekV3 show three- to fivefold improvements in compute efficiency, with larger advantages at greater scale. These findings concern the reported computation–loss trade-off and support depth expansion as an efficient training strategy."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e46704e45651b7442dc7951b250d66309192bf846037b716dc1831ac8c7b3c7c",
+    "tldr": "Zero/one-layer progressive training expands model depth during learning, reporting comparable loss with substantial compute savings and stronger efficiency at larger scales."
+  },
+  "icml-2026-seeing-to-generalize-how-visual-data-corrects-binding-shortcuts-c6070c7ae6": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper investigates why adding visual training can improve performance on tasks that contain only text. The authors observe this effect especially in long-context retrieval and create a controlled synthetic task to study it. A text-only transformer achieves perfect accuracy on familiar data but generalizes poorly outside that distribution.",
+      "Subsequent training on an image-tokenized version of the same task nearly doubles text-only out-of-distribution performance. Mechanistic analysis attributes the change to how the model binds information together. Text training encourages position-based shortcuts, while visual training disrupts those shortcuts through spatial translation invariance and other visual-encoder biases. The model develops a more robust symbolic binding strategy that persists when text-only examples return.",
+      "The authors compare binding behavior across training regimes and visual encoders, and identify analogous changes when pretrained language models become vision-language models. These findings suggest that cross-modal training can improve reasoning and generalization within a single modality. The controlled result gives a specific mechanism for that possibility: visual data can change an internal strategy that had worked on familiar text but failed under distribution shift."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "981096858fc44585feffb28cb95cfa53d9e690b936974f621512e6ad6393af30",
+    "tldr": "Visual training can replace positional retrieval shortcuts with more robust symbolic binding, improving text-only generalization in controlled experiments."
+  },
+  "icml-2026-stochastic-neural-ray-tracing-for-radio-frequency-channel-modeling-50b79b235c": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Radio-frequency signals interact with objects through reflection, diffraction, and scattering, making wireless channels difficult to model in large, complex environments. SNRFT combines neural representations with a physics-based account of propagation. It aims to capture complicated interactions while retaining explicit physical structure and the composability of traditional ray tracing.",
+      "The central formulation treats radio-frequency transport as a stochastic propagation process. A material-dependent attenuation coefficient emerges as the rate parameter controlling those dynamics. The resulting formulation inherently satisfies reciprocity and reversibility constraints. Implicit neural representations then model complex interactions between signals and objects within that physical framework, integrating learned behavior into the propagation model.",
+      "The authors evaluate SNRFT on real-world wireless communication and sensing testbeds. They report consistent improvements over existing methods while requiring significantly fewer training samples. The findings support combining a structured transport model with learned interaction representations: physical constraints organize the propagation process, while the neural component captures complexity that is difficult to express through hand-engineered rules alone. The stated evidence covers both predictive performance and training-data efficiency."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b399b80c0e1abd4867b5870279564ce75e2ed959f9101e7ca72ca83c05800090",
+    "tldr": "SNRFT combines stochastic RF propagation physics with neural interaction models, improving channel modeling while using fewer training samples."
+  }
+}

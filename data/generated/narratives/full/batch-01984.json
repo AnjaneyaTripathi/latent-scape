@@ -1,0 +1,327 @@
+{
+  "icml-2026-automated-formal-proofs-of-combinatorial-identities-via-wilfzeilberger-guidance-and-llms-81c7864b7e": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Combinatorial identities can require proofs whose useful intermediate steps are difficult to discover through unrestricted search. WZ-LLM gives a language-model prover a structured starting point using the Wilf–Zeilberger method. This symbolic method constructs auxiliary functions and recurrence relations that organize the mathematical argument.",
+      "The framework translates these plans into Lean 4 proof sketches, leaving smaller, machine-checkable obligations for the learned prover. The authors also develop a specialized WZ-Prover through a bootstrapping process that checks proofs with Lean’s kernel, incorporates expert-verified iteration, and then applies DAPO-based refinement. This connects mathematical planning with learned execution of formal proof steps.",
+      "On LCI-Test, which contains 100 classical identities, WZ-LLM proves 34%, outperforming the named language-model baselines and proving five identities missed by the symbolic-only baseline. Improvements on two additional benchmarks support the combination’s usefulness. The stated benefits are complementary: the prover improves direct proving beyond WZ’s scope, while symbolic sketches increase end-to-end success when they apply."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1d67a27d55584c90d1d67090a36db1e48af1d1a0b6e57c0df18f6131e621e758",
+    "tldr": "WZ-LLM combines symbolic proof plans with a specialized Lean prover to improve automated proofs of combinatorial identities."
+  },
+  "icml-2026-blocking-the-leakage-manifold-aware-gradient-projection-for-long-horizon-test-time-adapt-7a3f975a98": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Test-time adaptation updates a trained model as it encounters changing inputs during deployment. These updates can become unstable over long periods. The paper argues that filtering unreliable training examples addresses only part of the problem: even confident predictions can produce harmful updates because of the directions those updates take.",
+      "Spectral analysis identifies a failure mode called manifold erosion. Reliable gradients occupy a stable, low-dimensional subspace, but gradients from confident mistakes repeatedly leak into that same subspace. Although these mistaken gradients spread across more directions overall, their persistent component in the protected space can accumulate and damage core representations.",
+      "Manifold-Aware Gradient Projection tracks the dominant subspace online and removes gradient components pointing into it, applying updates in the orthogonal complement instead. This provides a geometric way to protect stability while allowing adaptation elsewhere. Across the evaluated test-time adaptation benchmarks, the method remains stable over long horizons where earlier methods often fail, supporting gradient direction as an important intervention point."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3a48a9ee40e18a21ac318f1c5c2bd489a181a0c435268ef289b4ce8386f8568c",
+    "tldr": "MGP stabilizes long-running test-time adaptation by blocking gradient directions that can gradually damage core representations."
+  },
+  "icml-2026-credibility-aware-weighting-federated-causal-discovery-for-time-series-9bd3987151": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Learning causal relationships jointly across clients becomes difficult when their time-series data describe changing mechanisms at different sampling rates. A relationship may drift within one client as intervention policies change. Meanwhile, two clients may represent timing differently, making their local causal graphs difficult to combine directly.",
+      "Fed-CAW addresses these problems by assigning credibility to individual causal edges. Each score summarizes how stable an edge is across time windows within a client and how consistent it is across clients after their sampling frequencies are mapped to a common time scale. Aggregation therefore accounts for the reliability of particular relationships rather than giving every local edge equal influence.",
+      "The framework combines privatized edge statistics using these credibility weights, producing a global causal graph while retaining personalized local structures and keeping raw data local. The authors provide theoretical support for the time-scale mapping and rigorous differential privacy guarantees. Experiments on synthetic and real-world datasets support the method’s effectiveness under the studied settings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "cf9f43af7c52342de6ab36b6c7d425e5ca7cf76a3d1f19ff9a4fbda2439a480d",
+    "tldr": "Fed-CAW combines local causal graphs using edge reliability, aligned time scales, and differentially private statistics."
+  },
+  "icml-2026-dllmquant-a-post-training-quantization-framework-tailored-for-diffusion-based-large-lang-9f863f37db": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Diffusion language models generate text through repeated updates, making their compression sensitive to changes across decoding steps. The paper identifies three obstacles to ordinary post-training quantization: changing mask ratios alter token distributions, quantization errors accumulate through iterations, and masked and unmasked tokens have different certainty patterns that complicate feature distributions.",
+      "DLLMQuant addresses these obstacles with three coordinated techniques. Temporal-Mask Adaptive Sampling calibrates quantization using distributions that reflect both decoding time and masking. Interaction-Aware Activation Quantization uses bidirectional attention scores to identify important tokens and prioritize their errors. Certainty-Guided Quantization uses mask status and token scores to weight error compensation.",
+      "The approach matters because it treats iterative generation and token uncertainty as central to compression. Direct application of AWQ causes a reported 16% accuracy drop on LLADA with four-bit weights and activations. DLLMQuant reports substantial performance gains, including an improvement of more than ten accuracy points on GSM8K for four-bit LLADA, alongside improved efficiency."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a32464e6da1e6194390e629217462cce9d0d70842902930f35739a3b39fa456b",
+    "tldr": "DLLMQuant adapts calibration and error compensation to diffusion language models’ changing masks, token importance, and iterative decoding."
+  },
+  "icml-2026-eeg-fm-bench-a-comprehensive-benchmark-for-the-systematic-evaluation-and-diagnostic-anal-ab9b37552a": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "EEG foundation models are difficult to compare when evaluations use different training and testing choices. EEG-FM-Bench provides a common evaluation system covering 14 datasets and ten paradigms. It includes multiple fine-tuning strategies, task arrangements, and classifier configurations, together with tools for examining gradients and learned representations.",
+      "The benchmark investigates why transfer succeeds or fails, beyond reporting predictive performance. Multi-task learning often reduces overfitting when EEG data are scarce, but some task combinations produce negative transfer. The analyses also identify conflicts between reconstruction-based pretraining gradients and downstream task gradients as a current constraint on pretraining efficiency.",
+      "For the released checkpoints under a matched downstream protocol, increasing model or data scale alone does not fully explain transfer quality. Alignment of training objectives, compatibility with adaptation, and EEG-specific design appear important as well. These qualified findings make the benchmark useful both for fairer comparison and for diagnosing whether a model’s training process prepares it for its eventual tasks."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "61b428fd070ff1b3bc41285004cc6f2d8d9e80f528f27c5ec64539186fcad452",
+    "tldr": "EEG-FM-Bench standardizes EEG foundation-model evaluation and investigates how task alignment, adaptation, and training conflicts affect transfer."
+  },
+  "icml-2026-enhancing-cross-subject-emotion-recognition-via-heterogeneous-distribution-augmentation--6bfb65228d": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Cross-subject emotion recognition asks a model to work for people it did not encounter during training. The paper identifies two barriers in existing approaches: dependence on features designed largely for EEG signals, and assumptions that samples follow a common independent distribution. These choices can restrict both generalizability and the variety of augmented data.",
+      "MixEmo explicitly models heterogeneous distributions in emotion data. A trained backbone first extracts representations, which are divided into subsets corresponding to individual distributions. These subsets serve as distribution prototypes. Randomly combining prototypes then creates synthetic distributions that expand the range of variation available during training.",
+      "The framework pairs this augmentation with collaborative learning that jointly optimizes the model across the subsets. Its central idea is to prepare the model for distribution differences between people by exposing it to a broader collection of such differences during learning. Extensive experiments report substantial improvements in cross-subject generalization, supporting the combination of distribution-level augmentation and coordinated training."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0cc9b08418ab8274e3c0f3b764a449811836ec725a3c3dc53a0a8a4e5fa649d0",
+    "tldr": "MixEmo improves recognition of unseen subjects’ emotions by synthesizing diverse distributions and learning collaboratively across them."
+  },
+  "icml-2026-expected-returns-and-policy-inconsistency-aware-offline-federated-deep-reinforcement-lea-286457d6c1": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Offline federated reinforcement learning combines client models trained on locally stored experience. The paper argues that aggregation should consider both expected returns, represented by Q-values, and policy inconsistency: the difference between a learned policy and the policy represented in its training data. Considering only one can give excessive influence to a client that performs poorly on the other.",
+      "The proposed framework uses both quantities to determine client aggregation weights. It scales Q-values to avoid numerical mismatches overwhelming the inconsistency measure. This makes the aggregation decision reflect two aspects of a client policy rather than relying on simple averaging or return estimates alone.",
+      "The framework also changes how clients learn from the resulting global model. When a local model performs better, the global model receives less influence over that client’s learning. This reduces the harm a weaker shared model can cause. Experiments on D4RL report improvements across several metrics when the framework is integrated into seven existing state-of-the-art offline federated reinforcement-learning methods."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0fd579aece2a3f5e9968972636e236c1a0f405627a8acd5773bc0daa831956bb",
+    "tldr": "The framework improves offline federated reinforcement learning by balancing return estimates with policy inconsistency and limiting weak global guidance."
+  },
+  "icml-2026-generalist-graph-anomaly-detection-via-prototype-based-distillation-3c53741b4d": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A generalist graph anomaly detector should transfer to unfamiliar graphs without requiring new labeled examples. Existing approaches often depend on costly anomaly annotations or a few support examples at inference. ProMoS instead learns from the abundance of normal patterns in unlabeled data, pursuing unsupervised training and zero-shot detection.",
+      "Its teacher is a frozen, self-supervised graph neural network. A mixture of student models learns normality priors from that teacher, using a shared global branch alongside lightweight personalized branches. Prototype-guided soft labels place teacher and student outputs in a common prototype space, helping align their representations in a form intended to transfer across graphs.",
+      "At inference, ProMoS detects anomalies on unseen graphs using distillation bias and geometric deviation from prototypes. This connects its anomaly signals to how well an input agrees with the learned model of normality. Experiments report effectiveness and efficiency, supporting a practical approach to transferable graph anomaly detection without anomaly labels or inference-time support examples."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "09db5fc704ad36f0b00b3ec8821ba400e072858f41b764803251a41e05fb38d7",
+    "tldr": "ProMoS distills normal graph patterns into prototype-aligned students for label-free anomaly detection on unseen graphs."
+  },
+  "icml-2026-geometry-based-schrodinger-bridges-for-trustworthy-multimodal-fusion-257ad4c9cd": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Multimodal systems must decide which inputs deserve trust when sensors are noisy, information is missing, or modalities conflict. Judging quality from a classifier’s confidence creates a circular dependency: a confidently wrong prediction can make an unreliable input appear trustworthy. Geometry-based Multimodal Fusion introduces a quality signal based on the input’s relationship to valid data.",
+      "GMF measures the effort needed to transport an input back toward the valid-data manifold. It implements this idea through Diffusion Schrödinger Bridges with Rectified Flow, calculating a quantity called Transport Energy. The method’s guiding premise is that valid inputs require little restoration, while corrupted, incomplete, or conflicting inputs require more.",
+      "This geometric score provides a reliability assessment separate from prediction confidence and can flag problematic inputs even when the classifier is fooled. Extensive experiments report significantly stronger robustness to severe sensor noise and semantic conflict than confidence-based baselines. The findings support restoration effort as a useful signal for deciding how much to trust multimodal evidence."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3183844f69e5600019a4c68da34e4fc033711d00f95c53b9a5191d609942528b",
+    "tldr": "GMF judges multimodal input reliability through geometric restoration effort, improving robustness when classifier confidence is misleading."
+  },
+  "icml-2026-information-flow-reveals-when-to-trust-language-models-73dc680cf8": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Retrieved evidence helps a language model only if the model uses the parts relevant to the question. This paper studies uncertainty through contextual grounding: whether an answer draws on appropriate evidence tokens. It argues that inspecting only a few layers misses how those contributions develop as information moves through the model.",
+      "The method builds a layer-by-layer information-flow trace of each context token’s contribution to the output. It derives two confidence measures from that trace. Simulatability captures the idea that answers are more likely to be correct when influential tokens match genuinely relevant evidence. Concentration captures the idea that reliance on a focused subset of tokens is associated with greater correctness.",
+      "These measures turn the pattern of evidence use into an interpretable basis for estimating reliability. In the reported experiments, the method reaches an average AUROC of 0.709, compared with 0.676 for the runner-up, with moderate computational cost. The result supports improved discrimination between correct and incorrect responses, without making either grounding measure a guarantee of correctness."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "592a2de3b1399c1855e3c37d9c226042e5b44981d0b9c2ad7af65b6f6a1de0d7",
+    "tldr": "Tracing context-token influence across model layers improves confidence estimates by measuring how answers use relevant evidence."
+  },
+  "icml-2026-kuma-a-novel-framework-with-koopman-separation-and-efficient-multilevel-extraction-in-ti-df17157e8e": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Forecasting becomes harder as time series contain more variables and longer histories. The paper identifies three interacting problems: expensive computation, inefficient use of tokens when representations are either redundant or scarce, and changing temporal distributions. KUMA combines a dynamics decomposition with a multilevel attention architecture to address these issues together.",
+      "An input-dependent Koopman module separates the series into Koopman dynamics and residual dynamics. Making the operator depend on the input is intended to reduce the operator-mixture problem and alleviate temporal distribution shifts. A U-shaped Multilevel Attention module then combines element-wise filtering with linear attention, drawing on multilevel encoder–decoder structures with skip connections.",
+      "The attention module aims to balance keeping useful information against carrying too many repetitive tokens, while maintaining acceptable computational efficiency. Evaluations across 12 benchmark datasets report stronger forecasting performance than the compared approaches. These findings support the joint design: adapting the representation of temporal dynamics and organizing information across levels can improve forecasting in the tested settings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c3b2eb2ed9ee1ef28e3bb702d9ae1c433dbb66cd0af4f4567199bde7930d30d0",
+    "tldr": "KUMA combines input-dependent dynamics separation with multilevel attention to improve time-series forecasting."
+  },
+  "icml-2026-learning-to-reconfigure-configuration-control-co-optimization-of-reconfigurable-robots-f-1c252e8a0f": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A robot facing several kinds of locomotion may benefit from changing its configuration as the task progresses. Traditional co-design often settles on one configuration, while existing reconfigurable designs depend on configurations chosen by people. Learning to Reconfigure jointly learns robot configurations and their control for tasks containing heterogeneous subtasks.",
+      "The pipeline separates specialized low-level primitives from a high-level scheduler. Each primitive uses a multi-tail architecture to disentangle configuration design and control while optimizing them together. The scheduler then learns when to switch configurations based on progress through the overall task, connecting local capabilities to the demands of the full route.",
+      "Evaluations cover walking, flying, and swimming locomotion tasks. The reported average traversal progress is 5.95 times that of single-robot baselines and 9.81 times that of reconfiguration-free designs produced by co-design algorithms. These are task-progress comparisons in the evaluated settings. They support the value of learning both how to move and when to change configuration for heterogeneous locomotion."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "99eaf878270b29c74cb1e60578d987d210f15f94efd7e4897be0b0d9693829a2",
+    "tldr": "Learning to Reconfigure jointly learns robot configurations, specialized controllers, and when to switch between them."
+  },
+  "icml-2026-long-context-modeling-with-dynamic-hierarchical-sparse-attention-for-memory-constrained--b9755e5c7b": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Long-context attention becomes expensive because its cost grows quadratically with sequence length. Sparse attention reduces the interactions computed, but fixed patterns cannot fully adapt to different inputs. Dynamic Hierarchical Sparse Attention predicts which interactions matter online while keeping the underlying language model frozen.",
+      "DHSA first estimates importance for chunks of the context, then propagates those estimates to token-level interactions. This hierarchical routing aims to preserve causally important dependencies while discarding much of the attention computation. A memory-efficient tiled implementation supports the computational savings, with GPU and CPU backends covering different hardware environments.",
+      "Across Needle-in-a-Haystack, LongBench, and RULER, DHSA retains accuracy close to dense attention at high sparsity. It reports 12–20% relative accuracy gains over Block Sparse Attention at comparable prefill cost and up to tenfold prefill acceleration at 128K context. With four-bit LLaMA-3.1-8B, it handles 100K context on one 24GB GPU where dense attention fails. These results connect adaptive sparsity to practical memory-constrained inference."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "cc1b1bfa27793c68d050e4e8f5cd3ce6939010a66c5cf16fc26e94e97d656ccc",
+    "tldr": "DHSA predicts sparse attention hierarchically to preserve long-context accuracy while reducing prefill cost and memory requirements."
+  },
+  "icml-2026-multimodal-fusion-via-self-consistent-task-gradient-fields-b7625546c5": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Combining modalities changes the learning signals sent back to their feature extractors. Strongly entangled representations can become fragile when inputs are missing, while auxiliary losses meant to separate features can compete with the main task. SCFAE addresses fusion through the organization of these training gradients.",
+      "The method uses a small autoencoder for each modality to preserve information. Task loss selects predictive features, while reconstruction loss constrains their organization into independent subspaces. Following a self-consistent field principle, these objectives act through complementary feature subspaces, aiming to reduce mutual information and limit interference between task learning and feature organization.",
+      "Evaluations cover audio-visual-text, audio-visual, and image-video benchmarks. The results report greater robustness to missing data and unequal input sizes using a simple structure. Gradient analysis also finds that SCFAE avoids conflicts and maintains stable training dynamics. Together, these findings support the paper’s emphasis on how fusion directs learning signals, alongside the representations that fusion ultimately produces."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9241f4178e6095498112bec0ceba57a3c42d4f54e497c01dcc792585016dd528",
+    "tldr": "SCFAE organizes task and reconstruction gradients through complementary feature subspaces to make multimodal fusion more robust."
+  },
+  "icml-2026-neuralfloc-neural-flow-based-joint-registration-and-clustering-of-functional-data-422edcdcb7": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Curves can appear different because their events occur at different times, even when their underlying shapes are similar. This temporal misalignment makes functional-data clustering difficult. NeuralFLoC learns alignment and grouping together, addressing the tendency of separate procedures to obscure the distinction between timing differences and shape differences.",
+      "The framework combines Neural ODE-driven flows with spectral clustering in a fully unsupervised, end-to-end model. It simultaneously learns smooth, invertible time-warping functions and templates for individual clusters. These jointly learned components separate phase variation, associated with timing, from amplitude variation, associated with the curves’ values and shapes.",
+      "The authors establish universal approximation guarantees and asymptotic consistency for the framework. On functional benchmarks, they report state-of-the-art results for both registration and clustering, together with robustness to missing observations, irregular sampling, and noise while maintaining scalability. The empirical findings support learning temporal alignment as part of discovering groups, and the theoretical results provide an additional foundation for the proposed formulation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "22f04ab58870a82c1e6475d9520b50144c16effaca491088815e7b3fcf1bf45c",
+    "tldr": "NeuralFLoC jointly aligns and clusters curves using smooth invertible neural flows and cluster-specific templates."
+  },
+  "icml-2026-neuronctrl-geometry-aware-safe-closed-loop-generative-control-for-neuronal-microenvironm-fcb65a1215": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "NeuronCtrl treats neuromodulation as feedback control over spatial fields on irregular three-dimensional neuronal shapes. This is difficult because the biophysics can be complex or unknown, observations cover only part of the field, and high-fidelity simulation is costly for repeated planning. Safety requirements nevertheless apply to the complete field.",
+      "The framework divides the problem into estimation, prediction, action generation, and safety enforcement. A history-conditioned observer infers the latent field from measurements, actions, and morphology. A morphology-aware neural operator predicts the next state, and a conditional flow-matching model proposes actions guided by user preferences. Barrier-based mechanisms intervene at both the action and field levels to enforce safety.",
+      "For latency-sensitive use, the multistep action generator is distilled into a single-step policy that retains the same safety filter. Experiments on three high-fidelity 3D simulation benchmarks cover deep brain stimulation, extracellular reaction–diffusion control, and astrocytic potassium regulation. They report improved trade-offs among cost, safety, and latency, supporting the modular approach in these in-silico control settings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0c1294ade647351483dd9ae8fa134cf52333509b7abcd8526997575773703bcd",
+    "tldr": "NeuronCtrl combines field estimation, geometry-aware prediction, generative actions, and safety filters for simulated neuronal feedback control."
+  },
+  "icml-2026-principled-svd-based-delta-compression-via-quantization-error-minimization-8d72fd8450": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Fine-tuning creates parameter changes that can be expensive to store and distribute. Singular value decomposition offers a compact representation of these deltas, but quantizing its factors introduces additional error. PrinMix replaces heuristic quantization choices with an optimization framework based on a mathematical analysis of that error.",
+      "The analysis identifies a scaling mechanism dominated by singular values and establishes the need for mixed precision within its formulation. PrinMix expresses precision allocation as a binary integer linear program, obtaining optimal solutions to the formulated problem under a bit budget without empirical assumptions. It also corrects the reconstruction target to compensate for errors introduced when quantizing the V factor before the U factor.",
+      "This connects limited storage directly to the error contributions of the compressed factors. Experiments on seven-billion-parameter language models report gains over Delta-CoMe of 22.3% on AIME2024 and 6.1% on GQA. These findings support the practical value of principled precision allocation together with correction for sequential quantization errors."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d17629d822d3b9fe8f1112eb0ced47343563699b26cf82278b8fc5dbb1ab9dad",
+    "tldr": "PrinMix optimizes mixed-precision allocation and corrects sequential quantization errors when compressing fine-tuning deltas with SVD."
+  },
+  "icml-2026-relighting-as-a-probe-of-visual-priors-via-augmented-latent-intrinsics-72b19fd17a": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Relighting an image requires changing illumination while retaining the scene’s geometry and material properties. The paper uses this task to investigate what visual representations preserve about the physical world. Recognition can reward features that ignore changes in lighting, whereas relighting needs access to the details that make those changes physically plausible.",
+      "Within a controlled generative framework, the authors find that strong semantic encoders can reduce relighting quality. This reveals a trade-off between abstract understanding and photometric fidelity. Augmented Latent Intrinsics addresses that trade-off by adding dense, pixel-aligned visual features to a latent-intrinsic relighting model and refining it through self-supervision on unlabeled pairs of real images.",
+      "ALI improves relighting quality, with particularly strong benefits for glossy, metallic, and transparent materials. These findings indicate that useful semantic features do not necessarily preserve all the information needed for light transfer. They also establish generative relighting as a practical probe for measuring which physical cues visual encoders retain."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a70acdfe014eab42901b63b1c85956208593870201961d1652bfe1d0c9972653",
+    "tldr": "ALI improves relighting by preserving dense visual cues, revealing a trade-off between semantic abstraction and physical fidelity."
+  },
+  "icml-2026-rl4rla-teaching-ml-to-discover-randomized-linear-algebra-algorithms-through-curriculum-d-b6a207e48a": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Randomized linear algebra algorithms are useful numerical tools, but discovering them typically requires substantial expert effort. RL4RLA uses reinforcement learning to automate this search. It constructs explicit symbolic algorithms from basic linear algebra operations, producing representations that can be inspected, verified, and implemented.",
+      "Two mechanisms address the difficulty of exploring a large search space with sparse rewards. A numerical curriculum gradually increases problem difficulty, introducing guidance specific to randomized linear algebra. Monte Carlo Graph Search identifies equivalent partial algorithms and merges them, allowing exploration to account for different construction paths that lead to the same partial result.",
+      "The framework rediscovers established methods including sketch-and-precondition solvers, Randomized Kaczmarz, and Newton Sketch. It can also be directed toward particular balances of accuracy, speed, and stability. These results show that the search can recover meaningful algorithmic structure and respond to specified objectives, supporting curriculum design and equivalence-aware exploration as tools for automated numerical algorithm discovery."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9f92b86fc1e3d018c2ecd37cf98c6938418cdf2050191f951d2c59e0c006bed4",
+    "tldr": "RL4RLA discovers explicit randomized linear algebra algorithms using a numerical curriculum and search that merges equivalent partial programs."
+  },
+  "icml-2026-sfclta-spectral-fusion-contrastive-learning-with-topology-adaptive-graph-augmentation-f4b282a11d": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Graph learning becomes challenging when connected nodes have different labels or attributes. Neighbor-based message passing can struggle in these heterophilic settings. Contrastive learning can capture information beyond immediate neighbors, but its graph augmentations may shift the data distribution, while high-frequency signals can reduce robustness.",
+      "SFCLTA combines several mechanisms to address these issues in unsupervised representation learning. Its augmentation strategy adapts graph structure with awareness of heterophily. Spectral regularization constrains high-frequency distortions, and confidence-weighted fusion strengthens robustness. A feature-reconstruction task explicitly addresses distribution changes at the feature level.",
+      "These components treat graph structure and node features as related sources of potential augmentation error. The aim is to benefit from contrastive learning without allowing the generated views to distort the information being learned. Across multiple tasks on real-world datasets, SFCLTA consistently outperforms the evaluated baselines. The results support coordinating topology adaptation, spectral constraints, and feature reconstruction when learning representations from heterophilic graphs."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ed8ad6b15404f4398ba0956207f2ce81b54e4b652899938e34328cb774a7948b",
+    "tldr": "SFCLTA improves unsupervised graph learning by combining heterophily-aware augmentation, spectral regularization, and feature reconstruction."
+  },
+  "icml-2026-token-level-llm-collaboration-via-fusionroute-231b401db0": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Specialized language models can be efficient within their domains but struggle outside them. FusionRoute combines their strengths during generation through a lightweight router that makes a new choice at every token. The router both selects an expert and contributes an additional logit signal that adjusts the expert’s next-token distribution.",
+      "The corrective signal is central to the method. The theoretical analysis shows that routing among fixed expert outputs generally cannot realize the optimal decoding policy unless strong global coverage assumptions hold. Adding a trainable complementary generator expands the available policy class and permits recovery of optimal value functions under mild conditions.",
+      "Experiments use both Llama-3 and Gemma-2 model families across mathematical reasoning, code generation, and instruction following. FusionRoute outperforms the evaluated sequence-level and token-level collaboration methods, model merging, and direct fine-tuning, while remaining competitive with specialists on their own tasks. These findings support combining expert selection with learned correction, rather than treating selection alone as sufficient for broad capability."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6227cfc62a1b5a2a3a404bdd251b726e8f0b20e689f47da6bf5365cde5bb09f6",
+    "tldr": "FusionRoute selects an expert for each token and learns a corrective logit signal to expand what their collaboration can achieve."
+  },
+  "icml-2026-user-aware-active-knowledge-acquisition-for-emotional-support-dialogue-9e60a45837": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Emotional-support conversations involve needs that can change and remain implicit across several turns. Weak or indirect cues make it difficult for a system to identify which conversational knowledge is relevant. User-Aware Active Knowledge Acquisition addresses this by explicitly representing uncertainty about the user’s needs.",
+      "UKA is a gradient-free framework that brings active learning into both knowledge acquisition and response selection. Its Theory-of-Mind uncertainty mechanism prioritizes responses that can elicit more informative user feedback. This makes response selection part of the process of understanding the user, alongside its role in providing immediate conversational support.",
+      "During training, the framework explores conversational knowledge aligned with users, while the reported approach maintains robustness at test time. Experiments across multiple dialogue benchmarks and model architectures consistently outperform strong baselines on dialogue quality and user alignment. These findings support actively reducing uncertainty over multiple turns as a way to improve support dialogue, where an initial interpretation of the user’s needs may be incomplete."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "45e58fe9964ebfcb43aca40f79ec6e57ded265b34ea3aa578c42da8d4d135378",
+    "tldr": "UKA improves emotional-support dialogue by choosing responses that help clarify uncertain user needs and acquire relevant conversational knowledge."
+  },
+  "icml-2026-variational-bayesian-flow-network-for-graph-generation-e86d544a9c": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Generating a graph requires node and edge attributes to satisfy interdependent structural constraints. Many diffusion and flow methods begin with largely independent noise or updates, leaving their neural networks to recover these dependencies implicitly. Classical Bayesian Flow Networks support discrete generation but also commonly use factorized beliefs and independent channels.",
+      "VBFN introduces a joint Gaussian variational belief with structured precision matrices to represent coupling. Each Bayesian update becomes a symmetric positive definite linear-system solve, allowing node and edge information to be updated together in one fusion step. Sparse precisions come from a dependency graph induced by the representation and do not depend on individual samples, avoiding label leakage.",
+      "The resulting generative formulation incorporates node–edge consistency into how evidence is combined. This directly addresses the concern that independently organized generation can become brittle after conversion to discrete graphs. On synthetic and molecular graph datasets, VBFN improves both fidelity and diversity and surpasses the compared baselines, supporting explicit coupling within the belief-update mechanism."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9f01e4030e97d927f796b74e5b3ce6062a7a4bfd3a6b681af4c4e5e6e9a19820",
+    "tldr": "VBFN jointly updates node and edge beliefs through structured Gaussian precision matrices to improve graph-generation fidelity and diversity."
+  },
+  "icml-2026-vggt-motion-motion-aware-calibration-free-monocular-slam-for-long-range-consistency-8e78baed6e": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Calibration-free monocular SLAM estimates motion and maps scenes from a single camera without prior calibration, but long sequences can accumulate severe scale drift. VGGT-Motion addresses this by making local map construction sensitive to motion and by simplifying the alignment of those maps over kilometer-scale trajectories.",
+      "Optical flow guides adaptive partitioning into submaps, removes redundant static observations, and keeps turns together to stabilize local geometry. Context-balanced anchors then support direct Sim(3) registration, aligning submaps in rotation, translation, and scale. This provides dense pixel-wise alignment and efficient loop closure without a feature-matching search.",
+      "A lightweight pose-graph optimization operates at the submap level to enforce global consistency with linear complexity. The design connects motion-sensitive local organization to efficient long-range correction, addressing both geometric drift and computation. Experiments report marked improvements in trajectory accuracy and efficiency, reaching state-of-the-art performance in the evaluated zero-shot, long-range calibration-free monocular SLAM setting."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e377ad59b68634fc151778a38dd417407ccb2dd7625d4fff03e326b69295dd29",
+    "tldr": "VGGT-Motion reduces long-range monocular SLAM drift through motion-aware submaps, direct anchor alignment, and lightweight global optimization."
+  },
+  "icml-2026-video2gui-synthesizing-large-scale-interaction-trajectories-for-generalized-gui-agent-pr-f37d7cc473": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "GUI agents need training examples that connect visible interface elements with actions across many applications. Existing datasets often require expensive manual annotation and cover limited domains. Video2GUI turns unlabeled Internet videos into grounded interaction trajectories through a fully automated process, using existing demonstrations as a source of training data.",
+      "The pipeline applies coarse-to-fine filtering to identify suitable GUI tutorials and convert them into structured trajectories. Processing 500 million video metadata entries produces WildGUI, a dataset containing 12 million trajectories across more than 1,500 applications and websites. This broad coverage addresses the shortage of varied real-world interaction examples.",
+      "Pretraining Qwen2.5-VL and Mimo-VL on WildGUI yields consistent reported improvements of 5–20% across several GUI grounding and action benchmarks, matching or exceeding state-of-the-art performance. These findings support automated video extraction as a useful route to GUI-agent pretraining at scale. The authors state that they will release both the dataset and pipeline to support further research."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "81bad55273c7de0cd93a9e42fcd2d0dc3a7c770b4416d902d6a6cec3ce90369a",
+    "tldr": "Video2GUI automatically converts Internet tutorials into a large, diverse GUI interaction dataset that improves agent pretraining."
+  }
+}

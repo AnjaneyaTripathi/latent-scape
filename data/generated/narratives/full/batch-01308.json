@@ -1,0 +1,377 @@
+{
+  "icml-2019-approximated-oracle-filter-pruning-for-destructive-cnn-width-optimization-863e8b9b3b": {
+    "backgroundConcepts": [
+      "topic-001-a-fast-post-training-pruning-framework-for-trans"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Choosing how many filters each convolutional layer needs affects both prediction quality and computational cost. Oracle pruning assesses filter importance by removing filters individually and evaluating the resulting model. That direct assessment can preserve accuracy, but it is expensive and requires the desired final layer widths to be specified beforehand.",
+      "Approximated Oracle Filter Pruning replaces these individual evaluations with a search that progressively identifies less important filters. It randomly masks filters, accumulates the errors caused by those attempts, and searches in a binary-search-like manner. A framework with multiple paths also fine-tunes the network during this process. Because several layers can be pruned simultaneously, the method addresses the cost of processing a very deep network.",
+      "The authors report that this approach can reduce an existing network with acceptable processing time and negligible accuracy loss, without heuristic knowledge. They also describe using it to redesign a model for higher accuracy and faster inference. The contribution connects filter removal with discovering suitable layer widths, rather than requiring those widths as fixed inputs."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "bd9db31b2716b6b479ff32b8a4de537c4045ba24fc090a007756663e0f133a75",
+    "tldr": "AOFP approximates costly filter-importance tests to prune multiple CNN layers and discover useful widths efficiently."
+  },
+  "icml-2019-autoregressive-energy-machines-2e250cd628": {
+    "backgroundConcepts": [
+      "topic-128-f-divergence-based-classification-beyond-the-use"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A density estimator learns how probability is distributed across possible observations. Neural versions are flexible, but maximum-likelihood training usually requires an explicitly specified probability density. An energy-based model instead learns an unnormalized score, allowing the network to describe a distribution before calculating the adjustment needed to make its probabilities sum or integrate to one.",
+      "That adjustment, the normalizing constant, is difficult to estimate for a high-dimensional energy function. The Autoregressive Energy Machine addresses this challenge by decomposing the distribution into conditional distributions. It learns an unnormalized density while using importance sampling to estimate the normalizing constant for each conditional. The autoregressive organization therefore provides a way to handle normalization through the individual conditional components.",
+      "The authors report state-of-the-art results on a collection of density-estimation tasks. These findings support combining the flexibility of energy-based modeling with conditional normalization estimates. A central distinction is that normalization is estimated through sampling; the approach does not depend on requiring every learned conditional density to arrive already normalized."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "551952a0208f70132ec03a2962d74250b43f0aec3ae79c5b92f375ec0a0b94f5",
+    "tldr": "Autoregressive Energy Machines learn flexible energy-based densities and estimate each conditional distribution’s normalization through importance sampling."
+  },
+  "icml-2019-band-limited-training-and-inference-for-convolutional-neural-networks-163e2a065e": {
+    "backgroundConcepts": [
+      "topic-007-high-performance-zero-memory-overhead-direct-con"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Convolutional filters normally act across the full frequency spectrum of their inputs. This paper investigates restricting the frequencies used by both filters and data, a compression approach called band-limiting. The question is whether a network can learn useful predictions while operating with this restricted representation, and whether that restriction can help manage computational resources.",
+      "The frequency constraints apply during both the forward computation that produces predictions and the backward computation that updates the model. Training therefore takes place with the compression already present. The authors report that using these layers requires no changes to the surrounding network architecture or existing training algorithms, making the approach applicable within established training procedures.",
+      "Experiments indicate that CNNs tolerate this compression while retaining high prediction accuracy. They also show that band-limited training can control GPU and memory usage. The results suggest that networks learn to use lower-frequency information effectively. That interpretation is an empirical finding about the investigated approach, rather than a claim that higher-frequency information is always unnecessary."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0b442ba7ab35888ac4345b7772843ad81583f8fd70a674037af9cc9ca2f8f540",
+    "tldr": "Restricting convolutional computations to selected frequencies can control resource use while retaining high accuracy in the reported experiments."
+  },
+  "icml-2019-cross-domain-3d-equivariant-image-embeddings-5f9f4bfe30": {
+    "backgroundConcepts": [
+      "topic-129-se-3-equivariant-convolution-and-transformer-in-"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A useful representation of an object should respond predictably when the object rotates. Spherical convolutional networks provide this property for three-dimensional shapes: a rotation produces a corresponding transformation in their representations. This paper transfers a similar geometric structure to embeddings computed from two-dimensional images of three-dimensional objects.",
+      "The method maps images into the latent space of a spherical CNN that has already been trained for shape classification. Its training targets are embeddings supplied by that network. This gives the image representation information about three-dimensional shape and a structured response to object rotations. Equivariance here means that rotating the observed object and embedding its image should agree with the corresponding rotation of the embedding.",
+      "The authors demonstrate applications to estimating relative pose and synthesizing new views without additional supervision specific to those tasks. The stated result is that a sufficiently rich image embedding with the appropriate geometry can support several applications. The method still uses supervision from the pretrained shape model; its reuse across tasks is the distinctive benefit."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "973539c65c61cfbf813435447f2ba2219ef16e57a7f555b8cd4146d97c5aa0e2",
+    "tldr": "A pretrained spherical CNN supplies geometric supervision for image embeddings that support pose estimation and new-view synthesis without extra task-specific supervision."
+  },
+  "icml-2019-exploring-the-landscape-of-spatial-robustness-23d53cb4b5": {
+    "backgroundConcepts": [
+      "topic-160-a-closer-look-at-accuracy-vs-robustness"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "An image classifier can fail when an image is shifted or rotated, even though these transformations are natural changes in how an object is presented. This paper studies that vulnerability directly. It expands the investigation of adversarial robustness beyond perturbations constrained by numerical measures of pixel changes to spatial transformations of the input.",
+      "The authors examine both the vulnerability and ways to reduce it. In their investigation, data augmentation provides relatively modest robustness. Approaches drawing on robust optimization and combining information from inputs at prediction time produce substantially larger improvements. These findings identify training and prediction procedures that can help classifiers cope with rotations and translations.",
+      "The work also finds that first-order methods cannot reliably locate the most damaging spatial perturbations. This matters for evaluation: an unsuccessful search may fail to expose an existing weakness. The authors therefore identify spatial robustness as a setting with distinct challenges, where methods used for norm-bounded perturbations do not automatically provide reliable worst-case assessments."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "79415640eadf5befe2aaa2b375ba15a9ca6842009af05d3bba332a3291eefb99",
+    "tldr": "Rotations and translations expose classifier weaknesses that require distinct robustness improvements and more reliable attack searches."
+  },
+  "icml-2019-finite-time-analysis-of-distributed-td-0-with-linear-function-approximation-on-multi-age-425abdd8ec": {
+    "backgroundConcepts": [
+      "topic-111-d-2-decentralized-training-over-decentralized-da"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper studies how cooperating agents can evaluate a policy when each agent observes only its own local rewards. Their shared target is a value function describing the global discounted accumulation of rewards. The focus is policy evaluation: estimating the value of behavior through learning and communication across the group.",
+      "Each agent acts, receives a reward, updates its local value estimate, and exchanges information with neighboring agents. With linear function approximation, this becomes a distributed version of TD(0) that combines temporal-difference updates with a process for bringing local estimates into agreement. The communication network is allowed to change over time, so the analysis addresses an evolving pattern of information exchange.",
+      "The main contribution is a finite-time convergence analysis, giving an explicit upper bound that depends on network topology and the discount factor. Such a bound describes progress over a limited number of updates, beyond eventual convergence alone. The results resemble the behavior expected from distributed stochastic gradient descent for convex optimization, providing a theoretical account of this distributed learning procedure."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c8f6a9a7fdf216d9a657d702ff675dff6e519dc9d7da32f94d9ebdc144847e5f",
+    "tldr": "The paper bounds finite-time convergence of distributed TD(0), explicitly accounting for changing communication networks and reward discounting."
+  },
+  "icml-2019-gdpp-learning-diverse-generations-using-determinantal-point-processes-443f87b101": {
+    "backgroundConcepts": [
+      "topic-128-f-divergence-based-classification-beyond-the-use"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A generative model can produce plausible images while covering only a small portion of the variety in its training data. This failure, called mode collapse, limits its ability to represent a distribution with several distinct kinds of outputs. The paper introduces a penalty that encourages generated samples to reflect the diversity found in real samples.",
+      "The approach draws on determinantal point processes, which model negative correlations within a collection and thereby quantify diversity. It uses a DPP kernel to describe diversity in both real and generated data, then adds an objective term encouraging agreement between them. This supplies an unsupervised training signal while preserving the model’s original training scheme.",
+      "The authors incorporate Generative DPP into adversarial training and a variational autoencoder. Across synthetic and natural-image datasets, they report consistent resistance to mode collapse and improvements in data efficiency, generation quality, and convergence time. They also report being 5.8 times faster than the closest competitor in their comparison. These findings support diversity matching as a practical addition to the tested generative models."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "738af482c07301e10ad65b2f621108321f83ea7e8550b8d9f57efd2dc2f6bc9f",
+    "tldr": "Generative DPP adds a diversity-matching penalty that reduces mode collapse and improves sample quality in the reported evaluations."
+  },
+  "icml-2019-generalized-no-free-lunch-theorem-for-adversarial-robustness-0720cfd236": {
+    "backgroundConcepts": [
+      "topic-158-de-randomized-smoothing-for-certifiable-defense-"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper examines whether properties of a data distribution can make adversarial vulnerability unavoidable for any classifier. Its main result is conditional: the distribution within each class must satisfy a mathematical property called the W2 Talagrand transportation-cost inequality. The theorem therefore concerns a specified family of distributions rather than every possible classification problem.",
+      "Under that condition, the authors show that a classifier can be fooled with high probability when perturbations become slightly larger than the problem’s natural noise level. The scale of the permitted disturbance is central to the statement. The result ties an impossibility of robustness to the distribution’s structure and noise, rather than to a particular architecture or training procedure.",
+      "The authors present this as a strong no-free-lunch theorem because several earlier results follow as special cases. They also demonstrate their theoretical bounds using simulated data and MNIST. The contribution broadens the conditions under which adversarial vulnerability can be established mathematically, while retaining an explicit distributional assumption and perturbation threshold."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "872bc6faa763bb9392d668f6c0ad2b1c8a971ea32f2c8c5a73acc545f621d940",
+    "tldr": "Under a stated class-conditional distribution assumption, perturbations slightly above the natural noise level can fool any classifier with high probability."
+  },
+  "icml-2019-gradient-descent-finds-global-minima-of-deep-neural-networks-34dd627323": {
+    "backgroundConcepts": [
+      "topic-046-the-loss-surface-of-deep-and-wide-neural-network"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Training a deep neural network involves a non-convex objective, making successful optimization a theoretical question as well as a practical one. This paper proves that gradient descent reaches zero training loss in polynomial time for a deep, over-parameterized network with residual connections. The stated architecture and over-parameterization define the setting of the guarantee.",
+      "The analysis centers on a Gram matrix induced by the network architecture. The authors use its particular structure to show that this matrix remains stable as training proceeds. That stability is the key link in the argument: it enables them to establish that gradient descent reaches a globally optimal training solution despite the non-convex objective.",
+      "The paper also extends the analysis to deep residual convolutional networks and obtains a similar convergence result. Together, these results explain successful optimization for the studied residual architectures through a concrete mathematical property maintained during training. The guarantee concerns reaching zero loss on the training objective; its significance is an optimization result for the specified network setting."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0ff2c678e777737058a746665105bb193fad59c620debd3c822f55cab8f426e9",
+    "tldr": "For the studied over-parameterized residual networks, Gram-matrix stability yields a polynomial-time guarantee of zero training loss under gradient descent."
+  },
+  "icml-2019-imitating-latent-policies-from-observation-261d180f2f": {
+    "backgroundConcepts": [
+      "topic-019-a-bayesian-approach-to-generative-adversarial-im"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Imitation learning becomes harder when demonstrations show states but omit the expert’s actions. The learner sees how behavior unfolds without being told which controls produced it. This paper addresses that setting by inferring a policy over latent actions directly from observations, creating an intermediate description of the demonstrated behavior.",
+      "The method learns the causal effects of these hidden actions on observations while predicting their likelihood. It then uses a small amount of interaction with the environment to align latent actions with real actions. This alignment supplies the connection between the model’s inferred action categories and the controls that the learner can actually execute.",
+      "Once aligned, the corrected action labels can support imitation even though expert action labels were never provided. Evaluations in classic control environments and a platform game show better performance than standard approaches. The contribution is a way to combine observation-based inference with limited active interaction: demonstrations reveal behavioral structure, and interaction establishes how to reproduce it through real controls."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "06f467946494704dcde509296acea7dda45036df5547a1afe3e490282323cd71",
+    "tldr": "The method learns hidden actions from observed behavior and uses limited environment interaction to map them onto executable controls."
+  },
+  "icml-2019-improved-convergence-for-ell-1-and-ell-regression-via-iteratively-reweighted-least-squar-c3d14a1d68": {
+    "backgroundConcepts": [
+      "topic-021-l-1-penalized-robust-estimation-for-a-class-of-i"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Iteratively reweighted least squares solves a regression problem through a sequence of weighted least-squares problems. Although widely used in practice, its theoretical analyses had not fully reflected its practical effectiveness. This paper proposes a simple version for l1 regression, which aggregates absolute residuals, and l-infinity regression, which focuses on the largest absolute residual.",
+      "The method provably reaches a solution within a multiplicative factor of 1 + epsilon of the optimum. Its iteration bound is O(m^(1/3) log(1/epsilon)/epsilon^(2/3) + log(m)/epsilon^2), where m counts input-matrix rows. The stated running-time guarantee does not depend on input conditioning. The authors also highlight the sublinear dependence on inverse accuracy in the dominant term, an unusual feature for nonsmooth optimization.",
+      "The analysis improves on the cited, more complex algorithms by at least a factor of 1/epsilon^2. It also yields an efficient natural algorithm for slime mold dynamics. The contribution is therefore both a simpler regression procedure with stronger convergence guarantees and a connection to another computational process discussed in the paper."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "41e7e986ed2551087779eaeb6019d1ead9bea0f735498fc8e28ed05d14d0d3b9",
+    "tldr": "A simple reweighted least-squares method achieves improved approximation guarantees for l1 and l-infinity regression independently of input conditioning."
+  },
+  "icml-2019-incorporating-grouping-information-into-bayesian-decision-tree-ensembles-497527224c": {
+    "backgroundConcepts": [
+      "topic-048-a-bayes-rule-for-density-matrices"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "When predictors greatly outnumber observations, information about how predictors are related can help guide regression and variable selection. The paper studies overlapping groups, such as genes that belong to shared biological pathways. Overlap matters because a predictor can participate in several meaningful groups rather than fitting into one exclusive category.",
+      "The authors incorporate these relationships into a Bayesian additive regression trees model. Their prior makes a predictor’s use in a tree split increase the probability that later splits select predictors from the same group. The resulting OG-BART model uses an overlapping group Dirichlet prior that encourages sparsity both across groups and among predictors within groups.",
+      "The paper studies correlations induced by this prior, illustrates the method on simulated data, and applies it to gene-expression data involving breast cancer tumor metastasis. That application identifies genetic pathways predictive of metastasis. The approach makes grouping information part of the model’s selection preferences, allowing related predictors to influence one another while retaining pressure toward a selective set of groups and variables."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1d7ca5459f0450828a560bfcdcefc00cdf83bc1084a5c2921283680ee840826f",
+    "tldr": "OG-BART uses overlapping predictor groups to guide tree splits and encourage sparse selection within and across groups."
+  },
+  "icml-2019-learning-interpretable-continuous-time-models-of-latent-stochastic-dynamical-systems-928a250248": {
+    "backgroundConcepts": [
+      "topic-113-a-call-to-lagrangian-action-learning-population-"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper learns hidden dynamics from noisy, high-dimensional observations collected at uneven times. Its model describes a continuous-time stochastic system, so the underlying process is represented between observations as well as at observation times. The goal is a flexible description whose learned structure can also be interpreted in dynamical-systems terms.",
+      "The dynamics follow a nonlinear stochastic differential equation with a Wiener process supplying randomness. A Gaussian process models the drift, conditioned on learned fixed points and their local Jacobian matrices. Fixed points identify locations where the drift vanishes, while the local matrices describe behavior nearby. These learned features connect the model to interpretable portraits of how a nonlinear system evolves.",
+      "Learning combines inference of continuous latent trajectories with a sparse variational representation of the dynamics. The authors demonstrate the approach on simulated observations from different nonlinear systems. The contribution is a way to combine flexible stochastic modeling with explicit, interpretable dynamical features while accommodating noisy observations and irregular sampling times."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5f9d0be7263532d323f0f3382bc63d20be487ff35a6f1a26f665c079f640ab01",
+    "tldr": "The method learns continuous-time stochastic dynamics with interpretable fixed points from noisy observations taken at irregular times."
+  },
+  "icml-2019-multi-frequency-vector-diffusion-maps-34c2a8ff88": {
+    "backgroundConcepts": [
+      "topic-245-a-domain-decomposition-method-for-fast-manifold-"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Organizing high-dimensional data involves finding which observations are related and, when relevant, how they align. Noise can make both judgments difficult. This paper introduces multi-frequency vector diffusion maps as a framework for analyzing such data, extending vector diffusion maps and other methods for nonlinear dimensionality reduction.",
+      "The central construction incorporates multiple unitary irreducible representations of the alignment group. These are mathematical ways to represent the transformations involved in alignment. Using several representations gives the framework multiple descriptions of that transformation structure. The authors identify this combination as the mechanism that introduces robustness to noise, connecting data organization with information about alignment.",
+      "The method is evaluated on synthetic data and cryo-electron microscopy image datasets. In those evaluations it improves nearest-neighbor search and alignment estimation compared with vector diffusion maps and diffusion maps, with especially strong benefits on extremely noisy data. The findings support using multiple representations of alignment structure to improve these two related tasks, rather than evaluating the framework only as a dimensionality-reduction construction."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "54fd6cae80674c6d990609019aea22a7a84c043e80cc30b0ad55d1af3086d321",
+    "tldr": "Multi-frequency vector diffusion maps combine representations of alignment transformations to improve neighbor search and alignment estimation in noisy data."
+  },
+  "icml-2019-noisy-dual-principal-component-pursuit-66ecda20fe": {
+    "backgroundConcepts": [
+      "topic-205-a-dc-programming-approach-for-sparse-eigenvalue-"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Dual Principal Component Pursuit learns a subspace from data containing outliers through non-convex optimization. Earlier work addressed noiseless data and subspaces of high relative dimension, including settings with outlier counts as large as the square of the inlier count. This paper extends the theoretical investigation to observations corrupted by noise.",
+      "The motivation is a gap between theory and observed behavior. DPCP had already shown experimental robustness to noise and had outperformed RANSAC on three-dimensional vision tasks, including road-plane detection and relative-pose estimation from three views. Those results suggested value beyond the noiseless setting covered by the earlier theory.",
+      "The paper extends both global-optimality and convergence theory to noisy data and adds demonstrations on synthetic and real datasets. These contributions address two connected questions: what can be established about the optimization solution, and how the method behaves when applied to contaminated observations. The earlier noiseless outlier tolerance provides context; the abstract does not state that the same quantitative tolerance transfers unchanged to noise."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "27709cf497c9a7d0bed837c989f0eeb5e5a65ee324985fe0de1960b82431d88f",
+    "tldr": "The paper extends DPCP’s global-optimality and convergence theory to noisy data and further demonstrates its robustness."
+  },
+  "icml-2019-non-monotone-submodular-maximization-with-nearly-optimal-adaptivity-and-query-complexity-8860c21960": {
+    "backgroundConcepts": [
+      "topic-037-a-dynamic-algorithm-for-weighted-submodular-cove"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Subset-selection algorithms can be expensive in two distinct ways: they may require many sequential rounds, or they may evaluate the objective too often. This paper studies both costs for non-monotone submodular maximization with a cardinality constraint. Non-monotonicity means adding an item need not improve the objective, making selection more delicate.",
+      "Adaptivity counts rounds that must occur sequentially when independent objective queries within a round can run in parallel. Reducing this count alone may still leave too many expensive function evaluations. The proposed algorithm achieves a constant-factor approximation using O(log(n)) adaptive rounds and O(n log(k)) oracle queries in expectation, with k specifying the cardinality constraint.",
+      "The authors identify this as the first algorithm to achieve that combination of guarantees for the stated problem. They also compare it with several benchmarks across three real-world applications. The experiments find competitive solutions with substantially fewer rounds and queries. The contribution therefore addresses both parallel progress and total evaluation cost, connecting theoretical efficiency measures with the observed computational demands of subset selection."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ad9cd9c3240a8835e76567470abfbba0a1d968e46e2898f1b6bbcc82cee88230",
+    "tldr": "A constant-factor subset-selection algorithm combines logarithmic adaptivity with low expected query complexity and competitive empirical solutions."
+  },
+  "icml-2019-on-the-connection-between-adversarial-robustness-and-saliency-map-interpretability-858a5dedec": {
+    "backgroundConcepts": [
+      "topic-160-a-closer-look-at-accuracy-vs-robustness"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Models trained for greater adversarial robustness have been observed to produce more interpretable saliency maps. This paper seeks to quantify that relationship by measuring alignment between an input image and its saliency map. Alignment supplies a concrete property to study, giving mathematical form to part of the observed connection between robustness and explanations.",
+      "The authors hypothesize that alignment increases as an input’s distance from the decision boundary grows. They establish this relationship strictly for linear models. In that setting, the proposed connection has a theoretical foundation linking the separation from a classification boundary with the structure of the saliency map.",
+      "Experiments use models trained with local Lipschitz regularization to examine the theoretical findings. The authors also identify where neural-network nonlinearity weakens the relationship. The result is a qualified account of why robustness and saliency interpretability may move together: the relationship is exact in the stated linear case, while nonlinear behavior complicates its extension to neural networks."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "73e4d7d8bd93ccfb4bb64783f15fc5c7629426dfe0342434f96b3d4c781e80c2",
+    "tldr": "The paper links decision-boundary distance to saliency alignment exactly for linear models and investigates how neural-network nonlinearity weakens that relationship."
+  },
+  "icml-2019-optimal-auctions-through-deep-learning-210db751d1": {
+    "backgroundConcepts": [
+      "topic-155-dynamic-knapsack-optimization-towards-efficient-"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Auction design seeks mechanisms that maximize expected revenue while preserving incentive compatibility, meaning participants should have an incentive to report their valuations truthfully. The paper addresses the difficulty of finding such mechanisms when several items and bidders are involved. Even apparently simple versions of these settings lack known optimal solutions.",
+      "The authors represent an auction using a multilayer neural network and formulate its design as a constrained learning problem. This makes it possible to search for auction mechanisms through standard deep-learning pipelines while expressing the requirements that define the design problem. They also prove generalization bounds, adding a theoretical component to the automated learning approach.",
+      "In extensive experiments, the approach recovers essentially all known analytical solutions for multi-item settings considered by the authors. It also produces new mechanisms for settings whose optimal solution is unknown. Those new mechanisms demonstrate the method’s ability to explore unresolved design problems; their discovery does not itself establish that each one is globally optimal. The work opens a computational route to auction design."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2d89bdba6d63396bc992c9be4576f6ad7896d93175bc43d4194c8e0a32b993b2",
+    "tldr": "Neural networks formulate auction design as constrained learning, recovering known solutions and discovering mechanisms for unresolved settings."
+  },
+  "icml-2019-provably-efficient-rl-with-rich-observations-via-latent-state-decoding-a2f159eeb3": {
+    "backgroundConcepts": [
+      "topic-043-exploration-a-study-of-count-based-exploration-f"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "An agent may receive complicated observations even when its environment has only a small number of underlying states. This paper studies exploration in episodic decision processes with that structure. The goal is to learn how observations correspond to hidden states and use the resulting representation to guide exploration effectively.",
+      "Under specified identifiability assumptions, the method builds a decoding function through successive regression and clustering steps. States decoded earlier supply labels for later regression problems, allowing the representation to develop inductively. The learned mapping is then used to construct exploration policies, directly connecting state identification with the agent’s ability to gather useful experience.",
+      "The authors provide finite-sample guarantees for both the decoding function and the exploration policies, alongside experiments on hard exploration problems. They report an exponential improvement over Q-learning with naive exploration, even when that comparator is given access to the true latent states. This comparison highlights the importance of exploration strategy alongside representation learning, within the structured setting and assumptions studied."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2f6fcae21c7d1460eefa8b5f45f198de823996cedfbe903b1a797549e23deec7",
+    "tldr": "Under identifiability assumptions, successive regression and clustering recover latent states and enable exploration with finite-sample guarantees."
+  },
+  "icml-2019-semi-cyclic-stochastic-gradient-descent-adada8c7e9": {
+    "backgroundConcepts": [
+      "topic-181-s-gd-over-diagonal-linear-networks-implicit-bias"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Stochastic gradient descent is often analyzed with samples drawn independently from a common distribution. This paper instead studies convex optimization when updates arrive in a repeating sequence of blocks. Each cycle contains a small number of blocks, and each block contains many samples that may follow its own distribution.",
+      "The setting is motivated by federated learning, where the devices available to contribute updates can differ across times of day. A learner may consequently receive extended stretches of data from one population before another population becomes available. The paper shows that this block-cyclic organization can substantially worsen SGD performance, making the temporal organization of samples a consequential part of the learning problem.",
+      "The authors propose a simple approach that restores prediction guarantees matching those available under independent, identically distributed, non-cyclic sampling. The stated result concerns prediction in the convex setting they analyze. Its significance is that the disadvantages introduced by cyclic data availability can be addressed without requiring the original update stream to have the usual independent-sampling structure."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "817abe85a7a880e7fca82bac77099a354e9044dcb32f06f51f77b5dc246999b4",
+    "tldr": "For convex learning with block-cyclic data, a simple approach recovers prediction guarantees matching independent sampling despite potential SGD degradation."
+  },
+  "icml-2019-sequential-facility-location-approximate-submodularity-and-greedy-algorithm-ca011b3d8a": {
+    "backgroundConcepts": [
+      "topic-037-a-dynamic-algorithm-for-weighted-submodular-cove"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Selecting representatives from a sequence should account for both coverage and how the sequence evolves. The paper introduces a sequential facility-location objective that chooses a fixed number of representatives while respecting a dynamic model. The selected sequence should encode the data well and remain compatible with its temporal structure.",
+      "Maximizing this objective is NP-hard, so the authors develop a fast greedy algorithm. A central obstacle is calculating the benefit of adding a representative: sequential dependencies prevent independent item-by-item calculations of that benefit. The method exploits the sequence structure through dynamic programming to compute each marginal gain exactly, even though the overall optimization uses a greedy strategy.",
+      "The authors establish conditions on the dynamic model under which the objective is approximately submodular, giving the greedy algorithm performance guarantees. Experiments on synthetic data and procedure learning from instructional videos show faster computation, better objective values, and more coherent summaries. The theoretical guarantees depend on the identified conditions; the empirical results demonstrate the usefulness of incorporating dynamics into representative selection."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ec59de79d047c7149b07106fcf2230a7e177e874b98632ba39d111a117013390",
+    "tldr": "A dynamics-aware representative-selection objective supports efficient greedy optimization through exact dynamic-programming calculations of marginal gains."
+  },
+  "icml-2019-task-agnostic-dynamics-priors-for-deep-reinforcement-learning-7ab81302c6": {
+    "backgroundConcepts": [
+      "topic-087-reinforcement-learning-with-prototypical-represe"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Learning an accurate model of an environment can require substantial interaction, even when its dynamics share physical principles with other environments. This paper explores using videos to acquire reusable knowledge of those dynamics before an agent encounters its target task. The aim is to give model-based reinforcement learning a useful starting point.",
+      "The method first trains a frame predictor on physics videos that are independent of the target tasks. This predictor initializes dynamics models for previously unseen environments, where the models are then fine-tuned. Its SpatialNet architecture is designed to capture localized physical events and interactions, making those patterns part of the learned prior.",
+      "Across several environments, the authors report faster policy learning and convergence to better policies than competitive approaches. They also demonstrate more effective transfer between environments when the prior is included. The findings support learning reusable dynamical information from videos, then adapting it through target-environment learning. The prior contributes knowledge before task-specific interaction while fine-tuning connects that knowledge to the new setting."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ae75600e50c8493212048992a2051d1ccf90046fe45593b438c41b6c707aba4c",
+    "tldr": "Pretraining a frame predictor on physics videos supplies dynamics priors that improve policy learning and transfer in the tested environments."
+  },
+  "icml-2019-trajectory-based-off-policy-deep-reinforcement-learning-791e02a36b": {
+    "backgroundConcepts": [
+      "topic-052-a-differential-and-pointwise-control-approach-to"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Policy-gradient methods can solve complex control tasks, but learning may require many interactions and suffer from noisy gradient estimates or poor local solutions. This paper combines reuse of earlier experience with exploration in policy-parameter space. The approach uses deterministic behavioral policies as part of that combination.",
+      "Previous trajectories are incorporated through importance sampling, allowing rollouts collected under other policies to contribute to learning. The resulting objective supports standard neural-network optimization methods, including stochastic gradient descent and stochastic gradient Hamiltonian Monte Carlo. Reusing trajectories addresses data efficiency, while stochastic optimization is intended to help the learning process escape local optima.",
+      "The authors evaluate the method on continuous-control benchmarks and report reliable successful learning with fewer system interactions than standard policy-gradient approaches. These results support the combined approach in the tested tasks. Its central contribution is to make earlier trajectories useful within an objective that accommodates established optimizers, joining experience reuse and parameter-space exploration in a single learning procedure."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "51fce85d94ef5ea09f982dedc4be1c4dc9914ef7f49be9a2e5b421b62c595193",
+    "tldr": "Reusing trajectories through importance sampling and exploring policy parameters reduces environment interactions in the reported continuous-control experiments."
+  },
+  "icml-2019-wasserstein-of-wasserstein-loss-for-learning-generative-models-92d3f5b9c0": {
+    "backgroundConcepts": [
+      "topic-217-a-classification-based-study-of-covariate-shift-"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A Wasserstein loss compares distributions using an underlying distance between individual samples, called the ground metric. For images, that choice determines what kinds of differences the loss treats as large or small. This paper proposes using a Wasserstein distance between images as the ground metric within a Wasserstein generative-modeling objective.",
+      "The authors motivate this nested construction through the image distance’s established usefulness for retrieval and its correlation with human perception. They derive the Wasserstein ground metric on pixel space and formulate a corresponding Riemannian Wasserstein gradient penalty for the WGAN framework. This adapts the discriminator’s regularization to the proposed geometry of image differences.",
+      "The new penalty can be calculated efficiently by applying convolutions to L2 gradients, with negligible additional computational cost. The authors report greater robustness to natural data variability and a more continuous discriminator over the sample space. The contribution is therefore a change to the geometry underlying the loss, together with a computationally inexpensive way to incorporate that geometry into training."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "60e287a914ba21c59919c3be1d63361b99b756b8abbeb0a7d1c15fe7ea34b122",
+    "tldr": "Using Wasserstein distance between images as a WGAN ground metric yields an efficient gradient penalty and improved robustness to natural variability."
+  },
+  "icml-2019-width-provably-matters-in-optimization-for-deep-linear-neural-networks-c0494d929c": {
+    "backgroundConcepts": [
+      "topic-159-mathcalo-log-n-latent-dimension-suffices-for-uni"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies how hidden-layer width affects optimization in deep, fully connected linear networks. Its main theorem gives a sufficient width condition under which gradient descent, starting from Gaussian random initialization, converges to a global minimum at a linear rate. The setting isolates depth and width within networks composed of linear layers.",
+      "For an L-layer network, each hidden layer must have width at least on the order of L times the input rank, output dimension, and cubed input condition number, up to logarithmic factors. Under that condition, reaching an epsilon-suboptimal solution requires O(kappa log(1/epsilon)) iterations, where kappa is the input condition number. This makes the dependence on data conditioning explicit.",
+      "The authors combine their polynomial running-time upper bound for wide networks with an existing exponential-in-depth lower bound for narrow deep linear networks. Together, these results establish a theoretical optimization advantage for width in the studied setting. The sufficient threshold supplies a regime with guaranteed convergence; it does not establish that every narrower individual network must be difficult to optimize."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2a9f70636f9f031d072778ad405635e81c8e997d3ea3a97023c55d4c6cb50684",
+    "tldr": "Sufficiently wide deep linear networks admit fast global convergence guarantees for gradient descent with Gaussian initialization."
+  }
+}

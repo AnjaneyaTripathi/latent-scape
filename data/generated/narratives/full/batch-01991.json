@@ -1,0 +1,327 @@
+{
+  "icml-2026-absorbing-quantization-error-by-deformable-noise-scheduler-for-diffusion-models-1e454fc712": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Reducing the numerical precision of a diffusion model can make deployment cheaper, but rounding errors alter the distributions encountered during image generation. These changes can lower image quality even after post-training quantization has been carefully applied. This paper addresses the remaining error by adjusting the noise schedule that governs the generation process.",
+      "The proposed Deformable Noise Scheduler treats quantization error as a shift in diffusion time. It maps the quantized prediction distribution back to the intended distribution at the relevant stage. The objective is to preserve the distribution of intermediate samples, without requiring an architecture change or additional generation steps. The framework applies to both stochastic and deterministic samplers and extends to flow matching with Gaussian conditional paths.",
+      "Experiments report consistent quality improvements across several model backbones and quantization methods. In one setting, additionally quantizing SVDQuant’s FP16 LoRA branch enables fully integer inference; the scheduler reduces the resulting FID from 27.16 to 26.22. This supports its use as a complement to existing quantization techniques, helping absorb their residual errors into the generative schedule."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "55959e3a2f0bbc1037d14625d15f613316d03adf9a3874eb136695f29733787d",
+    "tldr": "A modified noise schedule compensates for diffusion-model quantization error, improving generation quality without changing the architecture or adding steps."
+  },
+  "icml-2026-accordion-thinking-self-regulated-step-summaries-for-efficient-and-readable-llm-reasonin-6315d8d8db": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Long reasoning traces give language models more room to solve difficult problems, but retaining those traces increases memory use and attention costs. AccordionThinking trains a model to control how much detail it carries forward. It periodically turns earlier reasoning into compact step summaries, allowing subsequent reasoning to depend on a shorter history.",
+      "The framework offers a Fold mode that discards previous thoughts after summarizing them, alongside an exhaustive Unfold mode. Reinforcement learning encourages summaries that preserve the information needed to continue solving the problem. During training, the reported accuracy difference between these modes gradually disappears, indicating that the model learns useful compression rather than simply shortening its output.",
+      "The resulting AccordionThinker achieves three times the throughput while maintaining accuracy in the reported 48GB GPU memory configuration. That result ties the efficiency gain to a specific deployment setting. The structured summaries also provide a readable account of the reasoning process. Together, the findings show how learned summarization can reduce the context required for reasoning while preserving solution quality in the evaluated setting."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6c715821e1e8bf69a14da6f47a6ade00993b61bed1700f9bd0b8d227e607591d",
+    "tldr": "AccordionThinking learns to replace long reasoning histories with compact summaries, achieving threefold throughput while maintaining accuracy in the reported configuration."
+  },
+  "icml-2026-adaptive-utilization-of-low-rank-adaptation-via-conditioned-gating-0f872824ea": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "LoRA adapts a model using updates restricted to a small set of directions, reducing the number of parameters that need training. However, its usual shared update gives different tokens the same adaptation structure. U-LoRA investigates whether the existing directions can be used more effectively by making their contribution depend on the input.",
+      "For each token, conditioned gates produce coefficients controlling how strongly the low-rank directions contribute. Information from the surrounding sequence coordinates and constrains these coefficients, encouraging consistent adaptation patterns within a sentence. A bias-corrected exponential moving average supplies a historical reference during training, helping calibrate the signals and suppress fluctuations between batches.",
+      "The central change is therefore how the available adaptation space is used, rather than an expansion of that space. On mathematical reasoning and natural language understanding benchmarks, U-LoRA reports competitive performance against strong LoRA baselines and recent variants at comparable parameter budgets. The findings support input-dependent allocation as a useful way to make limited adaptation capacity responsive to individual tokens and their sequence context."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d00fabac9400fbbea85ae7abc4a0877feec783fa091df1a90aa7ab18ec5a1507",
+    "tldr": "U-LoRA uses token-specific gates and sequence context to adaptively use an existing low-rank update space, achieving competitive performance at comparable parameter budgets."
+  },
+  "icml-2026-baguan-ts-a-sequence-native-in-context-learning-model-for-time-series-forecasting-with-c-78b2d018e0": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Time-series forecasting can benefit from adapting to examples supplied at inference time, without updating model weights. Existing approaches often obtain this ability through hand-crafted tabular features, while models that learn directly from sequences lack comparable adaptation. Baguan-TS combines raw-sequence representation learning with in-context learning in a single forecasting framework.",
+      "Its 3D Transformer attends across time, variables, and contextual examples. This lets the model process temporal structure and supporting context together. To make the architecture practical, the authors introduce local calibration based on retrieval in the target space, without depending on a particular feature representation. They also use a context-overfitting strategy to address predictions that become excessively smooth.",
+      "On a public benchmark with covariates, or additional forecasting variables, Baguan-TS reports the highest win rate and improvements in both point predictions and probabilistic forecasts over established baselines. Evaluations on multiple real-world energy datasets also show substantial gains. These results support combining sequence learning with inference-time adaptation while explicitly addressing calibration, training stability, and oversmoothing."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "756525909b503e60cada3a5ea377bd3740134ef7a19f7cfa82e090133df1e2c0",
+    "tldr": "Baguan-TS combines raw-sequence modeling with in-context adaptation, improving point and probabilistic forecasts on the reported benchmarks."
+  },
+  "icml-2026-decode-decoupling-binding-position-and-molecular-conformation-in-3d-ligand-diffusion-for-4fcb4165db": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Generating a molecule for a protein pocket involves two linked choices: where to place it and how to arrange its internal three-dimensional structure. Existing diffusion approaches perturb both together in a large joint space. DeCoDe separates their diffusion processes to make exploration of placement and molecular shape more effective.",
+      "During the forward noising process, DeCoDe emphasizes disruption of the molecule’s internal conformation early, then increases disruption of its global binding position later. Reversing this schedule gives generation a useful order: the model first establishes a rough location inside the pocket and then refines the molecule’s detailed structure. The scheduling change organizes the two tasks into a staged generation process.",
+      "On CrossDocked2020, the authors report an average 18% improvement in structural fidelity relative to state-of-the-art baselines, while binding affinity and overall molecular properties remain competitive. The reported advantage is therefore strongest for structural quality, rather than a claimed improvement on every molecular criterion. The findings support separating placement from conformation as a useful design choice for diffusion-based ligand generation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "cfb490e6a10b7faf3469eafcb4541bf3023ae70ec1aaf381e0a6b5332166c823",
+    "tldr": "DeCoDe separates ligand placement from shape refinement, improving structural fidelity while maintaining competitive binding affinity and molecular properties."
+  },
+  "icml-2026-depth-breadth-synergy-in-rlvr-unlocking-llm-reasoning-gains-with-adaptive-exploration-9f8d7275c0": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Reinforcement learning with verifiable rewards can improve language-model reasoning, but training must explore both difficult problems and a broad set of examples. The paper finds that GRPO down-weights hard problems with low success rates. This can reduce their contribution even though learning from them is valuable for developing reasoning ability.",
+      "Difficulty Adaptive Rollout Sampling, or DARS, gives these harder problems additional sampled attempts through targeted, multi-stage schedules. It improves Pass@K, which measures success across multiple attempts. The authors also find that simply increasing rollout size is ineffective and can hurt performance. Separately, larger batches and full-batch updates improve single-attempt performance, or Pass@1, while maintaining token-level entropy and reducing gradient noise.",
+      "DARS-Breadth combines adaptive attention to difficult problems with broader training updates and improves both measures. The distinction matters because success across many attempts and success on the first attempt capture different aspects of reasoning performance. The results support treating difficulty-focused exploration and training breadth as complementary design choices, rather than expecting indiscriminate increases in sampled attempts to deliver the same benefits."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b657259a80dbe2c3c6b58c48a1e00bc8f39ffc78f91b6fa16937115657df9b3c",
+    "tldr": "Combining targeted sampling of difficult problems with broader training updates improves both single-attempt and multiple-attempt reasoning success."
+  },
+  "icml-2026-deterministic-component-mining-for-multi-framework-ui2code-generation-fe6616cf0f": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Turning a screenshot into front-end code requires more than reproducing its appearance. Useful output should also organize repeated elements into reusable components and support different frameworks. Deterministic Component Mining addresses these goals through a staged pipeline that combines multimodal language models with explicit structural processing.",
+      "A lightweight model first predicts a JSON representation of the page’s DOM tree, capturing its broad layout. Deterministic rules then normalize that tree. Structural hashing and clustering identify repeated patterns that can become reusable components. This produces a portable intermediate representation before the pipeline commits to a particular output framework.",
+      "The final generation stage uses framework-conditioned prompts, a binding specification, and a file-block protocol to produce HTML, React, Vue, or Angular code with explicit component properties and repetition constructs. Experiments report improvements over baselines in automatic evaluation and component reuse, alongside gains in portability and structural quality. The contribution is a way to make screenshot-derived structure reusable across frameworks, with component discovery handled explicitly before final code generation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "cded5df39476d6cb2e71d6d9b9c1896b3b5f3e28ba8568e9169c10237d86440b",
+    "tldr": "DCM extracts reusable page components into a portable representation, improving screenshot-to-code generation across HTML, React, Vue, and Angular."
+  },
+  "icml-2026-durp-dual-stage-physics-embedded-learning-for-joint-radiance-and-polarization-restoratio-c07a0b4a7c": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Haze damages both the visible appearance of a scene and the polarization information carried by its light. Restoring image brightness alone does not necessarily recover useful polarization signatures. DuRP targets both scene radiance and polarization, addressing shortcomings in methods that either ignore polarization or rely on restrictive traditional physical models.",
+      "The authors derive generalized polarization models that relax the ideal assumptions of earlier theory. These models provide the physical foundation for a two-stage neural network. Through differentiable operators, the network estimates hidden physical parameters involved in image degradation and recovery. Embedding these relationships into learning connects the restoration of light amplitude with the recovery of the polarimetric state.",
+      "Experiments report state-of-the-art joint restoration and improvements in vision tasks that use polarization. Those downstream gains matter because they connect restoration quality to the usefulness of the recovered information. The paper’s central contribution is to combine more flexible polarization physics with learned estimation, aiming to recover physically consistent scene information in hazy environments rather than treating dehazing solely as an appearance-restoration problem."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3f50be99feb4b906beeea2d6e28f68e0ee37e21dca226053195f88053c19e6e1",
+    "tldr": "DuRP combines generalized polarization physics with a two-stage network to restore both radiance and polarization in hazy images."
+  },
+  "icml-2026-from-observations-to-states-latent-time-series-forecasting-91a339b53c": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A forecasting model can predict accurately while learning internal representations that are disordered over time. The authors call this mismatch Latent Chaos. They attribute it to training directly on point-by-point observation errors: noisy and incomplete measurements can encourage shortcuts that fit outputs without recovering coherent underlying dynamics.",
+      "LatentTSF changes the prediction target. An autoencoder maps each observation into a learned state representation, and forecasting takes place within that latent space. The aim is to organize prediction around evolving internal states. An information-theoretic analysis motivates the training objectives as substitutes for maximizing mutual information involving predicted states, ground-truth latent states, and future observations.",
+      "Experiments on widely used forecasting benchmarks report consistent improvements in both prediction accuracy and representation quality, along with reduced latent chaos. These findings connect the organization of the learned state space to the forecasting outcome itself. The approach suggests that choosing where forecasting occurs can matter alongside the accuracy objective: learning temporal evolution in a structured representation can improve both the model’s internal continuity and its predictions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8cab938c6f9ca4d8fe05d3acce5fe418fa71139a84d50eb0c723cc5326e5028e",
+    "tldr": "LatentTSF forecasts learned internal states to reduce temporally disordered representations and improve forecasting accuracy."
+  },
+  "icml-2026-from-reward-free-representations-to-preferences-rethinking-offline-preference-based-rein-044edddb95": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Preference-based reinforcement learning uses comparisons between behaviors to avoid manually specifying a reward function. In the offline setting, a common workflow first learns a reward or preference model from labeled comparisons, then uses that model for reinforcement learning on existing data. This paper changes what is learned before preference feedback enters the process.",
+      "The proposed framework begins with reward-free offline data and learns latent successor-measure representations. These representations provide a foundation for subsequent adaptation to preferences. The method then uses preference data for contrastive search and fine-tuning, bringing human feedback into a representation that has already been learned without rewards.",
+      "Experiments and ablations report better preference efficiency than offline preference-based reinforcement-learning baselines. The result concerns how effectively the method uses labeled feedback, which is the central resource the framework seeks to economize. By connecting reward-free representation learning from zero-shot reinforcement learning with preference-based learning, the paper shows a route for preparing useful internal structure before spending preference labels on selecting and refining behavior."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "83b76c1476aa8d06e28a7035cd25b35c46f746b10c7ad6f98a0d56bf673f5cd6",
+    "tldr": "Learning representations from reward-free offline data before preference-based adaptation improves the reported efficiency of human feedback."
+  },
+  "icml-2026-how-powerful-are-llms-in-generating-formal-program-specifications-131af85b35": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Formal specifications describe the properties a program should satisfy, but writing them precisely is costly. Evaluating language models that generate specifications is also difficult. Checking implementation conformance or proving equivalence between specifications can mix two separate issues: the quality of a specification and the difficulty of proving facts about it.",
+      "Coins addresses this evaluation problem using Rocq. It instantiates candidate specifications on trusted test cases and creates concrete proof obligations. The design respects an important asymmetry: a successful proof supplies reliable evidence, while a failed proof can have several explanations. This makes proof outcomes useful without treating every failure as decisive evidence that a specification is wrong.",
+      "Using HumanEval and curated human-written Rocq specifications, the study finds that specification generation remains challenging and that verification complexity can hide real quality differences. The findings emphasize evaluation as a prerequisite for understanding model capability. Test-case-based formal reasoning offers a more discriminating measure of progress, helping distinguish improvements in generated specifications from changes in how readily they can be verified."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8f88e1d8da5b0ed404577b2d869496521c39e3ccaa507f8c4b403bbc3fb6c7b8",
+    "tldr": "Coins evaluates generated formal specifications through trusted test cases and concrete proofs, helping separate specification quality from proof difficulty."
+  },
+  "icml-2026-indexmem-learned-kv-cache-eviction-with-latent-memory-for-long-context-llm-inference-ac53acd189": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Language models retain attention keys and values for earlier tokens, making the KV cache grow with context length. Evicting entries limits memory use, but selecting what to discard is difficult, and discarded information can become unavailable later. IndexMem addresses both the selection problem and the information loss caused by eviction.",
+      "A learned indexer predicts which KV entries are important for the current input, replacing reliance on fixed heuristics. A lightweight latent memory then compresses evicted tokens into a compact state that updates as inference proceeds. Residual readouts from this state compensate for attention contributions lost when the original entries leave the cache.",
+      "The method reports consistent RULER improvements at 4K and 16K across Qwen, Mistral, and Llama, reaching gains of up to 25 points under aggressive eviction. It also shows more stable Needle-in-a-Haystack retrieval and better LongBench scores and compression curves than existing eviction policies. These results support combining selective retention with compressed memory when accurate long-context inference must operate within a bounded KV budget."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6695aa6b0725c719e6e9c11931c97616a15916f34e3b3b069c6fb04a016eca56",
+    "tldr": "IndexMem learns which KV entries to retain and compresses evicted information into latent memory, improving long-context inference under a bounded cache budget."
+  },
+  "icml-2026-kronecker-generative-networks-a-general-neural-architecture-for-parameter-efficient-lear-73ca25b9d8": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A neural network’s connections determine how information can move and combine across its layers. Many architectures commit to relatively sparse or dense connectivity, making the structure itself less flexible to study. Kronecker Generative Networks place connectivity at the center of architectural design by generating network graphs through recursive rules.",
+      "The framework constructs families of directed acyclic graphs with controllable connection complexity. Changing the generation rules allows systematic movement between sparse and dense aggregation patterns. FractalNet and DenseNet appear as particular instances of this broader construction, linking established architectures through a common way of describing how their connections are produced.",
+      "The authors analyze whether the generated graphs remain acyclic, how connectivity scales, and what the resulting networks can express. Experiments across multiple domains report favorable trade-offs between accuracy and efficiency. The contribution is therefore both a design framework and an analytical one: it makes connection patterns adjustable through explicit rules and provides tools for understanding their consequences, with empirical results supporting useful parameter-efficient instantiations."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0d2587f31db83e16a8071f2d6265ff9738fdd26304b87e943a5554e446aee1d4",
+    "tldr": "Kronecker Generative Networks use recursive rules to build controllable connectivity patterns, yielding favorable accuracy–efficiency trade-offs across classification domains."
+  },
+  "icml-2026-multi-distribution-robust-conformal-prediction-5991966c41": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "When labeled data come from several populations, a prediction set should remain reliable whichever source population supplies the next example. This paper studies coverage that holds across heterogeneous source distributions, including the setting where test data come from their mixtures. The goal is to maintain the specified coverage level without making prediction sets unnecessarily large.",
+      "The proposed max-p aggregation combines distribution-specific conformity information and provides finite-sample coverage across the sources. The authors establish optimality and tightness for this aggregation through efficiency optimization problems constrained by uniform coverage. They also introduce an algorithm that learns conformity scores to produce more efficient aggregated sets under standard conditions.",
+      "Synthetic and real-data experiments show valid worst-case coverage with substantially smaller sets than naive max-p aggregation of single-source scores. Set sizes can also approach those of single-source prediction sets using standard scores. The findings distinguish obtaining robust coverage from obtaining useful, compact uncertainty estimates: learning scores for the aggregation itself helps reduce the size cost of protecting multiple distributions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5ba1a8499163dc2362a936f030ca947bd3c20ad9f5033348dfb83526258ce55b",
+    "tldr": "A conformal aggregation framework guarantees coverage across multiple source distributions while learning scores that make prediction sets more compact."
+  },
+  "icml-2026-multi-objective-bayesian-optimization-via-adaptive-varepsilon-constraints-decomposition-6aca659c0d": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Optimizing several expensive objectives involves finding a useful range of trade-offs. Multi-objective Bayesian optimization uses surrogate models to guide evaluations, but covering the trade-off frontier evenly can be difficult. STAGE-BO focuses its search on gaps in the currently modeled Pareto front, the set of solutions representing competing objective trade-offs.",
+      "The method identifies the frontier point associated with the largest uncovered gap and uses its coordinates to set adaptive epsilon constraints. These convert the search into a sequence of subproblems with inequality constraints. Constrained expected improvement then guides evaluation within each subproblem. This construction targets coverage directly without requiring hypervolume computation and accommodates constraints and preferences.",
+      "Experiments on synthetic and real-world benchmarks report better coverage and competitive hypervolume performance against state-of-the-art baselines. These outcomes capture complementary qualities: how evenly the trade-offs are represented and how well the resulting solutions perform collectively. The approach offers a structured way to direct expensive evaluations toward underexplored trade-offs while retaining flexibility about which regions or constraints matter."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5629169c37d5ecc2be30a7c44c72b39ede8bf0db70f877e071592a94dafcd796",
+    "tldr": "STAGE-BO adaptively targets gaps in the Pareto front, improving trade-off coverage without computing hypervolume during optimization."
+  },
+  "icml-2026-muse-resolving-manifold-misalignment-in-visual-tokenization-via-topological-orthogonalit-609e3d760e": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A visual tokenizer serving both image generation and understanding must preserve spatial detail while capturing abstract meaning. The paper identifies a conflict between these goals: reconstruction and semantic learning can produce competing gradients. It describes this as manifold misalignment, where joint training makes progress on one objective interfere with the other.",
+      "MUSE separates the optimization pathways inside a Transformer. Structural gradients refine attention topology, while semantic gradients update feature values. The authors frame this separation as topological orthogonality, with structure providing a bridge between reconstruction and meaning. The aim is to organize where each training signal acts so the objectives can reinforce each other.",
+      "Experiments report generation quality matching the state of the art at gFID 3.08, alongside linear-probing accuracy of 85.2%, compared with 82.5% for its InternViT-300M teacher. The combination is the key finding: strong reconstruction-related performance accompanies stronger semantic representations in the reported evaluation. It supports the paper’s claim that appropriately structured reconstruction training can actively improve semantic perception."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "21c2364ea0d5786f1a946e73f341dd683e158f93ab170d00ef83923c5055a5da",
+    "tldr": "MUSE separates structural and semantic training signals within Transformers, combining strong image generation with improved semantic representation quality."
+  },
+  "icml-2026-phase-aware-mixture-of-experts-for-agentic-reinforcement-learning-775f03199c": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "When an agent learns through a single policy network, simple tasks can dominate parameter use and training updates, leaving less capacity for complex tasks. Mixture-of-experts architectures offer a possible remedy by allowing different parameter groups to specialize. However, assigning experts independently at the token level can split a coherent phase of activity across several experts.",
+      "Phase-Aware Mixture of Experts introduces a lightweight router that learns latent phase boundaries directly from the reinforcement-learning objective. It does not require predefined phase categories. Within the learned phases, routing produces temporally consistent assignments to the same expert, helping preserve specialization across a meaningful stretch of agent behavior.",
+      "The paper reports experiments demonstrating the method’s effectiveness. Its central contribution is to align the duration of an expert assignment with the structure of the task being performed. This addresses a specific obstacle to using expert specialization for agents: capacity allocation needs continuity over time if experts are to develop phase-specific expertise, rather than receiving fragments scattered across different phases."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "cdfbe2b7a288e3d999de6be36b96a3aa7e409433b529c2d093655250a752b85f",
+    "tldr": "PA-MoE learns task-phase boundaries and routes coherent stretches of agent behavior to the same expert to support specialization."
+  },
+  "icml-2026-proteus-lookup-free-trellis-coded-quantization-by-lattice-breaking-compute-codes-for-2-b-3dd8b94ee3": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Two-bit weight compression can reduce the data moved during language-model decoding, but reconstructing weights must also be efficient. Table lookups inside that reconstruction loop can undermine the benefit. Proteus targets trellis-coded quantization with a strictly lookup-free design, while addressing artifacts associated with overlapping code structures.",
+      "Its MUL-BAL generator computes code values using inexpensive integer mixing and a per-layer affine Gaussianizer. The goal is to obtain near-Gaussian values that remain well behaved under overlap, with no runtime table loads. Each layer selects from a small vetted candidate pool. Lightweight channel compensation and optional few-shot distillation adjust per-layer affine statistics while leaving packed indices and the trellis decoder fixed.",
+      "Across Llama 2 models from 7B to 70B parameters at two-bit quantization, Proteus reports improved perplexity and zero-shot accuracy over strong baselines. It also reduces measured decoding bandwidth at comparable throughput, including 740 versus 1020 GB/s for the 70B model. The results connect quantization quality with the practical cost of reconstructing compressed weights during decoding."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5b1d658ec9225427bffc8db30d5b46bde96074660fc4dbb588c11fdbad22ab5c",
+    "tldr": "Proteus computes two-bit quantization code values without lookup tables, improving reported model quality and reducing decoding bandwidth at comparable throughput."
+  },
+  "icml-2026-shared-lexical-task-representations-explain-behavioral-variability-in-llms-fb4b3eeea4": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A language model may succeed or fail on the same task depending on how the prompt is written. This paper investigates that sensitivity by comparing natural-language instructions with prompts that demonstrate the task through example pairs. Despite substantial performance differences, the authors find shared internal mechanisms across these prompting styles.",
+      "They identify task-specific attention heads whose outputs describe the task in words, calling them lexical task heads. The same heads appear across instruction-based and example-based prompts and trigger later answer production. Variation in their activation helps explain why different prompts produce different behavior, linking visible performance changes to an identifiable internal task signal.",
+      "The study also finds that some failures involve competing task representations that weaken the intended task’s signal. This is a qualified explanation for at least some errors, rather than a claim that all prompt sensitivity has one cause. The findings make apparently unpredictable behavior more interpretable by connecting prompt wording, activation of shared task representations, and the subsequent production of answers."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "aae2c28b6ca9c84786ff64490e0866a434164a2f5b80dc406984a64ef60a20fb",
+    "tldr": "Shared attention heads encode tasks across prompting styles, and differences in their activation help explain prompt-sensitive behavior."
+  },
+  "icml-2026-spr-raft-parameter-efficient-regression-aware-fine-tuning-for-biomedical-llm-regression-7772282773": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Biomedical regression requires predicting continuous quantities from varied, often unstructured evidence. Language models can process this evidence, but their token-based outputs and cross-entropy training do not directly express how close one numerical prediction is to another. SPR-RAFT adds a regression-aware adaptation mechanism while keeping the underlying language model frozen.",
+      "A learned soft prompt encourages numerical information to collect in a particular latent state. A lightweight regression head reads from a dedicated token that serves as the numerical readout. Training combines a text-generation objective with robust regression on the internal representation, aligning semantically coherent language processing with calibrated numerical prediction.",
+      "The framework trains about 1.6 million parameters, roughly 0.04% of its four-billion-parameter backbone. Across the reported biomedical benchmarks, it consistently outperforms prompting approaches, standard fine-tuning, and non-LLM baselines. The tasks include clinical trial duration, biological age, and molecular property prediction. These findings support giving a frozen language model an explicit numerical output pathway and a proximity-aware training objective when the desired answer is a continuous value."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "bbef7bded2dadcc44034ddf535059222ec6d0625b22f29e9d6a5bc9fff9c6ef0",
+    "tldr": "SPR-RAFT adds a soft prompt and regression head to a frozen language model, improving biomedical numerical prediction with about 1.6 million trainable parameters."
+  },
+  "icml-2026-stabilizing-recurrent-dynamics-for-test-time-scalable-latent-reasoning-in-looped-languag-de5e99eddf": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Looped language models reuse computation across repeated internal reasoning steps. More iterations could provide more reasoning capacity, but performance can peak and then deteriorate sharply. This paper analyzes the underlying latent dynamics and identifies a tension between keeping repeated updates stable and making them useful.",
+      "STARS trains latent states to approach asymptotically stable fixed points: states that repeated updates settle toward. The framework uses Jacobian spectral-radius regularization with random loop sampling to constrain these dynamics efficiently. Motivated by reasoning as uncertainty reduction, the approach seeks useful convergence while maintaining the stability needed for additional recurrence.",
+      "Arithmetic experiments show reliable scaling as more iterations are used at inference time. On complex mathematical reasoning, STARS substantially reduces degradation at greater recurrence depths and improves peak performance. These are distinct outcomes: the abstract reports reliable scaling for arithmetic and mitigation of degradation for harder mathematics. Together, they support shaping recurrent dynamics during training as a way to make extra internal computation more dependable, rather than assuming additional loops automatically improve reasoning."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3d08047199f889ce0dc1a63b646ea45e7dc6824610ef8a3f799f636452aa5f2a",
+    "tldr": "STARS stabilizes repeated latent updates, enabling reliable arithmetic scaling and reducing depth-related degradation on complex mathematical reasoning."
+  },
+  "icml-2026-turning-bias-into-bugs-bandit-guided-style-manipulation-attacks-on-llm-judges-81b40136b0": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Language models used as judges can favor particular writing styles, including verbosity or sentence patterns. BITE investigates whether these preferences can be deliberately exploited to increase scores without improving the underlying content. It treats stylistic bias as a vulnerability in automated evaluation, rather than merely a source of incidental scoring variation.",
+      "The framework chooses meaning-preserving edits through a contextual bandit using a LinUCB policy. Feedback from the judge guides subsequent edit choices, without access to the judge’s parameters or gradients. Evaluations cover both individual scoring and pairwise comparisons across chatbot leaderboard and AI-reviewer tasks.",
+      "The reported attack success rate exceeds 65%, with increases of one to two points on a nine-point scale while maintaining semantic equivalence. BITE also evades standard style-control methods and several detection baselines in the reported tests. These findings show that score improvements can reflect adaptively chosen presentation changes rather than stronger content, motivating evaluation methods that explicitly account for attempts to exploit the judge’s stylistic preferences."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "bba4aa53af8a18644f41fe43ce8dd3419c77a3a2a31c3747ec27b1c79938015e",
+    "tldr": "BITE adaptively selects meaning-preserving style edits that exploit LLM judges’ biases and inflate evaluation scores."
+  },
+  "icml-2026-ui2code-textn-ui-to-code-generation-as-interactive-visual-optimization-73c9eddcb4": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Generating front-end code from a screenshot is often treated as a single prediction. UI2Code-N instead makes it an iterative process: generate code, execute it, inspect the rendered result, and refine the implementation. This puts visual feedback inside the generation loop, matching the feedback-driven character of interface development.",
+      "The training method, Relative Visual Policy Optimization, learns from relative rankings among rendered candidates under execution feedback. This addresses two difficulties: visual objectives cannot be directly differentiated through the whole process, and absolute visual scores can be noisy. The authors build an open-source nine-billion-parameter model through continual pre-training, supervised fine-tuning, and reinforcement learning.",
+      "Experiments report state-of-the-art results on interface drafting, polishing, and editing benchmarks, including performance above larger models. Results also improve consistently through iterative visual optimization. The findings support training models to respond to what their code actually renders: comparing candidate appearances and revising execution-tested output can be an effective part of UI generation, rather than leaving all visual correction to a later human workflow."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8a7bba94c0975e820746630f1cc9599f4225ad5b372f5e3532b805be27dfc9a9",
+    "tldr": "UI2Code-N learns to iteratively render, compare, and refine interface code, achieving leading results on drafting, polishing, and editing benchmarks."
+  },
+  "icml-2026-unified-safe-in-context-image-generation-in-multimodal-diffusion-transformers-via-restri-772318e5cd": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Safety methods built for text-to-image generation or earlier image architectures do not transfer cleanly to multimodal diffusion transformers, particularly for image editing. Unified Visual Safety Regulator addresses synthesis and editing through a shared, training-free mechanism that acts on information flow within multimodal attention.",
+      "The authors identify an initial stage common across tasks, when unsafe semantics quickly emerge in output patches and can be localized. Later stages depend on the task and spread or mix these signals with benign content. UVR uses targeted attention modulation to restrict harmful information flow over the identified unsafe patches, acting on the locations implicated by this analysis.",
+      "Across the evaluated concepts, the method reports state-of-the-art safety performance, with erase rates of 91% for image synthesis and 77% for editing. Visual quality and fidelity experience only minimal degradation in the reported experiments. These results support attention-level intervention as a way to address unsafe generation across both tasks, while the differing erase rates show that the measured effectiveness is not identical for synthesis and editing."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0dba9263f81cfeb523d7ac8fc4f5787088afc720daad337e86f8c4dcdb61e0f3",
+    "tldr": "UVR restricts unsafe information flow in multimodal attention, improving safety in image synthesis and editing without additional training."
+  },
+  "icml-2026-why-dedicated-critics-eliminating-target-drift-in-multi-constraint-rl-61c4ef8a77": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Reinforcement learning with multiple constraints often uses Lagrange multipliers to balance rewards against penalties. Some methods estimate a combined penalty through one critic, while others maintain separate estimates. This paper studies whether that architectural choice changes the validity of the learned estimates as the multipliers evolve during training.",
+      "The theoretical analysis shows that a mixed critic develops bias from target drift: changing multipliers change the combined quantity it is trying to estimate. Dedicated critics separately estimate the reward and each constraint function, avoiding this particular source of bias. The distinction isolates estimation from the changing weights used to combine its outputs.",
+      "Experiments in a realistic power-system environment with multiple constraints support the analysis. The dedicated-critic approach satisfies the constraints in the reported setting, whereas the mixed-critic approach fails. The finding connects a specific estimation problem to a practical constraint-satisfaction outcome. Avoiding multiplier-induced target drift is the established advantage; it should not be read as a universal guarantee that separate critics solve every difficulty in constrained reinforcement learning."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0517424f239b54576af3f9ab9958edce581c0eb3382ffba57e3f303431b7b2e0",
+    "tldr": "Separate reward and constraint critics avoid bias caused by changing Lagrange multipliers, with supporting constraint-satisfaction results in a power-system experiment."
+  }
+}

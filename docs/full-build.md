@@ -1,51 +1,22 @@
 # Full-corpus build
 
-The full build is a one-time, offline pipeline. GitHub Pages only receives the
-exported static files; it never runs these commands or calls research or LLM
-services.
+This is maintainer documentation for the one-time offline pipeline. GitHub Pages receives only exported static files; it never runs collection, enrichment, or summary authoring.
 
-```python
-from pathlib import Path
-from pipeline.full_build import prepare_full, finalize_full, full_status
-from pipeline.settings import load_settings
-
-settings = load_settings(Path.cwd())
-prepare_full(settings)  # cache-aware embeddings, 256 fine / 32 broad clusters
-# Run the Astra narrative worker separately, then import its validated shards.
-finalize_full(settings)
-```
-
-The executable workflow is equivalent:
+Use the commands from [the maintenance guide](maintaining.md) for the normal stage order. The Python entry points are available when a scripted invocation is useful:
 
 ```sh
 python -m pipeline.full_build prepare
 python -m pipeline.full_build status
 python -m pipeline.full_build generate
-python -m pipeline.full_build finalize --allow-incomplete
+python -m pipeline.full_build finalize
 ```
 
-For the one-time unattended pass, use `run` instead. It waits for the
-resumable Astra authoring worker, then imports summaries, applies topic guides,
-exports static data, builds the site, and validates the artifact:
+`prepare` resumes hash-keyed embedding and topic-preparation checkpoints. `generate` consumes the frozen eligible-summary input and writes validated summary shards. `finalize` imports only schema-valid, abstract-hash-matched summaries, builds similarity and glossary data, exports browser data, and runs the static build and artifact validation.
+
+For a complete unattended run, use:
 
 ```sh
-python -m pipeline.full_build run --allow-incomplete
+python -m pipeline.full_build run
 ```
 
-`generate` freezes `full-paper-summary-input.json`, runs up to four Astra
-workers, and records the PID, command, status, and log under the derived/status
-and narrative working directories. It only asks Astra about eligible abstracts;
-missing or insufficient source text is counted as unavailable, never invented.
-It writes new shards to `data/generated/narratives/full/` and checks existing
-reviewed shards in `data/generated/narratives/`, then freezes only those whose
-abstract hashes still match into `pipeline/data/derived/full-summary-exclusions.json`.
-The authoring run uses that immutable list rather than its active output tree,
-so a restart retains the original batch boundaries.
-`finalize` normally requires every paper and topic guide. `--allow-incomplete`
-permits a clearly incomplete private preview but never changes `readyForRelease`.
-
-`prepare_full` is safe to resume because embedding checkpoints are keyed by
-source text hash. It writes the full topic-curation input but does not invent
-editorial prose. `finalize_full` imports only schema- and hash-valid summaries,
-refuses to export while any paper remains pending, then computes similarity,
-glossary, and static data. `full_status` reports counts and is the release gate.
+The run is resumable. Its input selection, ordering, validation revision, and exclusion snapshot remain fixed so a restart cannot silently change the corpus being authored. Records without sufficient source text remain unavailable; the pipeline never generates title-only explanations.

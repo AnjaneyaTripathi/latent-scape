@@ -1,0 +1,327 @@
+{
+  "icml-2018-a-progressive-batching-l-bfgs-method-for-machine-learning-21d4c31218": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "L-BFGS uses gradient information to build a local quadratic approximation of the objective being minimized. For this approximation to be useful, noise must not overwhelm the gradients. Excessive noise can undermine the direction of an update, the procedure for choosing its length, and the information accumulated about the objective’s curvature.",
+      "The paper addresses the tension between this need for reliable gradients and the computational advantages of small training batches. Its approach increases the sample size during optimization. This progressive batching creates a middle ground between computing every update from the full dataset and keeping training highly stochastic throughout.",
+      "The proposed algorithm combines progressive batching with a stochastic line search and stable quasi-Newton updates. These components address both how far to move and how to maintain useful curvature information as training proceeds. The authors provide supporting convergence theory and report good performance when training logistic regression and deep neural networks. The contribution makes L-BFGS a more practical candidate for machine learning through coordinated changes to batching and optimization."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "87c3ff45d16eac42b49ef21d3d90b7df0faa40643da56ae4fb771e16010ff91c",
+    "tldr": "A version of L-BFGS progressively increases batch sizes while adapting line searches and curvature updates for machine learning."
+  },
+  "icml-2018-adaptive-sampled-softmax-with-kernel-based-sampling-bb5ea03f61": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Softmax training becomes expensive when a model must choose among many classes, because its cost grows with the number of possible outputs. Sampling a smaller set of classes reduces this expense, but introduces bias. The abstract identifies a central source of that bias: a mismatch between the sampling distribution and the model’s output distribution.",
+      "The paper introduces kernel-based sampling methods that adapt as the model learns. Instead of relying on a simple distribution that remains poorly matched to changing predictions, the sampler uses information from the model’s last hidden layer. The authors also develop an efficient sampling algorithm, making this adaptive choice usable without requiring changes throughout the model.",
+      "The empirical study examines how sampling distributions and sample counts affect bias. It finds that the proposed methods achieve low bias using few samples. This matters because increasing the sample count is a common way to reduce bias, but also gives back some of the computational savings. Adaptive sampling offers a way to improve that trade-off."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e46d710a1f5e5702453576870a58cd91dd0a44b6669d4b9534a6b5f589f8a6da",
+    "tldr": "Kernel-based class sampling adapts to a softmax model during training, achieving low bias with few samples."
+  },
+  "icml-2018-adversarial-learning-with-local-coordinate-coding-2b06c36cf3": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Generative adversarial networks typically begin with samples from a predefined distribution, such as Gaussian noise. The paper questions whether this starting point adequately captures the structure of real data. Because the chosen distribution is often independent of the data, it may miss semantic information such as image content or geometric relationships.",
+      "A latent distribution learned from data could represent such information, but the authors identify sampling from it as a difficulty. They propose a sampling method based on Local Coordinate Coding to improve GANs. The central change concerns the generator’s inputs: sampling is connected to a representation of the data rather than relying solely on a predefined prior.",
+      "The paper supports the method with a generalization bound and a proof that a low-dimensional input can be sufficient for good generalization. This is a sufficiency result, rather than a claim that small inputs are required. Experiments across multiple real-world datasets demonstrate the method’s effectiveness, supporting the usefulness of reconsidering how GAN inputs are sampled."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2324a6400213c30ca50a69983e5aaefe6d981be46ca526f744d36a6961a2d4af",
+    "tldr": "Local Coordinate Coding provides a data-informed sampling method for GANs, with theoretical and empirical support for its effectiveness."
+  },
+  "icml-2018-autoregressive-convolutional-neural-networks-for-asynchronous-time-series-5b107ab3b3": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper studies regression for multivariate asynchronous time series, where several observed quantities need not arrive on a shared schedule. It introduces the Significance-Offset Convolutional Neural Network, an architecture designed for this setting. The design combines ideas from autoregressive models with the gating mechanisms used in recurrent neural networks.",
+      "Its final prediction is a weighted sum of adjusted regressors. This resembles an autoregressive predictor, but the weights are learned functions of the data, computed by a convolutional network. Consequently, the architecture can vary how much different inputs contribute to a prediction instead of using one fixed set of weights for every situation.",
+      "The authors evaluate the model on a proprietary financial dataset containing over two million credit derivative index quotes, a synthetic noisy autoregressive series, and household electricity consumption data. They report promising results compared with convolutional and recurrent networks. These findings support the proposed combination of adaptive weighting and adjusted inputs as a useful architecture for asynchronous time-series regression in the evaluated settings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6fdafe4aa69aeb06b6c530aacac575f8ff1946332958da50b478110d543ea077",
+    "tldr": "A convolutional architecture predicts asynchronous time series through data-dependent weights applied to adjusted regressors."
+  },
+  "icml-2018-bayesian-coreset-construction-via-greedy-iterative-geodesic-ascent-a23e6f7afe": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Bayesian coresets replace a full dataset with a small, weighted subset so that posterior inference becomes more manageable. The paper examines whether this compression preserves uncertainty accurately. It finds that previous coreset construction methods scale the subset’s log-likelihood poorly, causing the resulting posterior to underestimate uncertainty.",
+      "The authors introduce Greedy Iterative Geodesic Ascent, or GIGA, to correct that scaling problem. Its construction optimally scales the coreset log-likelihood while maintaining the fast running time of earlier methods. The issue is therefore not simply how many examples a summary contains, but also how strongly their combined evidence influences the posterior.",
+      "The paper establishes geometric decay in posterior approximation error as coreset size increases. This describes a progressively shrinking error at a geometric rate as more data are included in the summary. Experiments on synthetic and real datasets report orders-of-magnitude reductions in approximation error compared with earlier constructions. Together, these results show how improved coreset construction can support scalability while better preserving Bayesian uncertainty."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5ebb1fd7ea78988995f7649d21e0b51515f67f4291d02c76075b8bbaf2e25518",
+    "tldr": "GIGA improves Bayesian coresets by correcting log-likelihood scaling, reducing posterior approximation error while retaining fast construction."
+  },
+  "icml-2018-distributed-clustering-via-lsh-based-data-partitioning-b8e998c409": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Distributed clustering often follows a reduce-and-merge strategy: each machine summarizes its data, and the summaries are combined until a single machine can solve the remaining problem. The paper identifies a bottleneck in this approach. Each machine must still handle a problem involving at least the target number of clusters and communicate at least that many points.",
+      "The proposed alternative changes how the data are partitioned across machines. Using the LSH-based partitioning approach named in the title, it lets different machines concentrate on finding different clusters. This changes the division of labor, addressing the requirement that every machine produce a summary large enough to represent the entire clustering problem.",
+      "The authors establish worst-case approximation guarantees under a stated assumption: the optimal objective value is known within an arbitrary polynomial factor in the dataset size. They also report reduced communication and a near-optimal number of computation rounds in MapReduce. The significance is a way to improve distributed clustering efficiency by reorganizing the work across machines."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "833cc5e39bd6a22a410ac2fb2311698ace0ef173b2e485c721b8b48027338c31",
+    "tldr": "LSH-based data partitioning lets machines pursue different clusters, reducing communication under a stated approximation assumption."
+  },
+  "icml-2018-fair-and-diverse-dpp-based-data-summarization-7f28fdb2f4": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A data summary can contain varied examples while still overrepresenting or underrepresenting particular demographic groups. This paper studies how to select subsets that account for both diversity and fairness. It focuses on determinantal point processes, or DPPs, which use a determinant-based measure to favor diversity in the data’s feature space.",
+      "The authors develop a framework for incorporating a general class of fairness constraints into these sampling distributions. The constraints make representation requirements part of subset selection itself. However, sampling efficiently from the resulting constrained distributions encounters a computational complexity barrier. The paper presents a fast sampler with a provable quality guarantee when the input vectors satisfy a stated natural property.",
+      "Experiments on synthetic and real-world datasets investigate the diversity retained after introducing fairness constraints. The resulting samples have diversity that remains relatively close to the unconstrained case. This provides empirical evidence that the studied representation requirements can be incorporated without a large loss of diversity in those settings, alongside a conditional theoretical guarantee for efficient sampling."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d23e6d38709ff5c4b5ce67e8b0c3e63e3c2e1d605604b54a56c5174a8ccfacc8",
+    "tldr": "The paper adds fairness constraints to diversity-based sampling and develops a fast sampler with conditional theoretical guarantees."
+  },
+  "icml-2018-geodesic-convolutional-shape-optimization-2381b8553a": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Aerodynamic shape optimization can demand so much computation that engineers explore only a few hand-designed candidates or restrict shapes to a small number of adjustable parameters. This paper proposes a learned alternative that supports optimization of more complex shapes. The main idea is to train a Geodesic Convolutional Neural Network to emulate a fluid dynamics simulator.",
+      "A practical ingredient is remeshing the original shape using a poly-cube map. This representation makes the relevant computations suitable for GPUs instead of CPUs. The trained network then supplies an objective that is differentiable with respect to shape parameters, allowing a gradient-based method to determine how those parameters should change.",
+      "The approach connects simulation approximation directly to the optimization process: the learned model both evaluates shapes and enables gradients for improving them. The authors report improvements of 5–20% over state-of-the-art methods on standard problems. They also state that the approach handles cases previous methods cannot address, extending the range of shapes that can be optimized."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c0a44df76bfb0ad14d98659e8f76ccdc1b95e4227a604adea525c727c57f176a",
+    "tldr": "A GPU-compatible neural surrogate for fluid simulation enables gradient-based optimization of complex aerodynamic shapes."
+  },
+  "icml-2018-gradient-descent-with-identity-initialization-efficiently-learns-positive-definite-linea-31f646af63": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper analyzes deep linear networks, whose overall transformation is a product of learned matrices. Training uses gradient descent on population quadratic loss with isotropic inputs, and every layer starts as the identity. This setting allows the authors to examine how the target transformation affects optimization even without nonlinear activations.",
+      "They prove polynomial iteration bounds when the initial excess loss is sufficiently small, but also identify targets farther from identity for which gradient descent fails. For symmetric positive definite targets, an identity-initialized algorithm obtains an epsilon approximation with updates polynomial in depth, the target’s condition number, and log(d/epsilon). Conversely, symmetric targets with a negative eigenvalue defeat a specified class of identity-initialized gradient methods, including some that regularize layers toward identity.",
+      "The authors also analyze nonsymmetric targets satisfying a positive quadratic-form condition. That algorithm uses one regularizer to preserve positivity of the combined transformation and another to balance layer singular values. Together, the results identify structural conditions under which identity initialization supports efficient learning, as well as explicit failure cases."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e8c8340139caf0d5f74f352f29537cd9f9761f3fb732e2fc6f8b1fa978141eda",
+    "tldr": "Identity-initialized deep linear networks have efficient learning guarantees for positive definite targets and explicit failure cases for other transformations."
+  },
+  "icml-2018-improved-large-scale-graph-learning-through-ridge-spectral-sparsification-d595607b82": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Graph Laplacian methods support tasks such as smoothing and semi-supervised learning, but exact computations become expensive as graphs grow. This paper combines these learning methods with spectral sparsification: constructing a smaller graph that preserves relevant spectral properties of the original Laplacian. The aim is to reduce computational demands while controlling the effect on learning.",
+      "The proposed distributed construction uses O(n log³ n) time, O(m log³ n) work, O(n log n) memory, and log n communication rounds, where n and m denote nodes and edges. A further idea connects sparsification to regularization. Preserving the spectrum only to the resolution required by the regularization level may substantially reduce the size of the resulting graph.",
+      "The authors bound the error introduced by sparsification for several downstream tasks, including semi-supervised learning. This links the quality of the smaller graph to the computations it will support. Experiments on an Amazon co-purchase graph validate the theoretical guarantees and compare the method with state-of-the-art heuristics."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1712f460f6693c358dacdb2a98c0f5e15175dbbbf5c47328cda76dbb49793349",
+    "tldr": "Regularization-aware spectral sparsification reduces graph size while providing error bounds for downstream Laplacian learning."
+  },
+  "icml-2018-learning-to-coordinate-with-coordination-graphs-in-repeated-single-stage-multi-agent-dec-fc6e8be24e": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper studies repeated cooperative decisions in which multiple agents choose actions and pursue a shared reward. These problems are modeled as multi-agent multi-armed bandits. The key structural assumption is that expected rewards can be represented by a coordination graph, capturing conditional independences that make some agent interactions separable from others.",
+      "The proposed algorithm, Multi-Agent Upper Confidence Exploration, or MAUCE, exploits these loose couplings during learning. Rather than treating every combination of agents’ actions as an unrelated possibility, it uses the structure of their dependencies. This matters because coordination becomes harder as the number of agents grows, and useful structure can reduce the burden of exploration.",
+      "The authors prove a regret bound that grows logarithmically with the number of arm pulls and only linearly with the number of agents. Regret measures the accumulated reward shortfall from learning rather than already knowing the best choices. Empirically, MAUCE substantially outperforms sparse cooperative Q-learning and a combinatorial bandit method across several settings, including wind-farm control."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e1f1d8d048e12a3a6e63d70d044073345adf31cab705adfbd93573471273c769",
+    "tldr": "MAUCE exploits coordination-graph structure to learn cooperative actions with favorable regret bounds and strong empirical results."
+  },
+  "icml-2018-matrix-norms-in-data-streams-faster-multi-pass-and-row-order-0108c4ad12": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper studies how to estimate matrix norms when data arrive as a stream and memory is limited. These problems extend familiar streaming questions about vectors to matrices. For the norms considered here, the quantities being summarized are the matrix’s singular values, making the task a form of compactly tracking its linear-algebraic structure.",
+      "The authors investigate three aspects: allowing multiple passes through the data, receiving complete rows rather than individual entry updates, and improving running time. Their algorithms for multiple passes and row-order input use less memory than is provably necessary in the corresponding single-pass and entrywise-update settings. Thus, the way data can be accessed changes the achievable memory requirements.",
+      "The paper also reports algorithms considerably faster than previous approaches and proves lower bounds on required memory. For Schatten p-norm estimation on sparse matrices arriving row by row, the results give a near-complete characterization of memory needs. Numerical experiments complement the theoretical analysis of these different streaming models."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "da924a6beb56430c0712e463d84e3686dd3dce696335a0fd2514854227bae71e",
+    "tldr": "New matrix-norm streaming algorithms show how multiple passes and row-wise input can reduce memory needs and improve speed."
+  },
+  "icml-2018-measuring-abstract-reasoning-in-neural-networks-84d08215f9": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper asks how to distinguish abstract reasoning from reliance on superficial patterns in training data. It introduces a dataset and challenge inspired by a human IQ test. Crucially, the challenge defines several ways that training examples and test questions can differ, making it possible to examine particular forms of generalization.",
+      "Popular architectures such as ResNets perform poorly even when these differences are small. The authors introduce another architecture whose structure is designed to encourage reasoning, and it performs significantly better. Its success is uneven, however: changing the relationship between training and testing reveals strong performance on some forms of generalization and clear weaknesses on others.",
+      "The paper also finds that training the model to predict symbolic explanations for its answers markedly improves generalization. This links better performance to an additional learning objective that asks the model to express reasons for its choices. The contribution combines a public evaluation resource, a reasoning-oriented architecture, and evidence that explanation prediction can help on the studied challenge."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c852ed88f30aa2fcf177eafc531c38e85326bc37d857b660e535f11fdef18325",
+    "tldr": "A controlled reasoning benchmark reveals uneven neural-network generalization and shows gains from predicting symbolic explanations."
+  },
+  "icml-2018-mutual-information-neural-estimation-44be078b02": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Mutual information measures how much information two random variables share. The paper addresses estimating it when the variables are continuous and high-dimensional. It presents the Mutual Information Neural Estimator, or MINE, which turns this estimation problem into one that can be trained through gradient descent over a neural network.",
+      "MINE is trainable with backpropagation and scales linearly with both dimensionality and sample size. The authors also establish strong consistency, giving the estimator an asymptotic reliability property as more data become available. These features make the estimate suitable for integration into learning procedures that seek either to increase or to decrease mutual information.",
+      "The paper demonstrates this integration in adversarial generative modeling and supervised classification. In the latter setting, MINE is used to implement the Information Bottleneck. The authors report substantial improvements in flexibility and performance in these applications. The contribution therefore combines an estimator with evidence that mutual-information objectives can be made useful within neural-network training."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3a8e46b019044ac1b989264dca457bd30d0403b00df816a545092521d2ac5822",
+    "tldr": "MINE estimates mutual information with neural networks and enables information-based objectives in generative modeling and classification."
+  },
+  "icml-2018-netgan-generating-graphs-via-random-walks-bfa3e45b54": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "NetGAN approaches graph generation by learning the distribution of biased random walks on an observed graph. This represents a network through sequences of visits to its nodes. Learning from these walks provides a route to generating graph structure without explicitly listing all the network patterns that the output should reproduce.",
+      "The model uses a stochastic neural network that generates discrete samples and is trained with a Wasserstein GAN objective. Its goal is to capture the walk distribution well enough to produce graphs resembling real-world networks. The authors report that the resulting graphs display familiar network patterns even though those patterns are not directly specified in the model.",
+      "The paper also evaluates generalization through link prediction and finds competitive performance despite NetGAN not being trained specifically for that task. This supplies evidence that the learned representation captures useful information about graph connectivity. The contribution brings together graph generation and this demonstrated ability to generalize, using random walks as the connection between observed networks and generated outputs."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "150a1a3e78243397fbf856e29d73b4966f5f3677f5bf8f87a6e5cff33b4fdd6d",
+    "tldr": "NetGAN learns random-walk distributions to generate realistic graph structure and achieves competitive link prediction without task-specific training."
+  },
+  "icml-2018-optimizing-the-latent-space-of-generative-networks-1a1966d66b": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Successful image-generating GANs often combine two ingredients: deep convolutional networks and adversarial optimization between a generator and a discriminator. The paper asks how much the observed success depends on each ingredient. This is useful because adversarial training involves a challenging saddle-point problem, while the architecture itself may account for some desirable behavior.",
+      "The authors introduce Generative Latent Optimization, or GLO, as a framework for training deep convolutional generators with simple reconstruction losses. It provides a way to study the generator without the adversarial optimization scheme. The experimental comparison therefore helps separate properties associated with convolutional generative networks from those that might require an adversarial game.",
+      "Across their experiments, GLO produces visually appealing samples, meaningful transitions between samples, and useful linear arithmetic with noise vectors. These are properties commonly associated with GANs. The findings show that several such behaviors can arise without adversarial optimization, helping clarify which parts of generative modeling contribute to the quality and structure of the learned outputs."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "432a9362062e16f37b9b1f334d814d94e1dea615b4d67f1e927c002e4019dc84",
+    "tldr": "GLO trains convolutional generators with reconstruction losses and demonstrates several desirable GAN-like properties without adversarial optimization."
+  },
+  "icml-2018-path-level-network-transformation-for-efficient-architecture-search-1756a6b659": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Neural architecture search can reuse a trained network by transforming its structure while preserving its function. Existing transformations discussed in the paper modify layers or filters but cannot change the topology of connection paths. The authors introduce path-level transformations that expand what can be changed while retaining the benefit of previously learned weights.",
+      "These operations allow a search controller to explore more complex branching structures, including structures like those used in Inception models. The paper also introduces a bidirectional tree-structured reinforcement learning controller. It searches a tree-structured architecture space that generalizes multi-branch networks, pairing a more expressive search space with transformations that support reuse.",
+      "Experiments use about 200 GPU-hours and report improved parameter efficiency and test results. The stated outcomes include 97.70% CIFAR-10 accuracy with 14.3 million parameters and 74.6% top-1 ImageNet accuracy in the mobile setting. The authors interpret these results as evidence of the effectiveness and transferability of the discovered architectures, supporting path-level changes as a practical tool for efficient search."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9353e5c3be42e1b378a7724756e0c41e812d2c5d8fe5dfc437945892b0f923c0",
+    "tldr": "Function-preserving path transformations let architecture search explore complex branching networks while reusing trained weights."
+  },
+  "icml-2018-predict-and-constrain-modeling-cardinality-in-deep-structured-prediction-b8b4b434d8": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Structured prediction produces several related labels for an input. The paper focuses on one particular relationship among these outputs: their cardinality, meaning the number of labels that are nonzero. A cardinality constraint concerns the prediction as a whole, so it captures information that cannot be expressed merely by considering each label independently.",
+      "Such constraints had proved useful in earlier structured prediction methods, but incorporating them into deep learning presents a challenge. The authors introduce a deep architecture that brings cardinality constraints into the prediction process. The central contribution is a way for a neural model to account for how many labels it outputs alongside the individual label predictions.",
+      "The proposed approach outperforms strong baselines and achieves state-of-the-art results on the evaluated multi-label classification benchmarks. These findings support modeling output counts as a useful source of structure for these tasks. They show that a relatively direct dependency—the total number of active labels—can contribute meaningfully to the quality of deep structured predictions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "bb3377f16f768fefc8a762c4a773c99464d041ed85115e28652dd279154fd957",
+    "tldr": "A deep structured-prediction architecture models the number of active labels and achieves strong multi-label classification results."
+  },
+  "icml-2018-prediction-rule-reshaping-b36828865f": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper studies how to make an already trained prediction rule satisfy shape constraints in high-dimensional regression and classification. Examples include monotonicity and convexity. These requirements concern the pattern of predictions as inputs change, so satisfying them is a different objective from obtaining accurate predictions on individual examples.",
+      "The authors propose two reshaping methods. One can be applied to any pretrained prediction rule, while the other is designed specifically for random forests. Both begin with an existing predictor and reshape its output behavior to meet the desired constraints. The paper also develops efficient algorithms for computing the resulting estimators, making the reshaping step a concrete computational procedure.",
+      "Experiments on four datasets demonstrate the methods’ performance. In these evaluations, the reshaped predictors enforce the constraints without compromising predictive accuracy. This provides evidence that shape requirements and predictive performance can be compatible in the studied settings. The broader contribution is a way to add such requirements after training, with both a general-purpose approach and a forest-specific one."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "26f18b72a4975a34c2c5da45fd8cfc1ec7b8f0b7d8e4c18eee2e8fabcf36338b",
+    "tldr": "Two methods reshape pretrained predictors to satisfy shape constraints while preserving accuracy in the reported experiments."
+  },
+  "icml-2018-quanttree-histograms-for-change-detection-in-multivariate-data-streams-c25afd66d8": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "QuantTree detects changes in the distribution of multivariate streaming data using histograms. A common difficulty with histograms is that the number of bins can become unmanageable as dimensionality increases. The paper introduces an adaptive construction based on recursive binary splitting, allowing the overall bin count to be controlled.",
+      "A key property of the construction is that bin probabilities do not depend on the particular distribution of stationary data. This makes it possible to calibrate change-detection thresholds using synthetically generated one-dimensional data. Those thresholds can then be used with histogram-based test statistics, such as Pearson’s statistic or total variation, while controlling the false positive rate.",
+      "This connects the histogram design to a practical statistical requirement: distinguishing a real distribution change from an alarm raised during unchanged behavior. Experiments show effective change detection in high-dimensional streams and effective false-positive control even with relatively few training samples. The contribution combines manageable histogram complexity with a calibration method that does not depend on the original stationary distribution."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "199c821cdfc53c78b0615b782158db8eeded4687a9065d2dda16497c37d3e59b",
+    "tldr": "QuantTree builds adaptive histograms for detecting distribution changes with controlled bin counts and false-positive rates."
+  },
+  "icml-2018-quasi-monte-carlo-variational-inference-187b58415b": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Monte Carlo variational inference relies on gradients estimated from samples, and the variability of those estimates strongly affects optimization. The paper proposes using Quasi-Monte Carlo sampling to reduce that variability. Its central idea is to replace independent uniform draws with a deterministic sequence that covers the underlying space more evenly.",
+      "More even coverage improves the gradient estimates used during learning. The authors report substantially faster convergence for both score-function and reparameterization estimators, two ways of constructing gradients for these objectives. The contribution therefore applies to multiple gradient-estimation approaches within variational inference, rather than depending on just one of them.",
+      "The paper also introduces an algorithm that keeps the learning rate constant while increasing the number of QMC samples per iteration. It proves that this approach can attain a faster asymptotic convergence rate than SGD. Additional theoretical guarantees cover Monte Carlo objectives beyond variational inference, and experiments on large datasets from several domains support the findings. The approach ties optimization progress to increasingly accurate sampling."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "290729d2bc1dbef1920d28bb03a6ed33c215ef7e5c5c42f1fed3afd78b89160c",
+    "tldr": "Quasi-Monte Carlo sampling reduces gradient variance and can accelerate variational inference and other Monte Carlo optimization problems."
+  },
+  "icml-2018-signsgd-compressed-optimisation-for-non-convex-problems-8010977543": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Distributed neural-network training can spend substantial effort communicating gradients between workers and a server. signSGD reduces this communication by sending only the sign of each minibatch gradient component. Each transmitted component says which direction the gradient points, discarding its magnitude and allowing a one-bit representation.",
+      "The authors prove that this compression can retain an SGD-level convergence rate. Their analysis relates the suitability of signSGD versus SGD to the relative l1 and l2 geometry of gradients, noise, and curvature. In distributed training, the server aggregates signs by majority vote. The paper proves that this voting scheme can achieve the same variance reduction as full-precision distributed SGD while supporting one-bit communication in both directions.",
+      "Empirically, the momentum version of signSGD matches Adam’s accuracy and convergence speed on the studied deep ImageNet models. Together, the theory and experiments support sign-based updates as a promising way to reduce communication without necessarily sacrificing optimization performance. The geometric analysis also makes clear that theoretical suitability depends on the problem."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "816a9c7d55eeb4c0e389de64682140f01781cfdbb556aab8b5a1840156ef3cbd",
+    "tldr": "signSGD communicates gradient signs and can retain strong convergence while sharply compressing distributed training messages."
+  },
+  "icml-2018-testing-sparsity-over-known-and-unknown-bases-f2c7573bb7": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Sparsity means that a representation uses only a small number of nonzero coefficients. This paper studies how to test for that property while observing only a low-dimensional projection of the input. The task is to distinguish inputs that have a sparse representation from those that are far from having one.",
+      "In the unknown-basis setting, the input contains several vectors. The question is whether they can all be expressed through a shared matrix, with each vector using at most k nonzero coefficients. Both that shared matrix and the coefficients are unspecified. This tests whether the collection admits a common sparse description.",
+      "In the known-basis setting, the representation matrix is fixed and the input is a single vector. The algorithm tests whether that vector can be produced using a k-sparse coefficient vector, or is far from such a representation. The authors analyze both settings using high-dimensional geometry and probability. Their contribution concerns testing the existence of sparse structure from compressed observations, with the known and unknown representation settings treated separately."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e95d3f4abeb3398d0602ff74e7cb4d2fd60ff31860b22b4a97ac270ddd1aaf55",
+    "tldr": "The paper develops algorithms that test for sparse representations from low-dimensional projections, with either known or unknown bases."
+  },
+  "icml-2018-transfer-in-deep-reinforcement-learning-using-successor-features-and-generalised-policy--1fe8757143": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper extends a reinforcement-learning transfer framework based on successor features and generalised policy improvement. The original formulation assumes that rewards for relevant tasks are linear combinations of a fixed feature set. That requirement ties the framework to a representation chosen in advance and restricts how its guarantees are expressed.",
+      "The authors extend the theoretical guarantees to any collection of tasks that differ only in their reward functions. They also show that reward functions themselves can serve as features for future tasks without losing expressiveness. This removes the need to specify a separate feature set beforehand and supports a more stable combination with deep learning.",
+      "Experiments use a complex three-dimensional environment observed through first-person images. The authors report that transfer produces very good policies for unseen tasks almost immediately. They also describe how to train policies specialized to those new tasks and add them to the agent’s reusable skills. The result is a framework for both rapid reuse and continued skill accumulation within the stated reward-changing task setting."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5f35ed29de94563ee961ac4b398888c9f12be69c96f5d8f9e20e331b46653ba2",
+    "tldr": "An extended successor-feature framework supports rapid skill transfer across reward-changing tasks without requiring a predefined feature set."
+  },
+  "icml-2018-understanding-and-simplifying-one-shot-architecture-search-56e0ce0ee9": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Neural architecture search seeks effective network designs automatically, but evaluating many candidates can be expensive when each must be trained from scratch. Weight sharing reduces this burden by letting candidate models reuse training work. The paper examines how far this idea can go in simplifying one-shot architecture search.",
+      "Earlier weight-sharing approaches had already reduced search costs substantially, but still relied on complex components such as hypernetworks or reinforcement-learning controllers. The authors use careful experimental analysis to investigate whether these components are needed to find useful designs. Their focus is on understanding weight sharing itself as a mechanism for making a large search space manageable.",
+      "The experiments show that promising architectures can be identified efficiently from a complex search space without either hypernetworks or reinforcement learning. This is evidence that a simpler search procedure can retain useful architecture-selection capability. The contribution matters because it separates the benefit of sharing trained weights from the complexity of particular search controllers, clarifying a route toward less elaborate automated network design."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d72d77dc9216b47b09a4688d152fd015a1857eac2d19458a7d5d0ed3bd7ff861",
+    "tldr": "Experimental analysis shows that weight sharing can efficiently identify promising architectures without hypernetworks or reinforcement-learning controllers."
+  }
+}

@@ -1,0 +1,327 @@
+{
+  "icml-2026-cobra-contribution-based-bayesian-rank-allocation-for-parameter-efficient-fine-tuning-37a2c6d985": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "COBRA addresses how to divide a limited fine-tuning budget across a language model’s layers. Low-Rank Adaptation gives layers a compact set of trainable parameters, with rank determining their adaptation capacity. Assigning the same rank everywhere, or relying on one importance score, can waste capacity because a layer’s contribution to predictions and its need for adaptation are different properties.",
+      "The method first measures each layer’s predictive contribution using path-integral attribution. It then combines that contribution with adaptation demand to create a task-specific allocation distribution. Finally, Bayesian variational optimization turns this distribution into different ranks for different layers. Measuring contribution at the layer level also makes the allocation interpretable: the quantities being compared correspond directly to where capacity is assigned.",
+      "Across the tested architectures and tasks, COBRA outperforms existing methods with comparable parameter budgets. Reported gains reach 1.6 points on GLUE and an average 6.6% reduction in mean squared error in high-rank regression settings. These results support allocating capacity using both predictive contribution and adaptation demand."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "222c9a030e30e847f779c7a34fc51a82949fdb014ffffaa4ad09d971900a6b30",
+    "tldr": "COBRA allocates fine-tuning capacity using both layer contribution and adaptation demand, improving results under comparable parameter budgets."
+  },
+  "icml-2026-diffusion-based-learning-framework-for-constrained-nonconvex-optimization-with-weighted--e31ccec0af": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "DiOpt tackles optimization problems where a candidate must both achieve a good objective value and satisfy constraints. Diffusion models can represent multiple possible solutions, which makes them promising for nonconvex problems. However, the paper’s analysis identifies a distributional mismatch in supervised diffusion solvers: their generated candidates can place little probability inside the feasible region, where constraints are satisfied.",
+      "The proposed framework trains in two phases. Supervised learning provides an initial starting point, after which bootstrapping repeatedly refines the generated solutions. This second phase is designed to improve objective values while achieving high constraint satisfaction, teaching the model a mapping from noise toward the allowed region. At inference time, a separate solution-selection technique further improves the quality of the chosen output.",
+      "Evaluations across diverse nonconvex tasks report improvements in both optimality and constraint satisfaction. The approach matters because good objective values alone do not make constrained solutions usable. Its stated outcome is high constraint satisfaction alongside better optimization, rather than a guarantee that every generated candidate is feasible."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ae11aa7047a5fcb98f252953acf093249e31e18b7ca9402d0bb38fd22a88e8b5",
+    "tldr": "DiOpt combines supervised initialization, bootstrapped refinement, and solution selection to improve constrained nonconvex optimization."
+  },
+  "icml-2026-eigenvectors-of-experts-are-training-free-non-collapsing-routers-9c64d4b281": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Sparse mixture-of-experts models process each token with only a selected subset of their experts. This makes expert selection central to efficiency and performance. The paper investigates expert collapse, a routing problem that degrades these models during training and inference. It presents theoretical and empirical evidence that the issue persists even when advancing well-pretrained models with existing approaches.",
+      "The authors look inside the experts themselves for an alternative routing signal. They observe that eigenvectors of expert weight matrices contain useful semantic information. Their SSMoE framework uses spectral properties of these weights to address collapse without additional training. This changes where routing information comes from: the framework draws on structure already present in the expert parameters.",
+      "Experiments cover language and vision tasks with both clean and corrupted data, reporting strong generalization and robustness. The practical appeal is improving routing without the computational and data-processing costs of retraining or fine-tuning a router. The findings also suggest that examining learned weight structure can reveal information useful for coordinating the experts."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6d1991c8bbf31ea45525ce3f56131d407c4cc7a64de63b908df75c97e96962e5",
+    "tldr": "SSMoE uses spectral information already present in expert weights to improve routing and address expert collapse without additional training."
+  },
+  "icml-2026-embodied-detr-end-to-end-temporal-3d-object-detection-in-egocentric-views-13d445de01": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "An embodied agent observes its surroundings through a sequence of partial first-person views. Objects may be hidden, only partly visible, or seen differently over time. This makes three-dimensional detection a temporal problem. The paper argues that benchmarks built around fully reconstructed global scenes do not adequately test this observation process or the evolution of individual object instances.",
+      "The authors introduce Embodied-Det, a benchmark that measures detection accuracy together with temporal stability and consistency. They also propose Embodied-DETR, an end-to-end detector with two complementary temporal modules. Scene-aware Feature Aggregation models context across the scene, while Instance-aware Query Embedding supports consistency for individual objects. Together, these modules address temporal information at both the scene and object levels.",
+      "On the new benchmark, existing methods show substantial performance drops under sequential egocentric observations. Embodied-DETR achieves better accuracy and temporal consistency in the reported experiments. The findings support evaluating embodied perception across sequences and explicitly modeling temporal continuity, rather than judging detection solely through reconstructed scene representations."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ac4279148edebbd19c916ff76349dc05c468f56c79576fc10ce2bcdbe71f680f",
+    "tldr": "Embodied-DETR combines scene and object temporal modeling to improve 3D detection across partial first-person views."
+  },
+  "icml-2026-expectation-consistency-loss-rethink-confidence-calibration-under-covariate-shift-8c0ce04f1b": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Confidence calibration concerns whether a classifier’s confidence agrees with how often its predictions are correct. A change in the input distribution can challenge calibration methods designed for matching training and test distributions. Existing approaches to this shift can also depend on unstable importance weights, particularly when the ratios used to reweight examples become very large or unbounded.",
+      "The paper derives an expectation consistency condition that is necessary and sufficient for calibration under covariate shift. This establishes that a changed input distribution does not automatically imply miscalibrated confidence. The condition is weaker than requiring the entire input distributions to align, identifying a more targeted requirement for preserving calibration.",
+      "The authors turn this condition into Expectation Consistency Loss, an unsupervised domain adaptation objective supporting canonical, class-wise, and top-label calibration. They prove that computing it has the same sample complexity as Expected Calibration Error and provide a theoretically supported mini-batch training scheme. Experiments on simulated and real-world shifts support its effectiveness, connecting the characterization to a trainable method."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d2f298fa31018a0d654a1f379aaaf850527a0fdb186b069893dee47d32f980a5",
+    "tldr": "Expectation Consistency Loss turns a necessary and sufficient calibration condition under covariate shift into a trainable adaptation objective."
+  },
+  "icml-2026-fiber-a-differentially-private-optimizer-with-filter-aware-innovation-bias-correction-5183193249": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Differentially private training adds noise to gradients to protect individual training examples. Filtering these privatized gradients over time can reduce variance, but it also changes the noise that reaches an adaptive optimizer. FIBER addresses the resulting mismatch: a correction designed for the original noise level can become inaccurate after filtering, distorting AdamW’s second-moment estimate.",
+      "FIBER filters a residual stream in innovation space and integrates it to obtain a denoised gradient estimate. It also separates the geometry of its two-point observations from the innovation gain, allowing those choices to be tuned independently. Its central calibration step subtracts the filtered noise contribution, expressed as A(ω)σ_w², instead of simply subtracting the original noise variance.",
+      "The attenuation factor has a closed-form expression for the proposed innovation filter and can also be computed for general stable linear filters. Across vision and language benchmarks, FIBER reports substantial improvements over DP optimizers, including leading results on multiple tasks at equivalent privacy constraints. The findings emphasize matching optimizer corrections to the noise actually present after processing."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2b675cf86ded5c5d3705295e5cd6c80a25b27fd39e4c89126f6a69d21caf33de",
+    "tldr": "FIBER improves private optimization by calibrating adaptive updates to the noise remaining after temporal gradient filtering."
+  },
+  "icml-2026-foresightkv-optimizing-kv-cache-eviction-for-reasoning-models-by-learning-long-term-cont-60298b4ded": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Long reasoning traces increase the memory and computation devoted to a language model’s key-value cache. Evicting cache entries reduces this burden, but discarding information without understanding its later dependencies can hurt reasoning. ForesightKV learns which entries to remove by using their future contribution as a training signal, aiming to improve the trade-off between cache size and performance.",
+      "Its Golden Eviction algorithm uses future attention scores to identify optimal eviction choices at each step. These choices and scores become supervision for a learned eviction policy, trained with a pairwise ranking loss. This transfers information from future-aware training traces into the predictor’s ranking of cache entries.",
+      "The framework additionally treats eviction as a Markov decision process and applies GRPO to mitigate increases in language-modeling loss on low-entropy tokens. On AIME2024 and AIME2025 with three reasoning models, ForesightKV consistently outperforms prior methods while using only half the cache budget. The experiments also report complementary benefits from supervised training and reinforcement learning."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e7f4a3a2ec9ae85fcda0491fa32bde7af3b9601066f8c31ecc253e00281bda88",
+    "tldr": "ForesightKV learns cache eviction from future-aware supervision and reinforcement learning, improving reasoning performance under reduced cache budgets."
+  },
+  "icml-2026-how-does-reasoning-flow-tracing-attention-induced-information-flow-for-targeted-rl-in-ll-1e436b9804": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Reinforcement learning for language models often gives tokens similar treatment even though some carry decisive reasoning and others provide formatting or filler. FlowTracer addresses this credit-assignment problem by examining how attention connects the question to the answer. Its aim is to assign learning signals using the global structure of these connections rather than isolated token scores.",
+      "The framework represents tokens as nodes in a directed acyclic graph, with edge capacities derived from aggregated attention weights. It reweights those capacities to retain influence that can reach the answer region. Local flow conservation prevents intermediate tokens from gaining or losing effective mass simply because paths are longer or contain irrelevant branches.",
+      "From this graph, FlowTracer extracts a question-to-answer flow backbone and scores tokens by the amount of flow passing through them. These scores identify influential hubs and aggregation points, then shape token-level rewards. The reported experiments show consistent gains across reasoning tasks, supporting the usefulness of this attention-derived global structure for directing reinforcement learning toward consequential tokens."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d60b68e6cfd1cc97917ffcfae0c3c112c17835fd35c7d193cbbf885ffcdede38",
+    "tldr": "FlowTracer uses conserved flow through an attention-derived token graph to target reinforcement-learning rewards at influential reasoning tokens."
+  },
+  "icml-2026-how-reasoning-evolves-from-post-training-data-an-empirical-study-using-chess-aa4ea330b4": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This study uses chess to examine how supervised fine-tuning data shapes a language model’s later reinforcement learning. The authors compare theoretically motivated training datasets and track both playing performance and reasoning quality. This allows them to distinguish choosing a strong move from producing reasoning that is consistent with that move.",
+      "Fine-tuning directly on the best move produces effective reinforcement learning and the strongest downstream performance in the study. However, the subsequent reasoning can be unfaithful: its content does not match the chosen move. Training on multi-move trajectories instead gives comparable downstream performance, with faithful reasoning and more stable reinforcement learning. The dataset choice therefore affects more than final playing strength.",
+      "Reinforcement learning also shifts the distribution toward better moves and reduces hallucination rates as a side effect. Several measurements taken at the supervised checkpoint predict later performance, including evaluation results, hallucinations, and reasoning quality. The authors release the training and evaluation resources behind a 7B-parameter model that surpasses leading open-source reasoning models in chess."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2afdbae9c03c5cd83d82d935b58b6f070d7a88da9c6ae53e95f20ad78060a98e",
+    "tldr": "Chess experiments show that post-training data influences both later playing strength and whether a model’s reasoning matches its chosen moves."
+  },
+  "icml-2026-hybridflow-resource-adaptive-subtask-routing-for-efficient-edge-cloud-llm-inference-189735aaaa": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "HybridFlow addresses how an edge device should share language-model work with the cloud. Local models can lack the reasoning capability a task requires, while cloud inference consumes time and API or token budgets. Routing an entire task using a fixed difficulty estimate misses opportunities to distribute its parts according to their dependencies and the resources currently available.",
+      "The framework represents each task as a directed acyclic graph of subtasks. A subtask becomes eligible to run once its dependencies are resolved, allowing eligible work to proceed concurrently. A dynamic benefit–cost model then guides routing by considering accuracy, latency, and token or API costs in real time.",
+      "Evaluations on GPQA, MMLU-Pro, AIME24, and LiveBench-Reasoning report a better cost–accuracy trade-off, reduced latency, and lower cloud API usage while maintaining competitive accuracy. The contribution combines scheduling with resource-aware routing: identifying which work can run together and deciding where that work should execute. The reported gains concern this joint coordination of subtasks under resource constraints."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "de8c10de46bdcb17cf077ec60a4af10a01ce128414dfc52accd0d8859e02a2e9",
+    "tldr": "HybridFlow schedules dependent subtasks and dynamically routes them between edge and cloud models to improve cost, latency, and accuracy trade-offs."
+  },
+  "icml-2026-identifying-partially-observed-causal-models-from-heterogeneous-nonstationary-data-f12f9635b8": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Recovering causal structure is harder when some variables are hidden and the data distribution changes across domains or over time. Existing approaches can exploit rank deficiencies in covariance matrices to reveal structure involving latent variables. The paper investigates how to retain this source of information when observations are heterogeneous or nonstationary.",
+      "The authors formulate a class of partially observed linear causal models with such variation. For this class, they prove that the relevant distributional constraints are equivalent to those in the homogeneous setting. They then develop a rank-deficiency test that efficiently handles the changing distributions and establish identifiability results for recovering causal structure involving hidden variables.",
+      "The method also identifies which variables have causal mechanisms that vary across domains. This connects structure recovery with locating the mechanisms responsible for distribution shifts. Experiments using simulated and real-world data support the theoretical findings and the method’s effectiveness. The guarantees concern the formulated class of linear models, preserving a specific setting in which heterogeneous observations can still support causal identification."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "83b05986e9fb422afcfe1a07896f5c1d939c73528b3fe59cc4119f90dc05b9d1",
+    "tldr": "The paper develops rank-based causal identification for partially observed linear systems whose distributions change across domains or time."
+  },
+  "icml-2026-indexguard-index-only-backdoor-vetting-for-secure-federated-peft-of-large-language-model-f79892d7f0": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "IndexGuard tackles backdoor poisoning in federated parameter-efficient fine-tuning when privacy constraints prevent inspecting each client’s numerical update values. Its central idea is that poisoned clients may share a pattern in which adapter coordinates become important. The overlap between these coordinate sets can therefore provide a detection signal even when the corresponding values remain unavailable.",
+      "Clients send only the indices of their Top-K salient updates for vetting. The server compares the resulting overlap patterns, clusters clients, and filters groups with outlying cohesion before aggregation. This is an unsupervised screening procedure based on which coordinates stand out, allowing the screening decision to operate without inspecting their real-valued updates.",
+      "The analysis examines support stability under bounded rescaling and separability for shared-trigger poisoning in the presence of non-IID drift. Across the evaluated attacks, model backbones, and PEFT variants, IndexGuard mitigates backdoors while preserving clean accuracy and performs comparably to centralized methods. The results show that coordinate identities can retain useful defensive information under restricted visibility into client updates."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "40e5dab33d0cdcde63bfa71bb29d72a361d6cc58068400e37a23d384eb1f13f7",
+    "tldr": "IndexGuard screens federated fine-tuning clients for backdoors using overlap among salient update indices without inspecting update values."
+  },
+  "icml-2026-polardepth-monocular-transparent-object-depth-from-polar-physics-priors-76d227756b": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Transparent objects make depth estimation difficult because refraction and transmitted light can undermine ordinary RGB cues. PolarDepth supplements RGB with polarization measurements, which carry physical information about surface orientation and material properties. Its monocular framework uses the degree and angle of linear polarization to estimate dense depth and locate transparent regions.",
+      "The method does more than feed additional images into a predictor. It estimates refractive index, zenith angle, and azimuth angle from polarization measurements, then embeds these physical priors in an implicit geometric representation. This representation constrains depth inference where transparency makes appearance ambiguous, connecting the learned prediction to information about how light interacts with the surface.",
+      "The authors also introduce PTOD, a dataset containing synchronized RGB, polarization, and depth observations with manually annotated transparent-region masks. Experiments report state-of-the-art transparent-object depth estimation. The findings support incorporating polarization-derived physics into learned geometry, especially for regions where texture and conventional appearance cues provide insufficient guidance for recovering the object’s surface."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "dcb2d5396aed3208a7145e3f26c4e775a731883e00a84003ef820e96090243cd",
+    "tldr": "PolarDepth combines RGB and polarization-derived physical priors to improve depth estimation and localization of transparent objects."
+  },
+  "icml-2026-probing-rlvr-training-instability-through-the-lens-of-objective-level-hacking-52cef3f029": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Reinforcement learning with verifiable rewards can improve language-model reasoning over prolonged training, yet instability can interrupt those gains. This paper studies the problem through objective-level hacking, with particular attention to mixture-of-experts models. The proposed framework places the source of the problem in how the optimization objective assigns credit to tokens.",
+      "The distinction from reward hacking is central. Reward hacking exploits weaknesses in the verifier, whereas the mechanism studied here arises from token-level credit misalignment. That misalignment creates spurious signals at the system level within the training objective. The framework therefore examines how optimization can go wrong even when the issue being analyzed is not an exploitable reward checker.",
+      "The authors combine their framework with extensive experiments on a 30B mixture-of-experts model. They trace and formalize a mechanism behind abnormal growth in the discrepancy between training and inference, a phenomenon associated with instability. The contribution is a concrete causal account of this pathological dynamic, intended to guide the design of more stable RLVR algorithms."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "bdd5e9b0ab37776c768f8c6a8604493072a9c49bcf69ab769e2e16167a54acaf",
+    "tldr": "The paper links RLVR instability in mixture-of-experts models to token-credit misalignment that creates spurious optimization signals."
+  },
+  "icml-2026-probing-the-inductive-bias-of-neural-networks-through-learning-random-cellular-automata-e81632209a": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper asks which properties of a generating process help neural networks learn its behavior. It uses two-dimensional cellular automata as a controlled setting whose dynamics are local, symmetric, and deterministic. The experiments find that these properties alone are insufficient for learning to predict the system several steps into the future.",
+      "The authors next examine smoothness, measured through average sensitivity, and find that it predicts learnability only incompletely. They then investigate circuit complexity: whether the target function can be computed by a small circuit. Junta coefficients describe how Fourier weight is distributed across interaction degrees and provide a tighter predictor of learning success.",
+      "Across convolutional networks, transformers, and multilayer perceptrons, the functions learned successfully predominantly concentrate spectral weight at low interaction degrees. This connects empirical learnability to a form of combinatorial simplicity beyond locality or symmetry. The results are consistent with the hypothesis that natural dynamics suppress complex, high-degree interactions, but they do not establish that hypothesis as a universal explanation of why natural data is learnable."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "910affbeafaf0c5c8ee538350d2441bf8d18559f626491cec4053064e149cef8",
+    "tldr": "Cellular-automata experiments link neural-network learnability more closely to low-degree interaction structure than to locality, symmetry, or determinism alone."
+  },
+  "icml-2026-rethinking-sparse-mixture-of-experts-from-a-unified-perspective-5fb1db4f27": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Sparse mixture-of-experts models expand capacity while activating only selected experts. Two common routing strategies impose different fixed budgets: Token Choice gives each token a fixed number of experts, while Expert Choice gives each expert a fixed number of tokens. The paper argues that either constraint can force irrelevant assignments or exclude useful token–expert matches.",
+      "The authors express expert routing through a unified linear-programming formulation. This provides a common mathematical view of the two routing strategies and motivates USMoE, a framework with a unified selection mechanism and scoring rule. The aim is to make assignment budgets more flexible while improving which token–expert pairs are selected.",
+      "The paper provides theoretical justification and experiments spanning text and vision, clean and corrupted data, and both training-free and training-based approaches. These evaluations report significant performance gains over existing methods, together with lower inference costs without sacrificing performance. The findings support treating routing as a joint assignment problem whose budgets can adapt beyond fixed allocations on either side."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8e35b8b6e3b63ab411850d46e688eac095962b5c68aebff9e9777552758f03ef",
+    "tldr": "USMoE unifies sparse expert routing as an assignment problem, enabling more flexible budgets and improved performance–cost trade-offs."
+  },
+  "icml-2026-romberg-extrapolated-zeroth-order-gradient-estimator-higher-order-bias-reduction-with-pr-67a3c402a9": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "When gradients are unavailable, optimization can estimate them from function evaluations at perturbed inputs. A standard two-point estimate has truncation bias proportional to the square of its smoothing radius. Reducing this bias often increases directional variance under a fixed evaluation budget. Romberg-ZOGE targets this trade-off by combining estimates made at several progressively smaller radii.",
+      "The estimator reuses the same perturbation direction across all radii and applies carefully selected extrapolation weights. These weights cancel the first R even-order error terms. Under smoothness of order 2R+2, the bias becomes O(r^(2R+2)), while the leading directional variance constant is preserved up to higher-order residual terms. The smoothness requirement is part of the stated guarantee.",
+      "The paper separately analyzes noisy function evaluations, deriving an explicit noise-amplification factor and associated bias and variance bounds. Experiments cover synthetic problems, simulator-based wireless optimization, and black-box prompt tuning of OPT-1.3B. With function evaluations per estimate held fixed, the method produces faster and more stable zeroth-order stochastic gradient descent in these tests."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6f1795f57c23312673f2f94310f386f730bf340af2248f348058fbb054d16a73",
+    "tldr": "Romberg-ZOGE combines same-direction estimates at multiple radii to reduce gradient-estimation bias while preserving leading directional variance under stated smoothness conditions."
+  },
+  "icml-2026-safesearch-automated-red-teaming-of-llm-based-search-agents-b1eb87f4e6": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Connecting a language model to search gives it access to broader and more current information, but also exposes it to unreliable external content. SafeSearch studies how search results can steer an agent toward unsafe outputs. The motivation includes real-world incidents and two in-the-wild observations, showing that the threat extends beyond a purely hypothetical evaluation setting.",
+      "The authors build an automated framework for sandboxed red-teaming that is designed to be lightweight, scalable, and cost-efficient. They generate 300 test cases covering five risk categories, including misinformation and prompt injection. Evaluation spans three search-agent scaffolds and 17 representative language models, examining how unsafe behavior appears across different agent configurations.",
+      "The results reveal substantial vulnerabilities. The highest reported attack success rate is 90.5% for GPT-4.1-mini in a search-workflow setting; this is a configuration-specific result, not an overall rate for all agents. Common defenses such as reminder prompting provide limited protection. SafeSearch supplies a practical evaluation mechanism for measuring these weaknesses and informing safety improvements."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4086e28c460007ea347c4e4c0bae15b4d3484f835763cd863d14f87fb6dda773",
+    "tldr": "SafeSearch automates sandboxed attacks on search agents and finds substantial vulnerabilities to unsafe or misleading search results."
+  },
+  "icml-2026-sample-efficient-diffusion-based-reinforcement-learning-with-critic-guidance-1c44e49c74": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Diffusion policies can represent diverse actions, making them useful for reinforcement learning that needs exploration. The paper identifies a tension between two optimization styles. Sampling-based methods preserve exploration but use Q-value information inefficiently, slowing convergence. Gradient-based methods exploit that information more directly but can collapse toward a single mode, reducing action diversity.",
+      "Critic-Guided diffusion Policy Optimization, or CGPO, inserts training-free guidance into the policy’s denoising process. The critic steers generated actions toward regions with high predicted value, and those guided actions become regression targets for policy learning. Here, training-free describes the guidance technique; the overall policy is still learned. The intended effect is to obtain good actions sooner while balancing exploration and exploitation.",
+      "On five MuJoCo locomotion tasks, CGPO reports state-of-the-art results relative to existing diffusion-based reinforcement-learning methods. The authors also demonstrate strong performance on Franka robot-arm grasping tasks, presenting this as the first successful real-world RL use of a diffusion policy. These findings support critic guidance as a way to improve both learning efficiency and final performance."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d5175c860414537793567704e4769b4888fbcd511eddca69707efac9109ef826",
+    "tldr": "CGPO guides diffusion-policy action generation with a critic to improve learning efficiency while balancing action diversity and value."
+  },
+  "icml-2026-the-fisher-dimension-instance-dependent-complexity-for-causal-discovery-8d13746a09": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Worst-case sample-complexity bounds say how difficult causal discovery can become, but do not distinguish easy instances from hard ones. This paper studies that distinction for recovering a Markov equivalence class in linear Gaussian structural equation models. The target is a class of observationally equivalent causal structures, rather than necessarily one uniquely identified directed graph.",
+      "The proposed Fisher dimension is the inverse square of the smallest partial correlation that must be detected for recovery. A smaller essential signal therefore corresponds to a larger complexity measure. The authors prove upper and lower sample-complexity bounds governed by this quantity, matching up to logarithmic factors.",
+      "Under bounded noise variances, bounded covariance eigenvalues, and constant-order edge coefficients in spectrally well-conditioned models, the Fisher dimension remains uniformly bounded regardless of graph structure. Within this setting, substantial variation in instance difficulty comes from numerical parameters rather than structure alone. Experiments on structured graph families find a strong correlation between the proposed measure and the amount of data actually required for recovery."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "791eb4b41e5dbd07e06ba1e8abc139365cc4e5b7c0b90b55fd6335c9aca9ea6e",
+    "tldr": "The Fisher dimension characterizes instance-specific data requirements for causal equivalence-class recovery through the weakest partial correlation that must be detected."
+  },
+  "icml-2026-tql-scaling-q-functions-with-transformers-by-preventing-attention-collapse-ec6503821b": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Larger models have driven progress across machine learning, but reinforcement-learning value functions often remain small. Simply enlarging a value network can make learning unstable and reduce performance, even when using a transformer architecture. This paper investigates what prevents transformers from translating additional capacity into better learned value estimates.",
+      "The empirical analysis identifies attention-score collapse as a critical failure mode as capacity grows. Transformer Q-Learning, or TQL, addresses it by controlling the entropy of the attention scores. Entropy describes how concentrated or spread out those scores are. Regulating this quantity prevents the observed collapse and stabilizes training, allowing larger transformer value functions to be used effectively.",
+      "In the reported comparisons, scaling TQL from the smallest to the largest network improves performance by up to 43%, while prior methods deteriorate as they scale. The result connects a specific internal failure mode to a practical intervention. It supports the claim that attention regulation can unlock useful capacity in the evaluated setting, rather than treating network size alone as sufficient for improvement."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0242fef9c7606dd7a9bc7cab6d7e3ff50e0f3ef836e30b0e340b7862dafc9457",
+    "tldr": "TQL controls attention entropy to prevent collapse, enabling larger transformer value functions to improve reinforcement-learning performance."
+  },
+  "icml-2026-trust-region-inverse-reinforcement-learning-explicit-dual-ascent-using-local-policy-upda-e879c056a5": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Inverse reinforcement learning seeks a reward function that explains expert behavior. Classical dual-ascent methods offer monotonic improvement but require solving a full reinforcement-learning problem at every iteration. Adversarial methods reduce that expense, yet give up stability and monotonic dual improvement. TRIRL aims to retain the advantages of explicit dual optimization using only local policy searches.",
+      "Its key insight connects the size of a reward update to policy optimality. A policy optimal within a trust region for one reward update can be globally optimal for a smaller update in the same direction. Taking that smaller update lets the method optimize the dual objective without fully solving the original reinforcement-learning problem each time.",
+      "The resulting algorithm offers monotonic improvement while learning a reward function that can be globally optimized to match expert demonstrations. Across the evaluated challenging tasks, it outperforms state-of-the-art imitation-learning methods by a factor of 2.4 in aggregate inter-quartile mean. The recovered rewards also generalize to shifts in system dynamics, supporting their usefulness beyond the original imitation setting."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "140ba5e63282f188ee5a85534383bb3649d81fe42ae1c3bf4a6c993812daca7b",
+    "tldr": "TRIRL uses carefully reduced reward updates and local policy searches to obtain monotonic inverse-reinforcement-learning improvement without a full RL solve each iteration."
+  },
+  "icml-2026-turbogs-accelerating-3d-gaussian-splatting-via-error-guided-sparse-pixel-sampling-and-op-8b0df9e375": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "TurboGS accelerates training for 3D Gaussian Splatting by concentrating computation on pixels that still need improvement. Existing acceleration approaches can spend substantial effort on redundant pixels while losing fine detail. The proposed framework uses reconstruction errors across views to identify challenging regions and skip regions that are already reconstructed well.",
+      "Four components make this sparse supervision usable. Tile-wise sampling selects informative pixels, and a structure-aware loss using sparse Normalized Cross-Correlation helps preserve detail and stabilize learning. Error-driven density control allocates Gaussian capacity where needed and removes redundant primitives. A hybrid optimizer combines Hessian-informed updates with damping of Adam’s moments to improve convergence under the sparse training signal.",
+      "On standard benchmarks, TurboGS reports rendering quality comparable to or better than vanilla 3DGS within 100 seconds, with training speedups reaching tenfold. These are the reported experimental outcomes rather than fixed speed guarantees. The approach’s significance is coordinating pixel selection, structural supervision, model capacity, and optimization so that reducing computation does not require sacrificing fine reconstruction detail."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "80240a46df270a03aa6c65fba95cd85954a133f9797fa93958c19d8c3112a692",
+    "tldr": "TurboGS targets difficult pixels and adapts Gaussian capacity and optimization, reporting up to tenfold faster training with comparable or better rendering quality."
+  },
+  "icml-2026-two-calm-ends-and-the-wild-middle-a-geometric-picture-of-memorization-in-diffusion-model-504eadd6d8": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper investigates where memorization arises along a diffusion model’s noise schedule and how training-data geometry influences it. Its framework divides the schedule into three regimes using two objects: coverage of training data by Gaussian shells and concentration of the posterior distribution. The authors argue that their interaction helps explain the balance between memorization and generalization.",
+      "The analysis identifies medium noise as a danger zone where memorization is most pronounced. The two ends resist memorization for different reasons within this geometric picture. At small noise, training coverage is limited. At large noise, posterior concentration is low, and the authors prove that denoising can be described by behavior close to a linear Gaussian model.",
+      "For the middle regime, the paper identifies geometric conditions and proposes a targeted intervention informed by them that mitigates memorization. The significance is that memorization risk is uneven across noise levels. This provides a basis for focusing interventions on the part of the schedule where the framework identifies the greatest risk."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "77e8114baf3755bd37a2c4dc3ad6079aebe1041b92e003e8a94f47ed5a16efe2",
+    "tldr": "A geometric framework locates heightened diffusion-model memorization risk at medium noise levels and motivates a targeted mitigating intervention."
+  },
+  "icml-2026-universal-learning-of-nonlinear-dynamics-7e2bbe1587": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies predicting the next observation of an unknown nonlinear dynamical system from its observation history. The proposed algorithm uses spectral filtering to construct that mapping through a spectral representation of the system. The focus is on marginally stable dynamics, where the learning problem must accommodate modes whose effects can persist over time.",
+      "Using online convex optimization, the authors prove vanishing prediction error for nonexpansive nonlinear systems with finitely many marginally stable modes. The convergence rates depend on a new quantitative, control-theoretic notion of learnability. Thus, the scope of the result is tied to explicit properties of the system, and the rate reflects this proposed measure of how learnable its dynamics are.",
+      "A central technical contribution is an improved spectral-filtering algorithm for linear systems. It incorporates past observations, handles general noisy and marginally stable systems, and extends the original approach to asymmetric dynamics with noise correction. This linear-system component supports the nonlinear learning result while also providing a broader prediction method of independent interest."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3ee227b044b5d34b939c33e051354984d6bcba0bb61bff09b0edccb903694c93",
+    "tldr": "A spectral-filtering algorithm achieves vanishing prediction error for nonexpansive nonlinear systems with finitely many marginally stable modes."
+  }
+}

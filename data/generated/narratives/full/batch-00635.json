@@ -1,0 +1,327 @@
+{
+  "neurips-2022-accelerating-sparse-convolution-with-column-vector-wise-sparsity-f179a74e57": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Removing weights from a convolutional network can reduce its arithmetic workload without making it run faster. When the remaining weights are scattered irregularly, accessing them efficiently on a GPU becomes difficult. This paper addresses the gap between having fewer computations on paper and obtaining an actual reduction in execution time.",
+      "The proposed out-vector-wise sparsity pattern treats each vertical vector of weights as a single unit. This organization preserves continuous memory access in the IM2COL operation used for convolution. The authors also reorder channels through clustering so that similar rows sit together. This equivalent transformation helps reduce the error introduced when applying the structured sparsity pattern.",
+      "On ResNet50 running on an NVIDIA V100 at 75% sparsity, the method achieves 1.7 times the speed of the compared state-of-the-art solution and 3.2 times that of dense convolution, with negligible accuracy loss. It also begins providing speedups at 10% sparsity in the reported evaluation. These findings show the practical value of designing weight structure and execution software together."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ce36e367a5f73885bd65a8589b4981b54ed441537df1c3a45f67519edbde9931",
+    "tldr": "Organizing sparse convolution weights into vertical vectors produces practical GPU speedups while preserving accuracy in the reported evaluation."
+  },
+  "neurips-2022-an-algorithm-for-learning-switched-linear-dynamics-from-data-3cda35dec6": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A switched linear dynamical system describes behavior using several linear modes. Learning such a system means finding modes that fit observations within a chosen tolerance, even when those observations are noisy. The paper considers discrete-time systems observed through either their full state or their output, a setting relevant to robotics and cyber-physical systems.",
+      "The learning problem is NP-hard and closely related to fitting several linear regression models simultaneously. A direct mixed-integer linear programming formulation has time complexity that grows exponentially with the number of observations. The authors change the formulation and combine ideas from ellipsoidal convex optimization and separation oracles to obtain an algorithm whose dependence on dataset size is linear.",
+      "The computational difficulty does not disappear: the algorithm remains exponential in the number of state variables and requested modes. Its contribution is to move the unfavorable scaling away from the number of data points. Tests on microbenchmarks and real-world problems suggest that this change can offer practical benefits even against highly optimized mixed-integer solvers."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "404cb4a493b5c85f00a7834334856db46d10d2e13888bde514376b6e93158c4a",
+    "tldr": "A reformulation makes learning switched linear dynamics scale linearly with dataset size, while retaining exponential dependence on state dimension and mode count."
+  },
+  "neurips-2022-efficient-graph-similarity-computation-with-alignment-regularization-eaa446ff28": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies how to estimate graph similarity through graph edit distance. Existing neural approaches often compare individual nodes across a pair of graphs to capture detailed relationships. Those comparisons are expensive because the matching machinery operates during both training and inference, increasing the cost of learning and using the similarity model.",
+      "The authors replace that explicit matching component with Alignment Regularization. During training, this additional objective constrains the relationship between node representations and graph representations produced by the graph neural network. At inference, the model computes similarity directly from the learned graph representations. The regularizer has already shaped those representations and does not need to run again.",
+      "A further component, a multi-scale graph edit distance discriminator, strengthens the representations' expressive ability. Experiments on real-world datasets support the approach's effectiveness, efficiency, and transferability. The central finding is that useful fine-grained structural information can be encouraged during training without requiring an expensive node-to-node matching module every time two graphs are compared."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "75bf45fa015907f6705f10fa08966ca09dd0bc1a4bb5fe7f9b2dd83c83ed0ffb",
+    "tldr": "Training with alignment regularization enables efficient graph similarity prediction directly from graph representations, without inference-time node matching."
+  },
+  "neurips-2022-expectation-maximization-contrastive-learning-for-compact-video-and-language-representat-854a0c5236": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Video and language models commonly learn a shared representation space by bringing semantically related text and video features together. However, placing both modalities in one space does not necessarily remove the differences between their representations. This paper proposes Expectation-Maximization Contrastive Learning, or EMCL, to make that shared space more compact and semantically useful.",
+      "EMCL uses expectation-maximization to find a compact collection of basis elements. Video and text features are then expressed as linear combinations of those elements. This decomposition lowers the rank of the representation space. The intended benefit is to organize features around a smaller shared basis that better captures the semantic relationships needed for matching text with video.",
+      "Across three text-video retrieval benchmarks, the authors report more discriminative representations and improvements over previous state-of-the-art methods on every evaluated metric. EMCL can be incorporated as a layer trained jointly with an existing approach or used during inference without additional training. That flexibility makes the representation transformation usable both while building a model and when applying an existing one."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3e7b482cf524f758c8cbfbc83789030de6bd01f43f208168dbe567328063a4a5",
+    "tldr": "EMCL expresses video and text features through a compact shared basis, improving retrieval across three evaluated benchmarks."
+  },
+  "neurips-2022-eznas-evolving-zero-cost-proxies-for-neural-architecture-scoring-b7c0871899": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Neural architecture search can require training many candidate networks before choosing one, making the search computationally expensive. Zero-cost proxies instead inspect a network at initialization and assign a score intended to track its eventual accuracy. Designing those scoring rules by hand still requires repeated experimentation, and existing rules can transfer poorly between architecture search spaces.",
+      "EZNAS automates the discovery of these rules using genetic programming. Rather than relying on experts to manually construct and test each proxy, the framework searches for a scoring procedure. The authors report discovering an interpretable proxy that generalizes across the evaluated architecture spaces, addressing both the effort of proxy design and the portability of the resulting score.",
+      "The discovered proxy achieves state-of-the-art correlation between scores and accuracy across all evaluated datasets and search spaces in NASBench-201 and Network Design Spaces. This supports automated proxy discovery as a promising way to reduce the training burden of architecture evaluation. The broader prospect of proxies working across datasets, tasks, and architecture families remains a direction suggested by these findings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "798fb59cfea47bbc13a6227a6bcbe28b9adf8da4fd56a24b3f275e6e6ad33f05",
+    "tldr": "EZNAS uses genetic programming to discover interpretable architecture-scoring rules with strong accuracy correlation across the evaluated search spaces."
+  },
+  "neurips-2022-finite-sample-maximum-likelihood-estimation-of-location-8dbf5ac994": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper studies a basic estimation problem: each observation is an unknown numerical location plus random noise. The noise samples are independent, share the same distribution, and come from a known distribution. The goal is to estimate the common location from a finite collection of these noisy observations.",
+      "For a fixed noise distribution, classical maximum-likelihood theory describes what happens as the sample count becomes arbitrarily large. Its limiting variance matches a bound determined by Fisher information, a measure of how informative the distribution is about the location. That asymptotic benchmark does not directly hold for finite samples or when the noise distribution changes with the sample count.",
+      "The authors recover a similar theory for arbitrary noise distributions and sample counts by using the Fisher information of a smoothed distribution. The smoothing radius shrinks as more observations become available. This changes which version of the noise distribution supplies the information benchmark, providing a way to extend the classical perspective to settings where its limiting formulation does not apply."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7d9aa07551ccf42cbb39027c54352bbf520febff3095fc3a8d031ee60d98119e",
+    "tldr": "Using Fisher information from a smoothed noise distribution extends location-estimation theory beyond the classical infinite-sample setting."
+  },
+  "neurips-2022-generalised-implicit-neural-representations-54ed4ceb85": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Implicit neural representations describe signals through a learned neural function. In the usual Euclidean setting, training observations lie on a regular lattice and have coordinates identifying their locations. This paper asks how to learn such representations for signals on non-Euclidean domains when the underlying continuous space and a coordinate system are unavailable.",
+      "The authors assume that the observed graph is a discrete sample from an unknown topological space carrying a continuous signal. They use a spectral embedding of the graph to approximate the locations of sampled nodes. These graph-derived locations provide the inputs needed to train an implicit representation without first recovering or specifying the underlying continuous domain.",
+      "The resulting method also makes the representation independent of a chosen coordinate system. Experiments apply it to several real-world signals on non-Euclidean domains. The contribution is a route from graph observations to implicit signal representations under the stated sampling assumption, extending the approach to cases where ordinary spatial coordinates are not part of the available data."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "35d27369d84a2bd9f4630a5a1854650c28bf9c735c894be082473b6db7bf40f5",
+    "tldr": "Graph spectral embeddings enable implicit neural representations of signals whose underlying continuous domain and coordinates are unknown."
+  },
+  "neurips-2022-genie-higher-order-denoising-diffusion-solvers-1890cd0dd2": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Denoising diffusion models generate data by reversing a gradual corruption process. Generation involves solving a differential equation defined by a learned model, and the repeated solver steps can make high-quality synthesis slow. GENIE accelerates this computation with a higher-order numerical solver derived from truncated Taylor methods.",
+      "The solver uses higher-order information about the perturbed data distribution. In practice, the required quantities take the form of Jacobian-vector products, which the authors extract from the existing first-order score network through automatic differentiation. They then distill these quantities into an additional neural component, training only a small head on top of the score network so that generation can obtain the higher-order terms efficiently.",
+      "Across multiple image-generation benchmarks, the authors report that GENIE outperforms previous solvers. Its acceleration retains the original generative differential equation rather than fundamentally changing the generation process. That preservation also allows applications such as encoding and guided sampling. The contribution combines a more informative numerical update with a learned, inexpensive way to supply the information it requires."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e4d3a4763c3bf64135d019f217888d67dd38141b454f480b763b72a76f293f96",
+    "tldr": "GENIE accelerates diffusion sampling with a higher-order solver whose derivative information is efficiently supplied by a small learned head."
+  },
+  "neurips-2022-gpt3-int8-8-bit-matrix-multiplication-for-transformers-at-scale-5da676e906": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Large language models need substantial GPU memory during inference. This paper introduces an 8-bit matrix multiplication procedure for transformer feed-forward and attention projection layers that halves the required inference memory while retaining full-precision performance in the reported evaluations. It supports converting an existing checkpoint and using it immediately.",
+      "The method, called LLM.int8(), handles most features with vector-wise quantization, using a separate normalization constant for each inner product. However, certain systematic outlier features strongly influence attention and prediction. A mixed-precision decomposition isolates those feature dimensions for 16-bit multiplication, while more than 99.9% of values still participate in 8-bit multiplication.",
+      "Experiments demonstrate inference without performance degradation for models containing up to 175 billion parameters. The result shows why preserving a small but influential portion of the computation can make aggressive quantization practical at this scale. The authors identify deployment of OPT-175B or BLOOM on a single server with consumer GPUs as an accessibility benefit, and release software implementing the procedure."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ded7f71690fd900f77460e8040a1e9ac0e2d23d7330a1d38e734522892517f7f",
+    "tldr": "LLM.int8() halves inference memory by combining mostly 8-bit multiplication with 16-bit handling of influential outlier features."
+  },
+  "neurips-2022-graph-scattering-beyond-wavelet-shackles-96e03c8ae0": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper broadens the design of graph scattering networks beyond traditional graph-wavelet constructions. Its framework allows different branching ratios and a more general family of filters defined through functional calculus. The aim is to provide flexibility in architecture design together with mathematical tools for understanding how those architectures behave.",
+      "The authors establish stability guarantees for changes at both the node and graph levels, including changes that do not preserve the vertex set. They also examine how energy propagates through layers and connect this behavior to stability when the network is truncated. Additional results cover graph-level aggregation and extend the input types to edges and higher-order tensors.",
+      "Numerical investigations complement the theory. Suitably chosen networks within the framework outperform traditional graph-wavelet scattering methods on social-network classification tasks and significantly outperform other evaluated graph-based approaches on quantum-chemical energy regression using QM7. These findings show that the added design freedom can be useful in practice while remaining compatible with the framework's stability analysis."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "dca4b8a0ae264c27d1715b0bd4094d8ab3a8d12d21a1a993c4ae5afe9a4e29c7",
+    "tldr": "A broader graph scattering framework combines flexible filters and architectures with stability guarantees and strong results on evaluated graph tasks."
+  },
+  "neurips-2022-graphde-a-generative-framework-for-debiased-learning-and-out-of-distribution-detection-o-26d0fde47b": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Graph learning can encounter two related problems: unusual training examples can distort learning, and test graphs can come from unfamiliar domains. GraphDE treats training-data debiasing and out-of-distribution detection within one probabilistic framework. Its starting point is that assuming training and testing graphs follow the same distribution can be unreliable.",
+      "The framework models how graphs are generated and introduces an unobserved environment variable to characterize distribution shifts. A recognition model infers that environment during graph neural network training. By expressing the generative models as mixtures with two components, the authors obtain a tractable learning objective that links environment inference to the learning process.",
+      "The theoretical analysis justifies the model's ability to identify and reduce the influence of training outliers while also producing an out-of-distribution detector. Experiments across diverse datasets and different kinds of out-of-distribution data report consistent improvements over strong baselines on both tasks. The significance is that the same account of distribution differences supports both learning from imperfect training data and recognizing unfamiliar test data."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "bca05b6227301157814c25ed85e1b26bbc2ea1575f9b18b7e3d1b870dde9044b",
+    "tldr": "GraphDE uses a latent-environment generative model to down-weight graph training outliers and detect unfamiliar test graphs."
+  },
+  "neurips-2022-leco-learnable-episodic-count-for-task-specific-intrinsic-reward-b3e695b0fc": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Counting visits to states within an episode can encourage exploration when external rewards are sparse. However, large observations make counting difficult, irrelevant visual changes can distract the count, and resetting novelty each episode can encourage repeated visits to already familiar states. LECO makes this exploration signal both learnable and sensitive to the task.",
+      "Its intrinsic reward combines episodic novelty with a task-specific modulator. A vector-quantized variational autoencoder learns discrete state codes that support fast counting. The modulator then adjusts the novelty reward through learning aimed at improving the task's external reward. This gives the exploration mechanism a way to account for which novelty contributes to the objective.",
+      "The authors state that LECO enables an automatic transition from exploration to exploitation during learning. Experiments on difficult MiniGrid and DMLab tasks show successful exploration and scaling to large state spaces relative to previous exploration methods. The contribution connects efficient state counting with learned task relevance, addressing both the computational burden of novelty tracking and its usefulness for completing the task."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "fdee85e3be172744b248892521e1c6aff515397d6b562ae7de4e7b8e3662eb9b",
+    "tldr": "LECO combines learned discrete state counting with task-specific reward modulation to guide exploration and its transition toward exploitation."
+  },
+  "neurips-2022-matryoshka-representation-learning-d94f74b248": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A learned embedding may later serve tasks with very different resource budgets. A fixed representation size can therefore be unnecessarily large for one use and insufficient for another. Matryoshka Representation Learning addresses this mismatch by teaching a single embedding to encode information at multiple levels of granularity.",
+      "The resulting coarse-to-fine representations can adapt to downstream computational constraints. The method requires only small changes to existing representation-learning pipelines and adds no inference or deployment cost. The authors report that the learned representations are at least as accurate and information-rich as separately trained low-dimensional representations, making flexibility available within a single learned embedding.",
+      "Reported benefits include up to 14 times smaller embeddings at the same ImageNet-1K classification accuracy, up to 14 times faster large-scale retrieval, and up to 2% accuracy improvements in long-tail few-shot classification. These results retain the robustness of the original representations. Demonstrations span vision, language, and combined vision-language models, as well as web-scale datasets, supporting the method's applicability across several representation-learning settings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d5bd3b60d592f138cf67644073df901763f3a1eb3dafbce819cdf1a52e601a4d",
+    "tldr": "Matryoshka Representation Learning creates one flexible embedding that supports multiple representation sizes and downstream resource budgets."
+  },
+  "neurips-2022-micro-and-macro-level-graph-modeling-for-graph-variational-auto-encoders-da91476afe": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Graph generation involves both local decisions and overall structure. A local property might describe whether two nodes share a link, while a global statistic might count recurring structural motifs. These levels are often analyzed separately. This paper proposes treating them as mutually reinforcing information when training a graph generator.",
+      "The authors introduce a micro-macro objective that combines losses for node-level properties with losses for graph-level statistics. They apply it to GraphVAE, a model that represents each graph through graph-level latent variables. This changes the training signal so that the generator is evaluated on both detailed relationships and aggregate structural characteristics.",
+      "Across five benchmark datasets, adding the objective improves graph quality scores by up to two orders of magnitude while preserving GraphVAE's generation-speed advantage. The model is positioned for medium-sized graphs, where GraphVAE offers fast training and generation. The findings support jointly supervising local and global structure as a way to improve generated graphs without giving up the underlying model's speed benefits."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "096633f4b40c26ae0d0486d1b1937be4cb6ab775d81308e860106032b1270442",
+    "tldr": "Jointly training GraphVAE on local graph properties and global statistics improves reported graph quality while preserving fast generation."
+  },
+  "neurips-2022-off-policy-evaluation-with-deficient-support-using-side-information-0510e1c784": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Off-policy evaluation estimates how a new decision policy would perform using data collected by another policy. This is useful when direct testing is costly or risky. A common technique, inverse propensity scoring, is unbiased under full support: the data-collecting policy must give every action a nonzero probability. When some actions are never selected, that guarantee generally fails.",
+      "The paper considers two estimators for this deficient-support setting. One adapts an estimator developed for another domain; the other is newly proposed. Both use additional information about actions to help estimate outcomes for actions unsupported by the logged data. The extra information supplies a basis for inference where direct observations are unavailable.",
+      "The authors prove unbiasedness under alternative assumptions that do not require full support. They also analyze concentration when relaxing the assumptions and compare the estimators experimentally with baselines. The reported results favor the proposed approaches in deficient-support settings. Their contribution is a conditional route to reliable evaluation using side information, with the assumptions explicitly replacing the usual coverage requirement."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "005fda942b2e5981dc2af337fbdf746d2af55c3dc155984dba9e48526585fab3",
+    "tldr": "Two estimators use action side information to support off-policy evaluation without full action coverage, with unbiasedness under alternative assumptions."
+  },
+  "neurips-2022-personalized-federated-learning-towards-communication-efficiency-robustness-and-fairness-03c3ac2657": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Personalized federated learning must balance shared learning with the needs of individual devices. It also faces communication expense, adversarial interference during training, and uneven performance across participants. This paper develops a method aimed at improving all three aspects through the relationship between a reference model and personalized local models.",
+      "When communication occurs, the method projects local models into a low-dimensional random subspace that is shared and fixed. It uses an optimization construction called infimal convolution to control the difference between the reference model and those projected local models. The projection reduces the dimension of the communicated model representation, while the deviation control governs its connection to personalization.",
+      "The authors establish convergence for smooth objectives with square regularizers and show that its dependence on projection dimension is mild. Robustness and fairness benefits are illustrated for a class of linear problems. Extensive experiments report improvements over several state-of-the-art methods across communication efficiency, robustness, and fairness. The theoretical statements therefore have specified settings, while the experiments provide broader empirical support for the three objectives."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "198df5d3b3cc97de8487311e0c2438680803eb1b548c997703bcb32df311ed5a",
+    "tldr": "A shared low-dimensional projection and controlled model deviation improve communication, robustness, and fairness in evaluated personalized federated learning settings."
+  },
+  "neurips-2022-posterior-refinement-improves-sample-efficiency-in-bayesian-neural-networks-c4dc577074": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Bayesian neural networks commonly approximate predictions by drawing samples from an approximate posterior and averaging their contributions. Drawing many samples can still yield poor predictions if the posterior approximation itself is inaccurate. This paper experimentally examines that source of error, emphasizing the quality of the sampled distribution as a key factor in predictive performance.",
+      "The authors propose refining Gaussian posterior approximations with normalizing flows. These transformations make the existing approximation more flexible. Applied to last-layer Bayesian neural networks, the approach becomes a post hoc procedure for improving an already available parametric approximation, with a design intended to be simple and computationally economical.",
+      "The resulting posterior approximation is reported to be competitive with full-batch Hamiltonian Monte Carlo, used as a demanding reference method. The finding matters because it directs effort toward improving what Monte Carlo sampling draws from, rather than relying only on additional samples. In the stated last-layer setting, refinement offers a practical route to better predictive approximations without requiring the expensive alternatives discussed in the paper."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "72563d73ae2bdf3a2167030734180518e814c4dfcffed46e0ff48393e0878e38",
+    "tldr": "Normalizing-flow refinement improves Gaussian posterior approximations for last-layer Bayesian neural networks, yielding results competitive with full-batch Hamiltonian Monte Carlo."
+  },
+  "neurips-2022-provably-adversarially-robust-detection-of-out-of-distribution-data-almost-for-free-1533094923": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A classifier can make highly confident predictions on inputs outside its training distribution. Training it to lower confidence on unfamiliar data does not necessarily solve the problem: an attacker can modify those inputs to restore high confidence. This paper investigates detection that remains reliable under adversarial manipulation of out-of-distribution data.",
+      "The authors show that better-adapted attacks break two previously published defenses. This motivates guarantees around unfamiliar inputs, beyond empirical resistance to particular attacks. They then construct a classifier that can combine provably robust out-of-distribution detection with high accuracy on clean data, addressing the training difficulty and accuracy restrictions associated with an existing guaranteed approach.",
+      "A small architectural modification additionally provides a proof that the classifier avoids the asymptotic overconfidence problem of standard neural networks. These are related but distinct contributions: resisting adversarial manipulation around out-of-distribution data and avoiding a problematic limiting confidence behavior. Together, they show that the stated robustness properties can coexist with strong clean-data classification, rather than requiring the accuracy compromise described for the earlier method."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "724ad869cef4360a5377e9422f945e427e641cb5faa4b877075fa126c50c0512",
+    "tldr": "The paper constructs a classifier combining provably adversarially robust out-of-distribution detection with high clean accuracy and an architectural remedy for asymptotic overconfidence."
+  },
+  "neurips-2022-prune-and-distill-similar-reformatting-of-image-information-along-rat-visual-cortex-and--2ffe1fa909": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper compares how visual information changes as it passes through convolutional neural networks and the rat visual cortex. Rather than considering only object-recognition performance, the authors investigate statistical patterns in internal representations. They look for patterns previously observed in one system within the other, seeking shared principles of information processing.",
+      "In the rat counterpart of the ventral visual stream, object representations show two phases of expansion and contraction in intrinsic dimensionality. This matches a pattern previously found in convolutional networks. In the other direction, the authors find that network training distills and actively prunes low- to middle-level image information in individual units as representations develop invariant discrimination.",
+      "The network findings agree with earlier observations in rat visual cortex, including a relationship between pruning and increasing intrinsic dimensionality. Taken together, the results suggest a shared connection between changes in representational dimensionality and the reorganization of image information. They support a similarity in how the two systems transform representations, without establishing that their underlying mechanisms are identical."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "bb6b01a2d75405ec8f110c91a377e75a58508f246f61d6ba5720150afee0c179",
+    "tldr": "Rat visual cortex and convolutional networks exhibit similar relationships between representational dimensionality and the pruning and distillation of image information."
+  },
+  "neurips-2022-scalable-multi-agent-covering-option-discovery-based-on-kronecker-graphs-c81eaaa511": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Covering options support exploration by connecting distant states identified through the structure of a state-transition graph. Extending this idea to multiple agents is difficult because the joint state space grows exponentially with the number of agents. Applying single-agent discovery methods can become prohibitively expensive or fail to discover genuinely collaborative exploration behaviors.",
+      "The authors approximate the joint state space using a Kronecker graph. This allows them to estimate its Fiedler vector, which supplies the relevant embedding, from the Laplacian spectra of individual agents' transition graphs. The approach therefore discovers joint options while retaining a decomposition into information about individual agents.",
+      "For settings with infinite-scale state spaces, directly computing those spectra is also intractable. The paper adds a deep-learning extension that estimates eigenfunctions using neural representations. Evaluations on multi-agent tasks built with simulators including MuJoCo show successful discovery of multi-agent options and significant improvements over the compared state of the art. The main contribution is a scalable approximation that preserves the goal of coordinated exploration."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5721fc2cd190c9a9747b1090a4e0587d4df610bc9a2fba0d40defe4635730bf7",
+    "tldr": "A Kronecker-graph approximation enables collaborative exploration-option discovery from individual agents' transition structures."
+  },
+  "neurips-2022-self-similarity-priors-neural-collages-as-differentiable-fractal-representations-2888753545": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Self-similar patterns can be described compactly through transformations that refer back to the pattern itself. This paper investigates how learning can automatically discover such structure and make it useful for compression and generation. The proposed representation, called a Neural Collage, stores data through the parameters of a structured, self-referential transformation.",
+      "Finding a suitable transformation could otherwise be a costly part of constructing the representation. Neural Collages use hypernetworks to predict the transformation parameters in a single forward pass. Learning therefore amortizes the parameter-search cost, making the self-similarity representation much faster to obtain when processing data.",
+      "For image compression, the authors report encoding speeds orders of magnitude faster than other self-similarity-based algorithms, together with compression rates competitive with implicit methods. They also demonstrate fractal-art applications and deep generative models. These results connect a compact representational idea with a learned mechanism for producing it efficiently, showing that self-similarity can support several downstream uses rather than serving only as a descriptive property of patterns."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d7a904f7c65424c4ce331016904795b374c8bcbfba14880387a2c537876f1907",
+    "tldr": "Neural Collages learn self-referential representations with fast parameter prediction, supporting image compression, fractal art, and generation."
+  },
+  "neurips-2022-spectral-bias-outside-the-training-set-for-deep-networks-in-the-kernel-regime-6c2fb2b356": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies how a finite neural network trained on a finite dataset compares with idealized learning dynamics at infinite width and infinite data. It derives quantitative bounds on the difference between their evolving functions. The comparison concerns behavior across the input space, extending beyond agreement at the observed training examples.",
+      "The bounds imply a preference for learning the leading eigenfunctions of the Neural Tangent Kernel throughout that space. This preference depends on the architecture and input distribution, rather than on the target function. The target also need not belong to the kernel's associated reproducing kernel Hilbert space. The results cover deep networks with fully connected, convolutional, and residual layers.",
+      "High-probability bounds hold up to a stopping time without requiring width to grow polynomially with sample count. The proof uses the low effective rank of the Fisher Information Matrix at initialization, which gives a model dimension much smaller than its parameter count. This identifies local effective dimension as an informative tool for analyzing capacity and learning behavior in the kernel regime."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2d3b11b706d6a70353c75728c2fb9447f4fe2c0bfa9189de9009a49f6a57bfaf",
+    "tldr": "Finite-network bounds show a preference for leading kernel eigenfunctions across the input space, with guarantees up to a stopping time."
+  },
+  "neurips-2022-the-nature-of-temporal-difference-errors-in-multi-step-distributional-reinforcement-lear-f23a74b7d3": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Distributional reinforcement learning models a distribution of returns, rather than only a value summarizing them. This paper studies learning from multiple steps of experience collected off-policy. Although this resembles multi-step value-based learning, the authors find fundamental differences in how the learning errors must be formulated.",
+      "The central contribution is a path-dependent distributional temporal-difference error. The paper identifies this dependence on the trajectory as indispensable for a principled multi-step treatment. It also has consequences for backward-view algorithms, changing how ideas from ordinary value-based learning carry over. The authors provide the first theoretical guarantees for multi-step off-policy distributional algorithms, including results applicable to some existing approaches.",
+      "They additionally derive Quantile Regression-Retrace and use it to construct the deep reinforcement-learning agent QR-DQN-Retrace. On Atari-57, this agent empirically improves over QR-DQN. The theory and experiment serve complementary purposes: the analysis clarifies what a valid multi-step distributional update requires, while the new agent demonstrates that addressing the distinction can improve performance in a substantial benchmark setting."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9bf3a0bd4a431f1eb3f58fc27a73da4d778d45533784f1399bf4a60cd2a86351",
+    "tldr": "Path-dependent distributional temporal-difference errors underpin new multi-step off-policy guarantees and a Retrace-based agent that improves on QR-DQN in Atari-57."
+  },
+  "neurips-2022-the-unreliability-of-explanations-in-few-shot-prompting-for-textual-reasoning-7a67ff9214": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper tests whether adding explanations to example prompts improves language models' reasoning over text. The study covers question answering and natural language inference, using four models, three datasets, and several explanation styles. For OPT, GPT-3 davinci, and text-davinci-001, the gains are small to moderate; text-davinci-002 benefits more substantially.",
+      "The authors also examine whether generated explanations actually support the associated answers. They find that explanations can fail to entail the prediction or remain grounded in the input, even when explanations simply extract text. An explanation accompanying an answer therefore cannot automatically be treated as reliable evidence that the answer follows from the supplied information.",
+      "Nevertheless, explanation quality carries useful information. Across the three settings, explanations that people judge logically consistent with the input and prediction more often accompany correct answers. The authors train calibrators using automatically extracted explanation-reliability scores and improve performance after prediction across all evaluated datasets. Thus, explanations show value as signals for checking predictions even when their generation is itself unreliable."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e6869af42d159d0c5a6b659f9d1bd3b3bc4f92f59d8786917376698173dca437",
+    "tldr": "Explanations offer model-dependent prompting gains and can be unreliable, yet their assessed quality helps improve prediction calibration."
+  },
+  "neurips-2022-tsetlin-machine-for-solving-contextual-bandit-problems-126b4fe31e": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A contextual bandit chooses among available actions using information about the current context. This paper introduces a learner based on Tsetlin Machines, which represent patterns using propositional Boolean logic. The aim is to make action selection interpretable while keeping the underlying computation straightforward through bit manipulation.",
+      "The authors develop a mechanism for Thompson sampling with this non-parametric learner. This supplies the action-selection procedure needed to use a Tsetlin Machine in the bandit setting. Because the learned patterns take the form of propositional expressions, the model also provides a concrete way to examine how contextual conditions influence the choice of an arm.",
+      "In the empirical comparison, the Tsetlin Machine base learner outperforms other popular base learners on eight of nine datasets. The paper separately investigates interpretability by analyzing the expressions behind arm selection. Together, these results support Boolean-rule learning as a competitive basis for contextual bandits in the evaluated settings, with decisions that can be inspected through the same logical structure used to make them."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0988ba97fd7a1ec51ffa2f1fcb9a12e9174c0a4037423391498b9330f38a4aaa",
+    "tldr": "A Boolean-logic contextual bandit learner supports interpretable action selection and outperforms compared base learners on eight of nine datasets."
+  }
+}

@@ -1,0 +1,327 @@
+{
+  "icml-2025-a-rescaling-invariant-lipschitz-bound-based-on-path-metrics-for-modern-relu-network-para-6ce98a54cc": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Changing a neural network’s weights can change its predictions, so bounds on that sensitivity help justify pruning, quantization, and generalization guarantees. For ReLU networks, however, neuron-wise rescaling creates different weight representations of the same function. Existing parameter-space bounds can change under this symmetry, making their guarantees depend on how an otherwise equivalent network is represented.",
+      "The paper proves a Lipschitz inequality using an ℓ¹ path metric of the weights. This measures weight changes through network paths and respects the rescaling symmetry. The result covers ReLU networks organized as directed acyclic graphs, including combinations of convolutions, skip connections, pooling, and frozen inference-time batch normalization. The bound strictly sharpens prior parameter-space bounds and requires two forward passes to compute.",
+      "The authors also derive a pruning criterion from the bound. In a proof-of-concept experiment with an ImageNet-trained ResNet-18, it matches classical magnitude pruning while remaining immune to arbitrary neuron-wise rescaling. This illustrates how a symmetry-respecting guarantee can support a practical compression decision."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "82028ed3234318d4f8dfa8d78bfe1d51af1a7d6db9f70ed1faf14e3b97922c22",
+    "tldr": "A new sensitivity bound respects ReLU rescaling symmetries and supports pruning that is unaffected by equivalent weight rescalings."
+  },
+  "icml-2025-adasplash-adaptive-sparse-flash-attention-be91339800": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Long-context attention is expensive, and adaptive sparsity offers a way to concentrate attention on a data-dependent subset of tokens. The α-entmax transformation provides this behavior, but existing implementations do not efficiently turn its sparsity into lower runtime or memory use. AdaSplash addresses that implementation gap by combining a faster transformation algorithm with GPU kernels designed for sparse attention.",
+      "The first component is a hybrid Halley-bisection algorithm that reduces the number of iterations needed to compute α-entmax sevenfold. The second is a set of custom Triton kernels that handle adaptive sparsity efficiently. These contributions address both the calculation of attention weights and the execution machinery needed to benefit from their sparse structure.",
+      "Experiments cover RoBERTa and ModernBERT for text classification and single-vector retrieval, plus GPT-2 for language modeling. AdaSplash substantially improves runtime and memory efficiency over existing α-entmax implementations. It approaches, and sometimes exceeds, the efficiency of optimized softmax implementations such as FlashAttention-2, supporting long-context training while retaining strong task performance."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a7e36c4d5675ffb766f76fdda2172cc46de705f7aeb3cc4add4a33ca57bd106d",
+    "tldr": "AdaSplash makes adaptive sparse attention substantially more efficient through a faster α-entmax algorithm and specialized GPU kernels."
+  },
+  "icml-2025-boosting-adversarial-robustness-with-clat-criticality-leveraged-adversarial-training-5df28168be": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Adversarial training aims to make neural networks withstand deliberately challenging inputs. Updating every trainable parameter can nevertheless produce adversarial overfitting and increase errors on ordinary, clean data. This paper investigates a more selective approach: identifying the parts of a network most relevant to robustness and concentrating fine-tuning on those parameters.",
+      "CLAT uses layer criticality to make that selection. The authors identify robustness-critical layers as those predominantly learning non-robust features, then fine-tune fewer parameters in those layers while holding the rest of the model fixed. Selection is dynamic: as layer criticality changes during training, the algorithm adapts which layers receive updates. This makes the choice of trainable parameters part of the training process itself.",
+      "The empirical results show that CLAT can work with existing adversarial training methods and mitigate adversarial overfitting. The authors report improvements of over 2% in clean accuracy and adversarial robustness relative to baseline approaches. These findings support selective, adaptive fine-tuning as a way to improve both ordinary prediction performance and resistance to adversarial inputs."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0ced74d7c8ebe3ee710bafcace79882080275f86fc874273f18ab715edcb9f92",
+    "tldr": "CLAT dynamically fine-tunes robustness-critical layers to reduce adversarial overfitting and improve clean accuracy and adversarial robustness."
+  },
+  "icml-2025-cacti-leveraging-copy-masking-and-contextual-information-to-improve-tabular-data-imputat-d662d7b118": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Filling missing entries in a table requires learning how its features relate. CACTI adds two sources of guidance to that task: the patterns in which values are missing and the meanings conveyed by column names and text descriptions. Its central idea is that both the observed missingness structure and dataset-specific context can help a model reconstruct absent values.",
+      "The method uses masked autoencoding with a training strategy called median truncated copy masking. This encourages learning from empirical missingness patterns. Alongside that training signal, semantic information about features helps represent their dependencies. Together, the two sources provide inductive biases that guide the model toward relationships relevant to the particular table.",
+      "Across diverse datasets and missingness conditions, CACTI reports an average R² gain of 7.8% over the next best method. The reported gains are 13.4% for missing-not-at-random data, 6.1% for missing-at-random data, and 5.3% for completely random missingness. These results support incorporating contextual information and observed missingness patterns into imputation, with the largest stated improvement occurring under nonrandom missingness."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "dc326b3dfe9c95c34eabeb9f9269eb0eee05b5d7a03af3e940d9ea35dd91020b",
+    "tldr": "CACTI improves tabular imputation by learning from missingness patterns and the semantic context of table features."
+  },
+  "icml-2025-calibrated-physics-informed-uncertainty-quantification-371c1e2684": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Neural models can approximate solutions to partial differential equations much faster than traditional numerical solvers, but their uncertainty estimates remain a barrier to critical applications. This paper introduces a model-agnostic conformal prediction framework that uses physical equations to calibrate uncertainty without requiring labeled examples of correct solutions.",
+      "The framework measures how much a model’s predictions disagree with the governing physics. It uses convolutional layers as finite-difference stencils to calculate physics residuals, then uses those residual errors as nonconformity scores for calibration. The quantity being calibrated is therefore inconsistency with physical laws, rather than uncertainty arising from the data. This distinction defines what the resulting estimates describe.",
+      "The authors provide marginal and joint coverage guarantees across prediction domains for a range of complex PDEs. These address coverage at individual locations and collectively across the domain. They also validate the method on neural PDE models used for plasma modeling and fusion-reactor shot design. The contribution is a route to physics-based uncertainty calibration when labeled solution data are unavailable."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6fbe20230b6d3234a476c472f6f6f6ffbbbbaa20a5d6aa46cdb8c1f42534545e",
+    "tldr": "A physics-informed conformal prediction framework calibrates neural PDE models’ physical inconsistencies without labeled solution data."
+  },
+  "icml-2025-detecting-strategic-deception-with-linear-probes-2f7e1d61d3": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A model behaving deceptively may still produce an outwardly harmless answer, which makes output-only monitoring insufficient. This paper tests whether linear probes can detect deception from internal model activations. The aim is to find a signal that transfers from simple training situations to more realistic deceptive behavior.",
+      "The authors evaluate two probe-training datasets: one contrasts instructions to act honestly or deceptively, and the other uses responses to simple roleplaying scenarios. They then test generalization in settings where Llama-3.3-70B-Instruct conceals insider trading or deliberately underperforms on safety evaluations. This separates the situations used to train the detector from the more realistic scenarios used to assess it.",
+      "On the evaluation datasets, the probe distinguishes honest from deceptive responses with AUROCs between 0.96 and 0.999. With a threshold set to a 1% false-positive rate on unrelated chat data, it detects 95–99% of deceptive responses. The authors view these results as promising for internal monitoring, while explicitly judging current performance insufficient for a robust defense against deception."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e34e4fbfb52c87173161df212570d0facc1a8a0ab427e51eeac9c218eb5f296d",
+    "tldr": "Linear probes detect most deceptive responses in the tested settings, but the authors do not consider them a robust defense."
+  },
+  "icml-2025-ecomapper-generative-modeling-for-climate-aware-satellite-imagery-bfc426339f": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Satellite images support environmental monitoring and climate assessment, but connecting them with climate records remains difficult. EcoMapper addresses this by pairing 2.9 million Sentinel-2 images with climate information across 15 land-cover types. This dataset provides the basis for generating imagery conditioned on environmental context, linking image synthesis to forecasting and scenario-analysis needs.",
+      "The paper develops two approaches using fine-tuned Stable Diffusion 3 models. The first generates satellite images from text prompts containing climate and land-cover details for particular regions. The second uses ControlNet to accept multiple conditions while preserving spatial structures. It supports mapping climate data into imagery and generating image sequences that simulate landscape evolution.",
+      "These approaches offer complementary forms of control: textual descriptions specify environmental conditions, while structural conditioning helps retain the spatial organization of a scene. The stated contribution is realistic synthetic imagery connected to climate and land-cover information. Such imagery can provide inputs for environmental forecasting and open possibilities for climate adaptation and geospatial analysis."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "85b4dda835e90c24477255274f57445a3cd747c09268bfbbf6502cde0d70cee3",
+    "tldr": "EcoMapper pairs satellite imagery with climate records and trains generative models to create environmentally conditioned images and landscape sequences."
+  },
+  "icml-2025-efficient-time-series-processing-for-transformers-and-state-space-models-through-token-m-d35b00731e": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Long time series remain computationally demanding even with subquadratic attention or state-space models. This paper investigates token merging for time-series analysis in both transformers and state-space models. The approach reduces the sequence-processing burden by combining selected tokens, adapting an efficiency technique previously used in computer vision to the structure of temporal data.",
+      "The proposed local merging algorithm combines tokens within a neighborhood. Its computational complexity can range from quadratic to linear depending on neighborhood size, providing a way to scale the merging operation to long sequences. The authors also introduce a causal merging scheme, which enables use in transformer decoders where processing must respect temporal ordering.",
+      "A further contribution identifies spectral properties of the input that predict when local merging is likely to help, without first evaluating downstream tasks. Across the empirical evaluation, the method delivers substantial efficiency gains with minimal effects on accuracy. The authors report up to 5400% acceleration on Chronos, illustrating the potential benefit for a time-series foundation model."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "cac896f977ff76efc5f88b65ebc6bbffc8813df9211745e5082bd86f8b409332",
+    "tldr": "Local token merging accelerates time-series models while preserving causal processing and showing minimal accuracy impact in the reported evaluation."
+  },
+  "icml-2025-expressive-score-based-priors-for-distribution-matching-with-geometry-preserving-regular-dc9421fab7": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Distribution matching learns representations whose distributions align across domains, supporting applications such as fair classification and domain adaptation. Existing approaches face different obstacles: nonparametric methods can be difficult to scale, adversarial methods can be unstable, and likelihood-based methods can impose restrictive fixed priors or require difficult explicit density models.",
+      "This paper builds likelihood-based distribution matching around an expressive score-based prior. Its key observation is that gradient-based training needs the prior’s score function, which describes how its log density changes, rather than an explicit density value. The prior can therefore be learned through denoising score matching without constructing a full density model.",
+      "Learning the prior removes the bias introduced by choosing a fixed prior and allows geometry-preserving regularization to work more effectively. The authors also report better stability and computational efficiency than other diffusion-based priors, including LSGM, and superior performance across multiple tasks. The approach thus connects flexible distribution matching with preservation of representation geometry while avoiding explicit prior-density training."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5753f08d2f55da483a8f06174d4f96e7346df120259d8d85779b6305f1f90108",
+    "tldr": "Learning a prior’s score function enables flexible distribution matching without fixed-prior bias or an explicit prior-density model."
+  },
+  "icml-2025-fast-inference-with-kronecker-sparse-matrices-d532589da7": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Kronecker-sparse matrices have structured nonzero patterns that support efficient model designs, including Butterfly and Monarch matrices. Their theoretical structure does not automatically translate into fast GPU execution. Existing kernels can spend up to half their time on memory-bound tensor permutations, making data rearrangement a major obstacle to realizing the promised efficiency.",
+      "The paper introduces a fused, output-stationary GPU kernel that eliminates these permutation overheads and reduces global memory traffic threefold. The design targets the movement of data during matrix multiplication. A simple heuristic based on the parameters of the sparsity pattern predicts when the new kernel will outperform existing alternatives.",
+      "Across 600 Kronecker-sparse patterns in FP32, the kernel achieves a median speedup of 1.4 times and reduces energy consumption by 15%. The authors also provide a PyTorch-compatible KSLinear layer and demonstrate end-to-end FP32 latency reductions of up to 22% in ViT-S/16 and 16% in GPT-2 medium. These results connect lower-level memory savings to practical model inference improvements."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c005fdd90070937989cf2ef551291510042d65748dc6d96692f6e9aedd8132c8",
+    "tldr": "A fused GPU kernel reduces data movement in Kronecker-sparse multiplication and improves measured model inference latency."
+  },
+  "icml-2025-fully-dynamic-euclidean-bi-chromatic-matching-in-sublinear-update-time-9c99411f57": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Euclidean bichromatic matching pairs points from two groups while seeking a low total matching cost. In a dynamic setting, points can be inserted or deleted, so the solution must be maintained as the underlying data change. This matters for applications such as estimating Wasserstein distance between distributions and monitoring how those distributions drift over time.",
+      "The paper presents the first fully dynamic algorithm for this problem with sublinear update time. For any fixed positive ε, it provides an O(1/ε) approximation with O(n^ε) time per update. The parameter exposes a tradeoff between the approximation guarantee and the exponent governing update cost; choosing ε below one gives the stated sublinear dependence on problem size.",
+      "Experiments on real and synthetic datasets show that the algorithm can effectively monitor distributional drift through Wasserstein distance. The reported runtime exceeds baseline approximation methods by orders of magnitude in speed. The contribution combines a theoretical update guarantee with evidence that maintaining an approximate matching can make changing distributions substantially cheaper to track."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "bb3327c887833acf7f1d7ddea3c5a8320676f68b2587de55a15104a5982fe188",
+    "tldr": "A fully dynamic approximate matching algorithm supports sublinear updates and fast Wasserstein-based distribution-drift monitoring."
+  },
+  "icml-2025-great-models-think-alike-and-this-undermines-ai-oversight-1215567745": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Using language models to evaluate and supervise other models could ease the burden of human oversight. This paper studies a potential weakness in that arrangement: models may make similar mistakes. The authors introduce Chance Adjusted Probabilistic Agreement, or CAPA, to measure model similarity through overlap in their errors.",
+      "With this metric, they find that language-model judges favor models similar to themselves. The effect extends beyond a judge preferring its own outputs. They also examine learning from model-generated annotations, finding that complementary knowledge between a weaker supervisor and a stronger student plays a crucial role in weak-to-strong generalization gains. What the supervisor knows differently therefore matters alongside its overall capability.",
+      "The study observes that mistakes become more similar as model capabilities increase. At the same time, more capable models can be harder for humans to assess, encouraging greater reliance on automated oversight. This combination points to correlated-failure risks. The findings motivate reporting and correcting for model similarity when evaluating judges or choosing models to provide supervision."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9deb1139b1b05f0b625fd37e6f11cb1d696877ab6506a24c1d71f6edd7fab45b",
+    "tldr": "Shared mistakes can bias model-based judging and weaken supervision, making model similarity an important factor in AI oversight."
+  },
+  "icml-2025-human-body-restoration-with-one-step-diffusion-model-and-a-new-benchmark-ef4609d19f": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Restoring images of human bodies is a practical image-restoration problem, but dedicated research has been constrained by a shortage of benchmark data. This paper addresses both the data problem and the restoration model. It introduces an automated process for building a human-image dataset and a one-step diffusion approach for restoring low-quality human images.",
+      "The high-quality automated cropping and filtering pipeline draws on existing object-detection datasets and other unlabeled images. It selects and crops high-quality human imagery to construct PERSONA, with training, validation, and test splits. The authors report that PERSONA substantially exceeds other human-related datasets in image quality and content richness, providing a broader basis for restoration research.",
+      "The proposed OSDHuman model uses a high-fidelity image embedder to generate its conditioning prompt from the low-quality input. This guides restoration using information from the actual image and helps avoid misleading prompts. Experiments show better visual quality and quantitative results than existing methods. Together, the dataset and model contribute a benchmark foundation and an improved restoration approach."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "af406c00bc43467839e9e34f4de9e51d90b5eb0344e23eb79960f51bfba3d0e1",
+    "tldr": "PERSONA supplies a richer human-restoration benchmark, while OSDHuman uses image-derived guidance for improved one-step diffusion restoration."
+  },
+  "icml-2025-improving-the-continuity-of-goal-achievement-ability-via-policy-self-regularization-for--64bec5418e": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A goal-conditioned reinforcement-learning policy may achieve one goal yet struggle with a nearby goal. This discontinuity makes competence uneven across the space of desired outcomes. The paper studies how training can make success transfer more smoothly between adjacent goals, using successful trajectories or policies as a starting point.",
+      "The theoretical analysis finds that reusing those successes can help with neighboring goals, but the difference between their policies needs careful control. Differences that are too small or too large can both hurt performance. The authors therefore propose margin-based policy self-regularization, which adjusts discrepancies between policies for adjacent desired goals toward a minimal acceptable threshold.",
+      "The approach can be incorporated into established algorithms, including GC-SAC, HER, and GC-PPO. Evaluations cover two robotic-arm control tasks and a complex fixed-wing aircraft control task. The reported results show significantly more continuous goal-achievement ability and improved overall performance. The central contribution is a way to manage relationships between neighboring goal policies while retaining the underlying reinforcement-learning algorithm."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d9c70c43abb8ebe5983814057aab8859df416694cf6e213f73d077be1d74f649",
+    "tldr": "Margin-based policy self-regularization improves success across neighboring goals by controlling how much their policies differ."
+  },
+  "icml-2025-kernel-based-unsupervised-embedding-alignment-for-enhanced-visual-representation-in-visi-ae98424341": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Vision-language models such as CLIP connect image representations with text, but their limited perception of fine visual details can cause failures in downstream multimodal models. Vision-focused models such as DINOv2 capture those details more effectively. This paper develops a way to improve CLIP’s visual representations using DINOv2 while preserving the connection to CLIP’s text representations.",
+      "The method uses a kernel-based alignment objective designed for efficient stochastic optimization. Fine-tuning relies only on images and aligns the visual encoder with DINOv2’s representations. The text encoder stays frozen. Maintaining compatibility with that unchanged encoder is central: the improved visual representation can continue to participate in the model’s existing image-text comparison system.",
+      "After alignment, the authors report significant gains in zero-shot object recognition, fine-grained spatial reasoning, and localization. Downstream multimodal language models also improve when they incorporate the aligned visual encoder. The results support transferring perceptual strengths from a vision-centric model into a vision-language model without losing the latter’s established compatibility with text."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f55986d94306265b95aea4f98167a3776209ef068d4aa7da7248eb6a7837006c",
+    "tldr": "Image-only alignment with DINOv2 improves CLIP’s fine-grained perception while preserving compatibility with its frozen text encoder."
+  },
+  "icml-2025-latent-preference-coding-aligning-large-language-models-via-discrete-latent-codes-8772c553d6": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Human preferences can combine several factors that vary across tasks and populations, sometimes pulling in conflicting directions. The paper argues that preference modeling through an explicit or implicit reward function can overlook this complexity. Latent Preference Coding, or LPC, represents the hidden factors behind overall preferences and their combinations using discrete latent codes.",
+      "LPC learns those factors and their importance from data, without requiring predefined reward functions or manually selected combination weights. It integrates with offline alignment algorithms, making the preference representation an additional component of existing training methods. The intent is to capture structure within preference judgments that would otherwise remain implicit.",
+      "Across multiple benchmarks, LPC consistently improves DPO, SimPO, and IPO using Mistral-7B, Llama3-8B, and Llama3-Instruct-8B. Further analysis finds that its learned codes capture differences in human preference distributions and substantially improve robustness to noisy data. These findings suggest that explicitly representing hidden preference factors can make alignment more adaptable to varied judgments and more resilient when training preferences are noisy."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5e025919c8d825ff2619f79aee2ae65c106eaf19a0fbf0ba2390fb9e98402fee",
+    "tldr": "LPC learns discrete codes for hidden preference factors, improving several alignment algorithms and their robustness to noisy preference data."
+  },
+  "icml-2025-learning-safe-strategies-for-value-maximizing-buyers-in-uniform-price-auctions-f28787d979": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies a buyer repeatedly bidding for multiple units in uniform-price auctions. The buyer wants to maximize cumulative value while meeting a return-on-investment constraint in every round. Bids consist of m price-quantity pairs. The authors define a strategy as safe when it satisfies the constraint regardless of competing bids.",
+      "They show that safe strategies depend only on the buyer’s valuation curve and that a finite subset suffices without loss of generality. Although this subset grows exponentially with m, their learning algorithm runs in polynomial time. It achieves sublinear regret relative to a benchmark that knows competing bids in advance and chooses the best fixed safe strategy in hindsight.",
+      "The analysis also compares against stronger benchmarks allowed to choose from richer strategy classes. A richness ratio α determines an approximate sublinear-regret guarantee in those comparisons, making the benchmark restriction explicit. Experiments using semi-synthetic data from real auctions show safe strategies performing substantially better than the theoretical bounds, supporting their practical appeal under per-round investment constraints."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9d9f23f8375628d94a89e075344ffc23289dd0a265e23ffd71533f1550d7475b",
+    "tldr": "A polynomial-time learner finds safe auction-bidding strategies with regret guarantees while satisfying return-on-investment constraints in every round."
+  },
+  "icml-2025-masked-generative-nested-transformers-with-decode-time-scaling-859a5f9ef9": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Many visual-generation methods repeatedly run a transformer to produce tokens or denoise inputs. Using the same model size throughout makes inference expensive, even though different parts of generation may not need equal computation. This paper changes how computation is allocated during decoding to reduce that repeated processing cost.",
+      "The method combines a schedule for scaling model size at decode time with caching and reuse of intermediate computations. Smaller models process more tokens, while larger models process fewer. These differently sized models share parameters, so introducing multiple operating sizes does not increase parameter count. The design adjusts both the amount of model computation and how much prior work can be reused.",
+      "Experiments on ImageNet at 256 by 256 resolution, UCF101, and Kinetics600 cover image generation, video generation, and frame prediction. The proposed method achieves competitive performance using almost three times less compute than the baseline. The result supports varying model capacity within generation as a useful way to improve computational efficiency while retaining competitive output performance."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c984628cdc09e335666cbf95ebec1e429fccc2cedb06d2ac99c80920ff387ac2",
+    "tldr": "Shared-parameter models of different sizes and cached computation deliver competitive visual generation with almost three times less compute."
+  },
+  "icml-2025-outlier-aware-post-training-quantization-for-discrete-graph-diffusion-models-267e67b40a": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Discrete graph diffusion models generate graphs while preserving sparsity and structural integrity, but their many computations make inference expensive. Their bottleneck differs from that of large language models: relatively small parameter counts leave computation, rather than loading large weights, as the main issue. Quantization methods for image diffusion also do not transfer straightforwardly because the diffusion processes differ.",
+      "Bit-DGDM is a post-training quantization framework designed for these models. It separates activation outliers using adaptively selected, data-free thresholds, retaining those sparse outliers in full precision while quantizing the remaining activations. For weights, it combines a low-rank component intended to accelerate inference with an α-sparse matrix that represents outliers.",
+      "These two mechanisms preserve exceptional values separately while reducing the cost of the remaining computation and storage. Experiments report memory reductions of up to 2.8 times relative to FP32 and speedups of up to 2.5 times. The framework also maintains comparable performance at precision as low as 4 bits, demonstrating benefits from quantization tailored to graph diffusion."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "25de38e0b95f90718508a3ba39ead1b72a063734a1da5adb14b0bc94e165769c",
+    "tldr": "Bit-DGDM handles outliers separately to accelerate and compress discrete graph diffusion models while retaining comparable performance at low precision."
+  },
+  "icml-2025-phantomwiki-on-demand-datasets-for-reasoning-and-retrieval-evaluation-9d341c4586": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A benchmark can become less informative if its contents leak into a model’s training data, inflating apparent reasoning or retrieval ability. PhantomWiki addresses this problem with a pipeline that creates a fresh evaluation instance on demand. Each instance contains a unique document collection with internally consistent facts and a varied set of questions and answers.",
+      "The generated collections are not drawn from an existing dataset. Instead, the pipeline constructs the material needed for each evaluation. It separately varies question difficulty and corpus size to help distinguish reasoning demands from retrieval demands. This gives evaluators a way to examine how performance changes as answering becomes more complex or the information collection becomes larger.",
+      "The authors find that these generated evaluations are surprisingly challenging for frontier language models. The contribution is a scalable, leakage-resistant framework for assessing reasoning, retrieval, and tool use through newly generated tasks. Its value lies both in refreshing benchmark content and in providing controls that help disentangle different capabilities within the same evaluation framework."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6eb8a4ad599c92602291a327d1b97b489e33d0b41fada2c86c0562bd52a03c1d",
+    "tldr": "PhantomWiki generates fresh, consistent document collections and questions to evaluate reasoning and retrieval with reduced data-leakage risk."
+  },
+  "icml-2025-r3dm-enabling-role-discovery-and-diversity-through-dynamics-models-in-multi-agent-reinfo-4c04572662": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Assigning different roles can help reinforcement-learning agents coordinate on complex tasks. Existing role-based methods derive roles from agents’ past experience during training, but overlook how those roles influence future behavior. R3DM starts from the idea that a useful role should both reflect experience and shape what an agent goes on to do.",
+      "The framework connects roles, observed trajectories, and expected future behaviors through a mutual-information objective. It first uses contrastive learning on past trajectories to obtain intermediate roles. Those roles then shape intrinsic rewards, while a learned dynamics model helps promote different future behaviors across roles. This links role discovery to the behavioral diversity needed for coordination.",
+      "Tests on SMAC and SMACv2 show R3DM outperforming state-of-the-art multi-agent reinforcement-learning approaches, with win-rate increases of up to 20%. The reported improvement supports incorporating expected future behavior into role learning. The contribution is a training framework in which roles actively guide agents toward distinct behaviors, giving the team a stronger basis for coordinated action."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "28b7bc4197ffa09707253fae9a57a7d6a41700cf3f41b7ba71b3076f81f13b25",
+    "tldr": "R3DM learns agent roles that connect past experience to diverse future behaviors, improving coordination on SMAC benchmarks."
+  },
+  "icml-2025-scaling-laws-for-task-optimized-models-of-the-primate-visual-ventral-stream-1332eb8b65": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Neural networks trained for object classification can resemble primate visual behavior and neural responses. This paper asks whether increasing model size, data, and computation improves both kinds of resemblance. The authors systematically evaluate more than 600 models trained under controlled conditions, using benchmarks for V1, V2, V4, IT, and behavior.",
+      "They find a separation between behavioral and neural alignment. Behavioral alignment continues to improve with larger models, while neural alignment saturates. This pattern holds across the architectures and datasets studied. Stronger architectural inductive biases and higher-quality training images improve compute efficiency, but do not remove the observed saturation. Scaling is particularly helpful for higher-level visual areas, where small models trained on few samples align poorly.",
+      "The results distinguish matching recognition behavior from matching the brain activity supporting it. The authors suggest that scaling current architectures and datasets might suffice for human core object-recognition behavior, while further improving models of the visual ventral stream requires new strategies. The conclusion concerns the limits of the studied scaling approach to neural alignment."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d79fd9c8b902cc49854fc649e507dbf62979a94671bd53f3b7bc885652ed3851",
+    "tldr": "Across more than 600 models, scaling improves alignment with visual behavior while alignment with neural responses saturates."
+  },
+  "icml-2025-shield-multi-task-multi-distribution-vehicle-routing-solver-with-sparsity-and-hierarchy-df43b7136b": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A unified vehicle-routing model must handle different routing rules as well as different customer distributions. The paper argues that recent models addressing multiple routing tasks overlook the complexity of real-world customer layouts. It introduces a multi-task, multi-distribution setting and develops SHIELD to learn across both sources of variation.",
+      "SHIELD combines a deeper decoder with Mixture-of-Depths, allowing nodes to dynamically use or skip individual decoder layers. This allocates computation adaptively while supporting representations shared across tasks and distributions or specific to particular ones. A context-based clustering layer adds hierarchical structure, helping the network form better local representations of routing problems.",
+      "Together, these design choices encourage the model to identify features that transfer across tasks and customer distributions. The authors report improved generalization to unseen ones, along with efficiency benefits from sparse computation. Experiments on nine real-world maps, each with sixteen vehicle-routing variants, demonstrate superiority over existing methods. The approach addresses unified routing through both selective computation and hierarchical representation learning."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "243b83bfd08df6a91f2283cd354d4a6dec4d3a50752371416b494dcc5b281af9",
+    "tldr": "SHIELD combines adaptive decoder depth and contextual clustering to improve routing across task variants and customer distributions."
+  },
+  "icml-2025-sort-before-you-prune-improved-worst-case-guarantees-of-the-diskann-family-of-graphs-7f7a21471a": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Graph-based approximate nearest-neighbor search is widely used because it can search large collections efficiently, but its practical success has outpaced worst-case theory. Earlier analysis used α-reachable graphs to show that DiskANN supports a particular approximation guarantee with polylogarithmic query time under simple best-first search. This paper strengthens and extends that theoretical account.",
+      "The authors introduce sorted α-reachable graphs and use their structure to improve DiskANN’s approximation factor in Euclidean metrics from (α+1)/(α−1) to α/(α−1). A smaller factor gives a tighter worst-case bound on how far the returned result may be from the true nearest neighbor. The Euclidean setting is part of this stronger guarantee.",
+      "The paper also provides the first worst-case theoretical analysis of beam search for these graphs, addressing the practical search procedure used to seek more than one candidate neighbor. Empirical results support the significance of sorted α-reachability and align with the theory. Together, the contributions tighten the guarantee and extend analysis toward a commonly used search algorithm."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1ff1e741f0721ceadc2ec84cff65e49bb429e35f87990dc401650d4a8da65d40",
+    "tldr": "Sorted α-reachable graphs yield a tighter Euclidean approximation bound for DiskANN and enable worst-case analysis of beam search."
+  },
+  "icml-2025-the-role-of-sparsity-for-length-generalization-in-llms-77e122f202": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Length generalization means predicting successfully beyond the context lengths encountered during training. This paper studies that behavior for next-token prediction in decoder-only transformers. Its central theoretical insight is a sufficient condition: generalization can occur when each predicted token depends on only a small, fixed number of earlier tokens.",
+      "The authors formalize this structure using k-sparse planted correlation distributions. They show that an idealized transformer model with generalized attention heads length-generalizes on such tasks. The framework also supplies theoretical justification for positional-embedding modifications such as position coupling. Experiments on synthetic tasks and natural language support sparse token dependencies as a key factor in length generalization.",
+      "Building on the theory, the paper introduces Predictive Position Coupling. This trains the transformer to predict the position identifiers used by a position-coupling approach, broadening the set of tasks where that technique can successfully support longer contexts. The contribution connects a structured theoretical condition with an empirical finding and a practical modification to positional information, without making sparsity a necessary condition for every form of length generalization."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a547d755a2dbf6392180564afd1b512b0ad7cbf0155091527df3d9ed587a3244",
+    "tldr": "Sparse token dependencies provide a theoretical route to length generalization and motivate a learned extension of position coupling."
+  }
+}

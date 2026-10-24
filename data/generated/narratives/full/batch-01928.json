@@ -1,0 +1,343 @@
+{
+  "icml-2026-a-recipe-for-scalable-attention-based-ml-potentials-unlocking-long-range-accuracy-with-a-770d19c628": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Models that predict atomic energies and forces must capture interactions between atoms that can be far apart. This becomes particularly challenging in larger systems such as biomolecules and electrolytes. AllScAIP addresses this problem with an energy-conserving model whose all-to-all attention lets every atomic node exchange information with every other node.",
+      "The approach learns long-range interactions from data, and its training scales to roughly 100 million samples. The authors examine how architectural choices behave as training data and model size grow. Physics-based structural assumptions improve sample efficiency for smaller models and datasets, but those benefits diminish or sometimes reverse at larger scales. All-to-all attention remains important for long-range accuracy in these comparisons.",
+      "AllScAIP achieves leading energy and force accuracy on OMol25 and competitive results on OMat24 and OC20. It also supports stable molecular dynamics simulations over long timescales that recover experimental quantities, including density and heat of vaporization. These findings connect prediction accuracy with useful simulation behavior and support attention as a scalable approach to learning atomic interactions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "fbace51bb4d0b2b4740573c4dedd5c8242f54ce46950c295aec9b59b00d114a9",
+    "tldr": "AllScAIP uses all-to-all attention to learn long-range atomic interactions, achieving strong prediction accuracy and stable molecular simulations at scale."
+  },
+  "icml-2026-accuracy-first-renyi-differential-privacy-and-post-processing-immunity-265dd3e97e": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Accuracy-first differential privacy lets an analyst adjust the stated privacy bound while pursuing a desired level of accuracy. This flexibility raises a foundational question: does the guarantee survive further processing of the released information? The paper examines this property, called post-processing immunity, across existing accuracy-first definitions.",
+      "Among the existing definitions considered, the authors find that only pure ex-post privacy has this protection. However, that definition lacks useful practical tools, including an analogue of the Gaussian mechanism and a procedure for checking accuracy on a separate private validation dataset. These gaps make it difficult to turn the protected definition into an operational accuracy-driven workflow.",
+      "The authors introduce a definition based on Rényi differential privacy that retains post-processing immunity, together with supporting theory and tools. In synthetic data generation and image classifier fine-tuning, their algorithm adjusts the privacy bound until it reaches an accuracy threshold on private validation data. The contribution combines adaptive privacy accounting with protection that remains valid after subsequent processing."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "80e04e7676a41bef8411fc9724cda4cb60ec0c7641b5ee96403c7b5fe9bd1992",
+    "tldr": "A new accuracy-first Rényi privacy definition supports adaptive privacy bounds while preserving protection under post-processing."
+  },
+  "icml-2026-can-muon-fine-tune-adam-pretrained-models-3bceaa2252": {
+    "backgroundConcepts": [
+      "topic-094-textit-trans-lora-towards-data-free-transferable"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "An optimizer that works well for pretraining may behave differently when adapting a model trained with another optimizer. This paper studies switching from Adam pretraining to Muon fine-tuning. Controlled experiments connect the resulting performance degradation to the different implicit biases of the two optimizers: their updates favor different kinds of solutions.",
+      "The authors provide evidence that this mismatch disrupts knowledge acquired during pretraining, with stronger updates associated with greater disruption. They therefore hypothesize that restricting updates can reduce the problem. They investigate this through LoRA, which constrains adaptation through low-rank updates, and compare the Adam–Muon performance gap with the gap observed during full fine-tuning.",
+      "Across language and vision tasks, LoRA reduces that gap. Further studies involving LoRA rank, catastrophic forgetting, and LoRA variants support the relationship between update strength and mismatch severity. The results suggest a practical route for using Muon on Adam-pretrained models, while establishing mitigation rather than claiming that constrained adaptation always removes the mismatch."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7327a8a628e93e778eaf378898542032642bc61b2c85b59721c78a742b77a60d",
+    "tldr": "LoRA reduces the performance penalty from switching Adam-pretrained models to Muon fine-tuning by constraining adaptation updates."
+  },
+  "icml-2026-causal-identification-from-counterfactual-data-completeness-and-bounding-results-51dfe4c815": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Counterfactual identification asks whether available evidence uniquely determines an answer to a what-if question. Earlier completeness results focused on observational and interventional data. Building on work showing that some counterfactual distributions can be estimated experimentally, this paper asks what additional counterfactual questions become answerable when those distributions are available as inputs.",
+      "The authors develop ctfIDu+, an algorithm that accepts an arbitrary collection of counterfactual distributions, and prove its completeness for identification. This establishes the boundary of what the available inputs can determine exactly within the stated setting. Applying the result to physically realizable counterfactual data characterizes the limits of exact causal inference without imposing a parametric model.",
+      "Exact identification is not the only benefit of the additional data. For important quantities that remain non-identifiable, the authors derive analytic bounds that are provably tighter than the previous benchmark. Simulations also show that counterfactual data can narrow the range of possible answers. The paper thus distinguishes gaining a unique answer from gaining a more informative range."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6ed85fcffce72f3c81fc7768b7a10e74ba59160c3bc2560fd358602d7646398e",
+    "tldr": "A complete identification algorithm establishes what counterfactual data can determine exactly and helps tighten bounds when exact answers remain unavailable."
+  },
+  "icml-2026-curegot-a-gpu-accelerated-solver-for-entropic-regularized-optimal-transport-4efc44efc9": {
+    "backgroundConcepts": [
+      "topic-161-s-3-increasing-gpu-utilization-during-generative"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Optimal transport is useful in machine learning, but solving large problems can be expensive. The widely used Sinkhorn algorithm maps well onto parallel hardware yet can converge slowly on difficult cases. A sparse-plus-low-rank quasi-Newton approach offers a promising balance between convergence speed and work per iteration, but its computational structure creates GPU bottlenecks.",
+      "cuRegOT addresses those bottlenecks for entropic-regularized optimal transport. Its optimizations include spreading the cost of sparse matrix symbolic analysis across computations, generating Sinkhorn iterates asynchronously, and combining gradient calculations into a fused kernel. These changes target serial CPU work and inefficient memory access, which can prevent a mathematically efficient method from benefiting fully from GPU parallelism.",
+      "The authors provide theoretical convergence guarantees alongside these implementation changes. Across a variety of benchmark tasks, numerical experiments show substantial speedups over leading GPU solvers. The contribution therefore concerns both the optimization method and its execution: faster convergence becomes practically useful when the surrounding computation is organized to suit the hardware."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "716aa600614666fe0858c7293d2eace1b7440d9af0d0d89f4ad06e2a8e58bc8f",
+    "tldr": "cuRegOT combines optimization and GPU execution improvements to accelerate entropic optimal transport while retaining convergence guarantees."
+  },
+  "icml-2026-dag-a-dual-correlation-network-for-time-series-forecasting-with-exogenous-variables-6227e7e379": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Forecasting can use both a target series and external variables that provide additional predictive information. DAG focuses on incorporating those external variables, including their future values, into predictions of the target. Its starting point is that useful information lies in relationships across time and across variables, so both dimensions deserve explicit modeling.",
+      "The architecture has a Temporal Correlation Module and a Channel Correlation Module. Each separates discovering relationships from injecting them into forecasting. The discovery components capture how historical external variables relate to future external variables and to historical target variables, respectively. This gives the model two complementary ways to organize the information supplied alongside the target series.",
+      "The injection components then use those relationships when predicting future target values from target history and future external inputs. The contribution described is this structured forecasting design: correlations are explicitly discovered and incorporated into prediction. Future external values are part of the proposed information flow, making their use central to understanding how DAG constructs a forecast."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ba63a9485ae0c48dca79f8f8ef70430738381ee1cf193b39954926c5e0bc8a14",
+    "tldr": "DAG forecasts target series by discovering and injecting temporal and cross-variable relationships involving historical and future external inputs."
+  },
+  "icml-2026-g-2-rpo-geometric-grpo-escaping-llms-reasoning-ruts-to-break-the-accuracyentropy-trade-o-24c67651ec": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Reasoning models can become more concentrated on a few successful strategies during reinforcement learning. This paper analyzes that loss of diversity by representing GRPO training as movement among probability distributions over reasoning modes. Under a mode-based grouping of generated solutions, the analysis shows competition among correct modes that pushes the distribution toward a single dominant mode.",
+      "G²RPO changes this movement through the advantages used in training. It adds bonuses inversely related to a mode's probability, giving underrepresented correct strategies additional support. The authors interpret this intervention geometrically and explain how its potential performance side effects can be mitigated, aiming to preserve multiple successful strategies while improving accuracy.",
+      "In experiments with 7B and 14B models on mathematical reasoning, GRPO loses up to 57% of active correct modes. G²RPO increases active correct-mode coverage by 172%–205%, prevents the observed late entropy collapse, and improves pass@1 by 1.4–7.9 points relative to GRPO on AIME 2024/2025. These results support controlling the distribution of correct strategies as a useful training objective."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "caefc1a0858707eeda1f1810559dd5e757130f1686e11fcb554b39be1f7bfc87",
+    "tldr": "G²RPO rewards underrepresented correct reasoning strategies, improving both their coverage and answer accuracy in the reported math experiments."
+  },
+  "icml-2026-hypole-hyperproperty-guided-multi-agent-reinforcement-learning-under-partial-observation-ff24eaf9bf": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Multi-agent reinforcement learning must coordinate agents whose observations may reveal only part of their environment. HyPOLE explores guiding this learning with formal specifications. The motivation is to express objectives, constraints, and tactics in a mathematically precise language, giving the learning process more explicit guidance about the behaviors it should achieve.",
+      "The framework uses hyperproperties, expressed through the temporal logic HyperLTL, as its specification language. It combines this guidance with centralized training for decentralized execution. In this arrangement, training is organized centrally while the resulting policies are intended for agents acting separately under partial observation. Formal objectives and the training arrangement are therefore integrated into a single policy-learning framework.",
+      "Evaluations on SMAC, MessySMAC, and WildFire show clear advantages over the compared baselines. These findings support the usefulness of expressive formal guidance in the tested multi-agent settings. The contribution is a way to bring specification-driven learning into partially observed coordination problems, extending an approach whose benefits have been less explored in multi-agent reinforcement learning."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b891b8ccf844177c0914ad93acd6ded1f78e7852a34eb1b75b83d7fe3599349d",
+    "tldr": "HyPOLE combines HyperLTL specifications with centralized training to learn decentralized policies under partial observation."
+  },
+  "icml-2026-interpretability-and-generalization-bounds-for-learning-spatial-physics-5d2afc47c0": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A learned physical solution can look convincing while still being quantitatively inaccurate. This paper uses numerical analysis to study certain machine-learning models applied to linear differential equations, covering both parameter discovery and solution finding. It derives accuracy estimates, convergence rates, and generalization bounds to make performance assessable beyond visual resemblance.",
+      "The analysis identifies the function space containing the data as a crucial factor in generalization, alongside data quantity and discretization. A mismatch can lead to divergence, and experiments show related generalization failures in commonly used models. Different model classes can even exhibit opposing generalization behavior, so conclusions about one class need not transfer directly to another.",
+      "The authors also develop an interpretability approach that extracts Green's function representations from black-box model weights. This connects learned parameters to a mathematical representation of the physical system. Their theory informs a new cross-validation technique for measuring generalization in physical problems, offering both a diagnostic method and a potential benchmark for evaluating future scientific learning methods."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "991a7da5b3a2e45df1f6bd2c6b3ac4a1fb8e38be6f71505908a106abb3a529ef",
+    "tldr": "Numerical analysis reveals how data function spaces affect learned physics and provides generalization bounds and a Green's-function interpretability method."
+  },
+  "icml-2026-language-generation-with-replay-a-learning-theoretic-view-of-model-collapse-6d09dc6921": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Generated text can return as input to later learning, raising concerns about degradation known as model collapse. This paper studies that feedback through a formal language-generation framework. It introduces a replay adversary that adds a generator's own previous outputs to the stream of examples the generator receives.",
+      "The analysis distinguishes several formal notions of successful generation and asks how replay changes what can be achieved. Replay is benign for the strongest notion, uniform generation. For weaker notions, non-uniform generation and generation in the limit, the authors prove separations showing that replay can fundamentally restrict generation. The effect therefore depends on the precise success criterion being studied.",
+      "The positive results resemble practical defenses such as cleaning data, marking generated material, and filtering outputs. The separation results also identify circumstances in the framework where such ideas can fail. This provides a learning-theoretic account of feedback from generated data, clarifying when replay preserves generation possibilities and when it changes the underlying limits."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "eaee9665d48a03bb6a043dd0316dc4e2c10ba6c8a59b0c1af12571646a1dbf98",
+    "tldr": "A theoretical replay model shows that reusing generated outputs can limit some forms of language generation while leaving uniform generation unaffected."
+  },
+  "icml-2026-learning-long-range-spatio-temporal-representations-over-continuous-time-dynamic-graphs--98d7466943": {
+    "backgroundConcepts": [
+      "topic-058-amag-additive-multiplicative-and-adaptive-graph-"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Continuous-time dynamic graphs describe relationships that evolve through time. Learning useful representations requires remembering earlier events while also capturing connections beyond an immediate neighborhood. This paper develops CTDG-SSM, a parameter-efficient state-space framework designed to handle both long temporal histories and broader graph structure.",
+      "Its central construction is CTT-HiPPO, a topology-aware memory formulation. The authors project the classical HiPPO solution through a polynomial of the graph Laplacian, incorporating graph structure into the memory updates. Those updates admit an equivalent state-space representation. A zero-order hold discretization then turns the continuous-time formulation into a computationally efficient model that can be implemented.",
+      "Across benchmarks for dynamic link prediction, dynamic node classification, and sequence classification, CTDG-SSM achieves leading performance. The reported gains are especially large on datasets demanding long-range temporal and spatial reasoning. These findings support the value of designing memory around both when information arrived and how nodes are connected, rather than limiting representation learning to local temporal neighborhoods."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2b336906a6aae9a0f837f3f7411396e97a55ef73299955a89ad46e0d4107a47d",
+    "tldr": "CTDG-SSM combines topology-aware memory with state-space modeling to capture long-range temporal and structural information in evolving graphs."
+  },
+  "icml-2026-less-is-more-in-federated-continual-learning-rieselect-for-conflict-aware-layer-selectio-eedf2fd083": {
+    "backgroundConcepts": [
+      "topic-083-online-continual-learning-from-imbalanced-data"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Continually updating language models across edge devices requires balancing communication, learning new tasks, and retaining earlier knowledge. The authors observe that uploading more layers eventually stops improving overall performance: gains in adaptation saturate while forgetting increases. They also find that conflict is concentrated in a small number of layers, making indiscriminate additional uploads particularly costly.",
+      "RieSelect uses this finding to choose which layers to communicate. It represents stability as remaining in a safe region around historical solutions, measured using the Fisher metric. Under that constraint, it derives layer-specific conflict scores and certified safe step sizes for finite local updates. Layer selection becomes a knapsack problem that balances learning utility against stability risk within a communication budget.",
+      "Under matched per-round upload budgets, RieSelect performs best across the tested task orders. Under standard communication protocols, it improves average accuracy by 18.99–28.14 points while reducing total uploads by factors of 53–115. The results show how selective communication can improve knowledge retention as well as reduce transmission demands."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5c69884fc0bdb532b5a104cf85461b8db4b19c01be90894f9525e3846daff601",
+    "tldr": "RieSelect selects model layers for upload by balancing adaptation gains against forgetting risk, improving continual learning while sharply reducing communication."
+  },
+  "icml-2026-protein-autoregressive-modeling-via-multiscale-structure-generation-8dd3ed20c6": {
+    "backgroundConcepts": [
+      "topic-075-a-3d-generative-model-for-structure-based-drug-d"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "PAR generates protein backbones through successive levels of structural detail. It first forms a coarse topology and then refines that structure across scales. This makes the next prediction a finer-scale representation of the protein, using the hierarchy of protein structure to organize the generation process.",
+      "Three components support the approach. Downsampling provides multiscale structural representations during training; an autoregressive transformer encodes those representations and produces conditioning embeddings; and a flow-based decoder generates backbone atoms from the embeddings. The authors also address exposure bias, where generation encounters contexts that differ from training contexts. Noisy context learning and scheduled sampling alleviate this mismatch and improve generation robustness.",
+      "PAR supports human-prompted conditional generation and motif scaffolding without fine-tuning, demonstrating strong zero-shot generalization in the reported tasks. On unconditional generation, it produces backbones of high design quality and shows favorable scaling behavior. Together, these findings suggest that coarse-to-fine autoregressive generation can serve as a flexible framework for producing protein structures under different kinds of guidance."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2dbe592e5eb7eb123dee6d4443ce4f5d0663dd8f5c533003a8faf84872571c17",
+    "tldr": "PAR generates protein backbones from coarse topology to fine detail and supports conditional generation and motif scaffolding without fine-tuning."
+  },
+  "icml-2026-rate-or-fate-rlv-varepsilon-r-reinforcement-learning-with-verifiable-noisy-rewards-f04fd469a0": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Reinforcement learning with verifiable rewards depends on judgments that may themselves be wrong. Incomplete tests or noisy judges can accept incorrect answers and reject correct ones. This paper asks when those errors only slow improvement and when they reverse its direction, causing training to favor incorrect reasoning.",
+      "The authors model GRPO-style learning as competition among recurring reasoning modes and derive a mean-field flow for their probabilities. The evolution separates competition among correct modes from changes in the total probability of incorrect modes. In this model, the direction of the latter change depends solely on Youden's index: the true-positive rate minus the false-positive rate.",
+      "A positive index drives incorrect probability toward extinction; zero produces neutral dynamics; and a negative index lets incorrect modes dominate. In the positive regime, noise primarily changes convergence time. Programming experiments with synthetic verifier noise reproduce the predicted zero boundary. The result gives a sharp condition within the analyzed model for distinguishing slower learning from systematic reinforcement of errors."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d2a51f0674c845b4f2b9053806124aa6be3b100c12634139c02a38631c57fd3e",
+    "tldr": "In the paper's model, verifier noise slows learning when true positives exceed false positives and reverses learning when the inequality flips."
+  },
+  "icml-2026-robust-filter-attention-self-attention-as-precision-weighted-state-estimation-7f45250e86": {
+    "backgroundConcepts": [
+      "topic-086-a-capacity-based-rationale-for-multi-head-attent"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Robust Filter Attention treats tokens as noisy observations of an underlying trajectory. That trajectory follows a linear stochastic differential equation, giving the model an explicit account of how hidden state evolves. Attention weights reflect whether observations are consistent with this dynamical account, making state estimation the organizing principle for combining token information.",
+      "This formulation also connects attention to uncertainty. Under isotropic noise and decay assumptions, its computational complexity matches standard attention. Those assumptions are part of the stated efficiency result. The framework further interprets familiar positional mechanisms dynamically, linking rotational embeddings and preferences for recent tokens to transport and the propagation of uncertainty.",
+      "On language-modeling benchmarks, RFA achieves lower perplexity than RoPE within the training window and remains stable when applied to longer contexts without additional training. These findings combine an empirical modeling result with a conceptual contribution: positional behavior and attention weighting can be understood through a shared model of evolving state and noisy observations."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a5fed484372ebe8746eaeeaebd71abf2fe1ff31f23bee9f604239e4c7d4cc02f",
+    "tldr": "Robust Filter Attention uses dynamical consistency to weight tokens, improving reported language-model perplexity and remaining stable on longer contexts."
+  },
+  "icml-2026-scaling-benchmarking-and-reasoning-of-vision-language-agents-for-mobile-gui-navigation-6511b46aef": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies how vision-language agents learn to navigate mobile graphical interfaces, focusing on data scale, training methods, and evaluation. It introduces HyperTrack, containing more than 16,000 real-world tasks across over 650 Chinese mobile applications. It also provides GUIEvalKit, an open-source toolkit for consistent offline navigation benchmarking.",
+      "Using HyperTrack, the authors examine how increasing training data affects supervised and reinforcement-based fine-tuning. Reinforcement-based fine-tuning consistently performs better in their experiments, with particularly strong advantages outside the training domain. The findings highlight a useful interaction between larger training datasets and reinforcement learning for the navigation tasks studied.",
+      "The toolkit also supports comparisons among leading vision-language models and analysis of how interaction history and reasoning capabilities affect task completion. These components make the work both an empirical study and an evaluation resource. Its contribution is a common basis for studying training choices and agent behavior across a broad collection of mobile applications, with the reported benchmarking conducted in an offline setting."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a7d08bfcdd7328ed4f985664d130e54acece99e82ce8e1922c62c2d864512388",
+    "tldr": "HyperTrack and GUIEvalKit support mobile-agent evaluation and show reinforcement-based fine-tuning outperforming supervised fine-tuning, especially out of domain."
+  },
+  "icml-2026-scoremix-synthetic-data-generation-by-score-composition-in-diffusion-models-improves-rec-e7e3bfebbf": {
+    "backgroundConcepts": [
+      "topic-203-automated-synthetic-to-real-generalization"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "ScoreMix creates synthetic training augmentations using class-conditioned diffusion models without requiring external foundation models or datasets. Its motivation includes settings such as face recognition, where access to external resources can face policy or legal constraints. The method aims to generate challenging, domain-specific examples using resources within the augmentation setup.",
+      "It mixes class-conditioned scores along the reverse diffusion process. The authors examine which classes should be combined and find that selecting classes far apart in a discriminator's embedding space provides larger gains than choosing nearby classes. This strategy yields up to 3% additional average improvement across benchmarks relative to proximity-based selection.",
+      "The study also finds that the learned conditioning space and embedding space are largely uncorrelated under standard alignment measures; conditioning-space distances weakly predict downstream gains. Across eight public face-recognition benchmarks, ScoreMix improves accuracy by up to seven percentage points without hyperparameter search. The findings show that both score composition and the space used to choose class combinations matter for useful augmentation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "861e51ff48bea106bb08f4c429a52fa9b8ec39c8b810a39440dd8d8b2f7b2304",
+    "tldr": "ScoreMix mixes diffusion scores to create self-contained augmentations, improving face recognition by up to seven percentage points."
+  },
+  "icml-2026-small-generalizable-prompt-predictive-models-can-steer-efficient-rl-post-training-of-lar-c8ced5e5f4": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Reinforcement learning for reasoning models consumes substantial computation generating and evaluating candidate answers. Generalizable Predictive Prompt Selection, or GPS, aims to spend that effort on informative prompts. It addresses a tension in existing selection methods: exact prompt evaluation can be expensive, while predictors tied to individual prompts do not transfer well across prompts.",
+      "GPS trains a lightweight generative model on shared optimization history and uses Bayesian inference to estimate prompt difficulty. Its batch-selection principle favors intermediate difficulty while maintaining diversity anchored in that history. The predictor therefore helps choose training batches using information accumulated across optimization, instead of requiring each prompt to be assessed entirely independently.",
+      "The small model also generalizes at test time, where it helps allocate computation efficiently. Across varied reasoning benchmarks, the authors report substantial improvements in training efficiency, final performance, and test-time efficiency over the compared baselines. The central finding is that a compact model of prompt difficulty can guide computational decisions at both training and inference stages."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9678399020b59a509a4dd21ec5578e443b7fa4ddc34ad7ca4b0b2a3ad28b0c2d",
+    "tldr": "GPS uses a small transferable difficulty predictor to select informative training prompts and allocate test-time computation."
+  },
+  "icml-2026-stt-llm-structural-temporal-tokenization-for-adapting-llms-to-longitudinal-clinical-prof-1d9721c999": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Longitudinal clinical profiles contain both changes over time and relationships among biological measurements. In sports anti-doping, both kinds of information matter for detecting unusual biological patterns and supporting early detection of prohibited substance use. STT-LLM studies how to represent these profiles for language models without changing their backbone architectures.",
+      "The framework builds biologically grounded structural-temporal embeddings and converts them into tokens compatible with an LLM. Specialized tokenizers explicitly encode pathway structure and temporal evolution. This places the adaptation in the representation of the clinical input, so the model receives tokens designed to preserve relationships that matter for analyzing biological profiles.",
+      "On real-world longitudinal athlete datasets, STT-LLM consistently improves sequence prediction and anomaly detection compared with native LLM tokenization. A case study also finds contextual reasoning more closely aligned with expert assessments than baseline models. These results identify tokenization as a meaningful adaptation point for clinical data, with evidence spanning predictive tasks and the interpretation of a particular case."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2e45b6f2ecc042733e5a81ed7761f9c82e918cd9ecce577fd8c4ec1dc212b470",
+    "tldr": "STT-LLM encodes biological structure and temporal change into tokens, improving longitudinal athlete-profile prediction and anomaly detection."
+  },
+  "icml-2026-t-pop-test-time-personalization-with-online-preference-feedback-6c8d314880": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Personalizing a language model for a new user is difficult when there is little existing preference data. Fine-tuning can also be slow and resource-intensive. T-POP addresses this cold-start setting by learning from pairwise preference feedback collected during text generation, allowing personalization to develop through ongoing interaction.",
+      "The language model's parameters remain frozen. Instead, T-POP learns a reward function online and uses it to steer decoding toward the user's preferences. It combines test-time alignment with dueling bandits, which guide which comparisons to ask the user. This balances learning more about preferences with using the knowledge already gathered to produce personalized text.",
+      "Experiments show rapid, data-efficient personalization, substantial improvements over existing baselines, and consistent gains as user interactions accumulate. The contribution is a feedback-driven route to adaptation in which the evolving preference model controls generation. Its reported success shows how user comparisons can support personalization during use without requiring updates to the underlying language model."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6eefec1ac7b6b9b472507cbd0c18836399329de6106802629fa1166da5df0831",
+    "tldr": "T-POP personalizes a frozen language model by learning from online user comparisons and steering decoding with the resulting preference reward."
+  },
+  "icml-2026-tabiclv2-a-better-faster-scalable-and-open-tabular-foundation-model-71ffb5b755": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "TabICLv2 is a foundation model for classification and regression on tabular data. It builds on the success of in-context learning in this domain through coordinated changes to training data, architecture, and optimization. A new synthetic-data engine aims to expose the model to a more diverse range of problems during pretraining.",
+      "Architectural changes include a scalable attention softmax intended to improve generalization to larger datasets without prohibitively expensive pretraining on long sequences. The training protocol also replaces AdamW with Muon. Extensive ablation studies quantify the contributions of the proposed changes, examining how the recipe's components contribute to the resulting model.",
+      "Without tuning, TabICLv2 surpasses the tuned, ensembled, real-data-fine-tuned RealTabPFN-2.5 on TabArena and TALENT. With moderate pretraining compute, it handles million-scale datasets using less than 50GB of GPU memory and runs markedly faster than that comparator. The release includes inference, pretraining, and synthetic-data-generation code, making the broader training recipe available for further research."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5f9c9f91d8a1abca819b57be2311da3e6b50f1b1ebb391398f1b3ea948986f61",
+    "tldr": "TabICLv2 combines diverse synthetic pretraining, scalable attention, and Muon optimization to improve tabular prediction and handle million-scale datasets."
+  },
+  "icml-2026-tftf-training-free-targeted-flow-for-conditional-sampling-674c89b7cd": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "TFTF aims to draw samples satisfying a condition from flow-matching models without additional training. It starts from importance sampling, but a direct application encounters weight degeneracy in high dimensions: useful sampling weight becomes concentrated among too few candidates. The method changes the generation process to address this concentration.",
+      "The authors adapt a resampling technique from sequential Monte Carlo and apply it at intermediate generation stages. They also derive a stochastic flow with adjustable noise to replace the deterministic flow at an intermediate stage. This encourages candidates to follow distinct trajectories, supporting diversity as resampling directs computation toward the conditional target.",
+      "The framework comes with theoretical guarantees of asymptotic accuracy, which concern its limiting behavior. Experiments show substantial improvements over existing conditional-sampling approaches on MNIST and CIFAR-10. Text-to-image experiments on CelebA-HQ further demonstrate applicability in a higher-dimensional, multimodal setting. The contribution is a sampling procedure that combines intermediate selection and stochastic exploration while leaving model training unchanged."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0d4a1f31a2bffd3dd7d01fa65d61a00295d97b2465d747d44342f57f762df91d",
+    "tldr": "TFTF combines intermediate resampling and stochastic flows for conditional generation without extra training, with asymptotic accuracy guarantees."
+  },
+  "icml-2026-towards-a-science-of-ai-agent-reliability-4f40c9de85": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "An agent's average task score gives an incomplete picture of how dependably it behaves. An agent may vary across repeated runs, react poorly to small changes, or make errors with very different consequences. This paper develops an evaluation framework intended to expose those distinctions alongside conventional measures of task success.",
+      "Drawing on safety-critical engineering, the authors propose twelve metrics organized into consistency, robustness, predictability, and safety. Together, these dimensions examine repeatability, resistance to perturbations, the predictability of failures, and error severity. The result is a performance profile that makes several aspects of reliability visible instead of compressing them into one aggregate score.",
+      "The authors evaluate 15 models across two complementary benchmarks and find that recent capability gains correspond to only small reliability improvements. This finding helps explain why stronger benchmark performance can coexist with persistent practical failures. The proposed metrics provide tools for comparing how agents succeed, degrade, and fail, complementing accuracy with evidence about the behavior surrounding those outcomes."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d27569fe8460f6b9ff1e480f7339c2ab8d746a83f510f2246b51ea63302817ba",
+    "tldr": "Twelve reliability metrics reveal that recent agent capability gains have brought only small reliability improvements across the evaluated models and benchmarks."
+  },
+  "icml-2026-verisimpl-robust-optimization-modeling-from-natural-language-using-simplification-based--dfde8ed1ad": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A solver formulation can execute successfully while representing the wrong optimization problem. VeriSimpl addresses this gap when language models translate natural-language descriptions into executable formulations. Its goal is to check whether the mathematical model reflects the intended task, beyond whether the resulting formulation can run without errors.",
+      "The framework couples an LLM with an optimization solver through simplification-based verification. The solver generates simplified diagnostic queries about a candidate formulation, giving the LLM smaller questions to reason through against the original description. Simplification strategies operate on constraints and decision variables, allowing local checks while holding the surrounding global context fixed.",
+      "Across optimization benchmarks, VeriSimpl consistently improves accuracy over existing methods and provides a high-precision self-verification signal. The findings support making formulation checking more tractable through targeted simplification. They also show a useful role for the solver within the verification process: it helps construct diagnostic questions that enable the language model to assess the meaning of its own proposed formulation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d1cb0af3f3743378550654b9ebe5226f277cc31fbb8a3fd30e534f8f630f4c85",
+    "tldr": "VeriSimpl uses solver-generated simplified questions to help LLMs verify that optimization formulations match their natural-language descriptions."
+  },
+  "icml-2026-what-does-thompson-sampling-optimize-8f88a681eb": {
+    "backgroundConcepts": [
+      "topic-071-mathttvits-variational-inference-thompson-sampli"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Thompson Sampling is a widely used bandit algorithm with strong performance guarantees, yet its balance between exploration and exploitation has lacked a clear optimization interpretation. This paper recasts posterior sampling as online optimization to explain how uncertainty influences choices alongside the desire to obtain immediate reward.",
+      "The authors introduce a time-invariant notion of regret that summarizes cumulative regret across horizons through a regret bound. This leads to a time-invariant Bellman-optimal policy, providing a reference for decision-making. They then show that Thompson Sampling has an online optimization form resembling the structure of that policy, with greedy behavior regularized by residual uncertainty.",
+      "This interpretation makes the exploration mechanism explicit within an optimization objective. The paper does not identify Thompson Sampling with the Bellman-optimal policy; the structural relationship supplies a benchmark for understanding and improving it. Comparing the two offers a principled way to study how posterior sampling balances immediate gains against the uncertainty that remains during sequential learning."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "48c3a8cf27a6bce3215c2da64ce78b04a7496c0e3a6eb20be1a8713b7b8d9352",
+    "tldr": "Thompson Sampling admits an online optimization interpretation in which residual uncertainty regularizes greedy choices."
+  }
+}

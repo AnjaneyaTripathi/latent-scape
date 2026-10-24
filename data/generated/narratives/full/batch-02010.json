@@ -1,0 +1,327 @@
+{
+  "icml-2026-adaptive-visual-autoregressive-acceleration-via-dual-linkage-entropy-analysis-93a3dc8862": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Visual autoregressive models spend substantial computation processing large numbers of image tokens. Reducing those tokens can accelerate generation, but the paper argues that existing approaches use overly rigid decisions about when and how much to reduce. NOVA instead uses changes in predictive uncertainty to adapt these decisions during generation.",
+      "The framework measures entropy across generation scales and identifies an inflection point in its growth to decide when acceleration should begin. It then adjusts token reduction separately across both scales and model layers. This gives the method two connected ways to respond to the changing computation, rather than applying a single reduction schedule throughout inference.",
+      "NOVA prunes low-entropy tokens and reuses cached information derived from residuals at the preceding scale. Together, these mechanisms aim to avoid repeated computation while maintaining generation quality. The authors report extensive experiments supporting its effectiveness as a training-free acceleration framework. Its contribution is an adaptive inference procedure that uses the model’s uncertainty to guide token reduction without requiring additional training."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4847da6406d376ceded1938277ca112f21442537e62434c804eb238f1f33ee94",
+    "tldr": "NOVA accelerates visual autoregressive generation without training by adapting token reduction across scales and layers using predictive entropy."
+  },
+  "icml-2026-adversarial-reinforcement-learning-for-robust-diffusion-large-language-model-unlearning-691c59d69a": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Machine unlearning aims to remove the influence of selected training examples from a model. This paper studies that problem in diffusion language models, whose parallel generation and flexible token order create different challenges from autoregressive generation. The authors find that measured unlearning performance depends strongly on generation settings, making evaluation across multiple settings important.",
+      "They also identify a contextual vulnerability: information targeted for removal can reappear when the input is surrounded by informative context. Diffusion models can condition on text both before and after a target, giving elicitation attempts additional contextual support. Suppressing recall under one prompting arrangement therefore does not establish robustness across those arrangements.",
+      "The proposed method trains two competing components. A context generator searches for informative contexts that recover unwanted knowledge, while the diffusion model learns to suppress that recall. Additional components address learning stability and credit assignment within this adversarial process. Experiments report significantly better unlearning while preserving model utility, supporting the use of challenging contexts during training to strengthen resistance to unwanted recall."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "19fada66ccbd6874b81253da9427e48f2c720292d9c0a55f8c70217c98caa7d5",
+    "tldr": "Adversarially generated contexts help diffusion language models suppress knowledge targeted for unlearning while preserving their useful capabilities."
+  },
+  "icml-2026-climb-taming-the-lora-residency-cliff-in-multi-lora-serving-79901ab164": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Serving many LoRA adapters on one heavily used GPU creates competition for a small amount of adapter memory. Most memory is reserved for the attention cache. When a requested adapter is absent from the GPU, fetching it stalls shared execution. The paper identifies a regime where exceeding the available adapter slots can cause a sharp collapse in response latency.",
+      "CLIMB manages requests before they enter the serving engine. It queues requests for nonresident adapters outside the engine, gives priority to critical VIP traffic, and rotates background adapters in round-robin order. This admission policy moves waiting into an explicit queue instead of allowing mandatory adapter fetches to repeatedly interrupt shared execution.",
+      "On a workload designed to trigger this collapse, VIP time-to-first-token p99 fell from 38.7 to 13.1 seconds at the same throughput of 10.66 requests per second. VIP latency inside the engine stayed near 0.13 seconds; remaining delay largely moved to ingress queueing. The evaluated benefit is controlled waiting and reduced system-wide amplification, without a throughput loss in those settings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "886c5d7d142bbdc4e568e2ba131f7199baea375a5f867afe7a6a40acf67fd90a",
+    "tldr": "CLIMB reduces severe multi-LoRA serving delays by managing adapter availability and request priorities before requests enter the engine."
+  },
+  "icml-2026-compositional-behavioral-semantics-for-state-abstraction-in-reinforcement-learning-d08afd4fbc": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "State abstraction makes structured reinforcement learning systems easier to reason about by replacing detailed states with a simpler representation. The central question is which behavioral properties survive that simplification. Researchers study properties such as value functions, invariants, behavioral equivalence, and distances between behaviors, but the paper identifies a missing general principle for analyzing their preservation.",
+      "The authors introduce a unified framework that builds behavioral descriptions compositionally from local, one-step system dynamics. This connects small descriptions of individual transitions to larger statements about behavior. Within the framework, they establish results governing how behavioral structures can be transferred safely between a concrete system and its abstraction.",
+      "The work also explains how to construct quantitative behavioral metrics from logical descriptions, with soundness guarantees. This connects statements about behavior to numerical ways of comparing it. The contribution is a reusable theoretical foundation for definitions and proofs across a broad class of reinforcement learning structures. Its preservation results provide principled ways to justify abstraction, rather than implying that every simplification automatically preserves every property."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5eff79511d93ac3500d03d4d32da931317f458cc4aba3c8ce0c810650416c706",
+    "tldr": "A unified theoretical framework explains how behavioral properties and metrics can be defined and safely transferred under reinforcement learning state abstraction."
+  },
+  "icml-2026-contrastive-flow-map-matching-651f57bb05": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Flow map matching supports diffusion-style generation in one or a few sampling steps. Its training transitions, however, can differ from the transitions produced by the learned model during sampling. This paper proposes Contrastive Flow Map Matching, or CFMM, to bring training objectives into closer agreement with the model’s actual generation process.",
+      "The method starts from a decomposition of reverse KL divergence, a measure of distributional mismatch. The analysis separates errors in the distribution of intermediate states from errors in reconstructing endpoints given those states. CFMM addresses these with two complementary objectives: average-velocity regression for the intermediate-state mismatch and a sampling-aligned InfoNCE contrastive loss for endpoint refinement.",
+      "CFMM can be added when training a pretrained flow map model and also supports training from scratch. Because the changes apply during training, they introduce no inference-time overhead. Across CIFAR-10, ImageNet, and LSUN, experiments with multiple flow map baselines report consistent improvements in fidelity and perceptual quality at modest additional training cost. The findings support targeting both sources of mismatch while retaining fast sampling."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7cb22f43db6aadef969f6c3961442957b4e741408010d431c2ec9b6b3b63f823",
+    "tldr": "CFMM improves fast diffusion-style generation by aligning flow map training with sampling through complementary regression and contrastive objectives."
+  },
+  "icml-2026-controlled-dynamics-attractor-transformer-843b502883": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper connects transformer attention with associative memory, where retrieval is described as movement through an energy landscape toward an attractor. The authors identify a gap between existing continuous-time inference in these memory frameworks and the biologically motivated dynamics of classical Continuous Attractor Neural Networks. CDAT is designed to connect these perspectives.",
+      "The architecture combines an attention energy based on a mixture of von Mises–Fisher distributions with a Hopfield refinement energy. It also modulates energy descent using excitation and inhibition inspired by continuous attractor networks. The resulting dynamical system is constrained by topology: its couplings encode relationships among tokens, making relational structure part of the inference dynamics.",
+      "The authors provide a constructive dissipation analysis to formally establish the controlled inference dynamics. They also evaluate CDAT on graph anomaly detection and graph classification, reporting state-of-the-art performance across multiple benchmarks. The work therefore combines a mathematical account of how inference evolves with empirical evidence on graph tasks. Its biological motivation informs the architecture, while the reported performance findings concern those evaluated computational tasks."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2d1db6080d249cf1021c2ca542d18f95bb2935a345be345dfd99909e3165f3c3",
+    "tldr": "CDAT combines energy-based attention, associative-memory refinement, and attractor-inspired control to achieve strong graph-task performance."
+  },
+  "icml-2026-from-similarity-to-vulnerability-key-collision-attack-on-llm-semantic-caching-5ec61bc390": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Semantic caches reuse responses when a new query has an embedding similar to a stored query. That similarity improves efficiency, but it also makes the cache’s matching behavior relevant to answer integrity. This paper treats embedding-based keys as fuzzy hashes and analyzes how their useful locality conflicts with cryptographic collision resistance.",
+      "The authors formalize a trade-off between keeping related inputs close together and resisting key collisions. They then introduce CacheAttack, an automated black-box framework for studying those collisions. The focus is whether a cache can return an attacker-influenced response or affect an agent’s behavior, extending the analysis beyond previously studied privacy and side-channel concerns.",
+      "In the evaluated settings, CacheAttack achieves an 86% hit rate for response hijacking and can induce malicious agent behavior. The authors also report strong transferability across embedding models and present a financial-agent case study. These findings connect the conceptual trade-off to observed integrity failures. The paper discusses mitigations while emphasizing that improving robustness retains a persistent tension with the efficiency gained from semantic reuse."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "db1a0a0967636cd1c67dff02c1614c4544d2471fa645bb4f596776ba6aded3d2",
+    "tldr": "CacheAttack demonstrates how the similarity matching that makes semantic caches efficient can enable response hijacking and harmful agent behavior."
+  },
+  "icml-2026-gameverse-can-vision-language-models-learn-from-video-based-reflection-2083428e72": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "GameVerse asks whether vision-language models can improve gameplay by reviewing visual experience. A single attempt measures what a model can do immediately, but does not capture whether watching a failed attempt or an expert demonstration helps it choose better actions. The benchmark therefore centers evaluation on reflection followed by another attempt.",
+      "It covers 15 globally popular games, organized through a hierarchical taxonomy of cognitive demands. Models can act through either semantic controls or graphical-interface controls. Progress is measured through milestones evaluated with advanced vision-language models. These elements provide a systematic setting for studying how visual experience affects later behavior across different games and interaction modes.",
+      "The experiments find benefits from video-based reflection in varied settings. Models perform best when they combine recordings of their own failures with expert tutorials. The authors describe this as a training-free analogue of combining reinforcement learning with supervised fine-tuning: failures and demonstrations both inform improvement, without training the model through those procedures. The result supports evaluating adaptation across attempts as a distinct capability."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1e2b3574d3f28c402b520041810478e4102dbcee5df6c619f9910a3b781e56cc",
+    "tldr": "GameVerse finds that vision-language models improve gameplay through video reflection, especially when combining their failures with expert tutorials."
+  },
+  "icml-2026-in-context-generation-with-regional-constraints-for-instructional-video-editing-211a01f5d4": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Instruction-based video editing must change the intended region while preserving surrounding content. The paper identifies two obstacles when adapting in-context generation to video: poorly localized edits and interference between tokens from different areas. ReCo addresses both by explicitly modeling the relationship between regions that should change and regions that should remain stable.",
+      "ReCo places source and target videos side by side along their width and denoises them jointly. During training, latent regularization encourages differences in edited regions while reducing differences elsewhere. A second regularizer acts on attention: it suppresses attention from editing-region tokens to their counterparts in the source video, reducing interference when the target needs to generate a new object.",
+      "These two constraints address distinct parts of the editing process: where content changes and how source information influences that change. The authors also introduce ReCo-Data, containing 500K instruction-video pairs. Experiments across four major instruction-based video editing tasks report superior performance. The stated findings support regional constraints as a way to make joint source-target generation more effective for controlled video modification."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b892df02a7358c011db692d70d3a5884e9f0551e99a33aa3936a3e56d6237538",
+    "tldr": "ReCo improves instruction-based video editing by training separate constraints for intended changes, preserved regions, and source-target attention."
+  },
+  "icml-2026-infvsr-toward-consistency-driven-streaming-generative-video-super-resolution-f08724c4da": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Generative video super-resolution becomes difficult on long sequences because repeated denoising is expensive and splitting videos into pieces can introduce discontinuities. InfVSR addresses these problems together by combining autoregressive streaming with one-step diffusion. The aim is to improve video resolution while maintaining coherence across an extended sequence.",
+      "The method adapts a pretrained diffusion transformer into a causal architecture. A rolling attention cache and joint visual guidance support local and global consistency as processing proceeds. It then distills the diffusion process into a single step, using patch-level pixel supervision alongside distribution matching across chunks. The training design therefore addresses both reconstructed detail and agreement between successive portions of video.",
+      "The authors introduce a benchmark for long-form video and semantic-level measures of temporal consistency. They report state-of-the-art quality, improved semantic consistency, and speedups of up to 58 times over existing approaches such as MGLD-VSR. These are reported experimental outcomes, with the maximum speedup representing the upper end of the stated results. The contribution combines faster generation with evaluation focused on sustained consistency."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8b967a15efce1316326266d06761b9ece732f1bcec34e23833d09e81f2ee8790",
+    "tldr": "InfVSR combines streaming generation and one-step diffusion to improve long-video super-resolution quality and consistency while reporting up to 58× acceleration."
+  },
+  "icml-2026-mindzero-learning-online-mental-reasoning-with-zero-annotations-287400ee11": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "An assisting agent needs to infer what a person may believe or intend from observed behavior. MindZero studies how to learn this Theory of Mind capability without explicit mental-state labels. The problem includes updating competing hypotheses as observations arrive and performing that reasoning quickly enough for real-time assistance.",
+      "During training, a multimodal language model proposes mental-state hypotheses. A planner estimates how likely the observed actions would be under those hypotheses, and reinforcement learning rewards explanations that make the behavior more likely. This supplies a self-supervised learning signal from actions instead of requiring annotated beliefs or intentions. Training aims to internalize model-based reasoning into a single inference pass.",
+      "Evaluations cover mental reasoning and assistance tasks in gridworld and household domains. The authors find that language models alone are insufficient, while model-based approaches improve accuracy but remain slow, costly, and constrained by the underlying model’s capacity. MindZero significantly outperforms the evaluated model-based methods in accuracy and efficiency. These findings support learning mental reasoning as a skill rather than repeatedly carrying out the full model-based procedure."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6e2b5f71afcd770279287025e60a5fe7fd7d0a63c021d95e176e62a8713a05bb",
+    "tldr": "MindZero learns fast mental-state inference from observed actions using planner-guided reinforcement learning without explicit mental-state annotations."
+  },
+  "icml-2026-ml-embed-inclusive-and-efficient-embeddings-for-a-multilingual-world-4a215ccd28": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "ML-Embed addresses three barriers in text embedding development: computational expense, limited language coverage, and insufficient transparency. The authors propose a family of multilingual embedding models and a training framework intended to make efficiency extend across the model lifecycle. Their goal connects practical resource use with broader linguistic access and reproducibility.",
+      "The framework, called 3-Dimensional Matryoshka Learning, combines three forms of efficiency. Matryoshka Representation Learning provides storage benefits, while Matryoshka Layer Learning allows flexible inference depth. The new Matryoshka Embedding Learning component targets parameter efficiency. Together, these components address different resource demands rather than treating embedding storage as the only cost that matters.",
+      "The team curates a massively multilingual dataset and trains models ranging from 140 million to 8 billion parameters. Evaluation spans 430 tasks, with new records reported on 9 of 17 evaluated MTEB benchmarks and particularly strong results for low-resource languages. The release of models, data, and code makes the work reproducible. The findings support the combined pursuit of efficiency and multilingual coverage across the evaluated tasks."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8e9f2de552e53fe02006b3cb62cc7169750dd19e6cec3e430f24e5119e9fbdde",
+    "tldr": "ML-Embed combines three forms of model efficiency with multilingual training and open releases, setting records on 9 of 17 evaluated MTEB benchmarks."
+  },
+  "icml-2026-mpfm-cross-multi-domain-prototype-flow-matching-for-log-anomaly-detection-070f645253": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A unified log anomaly detector must handle systems with different normal behaviors. The paper highlights two problems: closeness to normal examples does not by itself establish normality, and forcing different systems into matching distributions can harm learning. MPFM approaches detection through whether a sample can be stably generated by the mechanism representing normal data.",
+      "Its shared–private prototype system separates patterns common across domains from patterns specific to each domain. Domain-conditioned flow matching then combines structural evidence with evidence about generation dynamics. This allows the detector to use information beyond geometric proximity while retaining distinctions among the systems it learns from.",
+      "MPFM also uses prototype drift to identify difficult examples for additional learning, aiming to improve robustness near decision boundaries. Experiments jointly train across HDFS, BGL, Thunderbird, and Spirit and report substantial gains in the multi-domain setting. The contribution is a coordinated approach to sharing knowledge, preserving domain-specific behavior, and detecting anomalies through both structure and dynamics. Its stated results support this combination for the evaluated log datasets."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6399e3b0c89104d45ce1aa52dedc542409bc66f24388d037eb44df8513392333",
+    "tldr": "MPFM improves multi-domain log anomaly detection by combining shared and domain-specific prototypes with generation-based structural and dynamical evidence."
+  },
+  "icml-2026-multimodal-meta-verifier-with-explicit-structured-recalibration-ef2849ad44": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A visual verifier becomes more useful when it can identify why and where an output is wrong, beyond giving a binary judgment. This paper studies meta-verification, which uses the verifier’s own supporting rationale as additional feedback. The authors investigate both the form that rationale should take and how it should enter training.",
+      "They find that symbolic outputs, such as bounding boxes, outperform textual explanations as rationales. These structured outputs also support rule-based reinforcement learning rewards without an auxiliary model acting as judge. A second finding is that training binary judgment and meta-verification with decoupled reinforcement learning objectives substantially outperforms combining their rewards, reflecting differences in output structure and learning dynamics.",
+      "These findings inform OmniVerifier-M1, a generalist visual verifier with fine-grained error localization. It also supports M1-TTS, an agentic generation system that uses verification feedback to correct individual regions dynamically. The work connects structured evidence to actionable correction: identifying an error’s location can guide a targeted revision. Its reported benefits concern both verification reliability and the capacity for region-level self-correction."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "eec1d829366bacbd01679dfc7535c82cca5411d6c051174a375dbc0809a74492",
+    "tldr": "OmniVerifier-M1 uses symbolic rationales and decoupled reinforcement learning to improve visual verification and enable targeted region-level corrections."
+  },
+  "icml-2026-on-the-adversarial-robustness-of-large-vision-language-models-under-visual-token-compres-19c9e9e09b": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Visual token compression speeds up vision-language models by removing or merging image tokens. This paper argues that attacks optimized against the full visual representation may underestimate vulnerabilities after compression. The attack’s optimization and the model’s deployed inference then operate on different representations, leaving a mismatch in the robustness assessment.",
+      "CAGE addresses that mismatch without assuming knowledge of the deployed compression mechanism or its token budget. Its expected feature disruption component concentrates distortion on tokens likely to remain across plausible budgets. Its rank distortion alignment component aligns distortion with token-ranking scores, encouraging heavily distorted evidence to survive compression and reach the model.",
+      "Across multiple representative plug-and-play compression mechanisms and datasets, CAGE consistently produces lower robust accuracy than the evaluated baseline. Here, lower robust accuracy means the attack exposes more failures under adversarial input. The results suggest that apparent robustness can depend on whether the evaluation accounts for the compression bottleneck. The paper consequently motivates compression-aware assessment and defenses for efficient vision-language models, rather than treating compression as irrelevant to security testing."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "72a1a424e314e10823d92dd99c424d2d21bc91846926a6d34cf82539a8a37a80",
+    "tldr": "CAGE exposes vulnerabilities in compressed vision-language models by directing adversarial distortion toward visual evidence likely to survive compression."
+  },
+  "icml-2026-r1-syntheticvl-is-synthetic-data-from-generative-models-ready-for-multimodal-large-langu-b51f69efd9": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies how to generate multimodal training data automatically for models tackling complex real-world tasks. Its proposed approach, Collective Adversarial Data Synthesis, aims to produce examples that are simultaneously high quality, diverse, and challenging. The motivating idea is that useful synthetic data needs both reliable content and difficulty that can drive model improvement.",
+      "CADS alternates between two collaborative phases. CAD-Generate draws on collective knowledge to produce new multimodal examples, while CAD-Judge collaboratively assesses their quality. An additional Adversarial Context Optimization mechanism adjusts the generation context to encourage challenging, high-value examples. These components connect data creation, assessment, and difficulty within a recurring synthesis process.",
+      "Using this approach, the authors build MMSynthetic-20K and train R1-SyntheticVL. They report superior performance across various benchmarks. The findings support CADS as an effective data synthesis approach in the reported evaluations, with the resulting model providing evidence of the data’s training value. The central contribution is the combined synthesis procedure: collaborative generation and judgment work alongside adversarial context optimization to shape the examples used for learning."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "568edb91a046dbbd3f7aca2cf4af88463b3c3223acee6fed774ca066e357a334",
+    "tldr": "CADS combines collaborative generation, quality judgment, and adversarial context optimization to create synthetic multimodal data that improves R1-SyntheticVL."
+  },
+  "icml-2026-regime-adaptive-bayesian-optimization-via-dirichlet-process-mixtures-of-gaussian-process-bee42cca48": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Bayesian optimization uses a predictive model and its uncertainty to choose promising evaluations. The paper focuses on objectives with distinct regimes, where smoothness changes across the search space. A single Gaussian process can blur sharp transitions or interpret smooth behavior as noise, producing uncertainty estimates that are poorly matched to the objective.",
+      "RAMBO uses a Dirichlet process mixture to discover regimes during optimization and assigns each an independent Gaussian process with locally tuned hyperparameters. Its inference procedure analytically marginalizes latent functions through collapsed Gibbs sampling. An adaptive concentration schedule guides discovery from coarse to finer regimes, allowing the model’s organization of the search space to evolve.",
+      "The acquisition functions distinguish uncertainty within a regime from uncertainty between regimes. This makes regime structure relevant both to prediction and to selecting the next evaluation. Experiments report consistent improvements over state-of-the-art baselines on multi-regime synthetic objectives and applications involving molecular conformers, drug screening, and fusion reactor design. The findings support adapting the surrogate model’s local behavior when a uniform smoothness assumption is unsuitable."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "cb062af5fea65d578f19fa83dfcca2d547917a7e2ce569f96e01d5fbe01bb648",
+    "tldr": "RAMBO improves optimization of heterogeneous objectives by discovering local regimes and modeling their behavior and uncertainty separately."
+  },
+  "icml-2026-saot-self-supervised-continual-graph-learning-with-structure-aware-optimal-transport-ac92932f49": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Self-supervised continual graph learning learns successive tasks from a sequence of graphs without label supervision. Maintaining individual node representations can help retain earlier knowledge, but the paper argues that this alone does not preserve the graph’s wider relational organization. Relationships among nodes can progressively distort even when learning objectives emphasize local consistency.",
+      "SAOT uses optimal transport to capture global correspondences among nodes across sequential tasks. This makes preservation of relational structure an explicit part of representation learning. A cross-task knowledge distillation mechanism also carries forward structural knowledge from earlier tasks. The two components connect learning the current graph with retaining the organization learned previously.",
+      "Experiments on four continual graph learning benchmarks report improvements over existing self-supervised methods. In the class-incremental setting, the abstract reports average-accuracy gains of up to 5% on CoraFull-CL and over 15% on Products-CL relative to state-of-the-art methods. These results support the value of preserving relationships across a graph, alongside individual representations, when learning continues through a changing sequence of tasks."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3682b495e33eb6dd7c409b76254c99bfb43cb84303a467379df259cdcc6b8f21",
+    "tldr": "SAOT improves self-supervised continual graph learning by preserving global node relationships through optimal transport and cross-task distillation."
+  },
+  "icml-2026-stage-wise-distortionperception-traversal-in-zero-shot-inverse-problems-with-diffusion-m-d36ec05803": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Solving an inverse problem involves a tension between low reconstruction distortion and perceptual quality. A solution that performs well under a distortion criterion may differ from one that looks more plausible. This paper develops a way to move along that trade-off during inference using a single diffusion model for zero-shot inverse problems.",
+      "MAP-RPS separates the process into two stages. An initial maximum a posteriori estimation stage approximates the minimum mean squared error solution, providing a low-distortion starting point. A subsequent stage adds noise again and performs posterior sampling to progressively improve perceptual quality. This ordering gives the method an explicit path from a distortion-focused initialization toward perceptually improved reconstructions.",
+      "The authors provide theoretical analyses supporting both stages and extend the method to latent space as LMAP-RPS. That extension broadens applicability through large pretrained latent diffusion backbones. Experiments across multiple tasks report more effective traversal of the distortion–perception trade-off and strong performance as efficient real-world inverse-problem solvers. The contribution is controlled movement between competing objectives, with the initial MMSE relationship stated as an approximation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "44ca631909ee0b18ed859d945efb8cb2f210b1b8772d6c2fd0fc375223dea191",
+    "tldr": "MAP-RPS uses a low-distortion estimation stage followed by posterior sampling to navigate the distortion–perception trade-off with one diffusion model."
+  },
+  "icml-2026-structure-abstraction-and-generalization-in-a-hippocampal-entorhinal-inspired-world-mode-fa9590cd43": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies how a visual world model can extract reusable structure from continuous, high-dimensional experience. Its inspiration is the hippocampal-entorhinal circuit, which represents spatial and conceptual relationships. The authors propose a hierarchical computational model that learns latent transitions while also constructing a model for predicting visual experience.",
+      "An inverse model extracts structure, while a coupling model separates relational representations associated with the medial entorhinal cortex from integrated episodic scenes associated with the hippocampus. This separation gives relational knowledge a distinct role within the architecture. The framework also uses velocity-driven path integration to support predictions as the modeled dynamics evolve.",
+      "Using rotation dynamics as a benchmark, the authors demonstrate structural abstraction, robust prediction, and reuse of structure across diverse contexts. These findings support structural generalization within the studied setting: learned relationships can contribute to predictions beyond a single context. The work offers a computational account of how brain-inspired, self-supervised world modeling can acquire reusable abstract knowledge, connecting its architectural separation of structure and scenes to the reported generalization behavior."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5ba61e570ac6734cc386b1759dec52704e2e71467bafcd5bd7fda26b00122bba",
+    "tldr": "A hippocampal-entorhinal-inspired world model separates relational structure from episodic scenes and demonstrates structural reuse on rotation dynamics."
+  },
+  "icml-2026-structure-aware-riemannian-flow-matching-for-registration-and-fusion-of-hyperspectral-an-1cd5f48732": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Combining hyperspectral and multispectral images requires accurate alignment, particularly when their differences involve complex non-rigid deformation. Treating alignment and fusion as separate tasks can propagate errors between them. The paper also argues that measuring deformation equally in every direction overlooks image structure that should influence how alignment is evaluated.",
+      "SA-RFM jointly handles registration and fusion using geometry derived from structural cues in the multispectral image. It expresses registration as dynamic optimal transport on a Riemannian manifold, allowing movement costs to depend on direction and structure. A local cost approximation incorporates this geometry into conditional flow matching without requiring explicit optimal transport solvers.",
+      "Two mechanisms implement the approach. A Riemannian flow matching objective measures error according to the structural geometry, while direction regularization aligns the learned velocity field with that same metric. This keeps the learning signals consistent with the anisotropic costs used to describe deformation. Experiments on four datasets report superior performance. The contribution is a joint framework whose deformation model and supervision both account for image structure."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "70dbb9ea1a8b0894716abf63cd27688e99490b9ef1bc1e5f2007e15779d9eda0",
+    "tldr": "SA-RFM jointly aligns and fuses hyperspectral and multispectral images using flow matching guided by structure-dependent geometry."
+  },
+  "icml-2026-swordsman-entropy-driven-adaptive-block-partition-for-efficient-diffusion-language-model-e5f54f42ff": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Block-wise decoding lets diffusion language models process blocks sequentially while revealing tokens within each block in parallel. Fixed block boundaries can split meaningful semantic or syntactic units, making the partition poorly matched to the text. Swordsman adapts those boundaries using changes in the model’s uncertainty between adjacent tokens.",
+      "The approach draws on the entropy reduction hypothesis, which motivates looking for constituent boundaries through opportunities for uncertainty reduction. Swordsman uses entropy shifts to identify boundaries that better follow the structure of the emerging sequence. It also changes unmasking thresholds according to the current state of each block, so decisions about revealing tokens can respond as generation proceeds.",
+      "These two adaptations address where blocks are placed and how tokens are resolved inside them. The framework requires no additional training and supports KV caching. The authors report state-of-the-art performance across extensive evaluations, with improvements in efficiency and stability. The findings support using uncertainty as a practical signal for organizing diffusion decoding, while the proposed boundaries are intended to align better with constituents rather than guarantee perfect linguistic segmentation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "55e12bf55f9d054d973c195440ec75fc41c26b7620e694697ba0ef4ddda44991",
+    "tldr": "Swordsman uses entropy shifts and adaptive unmasking thresholds to improve diffusion language model decoding without additional training."
+  },
+  "icml-2026-towards-on-policy-sft-distribution-discriminant-theory-and-its-applications-in-llm-train-442d379dc3": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Supervised fine-tuning is computationally efficient, but the paper argues that its generalization often trails reinforcement learning because of differences in how training data aligns with the current model. The authors seek to bring the benefits of on-policy data alignment into an SFT pipeline without giving up its practical efficiency.",
+      "They introduce Distribution Discriminant Theory to explain and quantify alignment between training data and the distribution induced by a model. Two techniques act on different parts of the pipeline. In-Distribution Finetuning changes the loss to improve generalization, while Hinted Decoding operates on data to realign the training corpus with the model’s distribution.",
+      "Experiments report generalization comparable to prominent offline reinforcement learning algorithms, including DPO and SimPO, while retaining SFT pipeline efficiency. The comparison supports the proposed framework as a practical alternative in settings where reinforcement learning is infeasible. Its main contribution is connecting a distributional account of training-data alignment to both an optimization intervention and a data-generation intervention, rather than treating the existing training corpus as a fixed input."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "48132c6c255762e758349f5ba6cd23bbfcc50b1129789b18ed83d382ffd13405",
+    "tldr": "Distribution-aware loss and data techniques bring SFT generalization on par with evaluated offline RL methods while retaining SFT efficiency."
+  },
+  "icml-2026-ufo-chain-of-evaluation-for-omni-condition-alignment-in-multi-modal-image-generation-0b95691e19": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "An image customized from text and visual references must satisfy those conditions together. The paper argues that evaluating each condition independently misses their interactions and can disagree with human judgments. UFO addresses this evaluation problem by organizing checks around simultaneous alignment with all relevant conditions.",
+      "Its Atomized Chain-of-Evaluation breaks the overall alignment question into a sequence of fine-grained, disentangled units. Each unit is assigned to a modality-relevance category and checked using either a general or a dedicated function. This creates a structured verification process in which different requirements can receive appropriate checks while contributing to the combined assessment.",
+      "The authors report the highest correlation with human evaluation preferences in their experiments, with an average improvement of 15.25%. They also introduce UFO-Bench to assess customization models under diverse interactions between textual and visual conditions. Together, the framework and benchmark make joint satisfaction of conditions a central evaluation target. The stated results support decomposed, specialized checking as a way to bring automated judgments closer to human preferences."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "69087ab38bcdc18d760e988b3f1d10000f13084106cf536c8caf0c62a6460846",
+    "tldr": "UFO evaluates interacting text and visual conditions through structured atomic checks, improving agreement with human judgments in the reported experiments."
+  },
+  "icml-2026-velr-efficient-video-reward-feedback-via-ensemble-latent-reward-models-1b5e38d3d2": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Reward feedback learning can improve video generation, but image reward models do not align well with video’s temporal objectives. Video reward models address that mismatch at a substantial memory cost. VELR aims to make their feedback practical by predicting rewards directly from latent representations used in generation.",
+      "The framework uses an ensemble of latent reward models, avoiding expensive backpropagation through video decoders and full video reward models. The ensemble increases predictive capacity, provides uncertainty estimates, and helps mitigate reward hacking. These roles matter together: an efficient reward predictor must remain useful when the generator is being optimized against its feedback.",
+      "Experiments with OpenSora-1.2, CogVideoX-1.5, and Wan-2.1 report performance comparable to standard reward feedback learning using large video reward models. Memory savings reach up to 150 GB, with usage as low as 12.4% of the standard approach. Those extrema describe the reported settings. The findings support latent reward ensembles as a way to retain useful video-level feedback while enabling training at scales previously constrained by memory requirements."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e664f050772d8ac4b358624aa676eaadb19d970adc47f49004b173199374acf3",
+    "tldr": "VELR uses ensembles of latent reward models to preserve comparable video reward-learning performance while substantially reducing memory requirements."
+  }
+}

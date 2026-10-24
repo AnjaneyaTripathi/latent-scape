@@ -1,0 +1,337 @@
+{
+  "icml-2026-anti-aliasing-matters-a-dynamic-network-for-time-series-forecasting-3ee7203596": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Forecasting models often examine a time series at several sampling scales to capture different temporal patterns. Downsampling can, however, distort the signal: fluctuations too fast for the new sampling rate can appear as slower patterns. This aliasing creates misleading low-frequency structure in the very features a forecasting model uses to understand the data.",
+      "DMANet addresses this problem through a decomposition, prevention, and fusion framework. Its multiscale convolutional downsampling component captures dependencies over time and interactions between channels. An accompanying anti-aliasing operation combines filtering before sampling with interpolation afterward. These operations address feature fidelity on both sides of the downsampling step, making signal preservation part of the architecture.",
+      "The paper reports that mitigating aliasing allows a relatively simple convolutional downsampling architecture to perform competitively with common forecasting baselines. The significance is that the quality of multiscale features depends on how sampling changes the signal. Preserving those features can make a straightforward architecture effective, without the abstract claiming that it universally outperforms competing methods."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d319ba4028a4e8eca49ab49bf5420bbad05bd1254e8d62ae6321ec1856c54e57",
+    "tldr": "DMANet combines multiscale convolutional downsampling with anti-aliasing operations to achieve competitive time-series forecasting performance."
+  },
+  "icml-2026-are-two-datasets-close-enough-with-statistical-significance-a-kernel-distributional-clos-4471994868": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper asks how to establish statistically that two data distributions are sufficiently close. Distribution closeness testing frames this around a distance threshold: whether the distributions are at least epsilon apart. Existing approaches largely target discrete data, motivating a kernel-based method that can also handle more complex observations such as images.",
+      "A natural distance measure is maximum mean discrepancy, or MMD. The authors observe that pairs of distributions can have identical MMD values while having different norms in the same kernel representation space. Such pairs may differ in how distinguishable they are from finite samples and in their practical closeness. Their proposed norm-adaptive MMD rescales the discrepancy using those norms to retain this additional information.",
+      "The authors derive the measure’s asymptotic distribution and use it to build a closeness test. They prove higher test power than the MMD-based alternative while keeping type-I error bounded, and report supporting experiments with synthetic noise and real images. The contribution connects a more informative discrepancy measure with stronger statistical evidence for assessing closeness."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0e3aa143d6ef24ea6a655ec54fc41f0903c4851e831cf6d489ddab00193063c4",
+    "tldr": "Norm-adaptive MMD uses distribution norms to strengthen kernel-based closeness testing while bounding type-I error."
+  },
+  "icml-2026-bayes-inspired-integration-of-pretrained-priors-and-few-shot-evidence-for-few-shot-class-aa7795df94": {
+    "backgroundConcepts": [
+      "topic-099-a-closer-look-at-few-shot-classification-again"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Few-shot classification adapts an existing model to unfamiliar classes using only a small set of labeled examples. A central design question is how much to rely on pretrained knowledge and how much to rely on the new examples. This paper develops a Bayesian-inspired framework that gives these two information sources distinct roles.",
+      "BOIF treats pretrained knowledge as a prior and the few-shot observations as likelihood evidence. Under a conditional independence approximation, the authors show that the optimal log-posterior separates into a sum of prior and likelihood logits. This motivates separate processing pathways whose scores are added together. Their CLIP implementation enriches visual features through a multilevel adapter and estimates likelihood evidence using a simplified cache.",
+      "Across 11 benchmarks, BOIF achieves reported state-of-the-art results, including 80.61% average accuracy with 16 examples per class, alongside strong out-of-distribution robustness. The result supports the practical value of separating and then combining pretrained knowledge and new evidence. The theoretical justification specifically depends on the stated conditional independence approximation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a6e35cb7c59173f358c222be6a7655e7b9b96ce5b0ea1c5e4eca191617e12846",
+    "tldr": "BOIF separates pretrained knowledge from few-shot evidence and combines their scores using a Bayesian-inspired rule."
+  },
+  "icml-2026-coevolutionary-continuous-discrete-diffusion-make-your-diffusion-language-model-a-latent-f96358cfa8": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Diffusion language models can operate on discrete tokens or continuous representations. The paper highlights a tension: continuous diffusion has expressive advantages, yet its practical performance typically trails discrete diffusion. The authors prove stronger expressivity for continuous diffusion than for discrete diffusion and looped Transformers, then examine why that theoretical capacity can be difficult to realize.",
+      "Their explanation centers on trainability. Continuous diffusion supplies intermediate supervision, but generating and decoding tokens through continuous states remains difficult. CCDD combines continuous representations and discrete tokens in a joint diffusion process. A single model denoises both together, pairing the rich semantics of latent representations with the explicit token structure that helps training and sample quality.",
+      "The work also introduces architectures and training and sampling techniques for this combined process. Extensive language-modeling experiments on real-world tasks show strong empirical performance. The contribution is a way to connect expressive latent computation with practical token generation, rather than treating theoretical expressivity as sufficient evidence that a purely continuous model will perform better."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "273e4d03fefe942c401d73b47be1296843961d70d804e720333e64316d55cfd2",
+    "tldr": "CCDD jointly denoises continuous representations and discrete tokens to combine latent expressivity with practical language-model training."
+  },
+  "icml-2026-disentangling-consensus-and-value-specific-representations-for-controllable-pluralistic--3a46d561fb": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Aligning a language model with several human values requires controlling their contributions separately. One approach trains value-specific experts and merges their parameters. However, real value data contains correlated dimensions, so the experts can learn overlapping representations. Increasing one expert’s contribution may consequently change other values, making precise control difficult.",
+      "DisAlign addresses this coupling by separating shared structure from value-specific structure. Using an information-geometric perspective, it first identifies a consensus anchor and subspace that capture what the value representations have in common. It then applies spectral decomposition to the remaining representations to construct more disentangled value subspaces. The resulting merger offers more independent ways to adjust multiple values.",
+      "Experiments cover three datasets representing different value frameworks. The authors report consistently better disentanglement and more accurate pluralistic value control than existing baselines. These findings support the proposed separation as a useful mechanism for controlling correlated value dimensions. The claimed improvement concerns the precision of value modulation, with shared consensus explicitly represented rather than left mixed into each expert."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "367c4c338fa021e6796c01d46e345813a3b872ac180275b17fc22e1e2cb6f47d",
+    "tldr": "DisAlign separates shared and value-specific representations to make merged language models’ value preferences more independently controllable."
+  },
+  "icml-2026-dismantling-the-illusion-of-vision-language-action-models-competence-via-explicit-distri-5d8b220c60": {
+    "backgroundConcepts": [
+      "topic-004-3d-vla-a-3d-vision-language-action-generative-wo"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A vision-language-action model can score highly on a benchmark while responding poorly to changes that matter in deployment. The paper describes two contrasting failures: ignoring meaningful semantic changes and breaking under small environmental changes. Both make aggregate benchmark scores an incomplete picture of whether a model has learned a robust action policy.",
+      "LIBERO-Gen tests this issue through an explicit hierarchy of distributional shifts. Its protocol distinguishes in-distribution evaluation, compositional generalization, and domain generalization. This organization exposes differences in performance that standard metrics can conceal, making the relationship between training conditions and evaluation conditions a central part of the benchmark.",
+      "The analysis identifies Pi0.5 as the strongest performer, with 64.0% in Spatial-CG and 21.2% in Task-CG. It also identifies perceptual instability and action binding collapse as primary failure modes and validates structured Stair sampling. These findings show how a diagnostic evaluation can reveal both relative model strengths and specific generalization failures, providing a clearer baseline for assessing deployment reliability."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "967700c01bb70de9ef12c57f924922219b1acd5eb9a1e555e2539f3c9aadcfce",
+    "tldr": "LIBERO-Gen uses explicit distribution shifts to expose generalization failures hidden by standard vision-language-action benchmarks."
+  },
+  "icml-2026-dpo-unchained-your-training-algorithm-is-secretly-disentangled-in-human-choice-theory-an-1d1685f9ff": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Direct Preference Optimization connects preference-based model training to a particular theory of human choice, allowing it to avoid a separate reward-modeling step. This paper asks how far that connection extends. It develops a broader normative account: a framework for deriving parts of a learning algorithm from explicit principles about choice.",
+      "The authors rework the standard social-choice-theory treatment to better fit reinforcement learning from human feedback and machine learning. Their framework separates choices about the learning method from choices about the human preference model. Within its compliance requirements, any eligible analytical choice for the learning method can be paired with any human choice model. It also accommodates non-convex losses and extensions such as margins and length correction.",
+      "This makes the contribution primarily conceptual: the justification for preference optimization need not be tied to one loss shape or one particular choice model. A toy experiment outside the usual DPO setting illustrates the framework. The abstract presents this as a broad theoretical foundation, with the experimental illustration explicitly remaining a toy demonstration."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d4a711646a6b281f24740b75aa26350e6e660c32bfa3f187b957bcd36af09f15",
+    "tldr": "The paper broadens DPO’s choice-theoretic foundations to support independently combined modeling choices, non-convex losses, and common extensions."
+  },
+  "icml-2026-extra-merge-tracing-the-rank-1-subspace-of-model-merging-in-language-model-pre-training-485aa0eaf6": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper examines why combining language-model checkpoints can improve a model. In late-stage pretraining, individual optimization steps fluctuate strongly, but consecutive merged checkpoints follow a much simpler pattern: they lie approximately along a stable, one-dimensional direction. This rank-one structure suggests that merging reveals useful movement obscured by noisy individual updates.",
+      "The authors explain the observation through a river-valley analysis of the loss landscape. Averaging acts like a geometric low-pass filter, suppressing high-curvature fluctuations and exposing the optimal descent direction in that analysis. Extra-Merge uses this direction to extrapolate beyond merged checkpoints, seeking lower loss without performing additional gradient updates.",
+      "Experiments across GPT-2 and LLaMA families from 124 million to 2 billion parameters show consistent improvements over standard merging baselines. The authors also report zero-shot accuracy gains on Pythia-12B downstream tasks and effective generalization to the Muon optimizer. The findings support using the geometry of merged late-training checkpoints as a practical source of improvement without additional gradient-based training."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9c93ff14d8dcf061a75eb047d726dd1f77a9e44e98d8617be16ef1a373c9561d",
+    "tldr": "Extra-Merge extrapolates along a stable direction revealed by checkpoint averaging to improve language models without additional gradient updates."
+  },
+  "icml-2026-formaljudge-a-neuro-symbolic-paradigm-for-agentic-oversight-394558ab79": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Using a language model to judge another agent raises a reliability problem: the judge can inherit the same kinds of probabilistic failures as the system it supervises. FormalJudge combines language models with formal verification to address this problem. Its central focus is translating human requirements into specifications that symbolic tools can check.",
+      "The framework follows a bidirectional Formal-of-Thought process. A language model first breaks high-level intent into small, verifiable constraints. Compliance is then established from the bottom up using Dafny specifications and the Z3 satisfiability solver. The resulting mathematical guarantees concern the formal specifications being checked, giving the oversight process a different basis from a model-generated confidence score.",
+      "Across three benchmarks and seven agent models, the authors report an average 16.6% improvement over LLM-as-a-Judge baselines. A 7B judge also exceeds 90% accuracy when detecting deception from 72B agents, demonstrating weak-to-strong generalization in that evaluation. Iterative refinement produces near-linear safety improvement, supporting the framework’s use as a repeated process for strengthening agent oversight."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "faad6b6ffb224c28194d68cb94ecdf5a205a18f2ff97abd2ad6200dab664da49",
+    "tldr": "FormalJudge translates human requirements into formal constraints and checks agent compliance with symbolic verification."
+  },
+  "icml-2026-hgmem-hypergraph-based-working-memory-to-improve-multi-step-rag-for-long-context-complex-a794096d69": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Multi-step retrieval-augmented generation gathers information over several reasoning steps, often keeping a working memory of what it finds. The paper argues that memories organized as isolated facts miss relationships involving several pieces of information. This can leave reasoning fragmented when answering questions that require understanding an extended context as a whole.",
+      "HGMem represents working memory as a hypergraph, with each hyperedge corresponding to a memory unit. This structure supports higher-order relationships among facts and thoughts. As retrieval and reasoning proceed, those relationships can develop progressively around the current problem, turning the memory into a connected knowledge structure rather than a collection of separately stored observations.",
+      "The system is evaluated on challenging global sense-making benchmarks. Experiments and detailed analyses show consistent improvements to multi-step RAG and substantial gains over strong baselines across diverse datasets. The stated findings support the importance of how retrieved information is organized: a memory that develops relationships among facts can provide stronger propositions for subsequent reasoning and more coherent understanding across long contexts."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "cace85a29be4cba3cf341fa3b75aa6b3f5d1cb110202ceeb5c22a48ab813a8a2",
+    "tldr": "HGMem uses evolving hypergraph memory to connect retrieved facts and improve multi-step reasoning over long contexts."
+  },
+  "icml-2026-how-transformers-represent-hierarchies-a-local-to-global-mechanism-4cf79fb8f9": {
+    "backgroundConcepts": [
+      "topic-109-how-do-language-models-track-state"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Next-token prediction can depend on a sequence’s hidden hierarchical structure. The authors study how Transformers represent that structure using a controlled language generated by probabilistic context-free grammars. Because the grammar defines the underlying hierarchy and next-token probabilities, this setting allows the model’s behavior and internal representations to be compared with a known generative process.",
+      "Trained autoregressive Transformers accurately approximate the grammar’s next-token distribution. Probing their hidden states reveals information used by classical parsing algorithms. That information develops across layers: earlier layers collect local patterns, and later layers combine them into a compact representation useful for predicting the next token.",
+      "The paper complements these observations with an explicit Transformer construction that parses binary probabilistic context-free grammars using depth logarithmic in sequence length. Trained models in the studied setting closely resemble that construction in both predictions and representations. Together, the empirical and theoretical results describe a local-to-global mechanism linking hierarchical parsing to autoregressive generation within this controlled formal-language setting."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ba8a96436c67647f0a7548807152506553f7328491c8bcce6e32719a78f26d94",
+    "tldr": "In a controlled grammar setting, Transformers build local patterns into global parsing representations that support next-token prediction."
+  },
+  "icml-2026-htac-hierarchical-task-aware-composition-for-continual-offline-reinforcement-learning-c434a77486": {
+    "backgroundConcepts": [
+      "topic-087-reinforcement-learning-with-prototypical-represe"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Continual offline reinforcement learning trains an agent across tasks using previously collected datasets. Tasks can differ in their dynamics, rewards, and the behavior that produced the data. Reusing everything indiscriminately can mix incompatible knowledge, while keeping everything separate limits transfer. HTAC addresses the need to share useful knowledge while preserving task-specific distinctions.",
+      "The method represents tasks at two levels: a broader domain embedding and a more specific task embedding. It creates domain and task experts as needed, allowing knowledge to be isolated with parameter efficiency in mind. An attention-based composition module combines historical experts’ outputs, while task adapters retain past routing weights to help prevent forgetting.",
+      "This hierarchy gives knowledge reuse more structure than a single flat sharing mechanism. Shared domain information and task-specific information can contribute differently as new tasks arrive. Experiments on Offline Continual World show that HTAC outperforms existing baselines, with better reuse and transfer. The reported results support its approach to balancing adaptation to new tasks with preservation of previously learned behavior."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b4656908e77d5e31b6b88f24b531b1242771f04d6b368859fa07bbaa282a8d3d",
+    "tldr": "HTAC organizes reusable knowledge into domain and task experts to improve continual learning from offline reinforcement-learning datasets."
+  },
+  "icml-2026-impact-influence-modeling-for-open-set-time-series-anomaly-detection-b3920f9830": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Open-set anomaly detection uses a limited set of labeled anomaly types to identify both familiar and previously unseen anomalies. For time series, generating useful artificial anomalies requires preserving sequential structure. The paper finds that simple augmentation can instead produce unrealistic or trivial patterns, with additional problems when training data contains unlabeled anomalies.",
+      "IMPACT learns an influence function that estimates how individual training samples affect modeling. It uses these influence scores in two ways. First, they guide the generation of realistic anomalies that differ semantically from known ones. Second, highly influential samples are repurposed as supervised anomalies to address contamination in the training data.",
+      "The same sample-level signal therefore supports both preparation for unseen anomalies and handling of hidden anomalies already present during training. Extensive experiments show significant improvements over existing state-of-the-art methods across different open-set settings and contamination rates. The findings support influence modeling as a way to create more useful time-series anomaly examples while reducing the damage caused by contaminated training data."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1b04e99edbce5313fd24fcac4daad7dfb5dc126349f182af823b75c935a2b7d2",
+    "tldr": "IMPACT uses training-sample influence to generate realistic unseen time-series anomalies and address unlabeled anomaly contamination."
+  },
+  "icml-2026-neural-vector-lyapunovrazumikhin-certificates-for-delayed-interconnected-systems-c24ad8c0de": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Large interconnected control systems must remain stable even when communication is delayed. Learned controllers can perform well empirically, but demonstrating stability becomes difficult as the network grows. This paper develops learned mathematical certificates for scalable input-to-state stability in discrete-time interconnected systems with delays.",
+      "The theoretical contribution is a sufficient stability condition based on vector Lyapunov–Razumikhin functions. Meeting this condition permits certification; the paper does not frame it as a necessary condition for stability. The proposed framework then learns neural versions of these certificates and verifies them over delay domains constrained by reachability, with an accompanying analysis of scalability.",
+      "Experiments examine mixed-autonomy vehicle platoons, drone formations, and microgrids against multiple baselines. The approach improves verification efficiency while maintaining competitive control performance. These findings address the cost of establishing a formal guarantee alongside the controller’s practical behavior. The contribution combines a certifiable stability condition with a synthesis and verification procedure intended to remain usable for large delayed networks."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5629ff9bd9b79a71602daddd84492cb876a9bc5b237c0c031d1867e4564ef310",
+    "tldr": "The framework learns and verifies neural stability certificates for large interconnected systems with communication delays."
+  },
+  "icml-2026-on-the-learnability-of-test-time-adaptation-a-recovery-complexity-perspective-3cee334a39": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Test-time adaptation updates a model from an evolving stream of unlabeled observations. The paper asks when this process can reliably recover after a distribution shift, rather than only whether adaptation works empirically. Its framework treats changing distributions and the information available to the adapting model as joint parts of the problem.",
+      "Recovery complexity measures how much time is needed after a shift to keep excess risk below a target level with high probability. The authors extend this idea into a definition of test-time-adaptation learnability that captures long-term reliability. A discrete surrogate for non-stationary streams makes it possible to analyze gradual changes and abrupt shifts within the same framework.",
+      "The authors derive lower and upper recovery-complexity bounds that match in order. These bounds identify fundamental limits and an adaptivity-information trade-off: recovery must be understood in relation to the information the stream provides. The resulting guarantees complement regret-based analysis by focusing directly on post-shift recovery and sustained reliability, rather than describing adaptation only through accumulated performance over time."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9d58f782d443d6d92f9ad83444299dec0098a4998ac65326aadf0e382b9456c1",
+    "tldr": "The paper characterizes test-time adaptation through recovery-time bounds and the trade-off between adaptation and available information."
+  },
+  "icml-2026-ripple-perturbations-through-structure-likelihood-constrained-adversarial-attacks-on-het-08605b9155": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Adversarial examples for tabular data must respect relationships among different kinds of features. A change can look statistically plausible while violating the directional dependencies that make a record coherent. The paper argues that handcrafted constraints and undirected similarity measures often miss this structure, while optimization can also stall because of gradient masking.",
+      "LCSA is a white-box attack framework that optimizes over structurally admissible changes. It learns dependencies using an ensemble of heterogeneous neural structural causal models. Its ripple mechanism propagates a feature update downstream through those dependencies, so related features change together. This propagation also acts as a structural preconditioner, modifying gradient flow to mitigate masking.",
+      "Across 50 evaluated configurations, LCSA outperforms state-of-the-art baselines in 45 and produces adversarial examples with better structural consistency and transferability. The result supports treating inter-feature dependencies as part of attack construction itself. Its contribution combines more coherent perturbations with an optimization mechanism designed to move through the learned structure instead of changing each feature independently."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6fbcd69f091e05aff568b189b83c71c09212f158c8e310cae8256f5d422e8fe1",
+    "tldr": "LCSA propagates adversarial feature changes through learned tabular dependencies to improve structural consistency and attack effectiveness."
+  },
+  "icml-2026-segment-anything-with-robust-uncertainty-accuracy-correlation-a142debe3d": {
+    "backgroundConcepts": [
+      "topic-203-automated-synthetic-to-real-generalization"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A segmentation model’s confidence in an entire mask may hide unreliable individual pixels, particularly near object boundaries. The paper identifies this issue in SAM under domain shift as Mask-level Confidence Confusion. A single score based on intersection-over-union does not adequately describe where the predicted segmentation is likely to be wrong.",
+      "RUAC adds a lightweight head that estimates uncertainty at the pixel level. It models out-of-domain changes as a combination of appearance shifts and non-rigid deformations. During training, a collaborative attack perturbs both texture and geometry, while Uncertainty-Error Alignment trains uncertainty to highlight erroneous pixels even under these adversarial changes.",
+      "Evaluation across 23 zero-shot domains shows improvements in segmentation quality and more faithful uncertainty estimates, with a stronger relationship between uncertainty and accuracy. The contribution therefore concerns both the prediction and its accompanying reliability signal. By explicitly training against joint appearance and shape changes, RUAC makes pixel-level uncertainty more informative in the shifted domains examined by the paper."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "bc29887bf73f775b0488e198bb1e782d33fd8655366a76fd3ae84a1c0665c12f",
+    "tldr": "RUAC improves SAM’s segmentation and pixel-level uncertainty under joint appearance and shape shifts."
+  },
+  "icml-2026-sfedpo-streaming-federated-learning-with-a-prediction-oracle-under-temporal-shifts-73df1b3370": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Federated learning combines training across clients without sharing their raw data, but many approaches assume local data distributions stay fixed. Streaming applications violate that assumption. SFedPO instead treats temporal change as partly predictable, occupying a middle ground between static-data methods and fully adversarial online formulations that can be overly pessimistic.",
+      "The framework uses a prediction oracle to anticipate how client-side distributions evolve. Distribution-guided Data Sampling selects training examples under limited storage, balancing reuse of historical data with adaptation to the current distribution. Shift-aware Aggregation Weights adjust how client contributions enter the global model according to their sampling behavior, connecting local data selection to global learning.",
+      "The paper analyzes convergence and establishes robustness guarantees when the predictions contain errors. Extensive experiments show effective adaptation to streaming distribution shifts and significant improvements over existing methods. The findings support using forecasts of data evolution to guide both what clients retain for training and how their updates are combined, while the theory explicitly accounts for imperfect predictions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "41153a4351da267f4e09abe5bb8e278dec48806832f91cefe13486918f61f08f",
+    "tldr": "SFedPO uses predicted distribution changes to guide client sampling and aggregation in streaming federated learning."
+  },
+  "icml-2026-smoothspike-spiking-transformer-with-learnable-hadamard-transformation-7f0d56a67f": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Spiking neural networks communicate through discrete spikes, but this representation can lose distinctions between strong inputs. Within a limited time window, different high-amplitude inputs can produce the same spike count. The paper identifies this saturation-driven homogenization as a source of the performance gap between spiking and conventional networks on language tasks.",
+      "SmoothSpike applies a randomized Hadamard transformation to smooth inputs before activation. The authors provide a high-probability bound on the maximum transformed input, supporting the mechanism mathematically. They also make the transformation adaptable by learning an orthogonal matrix with Newton–Schulz updates. This learned transformation can be incorporated into model weights at inference without additional overhead.",
+      "On GLUE, SmoothSpike reduces representation homogenization and delivers an average 8.2% improvement over Spikingformer while preserving the efficiency of spike-driven computation. The findings connect a specific information-loss mechanism to a targeted architectural remedy. They also support the prospects for efficient language processing on edge devices, with the reported experimental evidence centered on the benchmark improvement and preservation of computational efficiency."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "46c39ec3a397707c584adb717bb81598c64e3679ccc73d5bca219c749a502f9e",
+    "tldr": "SmoothSpike smooths spiking Transformer inputs to reduce saturation-driven information loss and improve language-task performance."
+  },
+  "icml-2026-statistically-calibrated-scaling-for-token-merging-in-transformers-4315b1aa14": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Token merging speeds up Transformer inference by grouping similar tokens and shortening the sequence. Aggressive merging can, however, distort attention outputs enough to disrupt the residual stream and collapse performance. The paper attributes this to both changes in output magnitude and biased attention distributions that existing heuristics do not fully correct.",
+      "The authors treat merging as a statistical reconstruction problem. Their asymptotic radial-angular decomposition separates magnitude errors from distributional errors. Under finite-second-moment and variance-stationarity assumptions, minimizing the decomposed risk produces closed-form corrections controlled by the square root of the retention ratio. These corrections scale merged values and shrink merged logits toward a prior based on cluster size.",
+      "The two adjustments jointly address energy balance and attention-distribution fidelity. Experiments on vision Transformers show improved accuracy and robustness across compression levels. The contribution is an analytical calibration rule for controlling the disruption caused by token merging, with its optimality derived under the stated statistical assumptions and its practical benefits demonstrated in vision-model experiments."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6ee901894124d236f701fd99061fd42d2f58da0aaf645dc73ebe8007453b6c85",
+    "tldr": "A statistically derived scaling rule corrects magnitude and attention-distribution distortions caused by Transformer token merging."
+  },
+  "icml-2026-trajectory-seriation-via-spectral-tangent-alignment-and-global-embedding-cc3cab5446": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper studies how to recover the order of noisy points sampled from an unknown one-dimensional curve in a higher-dimensional space. The order is recoverable up to reversal. Unlike methods that begin with a similarity matrix, STAGE uses the original coordinates to retain information about the curve’s local geometry.",
+      "STAGE estimates local tangent directions using neighborhood principal component analysis. Because each estimated tangent can point in either direction, a graph-wide synchronization step makes their orientations consistent. The method projects neighboring point differences onto these oriented tangents to estimate signed displacements, then integrates them through a least-squares system into one scalar coordinate per point. Sorting those coordinates gives the recovered order.",
+      "A finite-sample Kendall’s tau bound describes how recovery depends on curvature, noise, neighborhood scale, sampling density, and graph connectivity. Experiments show accurate, fast ordering on high-dimensional synthetic curves and favorable comparisons with several existing methods. The method also produces meaningful pseudotime orderings for single-cell RNA-seq data, connecting its geometric construction to an application involving latent progression."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0b1cf202db9874e489657155949b6214143c9940d5ab5ecb74b3a8a0263dd943",
+    "tldr": "STAGE aligns local curve directions and integrates their displacements to recover a global ordering of noisy points."
+  },
+  "icml-2026-transolver-3-scaling-up-transformer-solvers-to-industrial-scale-geometries-13f512753c": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Neural PDE solvers predict physical fields as surrogates for simulations, but industrial geometries can contain more than a hundred million mesh cells. Processing such meshes creates a major memory bottleneck. Transolver-3 addresses this gap between the resolution required by engineering tasks and the capacity of available GPUs.",
+      "The framework accelerates its slice and deslice operations by changing the grouping of matrix multiplications through associativity. It also tiles geometry slices to partition the computation of physical states. Training uses random subsets of the original high-resolution meshes to amortize computation, while inference caches physical states. These techniques address computational demands at both training and prediction time.",
+      "Experiments demonstrate field prediction on meshes exceeding 160 million cells across three challenging simulation benchmarks, including aircraft and automotive design tasks. The result shows that the combined architecture and execution strategy can make industrial-scale meshes accessible to this neural solver. The stated advance is high-fidelity prediction at substantial geometric scale, achieved by organizing computation around memory constraints."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8dab60bdfc9c6500e19f5b47b0c6023caa5afeb1ac64ed20f530a0000b13fbbe",
+    "tldr": "Transolver-3 combines computational restructuring, tiling, subset training, and caching to predict physical fields on meshes exceeding 160 million cells."
+  },
+  "icml-2026-uni-docrobust-universal-plug-and-play-robustness-enhancement-for-multi-modal-llms-via-fe-0d76e7f778": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Noise, blur, and low resolution can substantially degrade multimodal language models’ document understanding. This paper addresses two obstacles to improving robustness: limited aligned training data and restoration methods that are difficult to transfer between model architectures. It introduces both a dataset for learning robustness and a framework for reusing that capability.",
+      "DocRobust-VQA contains 189,000 aligned clean and corrupted document-image pairs and 417,000 question-answer pairs. Uni-DocRobust uses this data to build a restoration core in a shared feature space through multi-teacher distillation. The core remains frozen when integrated into target models, with lightweight feature adapters connecting it to different visual encoders, including those in Qwen-VL and InternVL.",
+      "This separation allows the central restoration capability to be pretrained once and adapted across models. Extensive experiments show significant improvements in robust document-understanding performance and support the cost-effective deployment approach described by the authors. The contribution joins aligned degradation training with a transferable feature-restoration design, addressing both the data needed to learn robustness and the architecture dependence that can impede its reuse."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "630bdcddd5171233560574fd2a51d6039f48000ec89388fb4131aff1b7ddcc1c",
+    "tldr": "Uni-DocRobust pairs aligned document-corruption data with a reusable restoration core to improve robustness across multimodal language models."
+  },
+  "icml-2026-urs-a-unified-neural-routing-solver-for-cross-problem-zero-shot-generalization-bd5a32e646": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Vehicle routing problems come in many variants, making it difficult for a single learned solver to handle unfamiliar combinations without additional training. Existing approaches often depend on predefined problem constraints or adaptation for each problem. URS aims to extend one model’s coverage to unseen routing variants through zero-shot generalization.",
+      "The solver begins with a unified data representation that reduces dependence on enumerating individual problem types. A mixed bias module improves node embeddings by incorporating multiple problem-related priors during encoding. A problem-conditioned parameter generator then adjusts parameters according to the represented problem, adding another mechanism for handling variation within the same model.",
+      "Experiments report high-quality solutions across 110 routing variants, including 99 unseen variants, and scalability to instances with as many as 7,000 nodes. These results support the combination of unified representation, multiple priors, and conditional parameter generation as a way to broaden a neural solver’s reach. The demonstrated generalization concerns the evaluated family of variants and does not require separate fine-tuning for each unseen problem."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d29e11c3756d0916e9ced0dc0870bf54982211a89b36e25e06accca261d4c226",
+    "tldr": "URS uses unified problem representations and conditional parameters to solve 110 routing variants, including 99 unseen variants, with one model."
+  },
+  "icml-2026-winformer-transcending-pairwise-similarity-for-time-series-generation-7f96afd549": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Generating realistic time series requires capturing recurring patterns whose alignment can vary across domains. The paper argues that attention built around individual points or fragmented segments has difficulty representing and adapting to these periodic relationships. Winformer changes the unit that attention processes, making sliding windows central to the model.",
+      "Its window-wise attention uses adaptive alignment kernels derived from frequency decomposition. These kernels help align windows according to periodic structure, producing representations that carry richer meaning than isolated point comparisons. The design is intended to capture complex recurring patterns and transfer them across domains, directly addressing periodicity misalignment in time-series generation.",
+      "Experiments on 12 real-world datasets show an average performance improvement of 10.67% over state-of-the-art baselines. The reported finding supports the value of combining window-level processing with frequency-derived alignment. The contribution is specifically about how attention represents and matches temporal structure: choosing a richer processing unit gives the model a way to account for patterns that extend across multiple observations."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f8131064ada417dfa649cb8322c09d0c1e2e5fdafe9dd07d98c4f9dd58969766",
+    "tldr": "Winformer uses frequency-aligned window-wise attention to improve the generation of time series with complex periodic patterns."
+  }
+}

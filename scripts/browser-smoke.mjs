@@ -88,7 +88,7 @@ try {
   await page.screenshot({ path: '/tmp/latentscape-home-light.png' });
 
   await search('learning from rewards');
-  await assert(await page.getByLabel('Search concepts and papers').count() === 1, 'search input does not have an accessible label');
+  await assert(await page.getByLabel('Search topics and papers').count() === 1, 'search input does not have an accessible label');
   const results = page.locator('.results a, .card a, .paper-card a');
   await assert(await results.count() > 0, 'search returned no navigable result');
   const semanticResults = await page.evaluate(async () => {
@@ -103,7 +103,7 @@ try {
   const specialQuery = 'L1 & L2 regularization ? % κ';
   const encodedSpecialRoute = encodeURIComponent(`search?q=${encodeURIComponent(specialQuery)}`).replace(/%2F/g, '/');
   await page.goto(`${base}/latent-scape/#/${encodedSpecialRoute}`, { waitUntil: 'networkidle' });
-  await assert(await page.getByLabel('Search concepts and papers').inputValue() === specialQuery, 'search route changed encoded query punctuation or Unicode');
+  await assert(await page.getByLabel('Search topics and papers').inputValue() === specialQuery, 'search route changed encoded query punctuation or Unicode');
 
   // Warm model/vector/shard fetches, then make another search while offline.
   await context.setOffline(true);
@@ -172,10 +172,17 @@ try {
   await topicPicker.waitFor();
   const optionCount = await topicPicker.locator('option').count();
   await assert(dataManifest.totalTopics === 256, `map fixture has ${dataManifest.totalTopics} topics, expected 256`);
-  await assert(optionCount - 1 === 256, `map topic picker has ${optionCount - 1} topics, expected 256`);
+  await assert(optionCount === 256, `map topic picker has ${optionCount} topics, expected 256`);
   await topicPicker.selectOption({ index: 1 });
-  await page.waitForFunction(() => location.hash.startsWith('#/topic/'));
-  await assert(page.url().includes('/topic/'), 'keyboard-accessible map topic picker did not navigate to a topic page');
+  const mapSelection = await topicPicker.inputValue();
+  const selectedTitle = await topicPicker.locator('option:checked').textContent();
+  await page.waitForFunction((slug) => document.querySelector('.topic-graph-card.is-root')?.dataset.topicSlug === slug, mapSelection);
+  const readTopic = page.locator('.topic-graph-card.is-root [data-graph-read-topic]');
+  await readTopic.focus();
+  await page.keyboard.press('Enter');
+  await page.waitForFunction((slug) => location.hash.startsWith(`#/topic/${encodeURIComponent(slug)}`), mapSelection);
+  await page.waitForFunction((title) => [...document.querySelectorAll('h1')].some((heading) => heading.textContent?.trim() === title), selectedTitle?.trim());
+  await assert((await page.locator('h1').first().textContent())?.trim() === selectedTitle?.trim(), 'map Read topic did not open the selected topic page');
 
   await page.setViewportSize({ width: 390, height: 844 });
   const assertMobileWidth = async (name) => {

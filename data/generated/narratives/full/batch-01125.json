@@ -1,0 +1,327 @@
+{
+  "neurips-2025-context-aware-regularization-with-markovian-integration-for-attention-based-nucleotide-a-83bda71ef9": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "CARMANIA changes how a transformer learns from nucleotide sequences. Predicting the next nucleotide can encourage reliance on a limited stretch of nearby context, even when broader sequence structure matters. The paper adds a second training signal intended to make the model's predictions more consistent with patterns found throughout each input sequence.",
+      "This signal is a transition-matrix loss. It compares predicted token transitions with statistics derived from nucleotide groups, or n-grams, in the sequence itself. Alongside next-token prediction, it encourages the model to capture higher-order dependencies and organism-specific structure. The approach connects local prediction with sequence-level statistical regularities relevant to evolutionary constraints and biological function.",
+      "Across the reported genomic evaluations, the transition loss improves accuracy on 33 of 40 tasks. CARMANIA exceeds the previous best long-context model by at least 7% and matches leading short-sequence performance while running approximately 2.5 times faster. Enhancer prediction shows gains of up to 34% absolute in Matthews correlation coefficient. These findings support the value of the added objective, particularly for tasks shaped by local motifs and regulatory patterns."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c47abb5e2280c82930aece9a15f3a4bc2858640ac6c0d2b8c31c69533db72b33",
+    "tldr": "CARMANIA improves nucleotide modeling by training predicted transitions to agree with sequence-derived statistics alongside next-token prediction."
+  },
+  "neurips-2025-correlation-dimension-of-autoregressive-large-language-models-b2cb73de60": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A language model can predict individual tokens well while still producing repetitive or incoherent passages. This paper addresses that gap by measuring structural complexity across text. Its proposed measure, correlation dimension, draws on fractal geometry to describe recurring patterns at different levels, capturing relationships that local prediction accuracy can overlook.",
+      "The measure characterizes complexity as perceived by a language model. Its focus is the hierarchical recurrence structure of language: how patterns repeat and relate across a passage. Connecting local and global properties gives the authors another way to examine both model development and generated text, beyond judging how surprising each next token is.",
+      "The experiments show that correlation dimension distinguishes three phases of pretraining, reflects changes in complexity with context, and indicates tendencies toward hallucination. It also detects multiple forms of degeneration in generated text. The authors report computational efficiency, robustness under quantization down to four bits, and applicability to Transformer and Mamba architectures. Together, these findings position the measure as an additional diagnostic for generation behavior rather than merely another score for next-token prediction."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "61138fb58ef87f03e637c1f3277d62e93aec9f4b97618ab1bbdde9a79ce0bed8",
+    "tldr": "Correlation dimension measures recurring structure in model-perceived text complexity and empirically reveals training phases, hallucination tendencies, and generation degeneration."
+  },
+  "neurips-2025-differentiation-through-black-box-quadratic-programming-solvers-25ea3756c8": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Quadratic programming can be a component inside a larger learning system, where training requires knowing how the optimizer's answer changes when its inputs change. Existing differentiation methods often tie that calculation to a particular solver. This makes choosing a solver and choosing a differentiation method unnecessarily dependent on one another.",
+      "The paper introduces dQP to separate these choices. Its central observation concerns the active set: the inequality constraints that are binding at a solution. Once this set is known, both the solution and its derivative can be expressed through simplified linear systems sharing the same matrix. That structure allows differentiation to be handled separately from the procedure that originally solved the optimization problem.",
+      "The resulting framework supports plug-and-play differentiation with virtually any QP solver, and the implementation integrates with more than 15 solvers with minimal overhead. Benchmark experiments demonstrate robustness and scalability, with particular advantages for large sparse problems. This modularity matters for neural networks and bilevel optimization because users can retain solver choice while obtaining the derivatives needed by the surrounding learning procedure."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4a7846267025bdd1db970c375687e1d01794c0e3782199f2db645ebfd14fed03",
+    "tldr": "dQP separates quadratic-program solving from differentiation by using linear systems determined by the active constraints."
+  },
+  "neurips-2025-diffusion-driven-progressive-target-manipulation-for-source-free-domain-adaptation-c5bc4c07e1": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Source-free domain adaptation starts with a pretrained model and unlabeled data from a new setting, without access to the original training data. Large differences between the two settings make adaptation difficult: predicted labels can be unreliable, and generating substitutes for the original data can introduce further mismatch. DPTM approaches the problem by constructing a progressively refined pseudo-target domain.",
+      "The method first separates target samples according to the reliability of their predicted labels. For less trustworthy samples, it uses a latent diffusion model to transform their semantic content into newly assigned categories while keeping them within the target distribution. Target data therefore provide references for generation, rather than simply receiving potentially incorrect labels.",
+      "An iterative refinement mechanism then reduces the discrepancy between the generated pseudo-target domain and the real target domain. Across four benchmark datasets of different scales, the authors report leading performance and large improvements over existing methods. Gains reach up to 18.6% in settings with substantial source-target gaps. The findings support jointly improving the generated adaptation data and their agreement with the destination domain."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e76d9d47f4f540018393e73d49278ac35df42d0e4ea7844d7b035a11814d7bef",
+    "tldr": "DPTM uses diffusion to transform unreliable target samples and progressively refine generated data for source-free domain adaptation."
+  },
+  "neurips-2025-dipo-dual-state-images-controlled-articulated-object-generation-powered-by-diverse-data-7d58407c0f": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "DIPO generates articulated 3D objects from two images showing different states of the same object. One image depicts its resting configuration and the other shows it articulated. The second view adds motion information that helps identify how parts relate mechanically, while requiring only a modest increase in data collection compared with a single-image input.",
+      "A diffusion model processes the image pair to generate part layouts and joint parameters. A separate graph reasoner uses chain-of-thought reasoning to infer which parts connect. These components address complementary aspects of articulation: the arrangement and motion parameters of parts, and the connectivity structure that links them into an object.",
+      "The work also introduces LEGO-Art, an automated pipeline that expands the diversity and complexity of PartNet-Mobility, and PM-X, a dataset with rendered images, URDF annotations, and text descriptions. Experiments show that DIPO outperforms existing baselines in both resting and articulated states. PM-X further improves generalization to diverse, structurally complex objects, supporting the importance of both motion-informed inputs and richer training examples."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f8678785676a9ecea2cadcf3a71c982891312615982924434a068ec904d9f870",
+    "tldr": "DIPO combines images of two object states, diffusion, and connectivity reasoning to generate articulated 3D objects."
+  },
+  "neurips-2025-dynamicverse-a-physically-aware-multimodal-framework-for-4d-world-modeling-9db7833259": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "DynamicVerse turns real-world videos into representations of three-dimensional scenes evolving over time. Its emphasis is physical scale: recovering measurements tied to the real world, rather than geometry known only up to an arbitrary scale. It also combines geometry with motion, object masks, and descriptive language, providing several complementary views of the same dynamic scene.",
+      "The framework uses large vision, geometric, and multimodal models to estimate these different components. It combines bundle adjustment within video windows with global optimization to process long sequences into a coherent 4D format. This links local geometric estimates with consistency across the full video, addressing the need to describe extended real-world activity.",
+      "The resulting dataset contains more than 100,000 videos, 800,000 annotated masks, and 10 million frames sourced from internet videos. Evaluations cover video depth, camera pose, and camera intrinsics estimation. The authors report better physical-scale measurements and greater global accuracy than existing methods. These results support the framework's ability to produce geometrically useful annotations alongside motion and semantic information for dynamic world modeling."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "46abb85ca8ff36163be475f7b840702be4ce3448be76588133f068aa08165d84",
+    "tldr": "DynamicVerse converts real-world videos into physically scaled 4D data combining geometry, motion, object masks, and descriptions."
+  },
+  "neurips-2025-flex-judge-text-only-reasoning-unleashes-zero-shot-multimodal-evaluators-3f17fa4798": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Flex-Judge studies whether training an evaluator to reason about text can help it judge outputs involving other modalities. Automated judges can reduce the cost of human annotation, but existing approaches often need substantial modality-specific supervision. The paper seeks a more economical route to evaluation across different kinds of inputs and judgment formats.",
+      "Its central idea is that structured textual explanations contain reusable patterns of decision-making. Training on a small amount of this reasoning data is intended to teach judgment skills that transfer to images, videos, and other modalities. The contribution therefore centers on the form of supervision, using explanations to support broader evaluation behavior.",
+      "In the reported experiments, Flex-Judge performs competitively with or better than leading commercial APIs and extensively trained multimodal evaluators despite using significantly less textual training data. The authors also describe practical value in molecular evaluation, where comprehensive benchmarks are scarce. These findings support reasoning-based text supervision as a cost-effective approach to multimodal judging, including domains where collecting extensive specialized evaluation data is difficult."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "38048d3b7717da53e314055672b395608b63776670ad419fb81266db47446a87",
+    "tldr": "Flex-Judge uses limited textual reasoning supervision to train an evaluator that generalizes across modalities and evaluation formats."
+  },
+  "neurips-2025-geosvr-taming-sparse-voxels-for-geometrically-accurate-surface-reconstruction-e52790ec9f": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "GeoSVR investigates sparse voxels as an explicit representation for reconstructing detailed surfaces. The paper argues that widely used Gaussian Splatting approaches face representational bottlenecks, while sparse voxels offer useful coverage and geometric clarity. Making that potential work requires better guidance for the overall scene and more consistent refinement of small surface elements.",
+      "The first proposed component uses monocular depth cues to constrain reconstruction while accounting for uncertainty at the voxel level. This is designed to benefit from depth guidance without allowing it to degrade accurate geometry. A second component, Sparse Voxel Surface Regularization, encourages geometric consistency among tiny voxels so that they form sharp, accurate surfaces.",
+      "These two components address different scales of the reconstruction problem: reliable scene-level constraints and detailed local surface formation. Across challenging experimental scenarios, the authors report better geometric accuracy, detail preservation, and reconstruction completeness than existing methods while maintaining high efficiency. The results support sparse voxels as a useful alternative for surface reconstruction when paired with constraints and regularization suited to their representation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "35e531ce177b947b7324db28bbb593f453270e6d986cd2e4bc4f2baff1cc17f4",
+    "tldr": "GeoSVR improves sparse-voxel surface reconstruction with uncertainty-aware depth constraints and regularization for consistent, sharp geometry."
+  },
+  "neurips-2025-improving-reward-models-with-proximal-policy-exploration-for-preference-based-reinforcem-cf3747f409": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Preference-based reinforcement learning learns a reward model from human judgments, reducing the need to manually specify rewards. This paper identifies a problem beyond choosing informative questions: the stored preference examples may cover too little of the behavior the policy explores. A reward model can judge familiar trajectories reliably while misjudging new ones encountered during learning.",
+      "The mismatch is especially consequential near the current policy, where reward errors can directly steer subsequent updates. Proximal Policy Exploration addresses this through two components. One extends exploration into undersampled regions near the policy. The other draws preference queries from a mixture of familiar and out-of-distribution trajectories, balancing coverage with evaluation accuracy in those nearby regions.",
+      "Experiments on continuous control tasks show improvements in both the use of preference feedback and reinforcement-learning sample efficiency over the tested baselines. The implication is that feedback quality depends partly on which behaviors the preference buffer represents. Managing that coverage as exploration proceeds can produce a more reliable reward model and, in turn, more reliable policy updates."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9d1587f19aaa994276ba81736d8c63a464c3453d194f06eddfd7dd185cbb4322",
+    "tldr": "Proximal Policy Exploration improves preference-based learning by expanding feedback coverage around behaviors the current policy is likely to explore."
+  },
+  "neurips-2025-latent-mixture-of-symmetries-for-sample-efficient-dynamic-learning-0b8ec48524": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Learning how a physical system changes over time becomes difficult when measurements are limited. Symmetries can help by identifying transformations under which aspects of system behavior remain equivalent, allowing observations to inform more than one situation. The paper argues that assuming a single global symmetry and discovering it separately from dynamics can restrict expressiveness and accumulate errors.",
+      "Latent Mixture of Symmetries learns hidden factors governed by symmetry while focusing directly on learning dynamics. It preserves symmetric transformations locally, accommodating a more flexible structure than a single global group. A hierarchical version stacks these blocks across multiple time scales to capture temporal equivalences that extend over longer intervals.",
+      "Numerical experiments across diverse physical systems show improvements over leading baselines in both interpolation and extrapolation. These results support the approach's ability to learn useful dynamics from limited measurements. The learned latent representations are also described as interpretable and suitable for future geometric and safety-critical analysis. That suitability is a prospective use of the representations, alongside the demonstrated gains in dynamics learning."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4994a9159a8e7ca28242cc834d8e7cf534c90930e6c7660181e8d5b0e6ae25cb",
+    "tldr": "Latent MoS jointly learns dynamics and local symmetry structure across time scales to improve learning from limited measurements."
+  },
+  "neurips-2025-losplit-loss-guided-dynamic-split-for-training-time-defense-against-graph-backdoor-attac-34c1ed7c40": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "LoSplit defends graph neural networks against backdoors during training. Many existing defenses look for unusual graph structure, outlying data, or unstable predictions. Subtle attacks that alter features without obvious connectivity changes can evade these signals. The paper instead examines how training loss evolves on affected nodes and nearby clean nodes.",
+      "The authors observe that targeted nodes reach low loss early, but this behavior gradually spreads to nearby clean nodes within a class. As the resulting loss distributions overlap, distinguishing the groups becomes harder. LoSplit responds by dynamically selecting training epochs where the loss divergence is greatest, then using Gaussian mixture models to cluster the target nodes.",
+      "After this separation, a Decoupling-Forgetting strategy breaks the association between target nodes and the malicious label. Experiments on multiple real-world datasets show substantial reductions in attack success while preserving high accuracy on clean data across diverse backdoor strategies. The central contribution is to use the timing of loss differences as a defense signal, addressing how those differences change during graph learning."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f882ee6ca4bb7679df0cea801017f6b2bdacfcf7d4ded30b88651d7d3cc591f0",
+    "tldr": "LoSplit detects graph backdoor targets from early training-loss differences and then weakens their association with malicious labels."
+  },
+  "neurips-2025-mmlongbench-benchmarking-long-context-vision-language-models-effectively-and-thoroughly-2b5914c881": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "MMLongBench evaluates vision-language models that can process hundreds of images mixed with text in one pass. A large input window alone does not establish how well a model uses that information. The benchmark therefore tests a range of tasks, image types, and controlled input lengths to examine long-context ability more broadly.",
+      "It contains 13,331 examples across five task categories, including visual retrieval-augmented generation and learning from many examples supplied in context. Natural and synthetic images are both represented. Every example is provided at five standardized lengths between 8,000 and 128,000 tokens, using a counting scheme that combines image patches and text tokens.",
+      "Evaluation of 46 open- and closed-source models shows that success on one task is a weak predictor of overall long-context capability. Both groups struggle, while stronger reasoning ability tends to accompany better long-context performance. This relationship is an observed tendency. The benchmark's breadth and length controls make it useful for identifying which abilities hold up as mixed visual and textual inputs grow."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7554af9dd07b77f782d1ef31722032055b2c54db7aaadfb5e9a89a03336169f9",
+    "tldr": "MMLongBench tests long-context vision-language models across varied tasks and input lengths, revealing uneven capabilities and substantial remaining challenges."
+  },
+  "neurips-2025-more-than-just-functional-llm-as-a-critique-for-efficient-code-generation-b5aee4520f": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Generating code that works is only part of producing useful software; execution time and memory usage also matter. This paper observes that well-trained language models already possess knowledge about code efficiency, but standard generation methods do not fully bring that knowledge into their outputs. The proposed approach aims to make that existing capability more useful.",
+      "The authors design prompts that turn the model into an efficiency critic. Its critiques guide code generation toward solutions that use computational resources more effectively while preserving functionality. The guidance does not require costly execution of the candidate code, making efficiency assessment part of the language-model interaction itself.",
+      "Experiments on EffiBench and HumanEval+ across multiple representative code models report reductions of up to 70.6% in average execution time and a 13.6% decrease in maximum memory usage. Functionality is maintained and sometimes improves. These results suggest that prompting models to assess efficiency can materially improve generated programs, using knowledge that their usual decoding behavior leaves underused. The reported gains describe the evaluated settings rather than a fixed improvement for every program."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "70b510770f9d907714a4114e6ee3b03c30570ee812cc276a745c3af6c24d0883",
+    "tldr": "Prompting language models to critique code efficiency improves generated programs' runtime and memory use without requiring execution for guidance."
+  },
+  "neurips-2025-mospa-human-motion-generation-driven-by-spatial-audio-3641df9b2b": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "MOSPA studies how virtual humans can move in response to spatial audio. Previous audio-to-motion work has largely focused on speech, music, or other sound content while overlooking spatial features in the audio signal. The paper treats those features as meaningful inputs for generating body motion responsive to the surrounding auditory environment.",
+      "The authors introduce SAM, a dataset containing diverse spatial audio paired with human motion. They also develop MOSPA, a diffusion-based generative framework that combines audio and motion information through a fusion mechanism. Its purpose is to learn the relationship between spatial sound and body movement, allowing different audio inputs to condition different generated motions.",
+      "Once trained, the model produces diverse, realistic motion sequences. The paper investigates the dataset and benchmarks the method through extensive experiments, reporting leading performance on the spatial-audio-driven motion task. The dataset and model together establish both training material and a reference approach for studying this relationship. The contribution broadens audio-conditioned animation toward movements informed by spatial auditory information, beyond the speech and music mappings emphasized in earlier work."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a10de27cfdabd9d78772bb3ef74a22a8033c735af7658cb6a5cbae3315183d1c",
+    "tldr": "MOSPA pairs a spatial-audio-and-motion dataset with a diffusion model that generates realistic body movements conditioned on spatial sound."
+  },
+  "neurips-2025-multi-agent-kto-enhancing-strategic-interactions-of-large-language-model-in-language-gam-f4652d12c9": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "MaKTO investigates how language agents can improve strategic decisions and communication together through interaction. Its test bed is Werewolf, a social deduction game requiring players to interpret language, adapt to others, and communicate strategically. The work draws on language-game theory to motivate learning through gameplay instead of separating decisions from their verbal expression.",
+      "Diverse models play extensively to generate examples of desirable and unacceptable responses. These examples are unpaired, and Kahneman-Tversky Optimization is then used to refine the model's decision-making. The training process therefore uses judgments about individual responses arising from multi-agent interaction to improve subsequent strategic behavior.",
+      "In nine-player games, MaKTO achieves a 61% average win rate across various models. The authors report relative improvements of 23.0% over GPT-4o and 10.9% over two-stage reinforcement-learning agents. Against expert humans, it wins 60% of games, with 48.9% detectability in Turing-style blind tests. These results demonstrate strong strategic and conversational performance in the tested game setting, where language is itself part of the action."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "27603027eb3c91f651aaf01a1923159af876e12c1cf9b53ea75541fb7bc444e2",
+    "tldr": "MaKTO learns from desirable and unacceptable responses in multi-model Werewolf gameplay to improve strategic language interaction."
+  },
+  "neurips-2025-neighbor-aware-contrastive-disambiguation-for-cross-modal-hashing-with-redundant-annotat-8a4df573be": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Cross-modal hashing maps different kinds of data into compact codes for efficient retrieval. NACD addresses training annotations that contain both correct labels and extra noisy ones. Treating every candidate label as true can make unrelated samples appear similar, distorting the shared representation used to retrieve information across modalities.",
+      "The framework first reconstructs confidence in each label using information from cross-modal neighbors. This helps distinguish likely true labels from redundant annotations. It then uses those confidence scores to form more reliable positive and negative pairs for contrastive hashing, so that the training signal depends on estimated label reliability rather than accepting all annotations equally.",
+      "A further quantization loss enforces binary constraints on the learned representations, reducing the error involved in producing compact hash codes. Experiments on three large-scale multimodal benchmarks show consistent improvements over leading approaches. The findings support handling annotation uncertainty at both stages: estimating which labels deserve trust and deciding which samples should be brought together or separated in the hash representation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "504157fb8e8214359a4fc604e6bac599964bba23757e501b8bcfe13a001a791e",
+    "tldr": "NACD improves cross-modal retrieval by using neighboring samples to estimate label reliability and construct cleaner contrastive training pairs."
+  },
+  "neurips-2025-prediction-powered-semi-supervised-learning-with-online-power-tuning-a96c78e0d1": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Semi-supervised learning uses unlabeled examples alongside labeled data, often by assigning model-generated pseudo-labels. Those extra examples can help, but inaccurate pseudo-labels can bias training. This paper adapts the central idea of Prediction-Powered Inference, originally used for statistical parameter estimation, to construct an unbiased gradient estimator for learning model parameters.",
+      "The method combines information from labeled and pseudo-labeled data through an interpolation parameter. This parameter controls their contributions and is adjusted during training, alongside the model itself. A one-dimensional online learning algorithm performs the adjustment, making the balance part of the ongoing optimization rather than a separate offline tuning stage.",
+      "Experiments on synthetic and real datasets show improved performance over classic semi-supervised baselines and Prediction-Powered Inference methods that tune the parameter offline. The contribution combines a statistical property—an unbiased gradient estimator—with an adaptive way to determine the contribution of pseudo-labeled information. The results support updating that balance during learning when the usefulness of pseudo-labels is central to the value of unlabeled data."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "da85552c2f2cc54a1b3c70f279735ed065724a26788ef70fa46b4ed72de0666b",
+    "tldr": "The method combines an unbiased semi-supervised gradient estimator with online tuning of how strongly pseudo-labeled data contribute."
+  },
+  "neurips-2025-reasoning-is-not-a-race-when-stopping-early-beats-going-deeper-92186e8f0d": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper examines whether feedback on individual reasoning steps helps language models carry out long chains of reasoning. Process Reward Models (PRMs) provide this feedback, and beam search uses it to guide the choice among candidate reasoning paths. The researchers find that this guidance does not consistently beat approaches that operate without PRMs when reasoning chains become long.",
+      "They connect this shortfall to a decline in step quality. Expected quality follows a concave pattern: it can rise to a single peak and then fall, or decline throughout. This finding gives a reason to reconsider how long search should continue. Extending a reasoning path can carry the search beyond its strongest steps.",
+      "The proposed method, Z-Score Guided Early Stopping (ZGES), uses local PRM reward z-scores to detect a quality peak and stop search there. Across the mathematics benchmarks and model scales studied, it outperforms both standard PRM-guided beam search and the PRM-free methods. Ablation studies further support the advantages and robustness of adapting the stopping point to the quality signal."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3db17db5dfa1e511d8dcc635d74f5ac8a26d1d3f5fc7ea166272b635be3cf4ff",
+    "tldr": "ZGES uses step-level reward signals to stop reasoning search at a detected quality peak, outperforming the compared methods across the mathematics benchmarks and model scales studied."
+  },
+  "neurips-2025-recursive-inference-scaling-a-winning-path-to-scalable-inference-in-language-and-multimo-61857ad6e8": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Recursive Inference Scaling explores increasing effective model depth through recursion. The paper presents RINS as a plug-in approach for language and multimodal systems, motivated by findings about the fractal structure of language. Its comparisons hold compute budgets fixed, helping distinguish the benefits of the recursion strategy from those of simply spending more computation.",
+      "RINS outperforms more than 55 alternative variants and improves language modeling for a fixed model size and training compute budget. It also produces gains in multimodal systems, including a reported 2% improvement in zero-shot ImageNet accuracy for SigLIP-B/16. The derived data scaling laws show improvements in both scaling exponents and asymptotic performance limits.",
+      "With linear adapters comprising less than 1% of model parameters and stochastic dropout, RINS-enabled pretraining also improves language modeling when recursion is omitted at inference. This is the specific basis for the paper's no-regret characterization: benefits remain under matched training compute, parameters, and inference budgets. The results suggest recursion can be useful both for inference scaling and as a component of pretraining."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b060cf1c301fcfafd9abb081a9ba5d3d72f59810bf50b6bf0b81224b3f450b44",
+    "tldr": "RINS improves language and multimodal models through recursive depth, with a training variant that retains benefits even without inference-time recursion."
+  },
+  "neurips-2025-reinforcement-learning-meets-masked-generative-models-mask-grpo-for-text-to-image-genera-eaeace7425": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Mask-GRPO brings reinforcement learning to masked text-to-image generation, a model family less explored by existing reinforcement-learning approaches. These models generate through an unmasking process. The paper's goal is to make that process compatible with Group Relative Policy Optimization so that reward-based training can improve image generation and preference alignment.",
+      "The central change is a new definition of transition probability that treats unmasking as a sequence of decisions. This gives the generation process the decision-making formulation needed for the proposed optimization method. The authors also explore removing the Kullback-Leibler constraint, applying a reduction strategy, and filtering low-quality samples as ways to strengthen training.",
+      "Applied to the Show-o base model, Mask-GRPO yields substantial improvements on standard text-to-image benchmarks and preference alignment, outperforming existing leading approaches in the reported evaluation. The significance is an extension of reinforcement-learning optimization to a different generation mechanism. By adapting the formulation to unmasking, the work shows that masked generators can benefit from this form of reward-driven refinement."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0b15748ac37bc5a4accc7c5ffc0a3a68208dd4e81be1950ad78f6ccd00d04336",
+    "tldr": "Mask-GRPO reformulates unmasking as sequential decision-making to apply reward-based optimization to masked text-to-image models."
+  },
+  "neurips-2025-rethinking-losses-for-diffusion-bridge-samplers-b9575978bb": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Diffusion bridges learn to sample from distributions whose normalization is unknown. This paper revisits which training loss works best, distinguishing the objective from the way its gradient is computed. Earlier comparisons favored Log Variance loss over reverse Kullback-Leibler loss when the latter used reparameterization to obtain gradients.",
+      "The authors examine a different gradient calculation, the log-derivative trick. An equivalence between its reverse-KL gradients and on-policy Log Variance gradients holds for diffusion samplers with fixed forward processes, but does not extend to diffusion bridges or learned diffusion coefficients. They argue that, for bridges, Log Variance consequently lacks the same justification through the data processing inequality available to reverse KL.",
+      "Training with reverse KL and log-derivative gradients, called rKL-LD, avoids that conceptual issue and consistently outperforms Log Variance in the reported experiments. Tests cover different bridge types and challenging benchmarks. The authors also find more stable training and substantially less hyperparameter tuning. The practical lesson is that changing the gradient estimator can materially change the comparison between training objectives."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "cf030b395ba91df061ccf108b4b880bd83667902844f79fb67dd541f18acd14f",
+    "tldr": "Reverse-KL training with log-derivative gradients improves diffusion-bridge sampling and stability over Log Variance loss in the reported experiments."
+  },
+  "neurips-2025-spectral-graph-neural-networks-are-incomplete-on-graphs-with-a-simple-spectrum-b0dd09f35b": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Spectral graph neural networks use information such as Laplacian eigenvectors to distinguish graph structures more effectively. This paper asks how far that added information actually takes them. It argues that common evaluation frameworks for expressive power align poorly with spectral structure, making some important distinctions difficult to see.",
+      "The authors introduce an expressivity hierarchy based on the largest multiplicity of a graph's eigenvalues. Within this framework, they prove that many spectral networks remain incomplete even when all eigenvalues are distinct: such networks still cannot distinguish every pair of non-isomorphic graphs in that class. Distinct eigenvalues therefore do not remove the demonstrated expressivity deficiency.",
+      "To address it, the paper adapts rotation-equivariant networks to graph spectra, producing equiEPNN with a provable expressivity improvement on simple-spectrum graphs. Experiments show perfect eigenvector canonicalization on ZINC and favorable results on MNIST-Superpixel classification and ZINC property regression compared with leading spectral methods. The work combines a sharper account of existing limitations with an architecture that improves the relevant theoretical distinction and performs well empirically."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "153b90009c03c213343dc18b3b4c6eaa2102099f889853fee3df842bdf9ef5cf",
+    "tldr": "The paper proves expressivity gaps in many spectral graph networks and introduces equiEPNN with stronger guarantees on graphs with distinct eigenvalues."
+  },
+  "neurips-2025-unirelight-learning-joint-decomposition-and-synthesis-for-video-relighting-e75d660b7d": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "UniRelight changes the lighting in a single image or video while accounting for scene properties and material interactions. Direct relighting models face a shortage of examples showing the same scene under different illumination. Separating scene recovery from rendering can reduce that data burden, but errors from the first stage can carry into the second.",
+      "The proposed approach jointly estimates albedo, a surface's underlying reflectance, and generates the relit output in one pass. It uses a video diffusion model's generative capabilities to connect these tasks. Joint learning is intended to improve implicit scene understanding while supporting effects such as shadows, reflections, and transparency that depend on how light interacts with materials.",
+      "Training combines synthetic scenes under multiple illuminations with extensive automatically labeled real-world videos. The authors report strong generalization across diverse domains and improvements over previous methods in visual fidelity and temporal consistency. These findings matter for video because successful relighting requires both convincing individual frames and lighting behavior that remains coherent over time. The joint formulation addresses those demands within a single model."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "cc28cdcf16a9f93c3601baeedd9114a52c88aa4888ab23c3658364f5b65b8265",
+    "tldr": "UniRelight jointly predicts surface reflectance and relit imagery with video diffusion, improving visual quality and consistency across frames."
+  },
+  "neurips-2025-vibe-annotation-free-video-to-text-information-bottleneck-evaluation-for-tl-dr-766b87037b": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "VIBE evaluates video summaries according to whether they help people make decisions accurately and efficiently. Verbose descriptions can preserve many details yet make a task harder by adding redundancy. Existing caption evaluation also depends on expensive human annotations and can overlook whether a summary contains the information needed for a particular task.",
+      "The method scores summaries along two dimensions without requiring annotations. Grounding measures agreement with the video's visual content, while utility measures how informative the summary is for the task. VIBE ranks randomly sampled outputs from a vision-language model using these scores and selects summaries intended to support effective human decisions.",
+      "Human studies on LearningPaper24, SUTD-TrafficQA, and LongVideoBench show consistent improvements from the selected summaries. The reported results include task-accuracy gains of up to 61.23% and a 75.77% reduction in response time compared with naive model summaries or raw video. The findings support evaluating summaries through both faithfulness and task relevance, connecting summary selection to measurable benefits for the people using them."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "76eb84fef4973e1dc22bb83ac10cdffb9a3f290393398352e46c2cce4c1ecb9f",
+    "tldr": "VIBE selects video summaries using annotation-free grounding and task-utility scores, improving human decision accuracy and speed in reported studies."
+  },
+  "neurips-2025-walrus-wavelets-for-long-range-representation-using-state-space-methods-15bf8daf60": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "WaLRUS studies how state-space models can represent signals as observations arrive over time. Earlier methods such as HiPPO use a limited selection of polynomial bases and depend on closed-form solutions for particular well-behaved choices. The broader SaFARi framework allows models to be constructed from arbitrary frames, including redundant and non-orthogonal ones.",
+      "The paper uses that flexibility to build state-space models from Daubechies wavelet frames. It introduces scaled-Walrus and translated-Walrus variants. Their localized, multiresolution structure is useful for representing signals containing abrupt changes or temporary events, where features occur at particular moments and across different scales rather than varying smoothly throughout.",
+      "In online function approximation experiments, WaLRUS improves accuracy, numerical properties, and implementation efficiency compared with HiPPO-based models. The findings demonstrate a concrete benefit of expanding the available representation families: wavelet structure offers advantages for non-smooth and transient signals. The contribution is both a new construction within SaFARi and evidence that the choice of frame can affect the quality and practicality of sequential signal representation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b5dc2360bf5a9757b455a1bf3b3cfc6d7fc7e1fec71f098a8939bf3f3616a20c",
+    "tldr": "WaLRUS builds state-space models from wavelets to improve online representation of non-smooth and transient signals."
+  }
+}

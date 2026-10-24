@@ -11,7 +11,7 @@ afterEach(async () => {
 });
 
 describe('service-worker cache fingerprint', () => {
-  it('changes when shipped model bytes change but ignores its own output and post-build report', async () => {
+  it('changes when shipped model bytes change but ignores its own output', async () => {
     const root = await mkdtemp(join(tmpdir(), 'latentscape-fingerprint-'));
     roots.push(root);
     await Promise.all([
@@ -24,12 +24,10 @@ describe('service-worker cache fingerprint', () => {
       writeFile(join(root, 'models', 'model.onnx'), 'model-a'),
       writeFile(join(root, 'wasm', 'runtime.wasm'), 'runtime-a'),
       writeFile(join(root, 'data', 'manifest.json'), '{}'),
-      writeFile(join(root, 'data', 'report.json'), '{"old":true}'),
       writeFile(join(root, 'sw.js'), 'latentscape-static-__BUILD_FINGERPRINT__'),
     ]);
 
     const baseline = await fingerprintStaticOutput(root);
-    await writeFile(join(root, 'data', 'report.json'), '{"new":true}');
     await writeFile(join(root, 'sw.js'), 'latentscape-static-different');
     expect(await fingerprintStaticOutput(root)).toBe(baseline);
 

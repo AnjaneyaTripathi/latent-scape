@@ -1,0 +1,327 @@
+{
+  "icml-2026-alas-additive-learnable-alpha-stable-kernels-for-flexible-bayesian-optimization-532f4d3326": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Bayesian optimization searches for good settings when evaluating each candidate is expensive. Its success often depends on the kernel, which determines how a Gaussian process relates observations at different inputs. Choosing that kernel is difficult when the objective’s shape is unknown: a useful model may need to represent both gradual changes and sharp irregularities.",
+      "ALAS introduces a kernel family built from symmetric alpha-stable spectral components. Its central adjustment is to learn the stability parameter alpha from data, allowing the kernel’s effective smoothness to adapt. The paper presents two versions. ALAS uses one stationary component with joint spectral modulation, while ALAS-Sep learns separate tail behavior for individual dimensions.",
+      "The separable version is intended to improve robustness when the objective is approximately decomposable into contributions associated with different dimensions. Experiments on standard benchmarks and real-world surrogates report strong, robust performance across varied settings. The contribution is a way to make the kernel’s structural assumptions more adaptable during optimization, reducing dependence on a fixed smoothness choice made before observing the objective."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "cc697f550fcd54201b640b1befa51cf3429b96292bc20e75014f8cf7554f81cf",
+    "tldr": "ALAS learns the smoothness behavior of Gaussian process kernels to support Bayesian optimization across objectives with different structures."
+  },
+  "icml-2026-blending-supervised-and-reinforcement-fine-tuning-with-prefix-sampling-2394f2ed49": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Supervised fine-tuning teaches a language model to imitate demonstrations, while reinforcement fine-tuning lets it improve through exploration and feedback. Each has a different weakness. Imitation can generalize poorly beyond demonstrated behavior, and reinforcement fine-tuning can learn unexpected behavior or depend strongly on the model’s starting policy.",
+      "The paper introduces Prefix-RFT, a hybrid approach based on a unified view of these training methods. Its central idea is to combine learning from demonstrations with learning through exploration. This makes the relationship between the two sources of learning part of the training approach, rather than treating supervised and reinforcement fine-tuning as independent alternatives.",
+      "On mathematical reasoning problems, Prefix-RFT outperforms standalone supervised fine-tuning, standalone reinforcement fine-tuning, and parallel mixed-policy reinforcement methods. Ablation studies also find robustness to changes in demonstration quality and quantity. These results support the paper’s claim that demonstration learning and exploration can complement one another. The evidence establishes that benefit in the mathematical reasoning setting studied, where their combination improves on either training paradigm alone."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "55d0ff337088fb99d921ff9326931147aaf016fbb2432a75de2cd7deda0a317d",
+    "tldr": "Prefix-RFT combines demonstrations and exploration, outperforming separate supervised and reinforcement fine-tuning methods on mathematical reasoning tasks."
+  },
+  "icml-2026-discovering-interpretable-algorithms-by-decompiling-transformers-to-rasp-4f3b6d6bea": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A Transformer can solve a task without making its internal algorithm easy to inspect. Prior work connects Transformer computation to the RASP family of programming languages and suggests a relationship between simple RASP programs and generalization to longer inputs. That connection leaves a separate question: whether trained models actually implement such interpretable programs.",
+      "The paper proposes extracting programs directly from trained Transformers. It first faithfully re-parameterizes a model as a RASP program. It then uses causal interventions to identify a smaller sub-program sufficient for the computation being studied. This process moves from a complete computational description toward a compact explanation supported by interventions.",
+      "Experiments use small Transformers trained on algorithmic and formal language tasks. For models that generalize to longer inputs, the method often recovers simple, interpretable RASP programs. The finding supports the idea that these models can internally implement compact algorithms. Its force comes from recovering sufficient programs from trained computations, while the reported success remains frequent rather than universal and is demonstrated in the small-model settings studied."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5d52ad9988ca2e797e4a7a574b78dbd6d659488771c7c2223d4354a380170528",
+    "tldr": "The paper extracts compact RASP programs from trained Transformers, often revealing interpretable algorithms in small models that generalize to longer inputs."
+  },
+  "icml-2026-does-math-reasoning-improve-general-llm-capabilities-understanding-transferability-of-ll-e19e62450b": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Higher mathematical reasoning scores do not automatically establish broader problem-solving improvements. This paper evaluates more than 20 open-weight reasoning-tuned models across mathematics, scientific questions, agent planning, coding, and instruction-following. Most models that perform well in mathematics fail to carry their gains into the other domains tested.",
+      "To investigate why, the authors run controlled experiments using math-only training data with reinforcement learning and supervised fine-tuning. Reinforcement-tuned models transfer better overall, but the analysis identifies on-policy fine-tuning as the key mechanism behind transfer. In the experiments, that distinction matters regardless of whether the learning signal is supervised or reward-based.",
+      "Analyses of internal representations and output distributions help explain the pattern. Off-policy supervised fine-tuning produces substantial drift, while on-policy reinforcement learning preserves general-domain structure. The findings therefore shift attention from the broad training label to how training behavior relates to the model’s own policy. They suggest reconsidering reliance on off-policy distilled demonstrations when the goal is reasoning improvement that carries beyond mathematics."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "95abad4061a643c644f2f54d6da9812e65165496f593bbeff13b0ee28cf0de9b",
+    "tldr": "Math gains often fail to transfer, and controlled experiments identify on-policy fine-tuning as a key contributor to broader capability transfer."
+  },
+  "icml-2026-e2former-v2-on-the-fly-equivariant-attention-with-linear-activation-memory-4c315f5bb1": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Equivariant graph neural networks model three-dimensional atomic systems while respecting geometric transformations. Their computational burden often comes from constructing geometric features or performing dense tensor operations for every graph edge. E2Former-V2 addresses this bottleneck by combining a sparser mathematical representation with an implementation designed around GPU memory and execution.",
+      "Its Equivariant Axis-Aligned Sparsification changes basis from SO(3) to SO(2), replacing dense Wigner-6j contractions with sparse re-indexing operations organized by parity. The architecture then uses node-centric, on-the-fly attention implemented in a fused Triton kernel. Avoiding materialized edge tensors reduces intermediate storage, while greater use of fast on-chip SRAM improves execution efficiency.",
+      "The kernel achieves up to 20 times higher TFLOPS than standard implementations; this is a computational throughput result, rather than a claim of identical end-to-end speedup. Experiments on SPICE and OMol25 show preserved predictive accuracy alongside substantially faster inference. Together, the results support the practical feasibility of running large equivariant Transformers on commodity GPUs through coordinated changes to representation and implementation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b86e602479d21d13271ab8d8de3d8c90c1732ad12be606496913cd164b9c935d",
+    "tldr": "E2Former-V2 accelerates atomistic modeling by combining sparse equivariant operations with GPU attention that avoids materializing edge tensors."
+  },
+  "icml-2026-ecovla-environment-aware-adaptive-pruning-with-interleaved-inference-orchestration-for-v-c715dafc70": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Vision-language-action models can guide robotic manipulation, but their size introduces latency that interferes with real-time execution. Removing computation can help, yet the best parts to remove may change as the physical environment evolves. EcoVLA addresses this moving target with a training-free adaptive pruning framework.",
+      "The framework combines two components. Environment-aware Adaptive Pruning updates channel sparsity patterns using temporal consistency in the physical environment. Interleaved Inference Orchestration schedules that pruning work alongside inference, using computational gaps to keep its added latency negligible. This couples the decision about which channels to prune with a practical way to perform those decisions during execution.",
+      "Across multiple VLA models and benchmarks, EcoVLA reports up to 1.60 times speedup with a 0.4% drop in success rate. Combining it with token pruning reaches 2.18 times speedup with 0.5% degradation. The authors also validate effectiveness on real robots. These findings show that adapting sparsity to changing surroundings can improve execution speed while retaining most measured task success, and can complement an existing acceleration method."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "94154a2d719d46f5fd331d3a8afd405bf3bb7851a3d95c8cfff1a28c5e036b0b",
+    "tldr": "EcoVLA adapts channel pruning to changing environments and schedules pruning alongside inference to accelerate robotic models with small reported success-rate losses."
+  },
+  "icml-2026-equilibrium-reasoners-learning-attractors-enables-scalable-reasoning-fc0b619bb6": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Some reasoning models spend additional computation repeatedly updating an internal latent state. This paper hypothesizes that their ability to generalize comes from learning task-conditioned attractors: stable states toward which the internal dynamics move, with valid solutions represented by fixed points. Equilibrium Reasoners turn that perspective into a model framework.",
+      "EqR scales computation in two ways. It can run more update iterations, increasing depth, or aggregate stochastic trajectories from multiple starting states, increasing breadth. It does this without external verifiers or task-specific priors. The authors find that improvements from additional computation are tightly associated with better convergence toward attractors.",
+      "The approach also supports allocating computation according to difficulty. Simple cases converge within one to five iterations, while difficult cases benefit from much longer execution. On Sudoku-Extreme, unrolling up to the equivalent of 40,000 layers raises accuracy from 2.6% for feedforward models to over 99%. This provides strong empirical support for scalable latent reasoning on that task, while the broader explanation of generalizable reasoning through attractors remains the paper’s motivating hypothesis."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b5eef71494fc1e8b408e4c939efd9d775fed1cdf7534b7cd36972b60548489ce",
+    "tldr": "Equilibrium Reasoners scale internal iterations and multiple trajectories, linking improved reasoning performance to convergence toward task-conditioned attractors."
+  },
+  "icml-2026-evaluating-sample-utility-for-efficient-data-selection-by-mimicking-model-weights-b168d21103": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Large web-collected datasets contain examples that differ substantially in usefulness. Selecting them through handcrafted rules, downstream validation data, or expensive influence calculations can introduce dependencies and computational costs. This paper proposes the Mimic Score as a relatively inexpensive way to estimate an example’s training utility using an existing pretrained reference model.",
+      "The score measures alignment between a sample’s gradient and a target direction induced by the reference model’s weights. A sample is evaluated through the direction in which it would influence learning. Grad-Mimic uses this score in two stages: online reweighting to guide training, followed by offline aggregation of sample utilities to build data filters.",
+      "Experiments report improved data efficiency, faster convergence, and consistent performance gains across six image datasets. For CLIP, score-guided training improves models with 20.7% fewer training steps. Filters based on the score also complement existing filtering methods, producing improved CLIP models with 4.7 million fewer samples. These findings support using reference-model geometry as a practical signal for both allocating training attention and selecting a dataset."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "68b416228b859376fc4fb0c7bb004750cc4dbe12b99379e9028de5185323cea7",
+    "tldr": "Grad-Mimic uses gradient alignment with a pretrained reference model to reweight and filter data, improving training efficiency in image and CLIP experiments."
+  },
+  "icml-2026-gram2token-enabling-run-time-gpu-native-grammar-constrained-decoding-for-llms-07f9d1bafb": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Grammar constraints help language models produce structured outputs such as JSON, SQL, and programs. Enforcing those constraints can slow generation when byte-level parsing runs inside a token-level decoding loop. CPU control flow and repeated CPU–GPU synchronization become particularly costly when a server continuously batches requests.",
+      "Gram2Token moves much of this work before inference. It aligns tokenizer byte sequences with grammar transitions through a trie, then groups tokens that produce identical transition outcomes across the preprocessed grammar states. Those groups support compact validity masks and transition tables. At runtime, the GPU performs category lookup, masking, and state updates instead of traversing bytes with parser logic.",
+      "Across four model families under schema-diverse continuous batching, the framework reports a geometric-mean throughput improvement of 1.38 times over the strongest baseline and a maximum of 1.85 times. The tradeoff is additional preprocessing and time before the first token appears. Analyses show that grammar reuse, longer outputs, and larger batches amortize this overhead, making the approach particularly relevant when structured generation supplies enough repeated work to recover the upfront cost."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0189dfaec40665a70ae545b7f962860bd02b76402fbcfc8cec1039b2fd5e7fa3",
+    "tldr": "Gram2Token preprocesses grammar rules into GPU-friendly token transitions, improving structured-generation throughput at the cost of upfront processing and first-token latency."
+  },
+  "icml-2026-homophily-heterogeneity-gradient-surgery-for-federated-graph-learning-9611b1d1a7": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Federated graph learning allows clients to collaborate on a graph neural network while keeping their data distributed. A complication arises when clients’ subgraphs differ in homophily, or how strongly connected nodes resemble one another. Those differences can produce conflicting training objectives and weaken the resulting model’s generalization.",
+      "FedGCM addresses the conflict by grouping clients according to their homophily levels. This avoids checking every client against every other client. Its RPGrad mechanism then uses residual projection to modify group updates, retaining compatible knowledge while filtering interference between groups. The refined updates are transmitted by group, targeting the source of disagreement without adding client-side architectural burden.",
+      "The paper provides a theoretical convergence analysis and reports superior performance across experiments involving both homophilous and heterophilous graphs. Its contribution is therefore both an optimization mechanism and supporting analysis. By organizing conflict management around graph similarity patterns, FedGCM provides an alternative to multi-channel solutions that increase work on edge devices, while preserving useful information shared across groups."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "aecf210cfa85bd64613c5d825b171ac9a94211270274a6e7683b9b1cb166b57e",
+    "tldr": "FedGCM groups graph-learning clients by homophily and modifies conflicting group gradients to improve collaborative training without increasing client-side burden."
+  },
+  "icml-2026-learnibridge-learnable-calibration-of-feature-caching-for-diffusion-models-acceleration-c1a99efbf4": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Diffusion Transformers generate images and videos through computationally expensive repeated processing. Feature caching speeds this up by reusing intermediate representations, but old features become increasingly inaccurate as reuse grows. At high acceleration ratios, those errors can accumulate severely and undermine the usefulness of the shortcut.",
+      "LearniBridge investigates the correction needed to make cached features useful across timesteps. The authors find that the optimal calibration update lies in a shared low-rank subspace across diverse prompts. They use that structure to build lightweight LoRA updates that bridge multiple timesteps. The reported calibration requires only three to five training samples, making the correction mechanism inexpensive to fit.",
+      "Experiments report acceleration of up to 5.87 times on FLUX, 5.75 times on HunyuanVideo, and 4.10 times on WAN 2.1. At the reported 4.10 times acceleration on WAN 2.1, LearniBridge improves VBench by 1.28% over the previous state of the art. These results indicate that learning a compact correction can improve the quality-speed tradeoff of feature reuse in both image and video generation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "afbb4f1d1397f0ef7f7f28a66e7916f07aa2c9076c9f4f085caac9999ac6eed4",
+    "tldr": "LearniBridge learns compact corrections to cached diffusion features from three to five samples, enabling substantial image and video generation acceleration."
+  },
+  "icml-2026-learning-to-explore-scaling-agentic-reasoning-via-exploration-aware-policy-optimization-1a8e288ae6": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "An agent can gather feedback from its environment before deciding what to do. That extra interaction is useful when information is missing, but a uniform exploration strategy does not distinguish uncertain situations from ones that are already clear. This paper trains language-model agents to make exploration more selective.",
+      "The proposed reinforcement learning framework introduces a fine-grained reward derived through variational inference. It estimates how much an exploratory action could improve future decisions, giving information gathering an explicit role in training. A separate grouping mechanism distinguishes exploratory actions from task-completion actions during optimization, so the two kinds of behavior are not treated as interchangeable.",
+      "The intended result is an agent that targets information gaps and moves into execution once it has enough context. Experiments report consistent improvements across challenging text-based and graphical-interface agent benchmarks. The findings support teaching agents when further investigation is valuable, alongside teaching them how to finish tasks. The central contribution is this coupling of selective exploration with a training signal tied to its potential decision-making benefit."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5277515ecf07636de1f432f6c6be24e58d0e59a861477c46a82534345ccdddf0",
+    "tldr": "The framework rewards exploration for its potential to improve future decisions, helping agents investigate uncertainty selectively before executing tasks."
+  },
+  "icml-2026-multi-level-strategic-classification-incentivizing-improvement-through-promotion-and-rel-b275673340": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "People or agents affected by a classifier may change their behavior to obtain favorable outcomes. When dishonest manipulation costs less than genuine improvement, the decision system can reward the wrong response. This paper studies how a sequence of promotion and relegation decisions can instead make sustained honest effort worthwhile.",
+      "The model focuses on classification thresholds and how difficulty progresses across levels. It includes three influences on long-term incentives: how far ahead an agent looks, how much skill persists, and a leg-up effect through which attainment and qualification reinforce each other. The authors characterize the agent’s optimal strategy over time and show how a principal can choose thresholds to encourage genuine effort.",
+      "The main theoretical result states that, under mild conditions, the mechanism enables agents to reach arbitrarily high levels through genuine improvement alone. The qualification matters: this is a result within the modeled conditions. Its significance is that incentive design can operate through the progression of standards across time, creating a route where honest development remains compatible with continued advancement."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f778500568e2c60fba21c995dcd545d0aa1a93635886b8d37b606c1e42d37b75",
+    "tldr": "The paper shows how promotion and relegation thresholds can incentivize honest improvement, enabling arbitrarily high advancement under stated model conditions."
+  },
+  "icml-2026-persistent-backdoor-attacks-in-class-incremental-learning-via-structural-invariant-ancho-fbd1cba992": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A backdoor planted in a continually learning model may disappear as subsequent training changes its parameters. This paper examines that problem in class-incremental learning, where the model learns additional classes over time. It finds that an assumption behind an advanced existing attack—that task-critical neurons remain stable—does not hold in this setting.",
+      "The authors instead identify shallow, structurally invariant subspaces that preserve task knowledge. Their proposed PBTO attack uses a surrogate model trained on proxy tasks to obtain a sequence of parameter states. It optimizes a universal trigger for targeted misclassification across those states and anchors trigger embeddings in shallow layers, tying persistence to the observed structural stability.",
+      "Experiments show that PBTO retains a high final attack success rate across the evaluated benchmarks, while representative baselines deteriorate substantially after sequential learning. The finding identifies a security-relevant distinction between changing individual parameters and stable representational structure. Continued model updates can weaken some backdoors while leaving structural locations that support persistent targeted behavior, as demonstrated by the proposed method."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "041e5fe32f3e7a59c466b8bfc3553d7164eb610708f997cab5eefcbd85b0eb2f",
+    "tldr": "PBTO anchors backdoor behavior in stable shallow representations, maintaining high attack success after class-incremental learning in the reported experiments."
+  },
+  "icml-2026-probellm-automating-principled-diagnosis-of-llm-failures-389adda6d1": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Finding a single incorrect model response does not necessarily explain the broader weakness behind it. ProbeLLM aims to organize automated evaluation around recurring failure modes. It addresses a problem with both static benchmarks and existing dynamic probing: they can expose errors without systematically mapping the structure of model weaknesses.",
+      "The framework treats probing as a hierarchical Monte Carlo Tree Search. It allocates a limited testing budget between exploring new regions of failure and examining familiar error patterns more closely. Test generation and verification use tools, and probing is restricted to verifiable cases. These choices make reliable evidence part of the search process itself.",
+      "ProbeLLM then consolidates discovered failures using failure-aware embeddings and boundary-aware induction to produce interpretable failure modes. Across diverse models and benchmarks, it reports broader, cleaner, and more detailed failure landscapes than static evaluations and prior automated approaches. The contribution is a connected process for deciding where to test, checking that observed errors are valid, and turning individual mistakes into structured descriptions of recurring weaknesses."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "58851cdf88733ed8d0147796f1240449d82941c5964fd426e589bdb2f6b78fbe",
+    "tldr": "ProbeLLM combines budgeted search, verifiable tests, and failure consolidation to diagnose structured patterns of language-model weakness."
+  },
+  "icml-2026-ragep-rank-aware-geometric-expert-pruning-for-mixture-of-experts-language-models-ee77e745ce": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Sparse mixture-of-experts models use selected experts for computation, but still carry a large stored parameter footprint. That makes deployment difficult on hardware with limited memory. RaGEP tackles expert removal by examining the geometry of their activations, addressing the redundancy that simpler scalar pruning statistics can overlook.",
+      "The method separates two decisions. First, it allocates expert budgets across layers according to the effective rank of each layer’s representations, a measure of how many representational directions are meaningfully present. Second, within each layer, it combines activation magnitude with subspace orthogonality. This favors experts whose outputs are strong and contribute distinct directions rather than overlapping heavily with other experts.",
+      "Experiments across MoE models of different sizes report consistent improvements over state-of-the-art baselines on diverse zero-shot tasks, together with reduced model size and inference cost. The results support considering both where capacity is needed and which experts provide complementary representations. RaGEP’s contribution is the combination of geometry-informed allocation across layers and geometry-informed selection within them."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "fb970a4d7248b5867c203b740a3143de50c7ecd708f286f3bf860599a64f3484",
+    "tldr": "RaGEP uses activation geometry to allocate expert budgets and remove redundant experts, reducing MoE size and inference cost while improving reported zero-shot results."
+  },
+  "icml-2026-rapid-poison-practical-poisoning-attacks-against-the-rapid-response-framework-523bf85d1a": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Rapid Response updates jailbreak detectors by generating synthetic training data from newly encountered attacks. This paper shows that prompt injection can contaminate that adaptation pipeline, causing poisoned examples to enter classifier training. The weakness concerns how incoming attacks influence future defensive behavior through the data-generation process.",
+      "The authors study two outcomes: harmless inputs with a chosen feature being incorrectly flagged, and jailbreak inputs being incorrectly accepted when a concept-based trigger is present. Their threat model allows changes only to jailbreak samples, without access to benign examples or labels. The proposed Omission Attack exploits a learned misassociation in which a concept’s absence from unsafe training samples makes its presence appear associated with safety.",
+      "In the reported experiments, both attack types flip nearly all targeted labels at a 1% poisoning rate. The backdoor also generalizes to jailbreaks from strategies the defender explicitly trained against. These findings expose a weakness in adaptive defense: learning from emerging threats can introduce misleading associations when the synthetic training pipeline is itself influenced by adversarial input."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ef8f0a0b9a26720e8c71569082828b209d56df0d746df82a1133b2a2f71bf126",
+    "tldr": "The paper shows that poisoning attack-derived synthetic data can make adaptive jailbreak detectors reject harmless inputs or accept triggered jailbreaks."
+  },
+  "icml-2026-representation-drift-compensation-a-near-zero-inference-cost-enhancement-for-llm-decompo-0b70540194": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Low-rank decomposition can shrink a language model, but the approximation changes the computations inside its layers. This paper identifies representation drift as a central consequence: small decomposition errors propagate through the Transformer and can amplify nonlinearly, progressively moving internal representations away from those of the original model.",
+      "Decomper addresses this accumulation by learning to align the output distributions of decomposed Transformer blocks with their original counterparts. The correction targets error near its source, before it contributes to further distortion in deeper layers. The method is designed to recover performance while adding near-zero inference overhead, preserving the deployment motivation for compression.",
+      "Experiments cover OPT, LLaMA-2/3, and Qwen models and report substantial improvements. For LLaMA-3-8B and OPT-13B at 40% compression, the abstract reports perplexity reductions exceeding 70% and reasoning accuracy improvements exceeding 10%. These results support treating compression as a problem of preserving internal computation across depth, as well as approximating individual parameter matrices. Block-level distribution alignment provides a concrete mechanism for addressing that accumulated distortion."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "af76678b606591a4bcb8e5821458b6979dfee49452d34a3c4d8c041bba27dfe6",
+    "tldr": "Decomper aligns compressed Transformer blocks with their originals to reduce accumulating representation errors and recover performance with near-zero inference overhead."
+  },
+  "icml-2026-sd-moe-spectral-decomposition-for-effective-expert-specialization-677b065cdd": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Mixture-of-experts models gain capacity by routing inputs to different experts, but those experts do not always develop distinct functions. Some become similar to one another, while others effectively act as shared experts. This paper examines that failure of specialization through the spectral structure of parameters and training gradients.",
+      "The analysis finds substantial overlap in experts’ dominant parameter components and strong alignment between their dominant gradient subspaces. It attributes the latter to common low-rank structure in human text. Routing adds another reinforcing influence by preferentially directing inputs along dominant directions. Together, these effects help explain why conditional computation may still produce redundant expertise.",
+      "Spectral-Decoupled MoE addresses the issue by decomposing both parameters and gradients in spectral space. The authors report improved downstream performance and more effective specialization with minimal additional computation. They also describe compatibility with a broad range of MoE architectures, including Qwen and DeepSeek. The contribution connects a diagnosis of shared dominant directions with a method intended to let expert capacity serve more distinct functions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2d54fd0ef6a54626c0e65f395426b3b7fed815cd473cf4d9c88b03d0e2304275",
+    "tldr": "SD-MoE decomposes expert parameters and gradients in spectral space to reduce overlapping behavior and improve specialization and downstream performance."
+  },
+  "icml-2026-semantic-tube-prediction-beating-llm-data-efficiency-with-jepa-8ca5bc5728": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Language-model scaling laws describe observed relationships between training resources and performance, but those relationships do not establish the best possible training method. This paper investigates whether a geometric constraint on internal representations can improve data efficiency beyond the behavior captured by fine-tuning scaling laws.",
+      "Its Geodesic Hypothesis proposes that token sequences follow geodesics on a smooth semantic manifold and are locally linear. Semantic Tube Prediction builds on that hypothesis with a JEPA-style regularizer that keeps hidden-state trajectories within a tubular neighborhood of the geodesic. It adapts this predictive representation-learning approach to language without requiring explicit multiple-view augmentations.",
+      "The authors show that the constraint improves signal-to-noise ratio and preserves diversity by preventing trajectory collisions during inference. Empirically, STP matches baseline accuracy with 16 times less training data. That result challenges the data dependence of the fine-tuning scaling laws considered in the study. The broader significance is that the structure imposed during learning can substantially change data requirements, while the proposed semantic geometry remains a hypothesis underlying the method."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "944ef2fcf8cf4ab9e5564dc64d3d8d9b6357c6cd8fcf91ecf6335d67a4318bc0",
+    "tldr": "Semantic Tube Prediction constrains hidden-state geometry and empirically matches baseline accuracy with 16 times less training data."
+  },
+  "icml-2026-spectra-rethinking-optimizers-for-llms-under-spectral-anisotropy-6571013f70": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Language-model gradients distribute their strength unevenly across directions. This paper finds that roughly 1.5% of directions form a dominant spectral spike, while context-specific information occupies a longer tail. The spike dominates optimizer statistics, shrinking tail updates through second-moment normalization and restricting the globally stable learning rate.",
+      "Spectra suppresses the dominant low-rank subspace without amplifying the noise-sensitive tail. It tracks that subspace through cached, warm-started power iteration and applies low-rank spectral shaping. The design aims to reduce the spike’s influence while keeping computational overhead negligible and lowering the memory required for optimizer state.",
+      "On the reported Qwen3-0.6B and LLaMA3-8B training runs, Spectra achieves the lowest final validation loss and improves average downstream accuracy over AdamW and Muon. Matched-loss convergence is up to 1.31, 1.34, and 1.24 times faster than AdamW on three Qwen3 configurations. It also reports 5.1 times faster optimizer processing than Muon and a 49.25% optimizer-state memory reduction. These measurements distinguish improvements in learning progress from savings in the optimizer’s own execution cost."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0abf8600c6e145e84a2cbb4112946d8921af7a36a0401d4a9032db0909152b85",
+    "tldr": "Spectra suppresses dominant gradient directions to improve language-model training, reporting better accuracy, faster convergence, and lower optimizer costs."
+  },
+  "icml-2026-thinking-in-flow-a-dissipative-stabilization-operator-for-robust-autoregressive-reasonin-ffebd700c3": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Long reasoning sequences can drift when irrelevant context persists or small errors accumulate. Thinking in Flow treats autoregressive generation as a dynamical system exposed to disturbances. Its goal is to stabilize the evolving reasoning trajectory, including how evidence is retained and forgotten over time.",
+      "The method adds a persistent continuous-time thought state controlled by a lightweight Neural ODE. Dissipative dynamics support evidence accumulation with controlled forgetting, and the controller steers Transformer representations through post-normalization residual updates. One gate uses uncertainty and capacity to determine when to intervene; another chooses the direction of the intervention. This makes corrections selective rather than continuously applied.",
+      "The paper establishes well-posedness, dissipativity, and incremental stability for the controlled thought dynamics, implying bounded interventions over arbitrarily long contexts. That mathematical result concerns the controller’s behavior. Empirically, TiF improves robustness to distractions and semantic perturbations while matching or improving mathematical reasoning accuracy across Llama and Qwen models. Training TiF on Llama also yields gains on non-mathematical BBH tasks, extending the reported benefits beyond the mathematical evaluations."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "442216061592a3575a0118d0977e07234abe21a323a02c99b85ff0b31c13f4a3",
+    "tldr": "Thinking in Flow uses a gated Neural ODE controller to stabilize reasoning trajectories and improve measured robustness to distracting or perturbed context."
+  },
+  "icml-2026-unsupervised-neural-langevin-sampler-for-mixed-integer-linear-programming-746a39216c": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Mixed integer linear programs combine variables restricted to integers with variables that can vary continuously. Neural solvers face both the difficulty of modeling those different variable types and the requirement that solutions satisfy constraints. Existing approaches often depend on costly labeled solutions and additional processing to restore feasibility.",
+      "This paper separates the two variable types. Its neural sampler learns only the integer variables, while an exact linear programming solver handles the continuous variables. This concentrates learning on the combinatorial part of the problem. The sampler uses Langevin dynamics with a unified energy function that incorporates both objective quality and constraint satisfaction, allowing training to address feasibility and optimization together.",
+      "On the evaluated benchmark datasets, the method achieves 100% feasibility without expensive post-processing and matches or outperforms supervised solvers. The feasibility result describes the reported experiments rather than a universal guarantee for every MILP. The contribution is a division of labor that combines unsupervised neural sampling with exact continuous optimization, reducing modeling complexity while producing strong benchmark results."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "12248dd76568b88655f7580f1636a990d46eff1fb754184a6518ac4f159c435f",
+    "tldr": "The method combines unsupervised sampling of integer variables with exact continuous optimization, achieving complete feasibility on the evaluated MILP benchmarks."
+  },
+  "icml-2026-vecmol-vector-field-representations-for-3d-molecule-generation-88350d0b95": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Generating a three-dimensional molecule requires coordinating atom identities with their positions in space. Many approaches represent molecules as graphs and generate discrete atom types alongside continuous coordinates. That combination creates learning difficulties because chemical identity and spatial geometry must remain coherent while being represented in different forms.",
+      "VecMol changes the representation to a continuous vector field over three-dimensional space. Vectors point toward nearby atoms, so the field implicitly describes molecular structure. A neural field parameterizes this representation, and a latent diffusion model generates it. This avoids explicitly generating a graph and separates learning the structure from instantiating discrete atoms.",
+      "Experiments on QM9 and GEOM-Drugs show competitive generation quality. The significance is that useful molecular structure can be learned through this alternative continuous representation, providing a way to approach the coupling between geometry and discrete chemistry. The reported results support vector fields as a promising direction for molecular generation; they establish competitiveness on the tested benchmarks rather than a claim of universal superiority over graph-based approaches."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f80870bcdd903bd9636e66552c24225e9b2e049a1198bdcff07622b6bdde442c",
+    "tldr": "VecMol generates continuous vector fields that implicitly encode molecular structure, achieving competitive results on two 3D molecule benchmarks."
+  },
+  "icml-2026-vpd-100k-towards-generalizable-and-fine-grained-visual-privacy-protection-98ac6613c5": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Detecting privacy-sensitive information in images requires recognizing many different kinds of small or visually complex details. Existing privacy datasets can be too limited in size, annotation detail, or domain coverage to support that goal. VPD-100K addresses this data problem with 100,000 images, 33 fine-grained classes, and more than 190,000 annotated object instances.",
+      "Its taxonomy covers human presence, personally identifiable information on screens, physical identifiers, and location indicators. The dataset contains uneven class frequencies, small objects, and complex scenes. Those characteristics make it relevant to unconstrained settings such as livestreaming, where sensitive information can appear unintentionally during ongoing activity.",
+      "The paper also introduces a lightweight frequency-enhancement module combining frequency-domain attention fusion with adaptive spectral gating. It aims to capture subtle sensitive details beyond what spatial pixel intensities alone provide. Experiments on image and streaming-video benchmarks report consistent effectiveness for both the dataset and the frequency mechanism. The combined contribution addresses what detectors can learn from and how they represent difficult visual evidence when identifying potential privacy exposure."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d4c5547c09f919f091e9965b993ac75c44a3dbdd0dafde3c7f7b1db18e740959",
+    "tldr": "VPD-100K supplies detailed visual privacy annotations and a lightweight frequency-based module to improve detection of sensitive information in images and streams."
+  }
+}

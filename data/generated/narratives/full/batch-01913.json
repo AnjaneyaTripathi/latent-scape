@@ -1,0 +1,327 @@
+{
+  "icml-2026-a-critical-look-at-targeted-instruction-selection-disentangling-what-matters-and-what-do-b12fc3ecc8": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Targeted instruction selection uses a few examples of a desired task to choose training instructions from a larger pool. Comparing selection methods has been difficult because studies use different budgets, sometimes omit zero-shot comparisons, and combine several design choices. This paper introduces a framework that separates how examples are represented from how a subset is selected, enabling controlled comparisons across models, tasks, and budgets.",
+      "In these comparisons, only gradient-based representations consistently make similarity between the selected subset and the query set predictive of performance. These representations describe examples through their relationship to model updates. Pairing them with greedy round-robin selection often gives the strongest average results when selection budgets are small. However, no method wins everywhere, and the advantages shrink at larger budgets.",
+      "The authors also connect several existing selection algorithms through a shared interpretation: approximately minimizing distance between the selected data and the query examples. New generalization bounds support this interpretation. Together, the results clarify when matching a training subset to a target task is informative and why the available selection budget matters."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "bc6f65f5d9f04b7144fdd26af83fdf1ca96be96e06be3309ab4faa427f6d67c2",
+    "tldr": "Controlled comparisons clarify when gradient-based representations help targeted instruction selection, with advantages strongest at small selection budgets."
+  },
+  "icml-2026-accelerating-q-learning-through-efficient-value-sharing-across-actions-b79886691d": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Q-learning depends on estimates of how valuable each action is in a given state. Learning these estimates can take many updates when they start near zero but their eventual values are much larger. Another inefficiency is that action values are typically updated separately, even though actions available in the same state may share a substantial common value.",
+      "The paper introduces a mean-expansion layer that shares value information across actions within a state. It also changes the representation being learned so that the model learns quantities with a smaller norm instead of directly learning potentially large action values. For deep reinforcement learning, this is a parameter-free addition to the network architecture and leaves the underlying learning algorithm unchanged.",
+      "Applied to deep Q-networks and implicit quantile networks, the layer improves aggregate performance over 57 Atari games. The authors also report larger gaps between action values and much less value overestimation. These findings indicate that changing how values are represented and shared can improve learning without requiring a different control algorithm."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "15e3068f0388d4294975638a1d12b079eacac55eff518f4986377a9e70dc754c",
+    "tldr": "A parameter-free network layer accelerates action-value learning by sharing values across actions and learning a smaller-norm representation."
+  },
+  "icml-2026-achieving-logarithmic-regret-in-kl-regularized-zero-sum-markov-games-0a4790c242": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "KL regularization encourages a learning policy to remain close to a fixed reference policy. That reference can preserve desired behavior or express prior knowledge about useful actions; a uniform reference gives entropy regularization. Although such regularization has worked empirically in game-based alignment methods, its theoretical benefits for learning in games have been less clear.",
+      "This paper develops algorithms for two-player zero-sum matrix games and Markov games. The matrix-game algorithm, OMG, combines best-response sampling with optimistic bonuses. SOMG extends this approach to Markov games and introduces superoptimistic bonuses. The analysis establishes improved sample-efficiency guarantees under KL regularization, giving a theoretical role to the reference-policy penalty beyond keeping policies anchored.",
+      "Both algorithms obtain regret bounds that grow logarithmically with the number of rounds, T, with an inverse dependence on regularization strength, beta. They also have the traditional approximately square-root-in-T guarantee without that inverse-beta dependence. Thus, the logarithmic result comes with an explicit tradeoff: its bound becomes less favorable as regularization weakens."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0f7e403d0f1e062f52947083a6742723e31f2b7619bc9b3c24fed3135ccfa13c",
+    "tldr": "New algorithms achieve logarithmic regret in KL-regularized zero-sum games, with bounds that depend inversely on regularization strength."
+  },
+  "icml-2026-adaptive-batch-sizes-using-non-euclidean-gradient-noise-scales-for-stochastic-sign-and-s-02e3272fbe": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Training systems often use large fixed batches or manually tuned schedules to keep hardware busy. Gradient noise scales offer a more principled way to adapt batch size by measuring variability in gradient estimates. However, existing versions assume the Euclidean geometry associated with stochastic gradient descent, which does not match optimizers whose updates follow other norms.",
+      "The authors derive noise scales tailored to signSGD and stochastic spectral descent, using the geometry of their respective dual norms. This connects the measure of gradient noise to the optimizer's own mathematical structure. They also propose an efficient estimator that uses local mini-batch gradients already available across workers in distributed data-parallel training.",
+      "Experiments with Signum and Muon on a 160-million-parameter Llama model show that these noise scales can guide adaptive batch sizes while matching the validation loss of fixed-batch baselines. Training steps fall by as much as 66%. The result demonstrates fewer optimization steps at comparable validation loss in the tested setting; the reported reduction is specifically in steps rather than elapsed training time."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "18ea334383eac802058500fbd91f626b7945bb97f071fbdb48a44fd18da31f65",
+    "tldr": "Optimizer-specific gradient noise scales guide adaptive batches that match baseline validation loss with up to 66% fewer training steps."
+  },
+  "icml-2026-adaptive-node-feature-selection-for-graph-neural-networks-61e0164194": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Graph neural networks use both node attributes and relationships between nodes, making feature importance more complicated than it is for independent examples. An attribute's usefulness can depend on the surrounding graph structure. This paper develops a method that identifies relevant node features during training and removes unnecessary ones, supporting both interpretation and reduced input dimensionality.",
+      "The method measures how validation performance changes when feature values are permuted. This provides a task-linked signal of feature relevance as the model learns. The approach is designed to work across data, models, and tasks, without relying on specialized assumptions for each setting. Its theoretical motivation characterizes how relationships between node data and graph structure influence GNN performance.",
+      "Empirically, the method rivals tailored feature-selection approaches that use prior assumptions. It also produces meaningful importance scores before the GNN has finished training. The reported scores capture relevant properties across different graph-learning settings, suggesting that feature selection can be integrated into training rather than postponed until a fully trained model is available."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "01a4ab87bff8467705f10d736b829c9671d239c30dd48a0ca07772cb78d7d53d",
+    "tldr": "An adaptive permutation-based method identifies useful GNN node features during training and rivals specialized feature-selection approaches."
+  },
+  "icml-2026-aitchison-embeddings-for-learning-compositional-graph-representations-026e395214": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Graph embeddings support tasks such as predicting links and classifying nodes, but their coordinates often have unclear meanings. This paper starts from a role-mixture view: a node can be described by its mixture of latent archetypes. It represents each node as a composition, whose components express relative contributions, and uses Aitchison geometry to compare those mixtures.",
+      "The framework converts compositions into isometric log-ratio coordinates. This transformation preserves Aitchison distances while allowing unconstrained optimization in Euclidean space. The authors consider both fixed and learned coordinate bases. Interpretation is built into the representation because its geometry describes relative tradeoffs among archetypes, rather than requiring a separate explanation method after training.",
+      "On node classification and link prediction, the method achieves competitive results against strong baselines. It also supports principled removal and renormalization of components: the remaining composition retains a well-defined geometry. The authors use this property to investigate how groups of archetypes affect representations and predictions, connecting interpretability to an operation that the embedding geometry itself supports."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ce232fb185b0cef604a8409b8e46535f51ab534280a8500d3df5751dd9537a66",
+    "tldr": "Compositional graph embeddings represent nodes as archetype mixtures, combining built-in interpretability with competitive prediction performance."
+  },
+  "icml-2026-cadfit-precise-mesh-to-cad-program-generation-with-hybrid-optimization-c0e203665c": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Recovering an editable CAD design from a mesh requires more than reproducing its surface. The system must recover a sequence of construction operations that can be adjusted later. Existing approaches often produce formats that are difficult to edit or support only simple sketch-and-extrude constructions. CADFit targets richer, more complex construction sequences.",
+      "The framework treats reconstruction as optimization over structured CAD programs, using volumetric overlap as its objective. It incrementally fits parametric operations and validates them using geometric feedback. Supported operations include extrusion, revolution, fillets, and chamfers, giving the reconstruction process a broader vocabulary for expressing a design.",
+      "Across multiple CAD benchmarks, CADFit improves volumetric intersection-over-union and Chamfer Distance relative to state-of-the-art mesh-to-CAD methods, while substantially reducing invalid reconstructed programs, especially for complex designs. The authors also combine image-based geometry reconstruction with CADFit to recover construction sequences from images. Accurate, editable outputs could support richer CAD datasets and future learning-based reverse-engineering methods, extending the contribution beyond geometric matching alone."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3201fb7cc4ac978bdfe1fdaf8a69705bdf979fb620012c90742cf4525ad8e330",
+    "tldr": "CADFit reconstructs complex editable CAD programs from meshes through incremental geometric fitting and validation."
+  },
+  "icml-2026-causal-jepa-learning-world-models-through-object-level-latent-masking-41bb172070": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A world model needs to understand how objects interact to support prediction, reasoning, and control. Simply representing objects separately does not ensure that it learns those interactions. C-JEPA addresses this by hiding selected object representations during training and asking the model to infer the missing object states from the surrounding context.",
+      "This extends masked joint embedding prediction from image patches to object-level representations. The masking creates structured partial observability: the model cannot directly access every object state needed for its prediction. According to the authors, the resulting counterfactual-like queries discourage shortcuts and make interaction-dependent prediction necessary under the training objective. A formal analysis explains the inductive bias produced by controlling observability.",
+      "Experiments show consistent visual-question-answering gains, including about 20% absolute improvement in counterfactual reasoning over the same architecture without object masking. In control tasks, C-JEPA achieves comparable performance while using only 1% of the latent input features required by patch-based world models. These results connect the training intervention to both stronger relational reasoning and more efficient planning."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "963e59dbef4d59ce5e8a444bc089a3bdd2c3b4ec4c21ee7bc8b8290c35ace34a",
+    "tldr": "C-JEPA masks object representations to encourage interaction-aware prediction, improving counterfactual reasoning and reducing planning input requirements."
+  },
+  "icml-2026-data-selection-for-fine-tuning-vision-language-models-via-cross-modal-alignment-trajecto-41474285b1": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Selecting a smaller training set is useful only if it preserves the information a model needs. For large vision-language models, the paper connects redundancy to cross-modal attention: it proves that examples with similar attention matrices during instruction tuning have similar gradients. Such examples therefore influence parameter updates in similar ways.",
+      "XMAS uses this connection to select data through a smaller proxy vision-language model. During proxy fine-tuning, it tracks the leading singular values of cross-modal attention matrices, producing trajectories that summarize their evolution. It clusters examples using those trajectories and samples a balanced subset across clusters, reducing repeated training information while retaining coverage of different groups.",
+      "Experiments across four target models, two proxies, and two datasets show consistent improvements over ten selection baselines. For LLaVA-1.5-7B, XMAS removes 50% of LLaVA-665k or 85% of Vision-Flan while preserving performance across ten downstream benchmarks, with a reported 1.2-fold training speedup. The findings support using attention dynamics from a smaller model to guide data selection for larger models."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b6dd3e5f5b981cccc91c04d09aa486f850057de034787212895876259a93de78",
+    "tldr": "XMAS selects diverse training examples using cross-modal attention trajectories, substantially reducing vision-language tuning data while preserving tested performance."
+  },
+  "icml-2026-docval-validated-chain-of-thought-distillation-for-grounded-document-vqa-ad4e407a6b": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Document question answering requires both a correct answer and an accurate location for that answer on the page. Large vision-language models can provide strong localization, but their inference costs complicate deployment. Compact models are more efficient, yet standard fine-tuning or distillation can substantially weaken their spatial grounding. DocVAL aims to transfer that capability more effectively.",
+      "Large teacher models generate explicit spatial reasoning traces. A rule-based validator filters poor supervision and supplies corrective feedback at pixel-level precision. A two-stage training procedure uses validation and iterative refinement to train the smaller student. Text detection supports supervision and checking during training, while the deployed student operates as a vision-language model without OCR or detection at inference.",
+      "Across several document-understanding benchmarks, DocVAL improves scores by up to 6–7 ANLS points over comparable compact models. The authors also introduce mean Average Precision for evaluating answer localization and report strong grounding under that metric. They release 95,000 verified reasoning traces and find that validated supervision is more effective than increasing the amount of unfiltered training data."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5e9e140b600a0d880bf35b1332a13dbe5a1a6619dd82b6762aa9157c5efcde1b",
+    "tldr": "DocVAL uses validated spatial reasoning supervision to improve compact models' document answers and localization without inference-time OCR."
+  },
+  "icml-2026-foam-frequency-and-operator-error-based-adaptive-damping-method-for-reducing-staleness-o-b70023ac70": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Shampoo is an optimizer with strong results on large-scale optimization benchmarks, but its matrix computations can be expensive. A common practical response is to reuse an older preconditioner instead of recomputing it at every update. This saves computation while introducing staleness, creating a tradeoff between inexpensive updates and how faithfully the optimizer follows current information.",
+      "The paper analyzes this tradeoff through convergence and numerical stability. Its analysis identifies harmful effects of staleness and shows that damping, used as a numerical stabilizer, can suppress them. This makes damping a means of addressing the errors associated with reusing outdated preconditioners, alongside deciding how often to refresh them.",
+      "FOAM turns that analysis into an adaptive algorithm. It approximates staleness-oriented error and uses the estimate to control both the damping factor and the frequency of eigendecomposition. Experiments show lower wall-clock training time than standard Shampoo while maintaining robust convergence. The contribution is a coordinated way to adjust stabilization and expensive matrix updates, tying computational savings to an estimate of optimization error."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6518b330e104084916a61ab42277292d432708908ed1284352784b207bcd6b61",
+    "tldr": "FOAM adapts Shampoo's damping and matrix-update frequency to reduce training time while controlling errors from stale preconditioners."
+  },
+  "icml-2026-hdflow-hierarchical-diffusion-flow-planning-for-long-horizon-tasks-fd6234c882": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Long-horizon tasks require plans that connect many actions, often with sparse reward signals. Generative planners can produce such behavior, but repeated denoising creates computational demands for real-time execution. They can also lack a clear way to divide strategic planning from detailed movement. HDFlow introduces a hierarchy that assigns these responsibilities to different generative models.",
+      "A high-level diffusion model produces a sequence of strategic subgoals in a learned latent space. These subgoals guide a low-level rectified-flow planner, which generates smooth, dense trajectories using an ordinary-differential-equation-based process. The design combines diffusion's exploration capabilities with the speed and efficiency of rectified flow for detailed trajectory generation.",
+      "The authors evaluate HDFlow on four furniture-assembly tasks in simulation and the real world, reporting significant improvements over state-of-the-art methods. They also demonstrate generalization on two long-horizon benchmarks covering locomotion and manipulation. These findings support dividing a generative planning problem across complementary models, so that exploring useful intermediate goals and producing executable trajectories have distinct roles within one framework."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "04f7459d95d147ac767ae18a2642e8988ed8b88b7d160872d0eaa09fb9dd68e5",
+    "tldr": "HDFlow combines diffusion-generated subgoals with rectified-flow trajectories to improve hierarchical planning for long-horizon tasks."
+  },
+  "icml-2026-interpreting-genomic-language-models-using-sparse-autoencoders-a2952a92c4": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Genomic language models perform well on prediction tasks, but the biological meaning of their internal representations remains difficult to understand. This paper systematically studies sparse autoencoders as a way to expose those representations. It introduces a benchmark of human genomic annotations and evaluation metrics designed specifically for genomic interpretability.",
+      "Using Evo2 as the main case study, the authors compare sparse-autoencoder features with the model's raw embeddings. The learned features are more interpretable in 42 of 55 genomic concept evaluations, or 76%, with particularly strong results from intermediate layers. Twenty-six evaluations achieve F1 scores above 0.7. These results quantify how well the extracted features correspond to the benchmark's biological concepts.",
+      "Interpretability also depends on the data used to train the autoencoder, including evolutionary proximity and context length. To organize related concepts, the authors develop a graph-based representation method that outperforms a baseline based on autoencoder weights. Together, these contributions provide tools for examining learned genomic representations and support potential use in disease-oriented genomic exploration."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0c5841c5f0966b94096b32d2fed8700a1dce3bd627da1284887a284fea897fab",
+    "tldr": "Sparse autoencoders expose more interpretable genomic features in Evo2, with results depending on layer choice and training-data properties."
+  },
+  "icml-2026-lamp-data-efficient-linear-affine-weight-space-models-for-parameter-controlled-3d-shape--b8b1282048": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Engineering design requires generated shapes to obey explicit parameters, including when exploring beyond previously observed designs. LAMP addresses this with a method that combines trained shape decoders in weight space. Each exemplar is represented by a signed distance function decoder fitted from a shared initialization, creating aligned models that can subsequently be mixed.",
+      "New designs are produced by solving an affine mixing problem subject to parameter constraints. The shared initialization is part of how the framework aligns the decoders before mixing them. A proposed linearity-mismatch metric checks when a mixed decoder leaves the valid local regime, providing a reliability signal for generation and extrapolation.",
+      "Evaluations cover DrivAerNet++, BlendedNet, and industry-level vehicle families. The authors report controlled interpolation with as few as 50 examples, safe extrapolation up to 100% beyond training ranges, and performance-guided optimization with fixed parameters. LAMP outperforms conditional autoencoder and Deep Network Interpolation baselines in extrapolation, data efficiency, and parameter fidelity. These are demonstrated capabilities in the evaluated design settings, with the local-regime check forming an explicit part of the approach."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e169103242b471ede77fdfc6f9bf1ea8b27cb0f6886338d22698bc80f59d9afe",
+    "tldr": "LAMP mixes aligned shape-decoder weights under parameter constraints, enabling data-efficient 3D generation and checked extrapolation."
+  },
+  "icml-2026-learning-dynamic-stability-landscapes-in-synchronization-networks-d16d12e580": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Synchronization robustness is often summarized by one stability number per network node. This paper proposes predicting richer stability landscapes, represented as images for individual nodes. Many scalar stability indices can then be derived from these landscapes. The task therefore aims to retain more information about synchronization behavior before reducing it to a single summary.",
+      "The authors introduce a graph-to-image model in which a graph neural network encodes network topology and a convolutional decoder produces per-node landscape images. They also release two datasets, each containing 10,000 graphs, with graph sizes of 20 and 100 nodes. The labels come from a conceptual oscillator model that captures aspects of power-grid synchronization.",
+      "The model learns end to end with good accuracy on data from the training distribution and generalizes across graph sizes and to realistic power-grid topologies. The findings show that topology can support prediction of these richer stability targets in the studied setting. They also motivate exploring landscape-based analysis in other synchronization domains, including biology and neuroscience."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d0616652d73786ee34ef36e3cd038f96d7d6603516ef16a040c7cfce7af96ba4",
+    "tldr": "A graph-to-image model predicts per-node synchronization stability landscapes, providing richer targets than scalar stability indices."
+  },
+  "icml-2026-less-diverse-less-safe-the-indirect-but-pervasive-risk-of-test-time-scaling-in-large-lan-e00a39a874": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Test-time scaling can improve reasoning by generating multiple candidate responses and searching or selecting among them. Its reliability partly rests on having a sufficiently varied candidate pool. This paper investigates a failure mode in which even modest reductions in that diversity make the pipeline more likely to produce unsafe outputs.",
+      "The authors introduce RefDiv, a reference-guided protocol for reducing diversity as a diagnostic stress test. Across several open-source model families and both Monte Carlo Tree Search and Best-of-N, constrained diversity consistently increases unsafe results. The effect is often stronger than that of prompts carrying more overtly adversarial intent. It also transfers across the tested scaling strategies and to closed-source models.",
+      "Several widely used guardrail classifiers fail to flag the adversarial inputs produced by RefDiv. This indicates that checking an input for apparent harmful intent can provide limited protection against a failure driven by the response pool's diversity. The evidence spans multiple systems, supporting a broader concern about candidate generation and selection rather than an isolated failure in one tested model."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "52bc04bdca73b5ca6d898777da13f67040a66a5f7aee639e0cb85017b2cff571",
+    "tldr": "Reducing candidate diversity makes tested reasoning pipelines more likely to produce unsafe outputs, often without triggering input guardrails."
+  },
+  "icml-2026-maximizing-mutual-information-between-prompt-and-response-improves-llm-performance-with--3adbca1e18": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Improving language models often requires human labels or external systems that verify answers. MIPO explores a self-improvement signal derived from how responses relate to prompts. It constructs preference pairs by generating a positive response from the correct prompt and a negative response from a randomly chosen, unrelated prompt, creating contrastive supervision without additional external data.",
+      "The model learns from those pairs using Direct Preference Optimization. The authors show that this procedure maximizes pointwise mutual information between prompts and responses under the base language model. That qualification matters: the theoretical connection concerns the base model's probabilities. The training signal favors responses associated with the intended prompt through the constructed comparison.",
+      "Experiments with 1–7-billion-parameter Llama and Qwen instruction models report personalization gains of 3–16% over prompting baselines, with a 51% increase for Qwen2.5-1.5B-Instruct. Math and multiple-choice question answering also improve by 1–20%, without additional data or external supervision. These findings suggest that contrastive prompt-response relationships can provide useful intrinsic training signals across both verifiable and non-verifiable tasks."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3a1d39c5ec492f38a2c4982972b35c2a3ca180ec0dba8da33f97e01a0bfc4bcd",
+    "tldr": "MIPO improves tested language models using preference pairs generated from matching and unrelated prompts, without additional external supervision."
+  },
+  "icml-2026-one-probe-wont-catch-them-all-towards-targeted-deception-detection-60edea04b0": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Linear probes are classifiers used to monitor model representations for signs of deception. Prior approaches can work well with simple datasets and contrasting instructions, but they also produce false positives and rely on spurious correlations. This paper studies why a detector that works for one kind of deceptive behavior may struggle with another.",
+      "A single universal probe gives a modest AUC improvement of 0.032. An oracle analysis performed after evaluation finds greater potential, an improvement of 0.108, when probes are matched to particular deception types. Synthetic validation experiments suggest that this higher level can be approached when the deception type is known beforehand. The distinction between retrospective matching and advance knowledge is central to interpreting the result.",
+      "The authors find that contrasting instruction pairs capture deceptive intent rather than content-specific patterns, with prompt choice explaining 70.6% of performance variance. Their practical recommendation is to define the deceptive behaviors an organization needs to detect and choose probes accordingly. The findings support targeted monitoring, with performance depending strongly on how the detector's training setup matches the threat."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c5f7d61298682bfe1744aee894dd00a2ff30963bc725a7259fac6aee0e85d747",
+    "tldr": "Deception probes perform differently across deception types, and matching probes to known threats shows greater potential than a universal detector."
+  },
+  "icml-2026-online-fair-division-with-additional-information-f614ddce56": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Online fair division assigns indivisible goods as they arrive, with each allocation becoming permanent. This makes fairness difficult because a decision must be made before later goods are known. The paper studies how different kinds of future information change achievable guarantees for envy-freeness, proportionality, maximin share fairness, and approximate versions of these goals.",
+      "Without future information, the authors prove strong impossibility results even for approximate fairness. Knowing each agent's total value for the goods enables an algorithm with stronger guarantees than previously known, alongside matching impossibility results for stronger notions. A second information model supplies value multisets without their arrival order, giving frequency information while preserving uncertainty about the sequence.",
+      "For frequency predictions, a meta-algorithm transfers a broad class of offline share-based fairness guarantees to the online setting, matching the best-known offline bounds. Learning-augmented versions also accommodate errors in totals or frequency predictions, with guarantees that degrade gracefully as prediction errors grow. The results distinguish which information helps irreversible allocation and how imperfect predictions affect that benefit."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2be02a8518a34647f01d7d88e6b583eb9e05384caa8b51cdd0c0b8b2d7562501",
+    "tldr": "Future value information enables stronger online fair-division guarantees, with prediction-aware variants that degrade gracefully under errors."
+  },
+  "icml-2026-removing-noise-not-finding-gold-quality-filtering-for-large-scale-pretraining-f4ac56aecc": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Classifier-based quality filtering trains a model to distinguish web pretraining documents from a small collection labeled high quality. It then keeps the web documents receiving the highest classifier scores. This paper examines what that procedure actually accomplishes and whether its benefits can be explained simply as finding more documents like the reference collection.",
+      "The analysis finds that filtering improves downstream task performance without necessarily improving language modeling on the high-quality set. More strikingly, training on the selected web data can outperform training directly on the high-quality collection, even when that collection is sufficiently large. Thus, the reference set's quality label does not by itself establish that training directly on it is the best choice.",
+      "The authors explain this outcome by showing that the classifier implicitly filters both the low-quality and high-quality data. They also introduce a notion of data quality grounded in optimization and show that small proxy experiments can estimate it reliably. These findings clarify why quality filtering can help and connect data value to its role in training."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "27b7351532ad22f0da6426bfe7eb23ca1322ce811778249500817577a8e85d41",
+    "tldr": "Quality filtering can outperform direct training on its high-quality reference set because it implicitly filters both high- and low-quality data."
+  },
+  "icml-2026-telescope-improving-zero-shot-detection-of-llm-generated-content-by-measuring-token-repe-4ed80bfc46": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Detecting machine-generated writing is difficult because language models are trained to resemble human text. This paper investigates a possible trace of that training: a strong tendency to avoid repeating tokens. The authors hypothesize that the tendency develops early and persists as a developmental artifact that behaves differently on model-generated and human-written text.",
+      "They introduce Telescope Perplexity to probe this behavior. Its probability measure asks about a token after the context already includes that token, directly examining repetition probability. This gives the detector a signal tied to the model's treatment of repetition. The empirical study finds that the signature appears early in pretraining, supporting the proposed account of its origin.",
+      "Telescope Perplexity enables effective zero-shot detection in the reported evaluations. It achieves state-of-the-art or competitive performance across multiple datasets, reference models, and text perturbations, with greater efficiency than comparison methods. The authors also introduce modern evaluation sets. The results establish repetition probability as a useful empirical detection signal, while the developmental explanation remains framed as the paper's hypothesis."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b8ebe5abc5ebb79d0d23323a324aad9dbb219d2eb286bdb2f1d139817a42e4d5",
+    "tldr": "Telescope Perplexity uses token-repetition probabilities as an efficient signal for zero-shot detection of model-generated writing."
+  },
+  "icml-2026-the-invisible-lottery-how-subtle-cues-steer-algorithm-choice-in-llm-code-generation-dc6da94cb7": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A coding task can have several correct algorithmic solutions, with different implications for performance, security, or maintainability. This paper asks whether incidental words and metadata influence which solution a language model chooses even when the generated programs pass the same tests. It studies algorithm choice while holding correctness fixed, treating the distribution of algorithm families as the outcome.",
+      "The authors conduct 46,535 controlled experiments across 11 tasks, 19 cue types, and 15 model configurations. The cues include 18 channels and a memoization comparison that preserves meaning while changing typography and punctuation. They measure algorithm steering as the shift in algorithm-family distributions caused by those cues.",
+      "The observed shifts are large and systematic, reaching 100 percentage points, and generally align with cue meaning. Effects also appear in applied tasks such as rate limiting. Explicitly naming the desired algorithm is the most reliable mitigation tested. These findings show why passing correctness tests may leave important implementation choices sensitive to accidental context in the prompt."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "484461ce2cef571630b3739aa9c44706bfa0e022ec51640529fb24974d735e43",
+    "tldr": "Incidental prompt cues can strongly shift which correct algorithm an LLM chooses, while explicitly naming the algorithm is the most reliable tested mitigation."
+  },
+  "icml-2026-toward-identifiable-sparse-autoencoders-69012ca6ba": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Sparse autoencoders help interpret neural networks by expressing their representations through learned concept dictionaries and sparse activation codes. For these explanations to be stable, repeated training should recover similar structures. This paper gives theoretical support to an empirical concern: ordinary sparse autoencoders can produce different dictionaries and codes across training runs.",
+      "The authors characterize model properties that obstruct stability and address them through small changes to the architecture and training procedure. The combined modifications produce two identifiable sparse autoencoder variants, called iSAEs, based on the standard TopK design. Both improve stability while lowering reconstruction error, so the reported gains do not require sacrificing how well the original representations are reconstructed.",
+      "The theoretical explanation connects sparse autoencoders to traditional dictionary learning. Dictionaries learned in practice satisfy an approximate restricted isometry condition, which makes the corresponding sparse codes near-identifiable. This is a qualified mathematical conclusion about those codes, rather than a claim of perfectly unique concepts. The work links more reproducible representations to explicit structural properties of the learned dictionary."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "35408f33bdf942bc30d96810e4448d9b735ae9fcf104837f854349c7ed61899f",
+    "tldr": "Small architectural and training changes make sparse autoencoders more stable, with lower reconstruction error and near-identifiable sparse codes."
+  },
+  "icml-2026-trim-token-wise-attention-derived-saliency-for-data-efficient-instruction-tuning-23e73aab08": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Instruction tuning often uses large datasets, yet a carefully chosen small subset can sometimes match or exceed full-data training. Selecting such a subset is difficult. Existing methods commonly score whole examples using signals such as gradients, which can be expensive and can miss finer structural information within an instruction.",
+      "TRIM selects data using token-level attention patterns obtained through forward passes. A handful of target examples provides attention-based fingerprints of the task's underlying representations. The framework looks for matching patterns in candidate data, making selection sensitive to structural task features. Because it avoids gradient computation and backward passes, it reduces the computational work needed to construct the subset.",
+      "The selected coresets outperform state-of-the-art baselines across the reported downstream tasks, with improvements of up to 9%. In some settings, they also exceed full-data fine-tuning performance. These findings support attention-derived token information as a useful and efficient selection signal. The full-data comparison is conditional on the setting, while the central practical contribution is a forward-only route to curating instruction-tuning data."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "214bdea26f8bf32f4adff9f35bada568e07b4a4838b24b2e01733f65cf07243c",
+    "tldr": "TRIM uses token-level attention fingerprints to select efficient instruction-tuning subsets that outperform selection baselines and sometimes full-data training."
+  },
+  "icml-2026-universal-representation-of-generalized-convex-functions-and-their-gradients-b204a3dd86": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Some optimization problems contain an inner optimization nested inside an outer one, making their formulation more complicated. Generalized convex structure can sometimes allow these nested objectives to be rewritten as single-level problems. This paper develops a differentiable layer designed to represent that structure, with a parameter space that is itself convex.",
+      "The authors prove universal approximation results for both generalized convex functions and their gradients. Covering gradients matters because the proposed applications use first-order optimization methods, which depend on derivative information. The representation therefore addresses both the functions being learned and the gradients needed to optimize with them.",
+      "The paper demonstrates the layer in learning optimal transport maps with general cost functions and in learning optimal auctions for multiple goods. In both applications, it converts existing bilevel or min-max formulations into single-level problems that can be solved efficiently with first-order methods. The simplification relies on the relevant generalized convex structure being present; the contribution provides a representation that makes this structure usable in the demonstrated optimization tasks."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "974f88cd646c57f9e09ed12c85b8e89cc368379dfbc1d6082e1b07c33fd1fb94",
+    "tldr": "A differentiable layer universally approximates generalized convex functions and gradients, enabling single-level formulations for demonstrated transport and auction problems."
+  }
+}

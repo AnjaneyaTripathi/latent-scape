@@ -1,0 +1,327 @@
+{
+  "icml-2026-adaptive-momentum-and-nonlinear-damping-for-neural-network-training-93a15d8d8f": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Momentum helps an optimizer carry useful movement from one training step into the next. Standard momentum stochastic gradient descent uses one fixed momentum coefficient for every parameter, although different parameters can encounter different training dynamics. This paper develops a way to give individual parameters their own adaptive momentum.",
+      "The authors start from a continuous-time description of optimization. Each parameter’s kinetic energy regulates its momentum, allowing the amount of friction to change as training evolves. They connect this adaptive friction to cubic damping, a mechanism from structural dynamics that suppresses motion nonlinearly. They also introduce two optimization schemes by adding cubic damping to the continuous dynamics underlying momentum SGD and Adam.",
+      "In experiments involving ViT, BERT, and GPT2 training, the proposed methods match or outperform Adam on tasks where momentum SGD typically struggles. The paper also establishes exponential convergence results for the proposed schemes. Together, these contributions connect a physical damping mechanism to practical optimizer design, with empirical evidence that adaptive control can support both stability and training progress."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "283f2590d614ef8b9f8b4d0b6322c2f126e9e353d5f2ed0b989d174a4bd2b665",
+    "tldr": "Adaptive momentum and cubic damping produce optimizers that match or outperform Adam on the evaluated neural-network training tasks."
+  },
+  "icml-2026-agentsteertts-a-multi-agent-closed-loop-framework-for-composite-instruction-text-to-spee-875fcbd84d": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Expressive speech synthesis does not automatically provide precise control over several instructions at once. Text describes intentions in discrete terms, while speech realizes them through continuously varying sound. AgentSteerTTS addresses this mismatch by separating instruction interpretation, speech control, and feedback into cooperating agents.",
+      "The framework first reduces interference between speaker identity and emotion using adversarial disentanglement, gradient reversal, and cross-covariance regularization. A retrieval agent then selects expressive examples from a large acoustic prototype library. These examples anchor abstract instructions in acoustic patterns. A synthesis agent combines the selected anchors through gated attention to produce continuous control vectors.",
+      "A feedback agent closes the loop at two levels. Latent gradient corrections adjust output intensity, while higher-level perceptual critiques address mismatches between the intended meaning and the resulting sound. Experiments on a composite-instruction benchmark and public test sets report consistent, significant improvements over the evaluated baselines. The contribution is a coordinated control process that connects textual intent to acoustic examples and then uses feedback to refine the result."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b86b6487f9c906d5091f3e4aa3041260e6754d04cc85b97c23e553fa9ebec395",
+    "tldr": "AgentSteerTTS combines acoustic-example retrieval, speech synthesis, and feedback agents to improve control over composite speech instructions."
+  },
+  "icml-2026-are-object-centric-representations-better-at-compositional-generalization-092c6f6e60": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Compositional generalization means handling unfamiliar combinations of familiar properties. Representing a scene as separate objects seems well suited to this goal, but the paper asks whether that advantage survives careful comparisons in visually rich settings. It introduces a visual question answering benchmark spanning CLEVRTex, Super-CLEVR, and MOVi-C.",
+      "The experiments compare DINOv2 and SigLIP2 representations with object-centric counterparts on unseen combinations of object properties. The comparison explicitly accounts for training diversity, sample count, representation size, downstream model capacity, and compute. These controls matter because apparent benefits from a representation could otherwise reflect differences in the resources available to the system using it.",
+      "Object-centric approaches perform better in the harder compositional settings and generalize more effectively from fewer images. Dense representations surpass them only in easier settings and typically need substantially more downstream compute; sufficient data and diversity can also allow dense encoders to catch up or exceed them. The findings support object-centric representations particularly when dataset size, training diversity, or downstream compute is constrained."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "fbc5ee448503aa047e936c931650fd979d863d9a656f6d29097fa789819ac8d4",
+    "tldr": "Controlled comparisons favor object-centric representations for difficult compositional generalization, especially when data, diversity, or downstream compute is limited."
+  },
+  "icml-2026-automatic-pruning-discovery-for-large-language-models-ff51cc9a29": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Pruning reduces a language model’s size by removing parts of its parameters, but designing effective pruning rules often requires specialist effort. AutoPrune uses language models to generate pruning algorithms automatically. The paper also identifies an outlier-value problem associated with uniform sparsity that contributes to sharp performance losses when pruning is aggressive.",
+      "The algorithm-discovery component uses Graph-driven Chain-of-Thought to optimize prompts and guide the model’s reasoning about pruning rules. The authors report that this process produces algorithms with improved performance and interpretability. This makes the language model part of the method-design process, reducing reliance on manually constructed pruning algorithms and expert knowledge.",
+      "A separate component, Skew-aware Dynamic Sparsity Allocation, adapts sparsity to address the identified outlier problem. Algorithm discovery determines how to prune, while this allocation mechanism addresses the consequences of applying uniform sparsity. Across the reported mainstream language-model benchmarks, AutoPrune consistently outperforms the compared state-of-the-art methods. Its stated results support combining automated algorithm design with adaptive sparsity when seeking stronger performance at high pruning ratios."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a64ca4d4f9af46095867a1a23f4473e4692f1a4af3ca6b1a469e899c9ed6288f",
+    "tldr": "AutoPrune uses language models to discover pruning algorithms and adapts sparsity to reduce performance loss from outlier values."
+  },
+  "icml-2026-breaking-the-echo-chamber-a-dynamic-ensemble-pruning-perspective-on-moe-92566c1737": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A mixture-of-experts model must choose which experts to activate for an input. Selecting the highest-ranked experts greedily can favor correlated representations and contribute to representation collapse. MP-MoE treats routing as the selection of a useful, diverse ensemble, making diversity part of the selection objective itself.",
+      "Its objective uses Mahalanobis distance, which accounts for correlations when measuring differences. The authors show that expert co-occurrence statistics capture inter-expert correlations and can supply the covariance structure needed for this calculation without inspecting expert parameters. They then develop a greedy routing strategy with theoretical approximation guarantees, making the approach usable as a replacement routing module.",
+      "During language-model pretraining experiments, MP-MoE improves benchmark results over the baseline by one to three percentage points. The reported cost is approximately 3% more wall-clock training time, with no added inference latency. These findings suggest that explicitly accounting for expert redundancy can improve routing without a large runtime burden. The theoretical guarantees concern the routing approximation, while the predictive improvements are demonstrated empirically."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "08f4f55699494246d8cff53c7c272bb8a38cd50210adfc5dfd386afd3a5b4b77",
+    "tldr": "MP-MoE selects diverse expert subsets using co-occurrence statistics, improving evaluated benchmarks with about 3% extra training time and no added inference latency."
+  },
+  "icml-2026-capacity-without-access-reinterpreting-the-mid-depth-spectral-plateau-in-llms-6688c3a311": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Analyses of language models can suggest both that layers learn specialized functions and that representations become increasingly constrained with depth. This paper investigates how those observations can coexist. It separates the richness of information encoded in a layer from the extent to which the model’s output can use that information.",
+      "The authors call these properties representational capacity and accessibility. Their analysis of hidden-state second moments finds that intermediate layers retain a broad range of representation directions and substantial spectral diversity. However, these representations project weakly onto the subspace relevant to the output. Rich internal features can therefore have limited influence on predictions because of their geometric alignment.",
+      "To investigate whether those features matter functionally, the authors introduce a controlled diagnostic pathway connecting intermediate embeddings to the final readout. Behavioral changes caused by this pathway support an accessibility-based explanation of the apparent stagnation. The finding redirects attention from whether intermediate layers possess useful representational capacity toward how that capacity connects to the model’s predictive machinery."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "41b421e24a8d4b18606ae567a23b5dea5f1de1df1b48c062577924a5629f54ae",
+    "tldr": "The analyzed intermediate LLM layers retain rich representations, but geometric misalignment limits their access to the final prediction."
+  },
+  "icml-2026-credit-assignment-via-neural-manifold-noise-correlation-b0081eef36": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Credit assignment determines how changes inside a network affect its output. One biologically plausible approach perturbs neural activity and correlates those perturbations with output changes to estimate gradients. Its difficulty is scale: accurately estimating the relevant sensitivity matrix can require a number of perturbations that grows with network size.",
+      "Neural manifold noise correlation restricts perturbations to the low-dimensional structure occupied by neural activity. The authors provide theoretical and empirical evidence that, in trained networks, the Jacobian’s row space aligns with this neural manifold. They also find that manifold dimensionality grows slowly with network size. Together, these observations motivate concentrating perturbations along a smaller set of relevant directions.",
+      "Compared with ordinary noise correlation, the method improves performance and sample efficiency in CIFAR-10 convolutional networks, ImageNet-scale models, and recurrent networks. Its representations also more closely resemble those of the primate visual system. These results offer a possible mechanism for biological credit assignment, while suggesting that constraints inspired by neural activity can help learning scale rather than merely restricting it."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "60e4d0d7f1f790a450cb6c8e6291dedc2b3abd21694fa4285d61abfaf3346be7",
+    "tldr": "Restricting neural perturbations to a learned activity manifold improves noise-based credit assignment and offers a possible biological mechanism."
+  },
+  "icml-2026-critique-guided-distillation-for-robust-reasoning-via-refinement-c7ca759aaf": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Learning from expert answers can encourage a model to copy successful outputs without learning how to repair reasoning errors. Training it to write critiques introduces another challenge: critique generation can disrupt answer formatting and general capabilities. Critique-Guided Distillation instead teaches a student to use feedback while refining flawed responses.",
+      "During fine-tuning, a teacher supplies critiques and the student learns to revise the associated responses. The critique is a training signal only; inference does not require it. This separates consuming useful feedback from generating that feedback and aims to internalize error-aware reasoning without adding architectural overhead when the trained model answers questions.",
+      "Across five model families, the method outperforms critique fine-tuning and standard distillation on mathematical reasoning benchmarks, with a reported average improvement of 7%. Competition-problem evaluations also show higher first-attempt success and stronger performance with few samples. The method preserves general instruction-following capabilities in settings where critique fine-tuning degrades them. The results support refinement under teacher feedback as a practical way to improve reasoning quality per generated answer."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "76a57b254aa33027a2a215394303903fb3f2c0a772670b6aa0c1d5cf3d6f7b16",
+    "tldr": "Training students to repair answers using teacher critiques improves evaluated mathematical reasoning without requiring critiques at inference."
+  },
+  "icml-2026-crowd4d-scene-aware-monocular-4d-crowd-reconstruction-7b29cdd0bf": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Recovering a crowd’s three-dimensional motion over time from one video requires resolving ambiguous depth, scale, and position. Assuming that everyone moves on a single plane becomes unreliable on complex terrain. Crowd4D addresses this by jointly optimizing the crowd and its surrounding scene from monocular RGB video.",
+      "A multi-stage optimization process enforces consistency between what appears in the image and the reconstructed scene. Its central intermediate representation, the Human–Scene Interaction Proxy, is derived from interaction point clouds and a scene interaction surface. These structures encode geometric information about the scene and help align reconstructed people with it, especially in scale and position.",
+      "The framework also uses Crowd Structural Coherence Regularization to improve temporal stability when people are occluded. It applies soft consistency constraints to relative displacements and directions among nearby people, using spatial priors from the interaction proxy. Experiments report consistent improvements over existing state-of-the-art methods in complex, large-scale scenes. The approach brings scene geometry and local crowd relationships directly into reconstruction rather than treating human motion as an isolated estimation problem."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a2a70ef4b6a479f7195d0174e835dbf60e2126e93189a40f515dd4c2d3978e54",
+    "tldr": "Crowd4D jointly reconstructs crowds and scene geometry from a single video, improving alignment and motion stability in complex environments."
+  },
+  "icml-2026-divide-and-conquer-reliable-multi-view-evidential-learning-for-deepfake-detection-9671b042e3": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A convincing deepfake can look semantically plausible while retaining subtle structural artifacts. The paper argues that representations mixing these signals can let strong semantic features obscure weaker forensic evidence. It calls this the Semantic Masking Effect and links it to predictions that are confident but brittle.",
+      "DiCoME first separates the representation through geometric projection. This purification step suppresses semantic interference in the artifact-sensitive view, producing semantic and artifact views that are less correlated while remaining complementary. The goal is to preserve evidence that could otherwise be overwhelmed by the image’s convincing overall content.",
+      "The framework then combines the views through uncertainty-aware evidential learning. It explicitly models disagreement between semantic and artifact cues, allowing that conflict to inform uncertainty estimates instead of forcing a rigid decision. Across multiple benchmarks, the authors report better generalization than existing approaches together with reliable uncertainty estimation. The contribution therefore concerns both detection performance and how confidence is formed when different kinds of visual evidence point in different directions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5ed228ddd872a9cca75846e18b9f9dfbbdd0ee012e413f360340b4942d7d8c67",
+    "tldr": "DiCoME separates semantic and artifact evidence, then models their disagreement to improve deepfake detection and uncertainty estimates."
+  },
+  "icml-2026-fairrari-a-plug-and-play-framework-for-fairness-aware-pagerank-db5f54b660": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "PageRank assigns scores to vertices in a graph, and those scores may need to satisfy fairness requirements across groups defined by sensitive attributes. Existing approaches can lack guarantees that a requested fairness level is reached or that the resulting solution is optimal. FairRARI places these requirements inside a unified optimization framework.",
+      "The method starts from a variational formulation of PageRank and solves a strongly convex problem with explicit fairness constraints. This makes fairness part of the score-computation process. The framework supports different group-fairness criteria through a common formulation, providing a way to change the criterion without replacing the overall approach.",
+      "The paper introduces three fairness criteria that FairRARI can handle with the same asymptotic time complexity as the original PageRank algorithm. On real-world datasets, it achieves the desired fairness levels across multiple vertex groups while delivering better utility than the compared methods. The contribution combines explicit fairness targets, optimization guarantees, and favorable computational scaling, rather than relying solely on empirical improvements in group-level outcomes."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2d0afb83a752644f0cd3f9566a8eb13a3f444dc6a835ca49854dea5c6b642b93",
+    "tldr": "FairRARI computes PageRank through constrained convex optimization to meet group-fairness targets while preserving favorable computational scaling."
+  },
+  "icml-2026-focus-forcing-in-context-object-localization-through-visual-support-constraints-and-poli-1e03a4f8e2": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "In-context object localization asks a model to find an object in a query image using a few visual examples. The target may be unnamed or specific to a particular instance, making category labels an awkward guide. FOCUS trains models to rely more directly on correspondence between the supplied examples and the query.",
+      "Its two-stage framework optimizes attention between support bounding boxes and query images without category supervision. A reinforcement-learning refinement stage uses Group Relative Policy Optimization to directly reduce localization error. These objectives address the tendency for semantic category expectations to displace the visual evidence that actually specifies the requested object.",
+      "The training produces a model intended to perform localization on the fly without parameter updates for each new target. In the reported experiments, a 7-billion-parameter model trained with these objectives outperforms models as large as 72 billion parameters. Ablations support the contribution of each component. The result shows that, in the evaluated setting, training specifically for visual context use can provide greater localization gains than model scaling alone."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5dd53005afbe872704053dad0e204e369466075ea3af968ffc78504e31d416d0",
+    "tldr": "FOCUS trains visual correspondence and directly optimizes localization error, enabling a 7B model to outperform evaluated models up to 72B."
+  },
+  "icml-2026-from-growing-to-looping-a-unified-view-of-iterative-computation-in-llms-ae4b54f449": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Looping reuses a block of layers, while depth growing trains a model from shallow to deep by duplicating middle layers. Both have been associated with stronger reasoning. This paper examines their internal behavior and finds evidence that the two techniques encourage a shared form of iterative computation.",
+      "Looped and depth-grown models show similar patterns across depth, including greater reliance on late layers and recurring signatures associated with the reused or duplicated block. The authors then combine the techniques: applying inference-time looping to middle blocks of a depth-grown model improves accuracy on some reasoning primitives by up to twofold, even without prior training to loop.",
+      "Both approaches also adapt better than the baseline to additional in-context examples or supervised fine-tuning data. Depth-grown models obtain their largest reasoning gains with higher-quality, math-heavy cooldown training mixtures, and adapting a middle block to loop can improve them further. These findings support treating growth and looping as complementary methods, with benefits that depend on the evaluated reasoning task and training setup."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6627727524b14d4bf3931743b5b0188bad985d451f6fea689cfdf4ba40312679",
+    "tldr": "Depth growth and layer looping show shared iterative-computation signatures and can be combined to improve some reasoning tasks."
+  },
+  "icml-2026-gradient-based-causal-tree-ensembles-a-backbone-architecture-for-heterogeneous-treatment-6bf4740520": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Heterogeneous treatment-effect estimation asks how an intervention’s effect varies across individuals. The paper focuses on learning these differences from observational data, where randomized experiments may be impractical. It develops a tree-based architecture motivated by evidence that trees can perform well on tabular data, especially when some features are uninformative.",
+      "GRACE combines multi-way, oblique, and soft splits. These allow branches with several outcomes, decisions based on combinations of features, and gradual routing between branches. The resulting architecture can be trained end to end with backpropagation and can replace fully connected neural-network layers inside existing models.",
+      "Across benchmarks covering binary and non-binary treatments, GRACE consistently outperforms the evaluated neural-network and tree-based baselines, often substantially. The authors also analyze its relationship to fully connected layers and use ablation studies to measure the contributions of individual architectural components. The work presents differentiable tree ensembles as a reusable building block for treatment-effect models, bringing tree-like structure into the same gradient-based training process used by neural architectures."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "eb774692d7994be3c51dd791ab3305a3ba8d8496da1143ca65d6170d1e23be04",
+    "tldr": "GRACE uses differentiable tree ensembles as replacements for neural layers, improving heterogeneous treatment-effect estimation across the evaluated benchmarks."
+  },
+  "icml-2026-harmful-overfitting-in-sobolev-spaces-6de5514392": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Perfectly fitting noisy training data does not always prevent good generalization, a phenomenon called benign overfitting. This paper investigates when the outcome is harmful instead. It studies interpolating functions in Sobolev spaces, where norms encode smoothness through the function and its derivatives.",
+      "The analysis concerns approximately norm-minimizing interpolators, representing solutions favored by a smoothness bias. Under assumptions about label noise and sufficient regularity of the data distribution, the authors show that generalization error stays above a positive constant with high probability even as the training sample grows without bound. Increasing the amount of data therefore does not eliminate the error for this class of solutions under the stated assumptions.",
+      "The result covers every finite exponent p from one upward, extending beyond earlier work on the Hilbert-space case p equals two. Its proof uses Sobolev inequalities to identify neighborhoods around training points where fitting noise causes harm. The contribution establishes a broader mathematical setting in which smoothness-biased interpolation still produces persistent generalization error."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "404ca9a854b5d1c747ad7e78b735036ea057341111dc4ee5495a67b72d90a8e1",
+    "tldr": "Under stated noise and distribution assumptions, approximately minimum-norm Sobolev interpolators retain positive generalization error even with unlimited data."
+  },
+  "icml-2026-instance-level-costs-for-nuanced-classifier-evaluation-7ae37efbc1": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "An ordinary error rate counts every incorrect classification equally. This paper considers settings where getting an obvious case wrong carries a greater cost than missing an ambiguous one. It introduces normalized excess cost, or NEC, to evaluate classifiers using costs assigned to individual examples.",
+      "The metric is derived from a contextual bandit framework and becomes the standard error rate when all costs are equal. Example-specific costs can come from annotator agreement, distance from a decision threshold, or confidence ratings. These choices make the evaluation sensitive to which cases a model gets wrong, providing information that a single count of mistakes does not capture.",
+      "Across text, image, and tabular benchmarks, NEC is often substantially below the error rate: a model with 5% errors can have 1.8% NEC. Under the assigned costs, this indicates that mistakes concentrate on ambiguous, lower-cost examples. Cost-aware training, focal loss, and post-hoc threshold adjustment do not consistently improve NEC across datasets. The paper therefore contributes an evaluation methodology while showing that optimizing these weighted outcomes remains empirically uneven."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ff742bba574bd56e8fc1fd516af45616edef814fbccca99a4fc03da007697250",
+    "tldr": "Normalized excess cost weights classification mistakes by example-specific costs, revealing distinctions that ordinary error rates can hide."
+  },
+  "icml-2026-interpretable-discovery-of-one-parameter-subgroups-a-modular-framework-for-elliptical-hy-a43a62e782": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Symmetry-aware models often begin with a known transformation rule that their predictions should respect. This paper develops a framework that learns an unknown functional mapping together with the continuous one-parameter symmetry subgroup governing the data. The discovered symmetry is tied to identifiable architectural components.",
+      "The framework covers elliptic, hyperbolic, and parabolic regimes. For a given regime, it builds invariant and equivariant representation layers using the subgroup’s Lie algebra, then learns the generator parameters end to end. Invariance means that a representation remains unchanged under the transformation; equivariance means that it changes in the prescribed way. These properties are guaranteed by the architecture and admit formal proofs.",
+      "The approach applies to one-parameter subgroups within several matrix Lie groups, including rotation, special linear, and Lorentz groups. Experiments include moment-of-inertia prediction, double-pendulum dynamics, and top-quark tagging, with accurate subgroup recovery and strong predictive performance across compact and non-compact settings. The contribution combines data-driven identification of symmetry parameters with explicit structural guarantees, given the selected geometric regime."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "afa9e15f3e9387672d8a48ac08350d7a231e8710a18039ade3517584d62d6cc1",
+    "tldr": "Given a geometric regime, the framework learns continuous symmetry generators while guaranteeing architectural invariance or equivariance."
+  },
+  "icml-2026-moving-out-physically-grounded-human-ai-collaboration-1300345f25": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Collaborating on a physical task requires adapting to both a partner’s behavior and the environment’s constraints. Moving a heavy object together or guiding it around a corner involves continuous actions and physically restricted motion. Moving Out introduces a benchmark designed to test this kind of human–AI coordination.",
+      "The benchmark contains two challenges and human–human interaction data. Its evaluation targets adaptation to diverse human behaviors and previously unseen physical attributes. This addresses a gap in collaboration benchmarks that use discrete interactions or omit physical properties, where successful coordination may not require the same sensitivity to motion and constraints.",
+      "The authors also introduce BASS, short for Behavior Augmentation, Simulation, and Selection. The method aims to increase agent diversity and improve understanding of action outcomes, both of which matter when a partner’s behavior is unfamiliar. Comparisons with state-of-the-art models include AI–AI and human–AI experiments. The reported results show that BASS can collaborate effectively with unseen AI partners and humans, supporting evaluation and method development that explicitly account for the physical setting."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "103b2823a21b866ab4c31ee71690ab1b8901c7642e7ab28aa9315b88bdf4b725",
+    "tldr": "Moving Out benchmarks collaboration under physical constraints, and BASS demonstrates effective coordination with unfamiliar AI and human partners."
+  },
+  "icml-2026-multimarginal-flow-matching-with-optimal-transport-potentials-380070a850": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Flow matching learns how to transport one distribution into another over time. Scientific datasets can also provide intermediate distributions, which contain information about what happens between the endpoints. This paper develops a method for using those intermediate observations to guide the learned dynamics.",
+      "The approach connects flow matching with dynamic optimal transport. It adds potential terms to the transport action that softly steer the evolving distribution toward observed intermediate marginals. The authors then incorporate these potentials into the conditional flow-matching learning target, producing a simulation-free training algorithm. Because the steering is soft, the formulation offers flexibility in the spatial and temporal behavior of the resulting flow.",
+      "The method, called OT-potential flow matching, is evaluated on single-cell RNA sequencing, oceanographic, and meteorological datasets. The authors report state-of-the-art performance and training efficiency across these applications. The contribution expands flow matching from endpoint transport toward modeling sequences of observed distributions, allowing intermediate measurements to shape the dynamics without requiring simulation as part of the learning algorithm."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "96b6016351635ac0b4f613f023f7c7291d7dba094109ffb98d4aee6baffd6abc",
+    "tldr": "OT-potential flow matching uses intermediate observed distributions to guide dynamic transport through an efficient, simulation-free learning objective."
+  },
+  "icml-2026-safedec-constrained-decoding-for-safe-autoregressive-generalist-robot-navigation-policie-a9a78b9ea0": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Transformer-based navigation policies can generate actions directly from multimodal observations, but learning from trajectories does not itself give them explicit behavioral correctness rules. SafeDec adds such rules at decoding time, when an autoregressive policy constructs its action sequence. It operates without retraining the underlying policy.",
+      "Safety requirements are expressed in Signal Temporal Logic, a formal language for specifications involving signals over time. SafeDec constrains generated actions so that they provably satisfy those specifications under the assumed dynamics. That qualification matters: the guarantee is tied to the dynamics used by the framework, rather than being an unconditional claim about every physical execution.",
+      "The authors evaluate SafeDec with state-of-the-art navigation policies on CHORES tasks across hundreds of procedurally generated environments. Their results show that decoding interventions can support conditional action generation as well as filter unsafe actions. The contribution is a policy-agnostic way to connect explicit temporal specifications to action generation, bringing formal constraints into deployment without changing how the original navigation model was trained."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a4a45b005d2eb93e19779a7e868bad5d25eba40bb72e46e77d2ae962d87e6158",
+    "tldr": "SafeDec constrains robot-policy decoding to provably satisfy temporal safety specifications under assumed dynamics, without retraining."
+  },
+  "icml-2026-submodular-optimization-for-minimal-augmentation-in-robust-language-model-alignment-ac0643128b": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Safety alignment can deteriorate after small fine-tuning changes, with behavior moving back toward what the model learned during pretraining. The paper describes this degradation as inversely related to alignment-set size. It asks how to strengthen alignment while adding as little augmentation as possible.",
+      "The authors represent augmentations as group actions on sequences and model their robustness benefit with a normalized, monotone submodular function. Monotonicity expresses that adding transformations does not reduce the modeled benefit. Submodularity captures diminishing returns: a transformation can contribute less when many useful transformations have already been selected. This structure makes economical selection a mathematical optimization problem.",
+      "Using submodular optimization, the method selects minimal augmentations with provable robustness improvements within the formalization. Experiments show that the approach efficiently restores safety alignment while limiting augmentation overhead. The contribution links the practical goal of using fewer augmented examples or transformations to an explicit model of their combined benefit. Its guarantees arise from that model, while the experiments support the usefulness of the resulting selection strategy."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "969bb3e9672d8de0ab0790830dd8656f11062894fefd2404dee025811bc88841",
+    "tldr": "The paper models augmentation benefits as submodular and selects minimal transformations that provably improve robustness within that framework."
+  },
+  "icml-2026-symmetry-in-language-statistics-shapes-the-geometry-of-model-representations-642e363d31": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Language-model representations sometimes arrange familiar concepts into simple geometric structures: months form a circle, years follow a one-dimensional manifold, and city coordinates can be recovered with low-dimensional linear probes. This paper investigates how such geometry can arise from the statistical structure of language.",
+      "The authors identify translation symmetry in co-occurrence statistics. For months, this means that the probability of two months appearing together depends on their temporal separation. They prove that this kind of symmetry governs the corresponding geometric structures in high-dimensional word-embedding models, connecting representation shape to patterns in the training signal.",
+      "The structures can persist at moderate embedding dimensions and after substantial statistical disruption, including removing every sentence containing two months together. The paper explains this robustness when an underlying continuous latent variable collectively controls the co-occurrence statistics. Empirical tests span word embeddings, text embeddings, and large language models. The results provide a theoretical and experimental account of how organized representation geometry can survive even when direct co-occurrence evidence is heavily altered."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b4c567c12e93de09acfa478e8237e756d5036a70e64990f1884fed3c88a9f7dd",
+    "tldr": "Symmetries in language co-occurrence statistics explain simple embedding geometries and, under a latent-variable account, their robustness to perturbation."
+  },
+  "icml-2026-text-driven-fusion-for-infrared-and-visible-images-achieving-image-scene-adaptation-on-h-55bb0d04c3": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Infrared and visible images contain complementary information, but combining them requires preserving both texture and semantic relationships. This paper argues that Euclidean distance structures can distort interactions between modalities and hierarchies from broad scene concepts to detailed attributes. It develops a text-guided fusion framework in hyperbolic space.",
+      "During training, text prompts extracted with BLIP act as anchors that align visual attributes within hyperbolic embeddings. The Poincaré ball’s negative curvature provides exponentially growing space, which supports hierarchical structures spanning coarse and fine semantic levels. The authors use this geometry to avoid saturation of semantic distances and to preserve texture during fusion across modalities.",
+      "At inference, the method uses the text–attribute relationships learned during training to adapt fusion to the image content. It therefore requires no textual input when producing a fused image. Experiments report better performance than state-of-the-art approaches on benchmark datasets. The contribution combines language-guided training with a geometry designed for hierarchical relationships, while keeping the deployed fusion process driven by the input images."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e65c0344f40bb2ca60433c056e806eb61d83ac99e048af7e40b3e7834ae09512",
+    "tldr": "Text-guided hyperbolic embeddings improve infrared–visible image fusion, with learned scene adaptation requiring no text at inference."
+  },
+  "icml-2026-thunderagent-a-fast-simple-and-program-aware-agentic-inference-system-78e196a6d3": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "An AI agent’s workflow can alternate between language-model calls and external tools over many turns. Systems that schedule each request independently lack a complete view of the workflow, making it harder to manage model caches and tool environments efficiently. ThunderAgent organizes resource management around the full agent program.",
+      "Its LLM Programs abstraction brings model key–value caches, system state, and external assets such as disk storage and network ports into one view. A program-aware scheduler seeks better cache reuse and more balanced memory usage. A tool resource manager supports asynchronous environment preparation, coordinating tool infrastructure with the broader program rather than treating each invocation as isolated.",
+      "Evaluations cover coding, routing, and scientific-discovery agents. Compared with state-of-the-art inference systems, ThunderAgent reports throughput improvements of 1.5–3.6 times for serving and 1.8–3.9 times for reinforcement-learning rollouts, alongside disk-memory savings of up to 4.2 times. These results demonstrate the value of using workflow context to coordinate heterogeneous resources. The authors also release the system implementation to support reproduction and further development."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ecdda3ffa55a710d9a5782f048d9ef07bc12d290968a6e1e1775acd5530d695a",
+    "tldr": "ThunderAgent coordinates model and tool resources across complete agent programs, improving evaluated throughput and disk-memory efficiency."
+  },
+  "icml-2026-transformers-can-learn-posterior-predictive-distributions-in-context-948ad01ffd": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Prior-data fitted networks use examples in their context to approximate a Bayesian predictive distribution, providing uncertainty information as well as a point prediction. This paper investigates the computational capacity behind that behavior. Its analysis focuses specifically on Gaussian process regression.",
+      "The authors construct a transformer that implements gradient descent targeting the posterior predictive mean and variance. Nonlinear mappings then convert those quantities into probabilities for discrete output bins. This construction shows how a transformer can represent a distribution-producing procedure. The paper also bounds approximation error in terms of attention depth and bin resolution, linking architectural computation and output discretization to predictive accuracy.",
+      "The analysis further identifies normalization and the choice of attention depth as important for handling context sample sizes beyond the range encountered during pretraining. Simulations corroborate the theoretical findings. The contribution is a constructive account of distributional in-context prediction in the studied regression setting, together with insight into architectural choices that influence extrapolation. It establishes capability through a construction rather than claiming that every trained transformer necessarily learns this procedure."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "13bcb30e078018626a50598d5162a0a53372634c65663b5b67f9ae14a274f441",
+    "tldr": "A constructive analysis shows how transformers can approximate Gaussian-process predictive distributions and links error and extrapolation to architectural choices."
+  }
+}

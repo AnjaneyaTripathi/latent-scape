@@ -1,0 +1,327 @@
+{
+  "neurips-2024-block-transformer-global-to-local-language-modeling-for-fast-inference-8e7b621bcf": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Generating text with a transformer involves repeatedly accessing stored information about earlier tokens. This key-value cache creates two costs during batch inference: processing the prompt before producing the first token, and reading an increasingly large cache for later tokens. Block Transformer changes how the model represents context to reduce these costs.",
+      "The architecture separates broad context from local detail. Lower layers group tokens into fixed-size blocks and attend across those blocks, giving the model a coarse view of the full sequence. Upper layers generate individual tokens using attention within each block. This division preserves global context while keeping the cache for detailed token generation small.",
+      "The authors train both conventional and Block Transformers from scratch. They report 10–20 times higher inference throughput with equivalent perplexity and zero-shot task performance in their comparisons. The findings support organizing language modeling around two levels of detail as a way to reduce memory traffic while maintaining the measured modeling quality."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0c6a6638f308fef458d89a887f63ed688cb5dbd4b602d61f9ff7b54d7524f186",
+    "tldr": "Block Transformer separates global block-level context from local token generation, achieving 10–20 times higher inference throughput in the reported comparisons."
+  },
+  "neurips-2024-countgd-multi-modal-open-world-counting-38dde301a4": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Counting objects in an image depends on specifying which objects should count. CountGD supports three ways to express that target: a text description, visual examples, or both together. The paper aims to make open-vocabulary counting more general and accurate by giving users these complementary ways to describe what they want.",
+      "The method adapts GroundingDINO, an existing open-vocabulary object detection foundation model, for counting. It adds modules that accept visual exemplars, extending the model beyond text-based target descriptions. The authors also study how the two prompt types interact, including cases where they reinforce the same interpretation and cases where one narrows the meaning of the other.",
+      "Across multiple counting benchmarks, the authors report that text-only CountGD outperforms previous text-only approaches, while its combined text-and-example version outperforms previous models. These results connect the expanded interface to improved counting accuracy. The interaction study is preliminary, but it also highlights that combining prompts can help define the intended counting task more precisely."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b1c14c3fda9fc780dc2523f5b7b57f2562062387005b6b7f486bb4fb31d4164a",
+    "tldr": "CountGD adapts an open-vocabulary detector to count objects specified by text, visual examples, or both, improving results across multiple benchmarks."
+  },
+  "neurips-2024-decoding-time-language-model-alignment-with-multiple-objectives-a599edb933": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A language model optimized for one preference objective may not offer the balance needed for another use. Multi-objective decoding, or MOD, lets users assign weights to different objectives during generation. It selects the next token using a linear combination of predictions from the base models, making the requested balance part of decoding.",
+      "The authors derive the method from a shared mathematical structure among several alignment approaches, including PPO and DPO. A Legendre transform yields a closed-form solution and an efficient decoding strategy. Their theoretical analysis identifies settings where existing approaches can be suboptimal and establishes optimality guarantees for MOD within the analyzed framework.",
+      "In experiments equally weighting three objectives, MOD improves overall reward by 12.8% over a parameter-merging baseline. The authors also combine differently sized models targeting safety, coding, and general preferences. Their best combination brings Toxigen toxicity close to zero and improves three other metrics by 7.9–33.3%, demonstrating the practical value of exploring preference weights during decoding."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f3e86ddf93eb4cd431db8defc090d79bee17c0c311e525ba6874b71ee737f643",
+    "tldr": "MOD combines language-model predictions during decoding to balance multiple preference objectives, with theoretical guarantees and demonstrated reward improvements."
+  },
+  "neurips-2024-decoupling-semantic-similarity-from-spatial-alignment-for-neural-networks-a895f3e5ac": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Researchers compare neural representations by measuring how similarly a network responds to different inputs. A representational similarity matrix records one similarity value for each pair of inputs. This paper examines a problem with established calculations: images can receive different similarity scores because their features occupy different spatial positions.",
+      "The authors argue that a measure of semantic similarity should separate object meaning from spatial arrangement. They introduce semantic representational similarity matrices that remain unchanged under spatial permutations. Instead of requiring responses to align position by position, the method treats their comparison as a set-matching problem. This changes what the similarity score is designed to capture.",
+      "The paper evaluates the resulting measure through image retrieval and by comparing representation similarities with similarities between predicted class probabilities. The authors report advantages over measures that mix semantic content with spatial alignment. The contribution is a different tool for examining learned representations: it makes spatial permutation invariance an explicit property of the comparison rather than letting position influence the score."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e9750eb98515db07d14c0e193d3046882215053dd4dd1f48ecaac66e6544871d",
+    "tldr": "Semantic representational similarity matrices use set matching to compare neural responses without sensitivity to spatial permutations."
+  },
+  "neurips-2024-divide-and-conquer-predictive-coding-a-structured-bayesian-inference-algorithm-fb3cd59123": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Predictive coding connects the brain's responses to unexpected events with probabilistic inference. In this account, neural processing estimates hidden causes within a generative model. However, existing predictive coding algorithms have struggled to match other variational methods on machine learning problems with many variables and structured relationships.",
+      "Divide-and-conquer predictive coding, or DCPC, addresses this gap by respecting the correlation structure of the generative model. Relationships between variables are therefore part of the inference procedure. The authors also prove that the algorithm performs maximum-likelihood updates of model parameters, connecting its learning rule to a standard statistical objective while retaining the biological plausibility they seek.",
+      "The reported experiments show better numerical performance than competing algorithms and accurate inference on several problems previously unaddressed by predictive coding. These findings matter because they extend the practical reach of the approach beyond an explanation of surprise signals. DCPC provides both a structured inference algorithm and a theoretical account of how its model parameters are updated."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "075b0e047c23cc29580d367c66c10cadc8d4570fec044d3125d4560293a1d8a0",
+    "tldr": "DCPC respects correlations in structured generative models, improving predictive coding inference while providing proven maximum-likelihood parameter updates."
+  },
+  "neurips-2024-efficient-recurrent-off-policy-rl-requires-a-context-encoder-specific-learning-rate-5c5bf79aae": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "When an agent cannot observe its full environment state, a recurrent network can summarize previous observations to support decisions. Such systems combine a recurrent context encoder with a policy network. The paper investigates why training this combination can be unstable, even though it is a useful approach to partially observable tasks.",
+      "The authors identify the recurrent encoder's repeated dependence on its own earlier outputs as a source of instability. Small parameter changes can produce large output changes over long trajectories. Their method, RESeL, therefore gives the context encoder a lower learning rate than the other network layers. This aims to stabilize the memory component while allowing the remaining components to learn efficiently.",
+      "The evaluation covers 18 partially observable tasks and five fully observable locomotion tasks. RESeL improves training stability and performance over earlier recurrent baselines in the partially observable settings, while remaining competitive with or exceeding leading methods in the locomotion settings. Ablations support using a separate encoder learning rate in the tested systems."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "fa08cdf224d1e60f8ad6f348a2814406caed0049b11879a128155fd59a3ebaa3",
+    "tldr": "RESeL improves recurrent reinforcement learning by training the context encoder with a lower learning rate than the decision-making layers."
+  },
+  "neurips-2024-error-analysis-of-spherically-constrained-least-squares-reformulation-in-solving-the-sta-7a887387d1": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A Stackelberg prediction game models strategic interaction between a learner and an adversarial data provider. The paper focuses on its least-squares version and an existing solution method called spherically constrained least squares, or SCLS. Its central question is how far the learner produced by this method can be from the actual learner.",
+      "To study that estimation error, the authors express it as a primary optimization problem. They then apply the Convex Gaussian min-max theorem to obtain an auxiliary optimization problem that is simpler to analyze. This transformation supplies the mathematical route from the original error question to a theoretical characterization of SCLS.",
+      "The resulting analysis strengthens the theoretical basis for using SCLS and supports the reliability of the learner it produces. Experiments closely agree with the theoretical predictions. The contribution is therefore an error analysis of an established method: it connects the learner's deviation to a tractable mathematical problem and checks that the resulting predictions describe the observed experimental behavior."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8d73f1fe29cedbdcc52062fd42f94fd121cc0cda9c8cabf5288d0dc10783cd8f",
+    "tldr": "The paper derives and experimentally validates an estimation-error analysis for the SCLS method used in least-squares Stackelberg prediction games."
+  },
+  "neurips-2024-estimating-generalization-performance-along-the-trajectory-of-proximal-sgd-in-robust-reg-bae454c2fc": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "An iterative regression algorithm produces a sequence of candidate models, and their performance on new data can change throughout training. This paper develops estimates that track that generalization error at individual iterations. It considers high-dimensional robust regression, where the number of features is comparable to the sample size and errors may be heavy-tailed.",
+      "The analysis covers gradient descent, stochastic gradient descent, and their proximal variants. Proximal methods also accommodate the non-smooth regularizers considered in the paper. The authors provide explicit error estimates for these training trajectories and prove consistency under suitable conditions. Examples include Huber and pseudo-Huber regression, together with penalized versions of these models.",
+      "Tracking error during optimization gives the estimates a direct practical use: choosing the stopping iteration that minimizes generalization error. The estimated risks act as proxies for the actual errors, making model selection part of the training trajectory. Extensive simulations support the estimates' effectiveness, while the formal consistency claims remain conditional on the assumptions required by the analysis."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6da8558e1f9bcbea9645c9e1af6388baf31814dd19972299160ded9ccbd2acce",
+    "tldr": "The paper estimates generalization error throughout robust-regression training, supporting stopping-time selection with consistency guarantees under suitable conditions."
+  },
+  "neurips-2024-fedgmark-certifiably-robust-watermarking-for-federated-graph-learning-37d879d2cc": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Federated graph learning allows multiple clients to collaborate on training with graph data. The resulting models can be copied or stolen, creating a need to verify ownership. FedGMark addresses this with backdoor-based watermarking, which embeds distinctive behavior that the owner can later use as evidence of ownership.",
+      "The method uses graph structure and client information to learn customized, diverse watermarks. It also introduces a graph-learning architecture designed to resist watermark removal. These components address problems identified with existing watermarking methods: poor applicability or performance in federated graph learning, vulnerability to removal, and the absence of formal guarantees.",
+      "FedGMark combines empirical evaluation with certified robustness against the worst-case removal attacks covered by its theoretical analysis. Extensive experiments support its watermarking performance, alongside the formal results. The significance is that ownership verification is treated as a property that should survive attempts to erase it. The paper brings graph-specific watermark design and robustness guarantees together within a federated learning setting."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "61fc16788c349f9972f79f86a916ac6d3ad528e80d81abb1dc189b66f25700e1",
+    "tldr": "FedGMark uses graph structure and client information to build federated graph-model watermarks with empirical and certified resistance to removal."
+  },
+  "neurips-2024-learning-better-representations-from-less-data-for-propositional-satisfiability-0b54135f32": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Propositional satisfiability asks whether truth values can be assigned to make a logical formula true. Neural approaches often need substantial training data and expensive symbolic verification. NeuRes combines neural learning with a proof system, using certificates to teach more than a final satisfiable-or-unsatisfiable label.",
+      "An attention-based model repeatedly selects pairs of clauses from a changing representation of the formula. Propositional resolution derives new clauses from those selections. The system explores proving unsatisfiability and finding a satisfying assignment in parallel. Expert iteration then allows model-generated proofs to replace longer teacher proofs, so the training targets can improve as the model improves.",
+      "The authors report orders-of-magnitude greater data efficiency than classification-only training and substantially better classification and proof performance than NeuroSAT. After training on proofs from an advanced solver, NeuRes shortens the proof dataset by about 32% without additional guidance. This result shows that, in the reported setting, the model's self-improving training process can move beyond the quality of its original teacher proofs."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ae83fc9a98a033d14ffa6165678a65d519314e28ae3838462b8b2484d52bd02c",
+    "tldr": "NeuRes learns satisfiability reasoning from proofs and improves its own training targets, reducing data needs and outperforming NeuroSAT in the reported evaluation."
+  },
+  "neurips-2024-learning-macroscopic-dynamics-from-partial-microscopic-observations-1b72a21e3b": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Learning a system's large-scale behavior can require simulations of its many microscopic components. Computing or measuring forces at every microscopic coordinate can make this expensive. This paper proposes training models of macroscopic dynamics using force computations for only a subset of microscopic coordinates.",
+      "The method relies on a specific sparsity assumption: the force at each microscopic coordinate depends on only a small number of other coordinates. The authors map training on macroscopic variables back to microscopic coordinates. Partial force calculations can then provide stochastic estimates for parameter updates, connecting incomplete microscopic computation to the learning objective at the larger scale.",
+      "The paper gives a theoretical justification under suitable conditions and tests the method across microscopic systems described by partial differential equations or molecular dynamics. The reported results demonstrate accuracy, robustness, and efficient use of force computations when learning macroscopic closure models. The central finding is that full microscopic force evaluation can be avoidable for this learning task when the required sparse dependence structure applies."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5b09f3af0f7b44f872f43d549fdd2b8e8e3c9c7f00fae028f520a297cf3b9687",
+    "tldr": "Under sparse microscopic force dependencies, the method learns macroscopic dynamics from partial force computations with theoretical and experimental support."
+  },
+  "neurips-2024-linear-transformers-are-versatile-in-context-learners-7faadbcc13": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A transformer can use examples in its input to carry out a learning procedure during a forward pass. Earlier work connected linear attention models with gradient-descent-like behavior. This paper asks how sophisticated that implicit procedure can become, especially when the examples contain different amounts of noise.",
+      "The authors prove that each layer of a linear transformer maintains a weight vector for an implicit linear regression problem. Its update can be interpreted as a form of preconditioned gradient descent, in which the update is transformed before being applied. This supplies a mathematical description of the computation unfolding across the model's layers.",
+      "For the noisy-data setting, the learned procedure combines momentum with adaptive rescaling based on noise levels. It matches or exceeds many reasonable baselines in the reported comparisons. The result extends the picture of in-context learning beyond a simple fixed update rule: in this problem, even a linear transformer discovers an optimization strategy that responds to differences in data quality."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3f74ee72050b5054b6a6305759ba7f7bdb15dcacec0d8a85248556e015f2a079",
+    "tldr": "Linear transformers can implement sophisticated in-context optimization, including momentum and noise-adaptive rescaling in the studied regression setting."
+  },
+  "neurips-2024-measuring-per-unit-interpretability-at-scale-without-humans-8d83851b73": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Understanding individual units inside a vision network usually requires people to judge whether those units have understandable behavior. That makes broad comparisons expensive. This paper introduces an automated measure of per-unit interpretability, allowing researchers to examine far more units than direct human evaluation would make practical.",
+      "The measure's predictions correlate well with existing human interpretability measurements. The authors also validate its predictive power through an interventional human psychophysics study. Human evaluation therefore helps establish the measure's usefulness, while applying the measure itself does not require new human judgments for every unit being assessed.",
+      "The authors use it to analyze more than 70 million units across 835 vision models and to examine how units change during training. They find a negative relationship between downstream classification performance and per-unit interpretability, including during training. Layer position and width also influence interpretability. These findings describe relationships at the level of individual units; the reported anticorrelation does not by itself establish that lower interpretability causes higher accuracy."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "577285694a5bf8b52a382fb82d4526d801996efcbbb4d1d3bf04024210cf7257",
+    "tldr": "An automated interpretability measure enables analysis of over 70 million vision-network units and reveals a negative association with classification performance."
+  },
+  "neurips-2024-miradata-a-large-scale-video-dataset-with-long-durations-and-structured-captions-64431b4d20": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Training video generators to produce long, consistent, strongly moving scenes requires data that actually contains those properties. The paper identifies short clips, limited motion, and brief captions as weaknesses in existing public datasets. MiraData is designed to improve video duration, motion strength, caption detail, and visual quality together.",
+      "The authors curate diverse, manually selected sources and process them into semantically consistent clips. GPT-4V supplies structured descriptions from four perspectives plus a dense summary caption. They also introduce MiraBench, an evaluation suite with 150 prompts and 17 metrics, adding explicit attention to three-dimensional consistency and motion measured through tracking.",
+      "Experiments with the authors' diffusion-transformer video model, MiraDiT, demonstrate the dataset's usefulness on MiraBench, particularly for motion strength. The paired dataset and benchmark address related needs: richer training examples and measurements that distinguish movement from other aspects of video quality. The reported findings support MiraData's value for the tested generation setup, with especially clear benefits on the motion dimension."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "14c56ed72ac4c0c903736fb30407f1459737e30e3855468cec247bec5f068541",
+    "tldr": "MiraData supplies longer, more dynamic videos with detailed captions, while MiraBench evaluates generation quality with expanded motion and consistency measures."
+  },
+  "neurips-2024-model-based-inference-of-synaptic-plasticity-rules-69bdc4ec1b": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Synaptic plasticity rules describe how connections between neurons change during learning. This paper develops a method for inferring those rules from observed neural activity or behavior. The approach fits a model of the learning process to entire trajectories, making changes over time central to the inference.",
+      "The unknown rule is represented either by a truncated Taylor series, chosen for theoretical interpretability, or by a multilayer perceptron. Gradient descent adjusts its parameters so the modeled trajectory matches the observations. This allows the method to capture complex nonlinear dependencies involving postsynaptic activity, current connection weights, and effects that unfold over long periods.",
+      "In simulations, the method recovers established rules such as Oja's rule and more complex rules involving reward modulation. The authors also assess noise robustness and apply the approach to fruit-fly behavior in a probabilistic reward-learning experiment. That analysis identifies an active forgetting component and improves predictive accuracy over previous models, illustrating how fitting learning dynamics can reveal useful components of a plasticity model."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "73a9178503ef533e0c8f5863cbe2a6bc784cec163a5bbec7310d16d262423689",
+    "tldr": "Fitting parameterized plasticity rules to whole learning trajectories recovers simulated rules and identifies an active forgetting component in fruit-fly reward learning."
+  },
+  "neurips-2024-monomial-matrix-group-equivariant-neural-functional-networks-d593744d60": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Neural functional networks process other neural networks, supporting tasks such as predicting generalization or editing models. Their design often accounts for the fact that reordering hidden neurons can preserve a network's function. This paper expands that treatment to additional weight symmetries associated with different activation functions.",
+      "Monomial-NFN incorporates scaling symmetries of ReLU networks and sign-flipping symmetries of sine or Tanh networks. It does so through equivariant and invariant layers built around monomial matrix groups, which extend permutation groups. Encoding these additional relationships reduces the number of independent trainable parameters relative to the baseline neural functional networks considered.",
+      "The paper also establishes a group-theoretic characterization for fully connected and convolutional networks, placing function-preserving weight-space symmetry groups within the monomial matrix group. Experiments show competitive performance and efficiency against existing baselines. The broader design lesson is that recognizing more ways to represent the same underlying network function can impose useful structure on a model that operates on network weights."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "84b49e113cca6c2141203b4aa79fcc1408a8bf1e378c7964fe8b2a4570e7ffc0",
+    "tldr": "Monomial-NFN incorporates permutation, scaling, and sign-flipping symmetries to process neural-network weights with fewer independent parameters."
+  },
+  "neurips-2024-nuclear-fusion-diamond-polishing-dataset-6e0b693c3b": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "In inertial confinement fusion, lasers compress and heat a small high-density carbon shell. Preparing that shell requires careful polishing through stages that each take hours. Checking surface roughness helps operators assess progress, but the measurement process is labor-intensive, time-consuming, and requires a person to carry it out.",
+      "The paper releases a dataset linking raw polishing vibration signals with surface roughness measurements and changes. It includes multiple polishing runs, extracted statistical features, and corresponding roughness values. These paired observations support learning a relationship between signals recorded during polishing and the surface condition that operators need to monitor.",
+      "The authors demonstrate that several neural-network methods can predict changes in surface roughness from the dataset, offering a way to replace the manual measurement step. They also apply domain adaptation to improve prediction under polishing conditions unseen during training. The dataset's practical contribution is to make this prediction problem publicly accessible and support timely adjustments to the polishing process using information from vibration signals."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e47837dd8913e131c42163c050ac2f3b7f057715200a3d3d7f0d281e4d677237",
+    "tldr": "A public dataset pairs polishing vibrations with fusion-shell surface roughness, enabling neural prediction of polishing progress."
+  },
+  "neurips-2024-on-the-cohesion-and-separability-of-average-link-for-hierarchical-agglomerative-clusteri-708834877e": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Hierarchical clustering organizes data into progressively larger groups. Average-link is a popular method, but some existing theoretical evaluations do little to explain its practical appeal. The paper points out that guarantees based on variants of Dasgupta's cost can fail to distinguish average-link from a random hierarchy.",
+      "The authors instead study average-link in metric spaces using criteria that directly express cohesion and separability. Cohesion concerns how closely related members of a cluster are, while separability concerns how distinct different clusters are. These properties provide a more interpretable way to examine whether the hierarchy forms groups that are internally coherent and externally distinct.",
+      "The paper combines theoretical analysis of several such criteria with experiments on real datasets. Together, the results suggest that average-link is a better choice than related methods when both cohesion and separation matter. This is a qualified recommendation tied to those goals. Its value comes partly from changing the evaluation question to properties that more directly describe what useful clusters should look like."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3b0bf426fe787930cfd04b450577adab68e82aa0cefc0cdb25b0b138c79cc697",
+    "tldr": "Theory and real-data experiments support average-link clustering when both within-cluster cohesion and between-cluster separation are important."
+  },
+  "neurips-2024-replaceanything3d-text-guided-object-replacement-in-3d-scenes-with-compositional-scene-r-2faa28e36f": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Replacing an object in a three-dimensional scene requires an edit that makes sense from multiple viewpoints. ReplaceAnything3D, also called RAM3D, tackles this task using images of the scene taken from different views. Users provide one text description identifying the existing object and another describing what should take its place.",
+      "The method uses an Erase-and-Replace approach to swap the selected object for newly generated content. Its central aim is consistency across views: the replacement should remain a coherent part of the three-dimensional scene as the viewpoint changes. Text supplies the requested identity of the replacement, while the multi-view scene images provide the setting in which the edit occurs.",
+      "The authors demonstrate the approach on several types of realistic three-dimensional scenes. They report replacements that blend into their surroundings while preserving the scene's overall integrity. These demonstrations support the method's versatility for text-guided scene editing, where successful replacement involves both generating the requested content and integrating it consistently into the existing environment."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c6e250491f1e5b86e3759e44cc5c1085f28151c414005512833dc08260c39135",
+    "tldr": "RAM3D replaces objects in multi-view 3D scenes using text descriptions while maintaining consistency across viewpoints."
+  },
+  "neurips-2024-sarad-spatial-association-aware-anomaly-detection-and-diagnosis-for-multivariate-time-se-aaab1981c5": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Industrial control systems generate multiple measurements whose relationships can reveal abnormal behavior. Time-series anomaly detection often emphasizes how each signal evolves over time, potentially obscuring interactions among signals. SARAD focuses on those inter-feature relationships, which the paper calls spatial associations, to improve detection and diagnosis.",
+      "A Transformer learns pairwise associations between features. SARAD divides the series into subseries to track how these relationships form and dissolve over time. The authors observe that anomalies can produce declining associations, which they attribute to anomalous features becoming detached from others. The method autoencodes the association space to exploit this pattern while distinguishing it from non-anomalous declines.",
+      "Experiments show state-of-the-art performance, with robust detection and a more nuanced account of anomalous events. The approach matters because its evidence includes changes in the relationships among measurements, extending beyond reconstruction errors in the original data. Its diagnostic perspective connects an anomalous event to disrupted interactions within the system, providing another way to understand what has changed."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "273e4a8679b29f2c8903d6e12563f1354d5fdf68b006f791cfff49b8ae92d16c",
+    "tldr": "SARAD detects time-series anomalies by learning changing relationships among features and identifying abnormal disruptions in those associations."
+  },
+  "neurips-2024-simgen-simulator-conditioned-driving-scene-generation-d851abd98f": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Synthetic driving images could reduce the cost of labeled training data, but useful generation needs both diversity and control over scene content. The paper identifies limited appearance and layout diversity, along with overfitting to familiar layouts, as problems in previous diffusion-based approaches trained on small datasets.",
+      "SimGen mixes simulator data with real-world data and uses a cascade diffusion pipeline to address differences between the two sources and conflicts among conditioning inputs. Generation remains controlled by a text prompt and a layout obtained from a simulator. The accompanying DIVA dataset includes over 147.5 hours of real driving video from 73 locations worldwide, together with MetaDrive simulation data.",
+      "The authors report improved generation quality and diversity while retaining control over the generated scenes. They also demonstrate benefits from synthetic data augmentation for bird's-eye-view detection and segmentation, and show safety-critical scene generation. These results connect visual generation improvements to downstream perception tasks, making the method relevant to producing controllable training examples as well as images."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0a07817a83f3d50e59cba9222fa9fc15600fc6c4782c6e7740a0ea1c81c37b18",
+    "tldr": "SimGen combines real and simulated data to generate diverse, controllable driving scenes and improve perception through synthetic data augmentation."
+  },
+  "neurips-2024-similarity-navigated-conformal-prediction-for-graph-neural-networks-5f9ec1faae": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A graph classifier can be accurate without expressing reliable uncertainty. Conformal prediction addresses this by returning a set of candidate labels with a target coverage probability. The practical challenge is to keep those sets small enough to be useful while preserving the required coverage.",
+      "The authors first observe empirically that aggregating non-conformity scores from same-label nodes can improve prediction-set efficiency while maintaining marginal coverage. SNAPS turns this observation into a usable method by aggregating scores according to feature similarity and graph neighborhoods. Its motivation is that similar or directly connected nodes tend to share labels, so their information can guide the construction of prediction sets.",
+      "The paper provides a finite-sample coverage guarantee and reports smaller prediction sets and more correct singleton sets in experiments. A correct singleton gives one label rather than several alternatives. The coverage claim concerns marginal coverage, rather than a separate guarantee for every individual node. Together, the results show how graph relationships can make uncertainty sets more informative while retaining the stated statistical protection."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "fd3821422ba757d800ca1b1741a03ea80ddb8178a06bdc9e4a56e77699ed0d7a",
+    "tldr": "SNAPS uses graph neighborhoods and feature similarity to produce more compact conformal prediction sets while maintaining valid marginal coverage."
+  },
+  "neurips-2024-spatio-spectral-graph-neural-networks-d3318788ff": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Message-passing graph networks usually gather information through successive local steps. This limits how far information travels at a given depth, while over-squashing restricts communication between distant nodes. Spatio-Spectral Graph Neural Networks, or S²GNNs, combine spatial graph filters with filters parameterized in the frequency domain to enable efficient global communication.",
+      "The paper's theoretical results show that the proposed approach overcomes over-squashing and gives strictly tighter approximation error bounds than message-passing networks. The framework also supports positional encodings that make it more expressive than the 1-Weisfeiler-Leman test. To extend its applicability, the authors develop spectrally parameterized filters for directed graphs as well.",
+      "Experiments show advantages over spatial message-passing networks, graph transformers, and graph rewiring approaches on tasks including long-range peptide benchmarks. The models are also competitive with leading sequence-modeling methods and scale to millions of nodes on a 40 GB GPU. These findings connect a different mechanism for long-distance communication with both predictive performance and demonstrated large-graph scalability."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2e9d7e60406d865a5b54f694e7333471dc84c01ad662d35835b0d3935cdb7e28",
+    "tldr": "S²GNNs combine spatial and spectral filters to improve global graph communication, with theoretical advantages and demonstrated scalability to millions of nodes."
+  },
+  "neurips-2024-ss1-accelerating-inference-with-fast-and-expressive-sketch-structured-transform-25b28502be": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Reducing the work performed by neural-network weight matrices does not automatically reduce actual inference time. Irregular structure can fit hardware poorly, while rigid structure can restrict what a model represents. Sketch Structured Transform, or SS1, addresses this tradeoff with parameter sharing that is random yet organized for efficient GPU execution.",
+      "The authors report better quality-efficiency tradeoffs than competing matrix variants. They also show that SS1 can work alongside quantization to obtain benefits unavailable from either method alone, supported by theoretical analysis. Existing pretrained models can be projected into the SS1 form and fine-tuned, and some projected models retain reasonable performance even without fine-tuning.",
+      "Applications include training GPT2 and DLRM models from scratch, and adapting pretrained BERT and Llama models. Fine-tuned projected BERT models achieve 1.31 times faster inference while maintaining GLUE scores. A Llama-3-8b proof of concept achieves 1.11 times faster wall-clock inference without fine-tuning. These examples demonstrate practical latency gains across several uses of the proposed operator."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b02f1b82d362b41fbb9d5511fde294cac8395c7b3aae86069e9990ebc26a95d9",
+    "tldr": "SS1 uses structured random parameter sharing to accelerate neural-network inference and can complement quantization or adapt pretrained models."
+  },
+  "neurips-2024-stone-a-submodular-optimization-framework-for-active-3d-object-detection-3b4eaf9875": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Training a three-dimensional object detector requires labeled point clouds, but producing those labels is demanding. Each potential object needs an accurate three-dimensional bounding box and a semantic label. STONE addresses the cost of this process through active learning, which selects data to label for detector training.",
+      "The framework formulates selection as a submodular optimization problem tailored to three-dimensional detection. It targets two challenges together: imbalance in the available data and coverage of the broader data distribution. That coverage includes point clouds at different difficulty levels, making the composition of the selected training data a central part of the method.",
+      "The authors report state-of-the-art performance and high computational efficiency compared with existing active learning methods across extensive experiments. The contribution is a unified selection framework that connects labeling decisions with both balance and coverage. Its stated results support using this optimization approach to reduce the labeling burden involved in training accurate three-dimensional detectors for applications such as autonomous driving and robotics."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2e866a7875cdb39ffaaecf103a2efa09e276231767cccbf861ed8422a93fe654",
+    "tldr": "STONE uses submodular optimization to select balanced, representative point clouds for labeling, improving active 3D detection performance and efficiency."
+  }
+}

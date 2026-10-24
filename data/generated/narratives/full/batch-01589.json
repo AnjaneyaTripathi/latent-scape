@@ -1,0 +1,327 @@
+{
+  "icml-2024-beyond-point-prediction-score-matching-based-pseudolikelihood-estimation-of-neural-marke-7cb5e0691c": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Predicting an event’s time and location involves more than selecting a single best guess. Spatio-temporal point processes model this kind of event data, but existing learning methods face a difficult normalization calculation. They often respond by restricting the distributions they can represent or approximating an integral inaccurately. The paper also identifies a second problem: point predictions alone do not communicate the randomness of future events.",
+      "The proposed method, SMASH, uses score matching to estimate a pseudolikelihood for marked spatio-temporal point processes. Its training objective avoids the normalization term responsible for the computational difficulty. This changes how the model is learned while also supporting predictions that describe a range of plausible outcomes.",
+      "SMASH generates samples through a score-based sampling algorithm and uses them to predict confidence intervals for arrival times and confidence regions for locations. The reported experiments show superior performance for both point predictions and these uncertainty predictions. The contribution therefore connects a normalization-free learning objective with a more informative account of where and when events may occur."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d1f7fc09f9f15d53013566ce4c41054434f00a87957b4e2f2a9d0123c66c3fec",
+    "tldr": "SMASH learns spatio-temporal event models without a normalization term and uses sampling to predict event times, locations, and their uncertainty."
+  },
+  "icml-2024-compress-clean-signal-from-noisy-raw-image-a-self-supervised-approach-c8c69ba754": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Raw images preserve unprocessed visual information, which makes them useful for low-level vision tasks but also leaves noise prominent. A compression system that encodes that noise can spend extra bits representing information that does not improve the desired image. This paper treats separating useful image content from real noise as part of the compression problem itself.",
+      "The proposed self-supervised scheme selectively compresses the clean component of a noisy raw input and discards the noise. Its central idea is to keep unwanted noise out of the bitstream, improving both coding efficiency and reconstruction quality. Compression and noise removal are therefore connected through the choice of what information the compressed representation preserves.",
+      "For evaluation, the authors curate a full-day raw-image dataset with calibrated noise parameters and reference images, covering a broad range of signal-to-noise ratios. Experiments report a better rate-distortion balance than existing compression techniques, with improvements ranging from 2 to 10 dB and bit savings by factors of 2 to 50. These ranges describe the reported experimental gains, rather than a single improvement shared by every input."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9e9be74e0c2533af9b0b3b37cec898cf7a40f394483d7babec1d48fffe4c0907",
+    "tldr": "A self-supervised raw-image compressor improves reconstruction and reduces bit use by encoding clean image content while discarding real noise."
+  },
+  "icml-2024-disentangled-graph-self-supervised-learning-for-out-of-distribution-generalization-308a05f320": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Graph models can struggle when the graphs encountered at test time differ from those used for training. Existing approaches to this problem often depend on plentiful task-specific labels. This paper studies how to learn graph representations without those labels while seeking relatively stable performance under distribution shifts. Its central challenge is that stable information and information that changes across environments are mixed together.",
+      "OOD-GCL first maps each graph into a representation divided into separate factors. Its self-supervised learning module uses one factor to partition environments, then encourages the other representation channels to remain invariant across those environments. This is intended to exclude information associated with that particular factor from the other channels while preserving predictive ability.",
+      "The resulting representations are passed to a linear predictor and fine-tuned for downstream tasks. The paper supplies theoretical analyses supporting disentanglement and out-of-distribution generalization. Experiments on real-world graph-classification datasets report stronger performance than state-of-the-art baselines under distribution shifts. The label-free contribution concerns representation learning; the abstract separately describes downstream prediction and fine-tuning."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "50d63c71aa6ea3f5eaeeba5602afbf48b592ef66f9f0b45bb0d6e2ef67e3627f",
+    "tldr": "OOD-GCL learns separated graph representations through self-supervision to improve graph classification when training and test distributions differ."
+  },
+  "icml-2024-eagle-speculative-sampling-requires-rethinking-feature-uncertainty-f1faa2e116": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Generating text autoregressively makes large language model inference time-consuming because generation proceeds sequentially. EAGLE revisits speculative sampling through two observations: predicting the model’s second-to-top-layer features is more straightforward than predicting tokens directly, but uncertainty in those feature predictions limits the benefit. The paper makes that uncertainty a central design concern.",
+      "EAGLE incorporates a token sequence shifted one time step ahead into feature prediction. According to the paper, this resolves the relevant uncertainty and enables accurate prediction of second-to-top-layer features with little additional overhead. The approach matters because moving prediction into an internal feature space is useful only if the uncertainty in that space can also be handled effectively.",
+      "The evaluation spans the Vicuna and LLaMA2-Chat model series, Mixtral 8x7B Instruct, and dialogue, code generation, mathematical reasoning, and instruction-following tasks. For LLaMA2-Chat 70B, the reported latency speedup is 2.7–3.5 times, with twice the throughput. These improvements preserve the distribution of generated text, making the stated result an acceleration of sampling without changing that distribution."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9262820863abc6c51cc77e501964ed06084ca06f908501c6ec309c12f80e76ca",
+    "tldr": "EAGLE resolves uncertainty in internal feature prediction to accelerate language-model sampling while preserving the generated-text distribution."
+  },
+  "icml-2024-fedbat-communication-efficient-federated-learning-via-learnable-binarization-7861fe8390": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Federated learning distributes training across participants, but communicating model updates can become a substantial cost. Representing those updates in binary form reduces what must be transmitted. The difficulty is that converting updates to binary after local training can introduce large approximation errors, damaging the accuracy of the resulting model.",
+      "FedBAT makes binary updates part of local training itself. Instead of learning an update and only afterward compressing it into binary form, participants directly learn binary model updates. The framework introduces a binarization operator and specially designed derivatives that enable this learning process. This connects communication constraints to optimization, allowing training to account for the representation that will actually be exchanged.",
+      "The paper establishes convergence guarantees and evaluates FedBAT on four datasets. The experiments report significantly faster convergence and accuracy improvements over baselines of up to 9%, with performance exceeding FedAvg in some cases. The findings support learning with binarization in mind as a way to reduce the accuracy cost of compact communication; the reported advantage over FedAvg is explicitly conditional on the evaluated case."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "74a6cec6c67bac3d89510b5f9b6c981cecfc246de0c860ed216eda609e2ca1ea",
+    "tldr": "FedBAT learns binary model updates during local federated training, reducing approximation errors and improving reported convergence and accuracy."
+  },
+  "icml-2024-flashst-a-simple-and-universal-prompt-tuning-framework-for-traffic-prediction-193616ca67": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Traffic prediction must capture how transportation patterns vary across both locations and time. A model trained on one distribution can struggle when a downstream dataset has substantially different characteristics. FlashST addresses this transfer problem by adapting pretrained models to the particular spatial and temporal structure of different traffic-prediction settings.",
+      "The framework uses a lightweight spatio-temporal prompt network for in-context learning. This network captures invariant knowledge across space and time while helping the model adapt to the downstream scenario. FlashST also includes a distribution-mapping mechanism that aligns pretraining and downstream data distributions. Together, these components address both the reusable knowledge in a pretrained model and the mismatch that can obstruct its transfer.",
+      "Empirical evaluations across different spatio-temporal prediction tasks and diverse urban datasets demonstrate the framework’s effectiveness. The stated findings support prompt tuning and distribution alignment as complementary tools for adapting traffic models. The practical contribution is a common adaptation framework for varied forecasting scenarios, with the downstream dataset’s characteristics explicitly incorporated into how pretrained knowledge is used."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "dd03a29ec74ce4ee625918756faedc6144962925ccf85486556dcb113b1477df",
+    "tldr": "FlashST combines spatio-temporal prompt tuning with distribution alignment to adapt pretrained traffic predictors to diverse downstream datasets."
+  },
+  "icml-2024-georeasoner-geo-localization-with-reasoning-in-street-views-using-a-large-vision-languag-35c5b8ac1f": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "GeoReasoner tackles identifying locations from street-view images using a large vision-language model augmented with human inference knowledge. The paper identifies two weaknesses in existing training data: many images contain few useful location clues, and the datasets lack explanations of the reasoning needed to infer a location. Both affect what the model can learn from examples.",
+      "To improve image selection, the authors build a CLIP-based network that scores how locatable a street view is and use it to construct a dataset of highly locatable images. They also incorporate external knowledge from real geo-localization games, drawing on human inference. GeoReasoner then undergoes separate reasoning-tuning and location-tuning stages using these data.",
+      "Qualitative and quantitative evaluations report improvements over counterpart vision-language models of more than 25% for country-level and 38% for city-level geo-localization. GeoReasoner also surpasses StreetCLIP while using fewer training resources. The findings connect stronger localization performance with training that combines informative visual examples and human reasoning knowledge, addressing data quality and inference guidance within the same approach."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a98ab6547e82236eeb48877b17b91c9b0f1909f1797fea432e315d353d2c05b4",
+    "tldr": "GeoReasoner combines informative street-view images with human geo-localization knowledge to improve country- and city-level location prediction."
+  },
+  "icml-2024-harnessing-neural-unit-dynamics-for-effective-and-scalable-class-incremental-learning-1842604b44": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Class-incremental learning asks a model to learn newly arriving classes without forgetting earlier ones. AutoActivator approaches this through the behavior of individual neural units, controlling both when the network grows and which parts are active during prediction. Its goal is to provide capacity for new knowledge while limiting interference with knowledge already learned.",
+      "During each training session, a supervisory mechanism guides expansion according to the incoming task’s intrinsic complexity. The model can add capacity when its existing network cannot sufficiently accommodate new classes, while aiming for a near-minimal network. At inference time, it automatically reactivates the units needed to retrieve relevant knowledge and leaves the remaining units inactive to prevent interference.",
+      "The authors analyze convergence using a universal approximation theorem for learning sequential mappings. Experiments report strong class-incremental performance across different backbones in rehearsal-free and minimal-expansion settings. The findings support coordinating selective activation with restrained network growth as an effective, scalable approach. The stated compactness is near-minimal, rather than a claim that the method always finds the smallest possible network."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5fc60c96abc446fec9a9c0cce13fa25f8724b0c624603e7efef4138fa2cc15e9",
+    "tldr": "AutoActivator learns new classes through guided network expansion and selective neural-unit reactivation, with strong reported performance under limited growth."
+  },
+  "icml-2024-how-do-nonlinear-transformers-learn-and-generalize-in-in-context-learning-4209763498": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "In-context learning lets a pretrained model handle a new task by receiving examples alongside a query, without fine-tuning. Explaining how training produces this ability is difficult because nonlinear attention and nonlinear activation functions create a nonconvex optimization problem. This paper analyzes both training dynamics and the resulting ability to generalize in Transformers that retain those nonlinear components.",
+      "The analysis focuses on a group of binary-classification tasks. Transformers are trained on a subset and evaluated theoretically on unseen tasks, both with and without distribution shifts. The authors quantify how different factors affect generalization and examine how components of the learned model contribute to in-context performance. This links the training process to behavior on tasks outside the training subset.",
+      "The paper also studies pruning and proves that appropriate magnitude-based pruning can reduce inference costs while having minimal impact on in-context learning. Numerical experiments support the theoretical findings. The scope matters: these are results for the analyzed task family and suitable pruning, rather than a guarantee that arbitrary pruning preserves in-context performance in every Transformer."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6aa153dfadb7347371b32f455ce2218e6a7f4107a325b2d03e3952129b6e1251",
+    "tldr": "The paper analyzes how nonlinear Transformers learn and generalize in context, including conditions under which magnitude-based pruning has minimal impact."
+  },
+  "icml-2024-iianet-an-intra-and-inter-modality-attention-network-for-audio-visual-speech-separation-e4804372b7": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Audio-visual speech separation combines auditory and visual information to separate speech. The paper argues that existing fusion modules often operate at a single temporal scale and lack selective attention. IIANet draws inspiration from how the brain focuses on relevant content across different timescales, using attention to make the interaction between audio and video more selective.",
+      "The architecture contains intra-attention and inter-attention blocks. These preserve the ability to learn features specific to each modality while enabling the extraction of different meanings from their combination. Inter-attention blocks appear at the top, middle, and bottom of the network, allowing audio-visual interaction at multiple levels rather than confining it to one fusion point.",
+      "Experiments on LRS2, LRS3, and VoxCeleb2 report better separation than previous state-of-the-art methods with comparable inference time. A faster variant, IIANet-fast, uses only 7% of CTCNet’s multiply-accumulate operations and runs 40% faster on CPUs while achieving better separation quality. These results show that the proposed attention design can improve both separation effectiveness and computational efficiency in the evaluated settings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d4e15b1ad701ea88a7a47650d1cce6fb76ccabf61ee7d9b93a90499e0f63fd92",
+    "tldr": "IIANet uses attention within and between audio and visual features at multiple levels to improve speech separation and efficiency."
+  },
+  "icml-2024-improved-bounds-for-pure-private-agnostic-learning-item-level-and-user-level-privacy-bb212e781c": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies how many users are needed to learn while satisfying pure privacy in the agnostic learning setting. It distinguishes item-level privacy, where each user contributes one example, from user-level privacy, where a user may contribute several. That distinction makes the number of participating users a central quantity, rather than treating all examples as interchangeable contributions.",
+      "The main results are improved upper bounds: guarantees that learning can be achieved with a stated amount of data participation. For item-level privacy, the proposed algorithm obtains a near-optimal bound for general concept classes. The authors extend their approach to user-level privacy and derive a tighter upper bound than the previous result identified in the abstract.",
+      "The paper also considers threshold learning under user-level privacy and provides an algorithm with nearly tight user complexity. This more specific result complements the guarantees for general concept classes. Together, the findings sharpen theoretical understanding of the participation required for private learning, while preserving the distinction between near-optimal or nearly tight bounds and exact optimality."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "dae3e62f7922d850352c35a4c82571e607ca8e7bcaaad19a687abc9ba6aa7538",
+    "tldr": "The paper improves bounds on the number of users needed for pure private agnostic learning under item-level and user-level privacy."
+  },
+  "icml-2024-kernelwarehouse-rethinking-the-design-of-dynamic-convolution-2cadbebd37": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Dynamic convolution adapts to an input by mixing static kernels with input-dependent attention weights. Its flexibility comes with a parameter cost: using n kernels multiplies convolutional parameters by n. KernelWarehouse addresses this obstacle by reconsidering what counts as a kernel, how kernels are assembled, and how the attention function operates.",
+      "The method exploits dependencies among convolutional parameters within a layer and across neighboring layers. This broader formulation is intended to make large kernel mixtures compatible with parameter efficiency, including settings beyond 100 where conventional approaches typically use fewer than 10. The paper evaluates the method across multiple convolutional architectures and also demonstrates applicability to Vision Transformers.",
+      "Experiments use ImageNet and MS-COCO. With n = 4, reported absolute top-1 accuracy gains are 5.61%, 3.90%, and 4.38% for ResNet18, MobileNetV2, and DeiT-Tiny, respectively. A ResNet18 configuration with n = 1/4 reduces model size by 65.10% while gaining 2.29% accuracy. These examples show that the formulation can improve accuracy even in a configuration that substantially reduces model size."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ef6fa7cb9b1f43fe5c0a01d3c3a09e85bcb5e1965234e00ab39ce2bf3a6a6e74",
+    "tldr": "KernelWarehouse redesigns dynamic convolution around parameter dependencies, enabling accuracy improvements and configurations with substantially smaller models."
+  },
+  "icml-2024-learning-the-uncertainty-sets-of-linear-control-systems-via-set-membership-a-non-asympto-c043390464": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Robust control must account for uncertainty about a system’s behavior. This paper studies estimating uncertainty sets for unknown linear systems. The quality of these sets matters because they directly affect how conservative the resulting control design becomes. Understanding the estimator is therefore relevant to the choices a controller makes under uncertainty.",
+      "The authors focus on set membership estimation, or SME, rather than analyzing confidence regions derived from least squares. SME has already attracted applications in control because of favorable numerical performance, but its non-asymptotic convergence rate for linear systems had remained unresolved. The paper supplies convergence-rate bounds, giving theoretical information about its behavior with finite data rather than only in a limiting regime.",
+      "The analysis also discusses variations of SME under relaxed assumptions, and numerical results illustrate its practical promise. These contributions connect an empirically useful estimation approach with explicit convergence analysis. The central advance is a theoretical account of learning uncertainty sets for linear control systems, supported by numerical evidence about the method’s usefulness."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8a87614d2fb367e920860a387ee6af15942166597955a9914035a6b96197b03a",
+    "tldr": "The paper establishes finite-data convergence-rate bounds for set membership estimation of uncertainty sets in unknown linear control systems."
+  },
+  "icml-2024-oodrobustbench-a-benchmark-and-large-scale-analysis-of-adversarial-robustness-under-dist-80bdc929dd": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Adversarial robustness is often evaluated on data drawn from the training distribution. That leaves open whether a model remains robust when its inputs change or it faces an unforeseen kind of attack. OODRobustBench makes both changes part of the evaluation, separating shifts in the data distribution from shifts in the adversarial threat model.",
+      "The benchmark includes 23 dataset-wise shifts and 6 threat-wise shifts. The authors assess 706 robust models through 60.7 thousand adversarial evaluations. This large-scale analysis finds a severe generalization problem: robustness measured within the training distribution does not translate into comparably strong robustness under the evaluated shifts.",
+      "At the same time, in-distribution and out-of-distribution robustness exhibit a strong positive linear correlation. The authors use that relationship to predict out-of-distribution robustness and verify a prediction that existing methods are unlikely to achieve high robustness there. They also investigate techniques and identify promising directions. The implication is empirical: improving beyond the observed relationship calls for methods that change how robustness transfers across distributions and threats."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "dc49c8a21781108d18f3e0b55d93854d99e9aa8787a6bfa0c2102efa3b21ad78",
+    "tldr": "OODRobustBench finds substantial robustness failures under data and threat shifts, alongside a strong predictive relationship with in-distribution robustness."
+  },
+  "icml-2024-pdhg-unrolled-learning-to-optimize-method-for-large-scale-linear-programming-8c78b0e549": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Large linear programs arise in settings including communication networks, power systems, finance, and logistics. This paper combines two approaches to solving them faster: first-order optimization and learning to optimize. Its proposed neural network, PDHG-Net, is built by unrolling the PDHG optimization method and incorporating channel-expansion techniques borrowed from graph neural networks.",
+      "The network is connected to the original algorithm through a theoretical result: PDHG-Net can recover PDHG and can therefore approximate optimal linear-program solutions with a polynomial number of neurons. This establishes a representational capability of the architecture and explains why an optimization-inspired network is suitable for generating approximate solutions.",
+      "Inference then proceeds in two stages. PDHG-Net first produces an approximate solution, and the PDHG algorithm subsequently improves it. The learned component supplies a starting solution while the optimization procedure continues the refinement. Experiments on large-scale linear programs report speedups of up to three times compared with first-order methods. The reported gain belongs to this combined solving procedure, whose design retains algorithmic refinement after neural prediction."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f344376126844caad34ebe3f87bfa4130ba9f0f8eb7e01122957e57a5a8af41b",
+    "tldr": "PDHG-Net generates approximate linear-program solutions that PDHG then refines, delivering reported speedups of up to three times."
+  },
+  "icml-2024-q-star-meets-scalable-posterior-sampling-bridging-theory-and-practice-via-hyperagent-0c72d409c0": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "HyperAgent addresses exploration in reinforcement learning by maintaining approximate uncertainty about the optimal action-value function, Q-star. Using a hypermodel framework, it incrementally approximates associated posterior distributions without requiring conjugacy. It then follows policies that greedily choose actions according to samples from those approximate posteriors, connecting uncertainty in value estimates to action selection.",
+      "This design makes posterior-based exploration practical within established deep reinforcement learning frameworks. The authors report that implementing HyperAgent requires only minimal additions to frameworks such as DQN. Experiments show robust performance on large-scale benchmarks, including Deep Sea exploration problems where the required episodes scale optimally with problem size and efficiency gains on the Atari suite.",
+      "The theoretical guarantee applies under tabular assumptions. In that setting, HyperAgent has logarithmic computational complexity per step and sublinear regret, matching the best known randomized tabular reinforcement learning algorithm. The paper thus combines a precise guarantee in the tabular setting with empirical evidence in deep reinforcement learning. Keeping those two settings distinct clarifies what is proved and what is demonstrated experimentally."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "fd8a5448ba99d655e1279d1d454e6a56d3eac9e318c0b8e16c42a58344341ec7",
+    "tldr": "HyperAgent uses scalable approximate posterior sampling for exploration, combining strong deep-RL results with computational and regret guarantees under tabular assumptions."
+  },
+  "icml-2024-remax-a-simple-effective-and-efficient-reinforcement-learning-method-for-aligning-large--4016331814": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "ReMax aims to simplify reinforcement learning from human feedback for language models. The paper argues that PPO brings unnecessary complexity to this setting because it does not exploit three relevant properties: fast simulation, deterministic transitions, and rewards assigned to complete trajectories. ReMax builds its training approach around those properties.",
+      "The method starts from REINFORCE and adds a variance-reduction technique. It avoids training the additional value model used by PPO, eliminates more than four PPO hyperparameters, and reduces memory use and training time. For training a 7B model, the paper reports approximately 46% GPU memory savings relative to PPO and training on A800-80GB GPUs without the offloading that PPO needed.",
+      "Applied to Mistral-7B, ReMax achieves a 94.78% AlpacaEval win rate and a 7.739 MT-bench score. The authors report these as a new state of the art for open-source 7B models in their evaluation. Together, the results support a simpler alignment-training procedure that retains strong measured performance while reducing the computational and tuning burdens associated with PPO."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "cb2760f2cfbeebc68d9477b9e09faeafcd2f8c67281d11961028b537ac0c6e7a",
+    "tldr": "ReMax simplifies language-model RLHF with REINFORCE and variance reduction, avoiding a value model while reducing memory use and achieving strong reported results."
+  },
+  "icml-2024-size-invariance-matters-rethinking-metrics-and-losses-for-imbalanced-multi-object-salien-6dd7c94901": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Salient object detection can involve several objects of very different sizes in the same image. This paper observes that existing evaluation metrics tend to emphasize larger objects, allowing smaller ones to receive too little attention. The authors argue that size alone should not determine an object’s importance when there is no additional semantic information justifying that preference.",
+      "Their proposed evaluation approach scores each salient object separately and then combines the results. This changes the unit of assessment so that the imbalance between object sizes is alleviated. The paper also develops an optimization framework aligned with this goal, connecting the desired evaluation behavior to how a detector is trained.",
+      "The authors provide theoretical evidence supporting the new metrics and a generalization analysis for salient object detection. Extensive experiments demonstrate effectiveness and considerable improvements in detecting objects of different sizes. The contribution therefore concerns both measurement and learning: changing what receives credit during evaluation is paired with an optimization approach intended to improve performance across differently sized objects."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b3dc321e63a33edc4873505439985b4b6969a9e219e62632bfb482bcbb221057",
+    "tldr": "The paper evaluates salient objects individually and aligns training with that goal to reduce evaluation bias toward larger objects."
+  },
+  "icml-2024-statistical-properties-of-robust-satisficing-65216c566e": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Robust Satisficing is an approach to robust optimization whose statistical foundations are the focus of this paper. The authors examine what can be guaranteed about its loss and generalization, including when the distribution supplying the data differs from the distribution of interest. This connects the optimization procedure to uncertainty about how its solution will perform.",
+      "The analysis establishes two-sided confidence intervals for the optimal loss without explicitly solving a minimax optimization problem. It also provides finite-sample bounds on the generalization error of the Robust Satisficing optimizer. The authors argue that the structure of the model offers a more direct route to statistical guarantees than Distributionally Robust Optimization, enabling a richer collection of results.",
+      "Numerical experiments show Robust Satisficing consistently outperforming empirical risk minimization in the evaluated small-sample and distribution-shift settings. It also exhibits lower sensitivity to hyperparameter tuning than Distributionally Robust Optimization. These findings combine theoretical guarantees with practical evidence that the approach can be useful when data are limited or the target distribution differs from the sampling distribution."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "163189476bc863b347686cfa142a15eed759169f056b8d2fe07bf4c63d5a1016",
+    "tldr": "The paper establishes statistical guarantees for Robust Satisficing and reports practical advantages with limited data and distribution shifts."
+  },
+  "icml-2024-the-good-the-bad-and-why-unveiling-emotions-in-generative-ai-2ad9b4e658": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies how emotional stimuli affect generative AI and uses psychological theories to interpret those effects. It introduces three related approaches: EmotionPrompt aims to improve model performance, EmotionAttack aims to impair it, and EmotionDecode seeks to explain why benign and harmful emotional stimuli produce different outcomes.",
+      "The experiments cover language and multimodal models on semantic understanding, logical reasoning, and generation tasks. Both textual and visual versions of EmotionPrompt can improve performance, while EmotionAttack can hinder it. These findings present emotional content as a factor that can influence task performance in either direction, depending on how the stimulus is constructed and used.",
+      "Through EmotionDecode, the authors interpret the models’ responses as evidence of comprehending emotional stimuli through a mechanism analogous to dopamine in the human brain. This is the paper’s explanatory analogy, describing how emotional stimuli affect model behavior. The broader contribution is to connect performance enhancement, performance disruption, and interpretation within one psychologically informed investigation, with potential relevance to human–AI collaboration and risk mitigation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "17901f1eb087b721c00dc06e0ae12c97e255233d1801d9220d1127a1f8bcedc8",
+    "tldr": "The paper shows that emotional text and images can improve or impair generative-model performance and proposes a psychological explanation for these effects."
+  },
+  "icml-2024-towards-efficient-deep-spiking-neural-networks-construction-with-spiking-activity-based--a44817c3ae": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Deep spiking neural networks can contain many redundant structural units, creating a need for compression as the models grow. Existing compression methods often remove individual connections, producing unstructured sparsity that requires specific hardware support. This paper instead proposes pruning at the level of convolutional kernels, making the changes to network structure more organized.",
+      "The Spiking Channel Activity-based framework, or SCA, uses kernel activity levels to guide this process. Inspired by synaptic plasticity, it both prunes and regenerates convolutional kernels during training. The architecture therefore changes as the model learns, allowing its structure to adapt to the current task rather than treating compression solely as a final removal step.",
+      "The paper reports that this refinement reduces computational load and accelerates inference while maintaining model performance. Its stated implication is that structured, dynamic sparse learning can help deep spiking networks serve low-power, high-efficiency applications. The contribution links activity-based decisions about whole kernels with continued structural adaptation, seeking efficiency gains without giving up the performance of the trained network."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9d532e0cf7c582e6fbb3daf73e53bb6cb0919d85b949beea3f6d769d802bbea4",
+    "tldr": "SCA dynamically prunes and regenerates convolutional kernels based on spiking activity to reduce computation and accelerate inference while maintaining performance."
+  },
+  "icml-2024-towards-realistic-model-selection-for-semi-supervised-learning-78d854d900": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Semi-supervised learning uses limited labeled data, which creates a difficult model-selection problem. Holding out labels for validation leaves fewer for training, and a very small validation set may give an unreliable picture of generalization. This paper seeks a way to compare candidate models without reserving a separate validation dataset.",
+      "The authors find that the margin distribution of semi-supervised models can be combined with their spectral complexity to provide a non-vacuous indication of generalization error. They turn this relationship into Spectral-normalized Labeled-margin Minimization, or SLAM. The selection criterion combines information about predictions on labeled examples with a measure of model complexity, providing a basis for choosing among candidates.",
+      "The paper proves an upper bound on the selected model’s difference from the best model within the search space. This is a comparison with the available candidates, rather than a claim of finding the best possible model overall. Comprehensive experiments report significant improvements over competing approaches, supporting SLAM as a theoretically motivated and empirically effective response to scarce validation labels."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "19204025d4b4843ef86fa003c5cfd6f1e77ea905725780f33532349d4c2ed25f",
+    "tldr": "SLAM selects semi-supervised models without validation data by combining labeled-example margins with spectral complexity."
+  },
+  "icml-2024-two-stage-shadow-inclusion-estimation-an-iv-approach-for-causal-inference-under-latent-c-4ff84d2301": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Observational causal inference can be distorted by two different biases at once. Latent confounding arises when unmeasured variables influence both treatment and outcome. Collider bias arises here from non-random sample selection affected by both treatment and outcome. A method that addresses only one source of bias can therefore remain inadequate when both are present.",
+      "Two-Stage Shadow Inclusion, or 2SSI, combines the roles of instrumental variables and shadow variables in a single approach. Instrumental-variable methods address latent confounding, while shadow variables address the selection problem. The paper’s central construction uses the residual of the treatment as a shadow variable, enabling the proposed method to address both biases simultaneously.",
+      "The authors evaluate 2SSI on benchmark synthetic datasets and a real-world dataset. They report noticeable improvements over existing methods when both latent confounding and collider bias are present. The contribution is specifically about this joint setting: it connects two sources of distortion that prior approaches treated separately and provides experimental evidence for handling them together through the proposed residual-based construction."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a13cc27c7209989b5ef648c0c6b15483b046c1a6e2ba053ff9ca2dc031b997ec",
+    "tldr": "2SSI uses a treatment residual as a shadow variable to address latent confounding and collider bias together in observational causal inference."
+  },
+  "icml-2024-vqdna-unleashing-the-power-of-vector-quantization-for-multi-species-genomic-sequence-mod-865795bed0": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Genome language models learn sequence structure without supervision, but their handcrafted tokenization rules may fail to capture the most discriminative genomic patterns. VQDNA treats tokenization itself as something to learn. Its aim is to build a vocabulary that adapts to genomic data, allowing the representation of sequences to reflect useful patterns rather than only predetermined token boundaries.",
+      "The framework uses a vector-quantized codebook as its learnable vocabulary and trains tokenization end to end. It also introduces Hierarchical Residual Quantization, or HRQ, which organizes codebooks of varying scales into a hierarchy. This enriches the vocabulary from coarse patterns to finer ones, giving the representation multiple levels of detail.",
+      "Experiments across 32 genome datasets report stronger performance and favorable parameter efficiency compared with existing genome language models. An empirical analysis of SARS-CoV-2 mutations also finds fine-grained pattern awareness and biological significance in the learned HRQ vocabulary. These results support learned genomic vocabularies as useful representations, while the paper presents broader applications in genomics as potential to explore."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "688e513ba228002ad395dafaca2e2a2e4b3c30c0494c9617b28baeacae9375b8",
+    "tldr": "VQDNA learns genomic token vocabularies through vector quantization, using a coarse-to-fine hierarchy to capture biologically meaningful sequence patterns."
+  },
+  "icml-2024-what-improves-the-generalization-of-graph-transformers-a-theoretical-dive-into-the-self--5005aa2984": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Graph Transformers combine self-attention with positional information, but explaining their learning behavior is difficult because of nonlinear interactions and graph structure. This paper studies a shallow model for semi-supervised node classification. The analyzed architecture contains one self-attention layer with relative positional encoding and a two-layer perceptron, giving the theory a specific architectural setting.",
+      "The graph data model separates discriminative nodes, which determine labels, from nodes that carry class-irrelevant information. Within this setting, the authors characterize the sample complexity needed for a desired generalization error under stochastic gradient descent. They also quantify convergence iterations in relation to the proportion of discriminative nodes, dominant patterns, and initial model errors.",
+      "The analysis explains improved generalization through attention becoming sparse and emphasizing the core neighborhood during training. Self-attention and positional encoding help concentrate the representation on relevant graph information. Experiments on synthetic and real-world benchmarks support the theoretical findings. The resulting explanation connects generalization to which nodes receive attention, within the shallow architecture and graph-data assumptions studied."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "38d3f63293552024424a210e854c0757ad714ec924e149761580119deda0dcbd",
+    "tldr": "The paper explains how attention and positional encoding improve generalization in a shallow Graph Transformer by emphasizing relevant graph neighborhoods."
+  }
+}

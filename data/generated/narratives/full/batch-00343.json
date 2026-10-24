@@ -1,0 +1,327 @@
+{
+  "neurips-2019-a-polynomial-time-algorithm-for-log-concave-maximum-likelihood-via-locally-exponential-f-0e748816a3": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper tackles the computation of a log-concave probability distribution that best fits a collection of multidimensional observations under maximum likelihood. The goal is to optimize over the whole class of log-concave distributions. The authors present what they describe as the first polynomial-time algorithm for this task.",
+      "The central insight connects the optimal distribution to a structured class with local properties resembling those of exponential families. Although this class is not itself an exponential family, those local properties are enough to formulate the estimation problem as convex optimization. An approximate first-order method then solves that formulation. Efficiently approximating the gradients or subgradients is the main technical obstacle.",
+      "For n observations in d dimensions and positive accuracy tolerance epsilon, the runtime is polynomial in n, d, and inverse epsilon. With high probability, the returned distribution has likelihood within additive epsilon of the best achievable log-concave likelihood. This is an approximate, probabilistic guarantee that establishes computational efficiency while explicitly accounting for the requested accuracy."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "504cfe720cbff1918dfb1e3996fe0282ddb1743ab2b124d06789531e36c868a1",
+    "tldr": "A connection to local exponential-family structure enables polynomial-time approximate maximum likelihood estimation of multivariate log-concave distributions."
+  },
+  "neurips-2019-addressing-failure-prediction-by-learning-model-confidence-8df41098f1": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A classifier's largest predicted probability is a common confidence score, but it describes how strongly the model favors its own answer. This paper proposes using the probability assigned to the true class instead. The distinction matters for failure prediction: the model can strongly favor an incorrect answer while assigning little probability to the correct one.",
+      "The authors call this target True Class Probability, or TCP, and provide theoretical guarantees concerning its use for predicting failures. A practical obstacle is that the true label is unavailable at test time. They address this by introducing a learning scheme that learns to estimate TCP from training data, where the labels are available.",
+      "Experiments cover multiple network architectures, dataset scales, image classification, and semantic segmentation. The learned confidence approach consistently outperforms several strong comparison methods in these evaluations, including maximum predicted probability, Bayesian uncertainty, and methods designed specifically for failure prediction. The contribution is therefore both a better-motivated confidence target and a way to approximate that target when the correct answer is unknown."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1d414a8f7e760b30cca33042a847334f171597162eaf7a174f335aa8214c070a",
+    "tldr": "Learning to estimate the probability assigned to the true class improves failure prediction across the reported classification and segmentation experiments."
+  },
+  "neurips-2019-adversarial-training-for-free-0673116372": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Adversarial training strengthens a network by training it on inputs deliberately modified to provoke mistakes. Its practical difficulty is computational: generating strong adversarial examples adds substantial work to ordinary model training. This paper targets that extra cost, which makes conventional adversarial training difficult to apply to large image-classification problems.",
+      "The proposed algorithm reuses gradient information already computed while updating the network's parameters to generate adversarial examples. This recycling is the basis of the title's claim of free training. The reported additional cost is negligible relative to ordinary training, while robustness on CIFAR-10 and CIFAR-100 is comparable to adversarial training based on projected gradient descent, or PGD.",
+      "The authors report that the method can run 7 to 30 times faster than other strong adversarial training approaches. They also train an ImageNet model on one workstation with four P100 GPUs in two days, obtaining 40% accuracy under PGD attacks. These results show that reusing training computations can make substantial adversarial robustness more accessible at larger scale."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4c36726e2730bdf2fc5c12a92bcb7f2d6109389e16b560547285fa18995290f5",
+    "tldr": "Reusing parameter-update gradients makes adversarial training much cheaper while preserving comparable robustness in the reported CIFAR evaluations."
+  },
+  "neurips-2019-brain-like-object-recognition-with-high-performing-shallow-recurrent-anns-8fb6643145": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Highly accurate image-recognition networks have become increasingly deep and structurally complicated, making their layers difficult to relate to brain anatomy. This paper investigates whether a compact network with recurrent connections can combine strong object recognition with closer agreement to the primate visual system. Recurrence is a central part of the proposed architecture.",
+      "The resulting model, CORnet-S, has four areas mapped to brain anatomy and recurrent connectivity. Its development is guided by Brain-Score, a composite evaluation of neural and behavioral agreement. In the reported comparisons, CORnet-S ranks highest on Brain-Score and performs better on ImageNet than similarly compact networks, despite being much shallower than most models.",
+      "Analyses of circuit variants identify recurrence as the strongest predictor of both Brain-Score and ImageNet top-1 performance. The changing activity of its modeled IT population also resembles monkey IT population dynamics. Together, these findings support the paper's claim that compact recurrent networks can serve as strong models of visual processing while retaining competitive recognition performance within the evaluated comparisons."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e5aef50a6c78d2f9f1e745435e30052af14947771fb525812cda405ed52a97d4",
+    "tldr": "CORnet-S combines a shallow recurrent architecture with strong reported object recognition and agreement with primate visual-system benchmarks."
+  },
+  "neurips-2019-communication-efficient-distributed-sgd-with-sketching-62e44da731": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Distributed neural-network training can spend more time communicating across machines than computing locally. This paper introduces Sketched-SGD, which sends compact sketches of gradients instead of complete gradient vectors. The approach brings ideas from streaming and sublinear algorithms into distributed stochastic gradient descent to reduce the amount of information exchanged.",
+      "The analysis covers communication of both gradients and updated model weights, so the claimed savings concern the full exchange rather than only one direction. The authors report communication scaling logarithmically with the number of parameters, compared with scaling linearly in parameter count or worker count for the comparison compression approaches. They also establish favorable convergence rates for several function classes.",
+      "Experiments use a transformer, an LSTM, and a residual network. They show reductions in total communication of up to fortyfold without reducing final model performance. The method also scales experimentally to at least 256 workers without increased communication cost or degraded performance. These findings support sketching as a way to ease bandwidth constraints while retaining useful training behavior."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "009ce1fee0b20b70dad3251116800e963672c98d8e0a292780564b49a0caad26",
+    "tldr": "Sketched-SGD communicates compact gradient summaries, achieving up to fortyfold lower total communication without final performance loss in the reported experiments."
+  },
+  "neurips-2019-comparison-against-task-driven-artificial-neural-networks-reveals-functional-properties--0abc723b21": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Comparing neural-network representations with brain recordings could help explain visual processing, but experiments observe only some neurons responding to a limited set of images. This paper first asks how much those sampling restrictions affect representation-comparison metrics. That question matters because a comparison is useful only if it remains meaningful under realistic recording conditions.",
+      "The authors empirically examine changes in the image set and the number of sampled neurons. They find the comparison procedure robust across stimulus choices and subsampling levels representative of large brain surveys involving thousands of neurons. They then use this evidence to analyze natural-image responses recorded by the Allen Brain Observatory.",
+      "The cortical areas examined align with relatively deep convolutional-network layers, which the authors interpret as relatively high-order representations. Their comparisons also provide evidence for a broad, more parallel organization rather than a strictly sequential hierarchy. Primary visual area VisP, or V1, appears lower order than the other areas. These are functional conclusions drawn from representational comparisons, supported by the preceding sampling analysis."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7a880e5bd25b088abfc7ded24b75d9e13cc1eaf041f7e4f59019b8fb7fd816dc",
+    "tldr": "Representation comparisons robust to the tested sampling conditions suggest relatively high-order, broadly parallel organization in mouse visual cortex."
+  },
+  "neurips-2019-data-differentiable-architecture-approximation-fdf46b9d3c": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Neural architecture search can optimize one architectural representation during search and evaluate a different architecture afterward. This mismatch can separate what was learned from what is ultimately tested. DATA addresses the gap by making architecture approximation differentiable during both search and validation, aiming to keep the resulting architecture close to the searched one.",
+      "Its main component is an Ensemble Gumbel-Softmax estimator, which combines multiple Gumbel-Softmax estimators. It converts probability vectors into binary codes while allowing gradients to pass back from those codes to the probabilities. This permits architectural parameters and ordinary network weights to be optimized jointly using standard backpropagation within a sufficiently large search space.",
+      "At validation time, the method constructs a high-performing architecture that approximates the architecture learned during search. Experiments on multiple datasets report effective architecture discovery for image classification, language modeling, and semantic segmentation while maintaining search efficiency. The significance is the connection between a trainable search representation and the architecture actually evaluated, with reported benefits spanning several types of prediction tasks."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "020650abdecf857eee47c8dced4c0ec110c3c5fec2503e83bf33a5c1acb2db5d",
+    "tldr": "DATA uses differentiable binary architecture approximations to reduce the mismatch between architecture search and validation."
+  },
+  "neurips-2019-defending-neural-backdoors-via-generative-distribution-modeling-a67a38768b": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A backdoored network may respond to more triggers than the exact pattern originally used by an attacker. This paper treats that original pattern as one point within a distribution of effective triggers in pixel space. From this perspective, recovering a single trigger can leave other influential patterns unaccounted for, especially when triggers are complex.",
+      "The authors propose modeling the trigger distribution with a generative method. They argue that existing image-generation techniques do not directly apply because the relevant distribution is completely unknown. Their method, the max-entropy staircase approximator, or MESA, performs high-dimensional generative modeling without requiring samples from that distribution and is used to recover it.",
+      "The work also develops a defense intended to remove trigger effects from the backdoored model. Experiments on CIFAR-10 and CIFAR-100 support both MESA's ability to model trigger distributions and the robustness of the resulting defense. The contribution links a broader description of what activates a backdoor with a removal strategy, moving beyond defense based on one reconstructed trigger."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "29e63d5745b10178d4608994e0389b39cbc9e6d2cc095ee2da373e57022a1939",
+    "tldr": "MESA models a distribution of effective backdoor triggers and supports a defense shown effective in CIFAR-10 and CIFAR-100 experiments."
+  },
+  "neurips-2019-efficiently-escaping-saddle-points-on-manifolds-ebd232ee82": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Constraints such as orthonormality, fixed rank, or positivity can turn learning problems into optimization on curved spaces called manifolds. For a smooth objective, necessary conditions for a local minimum include a zero gradient and a positive semidefinite Hessian. This paper studies how to approximately satisfy both conditions without explicitly evaluating the Hessian.",
+      "The algorithm extends perturbed gradient descent to Riemannian manifolds. Its key distinction is between ordinary steps on the manifold and perturbed steps within a tangent space. Separating these operations allows the authors to extend an analysis previously developed for flat Euclidean spaces while using gradient information to escape saddle points.",
+      "For a sufficiently smooth objective and a retraction satisfying weak conditions, the method succeeds with high probability. It reaches gradient magnitude below epsilon and a Hessian within square root of epsilon of positive semidefiniteness using order (log d) to the fourth power divided by epsilon squared gradient queries. This matches the stated Euclidean complexity and has mild dimension dependence, relevant to manifold formulations of PCA and low-rank matrix completion."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a62e06116ca9ee106a866f3d9f3c925b1c77506a6967ec958012bee6b6a399b6",
+    "tldr": "Under smoothness and retraction conditions, perturbed manifold gradient descent approximately satisfies second-order necessary optimality conditions without evaluating Hessians."
+  },
+  "neurips-2019-exponential-family-estimation-via-adversarial-dynamics-embedding-03d3d52a03": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper develops maximum likelihood estimation for exponential-family models whose energy functions can have flexible forms, including neural networks. It couples model estimation with an adversarial sampler through a primal-dual formulation. The approach treats learning the model and learning how to sample from it as connected parts of the same optimization.",
+      "To represent the sampler, the authors introduce dynamics embedding, a neural architecture that generalizes Hamiltonian Monte Carlo. A kinetics-augmented model supports tractable entropy estimation while retaining the stated flexibility of that sampling approach. Model and sampler are trained simultaneously and share parameters, avoiding the need to design a separate sampling procedure after model training.",
+      "The framework also provides a common interpretation of numerous existing estimators, including contrastive divergence, score matching, and noise-contrastive estimation. Each corresponds to a different fixed dual sampler within the proposed formulation. Empirical results show that adapting the sampler during maximum likelihood estimation can substantially improve on state-of-the-art estimators. The contribution combines a practical estimation method with a unifying view of established alternatives."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5e25fac25f5e4d72abd5d934a5e44f87829d061050f281c244c1caa10194ab33",
+    "tldr": "Jointly learning an energy model and a dynamics-based adversarial sampler provides a unified estimation framework with reported empirical improvements."
+  },
+  "neurips-2019-fast-efficient-hyperparameter-tuning-for-policy-gradient-methods-710d1b7e49": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Policy-gradient reinforcement learning can be highly sensitive to hyperparameter choices. Searching over those choices with separate training runs consumes both computation and interaction samples. Even methods that learn changing hyperparameter schedules can be expensive. This paper proposes Hyperparameter Optimisation on the Fly, or HOOF, to adapt relevant hyperparameters within a single training run.",
+      "HOOF reuses trajectories already collected by the policy-gradient algorithm. It uses them to optimize an objective measuring one-step improvement, adapting hyperparameters that directly influence the gradient-based policy update. The hyperparameter optimization itself is gradient-free. Reusing existing experience is central to the claimed sample and computational efficiency, since tuning does not require a collection of independent training runs.",
+      "Experiments across multiple domains and policy-gradient algorithms show faster learning and improved performance when HOOF learns these schedules. The result supports changing update-related hyperparameters during training using evidence already produced by the learner. Its stated scope concerns hyperparameters affecting the policy update directly through the gradient, rather than every possible choice involved in building a reinforcement-learning system."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "025f3d0b2d2240eb0bcda707829a524085e82f195f41e2d93ac063196da832de",
+    "tldr": "HOOF reuses collected trajectories to tune policy-update hyperparameters during one training run, improving learning in the reported experiments."
+  },
+  "neurips-2019-fast-structured-decoding-for-sequence-models-4525f4e23a": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Autoregressive sequence models generate outputs through dependent steps, which can make inference slow. Non-autoregressive models accelerate decoding but may treat token choices as conditionally independent, sometimes producing inconsistent sentences. This paper adds structured inference to non-autoregressive generation to improve coordination among token choices while retaining much of its speed advantage.",
+      "The method uses an efficient approximation to a conditional random field, or CRF, within the sequence model. It also introduces dynamic transitions to capture positional context in that structure. These components provide a way to account for relationships among output decisions, addressing the consistency problem associated with independently decoded tokens.",
+      "Machine-translation experiments report substantially better translation quality than earlier non-autoregressive models across different datasets, with an additional latency of 8–14 milliseconds. On WMT14 English-to-German translation, the model reaches 26.80 BLEU, only 0.61 below the reported purely autoregressive comparison. The findings show that structured decoding can narrow the measured accuracy gap while adding relatively little inference time in the evaluated setting."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "01ddbc08c6d112b2e65ca73933c617dacebe426ef664cb0c866c91f1df5b5389",
+    "tldr": "An efficient CRF-based decoding module improves non-autoregressive translation quality with a reported 8–14 milliseconds of added latency."
+  },
+  "neurips-2019-group-retention-when-using-machine-learning-in-sequential-decision-making-the-interplay--51ff9de84f": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A demographic group that contributes less training data may receive less favorable model decisions. Those decisions can then influence whether its members remain in the population supplying future data. This paper studies that feedback process, asking how repeated machine-learning decisions, group representation, and fairness criteria interact as users arrive and leave.",
+      "Under a natural model of user dynamics, the authors show that representation disparity can worsen over time even when decisions use a commonly employed objective and fairness criteria. Some groups can eventually disappear from the sample pool. This is a result about the modeled sequential process: evaluating fairness at individual decision stages may fail to account for how those decisions change future participation.",
+      "The paper also explains how an appropriate fairness criterion can be selected using a general model of user dynamics. Its contribution is to connect fairness requirements to retention behavior, rather than treating the composition of the training population as fixed. The findings make the consequences for future group representation part of the fairness question itself."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9d59c879a8b6472980f6715f8280ce4c99d9097ff55a3e5c72293f06ff952470",
+    "tldr": "Sequential decision models show that fairness criteria can coexist with worsening group retention unless user dynamics inform their design."
+  },
+  "neurips-2019-guided-similarity-separation-for-image-retrieval-801ab12c87": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Image retrieval must recognize related images despite changes in viewpoint, lighting, and visibility. Many strong methods use a nearest-neighbor graph to uncover relationships that extend beyond individual image pairs. This paper proposes encoding that neighborhood information directly into image descriptors, so the learned representations themselves carry information about the surrounding image collection.",
+      "The authors use graph convolutional networks to construct these descriptors. They also introduce an unsupervised training loss based on separating pairwise image similarities, drawing on clustering and manifold-learning ideas. Together, the graph-based representation and similarity objective learn a new descriptor space intended to make relevant images easier to retrieve.",
+      "The resulting descriptors still support efficient inference through inner products, connecting richer neighborhood information with a simple comparison operation. Across five public benchmarks, the authors report highly competitive performance and relative improvements in mean average precision of up to 24% over leading baselines. These empirical results support learning neighborhood structure into descriptors as an effective approach to improving retrieval accuracy while preserving efficient comparisons."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e0f5d750460af399f1f249651b14be75e4e5199289f542bfde02e89075de5481",
+    "tldr": "Graph-based descriptor learning improves image retrieval while retaining efficient inner-product comparisons, with reported relative mAP gains of up to 24%."
+  },
+  "neurips-2019-interpreting-and-improving-natural-language-processing-in-machines-with-natural-language-c840804f72": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Language networks learn useful representations without explicitly encoding language rules, leaving open what their internal representations capture. This paper uses brain recordings from people reading complex natural text as a reference for interpretation. It compares word and sequence representations from ELMo, USE, BERT, and Transformer-XL with those recordings.",
+      "The analysis examines how representations vary with network depth, available context, and attention type. The results reveal differences among models in their context-related representations. For transformer models, layer depth interacts with both context length and attention type, indicating that these architectural and input choices need to be considered together when interpreting the learned representations.",
+      "The authors then hypothesize that making BERT more aligned with brain recordings could improve its language abilities. An altered BERT with greater brain alignment performs better than the original on syntactic probing tasks. This finding supports the proposed connection in the evaluated tasks, while the broader language-understanding claim remains a hypothesis. The work uses neuroscience both to interpret language models and to guide a tested model modification."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7f84ae3fa229482b5db25341b23a3fca7fd5f69d5e9e798faf9f1f03ae5fbf0f",
+    "tldr": "Brain recordings reveal differences among language-model representations, and a more brain-aligned BERT improves on the reported syntactic probes."
+  },
+  "neurips-2019-multivariate-sparse-coding-of-nonstationary-covariances-with-gaussian-processes-d540a6e750": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper models observations with several variables whose covariance structure changes irregularly across the input space. The challenge is to represent how variables relate to one another when those relationships do not remain constant. The proposed framework jointly encodes these correlations while allowing different parts of the input space to exhibit different statistical behavior.",
+      "The model builds a piecewise representation governed by a higher-level Gaussian process. Within the pieces, a collection of Gaussian processes describes the local smoothness of individual observation variables. The higher-level process coordinates their overall structure and allows information to be shared across variables. This combines locally varying behavior with a common statistical organization.",
+      "Automatic relevance determination is coupled to the encoding process to encourage sparsity and account for redundancy. That component helps the representation emphasize relevant structure while the Gaussian-process hierarchy connects the pieces. Experiments across multiple domains report better performance than state-of-the-art methods. The stated contribution is a unified way to handle changing correlations, local smoothness, shared information, and redundant structure within one model."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c90131cb234c68c635493b8b45a4de00b9dac76312c2c253de85516dcea3261b",
+    "tldr": "A sparse hierarchical Gaussian-process framework models irregularly changing correlations while sharing information across observation variables."
+  },
+  "neurips-2019-near-neighbor-who-is-the-fairest-of-them-all-15dd158c89": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies a version of near-neighbor search where every stored point within a specified distance of a query should have the same chance of being returned. Fairness here refers to the sampling probabilities of qualifying points. The objective therefore concerns which nearby point is selected, as well as whether the returned point is nearby.",
+      "The authors adapt locality-sensitive hashing algorithms to return a point from the query neighborhood with an almost uniform probability. They show that this can be achieved without a significant efficiency loss. The query-time bound includes a factor determined by local density around the query, multiplied by the query cost of the underlying approximate near-neighbor method. Space remains of the same stated order as that underlying method.",
+      "The approach also applies more broadly to uniform sampling from a selected subcollection of sets. This gives the sampling mechanism relevance beyond geometric search. Experiments on real data examine its practical performance. The contribution is an efficient route toward equal selection opportunities within a neighborhood, with an almost-uniform guarantee and an explicit dependence on local density."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b6762a1789444fd575405cf617d14fbec6e42c3f0fa99f089c6e160d3f866f21",
+    "tldr": "Locality-sensitive hashing can support almost-uniform sampling of nearby points, with query overhead depending on local density."
+  },
+  "neurips-2019-neural-networks-with-cheap-differential-operators-cf8a7e772e": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Computing an ordinary neural-network gradient is efficient, but some applications require more elaborate derivative operations with higher computational cost. This paper addresses a family of operators involving derivatives taken dimension by dimension. Its aim is to make those operations accessible through the design of the network and its derivative computation.",
+      "The authors describe a family of architectures that supports these operators and explain how to modify the backward computation graph to evaluate them efficiently. Architecture and backward computation are therefore developed together around the operations the application needs. The scope is a particular family of dimension-wise differential operators, providing a targeted approach to derivative costs.",
+      "The paper demonstrates three uses: root-finding subproblems inside implicit ordinary differential equation solvers, exact density evaluation in continuous normalizing flows, and evaluation of the Fokker–Planck equation when training stochastic differential equation models. These examples connect the architecture design to numerical solving, density modeling, and stochastic dynamics. They show how making required derivative operations cheaper can support computations that ordinary gradient efficiency alone does not address."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "febcdd7dd5779980a36c4fd0658432bb2d8cde5a5227df178d3986277b163aeb",
+    "tldr": "Specialized network architectures and backward computations make a family of dimension-wise differential operators efficient to evaluate."
+  },
+  "neurips-2019-rethinking-deep-neural-network-ownership-verification-embedding-passports-to-defeat-ambi-5426831d1b": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Watermarks can provide evidence of ownership for a trained neural network, but counterfeit watermarks can create conflicting ownership claims. This paper investigates such ambiguity attacks against existing verification methods and finds that they pose serious threats. The problem is whether a claimed identifying mark gives convincing evidence when an attacker can forge competing marks.",
+      "The proposed remedy embeds digital passports into the design and training of the network. A genuine passport is tied to successful performance on the network's original task, while a forged passport significantly degrades that performance. Verification therefore uses both a predefined signature and the model's behavior when associated with the passport.",
+      "The authors propose passport-based schemes described as robust to network modifications and resilient to ambiguity attacks. Extensive experiments support their effectiveness. The main idea is to strengthen ownership evidence by making the identifying information functionally consequential: a replacement passport must contend with the model's task performance as well as its signature. This connects ownership verification to how the trained network operates."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "20eaa9ba799d77e871d614b09665c3d4bce9ad8c27a10bc0984ddbc26c540255",
+    "tldr": "Digital passports tie ownership verification to network performance, making forged credentials degrade the model's original task behavior."
+  },
+  "neurips-2019-robust-principal-component-analysis-with-adaptive-neighbors-3b2751e544": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Severely contaminated observations can interfere with principal component analysis when the method cannot effectively exclude them. This paper proposes a general weighting framework called robust weight learning with adaptive neighbors, or RWL-AN. Its purpose is to automatically decide which samples remain active in optimization while limiting the influence of observations that fit poorly.",
+      "The framework learns an adaptive weight vector with controllable sparsity. In particular, it can activate exactly k samples with the smallest reconstruction errors and eliminate the remaining samples from the active set. Reconstruction error therefore guides sample selection, while the chosen sparsity level controls how many observations contribute. This combines weight learning with an explicit restriction on participation.",
+      "The authors apply the framework to PCA and report results supporting its effectiveness and superiority. The approach matters because it makes exclusion of poorly reconstructed samples part of optimization itself. Its robustness mechanism depends on retaining the selected well-fitting observations and suppressing the rest, addressing the stated problem of extreme contamination through adaptive sample weighting."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "607788fc25ed99870538297c4aa2124de4571a5e3392142d059cb548a6fadf34",
+    "tldr": "RWL-AN improves robustness by learning sparse weights that retain exactly k samples with the lowest reconstruction errors."
+  },
+  "neurips-2019-shallow-rnn-accurate-time-series-classification-on-resource-constrained-devices-67c3745f9f": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Recurrent neural networks process sequences through dependent steps, so long inputs can remain slow even when hardware supports parallel computation. This paper introduces shallow RNNs to preserve long-range context while enabling parallel work. The goal is faster time-series classification, including deployment on devices with limited processing power and memory.",
+      "The architecture first divides the input sequence and processes its parts with independent RNNs. A second RNN consumes the outputs of this first layer to capture dependencies across the parts. The authors provide theoretical justification under weak assumptions and verify those assumptions on real-world benchmarks. This structure combines independent local processing with recurrent integration.",
+      "Experiments report substantially faster inference than standard RNNs without sacrificing accuracy. The authors demonstrate audio-keyword classification on a Cortex M4 with a 100 MHz processor, 256 KB of RAM, and no DSP, a deployment they report was infeasible with standard RNNs. In a Listen-Attend-Spell phoneme classifier, shallow RNNs reduce classification lag by 10–12 times while maintaining state-of-the-art accuracy."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "658928b71fe9fb1299816c8105f62e5c8f7f5b420a228adfa0028e180b4dfb8c",
+    "tldr": "Shallow RNNs process sequence segments independently and then combine them recurrently, reducing reported inference latency without sacrificing accuracy."
+  },
+  "neurips-2019-towards-automatic-concept-based-explanations-bdbeca8bfe": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Many explanation methods assign importance scores to features of an individual input. Although these scores can identify influential details, interpreting and summarizing them across many examples is difficult. This paper asks how explanations can instead identify higher-level concepts that people understand and that apply across an entire dataset.",
+      "The authors propose principles and desired properties for concept-based explanation, then develop ACE, an algorithm that automatically extracts visual concepts. The intended explanation unit is a recurring, understandable concept rather than a collection of separate feature scores for individual examples. Automatic extraction addresses the challenge of finding such concepts systematically within the data.",
+      "Systematic experiments find that ACE discovers concepts that are meaningful to people, coherent, and important for the network's predictions. These properties connect human interpretation with the behavior being explained: the concepts should make sense as groups and matter to the model. The contribution is a method for moving from individual feature attributions toward a broader account of the visual concepts associated with predictions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "496d30d252ec1ac665ba1669be918df01459fe7f713c74ef012ba972ea565441",
+    "tldr": "ACE automatically extracts visual concepts that experiments find understandable, coherent, and important to neural-network predictions."
+  },
+  "neurips-2019-towards-understanding-the-importance-of-shortcut-connections-in-residual-networks-fe6746fe49": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Residual networks use shortcut connections and often train effectively with simple first-order optimization, but explaining that success theoretically remains challenging. This paper studies a specific two-layer convolutional residual network with non-overlapping structure. Its training objective is nonconvex and contains a spurious local optimum, making it a useful setting for examining whether optimization can avoid an undesirable solution.",
+      "The authors prove that gradient descent with appropriate normalization avoids that spurious optimum and reaches a global optimum in polynomial time under a specified initialization. The first-layer weights begin at zero, while the second-layer weights may start arbitrarily within a ball. The guarantee therefore depends on the studied architecture, normalization, and initialization conditions.",
+      "Numerical experiments support the theoretical analysis. The result shows that the existence of a bad local optimum need not prevent efficient global convergence in this residual-network setting. It contributes a concrete explanation of favorable optimization behavior under stated conditions, giving a focused theoretical perspective on why shortcut-equipped networks can be trainable despite nonconvex objectives."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "edf145a4c1c3823aba43b90ff73772bcb67cf85681361ec068db22a6601dbcb9",
+    "tldr": "For a specified two-layer convolutional ResNet, normalized gradient descent reaches a global optimum in polynomial time under stated initialization conditions."
+  },
+  "neurips-2019-unsupervised-co-learning-on-g-manifolds-across-irreducible-representations-de1d3c1235": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies unsupervised learning on manifolds that naturally support transformations from a group. Its central idea is to construct several mathematical views of the same underlying geometry and learn from their agreement. The multiple views arise from the transformation structure itself, giving the method a source of redundancy without requiring labels.",
+      "Using representation theory, the authors associate multiple independent vector bundles with a shared base manifold. Each bundle supplies a view of the underlying geometry through a different irreducible representation of the transformation group. Consistency across these views becomes the basis for co-learning. The artificially created redundancy is useful because the views describe a common underlying object.",
+      "The proposed approach is demonstrated in cryo-electron microscopy image analysis and community detection. The authors report substantial improvements in robust nearest-neighbor identification for the former and clustering accuracy for the latter. These findings support using agreement across group-derived representations to improve geometric and relational inference. The approach is motivated specifically by settings where the underlying manifold admits the relevant transformation-group action."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c1b24956a50913eb931dc313b2868823d296dd3ba489c9b1e68f34687fb05bad",
+    "tldr": "Learning from consistent group-derived views of manifold geometry improves the reported nearest-neighbor and community-clustering results."
+  },
+  "neurips-2019-wasserstein-weisfeiler-lehman-graph-kernels-007aa844b6": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Graph kernels often compare graphs through their component substructures and combine those comparisons using a sum or average. This aggregation can discard information about how components are distributed. The paper proposes comparing distributions of node feature vectors, aiming to retain distinctions that a simple aggregate may overlook.",
+      "The method uses Wasserstein distance to compare those distributions across graphs. It also introduces a Weisfeiler–Lehman-inspired embedding scheme that accommodates continuous node attributes and weighted edges. Combining the embeddings with the distributional comparison extends the approach to graph information that only a limited subset of earlier kernel methods could handle.",
+      "The authors report improved state-of-the-art predictive performance on several graph-classification tasks. The stated benefit comes from representing graphs through richer collections of node features and comparing their distributions, allowing subtler differences to influence similarity. This connects the representation of local graph information with the way that information is aggregated into a comparison between whole graphs, and the classification results provide empirical support for that combination."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f9914482c8dbfa61f0aae2264e9350caac47754d559c7a68250211d7bb16f749",
+    "tldr": "Wasserstein comparisons of node-feature distributions improve reported graph classification while supporting continuous attributes and weighted edges."
+  }
+}

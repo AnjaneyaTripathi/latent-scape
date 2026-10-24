@@ -1,0 +1,359 @@
+{
+  "neurips-2021-accelerated-sparse-neural-training-a-provable-and-efficient-method-to-find-n-m-transposa-5ff1d66962": {
+    "backgroundConcepts": [
+      "topic-001-a-fast-post-training-pruning-framework-for-trans"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Removing neural-network weights can save memory, but accelerating computation also requires a sparsity pattern that hardware can exploit. This paper studies N:M sparsity, where every block of M weights contains at least N zeros. It also introduces mask-diversity, a measure that correlates with the accuracy expected from different structural pruning schemes.",
+      "The central contribution is a transposable sparsity mask: both a weight matrix and its transpose satisfy the required pattern. This matters because training uses matrix multiplications in both the forward and backward directions. The authors formulate optimal mask selection as a minimum-cost flow problem and provide a linear-time approximation for situations where masks change during training.",
+      "Experiments suggest a twofold acceleration of the relevant matrix multiplications without accuracy degradation across vision and language models. That result concerns matrix multiplication rather than a stated doubling of overall training speed. The paper also proposes converting an already trained, unstructured sparse model into an N:M model with little or no additional training."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c73128422f599672b365badae0baec49597046beded2268431a94cd730d03c86",
+    "tldr": "Transposable sparsity masks make structured sparse computation usable in both training directions, with experiments suggesting twice-as-fast matrix multiplications without accuracy loss."
+  },
+  "neurips-2021-accelerating-quadratic-optimization-with-reinforcement-learning-ef7e64c87e": {
+    "backgroundConcepts": [
+      "topic-234-q-sharp-provably-optimal-distributional-rl-for-l"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Quadratic optimization problems appear in large-scale machine learning and embedded control, where many related problems may need solutions quickly. First-order solvers such as OSQP are widely used, but their settings often require manual tuning, and reaching a highly accurate solution can take time. This paper treats parameter selection as something a reinforcement-learning policy can learn.",
+      "The resulting policy, RLQP, tunes solver parameters to accelerate convergence. The learned component therefore helps guide an optimization method toward its solution. This connects the two challenges identified by the authors: parameter choices are no longer purely a manual task, and those choices are directed toward reducing the work needed for convergence.",
+      "On established quadratic-programming benchmarks, the authors report performance improvements of up to threefold over leading solvers. They also find that RLQP transfers well to previously unseen problems with different dimensions, structures, and application origins, including QPLIB, Netlib LP, and Maros-Mészáros problems. These are empirical findings supporting learned parameter tuning across varied optimization instances; the largest reported improvement is not a uniform guarantee."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b2458f50685b480dd9662af001fad445bf4410777d736c3a4c74ddf0be66ace9",
+    "tldr": "RLQP learns to tune quadratic-optimization solver parameters and reports benchmark improvements of up to threefold, with transfer to unseen problem types."
+  },
+  "neurips-2021-catch-a-waveform-learning-to-generate-audio-from-a-single-short-example-090b1db09e": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper investigates how much audio is needed to learn a generative model of a particular sound source. Its GAN-based approach trains on a single short recording, without pretraining or external supervision. The intended scope includes different audio domains, such as speech and music, rather than a model trained beforehand for one specific kind of recording.",
+      "After training, the model can produce random audio of arbitrary duration. The generated signal remains semantically similar to the example while arranging its audio primitives into new compositions. The distinction matters: learning from one recording is used to support new variations and extensions, rather than merely reproducing the original waveform.",
+      "The authors demonstrate applications including musical variation, filling missing audio, extending speech bandwidth, and improving old recordings without clean training examples. Across these applications, they report that no more than 20 seconds of training audio commonly suffice for state-of-the-art results. The qualification is important: the claim is that short examples commonly work in the reported settings, not that every recording provides enough information for every audio task."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "be2c45970870755933aebf55249c712199a703692b6a97591ecfae64cbeb0498",
+    "tldr": "A GAN trained on one short recording generates related audio variations and supports restoration tasks without pretraining or external supervision."
+  },
+  "neurips-2021-cockpit-a-practical-debugging-tool-for-the-training-of-deep-neural-networks-371d03f608": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Training and test losses summarize how a neural network is performing, but they reveal only part of what is happening during optimization. A disappointing curve may signal trouble without making its cause clear. Cockpit addresses this visibility problem by providing instruments for inspecting the internal training process, much as a software debugger exposes internal program states.",
+      "Its instruments use higher-order information about gradient distributions and curvature that has become efficiently accessible. Gradients describe how the model is being pushed to change, while curvature concerns the shape of the optimization landscape. Inspecting these quantities provides a richer status report than observing performance indicators alone.",
+      "The tool is designed to help practitioners distinguish learning phases and recognize failure modes, including poorly chosen hyperparameters. The authors release Cockpit for PyTorch and argue that it can support troubleshooting while offering additional insight into neural-network behavior. Its contribution is a practical way to observe training more closely: the abstract presents diagnostic instruments and their intended value, rather than a claim that the tool automatically repairs training problems."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e57c955178612103afd6ecf728905cf8988348c185412d5041d5dd25714ecce8",
+    "tldr": "Cockpit exposes gradient and curvature information during neural-network training to help practitioners understand learning phases and diagnose failures."
+  },
+  "neurips-2021-data-efficient-gan-training-beyond-just-augmentations-a-lottery-ticket-perspective-5db718c903": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "GANs can perform poorly or collapse when only a small collection of real images is available. This paper approaches that problem through the network being trained, drawing on the observation that GANs can contain highly sparse subnetworks that remain independently trainable. These subnetworks are called lottery tickets, and the authors treat their structure as a useful inductive prior.",
+      "The framework first identifies a lottery ticket within the original GAN using the limited real-image dataset. It then trains that sparse subnetwork using the same images again. This makes subnetwork selection part of the response to scarce data. The method does not require a separate, larger image collection for the ticket-discovery stage described in the abstract.",
+      "The authors find that this approach provides gains complementary to existing image augmentation methods. They also introduce augmentation at the feature level that can be combined with those methods. Experiments across SNGAN, BigGAN, StyleGAN-V2, and several standard and few-shot datasets support the framework's effectiveness. The stated finding is that choosing what to train can complement modifying the available training examples."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "30c108f03c89b25b3f36fec433cd671011d085f7dda74aa98fdb238f20bc556f",
+    "tldr": "Selecting and training a sparse GAN subnetwork improves learning from limited images and provides gains complementary to data augmentation."
+  },
+  "neurips-2021-deconvolutional-networks-on-graph-data-36393a47be": {
+    "backgroundConcepts": [
+      "topic-179-s-2-fgl-spatial-spectral-federated-graph-learnin"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Graph convolutional networks produce smoothed representations of information attached to a graph. This paper asks how to work backward from those representations and reconstruct the original graph signal. It frames reconstruction as an inverse problem: the model must recover information from a representation that has already undergone graph-based smoothing.",
+      "The proposed Graph Deconvolutional Network combines inverse filters in the spectral domain with denoising layers in the wavelet domain. The reason for combining these operations is central to the design. Reversing the smoothing acts as an amplifier for high-frequency components, and that operation may also amplify noise. Denoising therefore accompanies the inverse operation to address an issue created by reconstruction itself.",
+      "The authors demonstrate the method on graph feature imputation and graph structure generation. These tasks provide applications for recovering or generating graph information from learned representations. The contribution is a reconstruction architecture whose design explicitly accounts for noise amplification, connecting the desired inverse transformation with a mechanism for controlling its unwanted effects."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "dd4bd8d77ef512ac4ea58f05671416f3025288ea346c094ead4fa39afb25317f",
+    "tldr": "Graph Deconvolutional Networks combine inverse filtering with denoising to reconstruct graph signals from smoothed representations."
+  },
+  "neurips-2021-deep-residual-learning-in-spiking-neural-networks-3ed82e95ca": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Spiking neural networks are difficult to optimize with gradients because their activations are binary and their behavior unfolds across space and time. Simply replacing the activation layers of a conventional residual network with spiking neurons does not preserve effective residual learning. The paper identifies degradation in these earlier Spiking ResNet designs as a barrier to training deeper networks.",
+      "The proposed spike-element-wise ResNet, or SEW ResNet, changes the residual design to support spiking computation. The authors prove that it can implement identity mapping, meaning that a block can pass its input through unchanged. They also prove that the design overcomes the vanishing and exploding gradient problems associated with the Spiking ResNet considered in the paper.",
+      "Experiments on ImageNet, DVS Gesture, and CIFAR10-DVS report better accuracy and time-step performance than leading directly trained spiking networks. The authors also show performance improving as layers are added and report direct training beyond 100 layers. Together, the theoretical and experimental results support residual learning as a practical route to deeper spiking networks."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a4ee81705817ad0a6460b7a31cf83f1e181d778ad185b9a12c0a1d551dbce4a3",
+    "tldr": "SEW ResNet redesigns residual connections for spiking networks, enabling direct training beyond 100 layers and improving reported accuracy and time-step performance."
+  },
+  "neurips-2021-duplex-sequence-to-sequence-learning-for-reversible-machine-translation-f3999113a6": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Machine translation naturally supplies two related tasks: translating from one language to another and translating back. This paper asks how a sequence-to-sequence model can effectively use supervision from both directions. The authors describe existing choices as either maintaining two separate models or sharing a multitask model at the cost of weaker performance.",
+      "Their proposed Reversible Duplex Transformer, REDER, is a parameter-efficient model organized around two language-specific ends. Each end can serve as either input or output. Reversing translation direction therefore means flipping which end receives the source sequence and which end produces the translated sequence, giving both directions a role within the same model.",
+      "The experiments support the feasibility of this reversible translation arrangement. REDER exceeds its multitask-trained baselines by up to 1.3 BLEU, a reported maximum rather than an improvement promised for every setting. The contribution joins architectural sharing with the practical goal of learning from supervision in both directions, and the authors describe their experiments as the first successful demonstration of reversible machine translation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8b806bd760d3a4bcfe82113b191b9bab49fe29bd0c642ad97ec886288f346349",
+    "tldr": "REDER translates in either direction by swapping its input and output ends, outperforming multitask baselines by up to 1.3 BLEU."
+  },
+  "neurips-2021-efficient-online-estimation-of-causal-effects-by-deciding-what-to-observe-627b8aa337": {
+    "backgroundConcepts": [
+      "topic-088-a-cautionary-tale-on-integrating-studies-with-di"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "When several data sources each observe different variables, researchers must combine incomplete views of a system. This paper adds a decision that is often left outside that analysis: if collection is ongoing, which source should provide the next observation? The objective is to estimate a specified quantity of a probabilistic model as efficiently as possible.",
+      "The proposed online moment selection framework expresses structural assumptions through moment conditions, relationships involving expectations of observed quantities. Choosing the best source partly depends on moments that must themselves be learned. The algorithms therefore balance exploring sources with selecting the action that currently appears most useful based on estimated moments.",
+      "The authors develop explore-then-commit and explore-then-greedy strategies and prove that both achieve zero asymptotic regret measured through mean squared error. This is a limiting result as data accumulate. They illustrate the framework with average treatment effects, using a causal graph to specify assumptions and sources containing different combinations of mediators, confounders, and instrumental variables. The contribution makes data acquisition part of efficient causal estimation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e8eee28348319613e96196ee98cb148392c22050b1dc7aa48d2b7d09a8e99307",
+    "tldr": "Online moment selection adaptively chooses data sources for efficient estimation, with two strategies proved to achieve zero asymptotic MSE regret."
+  },
+  "neurips-2021-explanation-based-data-augmentation-for-image-classification-42b8eae6af": {
+    "backgroundConcepts": [
+      "topic-078-mathcal-m-4-a-unified-xai-benchmark-for-faithful"
+    ],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Explanations of an image classifier's decisions can reveal more than how the model behaves. This paper uses them to identify concepts associated with misclassifications and, through those concepts, possible gaps in the training dataset. A mistake can therefore become a clue about an under-represented region of the data rather than only a failure to record.",
+      "The proposed framework turns those clues into automatic data augmentation. It uses concept-based explanations to guide the addition of new images that can cover under-represented regions. This connects diagnosis with a concrete training intervention: the explanation helps determine what additional examples the dataset should contain.",
+      "The framework accepts explanations from both interpretable classifiers and methods that explain an already trained black-box classifier. That makes the approach applicable to more than one style of explanation. Experiments report higher classification accuracy than leading augmentation strategies. The stated result supports using explanations to guide dataset improvement, while the underlying diagnosis remains appropriately qualified: explanations can point to possible dataset limitations rather than establish that every error has the same cause."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "755844376bd563462edf289a640f957a0a201efd04d165f18e0a6d51af4b5727",
+    "tldr": "Concept-based explanations guide automatic image augmentation toward under-represented data regions, improving classification accuracy in the reported experiments."
+  },
+  "neurips-2021-exponential-separation-between-two-learning-models-and-adversarial-robustness-76baf01731": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper compares learning from a fixed collection of examples with learning through interaction. In the PAC setting considered here, the learner receives all samples at the beginning. In the equivalence-query setting, it proposes a hypothesis and a teacher responds with counterexamples. The next example can therefore address the learner's current mistakes.",
+      "The authors prove an exponential separation in sample or query complexity between PAC learning and a version of equivalence-query learning. For achieving a specified error, exponentially fewer examples suffice in the interactive model than the PAC bound requires. This formalizes a benefit of receiving counterexamples through an interaction rather than relying entirely on examples supplied in advance.",
+      "The paper also connects this result to adversarial training and robustness. Interpreting adversarial examples as counterexamples offers a theoretical perspective on previously observed generalization benefits from on-manifold adversarial training. For robustness, the authors require the adversary to return samples according to their equivalence-query model. Their robustness result depends on that restriction and is presented as a limited but fresh perspective on adversarial learning."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6f8274f4ba45441e342f803b6e5ea40cfee0b241f460f1bbdb7bf8794e6909bc",
+    "tldr": "A theoretical separation shows that interactive counterexamples can dramatically reduce sample needs and yield robustness under an equivalence-query adversary."
+  },
+  "neurips-2021-gaussian-kernel-mixture-network-for-single-image-defocus-deblurring-45ad6a87d7": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Defocus blur can vary across an image, so restoring sharpness requires accounting for different blur amounts at different pixels. This paper develops an end-to-end method for producing an all-in-focus image from a single blurred input. Its starting point is a pixel-wise Gaussian kernel mixture model that represents spatially varying blur through an efficient linear parameterization.",
+      "The mixture model provides the basis for GKMNet. The network is constructed by unrolling a fixed-point iteration for the corresponding deblurring problem, translating steps of an iterative procedure into a neural architecture. A lightweight scale-recurrent design includes an attention module that estimates the mixture coefficients needed to describe the blur.",
+      "The authors report that the kernel model represents blur more accurately than existing models. Their experiments also show GKMNet noticeably outperforming existing defocus-deblurring methods while offering advantages in model complexity and computational efficiency. The approach matters because the blur representation and restoration network are developed together: a compact description of locally varying blur directly informs how the image is reconstructed."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e5da0adf246c2ae48fef545b568d576beb1ec1877017322da5af30b0ecc7aed6",
+    "tldr": "GKMNet uses pixel-wise Gaussian blur mixtures and an unrolled restoration procedure to improve single-image defocus deblurring efficiently."
+  },
+  "neurips-2021-improved-coresets-and-sublinear-algorithms-for-power-means-in-euclidean-spaces-b24141e274": {
+    "backgroundConcepts": [
+      "topic-089-distributed-and-provably-good-seedings-for-k-mea"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper studies how to find a representative center for many high-dimensional points while examining relatively few of them. Its objective sums Euclidean distances raised to a power z. This family includes the geometric median at z = 1 and the ordinary mean at z = 2, with the minimum enclosing ball corresponding to the infinite-power case.",
+      "For algorithms with random query access to the points, the authors prove that approximately ε raised to the power −z−3 samples suffice for a multiplicative 1 + ε approximation, suppressing logarithmic factors. They also establish a lower bound proportional to ε raised to −z+1. These bounds describe how the required accuracy and distance power affect query demands.",
+      "The second contribution concerns coresets: small weighted subsets that approximate the objective for every candidate center. The authors show that roughly ε raised to −2 points suffice, again suppressing logarithmic factors, improving earlier size bounds. This is stronger in scope than approximating the cost of just one center because the same compressed representation supports evaluating all candidate centers."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6e8a03df3152d2843314e7b0cd2515ab22cc1fc925094c54d39742ebc3fe6c3b",
+    "tldr": "The paper improves sampling bounds and weighted-subset sizes for approximating distance-power center objectives in high-dimensional data."
+  },
+  "neurips-2021-large-scale-learning-on-non-homophilous-graphs-new-benchmarks-and-strong-simple-methods-c2f771048f": {
+    "backgroundConcepts": [
+      "topic-044-a-collective-learning-framework-to-boost-gnn-exp"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Many graph-learning benchmarks connect nodes that tend to share labels, a property called homophily. Methods designed for graphs without that tendency had often been tested on small datasets from a narrow range of applications. This paper introduces more varied non-homophilous datasets, with up to 384 times as many nodes and 1,398 times as many edges as prior datasets.",
+      "The larger benchmarks expose a practical issue: existing scalable graph-learning and minibatching techniques suffer performance degradation on these data. Scaling a method to more nodes is therefore not the only concern. The method must also work when connections do not reliably link nodes with similar labels.",
+      "To address this combination, the authors introduce LINKX, a simple method that supports straightforward minibatch training and inference. Extensive comparisons with representative simple methods and graph neural networks show state-of-the-art performance across the proposed datasets. The paper contributes both a broader evaluation setting and evidence that a relatively simple method can perform strongly on large non-homophilous graphs."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8548c91683ed1ab213c7e130b453bd7f23f45b2dfcc9058cb27abcb98169f27b",
+    "tldr": "New large non-homophilous graph benchmarks expose scaling weaknesses, while LINKX achieves strong performance with straightforward minibatch computation."
+  },
+  "neurips-2021-learning-graph-cellular-automata-a08f83d660": {
+    "backgroundConcepts": [
+      "topic-058-amag-additive-multiplicative-and-adaptive-graph-"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Cellular automata produce complex behavior by repeatedly applying local update rules to interacting cells. Conventional versions arrange the cells on a regular lattice. This paper studies graph cellular automata, which replace that lattice with an arbitrary graph, allowing the pattern of local interactions to follow a more general structure.",
+      "The authors use graph neural networks to learn the transition rules that determine how cell states change. This extends earlier work that used convolutional networks for conventional cellular automata. They present a general-purpose architecture and show that it can represent any graph cellular automaton with a finite, discrete state space. That statement concerns representational capability under the stated state-space condition.",
+      "The approach is tested in three settings: learning an update rule on a Voronoi tessellation, imitating a group of flocking agents, and learning a rule that approaches a desired target state. These tasks explore both reproducing existing dynamics and learning dynamics with a specified outcome. The work connects local graph-based learning with the broader behavior that repeated interactions can generate."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f5be535ad62027c206704dc85650c0f1635e6bbb79aa9cbd7e6434b0155965cf",
+    "tldr": "A graph-neural-network architecture learns cellular-automaton rules on arbitrary graphs and can represent any such automaton with finite discrete states."
+  },
+  "neurips-2021-mest-accurate-and-fast-memory-economic-sparse-training-framework-on-the-edge-215b2fb775": {
+    "backgroundConcepts": [
+      "topic-001-a-fast-post-training-pruning-framework-for-trans"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "MEST is a sparse-training framework designed for edge devices, where training speed, memory use, and accuracy all matter. It includes enhancements called Elastic Mutation and Soft Memory Bound to support accuracy at high sparsity. The paper also emphasizes that the pattern of sparsity affects both predictive performance and actual training speed on edge hardware.",
+      "A second component uses data efficiency to reduce training work. The authors' results suggest that examples identified as unforgettable can be detected during training even while the network explores changing sparsity masks. Those examples can then be removed to obtain further speedups. The paper also examines how model sparsity, sparsity schemes, and training algorithms affect the number of removable examples.",
+      "On ImageNet, MEST significantly improves Top-1 accuracy over compared methods using the same unstructured sparsity scheme. Evaluations covering accuracy, training time, and memory footprint report consistent advantages over representative leading approaches. The contribution combines decisions about which network weights remain active with decisions about which examples still need training effort, while assessing their effects on real edge devices."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b99c5907304b10c9c440749640c7b77361001fe6dcd0646e39a115ab08740c8a",
+    "tldr": "MEST combines memory-conscious sparse training with removal of unforgettable examples to improve reported accuracy, speed, and memory use on edge devices."
+  },
+  "neurips-2021-perturbation-theory-for-the-information-bottleneck-86c048d5b6": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The information bottleneck formalizes the challenge of extracting useful information from data while limiting how much information is retained. Its nonlinear structure makes the general problem expensive to compute and difficult to analyze. This paper develops a perturbation theory to study behavior near the onset of learning, where relevant information begins to be extracted.",
+      "The authors report a complete characterization of this onset, described as the limit of maximum relevant information obtained per extracted bit. Focusing on this regime makes it possible to analyze a particularly informative part of an otherwise difficult problem. The resulting account concerns behavior near learning onset rather than a stated solution to the entire nonlinear problem.",
+      "Tests on synthetic probability distributions show good agreement with exact numerical solutions near the onset. The authors also compare their derivation with previous perturbative approaches and attribute the discrepancy to a flawed assumption in earlier work. Finally, the analysis offers a new perspective on the connection between the information bottleneck and the strong data processing inequality."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5f87774d3e41091db2f476029a9142655c825eb3f45539ee3c230d2a29e347ca",
+    "tldr": "A perturbation theory characterizes learning onset in the information bottleneck and agrees with exact numerical solutions near that regime."
+  },
+  "neurips-2021-precise-characterization-of-the-prior-predictive-distribution-of-deep-relu-networks-264036dcdd": {
+    "backgroundConcepts": [
+      "topic-188-a-bayesian-approach-to-analysing-training-data-a"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A Gaussian prior on neural-network weights does not by itself describe the distribution of the network's predictions before observing data. The composition of layers also matters. This paper derives a precise prior predictive distribution for finite-width ReLU networks with Gaussian weights, addressing how architectural choices transform assumptions about weights into assumptions about outputs.",
+      "Earlier theoretical work had established heavy-tailed behavior, but the full distribution remained uncharacterized. Using the Meijer-G function, the authors obtain its density, cumulative distribution function, and moments. This enables them to quantify how width and depth influence the distribution's shape, going beyond the observation that its tails can be heavy.",
+      "The analysis also connects to previous infinite-width work and shows convergence of moments to those of a normal log-normal mixture in an infinite-depth limit. These findings provide guidance for choosing priors with architecture in mind. One stated application is controlling predictive variance through weight priors informed by both depth and width, making prior design responsive to the network that uses it."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3764c951e4b8c664fd599b95b37bd5dbad675a08e4b1a0c274ebf25b4e294e77",
+    "tldr": "The paper characterizes output distributions induced by Gaussian weights in finite-width ReLU networks, clarifying how architecture should inform prior design."
+  },
+  "neurips-2021-red-looking-for-redundancies-for-data-freestructured-compression-of-deep-neural-networks-6407183dc4": {
+    "backgroundConcepts": [
+      "topic-001-a-fast-post-training-pruning-framework-for-trans"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Compressing a neural network often involves removing connections or entire filters, followed by retraining with data. RED addresses structured compression without requiring data. Its central strategy is to look for redundancy within the network's weights and use that redundancy to reduce the network's structure.",
+      "The method begins with adaptive hashing based on the density distribution of scalar weights, increasing the number of neurons whose weight vectors are identical. It then merges redundant neurons according to their relative similarities, measured through distances. A further technique, called uneven depthwise separation, provides additional pruning of convolutional layers. These components form a unified procedure for finding and reducing repeated or similar structure.",
+      "Across a broad collection of benchmarks, the authors report that RED substantially outperforms other data-free pruning methods. They also find that it often reaches performance similar to methods allowed to use data. The qualification matters: comparable performance is reported frequently, not universally. The contribution shows how inspecting a model's own weights can support substantial structured compression when training data are unavailable."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1325a7c38ac1c36b21b9e681809dddce22a002a2679a4cc62765f29fdfc88b85",
+    "tldr": "RED compresses neural networks without data by creating and merging redundant neurons and further pruning convolutional layers."
+  },
+  "neurips-2021-reinforcement-learning-based-disease-progression-model-for-alzheimers-disease-71774b343f": {
+    "backgroundConcepts": [
+      "topic-096-a-definition-of-continual-reinforcement-learning"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper combines differential equations, reinforcement learning, and domain knowledge to model Alzheimer's disease progression. Differential equations encode some relationships between relevant factors, but they do not cover all of them. The authors address the missing relationships by assuming that they satisfy broad criteria about brain function, such as supporting cognition while limiting its associated cost.",
+      "Those criteria become a reward function for a reinforcement-learning agent. The differential equations serve as a simulator, and the agent learns relationships by optimizing that reward. The combined model then uses baseline features to predict an individual's cognition trajectory over ten years. Its interpretation therefore rests partly on the explicitly chosen assumptions about what the brain is optimizing.",
+      "On synthetic and real data, the model matches or exceeds leading learning-based methods for predicting ten-year cognition trajectories. It also exhibits recovery or compensatory processes that mitigate modeled disease effects, despite those processes not being explicitly programmed. The authors present these behaviors as interpretable insights and propose the combination of equations and reinforcement learning as a broader framework for studying neurological disorders."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "50b08273aff11ccbcb4409fdd9dfb43d12fa2104aaf4b5146012a6e33e91990e",
+    "tldr": "A model combining differential equations and reinforcement learning predicts ten-year Alzheimer's trajectories under explicit assumptions about cognition and its costs."
+  },
+  "neurips-2021-testrank-bringing-order-into-unlabeled-test-instances-for-deep-learning-tasks-463d4d5ae1": {
+    "backgroundConcepts": [
+      "topic-044-a-collective-learning-framework-to-boost-gnn-exp"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Testing a deep-learning model can involve far more unlabeled inputs than people can afford to label. TestRank aims to make that labeling effort more productive by ordering inputs according to how likely they are to reveal a model failure. The goal is to find more mistakes with fewer labeled test examples.",
+      "The method combines information from each input with information about similar examples. It first builds a similarity graph containing both unlabeled samples and already labeled samples. Graph-based semi-supervised learning then extracts contextual features using whether the model was correct on similar labeled examples. These features supplement intrinsic features obtained from the model being tested.",
+      "TestRank combines the two feature sources to estimate each input's failure-revealing probability and ranks inputs from highest to lowest. Evaluations on three image-classification datasets show significant improvements over existing test-prioritization techniques. The result supports using the correctness of neighboring labeled examples as additional evidence when deciding which unknown cases deserve testing attention first."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1f494328453a179de3c11ac0286f26cbf936228fe423118f38ee8a7293977ce1",
+    "tldr": "TestRank combines model features with graph-based context to prioritize unlabeled test inputs likely to expose failures."
+  },
+  "neurips-2021-the-balancing-principle-for-parameter-choice-in-distance-regularized-domain-adaptation-3a41e2d248": {
+    "backgroundConcepts": [
+      "topic-148-a-bit-more-bayesian-domain-invariant-learning-wi"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Unsupervised domain adaptation must transfer a model to a target domain without target labels. A common objective combines source-domain prediction error with a penalty measuring the distance between source and target feature representations. Choosing the penalty's weight is difficult because target labels are unavailable to directly assess that choice.",
+      "This paper connects the parameter-selection problem to regularized ill-posed inverse problems. In that setting, a balancing principle chooses regularization by trading off approximation and sampling errors. The authors adapt the principle to balance learning errors and domain distance within a target-error bound, obtaining a theoretically justified rule for choosing the regularization parameter.",
+      "The approach permits source and target distributions with disjoint supports, so its applicability does not require those distributions to overlap in that sense. A comparative study on benchmark datasets supports the method's performance. The contribution is a principled way to set an influential adaptation parameter under the actual information constraint of the task: the target domain supplies no labels."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "25a1dc88f3a191a408d0977b4b5cd20de0f202ae6b7ebdf93782f7ecc2ddfd65",
+    "tldr": "A balancing principle yields a theoretically justified regularization choice for unsupervised domain adaptation, including distributions with disjoint supports."
+  },
+  "neurips-2021-tohan-a-one-step-approach-towards-few-shot-hypothesis-adaptation-8985ead6fd": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Ordinary few-shot domain adaptation assumes access to labeled source data along with a few labeled target examples. This paper studies a more restricted setting: the source data cannot be accessed, but a well-trained source classifier is available. Called few-shot hypothesis adaptation, this setup is motivated by avoiding direct exposure of private source-domain records.",
+      "TOHAN adapts the classifier by generating compatible unlabeled data that form an intermediate domain. It maintains two deep networks simultaneously. One learns the intermediate domain, while the other handles adaptation from that domain to the target and minimizes target risk. The generated data thus provide a bridge between the available source classifier and the small labeled target set.",
+      "Experiments show significant improvements over competitive baselines. The contribution is a way to adapt using a source hypothesis rather than accessible source training examples. Its privacy motivation is specifically tied to keeping those source records inaccessible during adaptation; the mechanism described is the removal of direct source-data access from the training setup."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c4f39de61b0551d7988c3df44b797b08e485e41f8d285ecd0222faae8cf5823e",
+    "tldr": "TOHAN adapts a source classifier using few labeled target examples and a generated intermediate domain, without accessing source data."
+  },
+  "neurips-2021-variational-multi-task-learning-with-gumbel-softmax-priors-d4b58849a1": {
+    "backgroundConcepts": [
+      "topic-060-learning-to-branch-for-multi-task-learning"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Related tasks can help one another learn, particularly when each has limited training data. This paper develops variational multi-task learning, a probabilistic framework that expresses task relationships through priors. It casts learning several tasks as a joint variational Bayesian inference problem, giving knowledge sharing an explicit role in the probabilistic model.",
+      "For each task, the prior is a learnable mixture of approximate posterior distributions from other related tasks. The mixture is learned using the Gumbel-Softmax technique. This allows the framework to determine how knowledge from other tasks contributes to a particular task's prior. Sharing extends to both learned representations and classifiers through joint inference of their posteriors.",
+      "Experiments cover challenging classification and regression settings with limited data. The authors report consistent improvements over previous approaches, including strong Bayesian methods, and state-of-the-art performance on five benchmark datasets. The contribution is a unified mechanism for borrowing information across tasks at multiple parts of the model, with empirical evidence that this sharing helps when individual tasks have little data."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4f8fc8671fb118eb4521f8c0ea43815fc32692d47d365ecf4ec2fd8e86de3e24",
+    "tldr": "VMTL learns task-specific priors from other tasks' posteriors, sharing information across representations and classifiers to improve limited-data learning."
+  },
+  "neurips-2021-when-are-solutions-connected-in-deep-networks-118b3b1769": {
+    "backgroundConcepts": [
+      "topic-046-the-loss-surface-of-deep-and-wide-neural-network"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Different trained neural-network solutions can be connected through regions of low loss, a phenomenon called mode connectivity. Existing theoretical explanations impose demanding conditions: a layer with width on the order of the training-set size, or stability after removing half the neurons in each layer with rescaling. These conditions do not always hold in practice.",
+      "This paper develops weaker sufficient conditions by considering the quality of features at intermediate layers. Under generic assumptions on those features, it suffices for the last two hidden layers to have widths on the order of the square root of the number of training examples. A second result requires almost no over-parameterization when subsets of features at each layer are linearly separable.",
+      "Experiments confirm connectivity for solutions found by stochastic gradient descent in settings where the earlier requirements fail. The results shift attention toward what intermediate representations make possible, alongside network width. They provide sufficient routes to connectivity under stated feature assumptions, rather than asserting that all trained solutions must be connected."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "bcde144f02d11f8ea5835226bad943c5f32a2469cf9595b10aac6adbfb0e3405",
+    "tldr": "Feature-quality assumptions yield weaker sufficient conditions for connecting neural-network solutions, substantially reducing the required over-parameterization."
+  }
+}

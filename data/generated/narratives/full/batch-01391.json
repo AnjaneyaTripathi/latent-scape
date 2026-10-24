@@ -1,0 +1,377 @@
+{
+  "icml-2021-a-novel-sequential-coreset-method-for-gradient-descent-algorithms-fb923fe78a": {
+    "backgroundConcepts": [
+      "topic-176-how-to-escape-saddle-points-efficiently"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Training on a large dataset can make gradient descent expensive because the optimization repeatedly uses the data. A coreset addresses this by compressing the dataset into a smaller representation. The paper targets a difficulty with making this idea broadly useful: existing coreset constructions often depend on mathematical quantities that can be large or difficult to calculate for a particular problem.",
+      "The proposed sequential coreset framework instead builds on the locality of gradient descent. The key idea is to exploit the local character of the optimization process when designing the compression. This provides a route around reliance on pseudo-dimension and total sensitivity bounds, which are obstacles for many earlier methods.",
+      "The framework is especially suitable for sparse optimization, where its coreset size can depend only polylogarithmically on dimension. That makes the dependence on dimension particularly mild in this setting. Experiments suggest substantial running-time savings relative to the evaluated baseline algorithms, supporting the practical value of compression designed around how optimization proceeds."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "be54d2262ca45bf5ae10863d7219ee4c225283136d943239adc490ce4ee194cf",
+    "tldr": "Sequential coresets exploit gradient descent’s locality to compress training data, with particularly favorable size dependence for sparse optimization."
+  },
+  "icml-2021-a-riemannian-block-coordinate-descent-method-for-computing-the-projection-robust-wassers-50eb905892": {
+    "backgroundConcepts": [
+      "topic-050-a-geometric-take-on-metric-learning"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Wasserstein distance provides a way to compare probability distributions, but approximating it becomes difficult in high dimensions. One proposed remedy compares sampled data after projecting them into a smaller space. Computing the projection robust version introduces another difficulty: the algorithm must solve a coupled maximization and minimization problem over the possible projection subspaces.",
+      "This paper develops a Riemannian block coordinate descent method for that computation. It starts with a new reformulation of the regularized problem. The Riemannian component handles the geometry of the Stiefel manifold, the constrained space used to represent projections, while block coordinate descent organizes the optimization into updates of different variable groups.",
+      "The authors prove an arithmetic-operation complexity of O(ε⁻³) for reaching an ε-stationary point, improving on the existing methods considered. This guarantee concerns approximate stationarity rather than a globally optimal solution. Experiments with synthetic and real datasets also show better computational efficiency, particularly when the number of sampled data points is very large."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "627e902a7fdc96734b0124d9ddef9df463599738c3830ac8d9f5996339347c3a",
+    "tldr": "A geometry-aware block coordinate method computes projection robust Wasserstein distances more efficiently, with an improved approximate-stationarity guarantee."
+  },
+  "icml-2021-a-scalable-deterministic-global-optimization-algorithm-for-clustering-problems-618b2d90ab": {
+    "backgroundConcepts": [
+      "topic-089-distributed-and-provably-good-seedings-for-k-mea"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Minimum sum-of-squares clustering seeks clusters whose points have a small total squared distance to their centers. This paper approaches the task through deterministic global optimization, aiming to establish proximity to the best possible objective value. The authors formulate clustering as a two-stage optimization problem and develop a reduced-space branch-and-bound algorithm.",
+      "Branch and bound compares lower and upper bounds on solutions while dividing the search space. The important design choice here is to branch only on cluster centers while retaining convergence guarantees. The number of center variables does not grow with the number of samples. The paper also introduces several bounding techniques, including a Lagrangian decomposition based on grouping scenarios.",
+      "Lower bounds come from small sample subproblems, and upper bounds are easy to obtain. Together, these properties support parallel computation and scaling to datasets containing up to 200,000 samples while finding a globally ε-optimal solution. Comparisons on synthetic and real datasets against global solvers and local optimization algorithms demonstrate strong performance and scalability."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6e6b3eed9b11691c688331b176a0598f6de5299a1b0da82f6f20affc52e8eaac",
+    "tldr": "Branching only on cluster centers enables a deterministic clustering solver to find globally ε-optimal solutions on datasets with up to 200,000 samples."
+  },
+  "icml-2021-accurate-post-training-quantization-with-small-calibration-sets-52e4b01819": {
+    "backgroundConcepts": [
+      "topic-194-1-bit-wonder-improving-qat-performance-in-the-lo"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Post-training quantization reduces the numerical precision of an already trained model using a small, unlabeled calibration dataset. Such data are useful for setting activation ranges, but ordinary fine-tuning can overfit them. This paper goes further by optimizing individual layers or blocks to minimize the errors introduced by quantization.",
+      "Experiments show that this local optimization is much less susceptible to overfitting than standard fine-tuning and more effective than adjusting activation ranges alone. The authors develop parallel and sequential variants for fixed and flexible precision allocation. For flexible allocation, an integer programming formulation chooses layer bit-widths subject to accuracy or compression constraints. A further adjustment of global model statistics corrects quantization-induced biases.",
+      "The combined methods achieve state-of-the-art results on the evaluated vision and text models. For ResNet50, the reported accuracy degradation is below 1%, with 4-bit weights and activations except in the first and last layers. The methods are also two orders of magnitude faster than the traditional quantization-aware training approach used for precision below 8 bits."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6e1320c40ab1fe940bceb681a2a27cd59ff75aeba21d432ec07ab8dc6d17b82d",
+    "tldr": "Optimizing quantization errors layer by layer enables accurate low-bit models using only a small unlabeled calibration set."
+  },
+  "icml-2021-active-learning-for-distributionally-robust-level-set-estimation-b8cb54c79c": {
+    "backgroundConcepts": [
+      "topic-204-h-consistency-bounds-characterization-and-extens"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper studies expensive black-box functions affected by controllable design choices and uncontrollable environmental conditions. A useful design should exceed a required performance threshold with sufficiently high probability. Evaluating that probability becomes problematic when the distribution of environmental conditions is unknown, because the reliability calculation depends on which distribution is assumed.",
+      "The authors address this uncertainty by considering a collection of candidate distributions and taking the worst-case success probability across them. They then seek the set of designs whose worst-case probability exceeds a desired level. This turns the task into level-set estimation: identifying a reliable region rather than simply finding one design with a large function value.",
+      "An active learning method directs evaluations toward identifying this region efficiently. The paper provides theoretical guarantees for convergence and accuracy, and numerical experiments show improvements over existing methods. Its robustness is defined relative to the given candidate distributions, so the resulting reliable set reflects the environmental uncertainty represented by that collection."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d01bf19620ed1912c9b69eb26ca3915239e18c425f866e4a5cc1677720f3a524",
+    "tldr": "An active learning method identifies designs whose success probability stays above a target under the worst of several candidate environmental distributions."
+  },
+  "icml-2021-crowdsourcing-via-annotator-co-occurrence-imputation-and-provable-symmetric-nonnegative--d192aa5cd9": {
+    "backgroundConcepts": [
+      "topic-169-textttshapleig-bayesian-experimental-design-for-"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Learning from crowdsourced labels requires handling both annotation errors and missing responses. This paper studies unsupervised learning of the Dawid-Skene model using pairwise label co-occurrences: information about which labels annotators assign to the same items. Earlier work used coupled nonnegative matrix factorization, but its identifiability conditions could be restrictive and its optimization expensive.",
+      "The authors reformulate the problem as symmetric nonnegative matrix factorization. This formulation improves identifiability relative to the coupled approach, strengthening the circumstances in which the underlying model can be recovered. However, the co-occurrence information can itself be largely missing when annotators have not labeled common items, creating a separate obstacle before factorization.",
+      "To address that obstacle, the paper proposes two lightweight algorithms for imputing missing co-occurrences. It then introduces a low-complexity factorization algorithm using a shifted ReLU operation. The work includes analyses of missing-information recoverability, stability, and convergence, together with evaluations. These components jointly address both the availability of pairwise evidence and the computational challenge of learning from it."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3b03f256110d0c6f21756e0da26ab44e9bb59eea9926366537412daf4750c23d",
+    "tldr": "Co-occurrence imputation and symmetric nonnegative matrix factorization improve the foundations and efficiency of learning from noisy, incomplete crowdsourced labels."
+  },
+  "icml-2021-distributed-second-order-methods-with-fast-rates-and-compressed-communication-0abede3e7b": {
+    "backgroundConcepts": [
+      "topic-111-d-2-decentralized-training-over-decentralized-da"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Second-order optimization uses curvature information to accelerate learning, but communicating that information can be expensive across distributed machines. The paper begins with NEWTON-STAR, a Newton variant that retains fast local quadratic convergence while matching gradient descent’s communication cost per iteration. Its limitation is practical: it requires unknown information about curvature at the optimum.",
+      "The authors turn this starting point into a practical method by learning the unknown parameters iteratively through stochastic sparsification. The resulting NEWTON-LEARN algorithm has proven local linear and superlinear convergence rates independent of the condition number. When applicable, this can produce much better convergence behavior than the methods used for comparison.",
+      "A further method, CUBIC-NEWTON-LEARN, adds cubic regularization to extend the convergence analysis beyond the local setting. The authors establish global sublinear and linear rates, together with a fast superlinear rate. Experiments on real datasets report improvements of several orders of magnitude in communication complexity over baseline and state-of-the-art methods, supporting the value of learning and compressing curvature information."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0b492b7cdba36e220274354a83b2c581f93e14fba4052df9b284081b8ec8b58d",
+    "tldr": "Learning and sparsifying curvature information yields distributed second-order methods with fast convergence and substantially lower communication costs in experiments."
+  },
+  "icml-2021-fl-ntk-a-neural-tangent-kernel-based-framework-for-federated-learning-analysis-fd72b80a27": {
+    "backgroundConcepts": [
+      "topic-164-a-federated-stochastic-multi-level-compositional"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Federated learning lets distributed clients train a shared neural network without sharing their data. Analyzing this training process is difficult because neural-network losses are nonconvex and nonsmooth, and multiple client updates do not generally produce an update in the global gradient direction. Consequently, standard gradient-descent convergence arguments do not transfer directly.",
+      "The paper introduces Federated Neural Tangent Kernel, or FL-NTK, as a framework for analyzing overparameterized ReLU networks trained by gradient descent in the federated setting. It adapts ideas from neural tangent kernel analysis to account for the structure of federated updates. The contribution is a theoretical treatment of explicit neural networks with multiple update steps.",
+      "With appropriately tuned learning parameters, the analysis establishes convergence to a globally optimal solution at a linear rate. Good generalization additionally requires suitable distributional assumptions. The authors also state that the framework can extend to more complex networks. These qualifications matter: the guarantees concern the analyzed network and training setting, with tuning and distributional conditions playing explicit roles."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c26be8bfe664cca788fe1b9beb69398d8e8f25625afb8041343dea6aa5717707",
+    "tldr": "FL-NTK provides conditional convergence and generalization guarantees for federated training of overparameterized ReLU networks."
+  },
+  "icml-2021-generative-adversarial-transformers-601ccc715f": {
+    "backgroundConcepts": [
+      "topic-010-3d-aware-scene-manipulation-via-inverse-graphics"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "GANsformer brings a transformer architecture to visual generation, with a design intended to connect distant image regions efficiently. Its bipartite structure separates latent variables from the visual features being generated. Information passes between these two sets, enabling long-range interactions while maintaining linear computational efficiency and supporting scaling to high-resolution synthesis.",
+      "The exchange works in both directions: latent variables influence evolving visual features, and those features inform the latent variables. Repeating this interaction allows each representation to be refined in light of the other and encourages compositional representations of scenes and objects. Multiplicative integration provides flexible modulation of image regions, making the architecture a generalization of StyleGAN.",
+      "Evaluations span simulated scenes containing multiple objects and real indoor and outdoor imagery. The authors report state-of-the-art image quality and diversity, together with fast learning and improved data efficiency. Additional qualitative and quantitative analyses indicate better interpretability and stronger disentanglement. These findings support the usefulness of coordinating image generation through interactions between latent variables and visual regions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2aed9d7f72e649c1eb1d6ab35d30068df9361b614ed5e31b99c9b489d0e6cf29",
+    "tldr": "GANsformer uses efficient two-way attention between latent variables and image features to improve visual generation and compositional representations."
+  },
+  "icml-2021-how-to-learn-when-data-reacts-to-your-model-performative-gradient-descent-054492365b": {
+    "backgroundConcepts": [
+      "topic-176-how-to-escape-saddle-points-efficiently"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A deployed prediction model can change the behavior that generates its future data. For example, customers may alter their credit behavior in response to a bank’s approval criteria. This creates performative distribution shift: choosing model parameters also changes the distribution on which those parameters will be evaluated.",
+      "The paper distinguishes finding a stable point from finding an optimal point in this interacting system. Previous work emphasized stability, but a stable model can still be far from optimal. The proposed performative gradient descent algorithm, PerfGD, explicitly accounts for how changes to the model affect the data distribution when seeking better parameters.",
+      "Under regularity assumptions on the performative loss, the authors prove that PerfGD converges to an optimal point and describe it as the first algorithm with this guarantee. Theory and experiments support the approach. The key implication is that accounting for the model’s influence on data can support optimization of the resulting outcome, beyond merely reaching a model that remains stable under feedback."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "072dbf9def5fccd0740f3cf74c2bdaaabb67a8bf86bae3d3333fc154b0931863",
+    "tldr": "PerfGD accounts for how deployed models change their data distribution and provably reaches an optimal point under regularity assumptions."
+  },
+  "icml-2021-hyperparameter-selection-for-imitation-learning-c06e5bfa8d": {
+    "backgroundConcepts": [
+      "topic-019-a-bayesian-approach-to-generative-adversarial-im"
+    ],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Imitation learning trains an agent from an expert’s behavior, but choosing training settings still requires a way to judge which settings work well. This paper studies continuous-control tasks where the expert’s underlying reward function is never observable. That restriction applies to hyperparameter selection as well as to policy training.",
+      "The authors identify a mismatch in much of the existing literature: algorithms learn through imitation, yet their hyperparameters are selected using the otherwise unavailable reward. To address this, the paper proposes several proxy measures that can stand in for the external reward during selection. It evaluates those alternatives in a study involving more than 10,000 agents across nine environments.",
+      "The results show that imitation learning algorithms are sensitive to hyperparameter choices, making selection an important part of the problem. They also show that reward proxies can often identify sufficiently good settings. The paper uses this evidence to offer practical recommendations, supporting a more realistic tuning procedure without claiming that a proxy always reproduces reward-based selection."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7d84445a9c16420394a7fb458eea033ad2729f992f25c7f86911d3c681ec24a7",
+    "tldr": "Reward proxies can often select useful imitation-learning hyperparameters when the expert’s true reward is unavailable."
+  },
+  "icml-2021-learning-and-planning-in-complex-action-spaces-2755270cdd": {
+    "backgroundConcepts": [
+      "topic-006-a-boolean-task-algebra-for-reinforcement-learnin"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Planning becomes difficult when an agent has too many possible actions to enumerate. The problem is especially apparent when actions are continuous, high-dimensional, or both. In these settings, policy evaluation and improvement must work with small sampled subsets of actions, raising the question of how to make those updates principled.",
+      "The paper develops a sample-based policy iteration framework for reasoning about this restricted view of the action space. Its scope is broad: in principle, the framework can be applied to any reinforcement learning algorithm based on policy iteration. The central contribution is a way to organize evaluation and improvement when only some actions are available for consideration.",
+      "The authors instantiate the framework as Sampled MuZero, an extension that plans over sampled actions and is designed to learn in domains with arbitrarily complex action spaces. They demonstrate it on Go and on the DeepMind Control Suite and Real-World RL Suite. These examples establish applications across board-game decisions and continuous control without requiring exhaustive enumeration of possible actions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0f0663b6463bf706bb153b557560a5c544a015a65afa0af7559df02364ccbf48",
+    "tldr": "Sampled MuZero applies a general sample-based policy iteration framework to planning in action spaces too large or continuous to enumerate."
+  },
+  "icml-2021-learning-randomly-perturbed-structured-predictors-for-direct-loss-minimization-be61af633d": {
+    "backgroundConcepts": [
+      "topic-030-a-consistent-regularization-approach-for-structu"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Structured prediction chooses outputs from a space of discrete structures, making learning different from simply predicting a single numerical value. Direct loss minimization is attractive in this setting because it replaces integration with optimization. It also allows gradients to pass through a deep network by using predictions perturbed according to the loss.",
+      "Related work extended this idea to generative models by adding random perturbations to a score function and sampling a structure through the resulting predictor. This paper connects those approaches by learning both the mean and the variance of the randomized predictor. Learning the variance makes the strength of the random component part of training.",
+      "The resulting method learns a balance between the score function and the noise that perturbs it. This balance matters because both components influence which discrete structure is selected. Empirical results demonstrate the effectiveness of learning that balance in structured discrete spaces. The contribution is therefore an adaptive treatment of prediction randomness within the direct-loss learning approach."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0fe13048c92da0b2674436dba25077d8779251f8d78d454dee4fb7156e5c55ca",
+    "tldr": "Learning both mean and variance lets randomized structured predictors adapt the balance between learned scores and perturbation noise."
+  },
+  "icml-2021-lietransformer-equivariant-self-attention-for-lie-groups-e8f84b111f": {
+    "backgroundConcepts": [
+      "topic-163-3d-steerable-cnns-learning-rotationally-equivari"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Symmetry-aware neural networks share parameters in ways that respect transformations of their inputs. An equivariant layer changes its output consistently when the input is transformed, and such layers can form networks whose final predictions are invariant. This principled sharing has been shown to help generalization and data efficiency.",
+      "Much of this work has focused on convolutions, partly because equivariant linear maps must take convolutional form. The paper extends the architectural possibilities to self-attention. Its LieTransformer consists of LieSelfAttention layers designed to be equivariant to arbitrary Lie groups and their discrete subgroups, bringing a broad class of transformation symmetries into attention-based models.",
+      "The authors demonstrate the approach on shape counting in point clouds, molecular property regression, and particle trajectories governed by Hamiltonian dynamics. Results are competitive with the evaluated baselines across these tasks. The significance is the breadth of the construction: one attention framework accommodates group symmetry across several different modeling problems, with experiments supporting that generality."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9ef1e73b6a7514a4106013617296dba0b09e9dc878f334345d6af12669242ade",
+    "tldr": "LieTransformer extends group-equivariant neural-network design to self-attention and shows competitive results across geometric and physical modeling tasks."
+  },
+  "icml-2021-neural-pharmacodynamic-state-space-modeling-575c278d5d": {
+    "backgroundConcepts": [
+      "topic-229-discriminative-regularization-for-latent-variabl"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Predicting disease progression requires modeling how many patient measurements evolve over time. Neural networks can learn flexible representations of a patient’s state, but that flexibility also makes them susceptible to overfitting. The paper addresses this tension in the modeling of high-dimensional longitudinal data, where the goal is to capture changing patient biomarkers.",
+      "The authors propose a deep generative model with an attention-based neural architecture inspired by the physics of treatment effects on disease state. This connects the model’s design to the process being studied: patients’ conditions evolve while treatments affect that evolution. The approach brings this treatment-related structure into a flexible neural model of temporal measurements.",
+      "The resulting model is described as scalable and accurate, with significant improvements in generalization. On real clinical data, it also provides interpretable insights into the dynamics of cancer progression. These findings connect two goals of patient-state modeling: making predictions that generalize and producing representations whose behavior can help explain observed disease dynamics."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "53407b8b0eb45be9fb42d3a19ef36e30f168c9a7072eabef11ed1a1b4435ee69",
+    "tldr": "A treatment-inspired attention architecture improves generalization in patient time-series modeling and provides interpretable insights into cancer progression."
+  },
+  "icml-2021-on-recovering-from-modeling-errors-using-testing-bayesian-networks-ccd020d1c3": {
+    "backgroundConcepts": [
+      "topic-068-a-bayesian-framework-to-integrate-symbolic-and-n"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A Bayesian network can misrepresent data when its dependency graph omits connections or its variables omit possible states. These modeling errors impose independence assumptions that may be false in the process generating the observations. The paper studies how supervised learning can recover from such errors without treating the two kinds of omission as unrelated problems.",
+      "The authors unify them through state-space abstractions. They then identify a class of networks and queries for which full recovery is possible if conditional probability tables can be selected dynamically based on the observed evidence. The key mechanism is therefore to let the evidence influence which probability tables are used.",
+      "Testing Bayesian Networks offer a promising way to emulate this selection mechanism, and they can be trained through compilation into Testing Arithmetic Circuits. The paper provides theoretical support for this connection and empirical illustrations of recovery in supervised learning. The full-recovery result is conditional on the identified network and query class and on the availability of dynamic table selection."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0d96f6ff686931b3c9e531006ce7fc89b8195960bd5e0ef35d4ea4876c075afd",
+    "tldr": "Evidence-dependent probability tables can fully compensate for certain Bayesian-network modeling errors, with Testing Bayesian Networks offering a promising implementation."
+  },
+  "icml-2021-pareto-gan-extending-the-representational-power-of-gans-to-heavy-tailed-distributions-13d4478d8c": {
+    "backgroundConcepts": [
+      "topic-217-a-classification-based-study-of-covariate-shift-"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Heavy-tailed distributions assign meaningful probability to extreme observations, making their far-out behavior important to model. This paper examines why existing generative adversarial networks struggle to reproduce that behavior. It identifies a representational problem arising from their construction, alongside an optimization problem caused by common training losses.",
+      "For heavy-tailed data, infinite moments and large distances between outliers can make those losses produce unstable gradients or gradients close to zero. Pareto GAN addresses representation using extreme value theory and properties of neural-network functions. Its aim is to learn the correct asymptotic behavior of each feature’s marginal distribution, meaning the behavior of individual features far into their tails.",
+      "The paper also proposes alternative metric spaces to enable stable and efficient learning despite the difficulties with conventional losses. Evaluations use a variety of heavy-tailed datasets. The approach connects architectural expressiveness with the geometry of the training objective, addressing both the ability to represent extreme behavior and the ability to learn it effectively."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "26cb5d9ca63e8df87826d3558a0f5dbcb8a5d3bd32e24b410d581417a93ee442",
+    "tldr": "Pareto GAN combines tail-aware representation and alternative metric spaces to learn heavy-tailed data more stably."
+  },
+  "icml-2021-perceiver-general-perception-with-iterative-attention-901db77931": {
+    "backgroundConcepts": [
+      "topic-110-a-comparative-analysis-and-study-of-multiview-cn"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Perception models often rely on assumptions specific to one kind of input, such as the two-dimensional grid structure used by vision systems. These assumptions can help learning but also tie architectures to particular modalities. Perceiver aims to retain the flexibility of transformers while handling inputs containing hundreds of thousands of elements.",
+      "Its central mechanism is asymmetric attention that repeatedly distills the input into a compact latent representation. This latent bottleneck provides a way to process very large inputs while making few architectural assumptions about how input elements relate to one another. Iterative attention lets the model build its representation through repeated interaction with the input.",
+      "The paper evaluates classification across images, point clouds, audio, video, and combined video and audio. Perceiver matches or exceeds strong specialized models in the reported tasks. On ImageNet, it performs comparably to ResNet-50 and ViT while attending directly to 50,000 pixels without two-dimensional convolutions. It is also competitive across AudioSet modalities, supporting the architecture’s usefulness across different input types."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "922830c32cbcece42b7944f0080360263153aa46900033a2dd4640dde7f900fc",
+    "tldr": "Perceiver repeatedly compresses large inputs through asymmetric attention, enabling one flexible architecture to compete across multiple perception modalities."
+  },
+  "icml-2021-projection-robust-wasserstein-barycenters-2ff82b4195": {
+    "backgroundConcepts": [
+      "topic-197-diffusion-models-are-minimax-optimal-distributio"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A Wasserstein barycenter aggregates several probability distributions or histograms into a representative distribution. Computing this kind of aggregate is challenging in high dimensions. The paper proposes a projection robust Wasserstein barycenter, or PRWB, as an alternative with the potential to reduce the effects of the curse of dimensionality.",
+      "Because computation remains important, the authors also introduce a relaxed version, RPRWB, that is more tractable. They develop two algorithms combining iterative Bregman projection with Riemannian optimization. These algorithms address a maximization-minimization problem over the Stiefel manifold, the geometric constraint space involved in choosing projections. The paper analyzes the arithmetic complexity of obtaining an ε-stationary solution.",
+      "The authors then incorporate the relaxed barycenter into an algorithm for clustering discrete distributions. Experiments on real text datasets show significant improvements in clustering performance. This provides an application-level demonstration of the relaxed model’s usefulness, while the broader motivation remains its potential to make distribution aggregation more manageable in high-dimensional settings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e9d4bbd1552737840366a67b906a0f34808749deadabf252bad68d2bb8d420df",
+    "tldr": "Projection robust Wasserstein barycenters offer a new distribution aggregate whose tractable relaxation improves text-distribution clustering in experiments."
+  },
+  "icml-2021-randomized-entity-wise-factorization-for-multi-agent-reinforcement-learning-ec861021fb": {
+    "backgroundConcepts": [
+      "topic-123-context-aware-bayesian-network-actor-critic-meth"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Multi-agent tasks can differ in the number and kinds of agents and other entities they contain, even when useful behavioral patterns recur. REFIL seeks to exploit those recurring patterns. It asks what utility an agent would expect if it considered only a randomly selected subgroup of the entities it observes.",
+      "This counterfactual view lets the model recognize trajectories within smaller groups that resemble situations encountered in another task. Predictions associated with disjoint entity groups are then combined to reconstruct a prediction of the full return. The randomly factorized value function is trained as an auxiliary objective alongside value-based multi-agent reinforcement learning.",
+      "The intended benefit is more efficient learning across tasks: knowledge about a familiar subgroup can help evaluate a new situation with a different overall collection of entities. In challenging multi-task StarCraft micromanagement experiments, REFIL significantly outperforms all strong baselines considered. The results support subgroup-based value learning as a way to use common structure across tasks with varying entity compositions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "44e71e928f18c693adc529a72ba414ff48b8a8c993ff766bbb8ec8be42200fe6",
+    "tldr": "REFIL learns auxiliary values for random entity subgroups to reuse behavioral patterns across multi-agent tasks and improve learning efficiency."
+  },
+  "icml-2021-randomized-exploration-in-reinforcement-learning-with-general-value-function-approximati-efc142a2ed": {
+    "backgroundConcepts": [
+      "topic-082-more-efficient-reinforcement-learning-via-poster"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Reinforcement learning needs exploration to discover valuable actions, but some approaches based on upper confidence bounds are computationally difficult. This paper proposes a model-free alternative inspired by randomized least squares value iteration and optimism. It encourages exploration by perturbing training data with carefully chosen independent scalar noise.",
+      "An optimistic reward-sampling procedure helps produce optimistic value estimates without adding a conventional upper-confidence-bound bonus. The theoretical analysis applies when the value functions are representable by a specified function class. Its worst-case regret bound grows with the square root of elapsed time, up to logarithmic factors, and polynomially with the planning horizon and the class’s eluder dimension.",
+      "For linear value functions, the algorithm becomes LSVI-PHE, a variant of randomized least squares value iteration, with regret bounded by Õ(√(d³H³T)). Here d is the linear dimension, H the horizon, and T elapsed time. Experiments on difficult exploration tasks complement the analysis. The contribution connects a simple perturbation mechanism to formal exploration guarantees for general function approximation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1fd5f0088d0704cd1218498b947158c53ce5b41a5883584d3dbcff802c309456",
+    "tldr": "Carefully randomized training data and optimistic reward sampling provide exploration guarantees without conventional upper-confidence-bound bonuses."
+  },
+  "icml-2021-scalable-marginal-likelihood-estimation-for-model-selection-in-deep-learning-0fb6db50b3": {
+    "backgroundConcepts": [
+      "topic-188-a-bayesian-approach-to-analysing-training-data-a"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Selecting a neural network architecture and its hyperparameters commonly requires validation data. This paper develops an alternative based on marginal likelihood, a model-selection quantity whose estimation has been difficult enough to limit its use in deep learning. The proposed approach makes that estimation scalable and uses training data alone.",
+      "The estimate combines Laplace’s method with Gauss-Newton approximations to the Hessian, which captures curvature information. It supports selection of both architectures and hyperparameters. Some hyperparameters can also be estimated online as training proceeds, simplifying selection by integrating part of it into the training process itself.",
+      "On standard regression and image-classification datasets, the method outperforms cross-validation and manual tuning, particularly for calibration and detecting out-of-distribution inputs. These results show that marginal-likelihood-based selection can improve generalization as well as reduce reliance on separate validation data. The authors highlight its usefulness when validation data are unavailable, including nonstationary settings where that absence can complicate conventional model selection."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7618d2a15b2945b2a9b5782a4eff14bad1588c61c8026db17bc3da21b116f64a",
+    "tldr": "A scalable marginal-likelihood approximation selects neural-network architectures and hyperparameters using training data alone."
+  },
+  "icml-2021-selecting-data-augmentation-for-simulating-interventions-567d9d755e": {
+    "backgroundConcepts": [
+      "topic-254-a-causal-lens-for-controllable-text-generation"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A model can perform well on observed domains yet fail in a new one because domain membership is spuriously correlated with the labels it predicts. This paper focuses on that source of generalization failure. It argues that many domain-generalization methods do not explicitly address the correlation, while practical augmentation choices often rely on heuristics.",
+      "The authors develop a causal perspective to explain how augmentation can help. An augmentation can weaken the unwanted relationship between the observed domain and the task label, allowing it to simulate interventional data. This connects a practical training technique to an account of which statistical associations are responsible for poor transfer.",
+      "Using these theoretical insights, the paper derives a simple algorithm for selecting augmentation techniques that improve domain generalization. The central contribution is a principle for choosing transformations based on the spurious relationship they can disrupt. The claim is tied to the studied mechanism of domain-label correlation, giving augmentation selection a specific causal purpose."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "54a1128b5bdac94bdd9d3537a0dbcf31dca4d7774caec29e8f9a64a786c40d26",
+    "tldr": "A causal account of augmentation leads to a selection algorithm that targets spurious domain-label correlations to improve generalization."
+  },
+  "icml-2021-strode-stochastic-boundary-ordinary-differential-equation-96c4058d12": {
+    "backgroundConcepts": [
+      "topic-113-a-call-to-lagrangian-action-learning-population-"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Time-series models often need annotations identifying when events happen, even though those annotations may be unavailable for sensory data. The paper studies learning event timing directly alongside temporal dynamics. Its motivation includes perception processes in which later sensory input can influence earlier perception over variable, unannotated time ranges.",
+      "STRODE is a probabilistic ordinary differential equation model that learns both event timings and the dynamics of a time series without timing annotations during training. It also uses differential equations to sample efficiently and analytically from posterior point processes. This brings uncertainty about when events occur into the modeling approach rather than requiring their timing to be supplied.",
+      "The authors provide theoretical guarantees for learning STRODE and empirical evidence that it successfully infers event timings. Across synthetic and real datasets, its performance is competitive with or superior to existing state-of-the-art methods. The findings support jointly learning temporal structure and dynamics when the event boundaries needed by other approaches have not been annotated."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b432e7f8ba2878b74dafa399893ce7272b4760b9c59cf8bfc478f6d41cf62d49",
+    "tldr": "STRODE learns event timings and time-series dynamics together through a probabilistic ODE without requiring timing annotations."
+  },
+  "icml-2021-what-are-bayesian-neural-network-posteriors-really-like-a9c1116ca2": {
+    "backgroundConcepts": [
+      "topic-188-a-bayesian-approach-to-analysing-training-data-a"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Bayesian neural networks represent uncertainty through a distribution over network parameters, but that distribution is difficult to explore. The paper uses full-batch Hamiltonian Monte Carlo on modern architectures to investigate its properties, moving beyond the inexpensive approximations commonly used for computational reasons. This provides a basis for examining both predictive performance and approximation behavior.",
+      "The experiments show that Bayesian networks can substantially outperform standard training and deep ensembles. One long sampling chain can represent the posterior comparably to multiple shorter chains. The authors find little evidence that artificially cooling the posterior is needed for near-optimal performance, attributing the cold-posterior effect largely to data augmentation. Bayesian model averaging is also robust to prior scale and relatively similar across the tested prior families.",
+      "The findings include unexpectedly poor generalization under domain shift. Cheaper methods can generalize well while producing predictive distributions distinct from Hamiltonian Monte Carlo. Deep ensembles are about as close to its predictions as standard SGLD and closer than standard variational inference, showing that predictive success and agreement with this posterior-sampling approach are separate considerations."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ae9324664f9052dee91a1cfe93fa716f9aa723586763a2557baa820310031d68",
+    "tldr": "Full-batch Hamiltonian Monte Carlo reveals strong Bayesian prediction results alongside domain-shift weaknesses and differences from cheaper posterior approximations."
+  }
+}

@@ -1,0 +1,327 @@
+{
+  "icml-2026-batched-contextual-reinforcement-8baddbd0b5": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Batched Contextual Reinforcement trains a language model to solve several problems inside one shared context window, rewarding it only for each problem’s correctness. Sharing the window creates an implicit constraint on how much reasoning each problem can consume. The approach uses a single training stage and does not explicitly penalize long answers or supervise reasoning length.",
+      "The paper separates two findings. Increasing the number of simultaneous problems at inference reduces tokens per problem, an observed pattern present even before BCR training and independent of accuracy. BCR makes that pattern more useful by preserving accuracy more gracefully as the batch grows. The number of concurrent problems therefore becomes a practical control for throughput, with accuracy still needing consideration.",
+      "Benefits also appear when solving just one problem at a time. Across the tested 1.5B and 4B model families and five mathematical benchmarks, BCR reduces token use by 15.8%–62.6% while maintaining or improving accuracy. Qualitative analysis finds fewer redundant self-reflection loops, and experiments report more stable optimization than explicit length penalties. These results support shared-context training as a way to encourage economical reasoning."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1a9e65eb29a20d11cd75167eb4a6cbaacb8f44a6acd7db6439d7750d877f411b",
+    "tldr": "BCR trains models on multiple problems in a shared context, reducing reasoning tokens while maintaining or improving accuracy in the reported single-problem evaluations."
+  },
+  "icml-2026-beyond-description-federated-adaptation-via-semantic-visual-prototype-alignment-e6738cd373": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "FedSPA addresses how to adapt a pretrained vision-language model across clients whose data are scarce or differ substantially. The central challenge is to support useful local adaptation while combining knowledge across those different visual distributions. The paper identifies computational cost and ineffective aggregation as weaknesses of existing approaches and makes prototypes the main objects being optimized and shared.",
+      "On each client, training adjusts only visual prototypes, giving personalization a lightweight target. Clients upload these prototypes to the server. There, a semantic alignment module uses a contrastive objective to bring global semantic prototypes into alignment with the clients’ varied visual distributions. Local visual adaptation and global semantic coordination thus play distinct roles in the same framework.",
+      "This changes the adaptation objective from optimizing static descriptive prompts to aligning semantic and visual representations. The reported experiments show significant improvements over state-of-the-art methods on both personalized and global benchmarks, together with substantially lower computational overhead. The findings suggest that prototype alignment can make shared knowledge useful across heterogeneous clients while retaining the benefits of local specialization."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "381bddd8b3ad225c7ae90f0d400e0f68b569fbe3287204175567ddc76397b5ec",
+    "tldr": "FedSPA adapts federated vision-language models through local visual prototypes and global semantic alignment, improving reported performance while reducing computation."
+  },
+  "icml-2026-branching-diffusion-for-point-processes-in-time-and-space-a87c150c15": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper develops a diffusion generator for collections of events occurring at particular times and locations. Its central design handles two quantities together: where events occur and how many events exist. The generator is non-autoregressive, producing complete event sets without simulating each successive event through an explicitly ordered generation process.",
+      "The forward noising procedure comes from Wasserstein-Fisher-Rao geometry and a generalized KL divergence toward a simple reference intensity. It has two interpretable operations. A drift-diffusion step perturbs event times and positions, while a branching step removes events through location-dependent thinning and adds events through Poisson offspring replication. Noise can therefore alter both the arrangement and the size of an event set.",
+      "To learn the reverse process, a denoiser predicts movement and net growth while respecting the fact that the input is a set, without an intrinsic ordering. Training uses entropically regularized unbalanced optimal transport, which accommodates different event counts in noisy and clean examples. The contribution is a tractable formulation combining movement and count changes without requiring explicit intensity normalization."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1a21cdfe9a36ab8c209edb3106ac5513c23bcfe882d195b14a1eefad3486e6ec",
+    "tldr": "A branching diffusion model generates complete event sets by learning both event movement and changes in event count."
+  },
+  "icml-2026-clipping-bottleneck-stabilizing-rlvr-via-stochastic-recovery-of-near-boundary-signals-ee9a485378": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper examines instability in reinforcement learning with verifiable rewards by focusing on clipping decisions in GRPO-style objectives. Hard clipping discards certain learning signals once they cross a threshold. The authors’ analysis suggests that, in the studied setups, informative signals can sit just beyond that boundary and be lost despite being only slightly outside the permitted range.",
+      "Near-boundary Stochastic Rescue changes this decision locally: it randomly retains some of those slightly out-of-bound tokens. This is a small modification that can be added to existing training methods. The mechanism recovers selected signals close to the boundary while keeping the clipping framework, making the boundary’s treatment less rigid.",
+      "In expectation, the sampling can be interpreted as an implicit decay of gradients. However, the reported ablations find the stochastic, boundary-local mechanism consistently more effective than deterministic gradient decay. Across models from 7B to 30B, including dense and mixture-of-experts architectures, NSR improves stability and delivers gains over DAPO and GSPO. The evidence supports a targeted practical intervention in the evaluated RLVR settings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2bec5b712628726e32c8eee0fb0bbf1ea1093b9cb81c3201e4f7570b560979ed",
+    "tldr": "NSR improves reported RLVR stability by randomly recovering useful token signals just beyond hard-clipping thresholds."
+  },
+  "icml-2026-codeclash-benchmarking-goal-oriented-software-engineering-c0b626693b": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "CodeClash evaluates whether language models can improve software toward an open-ended goal without receiving a precise list of changes. Instead of presenting a single bug or test-writing task, it puts models in repeated competitions. Each model must decide which code changes could improve its results and how to respond to competing implementations.",
+      "Every tournament round has an editing phase followed by a head-to-head contest between codebases. The arenas reward objectives such as maximizing a score, acquiring resources, or surviving. This structure connects development choices to observable competitive outcomes while requiring agents to maintain and revise a codebase across rounds. Success involves both absolute improvement and adaptation to opponents.",
+      "The study runs 1,680 tournaments involving eight models across six arenas. It finds varied development styles but shared weaknesses in strategic reasoning and sustained maintenance, with repositories becoming increasingly messy and redundant. In the reported comparisons, top models lose every round against expert human programmers. The benchmark exposes gaps between completing clearly specified coding tasks and autonomously directing a longer development effort."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ee8f9fd43ca3ebd25b6543ad4180779704e867dd1a7cf5475baf84561abe7553",
+    "tldr": "CodeClash tests autonomous software improvement through repeated competitions, revealing weaknesses in model strategy and long-term code maintenance."
+  },
+  "icml-2026-concept-guided-tokenization-closing-the-gap-between-reconstruction-and-generation-5d6d04fdc8": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Image tokenizers compress pixels into compact representations that later support reconstruction and generation. This paper argues that training primarily to reconstruct visual detail can leave those representations insufficiently organized around meaning. Its proposed tokenizer adds explicit semantic guidance so that preserving appearance and representing high-level concepts become connected training goals.",
+      "The framework introduces two complementary components. A text-integrated encoder processes images together with textual descriptions to enrich their latent representations. A separate concept-guided objective uses sparse autoencoders to decompose features from a pretrained vision-language model into a semantic concept space. Sparse, disentangled concept indices then guide the tokenizer, providing a more explicit semantic target than reconstruction alone.",
+      "The authors report strong concept alignment alongside an ImageNet reconstruction rFID of 1.39. They also report generation gFID values of 2.65 for class-conditional generation and 10.73 for text-to-image generation. These findings support the stated goal of retaining visual fidelity while making image representations useful for generation. The contribution lies in integrating semantic organization directly into tokenization, rather than relying solely on the downstream generator to supply it."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d5e0b38a99414d0c3eee87655e2897eb66e2686181def886917c067ad14ba3aa",
+    "tldr": "Concept-guided tokenization combines text-aware encoding with sparse semantic supervision to support both faithful reconstruction and image generation."
+  },
+  "icml-2026-counterfactual-occlusion-aware-learning-via-visibility-intervention-for-lidar-anomaly-de-8f6e0c1486": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "COVAL treats missing LiDAR observations as potentially informative structure. An unusual object can change both the measurements a sensor receives and the regions hidden behind it. The paper argues that anomaly detection should account for these spatial voids and visibility patterns, rather than reasoning only from the points that remain visible.",
+      "During training, the framework constructs synthetic anomalies consistent with the sensing physics and creates paired observations with identical scene geometry but different occlusion patterns. These factual and counterfactual pairs let the learning process examine what changes when visibility changes. The intervention targets the observation process while holding the underlying scene geometry fixed.",
+      "Two objectives give the pairs complementary uses. Visibility-variant reconstruction models regions missing because of occlusion, while visibility-invariant consistency encourages stable representations across changes in visibility. Together, they aim to isolate structural missingness associated with anomalies and improve the representation of normal scenes. Experiments report state-of-the-art performance on standard LiDAR anomaly segmentation benchmarks, supporting visibility intervention as useful training information for greater anomaly sensitivity."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "922ee91d77b2152f9db7481e8248edf7312856da39ad08fe0fb7125b85e3b4f6",
+    "tldr": "COVAL improves LiDAR anomaly detection by training on paired visibility changes that reveal how anomalies affect both observed points and occluded regions."
+  },
+  "icml-2026-diffusion-controller-framework-algorithms-and-parameterization-9471314c58": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Diffusion Controller provides a common control-theoretic formulation for steering diffusion generation. It treats reverse diffusion as stochastic control within generalized linearly-solvable Markov decision processes. Control reweights a pretrained model’s reverse-time transitions, balancing the desired final outcome against an f-divergence cost that measures departure from the original transition behavior.",
+      "From the framework’s optimality conditions, the authors derive reinforcement learning updates and reward-weighted regression objectives. The former include an f-divergence-regularized, PPO-style rule. The latter include a minimizer-preservation guarantee specifically under KL divergence. This connects practical fine-tuning objectives to a shared mathematical construction while retaining the stated condition on that guarantee.",
+      "The theory also motivates an implementation: express the optimal score as a fixed pretrained component plus a lightweight control correction. A side network learns that correction from exposed intermediate denoising outputs while the backbone remains frozen. On Stable Diffusion v1.4, supervised and reward-driven experiments report better preference-alignment win rates and quality–efficiency trade-offs than gray-box baselines and LoRA. The results support adapting generation through a limited interface to the pretrained model."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "64a6f421e0f9b203a020e748f3633f95cc01be4ce2407adc8ae63ce16935681c",
+    "tldr": "DiffCon derives diffusion fine-tuning algorithms and a frozen-backbone side network from a unified stochastic-control formulation."
+  },
+  "icml-2026-forward-chaining-temporal-point-process-444e78c0bc": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "FC-TPP generates event sequences in continuous time while incorporating logical structure throughout generation. The motivation is that sparse or incomplete observations can leave downstream models with an inadequate picture of a system’s dynamics. Synthetic sequences can improve coverage, but they need to remain realistic, respect domain constraints, and respond to control.",
+      "The framework maintains an explicit latent symbolic state containing high-level predicates. Recent events update that state through logical rules using a differentiable, multi-hop forward-chaining operator. A temporal point process decoder then predicts future event times and types conditioned on the evolving state. Logical consequences can therefore influence generation through several reasoning steps, rather than leaving the decoder to infer everything directly from event history.",
+      "Experiments cover synthetic data and four semi-synthetic or real-world benchmarks: LogiCity, MIMIC-IV, EPIC-100, and IKEA ASM. Under limited and incomplete data, the authors report better generation quality, stronger constraint adherence, and greater controllability than purely neural and earlier neuro-symbolic approaches. These findings support maintaining explicit symbolic structure as part of the generative dynamics."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c6c220143f6eefa5ba46ac6e7bdbb5f0503cd431bbf5fd95a701fafdec645777",
+    "tldr": "FC-TPP combines evolving symbolic rules with continuous-time event generation to improve sequence quality, constraint adherence, and controllability."
+  },
+  "icml-2026-from-perception-to-planning-evolving-ego-centric-task-oriented-spatiotemporal-reasoning--0284a6a2a8": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "EgoTSR addresses embodied reasoning from an egocentric viewpoint, where understanding a scene must support decisions across time. The paper attributes an important source of failure to temporal expectations learned from passive video: familiar action sequences can encourage incorrect assumptions about what is happening. Its curriculum aims to develop planning from explicit spatial understanding and task-state assessment.",
+      "The accompanying dataset contains 46 million samples arranged into three stages. Chain-of-thought supervision first teaches explicit reasoning. Weakly supervised tagging then supports internalized reasoning, followed by long-horizon sequences composed of orthogonal atomic subtasks. A reasoning-enhanced decomposition mechanism models causal dependencies between actions and objects, connecting high-level task descriptions to controllable plans.",
+      "Evaluation separately examines atomic spatial perception and logical planning. The reported experiments describe effective elimination of chronological biases and achieve 92.4% accuracy on long-horizon logical reasoning alongside 88.2% fine-grained perceptual precision. The authors also report substantial advantages over evaluated open-source and closed-source state-of-the-art models. These results support the curriculum’s progression from interpreting spatial evidence to organizing actions through causal task structure."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9688773a1a302e25932e7e437974ea6b5e42dc4e00f84e52276b57a3789ae61d",
+    "tldr": "EgoTSR uses staged spatial and temporal training plus causal task decomposition to improve egocentric perception and long-horizon planning."
+  },
+  "icml-2026-hard-kv-head-adaptive-regularization-for-decoding-time-kv-compression-1d22f7324e": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "HARD-KV addresses a mismatch between adaptive cache compression and efficient inference systems. Different attention heads can benefit from retaining different amounts of information, with those amounts changing dynamically. However, inference engines use rigid memory patterns to exploit mechanisms such as CUDA Graphs and PagedAttention. A good selection rule therefore needs a compatible physical memory organization.",
+      "The framework introduces a Cascade Cache with dense, sparse, and condensed tiers to manage cached tokens through their lifecycle. Its Logits Calibration mechanism maps different importance measures into a common probability space. This makes Top-p budgeting consistent across heads whose raw importance scores may otherwise be difficult to compare.",
+      "A system-level component then converts fragmented dynamic indices into contiguous physical layouts suitable for high-performance inference. This connects flexible token selection to the engine’s memory requirements. Experiments on AIME and U-Math report throughput improvements of up to twofold over static baselines while maintaining high-fidelity generation in scenarios exceeding 10,000 tokens. The findings emphasize that cache compression benefits depend on coordinating selection quality with the execution system."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e04b04e2cac4612c2495e8c35315a84c965932d0108d57ea375cfd5c36edb970",
+    "tldr": "HARD-KV makes adaptive attention-cache compression compatible with rigid inference memory layouts, reporting up to twice the throughput of static baselines."
+  },
+  "icml-2026-improving-the-sensitivity-of-backdoor-detectors-via-class-subspace-orthogonalization-e67bb5713b": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Post-training backdoor detectors often search for a class with an unusually large detection statistic. This can be misleading when an ordinary class is naturally easy to distinguish, or when a backdoor signal is weak relative to legitimate class features. The paper aims to separate the contribution of normal class information from the contribution of a trigger.",
+      "Class subspace orthogonalization uses a small set of clean examples for each examined class. It formulates a constrained optimization that increases the detection statistic while suppressing directions associated with that class’s intrinsic features. The reasoning is that this suppression reduces the statistic for ordinary classes, while a target class can retain a contribution from the backdoor trigger.",
+      "CSO can be incorporated into several existing detectors. Experiments on CIFAR-10, GTSRB, and TinyImageNet show improved detection across multiple methods and attacks. The evaluation also includes a more surgical mixed clean/dirty-label poisoning attack and an adaptive attack designed against CSO, with promising results on the latter. These findings support feature suppression as a way to make subtle backdoor signals easier to distinguish."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b2b18d3b16d23f67718a1908acf9b64e5f73b009435aa86bb71f177163c092dd",
+    "tldr": "CSO strengthens existing backdoor detectors by suppressing normal class features so trigger-related signals become more distinguishable."
+  },
+  "icml-2026-one-shot-weighted-ensemble-estimation-for-federated-quantile-regression-optimal-statisti-f46ee527e6": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Federated quantile regression estimates conditional quantiles, describing more of a response distribution than its conditional mean alone. This paper considers heterogeneous settings where different local agents build models using different feature sets. Combining those models is challenging because features are only partially observed across agents and the quantile loss is nonsmooth.",
+      "The proposed estimator uses a data-driven weighted ensemble with one-shot communication. Scalable weighting schemes combine the information available from the local models while accounting for their differing feature sets. The approach targets communication efficiency and statistical accuracy together, making the aggregation procedure central to handling heterogeneous data structure.",
+      "The theoretical analysis establishes asymptotic normality and uniformly minimum variance for the proposed estimator within its analyzed setting. It also studies perturbations from local agents and derives conditions for stability and strong out-of-sample generalization. Simulations and real-data analyses support the asymptotic normality result and report better estimation accuracy and uniform convergence than several baselines across quantile levels. The stability claims remain tied to the conditions developed in the analysis."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2ae011a8f8b35567d0df8545486efea86e6beb2b7b1b865c0eb33afc3c83e820",
+    "tldr": "A one-shot weighted ensemble combines federated quantile models with different feature sets and provides statistical guarantees within the analyzed setting."
+  },
+  "icml-2026-one-way-policy-optimization-for-self-evolving-llms-37a5421944": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "One-Way Policy Optimization addresses a tension in reinforcement learning with verifiable rewards. Reference-policy constraints can stabilize training, but the paper argues that they may penalize departures even when the verifier favors them. Such penalties can reverse the intended update direction when the current policy is trying to improve beyond its reference.",
+      "OWPO assigns the verifier and reference different responsibilities. The verifier determines the direction of learning, while the reference changes only the update’s magnitude. Its asymmetric weighting accelerates alignment for deviations where the policy falls behind the reference and locks in gains for deviations where it surpasses the reference. This design aims to retain stabilizing information without letting the reference overturn the reward’s direction.",
+      "The method also updates the reference iteratively, creating what the authors describe as a ratchet effect that consolidates progress. Experiments report improvements over DAPO, OPD, and MOPD, supporting continued self-improvement without external reference models. The key contribution is a training rule that treats reference guidance as a control on update size while leaving the verifier in charge of what to reinforce."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "92dd01d373d7b774e8a7600bf86dd4982463bbf0f12a4c960a71736b477a8a62",
+    "tldr": "OWPO lets verifier rewards determine learning direction while a changing reference policy controls update size and helps consolidate gains."
+  },
+  "icml-2026-orthogonal-model-merging-d8d15625cb": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "OrthoMerge combines capabilities from separately fine-tuned language models while accounting for the geometry of their weights. The paper argues that ordinary linear arithmetic can damage geometric properties inherited from pretraining, including hyperspherical energy. Its approach performs the orthogonal part of merging on the mathematical space of orthogonal transformations, where that structure can be preserved.",
+      "For models trained with Orthogonal Finetuning, task adaptations already have an orthogonal matrix representation. OrthoMerge maps these matrices into a Lie algebra to integrate both the direction and intensity of their adaptations. This supplies a principled merging operation tailored to the form of the updates, rather than treating every adaptation as an unrestricted linear displacement.",
+      "The method also accommodates low-rank and fully fine-tuned models. It solves an orthogonal Procrustes problem to separate each expert’s adaptation into an orthogonal component and a remaining residual. Orthogonal components are merged geometrically, while residuals use standard additive merging. Experiments report reduced catastrophic forgetting and maintained performance across diverse tasks, supporting this separation as a practical extension beyond models originally trained with orthogonal updates."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "76c564df527b05782be40728db446201228e76d03b82b9651cfde25a0d71eb22",
+    "tldr": "OrthoMerge combines fine-tuned models through orthogonal geometry and residual merging, reducing reported forgetting across tasks."
+  },
+  "icml-2026-parevo-synthesizing-code-for-irregular-data-high-performance-parallelism-through-agentic-e650896801": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "ParEVO targets parallel algorithms for irregular structures such as sparse graphs, unbalanced trees, and non-uniform meshes. These workloads are difficult because generated code must coordinate parallel work correctly while also scaling efficiently. The paper identifies race conditions, deadlocks, and poor scaling as major failures of current language models on these tasks.",
+      "The framework combines specialized training with an iterative coding agent. Its Parlay-Instruct corpus contains 13,820 tasks produced through a critic-and-refinement pipeline that filters for empirically performant uses of Work-Span primitives. DeepSeek, Qwen, and Gemini models are fine-tuned on ParlayLib semantics. An Evolutionary Coding Agent then uses compiler and profiler feedback to repair remaining correctness problems.",
+      "On ParEval, the authors report an average 107-fold speedup and a 13.6-fold speedup on highly complex irregular graph problems. They also report outperforming GPT-5-Thinking and Gemini-3-Pro, matching expert human-written baselines, and reaching speedups of up to 4.1-fold on kernels such as Maximal Independent Set. The findings support combining library-specific training with execution feedback to tackle correctness and performance together."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ddb95fd23c16923b49fd602ebb2d321b4ceb0c883c700f11471c16c484da74e0",
+    "tldr": "ParEVO combines specialized parallel-programming training with compiler and profiler feedback to generate performant code for irregular data structures."
+  },
+  "icml-2026-prosar-prototype-guided-semantic-augmentation-and-refinement-for-time-series-contrastive-848579e408": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "ProSAR addresses a central difficulty in contrastive learning for multivariate time series: creating different views of a signal without destroying its meaning. Noise and changing temporal behavior make useful content hard to identify. Heuristic transformations can disrupt important dependencies, while methods that identify semantics implicitly provide less direct interpretability and control.",
+      "The framework uses explicit prototypes in the time domain to anchor meaningful signal segments. Its Prototype-Conditioned Information Bottleneck principle guides a time–frequency augmentation strategy toward retaining prototype-consistent information and discarding noise. The prototypes therefore influence which parts of a time series should survive the transformations used to train the representation.",
+      "A feedback loop keeps those anchors connected to what the model learns. Augmented views are encoded, their representations are clustered to update latent prototypes, and decoded feedback refines the time-domain prototypes for the next augmentation round. This couples view generation, contrastive learning, and prototype refinement. Across diverse time-series benchmarks, the authors report better downstream forecasting and classification than other contrastive methods, supporting explicit semantic guidance as a useful basis for augmentation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1d8260fbda2da81e428d0108ef6b3ad49e9456518c1271ec5b9d724bc5928bc7",
+    "tldr": "ProSAR uses evolving prototypes to preserve meaningful time-series content during augmentation, improving reported forecasting and classification performance."
+  },
+  "icml-2026-reranker-helps-but-not-enough-towards-strong-poisoning-attacks-against-retrieval-augment-e11d59d372": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies poisoning risks in retrieval-augmented generation systems that use a reranker. A reranker improves the ordering of retrieved material before it reaches the language model. The authors find that a reranker trained only on benign, in-domain data can already filter malicious content effectively, making existing poisoning attacks less successful without explicit adversarial training.",
+      "The proposed Prompt-Perturbation Poisoning Attack investigates where that protection breaks down. It starts with poisoned texts created through rule-based prompt design and then introduces subtle character-level changes. Those changes aim to improve the texts’ reranker positions while preserving their adversarial effect. The abstract reports changes to about 1% of the text, with the resulting documents remaining natural and readable.",
+      "Experiments report strong attack effectiveness and transferability, including when the attacker can poison only one document. The findings establish a qualified security picture: benign reranker training supplies useful protection, but the tested attack can exploit weaknesses in that filtering stage. Evaluating poisoning against a complete retrieval pipeline therefore requires accounting for how malicious material interacts with reranking."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "11de92d12405b5895ce7d93a6b6b04f581fce6588afdc8297472a7b172f2d83f",
+    "tldr": "Rerankers filter many poisoned documents, but P3A shows that small textual perturbations can preserve attacks while improving their ranking."
+  },
+  "icml-2026-second-order-bilevel-optimization-with-accelerated-convergence-rates-25bb430966": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies optimization problems with an inner optimization task nested inside an outer one. Its setting allows the outer objective to be nonconvex while requiring strong convexity in the inner problem. The proposed Fully Second-Order Bilevel Approximation method uses second-order information to accelerate progress toward a second-order stationary point of the resulting hyper-objective.",
+      "FSBA achieves an iteration complexity of approximately ε^−1.5, with logarithmic factors suppressed, for an (ε, O(√ε)) second-order stationary point. This is a stationarity guarantee, rather than a claim of finding a global optimum. Within the studied setting, the analysis shows that second-order methods can achieve faster convergence rates than first-order bilevel methods.",
+      "Because obtaining second-order information is expensive, the authors introduce a lazy variant, LFSBA, that reuses it over several iterations. They prove a computational complexity improvement by a factor of √d relative to FSBA, where d is the problem dimension. The paper also applies this reuse idea to nonconvex, strongly concave minimax optimization, producing LMCN with better computational complexity than existing second-order methods."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "adb15ab673d05eb42504bf3dd81a3a5ecece67ba193b9f7e38bf3bb950d51eb1",
+    "tldr": "Second-order bilevel methods obtain accelerated stationarity guarantees, while reusing curvature information reduces their theoretical computational cost."
+  },
+  "icml-2026-semantic-robustness-certification-for-vision-language-models-0b1f672d87": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper asks how to certify that a vision-language model keeps the same prediction when an input changes semantically, for example in shape, size, or style. Such variations differ from the pixel-level or geometric transformations considered by many certification methods. The goal is to identify a quantitative range of semantic change over which a predicted class remains stable.",
+      "The framework uses text prompts as proxies for semantic variations, drawing on the model’s open-vocabulary capability. Each constructed transformation has an extent parameter controlling its degree of variation. A closed-form characterization of the model’s decision boundary then yields intervals of that parameter for which the predicted class does not change.",
+      "The certificate concerns the semantic transformation represented by this construction and its certified extent interval. The approach does not require collecting additional data for each variation, which makes the framework more practical to apply across different semantic changes. Experiments on synthetic and real-world data demonstrate certification across diverse variations and scenarios, supporting text-mediated transformations as a route to semantic robustness analysis."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "41ff5534495b2d68265f65d92f4a2b05d0b65dbde720a34428d315ede105d02c",
+    "tldr": "The framework uses text-defined semantic transformations to certify ranges of change over which a vision-language model’s predicted class stays fixed."
+  },
+  "icml-2026-step-level-sparse-autoencoder-for-reasoning-process-interpretation-453c5c5517": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The Step-Level Sparse Autoencoder examines language-model reasoning at the level of complete reasoning steps. The paper argues that token-level analysis can miss properties such as a step’s direction or its transition in meaning. SSAE instead seeks sparse features that separate different aspects of a step and expose what it contributes beyond the preceding context.",
+      "The method controls the sparsity of a step representation conditioned on that context. This creates an information bottleneck during reconstruction, separating incremental information from background information and distributing it across a small number of activated dimensions. The resulting features provide an analytical representation intended to match the scale at which reasoning develops.",
+      "Across multiple base models and reasoning tasks, simple linear probes can predict both surface properties, such as generation length and first-token distribution, and more complex properties, including correctness and logicality. The authors interpret this as evidence that models already possess at least partial information about these qualities during generation. That supports a potential foundation for self-verification, without establishing that models reliably act on this information themselves."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "712815547580bd457c88e9d943f8d2298e8956a317ab72e6caa901ed9176e6b7",
+    "tldr": "SSAE extracts sparse reasoning-step features that predict properties including correctness and logicality, suggesting partial internal information relevant to self-verification."
+  },
+  "icml-2026-thinking-in-structures-evaluating-spatial-intelligence-in-constraint-governed-spaces-cf5f1773d5": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "SSI-Bench evaluates spatial reasoning in real-world structures whose geometry, connectivity, and physical feasibility constrain possible interpretations. This addresses a difficulty with unconstrained scene images: a single view may support several plausible three-dimensional explanations. Structural constraints make component relations more determinate from the available visual evidence, allowing a more focused test of spatial understanding.",
+      "The benchmark contains 1,000 ranking questions covering geometric and topological reasoning. To produce the correct ordering, a model must resolve the three-dimensional relations involving every candidate, making partial understanding insufficient for a fully correct response. Researchers spent more than 400 hours curating images, annotating components, and designing questions through a human-centered process.",
+      "Evaluation of 31 vision-language models reveals a substantial human–model gap. The best open-source model reaches 22.2% accuracy and the strongest closed-source model 33.6%, compared with 91.6% for humans. Chain-of-thought reasoning provides only marginal gains. Together with the error analysis, these results indicate persistent weaknesses in reasoning about constrained three-dimensional structures, even when the visual task offers structural evidence that humans can use effectively."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "29a34f114ebd99f845e52ebb7946b7cde81d7e774fc3f1b56c5e2ff221aa4d31",
+    "tldr": "SSI-Bench tests spatial reasoning through constrained structures and finds a large accuracy gap between evaluated vision-language models and humans."
+  },
+  "icml-2026-toward-safe-quantization-aware-fine-tuning-understanding-and-mitigating-safety-alignment-3964815e3c": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper examines why fine-tuning quantized language models can weaken safety alignment more severely than fine-tuning full-precision models. Quantization-aware fine-tuning supports adaptation under resource constraints, but the authors’ interpretability analyses identify an additional vulnerability. Their theoretical account links it to quantization errors that affect both the starting safety behavior and the subsequent optimization trajectory.",
+      "Explicit-Safety Quantization-Aware Fine-tuning addresses these two stages separately. At initialization, it combines quantization error with a safety matrix projection when setting up adapters, aiming to reduce the early safety shift. After training, a refinement step corrects deviations associated with the altered optimization path. The intervention therefore follows the paper’s diagnosis across both initialization and adaptation.",
+      "Experiments report state-of-the-art recovery of safety alignment while preserving downstream task performance. The method also surpasses an existing full-precision safety-aware fine-tuning baseline in the reported evaluation. These findings suggest that explicitly accounting for quantization’s effects on safety can improve the adaptation process, rather than treating quantization error solely as an issue of ordinary task accuracy."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3471dc96fb9e2302c755002323a093fceae408e2a893b40a79ab923ad9bd17fe",
+    "tldr": "ExSQF counters quantization-related safety degradation through safety-aware adapter initialization and post-training correction while preserving reported task performance."
+  },
+  "icml-2026-towards-whole-corpus-reconstruction-of-heterogeneous-rag-knowledge-bases-436ea08a7f": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "GeoEx investigates how much of a retrieval-augmented generation knowledge base can be recovered through the deployed service. Existing extraction methods often expand outward from previously recovered text. The paper argues that this local strategy struggles when a corpus contains unrelated domains: semantic gaps can prevent the search from reaching other substantial parts of the collection.",
+      "The framework plans exploration in the embedding space of a proxy retrieval model without prior knowledge of the target corpus. An embedding inversion module converts planned vectors into queries. Its geometric strategy combines orthogonal query synthesis for movement across domains with local embedding perturbations for denser exploration inside discovered clusters. These two operations address broad coverage and concentrated extraction separately.",
+      "Experiments use mixed corpora spanning eight domains and multiple retrievers and language models. GeoEx significantly improves extraction coverage and query efficiency over the evaluated baselines. The results highlight a privacy risk from globally organized query strategies that can cross semantic discontinuities. They support progress toward whole-corpus reconstruction, rather than establishing that every tested knowledge base was recovered completely."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "221e7e62f40a5eba1750a2c53302ba6604dddb7ae63a650e330dfb542acbc668",
+    "tldr": "GeoEx explores a proxy embedding space to improve extraction coverage and query efficiency across heterogeneous RAG knowledge bases."
+  },
+  "icml-2026-wasserstein-geometry-aware-adaptive-control-via-meta-learning-86d8dd9f08": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies adaptive control of nonlinear systems facing unknown disturbances. Learning an accurate system description is useful only insofar as it supports the control objective, such as tracking a desired trajectory. The authors argue that existing Euclidean or fixed algebraic adaptation geometries also miss the distributional structure of uncertainty in the system.",
+      "Their framework measures parameter-estimation error through optimal transport between estimated and true system behaviors. It constructs a Wasserstein Bregman divergence over representative task distributions, then uses meta-learning to jointly optimize nonlinear features, control gains, and the transport geometry. Adaptation can consequently reflect structural differences in physical behavior, rather than relying on one fixed notion of distance between parameter estimates.",
+      "The learned geometry acts as what the authors describe as physically grounded, data-driven attention within the adaptation law. Closed-loop simulations cover both fully actuated and underactuated nonlinear planar rotorcraft. The paper reports optimal tracking performance in those simulations and robustness under substantial training-to-testing distribution shifts. These findings support learning the geometry of adaptation together with the controller, with the reported evidence specifically coming from simulated tracking tasks."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9f10b64c31a9d0b9b973038e5b2b65d123ebefcf49b950b1d61a684485995321",
+    "tldr": "The framework meta-learns an optimal-transport geometry for adaptive control, reporting robust tracking in nonlinear rotorcraft simulations."
+  }
+}

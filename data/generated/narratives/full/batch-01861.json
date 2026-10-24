@@ -1,0 +1,377 @@
+{
+  "icml-2026-a-regret-minimization-framework-on-preference-learning-in-large-language-models-d13ade7ac5": {
+    "backgroundConcepts": [
+      "topic-153-v-0-a-generalist-value-model-for-any-policy-at-s"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Many language tasks lack a reliable automated checker, so training must rely on human preferences. This paper asks what those preferences actually express. Its starting point is that people often judge behavior by anticipating consequences and comparing it with alternatives, rather than assigning a fixed value to an isolated outcome.",
+      "Regret-based Preference Optimization, or RePO, models feedback as an assessment of how much better the model could have behaved. These assessments depend on the behavior being evaluated. The method places this interpretation inside a reinforcement learning framework with KL regularization, which constrains policy changes. Within that framework, the authors derive a closed-form policy update compatible with direct preference optimization.",
+      "Experiments on mathematical reasoning benchmarks and human-annotated preference datasets report consistent performance improvements. The contribution is therefore both conceptual and practical: it changes the meaning assigned to preference feedback while retaining a direct optimization route. The findings support regret-based learning as an effective approach in the evaluated settings, without establishing that every human preference follows this interpretation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f07bb07fcebfd3c3f5f0d861122658821069e35c19007a79fcaa3207e73ef22b",
+    "tldr": "RePO interprets human preferences through regret about alternative behaviors and reports consistent gains in reasoning and preference-learning experiments."
+  },
+  "icml-2026-align-forward-adapt-backward-closing-the-discretization-gap-in-logic-gate-networks-a9691e9547": {
+    "backgroundConcepts": [
+      "topic-117-a-convex-relaxation-barrier-to-tight-robustness-"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Some networks train using smooth mixtures of candidate components but deploy by selecting a single component. That switch can change their behavior. This paper studies the mismatch in logic gate networks by separating two choices: whether the forward computation uses hard selection or a soft mixture, and whether training adds Gumbel noise.",
+      "The comparison shows that hard straight-through selection eliminates the selection gap by construction. Its noisy counterpart can achieve a nearly zero gap when training succeeds, but can lose accuracy at low temperatures. Soft mixtures approach hard behavior only when their weights concentrate sufficiently; adding noise to a soft mixture does not itself solve the mismatch.",
+      "The proposed CAGE method adapts gradient estimation to preserve useful learning signals while keeping the forward computation aligned with inference. With CAGE, both hard variants exceed 98% accuracy on MNIST and reach about 58% on CIFAR-10. Hard-ST retains zero selection gap across temperatures, while Gumbel-ST without CAGE suffers an approximately 47-point accuracy collapse. These results distinguish matching deployment behavior from successfully optimizing that behavior."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "518f1afbd2736d5f259040f0f00779a61af83aea7da0a79d0235c3f71248aea7",
+    "tldr": "CAGE improves gradient flow in logic gate networks while hard forward selection removes the training-to-inference selection gap."
+  },
+  "icml-2026-align-your-trajectory-tangent-training-better-consistency-models-via-manifold-aligned-ta-d64adfe237": {
+    "backgroundConcepts": [
+      "topic-066-f-trajectory-balance-a-loss-family-for-tuning-gf"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Consistency models can generate samples in one or two steps, but obtaining competitive quality often requires lengthy training and large batches. This paper investigates what happens near convergence, focusing on trajectory tangents: the directions in which the model's outputs change along the underlying generation trajectory.",
+      "The authors find that these directions can oscillate along the data manifold, the structure occupied by realistic data, instead of pointing toward it. They introduce manifold feature distance, a loss designed to redirect these changes toward the manifold. Their method, Align Your Trajectory Tangent, therefore targets the geometry of the learning signal rather than simply extending training.",
+      "The reported results show that this loss can accelerate consistency-model training by orders of magnitude and outperform the LPIPS perceptual metric. It also permits extremely small training batches without sacrificing sample quality in the reported experiments. The central implication is that the direction supplied by a training objective can be a major obstacle to efficient consistency learning, and adjusting that direction can improve both training speed and batch-size flexibility."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "eb5295cca6a9ce430df64f8767bcc2754c4590f278af7d90faa628e00ef648a6",
+    "tldr": "AYT redirects consistency-model updates toward the data manifold, enabling substantially faster training and much smaller batches in reported experiments."
+  },
+  "icml-2026-continuous-diffusion-models-can-obey-formal-syntax-23d90a28d5": {
+    "backgroundConcepts": [
+      "topic-248-a-partition-cover-approach-to-tokenization"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Continuous diffusion language models generate through evolving latent representations, which makes discrete formatting rules difficult to enforce. This paper introduces a way to guide that process toward strings satisfying constraints expressed as regular expressions. It requires neither additional model training nor a separately trained classifier.",
+      "The method constructs an analytic score estimating how likely a latent state is to decode into a string accepted by the expression. The score's gradient then steers sampling toward syntactic validity. The intended target is the original model conditioned on producing valid syntax, connecting a discrete acceptance rule to the continuous denoising process.",
+      "Implemented as Diffinity on the PLAID model, the approach is evaluated on 180 constraints covering JSON and natural-language benchmarks. It achieves 68–96% constraint satisfaction with a small perplexity cost compared with unconstrained generation. It also outperforms the evaluated autoregressive constrained decoding approach on satisfaction and output quality. These results demonstrate useful control over continuous generation, while the reported satisfaction rates show that validity is not guaranteed for every sample."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9931464f1d56c671414dcedfc7de46bd0a222fe2144029b05fd7a71e963511e0",
+    "tldr": "Diffinity guides continuous diffusion language models toward regular-expression constraints without training, achieving 68–96% satisfaction in the reported evaluation."
+  },
+  "icml-2026-dapd-dependency-aware-parallel-decoding-via-attention-for-diffusion-llms-152a29e0b1": {
+    "backgroundConcepts": [
+      "topic-248-a-partition-cover-approach-to-tokenization"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Diffusion language models can fill multiple token positions at once, but each denoising step supplies probabilities for individual tokens. Those separate probabilities do not directly capture how simultaneous choices depend on one another. Updating strongly connected positions together can therefore overlook information needed to coordinate their predictions.",
+      "DAPD uses the model's self-attention to build a dependency graph over currently masked tokens. Strong interactions become edges, while positions without an edge are treated as weakly dependent. At each iteration, the decoder selects an independent set: a group of positions with no connecting edges. It then fills those positions in parallel, avoiding simultaneous updates to pairs identified as strongly coupled.",
+      "This procedure needs no retraining or auxiliary model. Experiments on LLaDA and Dream report a better balance between accuracy and decoding steps than existing methods. The selected updates are also more widely distributed across the sequence. The findings suggest that choosing parallel updates according to estimated dependencies can better use diffusion models' freedom to generate in any order."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f1cd6541e5a3a98603b26618bd7b32a4090f620eddd365b9c1f18d6783ead87c",
+    "tldr": "DAPD uses attention-derived dependency graphs to choose parallel token updates, improving the accuracy–steps trade-off without retraining."
+  },
+  "icml-2026-dissect-and-prune-enhancing-robustness-in-ai-generated-image-detection-33bb231a17": {
+    "backgroundConcepts": [
+      "topic-203-automated-synthetic-to-real-generalization"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "An image detector can report strong performance while still missing generated images disproportionately. This paper identifies a prediction asymmetry favoring the real-image class, especially after compression or resizing. The authors hypothesize that distracting features obscure the artifacts that would reliably reveal generated content.",
+      "DEAR uses inpainted images to investigate which internal features are vulnerable. It measures how strongly each channel's activations align with the mask marking the inpainted region. Features strongly associated with either the edited region or its unedited surroundings prove less robust to post-processing. The method prunes channels at both extremes, aiming to retain signals that better capture generative artifacts.",
+      "Experiments report substantially better robustness to previously unseen generators and post-processing, along with reduced prediction asymmetry. The approach matters because it changes which evidence the detector relies on, using localized edits to diagnose interfering components. Its reported success supports the usefulness of this pruning strategy; the proposed explanation involving spurious features remains framed as the authors' hypothesis about the original failure."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0dd307046af544919b977170ae531e812b7cd70b1738293c7417f8b7c21cb219",
+    "tldr": "DEAR prunes detector features identified through inpainted images, improving robustness to unseen generators and image post-processing."
+  },
+  "icml-2026-early-decisions-matter-proximity-bias-and-initial-trajectory-shaping-in-non-autoregressi-0a8dd8a17a": {
+    "backgroundConcepts": [
+      "topic-248-a-partition-cover-approach-to-tokenization"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Diffusion language models offer flexibility in where and when tokens are generated, but using that freedom effectively is difficult for reasoning and planning. This paper studies the sequence of inference decisions in fully non-autoregressive decoding, examining how early token choices influence the subsequent generation trajectory.",
+      "The authors identify a proximity bias in confidence-based decoding: token filling tends to cluster around neighboring positions. This local dependence allows errors to spread spatially, making the overall trajectory highly sensitive to the position unmasked first. The finding connects an apparently small initial choice with a broader pattern of error propagation.",
+      "Their intervention guides early token selection using a lightweight planner together with end-of-sequence temperature annealing. It changes the beginning of the decoding process without a large computational burden. Across the evaluated reasoning and planning tasks, the method substantially improves overall performance over existing heuristic baselines. The results suggest that early trajectory shaping is a practical way to make non-autoregressive decoding more effective, especially when confidence-based choices otherwise remain concentrated in one region."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8037d20c5edf2fd74ef75fc436d9da0416e82eb35abf9387b63867cd3c97cd92",
+    "tldr": "Guiding early token choices reduces the effects of proximity-biased decoding and improves diffusion language models on reasoning and planning tasks."
+  },
+  "icml-2026-equivariant-latent-alignment-via-flow-matching-under-group-symmetries-ec80cf2b2e": {
+    "backgroundConcepts": [
+      "topic-163-3d-steerable-cnns-learning-rotationally-equivari"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Equivariant representations aim to make transformations of data correspond to known transformations in a model's latent space. For generating a new view, that means geometric changes should be reflected consistently in the internal representation. This paper identifies latent misalignment as a problem that prevents existing approaches from maintaining that correspondence.",
+      "The mismatch is between the transformation prescribed by the group symmetry and the transformation the learned latent representation actually needs. As a result, imposing an intended symmetry does not always produce latents that obey it consistently. The proposed Residual Latent Flow uses a flow-based correction to adjust misaligned representations and improve their agreement with the equivariance relation.",
+      "Experiments under rotation groups SO(n) report substantial reductions in latent misalignment and better novel-view synthesis quality. These findings connect an internal geometric correction with an improvement in generated views. The contribution is a mechanism for repairing the relationship between known transformations and learned representations, with the reported evidence specifically covering rotational symmetries rather than every possible group action."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "73790e64913e89ab8864887474f6244cd540fe3c569b98a8abdd586b4a4dec57",
+    "tldr": "Residual Latent Flow corrects mismatches between intended rotations and learned latent transformations, improving novel-view synthesis in reported experiments."
+  },
+  "icml-2026-explicit-representation-of-germline-and-non-germline-residues-improves-antibody-language-f489eed6c8": {
+    "backgroundConcepts": [
+      "topic-249-be-cautious-bio-foundation-models-are-not-yet-ro"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Antibody sequences combine inherited germline structure with mutations that can refine antigen binding. The paper argues that treating all residues identically causes antibody language models to favor common germline patterns and discount rare but functionally important substitutions. PRISM explicitly separates these two kinds of sequence information.",
+      "Its factorized 53-token vocabulary represents germline and non-germline residues as distinct token types. This gives the model a direct way to distinguish conserved structure from diversification. PRISM reports state-of-the-art pseudo-perplexity in hypervariable CDR regions. Across three experimental mutation landscapes, its scores correlate positively with binding affinity, whereas all compared antibody language models correlate negatively.",
+      "The separate representations also allow generation to be directed toward different properties. Sampling aimed at non-germline residues improves physics-based binding scores, while germline-directed sampling preserves stability and solubility. The distinction matters: the generation result concerns computed binding scores, while the correlation result uses experimental affinity measurements. Together, the findings support representing antibody origin explicitly as a useful basis for both sequence modeling and controllable generation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "546668691318d0dc257568108998abe735c1ac9bc2d0892bbc3a461f26f70b61",
+    "tldr": "PRISM separates germline and mutated antibody residues, improving sequence modeling, affinity correlation, and property-directed generation."
+  },
+  "icml-2026-federated-causal-inference-on-multi-site-observational-data-via-propensity-score-aggrega-7a34823273": {
+    "backgroundConcepts": [
+      "topic-088-a-cautionary-tale-on-integrating-studies-with-di"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Estimating treatment effects across institutions is difficult when individual records cannot be pooled. This paper develops a federated approach to estimating the average treatment effect from observational data, exchanging aggregate statistics while keeping individual-level data at their original sites.",
+      "The method combines local propensity scores, which describe treatment-assignment probabilities, using membership weights. These weights estimate how likely someone with given covariates is to belong to each site. They can be learned with parametric or non-parametric classifiers through standard federated learning methods. The combined scores then support two treatment-effect estimators, Fed-IPW and Fed-AIPW.",
+      "The key opportunity is that different sites may assign treatments differently. Combining that information can improve overlap between treated and untreated populations, even when a site's own treatment coverage causes problems for meta-analysis. Theoretical analysis and experiments on simulated and real-world data report advantages over meta-analysis and related methods. The estimators also perform well with differing site sizes, treatment mechanisms, and covariate distributions, showing how site heterogeneity can contribute useful information rather than only complicating analysis."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d13c9ecb752c3172149221ea2429d832bd092b6e767028ebb315dc2f25914347",
+    "tldr": "Federated propensity-score aggregation uses differences across sites to improve treatment-effect estimation without pooling individual records."
+  },
+  "icml-2026-leakgfn-robust-molecular-generation-in-generative-flow-networks-via-flow-decomposition-6f59751d15": {
+    "backgroundConcepts": [
+      "topic-066-f-trajectory-balance-a-loss-family-for-tuning-gf"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Generative Flow Networks aim to sample diverse molecules in proportion to their rewards. Molecular construction must sometimes stop before a valid molecule is complete, however, leaving unfinished fragments as terminal outcomes. This paper calls the probability assigned to those forced endpoints flow leakage and analyzes the resulting sampling distortion.",
+      "LeakGFN separates flow into two heads. A chemical head preserves flow for adding components at the truncation boundary, while a valid head estimates the fraction that reaches completed molecules. Separate gradient pathways distinguish flow magnitude from completion, reducing conflicting learning signals. Ablations attribute the main improvement to this separation rather than increased exploration.",
+      "The authors derive a closed-form expression for remaining leakage. They also show that, at a reward-proportional fixed point, conditioning on completion gives exact reward-proportional sampling over accessible molecules. Experiments across five molecular optimization tasks achieve best or tied-best HM on four. Integration into existing frameworks also improves pocket-conditioned and multi-objective generation. The theoretical exactness is conditional on both the stated fixed point and completion, rather than asserting that all generated trajectories finish validly."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6b9e2c67d3f76dab0564c5f54f0dae25931bb85613514fdb79951f126617b5e4",
+    "tldr": "LeakGFN separates molecular flow magnitude from completion to reduce training conflicts caused by truncated, unfinished generation trajectories."
+  },
+  "icml-2026-linguistic-nepotism-trading-off-quality-for-language-preference-in-multilingual-rag-6c7cfbb4e0": {
+    "backgroundConcepts": [
+      "topic-095-g-2-reader-dual-evolving-graphs-for-multimodal-d"
+    ],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Multilingual retrieval-augmented generation lets a model answer questions using documents in several languages and cite its supporting sources. This paper investigates whether the language of a document influences citation choices independently of its usefulness. That distinction matters because a citation can appear informative while reflecting a preference for a particular language.",
+      "The authors introduce a controlled methodology using model internals to measure language preference while holding factors such as document relevance constant. Across eight languages and six open-weight models, they find a preference for citing English sources when questions are in English. The bias becomes stronger for lower-resource languages and for documents placed in the middle of the context.",
+      "The study also finds cases where models favor a preferred language over a more relevant document. This goes beyond a harmless tie-break between equally useful sources: informativeness does not always determine the selected citation. The results reveal a specific source-selection bias in the evaluated multilingual settings, showing that providing relevant multilingual evidence does not by itself ensure that a model will cite it according to relevance."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3be9b7c3f8e3f621daa2cc9e5aae330a0d9428df190afd6a3d38c57d7b3fe394",
+    "tldr": "Across the evaluated models, English-language queries can induce citation preferences that sometimes outweigh document relevance."
+  },
+  "icml-2026-minimum-distance-summaries-for-robust-neural-posterior-estimation-a9a35968b5": {
+    "backgroundConcepts": [
+      "topic-242-a-bayes-sard-cubature-method"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Simulation-based inference trains a neural network on simulated examples so it can quickly estimate a posterior distribution for new observations. The network often receives compact summaries of the data. When real observations differ from the training distribution, this fast inference process can become unreliable.",
+      "Minimum-distance summaries address the mismatch after training by adapting the summary presented to the existing estimator. The method uses maximum mean discrepancy, or MMD, to compare observed data with a predictive distribution conditioned on a candidate summary. This separates robustness from the pretrained inference network, preserving its reuse instead of requiring changes to its training or a dedicated error model.",
+      "Random Fourier feature approximations make the adaptation computationally lightweight. The authors provide theoretical robustness guarantees and evaluate the method on synthetic and real-world tasks, reporting substantial gains over existing robust simulation-based inference methods with little additional overhead. The main contribution is a modular place to intervene: adjust what the network is queried with at test time, while retaining the already learned mapping from summaries to posterior distributions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3e44e7c2f966d4ff4bfaefcc917a7bd659500e1a05c7945cd3acc4ec74715602",
+    "tldr": "Minimum-distance summaries improve robustness by adapting test-time inputs to a pretrained posterior estimator using an MMD-based comparison."
+  },
+  "icml-2026-on-the-sharp-input-output-analysis-of-nonlinear-systems-under-adversarial-attacks-2c8cbddd90": {
+    "backgroundConcepts": [
+      "topic-158-de-randomized-smoothing-for-certifiable-defense-"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies how to learn the relationship between inputs and outputs in nonlinear dynamical systems when observations can be disturbed adversarially. It broadens the usual setting beyond Gaussian inputs and benign noise, allowing disturbances that are correlated, have nonzero mean, and respond to the full information history.",
+      "The analysis reformulates the input-output relationship as a linear combination of basis functions. Within this formulation, the authors prove an estimation guarantee for an ℓ2-norm estimator when attacks are sufficiently sparse. Specifically, the probability of an attack at a given time must stay below a threshold. The adversary's extensive information is therefore allowed alongside an explicit restriction on attack frequency.",
+      "The resulting error bound decreases as the input memory length grows. A constructed problem instance under probabilistic adversarial attacks matches that bound, establishing its optimality in the stated analysis. Together, these results explain both what the estimator can achieve and why the bound cannot generally be improved, covering nonlinear and partially observed systems under broader assumptions than the compared literature."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "022fc7e3c8b8cb1c5884ef1e35bf321cb6cd24dc78961fce5df20cb11cc03604",
+    "tldr": "The paper proves matching estimation-error bounds for nonlinear input-output learning when informed adversarial attacks occur sufficiently infrequently."
+  },
+  "icml-2026-on-training-large-language-models-for-long-horizon-tasks-an-empirical-study-of-horizon-l-c48f4af72c": {
+    "backgroundConcepts": [
+      "topic-153-v-0-a-generalist-value-model-for-any-policy-at-s"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Interactive language-model agents may need many actions to complete a task. This paper isolates the effect of that action-sequence length, or horizon, from the complexity of the decisions themselves. It constructs controlled tasks with identical decision rules and reasoning structure, varying only how many actions successful completion requires.",
+      "The experiments show that longer horizons alone can make training severely unstable. The authors connect this instability to exploration and credit assignment: finding productive action sequences becomes harder, as does determining which earlier decisions deserve credit for an eventual result. The controlled construction makes horizon length itself the focus of the observed training bottleneck.",
+      "Reducing the training horizon stabilizes learning and improves performance on the studied long-horizon tasks. Models trained with reduced horizons also transfer more effectively to longer versions at inference time, a result the authors call horizon generalization. This suggests that practicing the same decision structure over shorter sequences can help agents learn behavior that remains useful over longer interactions, rather than requiring every training task to match the eventual deployment horizon."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4d222017931a83002896a812c6e7fba8929d444e03c17eafc86d2c7b495be36d",
+    "tldr": "Controlled experiments show that shorter training horizons can stabilize agent learning and improve generalization to longer action sequences."
+  },
+  "icml-2026-quantifying-error-propagation-and-model-collapse-in-diffusion-models-7b5931bb50": {
+    "backgroundConcepts": [
+      "topic-080-text-s-2-q-vdit-accurate-quantized-video-diffusi"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Training repeatedly on model-generated data can cause the learned distribution to drift away from the original target. This paper analyzes that process for score-based diffusion models in a pipeline where every training round mixes synthetic examples with fresh samples from the target distribution.",
+      "The authors derive both upper and lower bounds on the accumulated divergence. Upper bounds constrain how large the discrepancy can become, while lower bounds characterize discrepancy that the analysis cannot rule away. They describe their lower bound as, to their knowledge, the first for the difference between learned and target distributions even in standard diffusion models.",
+      "The results distinguish drift regimes according to score-estimation error and the share of fresh data introduced each round. In one regime, divergence after repeated training takes the form of a discounted sum of errors from individual generations. This gives a precise way to describe how errors across rounds combine, rather than treating recursive training as uniformly harmful. Experiments on synthetic data and images illustrate the theory and its account of error propagation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2fb4816d180568fd64ce69e1bc03e8facd2c9853ed622d8becd9f3dabdc097d1",
+    "tldr": "The paper bounds diffusion-model drift under recursive training and shows how score errors and fresh-data proportions shape its accumulation."
+  },
+  "icml-2026-robust-and-consistent-ski-rental-with-distributional-advice-c5d7832fa5": {
+    "backgroundConcepts": [
+      "topic-155-dynamic-knapsack-optimization-towards-efficient-"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The ski rental problem asks when repeated rental payments should give way to a one-time purchase when future usage is uncertain. This paper studies algorithms that use a full predicted distribution of usage, seeking benefits from accurate advice while maintaining protection against prediction errors.",
+      "With perfect distributional predictions, the authors give an efficient algorithm for computing the optimal deterministic buying threshold. They identify sufficient conditions under which its expected competitive ratio matches the classic optimal randomized bound. For imperfect predictions, their Clamp Policy keeps the threshold inside a tunable safe range, balancing robustness with performance that approaches the optimum as predictions improve.",
+      "For randomized decisions, a Water-Filling Algorithm chooses a stopping distribution that minimizes expected cost while respecting robustness constraints. Experiments with Gaussian, geometric, and bimodal distributions report better consistency than point-prediction baselines with comparable robustness. The contribution is a way to use the shape of predictive uncertainty in the decision itself, while making protection against bad advice an explicit part of the algorithm."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "38e38a6b278941292b9116da737095ca1e598fe0135a104a4a126b094795e9c7",
+    "tldr": "Distribution-aware ski rental algorithms improve performance with accurate advice while retaining explicit robustness guarantees against prediction errors."
+  },
+  "icml-2026-rule2drc-benchmarking-llm-agents-for-drc-script-synthesis-with-execution-guided-test-gen-dbef06ae81": {
+    "backgroundConcepts": [
+      "topic-104-a-2-dept-large-language-model-driven-automated-a"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Chip layouts must satisfy geometric manufacturing rules, enforced by executable design rule checking scripts. Writing those scripts from natural-language requirements requires specialized expertise. Rule2DRC evaluates whether language-model agents can perform this translation by testing what their generated programs actually do.",
+      "The benchmark contains 1,000 rule-to-script tasks and 13,921 evaluation layouts. Its scoring pipeline executes the scripts and assesses functional correctness from the resulting checks, rather than relying on code similarity. The evaluation layouts do not need to be supplied to the agent as input, separating the material used to assess a solution from what the agent receives to construct it.",
+      "The paper also introduces SplitTester, an agent that generates tests using execution feedback to help choose among candidate programs. Its tests distinguish scripts that previously behaved identically on available cases, making the selection process more informative. The authors report substantial improvements in Best-of-N selection. Together, the benchmark and tester move assessment toward executable behavior and show how actively finding distinguishing cases can improve candidate selection in this domain."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "31544262350baa582b2996a144e2df0809f5b7a51781dcf909c967277a57d239",
+    "tldr": "Rule2DRC evaluates chip-rule scripts through execution, while SplitTester generates distinguishing tests to improve selection among candidate programs."
+  },
+  "icml-2026-semi-supervised-neural-super-resolution-for-mesh-based-simulations-c45675b15f": {
+    "backgroundConcepts": [
+      "topic-218-bf-textrmflow-differentiable-simulations-for-pyt"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Fine simulation meshes can produce accurate solutions to partial differential equations, but they are expensive to compute. Neural super-resolution aims to recover detailed solutions from cheaper coarse simulations. Its own training can still be costly, however, when it requires many paired coarse and fine examples.",
+      "SuperMeshNet reduces that supervision requirement through complementary learning. It jointly trains two message-passing neural-network models using a small collection of paired low- and high-resolution simulations together with abundant unpaired low-resolution data. The framework also includes inductive biases that guide learning and empirically improve reconstruction performance.",
+      "The experiments report lower root mean square error while using 90% less high-resolution data than a fully supervised benchmark without those inductive biases. That comparison supports the combined framework's ability to reduce expensive supervision while improving reconstruction accuracy. It also matters that the stated benchmark lacks the added biases: the headline result evaluates the overall method rather than isolating semi-supervision alone. The broader contribution is making abundant inexpensive simulations useful for learning detailed reconstructions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5d1e3bc31885c656abd946a4cdaa27db2d1c132694310502c75dfa495035c36c",
+    "tldr": "SuperMeshNet combines paired and unpaired simulations to achieve lower reconstruction error with 90% less high-resolution data than the stated benchmark."
+  },
+  "icml-2026-spatial-deconfounder-interference-aware-deconfounding-for-spatial-causal-inference-70cab774bf": {
+    "backgroundConcepts": [
+      "topic-090-a-causal-framework-for-decomposing-spurious-vari"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Spatial causal analysis must handle both hidden regional factors and spillovers from nearby treatments. Weather or mobility, for example, can influence treatment and outcome, while neighboring treatments can affect a location's result. This paper treats those challenges as connected: local treatment relationships can reveal structure in hidden spatial confounding.",
+      "The Spatial Deconfounder first uses a conditional variational autoencoder with a spatial prior to reconstruct a substitute confounder from local treatment vectors. A flexible outcome model then uses that representation to estimate causal effects. The authors show nonparametric identification of direct and spillover effects under assumptions they describe as weak, without requiring multiple treatment types or a known model of the latent field.",
+      "For evaluation, they extend the SpaCE benchmark to include treatment interference. Across the reported environmental-health and social-science datasets, the method consistently improves effect estimation. Its central idea is to use neighboring treatment patterns as a multi-cause proxy for hidden spatial influences, allowing interference to contribute information to deconfounding rather than being addressed separately."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e5a7a1e6c9ca2ddb3754f47b04d179af496de81534d0bef52901c5ef9c6bfd02",
+    "tldr": "The Spatial Deconfounder uses local treatment patterns to reconstruct hidden spatial confounding and estimate direct and spillover effects."
+  },
+  "icml-2026-stochastic-gradient-variational-inference-with-prices-gradient-estimator-from-bures-wass-31083890e3": {
+    "backgroundConcepts": [
+      "topic-005-a-contrastive-divergence-for-combining-variation"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Variational inference approximates a target distribution by optimizing a simpler distribution. For Gaussian approximations, earlier convergence results favored Wasserstein variational inference, which optimizes in distribution space, over black-box variational inference using reparameterization gradients in parameter space. This paper examines what actually accounts for that apparent advantage.",
+      "The authors obtain matching state-of-the-art iteration-complexity guarantees for both approaches. They identify the gradient estimator as the decisive ingredient: Wasserstein inference's estimator, associated with Price's theorem, can also be used in black-box inference with minor modifications. Price's gradient uses Hessians, which encode second-order information about the target log-density.",
+      "The exchange also works in the other direction. Wasserstein inference can use reparameterization gradients requiring only first-order derivatives, making it more widely applicable. Experiments indicate that Price's gradient is the main source of the observed performance improvement. The result separates the choice of optimization space from the information used to estimate updates, showing that the earlier theoretical gap need not be an inherent advantage of distribution-space optimization."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "23e79b43d78134934ed10545251ba15f8d7e0f719b7810bb38bbd66c1512011c",
+    "tldr": "Price's gradient lets parameter-space variational inference match Wasserstein inference's iteration guarantees, identifying the estimator as the key advantage."
+  },
+  "icml-2026-stop-training-for-the-worst-progressive-unmasking-accelerates-masked-diffusion-training-070de7bb73": {
+    "backgroundConcepts": [
+      "topic-080-text-s-2-q-vdit-accurate-quantized-video-diffusi"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Masked diffusion models learn to fill missing tokens and can generate in flexible orders, including updating several positions together. That flexibility creates a large training burden: there are exponentially many possible masking patterns. Random training masks also differ from the structured patterns encountered as an inference procedure progressively fills a sequence.",
+      "Progressive UnMAsking, or PUMA, modifies the forward masking process to bring those two pattern distributions into closer alignment. Training focuses on masks that correspond more closely to the model's eventual unmasking behavior. The approach therefore changes which reconstruction problems the model practices, directing optimization toward situations relevant to generation.",
+      "At the 125-million-parameter scale, the reported experiments show approximately 2.3-fold faster pretraining. PUMA also provides complementary benefits when combined with common recipes such as autoregressive initialization. These findings support training-mask selection as a useful source of efficiency: some of the cost of masked diffusion comes from the breadth and mismatch of training patterns, and aligning them with inference can reduce that burden in the evaluated setting."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "45fd88c5bac4f6d9446f1e09e5294b475dfd82f9f832eaa7af09123307020f01",
+    "tldr": "PUMA aligns training masks with inference-time unmasking patterns, delivering approximately 2.3-fold faster pretraining at the evaluated 125M scale."
+  },
+  "icml-2026-universal-reasoner-a-single-composable-plug-and-play-reasoner-for-frozen-llms-78efc5faf1": {
+    "backgroundConcepts": [
+      "topic-100-3-in-1-2d-rotary-adaptation-for-efficient-finetu"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Improving a language model's reasoning often requires additional training, and parameter-efficient methods commonly need adaptation for each backbone. Universal Reasoner, or UniR, instead trains a separate lightweight reasoning module that can guide larger models while leaving their parameters frozen.",
+      "UniR learns from verifiable rewards in a decoupled training process, translating feedback on complete trajectories into token-level guidance. At inference, its output logits are added to those of the backbone. Because the combination is additive, several modules trained for different tasks can be composed by summing their contributions, giving a direct mechanism for combining specialized guidance.",
+      "The reported experiments show modules trained on smaller models successfully guiding larger models within the same family. The authors also report transfer to vision-language and medical-reasoning domains, and performance above existing fine-tuning methods on mathematical reasoning and machine translation. The contribution is reusable reasoning guidance with a simple inference interface. The demonstrated smaller-to-larger transfer is specifically within model families, so the evidence does not establish unrestricted compatibility with every backbone."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "43ea3aeedfab38374afa0b31825eb3bfb796528f5f203681daf730a2c3e940c0",
+    "tldr": "UniR trains composable reasoning modules whose logits guide frozen language models, including larger models within the same family."
+  },
+  "icml-2026-valueflow-toward-pluralistic-and-steerable-value-based-alignment-in-large-language-model-3070a89396": {
+    "backgroundConcepts": [
+      "topic-107-very-likely-means-uncertain-how-llms-diverge-fro"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Value-based alignment asks which motivational principles a model expresses, extending beyond preferences between individual responses. VALUEFLOW focuses on three connected problems: representing relationships among values, measuring how strongly a response expresses them, and steering models toward controlled levels of expression.",
+      "The framework combines a hierarchical value embedding space, HiVES, with a database of value-labeled texts and estimated intensities, VIDB. Ranking-based aggregation produces the database's intensity estimates. An anchor-based evaluator then scores model outputs by comparing them with panels from that resource, providing a shared reference for intensity rather than merely detecting whether a value appears.",
+      "Using this infrastructure, the authors study ten models across four value theories. They identify asymmetries in how values can be steered and composition laws for controlling multiple values together. The findings make value control a question of degree and interaction, rather than simple presence or absence. The contribution is a unified framework for extracting, evaluating, and steering value expression while accommodating multiple theories of human values."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2ed1514649bf9024b767966383d4a5b81878ff1bc6c82554315c3c2860b01772",
+    "tldr": "VALUEFLOW combines hierarchical value representations and calibrated intensity evaluation to study and steer value expression across language models."
+  },
+  "icml-2026-verifying-meta-awareness-via-predictive-rewards-in-reasoning-models-b74ff14fe5": {
+    "backgroundConcepts": [
+      "topic-100-3-in-1-2d-rotary-adaptation-for-efficient-finetu"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Reasoning-model training often checks whether the final answer is correct. MAPR adds another verifiable objective: predicting properties of the model's own reasoning attempts. This makes the paper's notion of meta-awareness concrete through measurable behavior, including expected generation length, pass rate, and concepts used.",
+      "The model generates these predictions itself, and they are checked against actual rollout statistics. The resulting predictive capability is then used to regulate reasoning: filtering prompts considered trivial or unsolvable, reducing lengthy generations that tend to be wrong, and producing problem-relevant hints. Thus, prediction supplies both a training objective and information for managing subsequent reasoning.",
+      "The authors report improvements in accuracy and training efficiency across reasoning benchmarks. MAPR speeds up GRPO training by more than 1.28 times to reach the same performance. They also report an 83.18% accuracy gain on AIME25 and a 16.45% average gain across six mathematics benchmarks. Those figures are reported gains, rather than stated percentage-point increases. The findings support adding verifiable self-prediction objectives alongside answer-based verification."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6322611990ba2e2fc16a8da3967c848e3616ccb1d1e0fabc7dfaa36d30b9222b",
+    "tldr": "MAPR trains models to predict and verify their own reasoning statistics, improving reported mathematical accuracy and training efficiency."
+  }
+}

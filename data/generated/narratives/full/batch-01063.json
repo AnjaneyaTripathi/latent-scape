@@ -1,0 +1,377 @@
+{
+  "neurips-2025-a-differential-and-pointwise-control-approach-to-reinforcement-learning-e5ca67f795": {
+    "backgroundConcepts": [
+      "topic-052-a-differential-and-pointwise-control-approach-to"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Scientific applications of reinforcement learning often need two things at once: learning from limited experience and producing trajectories consistent with physical dynamics. This paper introduces Differential Reinforcement Learning, which recasts learning in continuous state and action spaces as a continuous-time control problem. Its mathematical formulation produces a Hamiltonian structure that incorporates physical prior knowledge and ensures trajectory consistency without explicit constraints.",
+      "The accompanying algorithm, Differential Policy Optimization, improves local movement operators along a trajectory in separate stages. This pointwise approach makes the behavior at individual locations along the trajectory central to learning. The intended benefit is better use of available samples while keeping policy updates aligned with the underlying dynamics.",
+      "The authors establish pointwise convergence guarantees and a theoretical regret bound of O(K^(5/6)). Experiments cover surface modeling, grid control, and molecular dynamics, where the algorithm outperforms standard reinforcement learning baselines under limited-data and physically constrained conditions. Together, these results support integrating continuous-time control structure directly into learning for the scientific tasks examined."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d3e175ee839477998e0ee3d177abc16a8929770fc4f6ee59beda10581a61dfe2",
+    "tldr": "Differential RL embeds continuous-time physical structure into reinforcement learning and improves learning efficiency on scientific computing tasks."
+  },
+  "neurips-2025-accurate-and-efficient-low-rank-model-merging-in-core-space-2f29fe19d8": {
+    "backgroundConcepts": [
+      "topic-094-textit-trans-lora-towards-data-free-transferable"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Low-Rank Adaptation makes fine-tuning large networks more manageable by representing model changes compactly. Combining several adapted models can undermine that advantage, however, when merging methods operate on full-sized weight matrices. This paper addresses that mismatch: adaptation may be inexpensive, while the subsequent merging step needlessly returns to a much larger representation.",
+      "The proposed Core Space framework places the low-rank adaptations into a common alignment basis and performs merging there. This shared representation makes the adaptations compatible for combination while retaining the computational benefits of their compact form. The authors formally prove that projection into Core Space loses no information and analyze the resulting computational savings.",
+      "Experiments show that Core Space improves existing merging techniques across vision and language tasks, achieving reported state-of-the-art results with a fraction of the computational resources. The information-preservation result concerns the projection itself; the accuracy gains come from empirical evaluation. The contribution therefore combines a justified compact representation with evidence that it is useful for practical model merging."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "fddc8bd06f923a4d7c5c3e9254679c1d3e73165436fe20154462379396a517be",
+    "tldr": "Core Space merges low-rank model adaptations in a shared compact representation, improving measured accuracy while reducing computation."
+  },
+  "neurips-2025-addressing-mark-imbalance-in-integration-free-marked-temporal-point-processes-fbb73c031c": {
+    "backgroundConcepts": [
+      "topic-212-a-bayesian-approach-to-concept-drift"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Predicting an event stream involves estimating both what happens next and when it happens. Marked temporal point processes model these two aspects, with the mark identifying the event category. This paper focuses on a practical complication: some categories occur much more frequently than others, making rare events particularly difficult to predict.",
+      "The method changes how the next category is selected. It normalizes predicted category probabilities by their prior probabilities, then applies learned thresholds to tune the decision. This explicitly accounts for category imbalance instead of choosing directly from the unadjusted probabilities. The system predicts the category first and the arrival time afterward.",
+      "To support that prediction order, the authors develop a neural model that estimates category probabilities and samples event times without expensive numerical improper integration. Experiments on real-world datasets report improvements over multiple baselines for both category and time prediction. The contribution links a decision rule tailored to uneven category frequencies with a model designed to make the required calculations practical."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a12e5628f5a55a829de879f584293a37de4b3638d9d447bf5120c394da735c14",
+    "tldr": "Learned probability thresholds and an integration-free event model improve next-event prediction when event categories have uneven frequencies."
+  },
+  "neurips-2025-asymmetric-duos-sidekicks-improve-uncertainty-8624a6efc4": {
+    "backgroundConcepts": [
+      "topic-105-epsilon-softmax-approximating-one-hot-vectors-fo"
+    ],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Combining several independently trained networks is a common way to improve predictions and estimate uncertainty. For very large models and practical fine-tuning workflows, repeating comparable training runs can be expensive. This paper investigates a cheaper pairing: a strong large model accompanied by a much smaller, less accurate model called a sidekick.",
+      "The two models form an Asymmetric Duo, whose predictions are combined using learned weighted averaging. The smaller model does not need to match the larger model's standalone accuracy to contribute useful information. The central empirical finding is that adding this weaker partner almost never harms the larger model's performance across the settings studied.",
+      "Across five image classification benchmarks and varied architectures and training schemes, these pairs improve accuracy, uncertainty estimates, and selective classification metrics. The reported computational increase is approximately 10–20%. Selective classification concerns decisions about which predictions to accept based on confidence, so these gains extend beyond ordinary accuracy. The results support using an inexpensive companion model when better uncertainty estimates need to fit a limited computational budget."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9a51c8684ef7bf02b2120d1ee4bbba9553c2e8d98ba2efc3b082909c49f47b77",
+    "tldr": "Pairing a large classifier with a smaller, weaker sidekick improves accuracy and uncertainty estimates with roughly 10–20% more computation in reported experiments."
+  },
+  "neurips-2025-attention-on-the-sphere-99ba0f7ebb": {
+    "backgroundConcepts": [
+      "topic-036-3d-focusing-and-matching-network-for-multi-insta"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Data defined on a sphere have geometric relationships that planar processing does not naturally preserve. This matters for applications such as atmospheric simulation and spherical vision. The paper introduces an attention mechanism that allows Transformers to operate directly on the two-dimensional sphere while respecting its geometry and approximately preserving how outputs should transform under rotation.",
+      "The key modification incorporates numerical quadrature weights into attention. These weights connect the computation to integration over the spherical domain. A further neighborhood version restricts interactions to nearby locations measured along the sphere, reducing computational complexity and adding a preference for local interactions while retaining the method's symmetry properties.",
+      "The authors also provide optimized CUDA kernels and implementations designed to save memory. They evaluate spherical Transformers on shallow-water simulation, spherical image segmentation, and spherical depth estimation, reporting better performance than planar counterparts on all three tasks. These findings support matching the model's attention structure to the geometry of its data, with the rotational property remaining approximate rather than exact."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "aee5d48f5389c02dc2767871556d193fc9104d0aa437959c4d199c3f557a12f8",
+    "tldr": "Spherical attention incorporates the sphere's geometry into Transformers and outperforms planar counterparts across three evaluated tasks."
+  },
+  "neurips-2025-continual-gaussian-mixture-distribution-modeling-for-class-incremental-semantic-segmenta-9461df179d": {
+    "backgroundConcepts": [
+      "topic-083-online-continual-learning-from-imbalanced-data"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Class incremental semantic segmentation requires learning to label pixels from new classes while retaining knowledge of previously learned classes. Some methods preserve each class through one fixed representative feature, or prototype. This paper argues that such a summary misses classes with multiple feature clusters and cannot faithfully track distributions that evolve differently across feature directions.",
+      "CoGaMiD instead represents learned classes with Gaussian mixture models, estimating both means and covariance matrices. These stored distributions generate pseudo-features that support subsequent learning. A Dynamic Adjustment strategy updates the mixtures using features of previous classes found in incoming data, helping the stored representation follow changes during the incremental process.",
+      "The method also adds a Gaussian-based representation constraint to make new classes more distinguishable and reduce confusion with old ones. Experiments on Pascal VOC and ADE20K show better performance than previous methods, especially over challenging long incremental sequences. The results support preserving a richer, updateable account of each class rather than relying on a single static representative."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5b0c605facd7642641de7eebc089b1e2c6663655abbdbc0763d09441c186c9dc",
+    "tldr": "CoGaMiD preserves and updates class feature distributions with Gaussian mixtures to improve semantic segmentation as new classes arrive."
+  },
+  "neurips-2025-eurospeech-a-multilingual-speech-corpus-fb59b437e1": {
+    "backgroundConcepts": [
+      "topic-146-a-back-propagation-algorithm-with-optimal-use-of"
+    ],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A speech dataset can cover many languages yet provide too little material for strong performance in each one. EuroSpeech addresses this gap by emphasizing substantial training data per language. The paper introduces a scalable process for turning parliamentary recordings and their accompanying transcripts into aligned speech segments suitable for training speech recognition systems.",
+      "The pipeline includes robust media retrieval and a two-stage alignment algorithm. Alignment is particularly important because parliamentary audio can be long and the transcripts may not reproduce every spoken word exactly. Handling those mismatches makes it possible to use recordings whose text and audio are not already neatly paired.",
+      "Applied to recordings from 22 European parliaments, the pipeline produces more than 61,000 hours of aligned speech. Nineteen languages exceed 1,000 hours, and 22 exceed 500 hours. Fine-tuning an existing speech recognition model on the dataset yields an average 41.8% reduction in word error rates relative to the evaluated baselines. This provides practical evidence that deeper language coverage can improve recognition performance."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e9ce89ba8c8a1583bf25ee2285196d1e686191e56a2563309303f951ba9ed446",
+    "tldr": "EuroSpeech converts parliamentary recordings into over 61,000 hours of multilingual speech data and substantially improves evaluated speech recognition performance."
+  },
+  "neurips-2025-fame-adaptive-functional-attention-with-expert-routing-for-function-on-function-regressi-993937fe2d": {
+    "backgroundConcepts": [
+      "topic-206-hey-that-s-not-an-ode-faster-ode-adjoints-via-se"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Function-on-function regression predicts one function from other functions, making continuity part of the learning problem. Conventional approaches often choose basis functions or kernels in advance, while many neural methods reduce functions to vectors sampled on a fixed grid. FAME aims to learn representations directly from data while retaining the continuous character of the inputs.",
+      "Its continuous attention mechanism combines a bidirectional neural controlled differential equation with vector fields supplied through a mixture of experts. This component captures relationships within an individual function. Multi-head cross attention then connects information across functions, allowing the model to represent both internal continuity and dependencies between different functional inputs.",
+      "The entire framework is trained end to end. On synthetic and real-world functional regression benchmarks, the authors report state-of-the-art accuracy and strong robustness when functions are observed through arbitrarily sampled discrete measurements. That robustness matters because the observed samples need not form the same fixed grid. The findings support using continuous representations together with adaptive expert routing for this regression setting."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "62c6d8bcec1624570d99c29fc649259d4804b5b917bd16e6f0ce301b404b4def",
+    "tldr": "FAME combines continuous attention and expert routing to predict functions accurately from flexibly sampled functional observations."
+  },
+  "neurips-2025-hierarchical-semantic-augmented-navigation-optimal-transport-and-graph-driven-reasoning--92dffe1f9d": {
+    "backgroundConcepts": [
+      "topic-004-3d-vla-a-3d-vision-language-action-generative-wo"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Following language instructions through a continuous indoor environment requires connecting what an agent sees with where it should go. Long routes make this harder because scene understanding, planning, and movement must remain coordinated. HSAN addresses these demands through a hierarchy that links environmental meaning, long-term goal selection, and low-level navigation.",
+      "First, vision-language models help build a changing semantic scene graph organized into objects, regions, and zones. An optimal transport planner then selects long-term goals by balancing their relevance to the instruction with their spatial accessibility. The planner is grounded in Kantorovich duality, and the authors provide theoretical optimality guarantees for this planning component.",
+      "A graph-aware reinforcement learning policy handles movement toward subgoals and obstacle avoidance. Experiments across multiple vision-language navigation datasets report state-of-the-art performance, including improved navigation success and generalization to unseen environments. The framework's contribution is the coordination of semantic representations and structured planning with control; the planner's optimality guarantees should be understood separately from the empirical performance of the complete navigation system."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "213cb048ac118e584ba77640dd28ca96f3e29e0763548172cf2484c9789019cb",
+    "tldr": "HSAN combines hierarchical scene graphs, optimal transport planning, and reinforcement learning control to improve instruction-following navigation."
+  },
+  "neurips-2025-inference-time-reward-hacking-in-large-language-models-9eef7f6a6c": {
+    "backgroundConcepts": [
+      "topic-157-textits-sppo-semantic-calibrated-self-play-prefe"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A reward model scores language-model responses using an imperfect approximation of qualities such as correctness or helpfulness. Selecting responses ever more aggressively by that score can eventually reduce their actual quality. This paper studies that problem during inference, when outputs are selected or reweighted without necessarily changing the underlying language model.",
+      "The analysis covers Best-of-n and Soft Best-of-n selection and introduces Best-of-Poisson. The new mechanism efficiently approximates the optimal policy for a reward objective balanced against KL divergence. The authors show that, for a broad class of inference-time mechanisms including Best-of-n and Best-of-Poisson, true reward inevitably follows the characteristic rise-then-decline pattern of reward hacking.",
+      "To manage this effect, HedgeTune efficiently finds the optimal inference-time parameter, moderating how strongly the procedure pursues the proxy reward. Experiments on mathematics, reasoning, and human-preference setups show that this hedging mitigates hacking and improves reward-distortion tradeoffs. The finding is about controlling optimization pressure within these mechanisms, rather than making the reward model a perfect measure of the desired behavior."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "700f01965e7492472163e0669cd1bcfd09e14cc915e1d1b4f36fa89205130fa0",
+    "tldr": "The paper characterizes inference-time reward hacking and introduces HedgeTune to moderate proxy optimization and improve reward-distortion tradeoffs."
+  },
+  "neurips-2025-ms-gs-multi-appearance-sparse-view-3d-gaussian-splatting-in-the-wild-860b709ac7": {
+    "backgroundConcepts": [
+      "topic-140-1000-fps-4d-gaussian-splatting-for-dynamic-scene"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Reconstructing a scene from a small photo collection is difficult when the images also differ in lighting, season, or time of day. Existing reconstruction methods can oversmooth details or fit the available views too closely. MS-GS adapts 3D Gaussian Splatting to this combination of sparse viewpoints and changing appearances.",
+      "The method draws geometric guidance from depth estimated from individual images. To align that guidance reliably, it extracts local semantic regions and anchors them using Structure-from-Motion points. This supplies useful geometry where sparse initialization offers insufficient support. The framework also supervises virtual viewpoints at both pixel and feature levels, using geometry to encourage consistency between views.",
+      "These additional constraints are intended to reduce overfitting and strengthen the reconstructed three-dimensional structure. The authors introduce a dataset and an experimental setting aimed at more realistic photo collections. Across different datasets, they report photorealistic renderings under challenging sparse-view and multi-appearance conditions, with substantial improvements over existing approaches. The results support combining depth priors, local alignment, and virtual-view supervision."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ca991faa289670bdac67d94df416e9b4aa5d4ddba9d2c1d4a028d851ff1dd87b",
+    "tldr": "MS-GS uses depth guidance and virtual-view supervision to reconstruct scenes from sparse photographs with varying appearances."
+  },
+  "neurips-2025-o-sqrt-t-static-regret-and-instance-dependent-constraint-violation-for-constrained-onlin-6d74580680": {
+    "backgroundConcepts": [
+      "topic-056-optimistic-online-mirror-descent-for-bridging-st"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "In constrained online convex optimization, a learner chooses an action before seeing that round's convex cost and constraint. It must keep costs competitive while limiting accumulated constraint violations. This paper proposes an algorithm that preserves the established O(√T) static regret guarantee while making the constraint-violation guarantee sensitive to the particular sequence of constraint sets.",
+      "The cumulative violation bound is the smaller of an instance-dependent quantity V and O(√T log T). V reflects geometric features of the problem: how far consecutive constraint sets move, their shapes, the action-space dimension, and its diameter. Taking the minimum retains the universal bound while allowing a tighter guarantee when the geometry is favorable.",
+      "Under additional structure in the constraint sets, V becomes O(1), yielding a bound that does not grow with the number of rounds. This constant guarantee is conditional, rather than a claim for arbitrary constraint sequences. The contribution shows how exploiting constraint geometry can improve violation guarantees without worsening the stated order of static regret."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d6a2f69d2ce98a0d8603601040c9800061c279d589b80c9674a148471df5c9d8",
+    "tldr": "A geometry-aware online optimization algorithm preserves O(√T) regret while tightening constraint-violation bounds for favorable problem instances."
+  },
+  "neurips-2025-on-the-emergence-of-linear-analogies-in-word-embeddings-f8b3e7a7b8": {
+    "backgroundConcepts": [
+      "topic-055-a-deep-architecture-for-matching-short-texts"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Word embeddings often represent analogies through vector arithmetic, even though they are learned from word co-occurrence statistics. This paper asks why that structure emerges. It develops a generative model in which words have binary semantic attributes and the interactions between those attributes determine how likely words are to appear together.",
+      "The model analytically reproduces several observed patterns. Analogies appear in the leading eigenvectors of a normalized co-occurrence matrix, improve and then saturate as more embedding dimensions are included, and become stronger when the matrix is transformed logarithmically. The model also explains why an analogy can persist after the directly involved word pairs are removed from the corpus.",
+      "This account connects individual embedding dimensions to the semantic structure underlying co-occurrence, providing a more detailed explanation than the observation that similar words cluster together. The authors report robustness to several forms of noise and agreement with Wikipedia co-occurrence statistics and an established analogy benchmark. These findings support the proposed attribute-based model as an explanation of the observed patterns."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "77e00360e6f12ca3f3b6cba4d6d488e337a273574e102a6631f904cfcae3d86a",
+    "tldr": "A semantic-attribute generative model explains several observed ways that linear analogies emerge from word co-occurrence statistics."
+  },
+  "neurips-2025-on-universality-classes-of-equivariant-networks-7b84061ce9": {
+    "backgroundConcepts": [
+      "topic-163-3d-steerable-cnns-learning-rotationally-equivari"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Symmetry-aware networks are often judged by separation power: whether they can distinguish inputs that are not equivalent under the relevant symmetry. This paper shows that this criterion does not fully describe what such networks can express. Two models can distinguish the same inputs yet differ in which target functions they can approximate.",
+      "The authors characterize approximation classes for shallow invariant networks, whose outputs remain unchanged under symmetry transformations. Because equivariant models can be projected into invariant ones, this analysis also provides sufficient conditions for shallow equivariant networks to fail universality. These conditions establish failure in covered settings without claiming to characterize every possible failure.",
+      "The paper also identifies cases where shallow models approximate all functions permitted by their separation constraints. Those positive results depend on structural properties of the symmetry group, including suitable normal subgroups, which may be unavailable for important symmetries such as permutations. The practical conceptual lesson is that input distinguishability and function approximation are separate questions, and both matter when assessing a symmetry-aware architecture."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6a8807efc1ddee2e13190809e9fb987dcd7d157c72031af5ebdd376e005b2aaf",
+    "tldr": "Equivariant networks with identical input-separation power can have different approximation abilities, depending in part on the structure of their symmetry groups."
+  },
+  "neurips-2025-rainbow-delay-compensation-a-multi-agent-reinforcement-learning-framework-for-mitigating-5590ae7461": {
+    "backgroundConcepts": [
+      "topic-123-context-aware-bayesian-network-actor-critic-meth"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "An agent in a multi-agent system may observe information that is already out of date. The problem becomes more complicated when different parts of its observation arrive with different delays: information about one agent may be fresher than information about another. This paper treats those component-specific delays as a central feature of the learning problem.",
+      "The authors extend the decentralized partially observable decision-process formulation to include stochastic individual delays. They then introduce Rainbow Delay Compensation, a training framework designed for this setting, together with recommended implementations of its modules. This connects an explicit model of delayed observations to a method for training agents that must act on them.",
+      "Experiments reproduce the proposed observation pattern in MPE and SMAC benchmarks. Baseline methods degrade severely under fixed and varying delays, whereas RDC reduces that degradation and retains generalizability. In certain delay scenarios, the enhanced approach reaches the performance of an ideal delay-free setting. That result is scenario-specific, while the broader finding is that explicitly addressing individual observation delays improves resilience."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f5faf3a8aa7a0be35b7ee652c40f6ad7eb23261aa9a41b6d4879fd7d220ffcce",
+    "tldr": "Rainbow Delay Compensation helps multi-agent learners cope with differently delayed observation components, sometimes recovering delay-free performance."
+  },
+  "neurips-2025-recognition-through-reasoning-reinforcing-image-geo-localization-with-large-vision-langu-80856be40c": {
+    "backgroundConcepts": [
+      "topic-081-a-benchmark-for-compositional-visual-reasoning"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Image geo-localization asks where a photograph was taken. Classification and retrieval methods often produce answers without an interpretable account of the visual evidence. This paper develops a reasoning-oriented approach with large vision-language models, addressing both the diversity of training imagery and the training method used to improve geographic reasoning.",
+      "The authors construct MP16-Reason from diverse social media images, broadening beyond the street-view imagery common in existing reasoning datasets. They also introduce GLOBE, which uses group-relative policy optimization with task-specific rewards. These rewards jointly target assessment of how localizable an image is, reasoning about visual cues, and the accuracy of the predicted location.",
+      "Qualitative and quantitative evaluations show that GLOBE outperforms state-of-the-art open-source vision-language models on the tested geo-localization tasks, particularly across diverse scenes. Its generated reasoning is also reported to be more insightful and interpretable. The contribution couples broader visual coverage with an optimization objective that rewards both geographic recognition and the reasoning used to support it."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "82bd88cda32c1309474b43ea386fdcc1e8290567827c8c5b866365580c27e4dc",
+    "tldr": "GLOBE combines diverse reasoning-focused image data with task-specific reinforcement learning rewards to improve geo-localization and its explanations."
+  },
+  "neurips-2025-redit-reward-dithering-for-improved-llm-policy-optimization-804afba9fa": {
+    "backgroundConcepts": [
+      "topic-153-v-0-a-generalist-value-model-for-any-policy-at-s"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Rule-based rewards can provide clear feedback for training language-model reasoning, but their discrete values can complicate optimization. The authors observe that these rewards can be associated with abnormal gradients, unstable updates, and slow convergence. ReDit addresses the reward signal itself by adding simple random noise, a procedure called reward dithering.",
+      "The perturbed rewards provide exploratory gradients throughout training, helping updates proceed more smoothly. Noise also introduces variation in regions where the original reward is flat, encouraging exploration of alternative policies and escape from local optima. The method therefore uses controlled randomness to address difficulties caused by an otherwise sharply discretized training signal.",
+      "Across the evaluated tasks, ReDit reaches performance comparable to standard GRPO using approximately 10% of the training steps on average. With a similar training duration, it reports a further 4% performance improvement over that baseline. Visualizations show mitigation of gradient problems, and theoretical analyses support the proposed advantages. These are reported training and performance gains across the tested tasks, rather than universal speedup guarantees."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9a3c4e168a9c6fa33ae84ad43b79efa1e0d478a8141998cfea41476bedd60ba8",
+    "tldr": "ReDit adds random noise to discrete rewards, substantially accelerating GRPO training and improving performance in the reported experiments."
+  },
+  "neurips-2025-scaling-off-policy-reinforcement-learning-with-batch-and-weight-normalization-ddfd459fa3": {
+    "backgroundConcepts": [
+      "topic-209-a-deep-bayesian-policy-reuse-approach-against-no"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A reinforcement learner can try to extract more value from collected experience by performing more training updates per unit of new data. This update-to-data ratio is central to the paper's investigation of CrossQ. Although CrossQ already achieves strong sample efficiency at a ratio of one, increasing the ratio exposes difficulties in its training dynamics.",
+      "The proposed change adds weight normalization to the CrossQ framework. The authors describe this as stabilizing training and keeping the effective learning rate constant, with support for preventing potential loss of plasticity. Plasticity concerns the network's ability to continue adapting, which matters when repeated updates must remain useful throughout learning.",
+      "With this modification, the method reliably scales to higher update-to-data ratios and achieves competitive results across 25 continuous-control tasks from DeepMind Control Suite and Myosuite, including challenging dog and humanoid environments. The approach avoids drastic interventions such as resetting the network. The findings support normalization as a relatively simple way to improve sample efficiency when increasing training effort per collected sample."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "51dc2e33b778cff78d523c67a13e1142f0da0f207f7a5edc2ff843b3b8b8d93e",
+    "tldr": "Adding weight normalization helps CrossQ remain stable as training updates per collected sample increase, improving reinforcement learning scalability."
+  },
+  "neurips-2025-see-trek-training-free-spatial-prompting-for-multimodal-large-language-model-b6c88731c6": {
+    "backgroundConcepts": [
+      "topic-185-textit-bifr-ost-3d-aware-image-compositing-with-"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Spatial reasoning from visual input requires understanding how scene elements relate across views and over time. See&Trek improves the information presented to a multimodal language model under vision-only constraints. It does so through prompting, without training the model or adding depth measurements or point-cloud inputs to the framework.",
+      "The approach combines visual diversity with motion reconstruction. An existing perception model selects semantically rich keyframes intended to capture scene structure. The framework then simulates visual trajectories and encodes relative spatial positions into those keyframes, preserving spatial relationships and temporal coherence. The selected views and position information together provide a more structured basis for reasoning.",
+      "The authors describe the method as training-free and GPU-free, requiring only a single forward pass and integrating with existing multimodal language models. Evaluations on VSI-Bench and STI-Bench show consistent improvements across different models and spatial reasoning tasks, with a maximum reported gain of 3.5%. The result supports improving visual input organization as a practical route to stronger spatial reasoning."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "160fc464ec16f2c88057858d6ef44afeb0943c69391d60b4adbb40bec56eef25",
+    "tldr": "See&Trek improves vision-only spatial reasoning through informative keyframe selection and motion-aware prompting without additional training."
+  },
+  "neurips-2025-smooth-quadratic-prediction-markets-2ba0532c27": {
+    "backgroundConcepts": [
+      "topic-155-dynamic-knapsack-optimization-towards-efficient-"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Prediction markets combine traders' information through changing prices. Existing duality-based cost-function markets have a connection to the learning algorithm Follow-The-Regularized-Leader. This paper asks whether a different learning algorithm can guide market design, introducing a Smooth Quadratic Prediction Market that incentivizes traders to collectively implement general steepest gradient descent.",
+      "The design comes from decomposing and modifying the existing market maker's pricing mechanism. For AD securities, the proposed market improves the worst-case monetary-loss guarantee relative to the duality-based market maker. It also preserves several stated properties, including instantaneous prices, information incorporation, expressiveness, absence of arbitrage, and a form of incentive compatibility.",
+      "The authors separately examine trading under bounded budgets and under a restriction to buying securities. They also give an introductory analysis of adaptive liquidity. These investigations connect the pricing design to practical trading constraints without presenting the liquidity analysis as complete. More broadly, the results suggest that future markets could separate price-update rules from fee structures while retaining useful guarantees."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ba19c41bc34e4690bdc831540bea180a436e7a2f81de4901973b5f56e71adf58",
+    "tldr": "Smooth Quadratic Prediction Markets connect trading to gradient descent while improving a worst-case loss guarantee and preserving key market properties."
+  },
+  "neurips-2025-template-guided-3d-molecular-pose-generation-via-flow-matching-and-differentiable-optimi-091b9e9671": {
+    "backgroundConcepts": [
+      "topic-075-a-3d-generative-model-for-structure-based-drug-d"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Predicting a small molecule's three-dimensional pose in a protein binding site is a central problem in drug design. When a crystallized reference ligand is available, its structure offers geometric guidance. This paper develops a two-stage method that uses such a template to generate a candidate molecular conformation and then refine it.",
+      "The first stage uses flow matching for molecular alignment, producing ligand coordinates with the template as a reference. The second stage applies differentiable optimization based on shape similarity, pharmacophore similarity, and internal energy. Information about the protein binding pocket can optionally enter this refinement, so template guidance and pocket information have distinct roles.",
+      "The authors introduce a benchmark built from ligand pairs crystallized with the same target. On this evaluation, their method outperforms standard docking tools and open-access alignment methods, particularly when the ligand resembles the template less closely or is highly flexible. The findings support combining learned template-guided generation with explicit pose refinement in settings where a suitable crystallized reference is available."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2694756d00e1528969a624e82d8ceb37599005f019d59dff7a94256617d44234",
+    "tldr": "A two-stage method combines template-guided flow matching with differentiable refinement to improve molecular pose generation."
+  },
+  "neurips-2025-text-aware-real-world-image-super-resolution-via-diffusion-model-with-joint-segmentation-467c9a0d02": {
+    "backgroundConcepts": [
+      "topic-059-a-cat-is-a-cat-not-a-dog-unraveling-information-"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Generative super-resolution methods can restore convincing detail to degraded images while distorting the structure of text. That creates a problem for images where readability is part of faithful reconstruction. TADiSR is a diffusion-based framework designed to improve natural image detail and preserve the structure of text regions within the same restoration process.",
+      "The framework combines text-aware attention with joint segmentation decoders. These components bring explicit attention to text regions rather than treating all image content as interchangeable visual texture. The paper also introduces a synthesis pipeline that combines realistic foreground text with detailed backgrounds and produces fine-grained text masks spanning the full image.",
+      "The masks provide explicit descriptions of where text appears in the synthesized images, complementing the framework's focus on textual structure. Extensive experiments report substantially better text legibility, state-of-the-art performance across multiple evaluation metrics, and strong generalization to real-world scenarios. The findings indicate that restoring readable text benefits from dedicated modeling of text regions alongside the recovery of ordinary visual detail."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "079b1296ceba9df063a7c947ac2da89f2be39548ca1a31be6e6f96fe3188c5b1",
+    "tldr": "TADiSR combines text-aware diffusion super-resolution and segmentation to improve text readability while restoring natural image detail."
+  },
+  "neurips-2025-transforming-gaps-into-gains-bridging-model-and-data-heterogeneity-in-federated-learning-7dc27e2e2e": {
+    "backgroundConcepts": [
+      "topic-145-a-kernel-perspective-on-distillation-based-colla"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Federated learning becomes harder when clients differ in both their models and their data. Proxy models can help different architectures exchange knowledge, but matching final outputs may leave deeper disagreements unresolved. FedKWAZ focuses on discrepancies in internal representations and decisions between private and proxy models, treating those disagreements as targets for learning.",
+      "The method identifies Knowledge Weak-Aware Zones, separated into semantic and decision-related zones. A hierarchical patch-mixing mechanism generates multiple mixed samples, and a discrepancy detector selects those showing the largest representation and decision differences. This process seeks out examples where the two models are especially misaligned, giving bidirectional distillation specific weaknesses to address.",
+      "Training proceeds through two complementary stages: global alignment of class-level representations and decisions, followed by local refinement guided by the identified zones. Experiments across multiple datasets and model configurations report superior performance. The central contribution is a more targeted exchange of knowledge, using measured internal disagreements to guide learning instead of relying only on agreement between final predictions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "82ba529aa36268cc3749c6d47d10e91a2df075192669249871a87baea0b8cd4d",
+    "tldr": "FedKWAZ improves heterogeneous federated learning by targeting representation and decision disagreements between private and proxy models."
+  },
+  "neurips-2025-uncertainty-estimation-on-graphs-with-structure-informed-stochastic-partial-differential-8bc74141be": {
+    "backgroundConcepts": [
+      "topic-142-a-consistent-histogram-estimator-for-exchangeabl"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Uncertainty on a graph involves both its connectivity and the distribution of its labels. This makes confidence estimation particularly difficult when data shift away from the conditions seen during training. The paper develops a graph message-passing scheme that explicitly draws on a mathematical model of randomness evolving across space and time.",
+      "The design connects layers of a graph neural network to the evolution of a stochastic partial differential equation driven by a Matérn Gaussian process. This analogy motivates spatial and temporal noise within message passing. It also provides explicit control over the smoothness of the covariance kernel, which describes how random variation is related across locations.",
+      "The resulting method captures uncertainty across both space and time and is evaluated on graphs with low and high label informativeness. Out-of-distribution detection experiments report better performance than existing approaches across the tested datasets. These findings support using structured, controllable noise to improve graph uncertainty estimates across different levels of label informativeness, rather than treating graph uncertainty as a single undifferentiated source."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0a4b1e1cbf43926f722d457cff4208f7a4b6b8fc0ba93f358190ba1b5fd4283a",
+    "tldr": "A graph message-passing method inspired by stochastic differential equations uses structured noise to improve uncertainty estimation and out-of-distribution detection."
+  },
+  "neurips-2025-you-only-communicate-once-one-shot-federated-low-rank-adaptation-of-mllm-9799221b8c": {
+    "backgroundConcepts": [
+      "topic-168-fl-2-overcoming-few-labels-in-federated-semi-sup"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Federated adaptation of multimodal language models can require repeated client-server exchanges, increasing communication costs and exposure to attacks. Some nominally one-shot methods still need extra communication to correct differences between locally trained models. YOCO investigates whether guidance available from initialization can correct local bias without depending on supervision aggregated after training.",
+      "An empirical study finds that controlling the direction of local training substantially reduces client conflicts and bias. YOCO implements this through two differently regularized parts of a low-rank adaptation: sign regularization on LoRA B encourages global consistency, while sparse regularization on LoRA A preserves client-specific adaptability. The two components balance shared direction with room for local specialization.",
+      "Experiments show communication reduced to approximately 0.03% of that used by multi-round federated learning. YOCO surpasses those methods in several multimodal scenarios and consistently outperforms the evaluated one-shot competitors. The results support the possibility of effective adaptation with a single client-server communication, using initial directional guidance to address heterogeneity before a global correction round becomes necessary."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a84d17b32c8f15af6492f2a6d2e306116b45268ba31ad4a350ef570f477dfacd",
+    "tldr": "YOCO uses directional guidance and complementary LoRA regularization to enable effective multimodal federated adaptation with a single communication exchange."
+  }
+}

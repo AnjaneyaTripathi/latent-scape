@@ -1,0 +1,327 @@
+{
+  "neurips-2025-acco-accumulate-while-you-communicate-for-communication-overlapped-sharded-llm-training-f30eeaa4f8": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Training a large language model across multiple GPUs requires both computing gradients and exchanging them between workers. As more workers join, synchronization can consume an increasing share of training time. Reducing communication through local optimization creates another problem: it can prevent optimizer state from being divided across devices, increasing the memory each device needs.",
+      "ACCO addresses this tradeoff by overlapping communication with useful computation. Workers synchronize delayed gradients while computing new ones, so GPUs spend less time waiting for communication to finish. The method also preserves support for sharded optimization, keeping memory efficiency central to its design rather than treating faster communication as an isolated goal.",
+      "Delayed updates can disrupt convergence, so the authors introduce an additional technique intended to align training dynamics with standard distributed optimization. They report significantly faster training than ZeRO-1 and effective scaling across heterogeneous hardware. The result is a coordinated approach to scheduling, memory use, and optimization that makes communication overlap practical for the distributed training settings studied."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "33573f37e72e6938b44a9fe5b7284f79ec1d6f5143d142bf157753704035e61f",
+    "tldr": "ACCO overlaps delayed-gradient synchronization with new computation to accelerate sharded LLM training while addressing the optimization effects of delayed updates."
+  },
+  "neurips-2025-anomalycot-a-multi-scenario-chain-of-thought-dataset-for-multimodal-large-language-model-ccc5030fd9": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Industrial anomaly detection involves identifying defects for quality control. Multimodal language models offer visual understanding and knowledge across domains, but existing datasets often present detection as ordinary questions and answers. The authors argue that limited scenario diversity and a lack of structured reasoning make those datasets less suitable for reliable practical use.",
+      "AnomalyCoT contains 37,565 samples covering composite industrial anomaly detection tasks across multiple scenarios. Each sample includes reasoning-oriented annotations and precise coordinates for anomalous regions. This connects the explanation of a defect to its location in the image. The dataset is built through a systematic pipeline that includes multiple manual operations.",
+      "The authors evaluate mainstream models directly and fine-tune representative models using different approaches. Gemini-2.0-flash leads the direct evaluation at 59.6% accuracy, while Llama 3.2-Vision reaches the highest reported fine-tuned accuracy, 94.0%, with LoRA. The reported average accuracy improvement across fine-tuned models is 36.5%. These findings support the potential of structured, spatially grounded training data for industrial defect analysis."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "12ea2165835a92b5ba504812176750fc64529e20fa49c9039f13cf6aad96f657",
+    "tldr": "AnomalyCoT supplies industrial defect examples with structured reasoning and precise locations, with substantial reported accuracy gains after model fine-tuning."
+  },
+  "neurips-2025-bifrost-1-bridging-multimodal-llms-and-diffusion-models-with-patch-level-clip-latents-1650108792": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Combining language-model reasoning with high-quality image generation can require costly training, particularly when a language model has no prior familiarity with image representations. Bifrost-1 starts with a pretrained multimodal language model and a diffusion model, connecting them through image features already aligned with the multimodal model's visual encoder.",
+      "The connection uses CLIP embeddings for individual image patches as intermediate variables. A lightweight adaptation of the diffusion model's ControlNet incorporates these features into image generation. On the language-model side, a separate visual generation branch predicts the patch embeddings. This branch starts from the original model's parameters and is designed to retain its existing multimodal reasoning capabilities.",
+      "The authors report controllable, high-fidelity image generation with substantially less training compute than previous methods. Their experiments find comparable or better visual fidelity and multimodal understanding, and ablation studies support the design choices. The central contribution is an efficient interface between pretrained components: a shared visual representation helps connect understanding and generation without requiring the entire relationship to be learned from scratch."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "97e40241a54c9213d0ca173f3a47ff50c613274b7127944ba6e1888d5dac5848",
+    "tldr": "Bifrost-1 connects pretrained multimodal language and diffusion models through patch-level CLIP features, enabling efficient image generation while retaining multimodal understanding."
+  },
+  "neurips-2025-bigram-subnetworks-mapping-to-next-tokens-in-transformer-language-models-d044055533": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A language model begins with representations of the tokens it receives and must transform them into predictions of what comes next. This paper isolates a minimal version of that transformation: predicting the next token using only the current token. Such bigram predictions provide a simple behavior whose underlying parameters can be studied inside a larger model.",
+      "The authors identify subnetworks performing this behavior in fully trained models with up to one billion parameters. These subnetworks can contain less than 0.2% of the model's parameters yet remain critical to its performance. They are concentrated in the first transformer MLP layer and substantially overlap with subnetworks found by methods trained to prune the model optimally.",
+      "Mechanistically, these small subnetworks often reproduce a sharp first-layer shift from representing the current token toward predicting the next one. The authors characterize them as necessary and sufficient for basic next-token predictions in the models studied. This gives circuit analysis a concrete starting point: more complex language behavior can be investigated by building outward from a small, identifiable predictive mechanism."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "54d37b7effc0b4e5f95713ef05d976c2bcf5a1624a181fa0fdd62090b900a587",
+    "tldr": "Tiny subnetworks concentrated in the first transformer MLP perform basic next-token prediction and help explain how token representations become predictions."
+  },
+  "neurips-2025-bit-swapping-oriented-twin-memory-multi-view-clustering-in-lifelong-incomplete-scenarios-71268210eb": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Multi-view clustering combines different descriptions of data to discover groups. In lifelong settings, new views arrive over time, sometimes with missing information. Existing approaches transfer accumulated features but can overlook the underlying embeddings within views. Their continuing updates can also change landmarks and similarities in ways that disrupt previously learned cluster structure.",
+      "BSTM first uses specialized projectors to accommodate different feature dimensions, then establishes shared anchors across the views collected so far. It builds a shared bipartite graph through indicators to represent similarities. Jointly optimizing the anchors and graph supports knowledge transfer to incoming views while reducing repeated calculations and the representation distortion associated with fusion.",
+      "A binary bit-swapping procedure aligns current and previous anchors through one-hot row and column attributes. The corresponding graph is reordered to match, allowing alignment while preserving numerical consistency. The authors also develop a four-step update procedure with linear complexity. Experiments on public benchmarks with different missing-data percentages report superior effectiveness, supporting this combination of shared representations and structure-preserving alignment."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6cfae8a1580478a7e5d91549e8dbd8c49c6fc371f031c6d5cb35d6dc2d36da83",
+    "tldr": "BSTM combines shared anchors, a shared similarity graph, and binary reordering to transfer clustering knowledge as incomplete views arrive over time."
+  },
+  "neurips-2025-concerto-joint-2d-3d-self-supervised-learning-emerges-spatial-representations-be01e40de8": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Concerto explores whether learning jointly from images and three-dimensional data produces better spatial representations. Its motivation is that information acquired through multiple senses can support concepts later accessed through one sense. The method combines self-distillation within the 3D modality with a joint embedding that connects 2D and 3D information.",
+      "The authors report more coherent and informative spatial features in zero-shot visualizations. In linear probing for 3D scene perception, Concerto outperforms standalone state-of-the-art 2D and 3D self-supervised models by reported margins of 14.2% and 4.8%, respectively. It also exceeds simple concatenation of their features, suggesting that joint learning contributes beyond merely placing separately learned representations together.",
+      "With full fine-tuning, Concerto achieves new state-of-the-art results across multiple scene-understanding benchmarks, including 80.7% mIoU on ScanNet. The paper also introduces a variant for point clouds derived from video and a linear translator into CLIP's language space for open-world perception. Together, these findings support the usefulness of jointly learned features that retain both fine geometric detail and semantic consistency."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d6c5c51da9b1baac63463b3ad55e71a5aa675eee1b268466028f1381bb3ff4be",
+    "tldr": "Concerto jointly learns from 2D and 3D data to produce spatial features that improve scene understanding and can connect to language representations."
+  },
+  "neurips-2025-direct-alignment-with-heterogeneous-preferences-cfa6218956": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Preference alignment often represents human judgments through a single universal reward function. This paper examines what changes when people have systematically different preferences. The authors formalize those differences using user types and study how direct alignment methods behave when the available feedback contains varying amounts of information about those types.",
+      "For the problem of learning one policy, their analysis identifies the average reward across user types as the appropriate objective. Learning this objective, however, requires additional information about annotators. Treating all feedback as though it came from one homogeneous preference source can therefore obscure information that matters for finding the best shared policy.",
+      "The results distinguish improvements from stronger guarantees. Minimal information about preference heterogeneity can yield first-order improvements, while full feedback from every user type permits consistent learning of the optimal policy. Yet, even in that richer setting, the authors show that no sample-efficient consistent direct loss exists. This exposes a theoretical tension: enough information can make consistent learning possible without making it achievable through a sample-efficient direct loss."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1a26caa1a2a467d6449e475efb8bf4cc5b024bede67434c4ec13862b27eb8a13",
+    "tldr": "Accounting for differing user preferences improves direct alignment, but the paper establishes a tension between consistent learning and sample efficiency."
+  },
+  "neurips-2025-dual-flow-transferable-multi-target-instance-agnostic-attacks-via-textit-in-the-wild-cas-9c45aa11cd": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Adversarial attacks help evaluate whether a model remains reliable under deliberately challenging inputs. In black-box settings, an attack's usefulness depends on whether it transfers between models. Generator-based attacks can generalize across inputs because they learn a reusable attack mechanism, but handling multiple target outcomes places additional demands on the generator's capacity.",
+      "Dual-Flow addresses the low transfer success reported for existing multi-target generators. Its framework uses Cascading Distribution Shift Training to learn an adversarial velocity function. The approach targets the shared mechanism used across instances and multiple targets, making the training of that reusable attack function the central contribution.",
+      "Experiments report substantially better transferability than previous multi-target generative attacks. One example is a reported 34.58% increase in attack success when transferring from Inception-v3 to ResNet-152. The attacks also remain more effective against defense mechanisms, including adversarially trained models. These results indicate that the evaluated defenses and model changes provide less protection against this attack framework than against the compared methods, strengthening the robustness tests available in the studied settings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5d7f8297899fc1e4dff2a671797cbca96dacc6ea920f3eaad7ea6fa9c58c088a",
+    "tldr": "Dual-Flow improves the transferability of reusable multi-target adversarial attacks and reports stronger effectiveness against evaluated defenses."
+  },
+  "neurips-2025-efficient-multi-modal-large-language-models-via-progressive-consistency-distillation-8b8e0732c0": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Visual tokens account for substantial computation in multimodal language models, making compression an appealing route to efficiency. However, compression also changes the features that the model must process. The authors argue that existing approaches often underestimate this learning problem: model parameters may struggle to adapt quickly when the visual representation changes substantially.",
+      "EPIC addresses adaptation through a progressive training framework guided by a teacher model. It separates the disturbances caused by compression into two dimensions: differences across tokens and differences across layers. Token consistency distillation and layer consistency distillation provide corresponding forms of guidance, helping the compressed model follow a more gradual learning trajectory.",
+      "The contribution is therefore about how a model learns to operate with compressed visual information, as well as the computational motivation for using fewer tokens. Extensive experiments report superior effectiveness, robustness, and generalization for the proposed framework. These findings support the authors' argument that managing the transition to compressed representations is an important part of building efficient multimodal models, rather than assuming that ordinary training will readily absorb the change."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3e4d4f07ed4d8e1a8745267ae2befe2139aee08476d97870817d137ffaefa3d9",
+    "tldr": "EPIC uses progressive teacher guidance across tokens and layers to help multimodal models adapt to visual-token compression."
+  },
+  "neurips-2025-eldet-early-learning-distillation-with-noisy-labels-for-object-detection-9a0c31253d": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Object detectors must identify what an object is and where it appears. Training annotations can be wrong in either respect: the class may be incorrect, or the bounding box may be inaccurate. Because both kinds of error often occur together in large datasets, a method that addresses only one leaves an important source of training noise untreated.",
+      "ELDET builds on early learning, the tendency for models to fit clean examples before memorizing incorrect labels. The paper's key observation is that this phenomenon occurs earlier for localization noise than for categorization noise. The timing of reliable learning therefore differs between the detector's two responsibilities, making the distinction relevant to how training guidance is obtained.",
+      "The method uses models from the early-learning phase, before noisy-label overfitting, as teachers for distillation. Its implementation is a plug-in module compatible with general detector architectures. The authors validate it against state-of-the-art methods on PASCAL VOC, MS COCO, and the VinDr-CXR medical detection dataset. The contribution connects the timing of noise memorization to a reusable training strategy that addresses both categories and locations."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8807c4a57ad0a7726619c3f08954ea864018da7be1d7d37c448138a69313712d",
+    "tldr": "ELDET uses early-training models as teachers to address incorrect object classes and bounding boxes, accounting for their different noise-learning timelines."
+  },
+  "neurips-2025-fast-projection-free-approach-without-optimization-oracle-for-optimization-over-compact--b204bc03a5": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Optimizing under convex constraints often requires expensive operations to keep solutions feasible. Projection-free methods avoid projecting each update back into the allowed set, but methods such as Frank-Wolfe still rely on a linear optimization oracle. Extending their efficiency from simple sets to general compact convex sets is the challenge addressed here.",
+      "Hom-PGD constructs a homeomorphism between the constraint set and a unit ball, turning the original problem into an equivalent ball-constrained formulation. This change of representation enables gradient-based optimization while preserving the original problem structure. The method avoids both expensive projection and linear optimization oracles, with reported per-iteration complexity of O(n²), where n is the input size.",
+      "The authors prove convergence rates matching constant-step gradient descent: O(log(1/ε)) for strongly convex objectives, O(ε⁻¹) for convex objectives, and O(ε⁻²) for nonconvex objectives, with stationarity as the relevant target in the nonconvex case. The framework also extends to certain nonconvex constraint sets. Numerical experiments report comparable convergence rates to leading projection-free methods and per-iteration runtime reductions reaching five orders of magnitude."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "445d3c2821a45474eba11bca5c21bd02433584fc90d3cd24d64512c3ce15a59d",
+    "tldr": "Hom-PGD transforms constrained optimization into a ball-constrained problem, achieving stated gradient-descent convergence rates without expensive projection or optimization oracles."
+  },
+  "neurips-2025-from-shortcut-to-induction-head-how-data-diversity-shapes-algorithm-selection-in-transfo-b016fab5db": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A transformer can solve a training task through a reusable rule or through a positional shortcut that breaks when contexts change. This paper studies how the pretraining distribution influences that choice in a single-layer transformer. Its task is deliberately minimal: when a special trigger appears again, copy the token that followed its earlier occurrence.",
+      "The authors analyze gradient-based training with both finite and infinite samples. They prove a transition governed by a measure of diversity in trigger-to-trigger distances, called the max-sum ratio. Sufficient diversity, expressed through a low ratio, leads to an induction head that generalizes to unseen contexts. A large ratio instead leads to a positional shortcut and failure outside the training distribution.",
+      "The analysis also identifies a tradeoff between pretraining context length and out-of-distribution generalization, and derives a pretraining distribution minimizing computational cost per sample. Controlled synthetic experiments support the predictions: broadening context distributions induces induction heads and enables generalization. Within this simplified setting, the work shows how data design can steer the algorithm a model learns, rather than merely change its training accuracy."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "141a96fba59ee9c0e6bd849c51c0856971aa03da207dd3005ae0d86a7ba4b738",
+    "tldr": "For a minimal copying task, the paper proves that sufficient training-context diversity steers a single-layer transformer from positional shortcuts toward generalizable induction heads."
+  },
+  "neurips-2025-from-specificity-to-generality-revisiting-generalizable-artifacts-in-detecting-face-deep-8c9f62cf45": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Face-deepfake generators leave many different visual traces, making it impractical to teach a detector every generator-specific artifact separately. This paper instead looks for broader patterns shared across different kinds of facial forgery. The authors organize those patterns into two complementary categories that existing deepfakes typically exhibit individually or together.",
+      "Face Inconsistency Artifacts describe mismatches between intricate facial features and relatively uniform surrounding areas. Up-Sampling Artifacts are traces associated with the generator's decoder as it increases image resolution. The proposed training-data framework creates artificial fakes focused on these two categories: super-resolution simulates up-sampling traces, while image-level self-blending across diverse facial regions creates inconsistencies.",
+      "The framework is designed to avoid introducing additional, less general artifacts that could distract the detector from these shared cues. The authors find that a standard image classifier trained only on the resulting pseudo-fake data generalizes well to previously unseen deepfakes. This supports a data-centered approach to broader detection: carefully constructing representative artifacts can make even a conventional classifier useful beyond the particular fakes encountered during training."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b96a1c76c84b8e78bbaf9f7b8a5d7bb37583391126f37a6b4a80f650da1ac7a5",
+    "tldr": "Training on artificial face inconsistencies and up-sampling traces helps a standard classifier detect previously unseen facial deepfakes."
+  },
+  "neurips-2025-glance2gaze-efficient-vision-language-models-from-glance-fusion-to-gaze-compression-d940a916d1": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Vision-language models need informative visual representations, but processing many visual tokens is computationally expensive. Glance2Gaze approaches this tradeoff through a two-stage design inspired by looking broadly at a scene before focusing on relevant regions. It combines an enriched global representation with selective compression based on what matters semantically.",
+      "The Glance Fusion module integrates features from multiple layers of a vision transformer. Text-aware attention helps turn those features into a global representation connected to the language input. The Gaze Compression module then uses a query-guided mechanism to compress visual tokens according to their semantic relevance. The two components link broad visual understanding with more focused use of computation.",
+      "Experiments on widely used benchmarks report better performance than existing methods at equal or lower computational cost. The framework also generalizes well to high-resolution images and video in the reported evaluations. These findings suggest that efficiency can benefit from coordinating feature fusion and compression: a richer view of the image can inform which visual information should receive space in the model's subsequent processing."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "043e05659dacbad7e98df46ac26b210f0b40fbaac50d0e52a79feb1f3ee30e4b",
+    "tldr": "Glance2Gaze combines text-aware visual feature fusion with query-guided token compression to improve vision-language performance at equal or lower computational cost."
+  },
+  "neurips-2025-nearly-linear-time-private-hypothesis-selection-with-the-optimal-approximation-factor-7bbf087698": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Hypothesis selection asks which of several candidate probability distributions best describes observed samples. Quality is measured by total variation distance from the unknown data distribution. Because the candidates may all be imperfect, an algorithm is judged by how its selected candidate compares with the best available one; the optimal approximation factor for this problem is three.",
+      "The paper studies this selection task under differential privacy in the central model. The authors give an algorithm whose runtime is nearly linear in the number of candidate distributions while retaining the optimal approximation factor. Its sample requirement increases only modestly and remains polylogarithmic in the number of candidates.",
+      "Previously available upper bounds for this private setting required quadratic runtime. The result therefore resolves the stated open question by bringing private selection much closer to the computational efficiency available without privacy. Its significance is the combination of guarantees: privacy protection, optimal approximation quality, nearly linear runtime, and a sample requirement that grows slowly as the candidate collection expands."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b6e7ce502d953902aa8346cfb87c594769ad0dbda4830cca7e038978bf44af77",
+    "tldr": "The paper gives a centrally differentially private hypothesis-selection algorithm with nearly linear runtime, optimal approximation factor three, and polylogarithmic sample complexity."
+  },
+  "neurips-2025-on-the-robustness-of-transformers-against-context-hijacking-for-linear-classification-aa3e5e2567": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Context hijacking occurs when factually correct examples in a model's context nevertheless disrupt its prediction. This paper investigates the phenomenon through an in-context linear classification problem. The misleading context consists of correctly labeled query-answer pairs whose queries resemble the final query but carry the opposite label, creating interference without supplying false answers.",
+      "The authors develop a theoretical analysis for linear transformers that relates robustness to model depth, training context length, and the number of hijacking tokens. A key finding is that a well-trained deeper transformer can be more robust. The qualification matters: the result concerns depth together with successful training in the analyzed setting.",
+      "Their explanation is that deeper layers permit finer-grained optimization steps, which can reduce the interference introduced by the hijacking examples. Numerical and real-world experiments support this account and align with the reported benefit of depth. The work offers a mechanism for understanding why additional layers can help resist misleading context, while grounding the theoretical claim in a specific classification setup rather than treating every form of context manipulation as equivalent."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a02df45123d5c37d68b40d870dc84b3c759a026715aec4c60bf02c0df7792e9c",
+    "tldr": "In an analyzed linear-classification setting, well-trained deeper transformers can resist context hijacking through finer-grained optimization across layers."
+  },
+  "neurips-2025-point3r-streaming-3d-reconstruction-with-explicit-spatial-pointer-memory-11feaceff4": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Reconstructing a dense 3D scene from many images requires incorporating new observations while retaining information from earlier ones. Methods using implicit memory can face capacity limits and lose details from previous frames. Point3R addresses this problem with an online reconstruction framework whose memory is explicitly tied to the scene's three-dimensional structure.",
+      "Each memory pointer has a specific 3D position and a changing feature that aggregates nearby scene information in global coordinates. Features from the latest image interact directly with these pointers, allowing the new observation to be integrated into the shared scene representation. This makes the memory's spatial organization part of the reconstruction process itself.",
+      "The framework uses hierarchical 3D position embeddings to support those interactions and a fusion mechanism to keep pointer memory uniform and efficient. The authors report competitive or state-of-the-art performance across several tasks with low training costs. The contribution is a concrete way to organize persistent scene information: explicit spatial pointers connect accumulated knowledge to locations where later observations can update it."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "72c4b2781ea1e05b1edeab42e53186fdaa86fcf796839b47ea4dd281896f97fe",
+    "tldr": "Point3R reconstructs streaming 3D scenes using explicit, position-linked memory pointers that integrate new images with accumulated scene information."
+  },
+  "neurips-2025-reproducing-kernel-banach-space-models-for-neural-networks-with-application-to-rademache-6ff7cd8c4d": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper develops a mathematical representation of feedforward neural networks using Hermite transforms and reproducing kernel Banach spaces. The representation is exact rather than an approximation of network behavior. It accommodates arbitrary width, depth, and feedforward topology, including ResNets and transformers, under assumptions of finite-energy activations and finite spectral-norm weights and biases.",
+      "The authors use this representation to derive two bounds on Rademacher complexity, a measure of a function class's capacity to fit random variation. The general bound does not depend on network width, but it grows exponentially with depth. Thus, the analysis separates the effect of making a network wider from the effect of adding more layers.",
+      "The second bound is independent of both width and depth when weights and biases satisfy appropriate below-threshold constraints. That stronger conclusion is conditional on those restrictions, rather than a guarantee for arbitrary parameter magnitudes. Together, the results provide an exact modeling framework and two complementary capacity bounds, showing how constraints on network parameters can materially change the architectural dependencies appearing in the analysis."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "546565de0ab1b2fd52f867549d8c95d35ee334f2d8478f4db6d17c1eb195c6e2",
+    "tldr": "An exact Banach-space model yields a width-independent neural-network complexity bound and, under parameter constraints, a bound independent of both width and depth."
+  },
+  "neurips-2025-reverse-diffusion-sequential-monte-carlo-samplers-de9586b23f": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Sampling from a distribution known only up to a normalization constant is a central computational challenge in Bayesian inference. Diffusion-based samplers approach it through reverse denoising, but approximate score estimates and discrete simulation steps can introduce accumulating error. This paper places such samplers inside a sequential Monte Carlo framework that systematically corrects their biases.",
+      "The diffusion sampler supplies proposals, while a sequence of intermediate target distributions progressively guides sampling toward the final target. Ideally informative intermediate targets are computationally intractable. The authors therefore construct what they call exact approximations using quantities already supplied by the score-based proposal, without requiring additional model training or inference overhead.",
+      "Under mild conditions, the resulting framework provides consistent sampling and an unbiased estimate of the target's normalization constant. These are distinct guarantees: one concerns the sampling procedure's limiting correctness, while the other concerns estimation of the normalizing quantity. Experiments on synthetic distributions and real-world Bayesian inference problems demonstrate the method's effectiveness, supporting the use of diffusion proposals within a correction framework rather than relying on their approximations alone."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "dea4a7a4b546657c9839376680e42fe399d66395bff2fe1302dadeb47e49623c",
+    "tldr": "The proposed sequential Monte Carlo framework corrects diffusion-sampler biases and provides consistent sampling and unbiased normalization estimates under mild conditions."
+  },
+  "neurips-2025-revisiting-bi-linear-state-transitions-in-recurrent-neural-networks-948b6c710f": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Research on recurrent neural networks often treats hidden units primarily as memory, emphasizing mechanisms that retain information over time. This paper examines their role in computation itself. It focuses on state-tracking tasks, where the hidden state must actively help determine the network's behavior as inputs arrive, making storage alone an incomplete description of its function.",
+      "The authors revisit bilinear state updates, which create multiplicative interactions between hidden units and input embeddings. They show theoretically and empirically that these interactions provide a natural inductive bias for modeling how hidden states evolve in state-tracking problems. The architecture thereby gives the current state an active role in processing the incoming input.",
+      "The paper also organizes bilinear updates into a hierarchy associated with state-tracking tasks of increasing complexity. Popular linear recurrent networks, including Mamba, occupy the lowest-complexity center of this hierarchy. This perspective connects architectural choices to computational demands and provides a way to understand recurrent models beyond how successfully they preserve past information."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9777d4917f9bf59c7760206ddb7ebcebc5ae4c24e8d7a948dbbbb37ad37c5a66",
+    "tldr": "Bilinear recurrent updates let hidden states actively shape computation and form a hierarchy suited to increasingly complex state-tracking tasks."
+  },
+  "neurips-2025-riboflow-conditional-de-novo-rna-co-design-via-synergistic-flow-matching-f6717e842d": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Designing RNA for a chosen molecular target requires coordinating its sequence with a structure that can interact with that target. Existing generative approaches struggle with RNA's conformational flexibility, structural validity, and limited high-quality data. RiboFlow addresses these challenges through joint generation of RNA structures and sequences conditioned on target molecules.",
+      "Its synergistic flow-matching architecture combines backbone frames, torsion angles, and sequence features. Bringing these descriptions together allows the model to represent RNA's changing conformations explicitly while enforcing consistency between sequence and structure. The authors also curate RiboBind, a large-scale collection of RNA–molecule interactions intended to address the shortage of suitable structural training data.",
+      "Experiments report a large performance advantage over state-of-the-art RNA design methods and controllable capabilities for achieving high affinity to target ligands. The contribution combines a modeling choice with a data resource: joint structural and sequence representations address validity and flexibility, while the interaction dataset supports learning from relevant examples. The reported findings support a structure-aware approach to controllable RNA design."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6be5f353d3a033d6724e30beb4306872f03fe7273c93bfb2e3d9b7806e639bca",
+    "tldr": "RiboFlow jointly designs target-conditioned RNA sequences and structures, using integrated conformational modeling and a new interaction dataset."
+  },
+  "neurips-2025-scalable-cross-view-sample-alignment-for-multi-view-clustering-with-view-structure-simil-3c67b4ba76": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Multi-view clustering seeks a common grouping from several representations of data. Many methods assume that samples appear in matching arrangements across views, but independently collected data may not be synchronized. SSA-MVC addresses this mismatch by learning sample alignment as part of the process of combining views for clustering.",
+      "First, a cluster-label matching procedure selects the view whose clustering labels agree best with the others as a reference. For each remaining view, the method represents non-aligned samples through their similarities to aligned samples. It then builds a similarity graph linking these representations to non-aligned samples in the reference view, producing a criterion for alignment.",
+      "That criterion enters a late-fusion clustering framework, allowing it to handle samples whose cross-view correspondence is unavailable. The construction explicitly uses aligned samples when forming the representations, while learning how the non-aligned portions correspond. The resulting alignment matrix can also support existing multi-view clustering methods. Experiments on eight real-world datasets validate the approach, indicating that correspondence estimation can serve both the proposed framework and other clustering pipelines."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "cd8fc7202896654398a65cdc00b47360941ed2dc6bd4e4a59b547ba084078d67",
+    "tldr": "SSA-MVC learns cross-view sample correspondence through structural similarities and uses it to cluster data whose views are not fully aligned."
+  },
+  "neurips-2025-the-dual-nature-of-plasticity-loss-in-deep-continual-learning-dissection-and-mitigation-a8ab80758d": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Neural networks can lose their ability to adapt during continual learning. Although random changes to learned weights can alleviate this loss of plasticity, its mechanisms remain insufficiently understood. This paper develops an analysis combining neural collapse theory with finite-time Lyapunov exponents, using these tools to distinguish two contrasting forms of deterioration.",
+      "In type-1 loss of plasticity, strongly negative exponents accompany collapsed representations that prevent the network from learning effectively. Type-2 has excessively positive exponents: the network can still fit its training data, but increasingly chaotic behavior reduces test accuracy. The distinction matters because successful training performance can coexist with one form of declining adaptability.",
+      "Based on this account, the authors introduce Generalized Mixup to relax the representation space during prolonged continual learning. They report superior effectiveness compared with existing methods. The work therefore contributes both a diagnosis and a mitigation strategy: it separates a failure to learn from a failure to generalize associated with unstable behavior, then uses that understanding to guide changes to the learned representation space."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "07dc0a10667418ea3abf4fe918b961f6e235408195d021c09b0ea82081e64d63",
+    "tldr": "The paper separates continual-learning plasticity loss into representation collapse and chaotic generalization failure, then introduces Generalized Mixup to mitigate it."
+  },
+  "neurips-2025-towards-precision-protein-ligand-affinity-prediction-benchmark-a-complete-and-modificati-e90ac22bef": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Predicting protein–ligand binding affinity is useful for drug discovery, but simplified datasets can hide difficulties posed by modified proteins. This work expands the DAVIS dataset to include 4,032 kinase–ligand pairs involving substitutions, insertions, deletions, and phosphorylation. The aim is to assess predictive models under conditions that better reflect biologically relevant protein variation.",
+      "The authors introduce three evaluation settings: prediction on the augmented dataset, generalization from wild-type proteins to modifications, and generalization with a few modified examples. These settings distinguish performance with broader training coverage from the ability to handle modifications without such examples or after limited adaptation. Both docking-based and docking-free methods are evaluated.",
+      "Docking-based models generalize better in the reported zero-shot evaluations. Docking-free models tend to overfit to wild-type proteins and struggle with unfamiliar modifications, but improve notably after fine-tuning on a small set of modified examples. The benchmark therefore reveals a meaningful difference between immediate transfer and adaptation with limited data, providing a foundation for studying affinity predictors that account for protein modifications."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "025089624ce36d937091818f3e612b3ac1095d05c76b05d1f9422163de1669fa",
+    "tldr": "An expanded DAVIS benchmark tests protein-modification generalization, finding stronger zero-shot transfer for docking-based models and useful few-example adaptation for docking-free models."
+  },
+  "neurips-2025-unified-all-atom-molecule-generation-with-neural-fields-561f1abe24": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Generative models for structure-based drug design often specialize in one molecular category, limiting their broader use. FuncBind introduces a shared representation for generating target-conditioned molecules across different atomic systems. It represents molecules as continuous atomic densities through neural fields and uses score-based generative models with architectures adapted from computer vision.",
+      "This representation allows a single model to train on both small and large molecular systems. It accommodates varying numbers of atoms or residues, including non-canonical amino acids. The authors report competitive computational performance for target-conditioned generation of small molecules, macrocyclic peptides, and antibody complementarity-determining region loops, demonstrating the framework across substantially different molecular forms.",
+      "The paper also reports novel antibody binders tested in vitro, produced by redesigning the H3 complementarity-determining loop in two selected co-crystal structures. This supplies experimental evidence for those antibody-design cases alongside the broader computational evaluations. Finally, the authors introduce a dataset and benchmark for structure-conditioned macrocyclic peptide generation, extending the contribution from a unified generation framework to an additional resource for evaluating molecular design."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f79d73bdff2291f0f96dcd27389dcf6319e4f449d2d2d3775b6fb17265ee414a",
+    "tldr": "FuncBind uses continuous atomic-density representations to generate diverse target-conditioned molecules, with competitive computational results and experimentally tested antibody binders."
+  }
+}

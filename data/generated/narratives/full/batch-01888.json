@@ -1,0 +1,343 @@
+{
+  "icml-2026-3d-rft-reinforcement-fine-tuning-for-video-based-3d-scene-understanding-cd584af506": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "3D-RFT studies whether reinforcement learning with automatically checkable rewards can improve a model’s understanding of three-dimensional scenes from video. The challenge involves both perception and reasoning: a model must identify objects and connect its answers to their spatial arrangement. The paper brings verifiable reinforcement learning into this setting.",
+      "Training happens in two stages. Supervised fine-tuning first develops the multimodal model’s ability to handle 3D tasks. Group Relative Policy Optimization then refines its behavior using task-specific rewards, including 3D intersection-over-union and F1-score. These rewards provide deterministic feedback about spatial alignment, giving training a concrete signal tied to the task rather than an open-ended judgment of answer quality.",
+      "The authors report state-of-the-art results on the evaluated video-based 3D benchmarks, with substantial improvements over VG LLM-8B on detection and grounding. The model also exceeds larger mainstream models on VSI-Bench. These findings support the value of combining an initial supervised foundation with verifiable reinforcement feedback for spatial tasks."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "498086d2dcc9be3fb1b98344140a6d5836f21e9ea68225e758203d1f220b5c28",
+    "tldr": "3D-RFT improves video-based 3D understanding by following supervised training with reinforcement learning driven by verifiable spatial rewards."
+  },
+  "icml-2026-a-penalty-approach-for-differentiation-through-black-box-quadratic-programming-solvers-4eb2522633": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A quadratic program can serve as a component inside a learning system, but training that system requires understanding how the program’s solution changes when its inputs change. Common methods obtain these derivatives through the Karush–Kuhn–Tucker system. The paper addresses the computational and numerical difficulties that this approach can encounter at large scales.",
+      "The proposed framework, dXPP, separates finding a solution from differentiating through it. The forward pass can use any black-box quadratic-programming solver. For the backward pass, dXPP maps the returned solution to a smooth approximate problem built with penalties. It then uses implicit differentiation, solving a smaller linear system involving only the primal variables.",
+      "This separation allows the solver and derivative calculation to use different machinery. Tests cover random quadratic programs, large sparse projection problems, and multi-period portfolio optimization. The authors report competitive performance against KKT-based differentiation and substantial speedups on large problems. The central contribution is a more efficient differentiation route built around a smooth approximation while retaining freedom in solver choice."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9133ce40da9d8f8194ab1b8fa3aea65d604bb146dd491f92fdb04ce75f4caf48",
+    "tldr": "dXPP differentiates through black-box quadratic-programming solutions using a smooth penalty approximation and a smaller backward-pass linear system."
+  },
+  "icml-2026-a-unified-sparse-attention-via-multi-granularity-compression-621e7cc4ab": {
+    "backgroundConcepts": [
+      "topic-012-quest-query-aware-sparsity-for-efficient-long-co"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Long inputs make ordinary self-attention expensive because its computation grows quadratically with sequence length. Sparse attention reduces the connections that must be evaluated, but the abstract identifies practical trade-offs in existing methods: some require costly training, while others lose efficiency or work less generally across modalities. UniSparse aims to address these concerns within one mechanism.",
+      "Its central abstraction is the composite token, a compact representation that combines contextual information at several levels of detail. UniSparse uses these representations to compress context and select blocks for attention dynamically. Combining information across granularities guides sparse computation, while block-level selection makes the resulting workload suitable for efficient GPU execution.",
+      "Across the evaluated modalities and tasks, the authors report better accuracy and efficiency than sparse-attention methods including MInference, XAttention, and FlexPrefill. UniSparse retains at least 99% of full-attention accuracy and reaches up to 2.61 times faster attention computation than FlashAttention. Those figures describe the reported evaluations, with the speedup applying specifically to attention computation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ea07add369ea55205c03f38c9df33ae237133325f2414c1eedf150e7b447ab1e",
+    "tldr": "UniSparse uses compressed context at multiple granularities to select efficient attention blocks while retaining nearly all full-attention accuracy in the reported evaluations."
+  },
+  "icml-2026-active-curriculum-refinement-for-reinforcement-learning-7aec3c7c99": {
+    "backgroundConcepts": [
+      "topic-006-a-boolean-task-algebra-for-reinforcement-learnin"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Reinforcement-learning environments can have prerequisite relationships: one setting may prepare an agent for another created by increasing a parameter or making a difficulty-raising edit. These relationships form a directed graph without cycles. The paper asks how training can explicitly use that structure when deciding which environments an agent should practice.",
+      "PATH treats curriculum selection as active learning on this graph. It first samples diverse paths, expanding the range of curriculum regions encountered during training. It then redirects training toward regions that remain unmastered. This gives the framework two complementary roles: establishing broad coverage and concentrating subsequent effort where the learner still needs improvement.",
+      "The approach matters because curriculum structure supplies information about relationships among environments, while the learner’s progress supplies information about where to train next. PATH combines these signals instead of leaving prerequisite relationships implicit. Experiments across diverse environments report strong robustness and generalization from using the graph. The framework is therefore relevant to settings where environments have the prerequisite structure described in the paper."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "bcfc942e35c043d00c734c370ccefa2dd38674968dfc01c66e628219ee2d17d6",
+    "tldr": "PATH uses prerequisite graphs to broaden reinforcement-learning curricula and then focus training on regions the agent has not mastered."
+  },
+  "icml-2026-adaeraser-training-free-object-removal-via-adaptive-attention-suppression-5edc427f08": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Removing an object from an image requires both eliminating the object and generating plausible background in the space it occupied. Existing training-free approaches often suppress attention to the object region during generation. The paper identifies a conflict in that strategy: suppressing attention indiscriminately can also interfere with reconstructing the replacement background.",
+      "AdaEraser makes suppression adaptive. The authors examine how self-attention maps change across denoising steps before and during removal, then develop a strategy that adjusts suppression for individual tokens. Its strength depends on the estimated presence of the target object concept, allowing the intervention to change as the removal process progresses.",
+      "This matters because a region’s needs evolve during generation: attention control must help remove object-related content while still permitting background reconstruction. AdaEraser responds to the model’s estimated progress instead of applying uniform suppression throughout. The authors report superior object-removal performance in extensive experiments, including comparisons with methods that require training. The contribution is an adaptive inference-time mechanism that improves the balance between removal and reconstruction."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "329625512cf507ef7f3ce3a96cdac76df674f4fd42f812ccd46f05695ef9c424",
+    "tldr": "AdaEraser improves training-free object removal by adjusting attention suppression as the target object disappears during generation."
+  },
+  "icml-2026-adversarial-flow-models-adc13bb2a8": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Adversarial flow models combine adversarial training with a flow-based approach to generation. They support both one-step and multi-step sampling. The proposed generator is encouraged to learn a deterministic noise-to-data mapping, which the authors report substantially stabilizes adversarial training compared with allowing an arbitrary transport map.",
+      "The method directly learns generation in one or a few steps without learning intermediate probability-flow timesteps for propagation. The authors argue that this preserves model capacity and avoids accumulated propagation errors. They also train deeper generators end to end without intermediate supervision, exploring whether additional depth can deliver strong single-pass generation.",
+      "On ImageNet at 256-pixel resolution with one function evaluation, the B/2 model approaches consistency-based XL/2 models, while the proposed XL/2 reaches an FID of 2.38. Models with 56 and 112 layers achieve FIDs of 2.08 and 1.94 in one forward pass. They outperform corresponding 28-layer models using two and four evaluations at equal compute and parameter counts, supporting the reported effectiveness of deeper single-pass generators."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "734e0b119ac43cde92889a2c0194b8c5f045f3273dc00e8fb652f6e8dca2b780",
+    "tldr": "Adversarial flow models directly learn one-step or few-step generation, with reported training stability and strong single-pass image-generation results."
+  },
+  "icml-2026-algotrace-algorithmic-primitives-and-compositional-geometry-of-reasoning-in-language-mod-e907db8fc2": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "AlgoTrace investigates whether multi-step language-model reasoning can be understood through reusable operations inside the model. It studies internal activations while models solve Traveling Salesperson, 3SAT, AIME, and Graph Navigation problems. The aim is to connect patterns in these hidden representations with algorithmic operations visible in generated reasoning.",
+      "The framework clusters activations and annotates each cluster using the associated tokens in the reasoning trace. It then applies function-vector methods to extract vectors representing candidate reasoning primitives. Injecting these vectors into Phi, Qwen, and Llama models elicits the corresponding operations, making the framework a way to steer behavior as well as examine it.",
+      "The authors find that primitives can influence behavior across tasks and can be combined through algebraic operations. They also observe improved composition in Phi-4-Reasoning compared with Phi-4. Together, these results support a geometric account of reasoning in which reusable operations occupy an internal representation space and can be composed. The evidence connects reasoning fine-tuning with stronger composition and transfer across the studied domains."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "67ebbe97e377617af31d4cbd354866fb5d1095f81b8e8cbc5f52ae6575ccf11f",
+    "tldr": "AlgoTrace identifies internal vectors associated with reasoning operations and shows that injecting and combining them can steer models across tasks."
+  },
+  "icml-2026-attacking-gray-box-large-vision-language-models-with-adaptive-svd-structured-adversarial-5a136ac2bd": {
+    "backgroundConcepts": [
+      "topic-223-efficient-black-box-adversarial-attacks-via-baye"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies adversarial attacks on vision-language models when the attacker can access only the vision encoder. That gray-box setting sits between full access to model gradients and attacks that rely on black-box transfer strategies. The goal is to alter visual features so that they align with an attacker-chosen text description.",
+      "The method uses two levels of semantic alignment. A global module projects visual features into a subspace structured through singular value decomposition of textual semantics. A second component aligns detailed visual features with multiple contextual text descriptions expanded by language models. It uses optimal transport to match the resulting discrete distributions.",
+      "Guidance from target text lets the attack express its desired semantic outcome without using a target image. The authors report superior performance in extensive experiments and strong transfer across different vision-language models using CLIP-aware transfer designs. The findings show that access limited to a vision encoder can still support effective adversarial influence in the evaluated setting, emphasizing the importance of the visual component to multimodal robustness."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0792f6bc99da984eb7c298ca885ef648286784fc271e84ba48befe43ab245719",
+    "tldr": "The proposed gray-box attack aligns perturbed visual features with target text using only vision-encoder access and transfers across evaluated vision-language models."
+  },
+  "icml-2026-can-adaptive-gradient-methods-converge-under-heavy-tailed-noise-a-case-study-of-adagrad-7d2d857698": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Heavy-tailed gradient noise makes optimization difficult because unusually large disturbances can occur. Clipping and normalization are common responses, yet adaptive optimizers often work well without these additions. This paper asks whether such behavior can receive a theoretical justification, focusing specifically on AdaGrad as an initial case.",
+      "The authors prove a convergence rate for unchanged AdaGrad in non-convex optimization when the noise tail index satisfies 4/3 < p ≤ 2. The algorithm does not need advance knowledge of p, so its guarantee adapts to the tail index within that range. This establishes a positive result for AdaGrad without extending the claim to every adaptive optimizer.",
+      "The analysis also supplies an algorithm-dependent lower bound suggesting that AdaGrad cannot attain the existing minimax rate for heavy-tailed optimization. A separate result gives AdaGrad-Norm an improved rate over the broader range 1 < p ≤ 2, under an additional mild assumption. The findings therefore distinguish convergence, adaptation to unknown noise, and the best attainable rate, while keeping the two algorithms’ conditions separate."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "16218759d6dac0d1f24d2e239b677502b0a32f0a0d44047bc56a8e5551555a9f",
+    "tldr": "The paper proves AdaGrad convergence under a specified heavy-tail range without knowing the tail index, while identifying limits on its attainable rate."
+  },
+  "icml-2026-conformal-path-reasoning-trustworthy-knowledge-graph-question-answering-via-path-level-c-e40040d2d1": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Knowledge-graph question answering can expose the relational paths supporting an answer, but interpretability alone does not provide reliable statistical coverage. Conformal methods return answer sets with coverage guarantees, yet the paper identifies two problems in prior approaches: invalid calibration can break those guarantees, and weak scoring can produce unnecessarily large answer sets.",
+      "Conformal Path Reasoning addresses calibration and scoring separately. It calibrates at the query level using scores defined over reasoning paths, preserving the exchangeability needed for valid coverage. It also introduces RCVNet, a lightweight network trained through PUCT-guided exploration to produce more discriminative path-level nonconformity scores. These scores help distinguish paths when constructing answer sets.",
+      "Across the evaluated benchmark datasets, CPR improves empirical coverage rate by a reported 45% and reduces prediction-set size by 52% on average relative to conformal baselines. The two improvements matter together: the returned sets achieve better observed coverage while containing fewer candidates. The framework connects its coverage guarantee to the calibration structure rather than relying solely on empirical answer quality."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6d1dbde783216e4e452ef4d8d80807d372c13bc63d1451e32b9e578a36110473",
+    "tldr": "CPR combines query-level conformal calibration with learned path scores to improve coverage and shrink knowledge-graph answer sets."
+  },
+  "icml-2026-data-difficulty-and-the-generalizationextrapolation-tradeoff-in-llm-fine-tuning-8c49335681": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Choosing easy or difficult examples for supervised fine-tuning can change a language model’s behavior, but previous findings do not point to a consistently best choice. This paper examines data difficulty jointly with dataset size. Its central finding is that the usefulness of a difficulty level depends on how much training data is available.",
+      "For a fixed data budget, the authors find an optimal difficulty level, which shifts toward harder examples as the budget grows. Controlled synthetic experiments connect this pattern to two competing gaps: generalization within the training distribution and extrapolation beyond it. Selecting difficulty therefore changes a balance between learning effectively from the available examples and extending beyond their distribution.",
+      "The paper supports this explanation with a theoretical analysis using PAC-Bayesian generalization bounds. Its practical implication is that difficulty-based selection should account for dataset size rather than treating difficulty as an isolated quality score. The authors frame this guidance under certain model and data conditions, so the result does not establish one selection rule that is optimal for every fine-tuning setting."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "db75f672444cda1f9a5509c8b1965fa34d050d30010a36e35bac3d4089dc0ce8",
+    "tldr": "The paper finds that optimal fine-tuning difficulty shifts toward harder examples as data budgets grow under the studied model and data conditions."
+  },
+  "icml-2026-deep-residual-injection-for-full-spectrum-forensic-signal-perception-in-multimodal-large-923ba74d8c": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Detecting AI-generated images increasingly requires subtle visual artifacts as well as understanding what an image depicts. This paper examines whether multimodal language models can use both kinds of evidence without losing their existing semantic knowledge. A layer-by-layer analysis finds that semantics are concentrated mainly in early-to-middle layers, while direct artifact-focused fine-tuning rapidly causes semantic forgetting.",
+      "Deep-VRM responds by preserving early semantic processing and adding an artifact-specific visual pathway into an intermediate layer. The added signals enter as a residual contribution, where they merge with semantic token representations. Subsequent trainable layers then process the combined information, allowing higher-level reasoning and low-level forensic cues to contribute to detection.",
+      "The authors find that the model learns to vary its reliance on different forensic signals according to the input. They report robust, generalizable detection and state-of-the-art results across all evaluated benchmarks. The architectural insight is that where new visual evidence enters the model matters: an intermediate residual pathway supports artifact learning while retaining the early processing that supplies semantic understanding."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8f1046f5c24b0e2360bde44cff8b713d40e39821e5f1d9f0d9826143f834f96f",
+    "tldr": "Deep-VRM injects artifact-specific signals into an intermediate model layer to improve AI-image detection while preserving early semantic processing."
+  },
+  "icml-2026-design-based-anytime-valid-inference-for-randomized-experiments-with-delayed-outcomes-an-fbf095a63f": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "In an online experiment, treatment can change whether an outcome happens, when it arrives, and its value. Participants may also enter at different times. This paper develops continuously valid uncertainty estimates for the cumulative reward that would have accrued by a calendar date if all entered participants had received treatment rather than control.",
+      "The approach uses the experiment’s randomization as the basis for inference, accommodating environmental changes and differences among participants. The technical obstacle is that the inverse-probability-weighted treatment-effect error is not a martingale with respect to any filtration. However, each arm’s estimation error is a martingale under a carefully chosen arm-specific event-time filtration, which specifies how information becomes available.",
+      "The authors therefore construct confidence sequences separately for treatment and control, then combine them through a union bound. They show that this approach can outperform the traditional design-based variance upper bound. They also characterize which augmentations preserve the per-arm martingale property for augmented inverse-probability weighting. These results provide a route to continuous monitoring despite asynchronous outcome arrivals."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "197d9ae968184b0fd85dd4de07eb2dd5d87e4692f81fc291f2785025f73b75d2",
+    "tldr": "The paper builds anytime-valid treatment-effect confidence sequences by handling delayed outcomes separately within each randomized experimental arm."
+  },
+  "icml-2026-edumirror-modeling-educational-social-dynamics-with-value-driven-multi-agent-simulation-838ab426ba": {
+    "backgroundConcepts": [
+      "topic-017-texttt-multi-2-hierarchical-multi-agent-decision"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Studying educational social behavior is difficult when observational evidence has limited causal power and controlled experiments face ethical constraints. EduMirror offers a computational setting for exploring these dynamics with language-model agents. It addresses two weaknesses identified in existing simulators: limited grounding in psychology and inadequate measurement of internal psychological states.",
+      "The system provides configurable agents designed for educational scenarios, including agents whose behavior is grounded in psychological needs and social value orientation. Its measurement protocol follows two tracks, recording observable behavior and quantifying latent psychological states. This makes the simulator’s account of interaction broader than a record of outward actions alone.",
+      "The authors evaluate EduMirror through school-bullying and group-cooperation case studies, alongside a broader set of educational scenarios. They report dynamics that are realistic, consistent with relevant theory, and measurable using empirical criteria. These findings support its use as a structured computational tool for testing hypotheses and analyzing counterfactual interventions. The stated contribution is an inspectable simulation environment for educational research, with agent design and measurement developed together."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "92817e6666cb6ac0cf493948bd694458a0ce7e60978250cba530c380d53803cd",
+    "tldr": "EduMirror combines psychologically grounded agents with behavioral and psychological measurements to simulate educational social dynamics."
+  },
+  "icml-2026-flatland-personalized-graph-federated-learning-via-tailored-lorentz-space-d1fa3d3325": {
+    "backgroundConcepts": [
+      "topic-168-fl-2-overcoming-few-labels-in-federated-semi-sup"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Federated graph learning brings together clients whose graph structures may differ substantially. Personalization must preserve those differences while still allowing useful knowledge to be shared. FlatLand argues that existing approaches overlook the geometry inherent in these graphs and develops a way to represent client-specific variation within the embedding space itself.",
+      "Each client’s data is embedded in a tailored Lorentz space, a representation of hyperbolic geometry. The motivation is that negative curvature naturally accommodates structure prevalent in real-world graphs. FlatLand uses the time-like dimension to encode client heterogeneity, separating those parameters from space-like parameters intended to preserve common knowledge across clients.",
+      "This separation enables direct aggregation without an additional client-similarity estimation procedure or extra calculation modules. Across diverse federated graph-learning tasks, the authors report superior empirical performance, especially with low-dimensional representations. The result suggests that choosing and organizing the representation geometry can help reconcile personalization with collaboration. Here, the division between local differences and shared information is built into how parameters are structured."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ddaab88e1794b14732556cb3a20532a67dfc01a9def0fccf512ae4d84d545fca",
+    "tldr": "FlatLand separates client-specific and shared graph information within Lorentz-space parameters to improve personalized federated learning."
+  },
+  "icml-2026-georeward-mitigating-contextual-variable-overestimation-in-vision-language-models-for-cr-a105613d94": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "GeoReward studies a failure in which abundant visual and textual features overwhelm a small amount of context that is essential to the decision. In advertising, a model may repeatedly prefer the same image while overlooking country-specific differences in actual preferences. The paper calls this imbalance Contextual Variable Overestimation and collects advertising images with click-through performance across countries.",
+      "The proposed reward model addresses the imbalance through three mechanisms. Market-aware retrieval supplies region-aligned preference information during training. A lightweight adapter uses country embeddings to adjust visual representations. A selective sensitivity loss assigns stronger penalties to context-specific prediction errors. Together, these components make geographic context more influential in learning and preference prediction.",
+      "Experiments show that GeoReward mitigates the identified failure and outperforms existing baselines. The authors also use it to guide reinforcement fine-tuning of a vision-language model that produces background designs for text-to-image systems, yielding market-aware advertising creatives. The work connects diagnosis, contextual modeling, and reward-guided generation around a specific problem: sparse country information can matter more than the much larger volume of generic perceptual features."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "08253f435b79037997f9b28c84ac35a711bf536175cca5dbe3b9787001f34f01",
+    "tldr": "GeoReward strengthens the influence of geographic context so advertising preference predictions and generated designs better reflect market-specific differences."
+  },
+  "icml-2026-langprecip-language-aware-multimodal-precipitation-nowcasting-0a6e7df8f2": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A short sequence of rainfall observations can support several plausible futures, particularly during extreme events. LangPrecip addresses this ambiguity by adding natural-language descriptions of precipitation motion to radar-based forecasting. The paper also introduces LangPrecip-160K, a dataset containing 160,000 annotated radar-and-text sequences to support this multimodal approach.",
+      "The framework treats forecasting as trajectory generation constrained by motion semantics, using Rectified Flow. Language descriptions narrow the motion possibilities the model must consider. A dual-path decoder combines wavelet consistency with an unfolding approach to reconstruction, enforcing physical data fidelity when converting latent representations into pixel-level forecasts. The semantic and reconstruction components target different sources of forecast ambiguity and lost detail.",
+      "On the Swedish and MRMS benchmarks, the authors report relative heavy-rainfall CSI gains exceeding 60% and 19%, respectively, at an 80-minute lead time against state-of-the-art vision-only methods. They also report sharper spatial detail and more physically consistent predictions. These results support combining explicit motion descriptions with constrained reconstruction for the evaluated precipitation-nowcasting tasks."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e3f9291cd5069582caa1e17f8f03390b48b3c7f2cd14ca2e160a9780f1844825",
+    "tldr": "LangPrecip combines radar observations, language descriptions of motion, and a consistency-focused decoder to improve short-term rainfall forecasts."
+  },
+  "icml-2026-learning-decentralized-llm-collaboration-with-multi-agent-actor-critic-0aae48f4a8": {
+    "backgroundConcepts": [
+      "topic-123-context-aware-bayesian-network-actor-critic-meth"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Decentralized language-model teams can run inference in parallel and support flexible deployment, but learning effective collaboration remains challenging. Existing reinforcement-learning approaches often use fixed execution protocols and Monte Carlo training methods with high variance. This paper investigates actor-critic methods as a way to train collaboration more effectively while supporting decentralized execution.",
+      "The authors introduce two approaches: CoLLM-CC uses a centralized critic, while CoLLM-DC uses decentralized critics. The distinction concerns how learning evaluates the agents’ behavior. Comparing these approaches with Monte Carlo methods allows the paper to examine when centralized evaluation during training offers an advantage for agents that collaborate in a decentralized way.",
+      "Experiments span writing, coding, and game playing. For short tasks or frequent reward feedback, Monte Carlo methods and CoLLM-DC can match CoLLM-CC. On long-horizon or sparse-reward tasks, both fall behind: Monte Carlo training requires substantially more samples, and CoLLM-DC struggles to converge. The findings make the benefit conditional on task structure, showing why centralized critics can be especially useful when feedback is delayed or scarce."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2580df36d26ba3597cc709015962693e68cedbf5cf12f4b01e10663960737af1",
+    "tldr": "Centralized critics improve decentralized LLM collaboration most clearly on long-horizon or sparse-reward tasks in the reported experiments."
+  },
+  "icml-2026-mindflow-mind-supernet-powered-thinking-flows-for-research-idea-innovation-2bc3eaaab6": {
+    "backgroundConcepts": [
+      "topic-017-texttt-multi-2-hierarchical-multi-agent-decision"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Generating research ideas requires balancing novelty, plausibility, and feasibility, which makes both generation and evaluation open-ended. MindFlow addresses the rigidity of language-model systems that use a predetermined ideation workflow. It represents the workflow itself as something that can be sampled, evaluated, and improved for a given research topic.",
+      "The framework builds graph-structured thinking flows from modular thinking operators. A probabilistic mind supernet represents possible flows, and a controller samples among them to produce candidate ideas. Tournament-based relative rankings then train the controller to favor flows associated with better ideas. This makes the organization of the thinking process an explicit target of optimization.",
+      "The paper also introduces an evaluation protocol covering both problem finding and problem solving, extending assessment beyond judgments based only on titles or abstracts. Across diverse topics, the authors report that MindFlow outperforms the compared approaches. The stated contribution is a controllable framework that adapts its ideation process, linking the choice of thinking operations to comparative feedback about the resulting research ideas."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "041a030346712a2cec5c10e3b71d9246e526cb60206c406905fca62d5fe7aff3",
+    "tldr": "MindFlow learns to select graph-structured thinking workflows for research ideation using tournament-based comparisons of candidate ideas."
+  },
+  "icml-2026-ml-agent-reinforcing-llm-agents-for-autonomous-machine-learning-engineering-f0f486d6fe": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "ML-Agent explores how a language-model agent can learn machine-learning engineering through interactive experimentation. The motivation is that prompt-driven systems leave smaller models with limited ability to learn from their execution experience, while large proprietary models can be computationally expensive. The paper develops an online reinforcement-learning framework for improving a smaller agent through task feedback.",
+      "The framework has three components. Exploration-enriched fine-tuning encourages a diverse range of actions. Step-wise reinforcement learning trains on individual action steps to accelerate experience collection and improve training efficiency. A reward module converts different kinds of machine-learning feedback into consistent rewards that can guide optimization across tasks.",
+      "The authors train a seven-billion-parameter Qwen-2.5 agent using only nine machine-learning tasks. They report performance comparable to agents built on much larger proprietary models, including GPT-5, at substantially lower computational cost, along with cross-task generalization. These findings support learning from execution as a practical route to capable smaller engineering agents in the evaluated setting, with action diversity, efficient experience collection, and unified feedback contributing to the training design."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "87c9016ecda2e3bf72f78c8be060bcab4e6d49e3f942ba93b21c2593b5cb1532",
+    "tldr": "ML-Agent uses online reinforcement learning to train a seven-billion-parameter model for autonomous ML engineering with reported strong performance and lower computational cost."
+  },
+  "icml-2026-opt-miner-empowering-information-seeking-agent-with-tree-guided-data-synthesis-for-optim-edbe15d675": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Formulating real-world optimization problems requires domain knowledge as well as mathematical skill. An agent relying only on information stored in its parameters may misunderstand a scenario or choose an unsuitable technique. Opt-Miner trains agents to recognize missing knowledge, retrieve technical documents, and use that evidence to ground their mathematical models.",
+      "Its training-data pipeline represents each problem as a tree whose subtrees contain scenario context and mathematical techniques. Subtree union, transfer, and knowledge fogging create complex problems spanning multiple domains with deliberate knowledge gaps. Those gaps make active information seeking part of solving the task. A retrieval-based version of Group Relative Policy Optimization then trains the agent on the synthesized problems.",
+      "The authors report that Opt-Miner-Qwen3-8B achieves performance comparable to specialized 32-billion-parameter agents and commercial reasoning models. The result supports the combination of targeted data synthesis and retrieval-oriented reinforcement learning for optimization modeling. The central idea is to train the behavior of acquiring needed expertise, with the synthetic problem structure determining where the agent must seek additional information."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3140bf270c959c65fc581c84aee1d5bcaefa5d35ff3e99d877e51b64c502f24c",
+    "tldr": "Opt-Miner uses tree-guided synthetic problems and retrieval-based reinforcement learning to teach optimization agents to seek missing technical knowledge."
+  },
+  "icml-2026-periodic-bayesian-flow-networks-with-additive-accuracy-0eb24efd99": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Periodic quantities wrap around: values near opposite ends of a numerical interval can represent nearby states. This complicates generation of fractional atomic coordinates and display phase patterns. Existing periodic Bayesian Flow Networks lose the strictly additive accuracy property available in Euclidean space, making learning sensitive to choices about the update schedule.",
+      "PeriodicBFN represents each periodic scalar as a point on a two-dimensional unit circle. It then performs Gaussian Bayesian updates in Cartesian coordinates, restoring strictly additive accuracy. The paper also derives a Rao–Blackwellized objective that analytically averages over global periodic translations. This produces a translation-invariant target and reduces gradient variance during training.",
+      "Experiments on crystal-structure prediction and multi-layer phase synthesis for compressive light-field displays show improved training stability and strong performance. The authors also describe the phase-synthesis application as, to their knowledge, the first extension of periodic generative modeling to modern glasses-free 3D displays. The method’s significance lies in choosing a representation that handles wrap-around structure while retaining a useful property of Bayesian updates."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0bc4a0f3166acc3116d0b57cb04bd4ff65d289f08b02c4f5ec9391a073151496",
+    "tldr": "PeriodicBFN maps periodic values onto a unit circle to restore additive Bayesian update accuracy and improve training stability."
+  },
+  "icml-2026-when-more-experts-hurt-underfitting-in-multi-expert-learning-to-defer-90a4108011": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Learning to defer lets a classifier hand a prediction to an expert. Adding multiple experts introduces another learning problem: deciding which expert deserves trust. This paper theoretically links that expert-identification problem to inherent classifier underfitting in the studied multi-expert setting, whereas underfitting in the single-expert case arises only under specific conditions.",
+      "The analysis explains why existing remedies for underfitting fail to address this additional difficulty. The proposed method, PiCCE, adaptively selects a reliable expert using empirical evidence about confidence and correctness. Its surrogate-based formulation turns the multi-expert problem into a learning problem resembling the single-expert case, addressing the source of underfitting identified by the theory.",
+      "The authors prove statistical consistency and show that the method can recover class probabilities and expert accuracies. Experiments across diverse settings, including scenarios with real-world experts, support the theoretical findings and demonstrate improved performance. The work shows why a larger expert pool creates a distinct identification challenge and provides a method that explicitly handles that challenge during learning."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "31a85da998207167bd061a7b6a1af91be538a8a5f4415532f91f1bf31ede896e",
+    "tldr": "PiCCE addresses underfitting in multi-expert learning to defer by adaptively identifying a reliable expert from empirical evidence."
+  },
+  "icml-2026-you-need-better-attention-priors-f826e0b5a0": {
+    "backgroundConcepts": [
+      "topic-086-a-capacity-based-rationale-for-multi-head-attent"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper reinterprets attention through entropic optimal transport, a framework for distributing mass under a regularized matching objective. From this perspective, standard attention includes an implicit uniform prior. The authors use that connection to ask whether attention can benefit from learning the prior that shapes its allocation of attention.",
+      "GOAT replaces the uniform assumption with a trainable continuous prior while retaining compatibility with optimized kernels such as FlashAttention. The same optimal-transport interpretation provides an explanation of attention sinks and leads to a proposed solution that avoids the representational trade-offs attributed to standard attention. The prior therefore changes the core attention formulation while preserving compatibility with efficient computation.",
+      "GOAT also incorporates spatial information directly into attention. The resulting learned prior can extrapolate, combining the flexibility associated with learned positional embeddings and the length generalization associated with fixed encodings. The contribution ties attention allocation, attention sinks, and positional information to one formulation. Its stated benefits arise from making the prior explicit and learnable within the attention operation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5f630b95251514148ee2fe08714b69c2234e1381b9bddb889b58daba251528d0",
+    "tldr": "GOAT replaces attention’s implicit uniform prior with a learnable continuous prior that addresses attention sinks and supports positional extrapolation."
+  },
+  "icml-2026-zerounlearn-few-shot-knowledge-unlearning-in-large-language-models-b5d5763c2c": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "ZeroUnlearn addresses sensitive information in language models, with sensitive inputs defined here as those that may trigger harmful generations. Retraining can be expensive, while aggressive fine-tuning can damage related knowledge and general usefulness. The paper instead frames unlearning as a targeted model-editing problem: changing where selected inputs are mapped inside the model.",
+      "The method maps sensitive inputs to a neutral target state while removing their original representations. It enforces representational orthogonality through a multiplicative parameter update with a closed-form solution. This provides an efficient way to compute the targeted edit in the few-shot setting. The authors also develop a gradient-based extension for unlearning across multiple samples.",
+      "Experiments show better performance than existing baselines while preserving general model utility. The significance is the pairing of targeted representational change with retained usefulness: the method aims to alter the selected knowledge mapping without the broad degradation associated with aggressive fine-tuning. The stated results support this model-editing formulation as an efficient approach to the unlearning tasks evaluated in the paper."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "66a20fc1e696f577b8bf6fb286687d7ccc78a6f4bd0d1285e22c9c011659414f",
+    "tldr": "ZeroUnlearn edits sensitive input representations toward a neutral target using a closed-form update, with reported gains in unlearning while preserving model utility."
+  }
+}

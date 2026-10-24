@@ -1,0 +1,327 @@
+{
+  "neurips-2025-a-unified-analysis-of-stochastic-gradient-descent-with-arbitrary-data-permutations-and-b-86ab3da1fc": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper studies how the order of training examples affects convergence in stochastic gradient descent. Its setting uses a permutation of the data during each training epoch. Different algorithms choose those permutations differently, and the authors organize existing approaches according to whether their orders are arbitrary, independent across epochs, or dependent across epochs.",
+      "The difficult case is dependence: an ordering in one epoch can be connected to orderings in other epochs. Earlier unified analyses did not cover this category. The authors introduce a generalized assumption that explicitly describes this dependence, then build a convergence framework around it. This supplies a common analytical treatment for the existing permutation-based algorithms covered by the paper.",
+      "The framework also extends to federated learning, where the ordering concerns participating clients rather than individual examples. The resulting analysis addresses regularized client participation with arbitrary client permutations. The contribution is a shared theoretical framework for studying ordering strategies, including dependencies that previously prevented a unified treatment."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0b45b8489ad378c33170f7ab13f54c62ae77b2b315cab7f24ce26d86a9c6e0fd",
+    "tldr": "A shared convergence framework analyzes SGD data orderings, including dependencies across epochs, and extends to client ordering in federated learning."
+  },
+  "neurips-2025-absence-bench-language-models-cant-see-whats-missing-59dd14bd58": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "AbsenceBench tests whether language models can identify information removed from a document. Models receive both the original and edited versions, so the task is to compare available contexts and find omissions. The benchmark covers numerical sequences, poetry, and GitHub pull requests, examining missing information across several kinds of content.",
+      "This probes a different ability from finding a distinctive fact in a long input. A model can succeed at retrieving something present while struggling to recognize something absent. The experiments show substantial difficulty even with relatively modest inputs: Claude-3.7-Sonnet achieves an F1 score of 69.6% at an average context length of roughly 5,000 tokens.",
+      "The authors suggest that attention helps explain the gap. Missing content has no corresponding key in the edited document for the model to attend to directly. This is a proposed explanation for the observed behavior, rather than proof that detecting omissions is impossible. The results show why strong information-retrieval performance alone does not establish reliable document-comparison ability."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "cd51f15d90862a640eb8b36dc99cc49ac1cb0f731a02a3f95065bf87fcafcbee",
+    "tldr": "AbsenceBench reveals that language models can struggle to identify deleted information even when given both original and edited documents."
+  },
+  "neurips-2025-adaptive-batch-wise-sample-scheduling-for-direct-preference-optimization-da8d8b109a": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Direct Preference Optimization trains language models to better match human preferences, but its effectiveness depends heavily on the preference examples used. This paper asks how example selection should change as the model learns. A selection strategy that ignores the model's evolving state can miss the importance of when particular samples enter training.",
+      "The authors formulate this as sample scheduling and introduce SamS. The algorithm uses feedback from the language model to adaptively choose samples within each training batch. Its objective is to improve potential generalization by responding to the current learning state. This makes the selection process part of ongoing optimization rather than a decision made only before training begins.",
+      "The reported experiments show significant improvements across tasks with little additional computational overhead. SamS produces these gains without changing the underlying DPO algorithm, making sample scheduling the central intervention. The authors also suggest that the idea could extend to reinforcement learning from human feedback and broader supervised learning, but present those extensions as possibilities."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d8963f0a3f83665c91e64eaa3cd836da5658d819e5a2e5c63612eda1a92a2620",
+    "tldr": "SamS improves preference optimization by adapting each batch's sample selection to the language model's current learning feedback."
+  },
+  "neurips-2025-adversary-aware-optimization-for-robust-defense-890e25015e": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper develops a defense that tries to remove adversarial perturbations from an image at test time. These small changes can cause a neural network to misclassify an otherwise recognizable input. The method treats purification as an optimization problem: repeatedly adjust the received image according to an objective designed for adversarial corruption.",
+      "That objective combines a pretrained diffusion prior with a likelihood term tailored to the space of adversarial perturbations. The prior supplies information about plausible images, while the likelihood incorporates the particular corruption being considered. Gradient-based updates use a combined score-based loss to guide refinement. Explicitly representing the adversarial perturbation space is the approach's central distinction from treating the noise as generic corruption.",
+      "Experiments on CIFAR-10 and CIFAR-100 report strong robust accuracy against a range of common adversarial attacks. These findings support the proposed purification strategy in the evaluated settings. More broadly, the paper shows how a probabilistic objective can bring a generative image model and an explicit account of adversarial changes into the same test-time defense."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5846fba54f92b99cd1c5e5fed6a27ff7339b71998743d0a82541924278b5dcfa",
+    "tldr": "An optimization-based defense combines a diffusion prior with an adversary-specific likelihood to purify images at test time."
+  },
+  "neurips-2025-ambient-diffusion-omni-training-good-models-with-bad-data-a809a7ae6b": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Ambient Diffusion Omni investigates whether images commonly discarded during dataset curation can improve diffusion models. The authors include low-quality, synthetic, and out-of-distribution images in this question. Their framework aims to extract useful training signal from such data, expanding the material available beyond a narrowly filtered collection of high-quality examples.",
+      "The approach uses two properties of natural images: locality and the tendency for spectral power to decay across frequencies. Its central insight concerns noise. Adding noise dampens the mismatch between the desired high-quality image distribution and the mixed distribution actually available. The theoretical analysis examines how the balance between abundant biased data and limited unbiased data changes across diffusion times.",
+      "The authors validate the framework using images degraded by Gaussian blur, JPEG compression, and motion blur. They report state-of-the-art ImageNet FID and significant gains in both quality and diversity for text-to-image generation. These findings support the idea that imperfect images can still provide valuable training information when the learning framework accounts for their distributional mismatch."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "977997d4e418a7e7f38b82004ce39a9324d36bb2f0ee3e1c965748ed6063c252",
+    "tldr": "Ambient Diffusion Omni uses diffusion noise to extract useful signal from imperfect images and improve generated image quality and diversity."
+  },
+  "neurips-2025-efficient-low-rank-attention-for-long-context-inference-in-large-language-models-d6e40275a9": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Long inputs make a language model's key-value cache expensive to hold in GPU memory. LRQK addresses this by using compact representations to decide which cached tokens deserve attention, while retaining full-precision key-value pairs for the selected computation. The method combines low-rank attention scoring with a cache distributed between GPU and CPU.",
+      "During prefill, LRQK jointly decomposes the query and key matrices into rank-r factors. At each decoding step, these factors produce proxy attention scores in O(lr) time, where l represents the context length. The method selects the top-k tokens alongside a small fixed set of recent tokens. A cache hit-and-miss mechanism transfers only required full-precision pairs that are missing from the GPU.",
+      "This separates approximate token selection from attention computation using the retained full-precision values. Experiments with LLaMA-3-8B and Qwen2.5-7B on RULER and LongBench match or exceed leading sparse-attention methods, with substantial memory savings and minimal accuracy loss. The results support the combined selection-and-caching design for the tested long-context settings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4499730c568ad7f2ca1b57ff1ea40b9a7914d00ef21c219213da42407178e1c1",
+    "tldr": "LRQK uses low-rank token scoring and a mixed CPU–GPU cache to reduce long-context memory costs while retaining full-precision selected key-value pairs."
+  },
+  "neurips-2025-emergence-and-scaling-laws-in-sgd-learning-of-shallow-neural-networks-0d28145155": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper connects abrupt learning events with smooth overall scaling laws in a theoretical study of shallow neural networks. A student network learns a two-layer teacher through online stochastic gradient descent. The analysis focuses on teachers with many neurons, allowing the strengths of their contributions to differ substantially.",
+      "The results rely on a specified setting: isotropic Gaussian inputs, orthonormal signal directions, nonnegative normalized output coefficients, and an even activation whose first informative Hermite degree exceeds two. Within this setting, the authors analyze training dynamics and identify sharp transition times at which individual signal directions are recovered. They also cover teacher coefficients that follow a power law.",
+      "For that power-law case, the paper characterizes how mean squared error scales with training samples, optimization steps, and student parameter count. Individual teacher neurons can be learned abruptly, yet their transitions occur at different times. Combining many such learning curves produces a smooth aggregate loss curve, explaining how emergence and gradual scaling can coexist within the studied model."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9a88623b0e96612e9128a6c8c4da1712e296f4aeba0a28c2b5e9c1cf227b444d",
+    "tldr": "A theoretical analysis shows how abrupt recovery of individual features can combine into smooth scaling laws in shallow-network learning."
+  },
+  "neurips-2025-fast-computation-and-optimization-for-opinion-based-quantities-of-friedkin-johnsen-model-95d2ed81f0": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper addresses the cost of computing and optimizing opinion-related quantities in the Friedkin–Johnsen model. It treats efficient measurement and efficient optimization as connected problems. Faster calculations are useful here because the same underlying model supports questions about overall opinions, polarization, and disagreement across a network.",
+      "The authors introduce partial rooted forests as the basis for an efficient computation method. They then use sampling of these structures to design algorithms for two objectives: minimizing opinions and minimizing polarization together with disagreement. The shared sampling approach provides a common computational foundation for evaluating quantities and searching for improvements to those quantities.",
+      "The reported methods reduce time complexity from linear to sublinear, improving how computation grows with problem size. Experiments on real-world networks show accurate and efficient results, outperforming the compared state-of-the-art methods and scaling to large networks. The contribution is therefore both algorithmic and empirical: a structural sampling technique yields faster theoretical complexity and effective computations on the evaluated network data."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "74fe821266c0ab1935eb4692dd5f618764eaad88344a664983811ede0ec3a9ae",
+    "tldr": "Partial rooted forest sampling enables sublinear algorithms for computing and optimizing opinion-related quantities in the Friedkin–Johnsen model."
+  },
+  "neurips-2025-flow-matching-based-autonomous-driving-planning-with-advanced-interactive-behavior-model-12863796b8": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Flow Planner targets the interactions that make autonomous driving difficult: a planned trajectory must account for the behavior of other agents in a changing scene. The paper argues that simply stacking transformer blocks does not supply a dedicated mechanism for these interactions. Scarce examples of interactive driving further complicate learning them through imitation.",
+      "The method coordinates changes to trajectory representation, architecture, and generation. It breaks trajectories into overlapping segments, reducing the complexity of modeling an entire trajectory at once. Its architecture combines planning and scene information across time and space. Flow matching with classifier-free guidance supports multiple possible behaviors and dynamically reweights agent interactions during inference to maintain coherent responses.",
+      "On the large-scale nuPlan dataset, Flow Planner achieves state-of-the-art performance among the evaluated learning-based approaches and effectively models complex interactions. The significance is the coordinated treatment of interaction throughout the planning pipeline. The reported gains support designing representations and inference mechanisms specifically around interactive behavior, alongside the use of a generative model."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "bcd4e84cd68f186a9dffcacad81cd482037ed7e48e4dd535907962ee05e75b1e",
+    "tldr": "Flow Planner combines segmented trajectories, scene fusion, and guided flow matching to improve interactive autonomous-driving planning on nuPlan."
+  },
+  "neurips-2025-graph-your-own-prompt-60eb859c84": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Graph Consistency Regularization uses a model's own predictions to improve the organization of its internal features. The motivating problem is that feature similarity can connect examples from different classes in ways that conflict with the model's predicted semantics. The framework treats prediction-derived relationships as a form of self-prompting during learning.",
+      "Parameter-free Graph Consistency Layers compare two kinds of relationships. One graph records feature similarities within a batch; another represents prediction similarities, masked using indicators of class membership. Aligning these graphs encourages the feature relationships to agree with class-consistent prediction behavior. The comparison can occur at multiple depths, allowing the regularization to influence several levels of representation.",
+      "Adaptive weights are learned from graph discrepancy magnitudes so that layers contribute differently according to their semantic reliability. Experiments across networks and datasets report cleaner feature structure, tighter grouping within classes, and improved generalization. The approach's value lies in using information already present in predictions to guide internal representations through lightweight graph alignment, without requiring a model-specific redesign."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ffcca8f09df308aee2a08ba63ce833d9d98f4c2144718c0d2b1b5c0b00db6c22",
+    "tldr": "Graph Consistency Regularization aligns feature relationships with class-aware prediction graphs to improve representation structure and generalization."
+  },
+  "neurips-2025-hybrid-latent-representations-for-pde-emulation-49abf111cc": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Neural emulators approximate the evolution of systems described by partial differential equations using compact representations. Coarse physical fields offer a simple representation but cannot exploit all fine-scale information in high-resolution solutions. Unstructured latent representations enable efficient repeated prediction, yet do not naturally enforce local interactions or physical laws.",
+      "The paper combines these approaches by augmenting coarse fields with spatially structured latent variables extracted from high-resolution inputs. This preserves an explicit coarse physical representation while giving the emulator access to additional fine-scale information. The spatial organization also supports local structure and hard physical constraints, addressing a limitation of unstructured latent representations.",
+      "The resulting models can generate efficient rollouts and train using a simple loss on the coarse fields. Across multiple PDE emulation tasks, they match or improve the speed–accuracy trade-offs of the strongest compared convolutional, attention, Fourier-operator, and autoencoding methods. These results cover predictions of both fine- and coarse-scale features, supporting the hybrid representation as a useful way to combine compact computation with spatial detail."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8632a6b2ad6d45e986ed2b486e75e3f751cff5217275350c7c3b5f28fd621f9d",
+    "tldr": "Combining coarse physical fields with spatial latent variables improves or matches leading speed–accuracy trade-offs in PDE emulation."
+  },
+  "neurips-2025-latency-nms-attacks-is-it-real-life-or-is-it-just-fantasy-da5f216cb1": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper examines whether attacks designed to slow object detection remain consequential under realistic deployment conditions. It focuses on adversarial images targeting the non-maximum suppression stage, or NMS. The question is practical: do the reported slowdowns persist across deployed configurations, and do they interfere with the timing requirements of downstream tasks?",
+      "The authors introduce EVADE, an evaluation framework for assessing attack practicality. They apply it to existing state-of-the-art NMS latency attacks across hardware platforms, model formats, and quantization settings. They also examine whether attacks transfer to other models, including models from the same family, and test three defenses.",
+      "In these evaluations, the attacks do not reproduce their claimed latency increases or transfer to other models. The observed slowdowns remain within downstream timing requirements, and all three tested defenses mitigate the attacks. These findings support limited practical impact for the examined attacks under the tested conditions. Their broader methodological point is that deployment configuration and task requirements are essential to interpreting a latency attack's significance."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "92c666d1a5d6a23df1fbc3184c03590610ada97a8cdc1098b1634a827d3f9b8a",
+    "tldr": "EVADE finds that tested NMS latency attacks have limited practical impact across the evaluated deployment settings."
+  },
+  "neurips-2025-localized-data-shapley-accelerating-valuation-for-nearest-neighbor-algorithms-d8a3ce2ed0": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Data Shapley values quantify how individual training examples contribute to a model, but computing them can be extremely expensive. The paper builds on efficient valuation methods for nearest-neighbor models and asks whether the geometry of the data can further reduce the work required. Its central idea is to make valuation local.",
+      "The proposed framework uses distance-based structure to divide a global valuation problem into smaller computations. This connects the valuation procedure to the local relationships that nearest-neighbor algorithms already use. The main algorithm targets a threshold-based nearest-neighbor variant, giving the authors a specific setting in which to develop and analyze the acceleration.",
+      "Under assumptions described as mild, the paper proves speedups over its baseline. Experiments on real-world datasets also show substantial reductions in computation compared with previous approaches. The contribution is a way to use local data structure to accelerate principled valuation, with both theoretical and empirical support in the studied nearest-neighbor setting. The formal speedup remains conditional on the stated assumptions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0987fe700c513def9bd600ccf97ab5e2fede42153816aca417a3da015ba1a7d3",
+    "tldr": "Localized Data Shapley accelerates nearest-neighbor data valuation by decomposing global computations using distance-based local structure."
+  },
+  "neurips-2025-ltd-bench-evaluating-large-language-models-by-letting-them-draw-7c6707a835": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "LTD-Bench evaluates language models through drawings that people can inspect directly. Models produce visual outputs using dot matrices or executable code. The motivation is that numerical benchmark scores can obscure weaknesses in spatial reasoning, whereas a drawing can make a model's interpretation of spatial concepts immediately visible.",
+      "The benchmark tests both directions of the connection between language and space. Generation tasks examine spatial imagination, while recognition tasks assess spatial perception. Three progressively harder levels organize these complementary tasks. Together, they probe whether a model can express spatial concepts visually and understand the corresponding spatial information.",
+      "Experiments find substantial weaknesses in these bidirectional mappings even among models that perform strongly on traditional benchmarks. The results therefore challenge using those benchmark scores alone as evidence of physical-world understanding. The authors also propose that patterns in the drawings could help investigate similarities between models. This diagnostic use is presented as a potential application, while the observed spatial-reasoning gaps are the benchmark's central empirical finding."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "26ee68786ecbd678c0d917879d44459d88348b7e61bf4abb78b8812bdbfa0a58",
+    "tldr": "LTD-Bench uses drawing and recognition tasks to make language models' spatial-reasoning weaknesses directly observable."
+  },
+  "neurips-2025-majority-of-the-bests-improving-best-of-n-via-bootstrapping-f46cf96fa6": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Best-of-N improves language-model answers by generating several candidates and choosing the one with the highest reward score. Its reliability depends on the reward model: an imperfect scorer can elevate an incorrect answer. This paper examines the distribution of answers that Best-of-N selects, rather than relying on a single winning candidate.",
+      "The key observation is that the correct answer can remain the most likely Best-of-N outcome even when its probability is far below one. Majority-of-the-Bests estimates that outcome distribution through bootstrapping and selects its most frequent answer. This combines reward-based selection with a vote over the resulting selections, aiming to make imperfect reward judgments more dependable.",
+      "Across five benchmarks, three base language models, and two reward models, the method improves on Best-of-N in 25 of 30 setups. The authors also provide theoretical consistency results for the bootstrapping procedure. The findings support a stronger selection mechanism for discrete-answer tasks, while the reported success rate makes clear that the improvement is not universal across evaluated configurations."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d35798de937042bc086efae6f29cc51670178bb12de2f9b1a2ab8d4083921670",
+    "tldr": "Majority-of-the-Bests bootstraps Best-of-N selections and chooses their most frequent answer, improving results in 25 of 30 tested setups."
+  },
+  "neurips-2025-modhifi-identifying-high-fidelity-predictive-components-for-model-modification-2eb085071a": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "ModHiFi identifies important components of a trained model when the original training data, loss function, and gradients are unavailable. It assumes distributional access, such as synthetic data. The goal is to support modifications including structured pruning and classwise unlearning by measuring which component subsets preserve the model's predictive behavior.",
+      "The theoretical foundation connects local reconstruction errors to global reconstruction error in Lipschitz-continuous networks. The authors report this continuity in the well-trained Transformers they examine, alongside its relevance to CNNs. Their Subset Fidelity metric measures local reconstructive behavior as an indicator of global importance. Selecting individual components by these scores is optimal in the specific setting of uncorrelated features.",
+      "The pruning variant, ModHiFi-P, reports an 11% speedup over the current state of the art on ImageNet models and competitive language-model performance. ModHiFi-U reports complete classwise unlearning on CIFAR-10 without fine-tuning and competitive results on Swin Transformers. These applications demonstrate how the fidelity criterion can guide different modifications without access to the original training objective."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a0f84a3bab839f6971cfdacc868a1fa9bc712e958fddb5c44d7bae6a596e1366",
+    "tldr": "ModHiFi uses local reconstruction fidelity to guide pruning and unlearning without original training data, gradients, or loss-function access."
+  },
+  "neurips-2025-neighborhood-self-dissimilarity-attention-for-medical-image-segmentation-ba368ebee5": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Neighborhood Self-Dissimilarity Attention aims to improve medical image segmentation without adding trainable attention parameters. The paper addresses a deployment problem: attention can improve segmentation accuracy, but added computational demands make it harder to use in resource-limited settings. Its design takes inspiration from radiologists' tendency to prioritize regions that differ substantially from their surroundings.",
+      "NSDA measures differences between an element's features and those of its neighborhood using a size-adaptive local measure. Regions with larger discrepancies receive higher attention weights. This gives the network a way to emphasize locally distinctive information through dissimilarity, departing from attention mechanisms organized around pairwise similarity.",
+      "Experiments demonstrate effectiveness and generalization for the proposed mechanism. The contribution is a parameter-free attention design that incorporates a clinical observation into how image features are weighted. Avoiding additional trainable parameters addresses a key part of the accuracy–complexity trade-off motivating the work. The authors position this as a contribution toward medical image analysis in low-resource settings, without reporting a direct measurement of healthcare equity outcomes."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4efcc98ec35a903f779ac92e29c1bb4ea7eaad857f2e31f6057fb0d863d86586",
+    "tldr": "NSDA improves medical image segmentation by emphasizing local feature differences through an attention mechanism with no additional trainable parameters."
+  },
+  "neurips-2025-non-rectangular-robust-mdps-with-normed-uncertainty-sets-d53bcdc535": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper studies robust policy evaluation in Markov decision processes with non-rectangular uncertainty sets. This asks how to evaluate a policy when uncertainty has coupled structure across the decision problem. In general, such evaluation is NP-hard even to approximate, leaving existing methods with expensive iterations or substantial accuracy gaps.",
+      "The authors identify a structurally simple class of uncertainty sets bounded by Lp norms that avoids these general complexity barriers. They show that this class can be decomposed into infinitely many state-action rectangular Lp-bounded sets. This structural result supports a new dual formulation of the robust decision problem and provides insight into the adversary's strategy.",
+      "The formulation leads to what the authors identify as the first polynomial-time robust policy evaluation algorithm for L1-normed non-rectangular robust MDPs. The tractability result concerns the structured class developed in the paper; it does not remove the general hardness of non-rectangular uncertainty. Its importance is showing that useful mathematical structure can make a difficult robust-evaluation problem efficiently solvable."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "00d46e42ec9e8da16f10cf1a99beeb52653f8cbcb2f8ce1d09f0fa386ba9b149",
+    "tldr": "A structured class of norm-bounded uncertainty sets enables polynomial-time robust policy evaluation in the paper's L1 non-rectangular MDP setting."
+  },
+  "neurips-2025-path-specific-effects-for-pulse-oximetry-guided-decisions-in-critical-care-2a10d34e65": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Pulse oximeters can overestimate oxygen saturation in dark-skinned patients, potentially misrepresenting oxygen needs. This paper investigates how racial discrepancies in those measurements affect invasive ventilation decisions in intensive care. It moves from associations between measurement errors and outcomes to a causal analysis of the pathways connecting them.",
+      "The method uses path-specific effects to isolate contributions mediated through particular causal routes. The authors employ a doubly robust estimator, introduce a self-normalized version to improve sample efficiency, and establish finite-sample guarantees. They validate the methodology on semi-synthetic data before applying it to the MIMIC-IV and eICU health datasets.",
+      "The analysis finds minimal impact on whether patients receive invasive ventilation, contrasting with prior work. Effects mediated through oxygen saturation disparity are more pronounced for ventilation duration, with their severity differing between datasets. These results distinguish two clinically different outcomes rather than treating ventilation as a single measure. The paper offers a causal-analysis pipeline for examining disparities and shows how conclusions can depend on the pathway and outcome being assessed."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4337ba5d7e9b76046548f6f75f95af8c4fc436ccadf7e4979ff2ba71ac7fb505",
+    "tldr": "A causal analysis finds minimal effects of racial oximetry discrepancies on ventilation rates, with more pronounced, dataset-dependent effects on duration."
+  },
+  "neurips-2025-provable-meta-learning-with-low-rank-adaptations-3a00795a11": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A pretrained model may have strong representations yet still need preparation to adapt effectively to new tasks. This paper studies how that preparation should work when future adaptation uses parameter-efficient fine-tuning. Its focus is meta-learning: training a model with its later adaptability in mind across a collection of tasks.",
+      "The authors introduce a general framework for this objective and analyze a concrete case involving linear models and low-rank adaptation, or LoRA. In that setting, they prove that standard retraining is suboptimal for finding adaptable parameters. They also establish strict performance guarantees for their proposed method, giving a theoretical explanation for benefits previously observed empirically.",
+      "Experiments on synthetic data and real vision and language tasks support the theoretical insights. A simple implementation of the meta-learning scheme during retraining produces significant performance benefits over the conventional approach. The formal guarantees are specific to the analyzed linear LoRA setting, while the broader experiments provide evidence that preparing explicitly for efficient future adaptation can also help in practical tasks."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8c7ed10bef17ec6b74f460610cb9d42dc77652879f37871766c4c4726e2e08f1",
+    "tldr": "A meta-learning framework prepares models for parameter-efficient adaptation, with guarantees for linear LoRA models and empirical gains on vision and language tasks."
+  },
+  "neurips-2025-stochastic-process-learning-via-operator-flow-matching-aa5f8a5336": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Operator flow matching learns stochastic process priors on function spaces. The object being learned is a probabilistic description of functions, with values that can be considered at different points in a domain. Building on neural operators, the framework is designed to support stochastic process learning across arbitrary domains.",
+      "A central capability is providing the probability density for the values at any chosen collection of points. This makes the learned prior useful for more than producing an individual prediction. The framework also supports mathematically tractable functional regression at new points, including both mean estimation and density estimation. Those outputs describe a predicted average and the distribution of possible values.",
+      "The authors report performance exceeding state-of-the-art models in stochastic process learning, functional regression, and prior learning. The contribution joins these capabilities within one operator flow matching framework. Its significance lies in connecting a learned distribution over functions with accessible probabilistic predictions at requested points, so that the prior can directly support regression as well as process modeling."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b6de66b3fa6d0778b44a77a7c3429047543be042ce76e02cf3f800e007d95347",
+    "tldr": "Operator flow matching learns distributions over functions and supports probability-density and regression estimates at arbitrary collections of points."
+  },
+  "neurips-2025-towards-reliable-identification-of-diffusion-based-image-manipulations-423ae5da5f": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "RADAR detects and locates image regions altered by diffusion-based editing tools. Small changes to expressions, gestures, or backgrounds can change an image's meaning, making localization useful alongside determining whether an edit occurred. The challenge grows as new diffusion tools produce convincing manipulations that a detector may not have encountered during training.",
+      "The method builds on existing foundation models and combines features from different image modalities. An auxiliary contrastive loss helps isolate manipulated patches. Together, these components improve detection accuracy and generalization across diffusion models. The approach therefore addresses both recognizing edited content and identifying where that content appears in an image.",
+      "The authors also introduce BBC-PAIR, a benchmark containing images manipulated by 28 diffusion models, to support realistic evaluation. Experiments show RADAR outperforming state-of-the-art methods in detecting and localizing edits from both seen and unseen diffusion models. The unseen-model results are particularly relevant to changing editing tools: they provide evidence of generalization beyond the generators encountered during training within the evaluated benchmark."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b1ba21ed5a687bec930f099d3ceb1042f1b34b8b02fb685fefd7415b8de45120",
+    "tldr": "RADAR combines foundation-model features and contrastive learning to detect and localize diffusion edits, including edits from unseen models."
+  },
+  "neurips-2025-uncovering-the-spectral-bias-in-diagonal-state-space-models-356994e923": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper examines how initialization shapes what diagonal state space models learn. Existing initialization methods largely draw on HiPPO, a framework based on online approximation with orthogonal polynomials. Diagonal variants can offer similar performance with more efficient kernel computation, but their initialization behavior is not explicitly explained by that framework.",
+      "The authors approach the question through frequency analysis. They investigate how parameter choices create learning biases and use those observations to propose S4D-DFouT, an initialization defined in the discrete Fourier domain. Their analysis emphasizes the role of pole placement, connecting the initial parameter configuration to the model's frequency behavior.",
+      "These insights also guide scaling the models. The authors report state-of-the-art results on Long Range Arena and training from scratch on a very large dataset, PathX-256. The contribution links an analysis of initialization with a concrete design and empirical results. It suggests that understanding frequency behavior can help make diagonal state space models both more interpretable in their learning biases and more effective at larger scales."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b9cdc5e15872c17aeb5afec523da40099c5b8d558897fc0c2442d6bf2dea23db",
+    "tldr": "A frequency-based analysis motivates S4D-DFouT initialization and supports stronger, scalable diagonal state space models."
+  },
+  "neurips-2025-understanding-and-improving-fast-adversarial-training-against-l-0-bounded-perturbations-1560353611": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies fast adversarial training against sparse attacks, where the l0 bound limits how many input elements are changed. Training with one-step attacks is challenging because it can suffer catastrophic overfitting. The authors find that existing fast-training remedies developed for other norm constraints do not adequately address this sparse setting.",
+      "Their analysis identifies poorly chosen perturbation locations as a source of the problem. Some strategies reduce that suboptimality but introduce unstable training. Theoretical and numerical results also show a more rugged loss landscape than in the compared l-infinity, l2, and l1 settings, worsening catastrophic overfitting. This connects attack construction and optimization geometry as parts of the same difficulty.",
+      "The proposed remedy uses soft labels and a trade-off loss to smooth the adversarial loss landscape. Experiments show that the method overcomes catastrophic overfitting in the evaluated settings, achieves state-of-the-art performance, and reduces the gap between one-step and multistep training. The findings support tailoring fast adversarial training to sparse perturbations rather than assuming techniques transfer directly across norm constraints."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "fcb15da70f6fcb50b4c5e2439a6f93200bc3e0530ba8bc6798e8871d58c30885",
+    "tldr": "Smoothing the loss landscape improves one-step adversarial training against sparse attacks and reduces catastrophic overfitting in the reported experiments."
+  },
+  "neurips-2025-when-less-language-is-more-language-reasoning-disentanglement-makes-llms-better-multilin-2997983da7": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper investigates whether language-specific processing can interfere with multilingual reasoning in language models. Inspired by evidence that human reasoning and language processing are partly separate, the authors hypothesize that analogous components can be disentangled in LLMs. They test this through interventions on internal representations during inference.",
+      "The intervention ablates language-specific representations without additional training. Across ten open-weight models and eleven typologically diverse languages, it consistently improves multilingual reasoning performance. Layer-wise analysis supports separating language and reasoning representations throughout the model, while also identifying an important condition: preserving language features in the top layers remains essential for linguistic fidelity.",
+      "Compared with the evaluated supervised fine-tuning and reinforcement-learning approaches, the training-free method achieves comparable or better results with minimal computational overhead. These findings provide empirical support for selective representation changes as a lightweight way to improve reasoning across languages. They also make the placement of the intervention consequential: removing language information must be balanced with retaining the features needed to express answers faithfully."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2cbd79a299c0eb58eb7079deaebee9f3e56d30ecfdd5b6ef68d5866c79d1700e",
+    "tldr": "Selectively ablating language-specific representations improves multilingual reasoning without training, while preserving top-layer language features remains essential."
+  }
+}

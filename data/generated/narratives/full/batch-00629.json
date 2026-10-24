@@ -1,0 +1,327 @@
+{
+  "neurips-2022-a-continuous-time-framework-for-discrete-denoising-models-1a0b55430e": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper develops a continuous-time framework for diffusion models that generate discrete data. The central idea is to describe both the process that adds noise and the reverse process that generates samples using continuous-time Markov chains. This gives the two directions a shared mathematical formulation while keeping the data itself discrete: continuous time describes when changes occur, rather than making the possible data values continuous.",
+      "The authors train the model with a continuous-time version of the evidence lower bound, or ELBO. For generation, they draw on techniques from chemical physics to simulate the resulting high-dimensional chains. The framework therefore connects a training objective with practical methods for producing samples, rather than stopping at a description of the underlying stochastic process.",
+      "The authors derive samplers that can outperform discrete-time methods for discrete data. They also establish a theoretical bound on the difference between the generated distribution and the true data distribution. Together, these contributions make continuous time useful for both sampler design and analysis of generation error."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "83d801cb201e78c26647cc3cc25dd905ff135dfb12a168dff08e7d9b23890069",
+    "tldr": "A continuous-time formulation of discrete diffusion models supports efficient training, improved samplers, and a theoretical bound on generation error."
+  },
+  "neurips-2022-active-learning-helps-pretrained-models-learn-the-intended-task-aa57214a67": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Training examples can leave the intended task ambiguous. If every square is red and every circle is blue, a classifier can fit the data by recognizing either shape or color. The paper asks whether pretrained models are better at choosing additional examples whose labels would reveal which behavior the user actually wants.",
+      "The authors study uncertainty-based active learning, where the model helps select examples for labeling. They find that pretrained models can require up to five times fewer labels with this approach. Models without pretraining receive no benefit or can even do worse. The result suggests that the usefulness of asking for more informative labels depends substantially on what the model has already learned.",
+      "The selected examples contain attributes that distinguish competing interpretations of the task, including unusual backgrounds and rare product categories. These attributes are more easily separated by linear boundaries in pretrained representations. The authors present this representational difference as a possible explanation for the active-learning gains, rather than establishing it as the sole cause."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2e205dafe3e6282ba6888d2676b086631e5c99a701b070428065496dda57c3c9",
+    "tldr": "Pretraining helps uncertainty-based active learning select examples that clarify the intended task, reducing label requirements by up to fivefold."
+  },
+  "neurips-2022-adam-can-converge-without-any-modification-on-update-rules-8b49ca59b2": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper examines why Adam often works in practice despite known divergence examples. Its key observation concerns the order of choices: some negative theoretical results choose Adam's hyperparameters before constructing a difficult problem, whereas practitioners usually fix a problem and then tune the optimizer. The authors analyze convergence under this latter ordering without changing Adam's update rules.",
+      "They prove convergence to a neighborhood of critical points when the second-moment parameter beta2 is sufficiently large and beta1 is smaller than the square root of beta2, which must be below one. The neighborhood size is proportional to stochastic-gradient variance. With the additional strong growth condition, the result strengthens to convergence to critical points themselves.",
+      "The analysis does not require bounded gradients or bounded second-moment estimates. It also identifies a substantial region of small-beta2 settings where Adam can diverge, even with the problem fixed first. These complementary results support increasing beta2 and trying beta1 below its square root when tuning, while preserving the conditional nature of the convergence guarantee."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "28690abf621208a3be8d8871576be723fb0a19202b4bc51eb3d814c553e19950",
+    "tldr": "Unmodified Adam has conditional convergence guarantees when hyperparameters are tuned for a fixed problem, with sufficiently large beta2 playing a central role."
+  },
+  "neurips-2022-beyond-black-box-densities-parameter-learning-for-the-deviated-components-6db26d6adf": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper considers a population for which a density estimate already exists, possibly from a black-box method. As more samples arrive, that estimate may no longer describe the full distribution adequately. The authors model the difference by combining the known density with an additional mixture distribution, making the new structure an explicit object of statistical estimation.",
+      "Two kinds of quantities are unknown: the proportion assigned to the deviating mixture and the mixture's component parameters and weights. Estimating them goes beyond producing another overall density estimate. It asks how much of the population is associated with the deviation and how the components within that deviation are organized.",
+      "The authors introduce a notion of distinguishability between the known density and the added mixture. Using it, they establish convergence rates for maximum-likelihood estimates of the deviation proportion and latent mixing measure, with Wasserstein distance used in the analysis. Simulations illustrate the theory. The contribution is a parameter-learning framework whose guarantees explicitly account for distinguishing the new mixture from the existing density."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "41853be43eecee18a1cec76d3e5a9267ab29539933e5b634f87a27092c300d91",
+    "tldr": "A deviating-mixture framework estimates new mixture structure around a known density and provides convergence rates based on distinguishability."
+  },
+  "neurips-2022-continuously-tempered-pdmp-samplers-4680a0e159": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Sampling methods based on piecewise deterministic Markov processes can struggle with distributions that have several separated modes or heavy tails. This paper introduces tempering into that family of methods to improve mixing: how effectively a sampler moves through the distribution it needs to explore.",
+      "The method extends the sampling state with an inverse-temperature variable. At zero, the associated distribution is tractable; at one, it is the desired posterior. The inverse-temperature distribution combines a continuous part below one with a point mass at one. This construction lets the algorithm explore intermediate distributions while also spending time exactly at the posterior setting, where its samples are posterior draws.",
+      "The authors explain how to implement this extended construction with PDMP methods, particularly the Zig-Zag sampler. They describe the resulting algorithm as easy to implement and show empirically that it can outperform existing PDMP samplers on difficult multimodal posteriors. The findings support tempering as a practical way to improve exploration in the tested settings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d0f4e11a501fd15ef9a7f464f57c41c218466aac5e1b05eb7ec39d14242a4a9f",
+    "tldr": "Adding a continuous tempering variable to PDMP samplers improves exploration and can outperform existing methods on challenging multimodal posteriors."
+  },
+  "neurips-2022-controllable-text-generation-with-neurally-decomposed-oracle-8c954eb957": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A rule for judging a completed text does not directly tell a language model which token to generate next. This paper addresses that gap with NADO, a neural model that turns a sequence-level yes-or-no oracle into token-level guidance. The goal is to steer an existing autoregressive language model toward outputs that satisfy the oracle.",
+      "NADO is trained using examples sampled from the base language model, without requiring an additional auxiliary labeled dataset. The authors use posterior regularization to derive a closed-form optimal way to incorporate the decomposed guidance into generation. They also examine how approximating the guidance with a neural network affects the quality of that solution.",
+      "Experiments cover lexical constraints in text generation and formality control in machine translation. In these applications, the framework efficiently steers outputs toward the oracle while retaining high generation quality. The approach matters because it connects a criterion defined over complete outputs to the incremental decisions a language model must make while producing them."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "28a92dabc81730d4f5ac7e54fc018c9b82e2d6e44e44bd0b5e426f5430e96b0f",
+    "tldr": "NADO learns token-level guidance from a whole-sequence oracle to control a pretrained language model without additional auxiliary labeled data."
+  },
+  "neurips-2022-deepmed-semiparametric-causal-mediation-analysis-with-debiased-deep-learning-b854f54992": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Causal mediation analysis separates an effect into pathways, including effects that operate directly and those that pass through a mediator. DeepMed targets estimation of natural direct and indirect effects. Its aim is to reduce estimation bias while using deep neural networks to represent the auxiliary functions required by the causal analysis.",
+      "The method cross-fits these nuisance functions within efficient influence functions. This places flexible neural estimation inside a framework designed for statistical efficiency. The authors show that DeepMed can attain the semiparametric efficiency bound without requiring sparsity constraints on the neural-network architecture. They also show adaptation to certain low-dimensional structures in the nuisance functions.",
+      "Synthetic experiments support the theoretical findings while also revealing a gap between theory and practical performance. The authors additionally apply DeepMed to two real datasets concerning machine-learning fairness, obtaining conclusions consistent with previous findings. These applications serve as proof of concept, while the main contribution is connecting flexible deep learning with debiased estimation of distinct causal pathways."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "43e96abd8a4ab4e6193d3c515b82e6622caef8bc21efe4e267bb5b91ca5cd1f1",
+    "tldr": "DeepMed combines cross-fitted neural networks with efficient influence functions to estimate causal mediation effects with conditional statistical-efficiency guarantees."
+  },
+  "neurips-2022-distributed-influence-augmented-local-simulators-for-parallel-marl-in-large-networked-sy-a851264785": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Reinforcement learning often needs extensive simulation, but simulating an entire large networked system can be slow because of its complex dynamics. This paper addresses that computational bottleneck for systems containing many agents. It divides the system into local regions so that separate simulators can run independently and in parallel.",
+      "The local regions still exert influence on one another. To represent those effects, each local simulator includes a learned influence model that is periodically trained on real trajectories. This is the central design choice: local simulation is made independent at execution time while learned models account for interactions beyond each region.",
+      "The empirical results show that distributing simulation across processes enables training of large multi-agent systems within a few hours in the studied settings. The authors also find that the approach reduces negative effects associated with agents learning simultaneously. Its significance therefore extends beyond simulation speed: the local construction also helps with the interaction between multiple changing learners."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9ce427f89aa8004ed5bcdead6b54c3323839e7d35985be997a8b3b4ccad8f81f",
+    "tldr": "Parallel local simulators with learned cross-region influence models accelerate multi-agent training and empirically reduce problems caused by simultaneous learning."
+  },
+  "neurips-2022-exploring-the-algorithm-dependent-generalization-of-auprc-optimization-with-list-stabili-91f1b754a4": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies whether stochastic optimization of area under the precision-recall curve generalizes in the single-query setting. The challenge is that this objective depends on a list of predictions rather than decomposing neatly into independent example losses. Consequently, standard tools for analyzing how an algorithm generalizes do not apply directly.",
+      "The authors identify two related problems in existing stochastic estimators: biased sampling can produce biased estimates, and removing one example can make the estimator unstable. They propose an unbiased estimator that is invariant to sampling rate and has improved stability. They then express AUPRC optimization as a composition problem and develop a stochastic algorithm for it.",
+      "For the theoretical analysis, the paper extends stability from individual-example losses to listwise losses and relates that stability to generalization. State-transition matrices describe how stability evolves, with their spectra simplifying the calculations. Experiments on three image-retrieval datasets support the framework. The contribution joins an estimator designed for the objective with analysis tailored to its listwise structure."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "db3c3e35f03c3059fdd577b7729e22596ba4e41217fa868d93269bd6542b9f1d",
+    "tldr": "A sampling-rate-invariant estimator and listwise stability analysis support algorithm-dependent generalization guarantees for single-query AUPRC optimization."
+  },
+  "neurips-2022-flyview-a-bio-informed-optical-flow-truth-dataset-for-visual-navigation-using-panoramic--7cb113ecb5": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "FlyView is a simulated dataset intended to support visual navigation inspired by insects. The motivation is that insect-like vision systems need training and evaluation data that reflect both their visual fields and their movement. Optical flow provides information about apparent motion in images, which can support estimates of surrounding structure and the observer's own movement.",
+      "The dataset contains 42,475 frames rendered from open-source three-dimensional scenes. The observer's position is known at every frame, and the images come with ground truth for depth, self-motion, and motion flow. Its panoramic cameras reproduce monocular and binocular fields of view matched to a fly's compound eyes.",
+      "Movement is based on motion primitives or three-dimensional drone and fly trajectories, while the scenes include natural and indoor environments with reflective surfaces. These choices make the dataset relevant to the sensory and motion conditions of insect-inspired navigation. The contribution is the data resource itself, designed to enable biologically informed network training, testing, and validation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "309ec26d72ed1eba0106d07d73ff64dd5989b998f6239cc84e2c40c9644a6933",
+    "tldr": "FlyView provides simulated panoramic imagery and navigation ground truth with camera geometry and motion designed around insect vision."
+  },
+  "neurips-2022-how-and-why-to-manipulate-your-own-agent-on-the-incentives-of-users-of-learning-agents-6ef0a9e984": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "When automated agents act for people in repeated economic interactions, the people themselves remain strategic participants. This paper asks whether a user can benefit by giving their own learning agent inaccurate parameters. The setting involves multiple users whose regret-minimizing agents repeatedly play a game on their behalf.",
+      "The authors treat the outcomes of the agents' learning dynamics as defining a second game among the users. In this meta-game, a user's choice includes what information to report to their agent, and the consequences depend on how the agents subsequently interact. This shifts attention from the agents' behavior alone to the incentives of the people configuring them.",
+      "The paper develops a general modeling framework and analyzes the resulting user equilibria in three classes of games. It shows that users generally have incentives to misreport their parameters, and that these strategic choices can substantially change outcomes relative to standard analysis. The finding makes user reporting behavior part of the economic system that needs to be analyzed."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0e2899f6bae4b21acc102c97a06c5a1f6db4ae21db4f8a92fa2ff681da45ba9e",
+    "tldr": "Users of regret-minimizing agents can have incentives to misreport their own parameters, changing the outcomes predicted by standard agent-level analysis."
+  },
+  "neurips-2022-lips-learning-industrial-physical-simulation-benchmark-suite-b9ac2489e0": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Industrial physical simulators can be expensive to run, struggle with uncertain or missing data, and sometimes fail to converge even for feasible cases. Learning-based approaches offer a possible way to address these issues, but their loss of accuracy can make industrial adoption difficult. LIPS is a benchmark suite intended to evaluate such approaches against practical application needs.",
+      "The authors propose four broad categories of evaluation criteria and implement a modular, configurable framework that can accommodate different physical problems. They demonstrate this flexibility using two distinct application areas: power grids and pneumatics. For each, they define several benchmarks and assess existing models.",
+      "None of the evaluated models performs well across every expected criterion. This finding shows why assessment needs to consider several requirements together when judging an augmented simulator's industrial usefulness. LIPS provides a shared framework for making those assessments and offers an online Codabench instance where researchers can publicly present results as they develop more applicable solutions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "aba38742cbe265cc07a6dd1c043e5be37c1398d0d14d1045e14fa76236c54268",
+    "tldr": "LIPS benchmarks learned industrial simulators across multiple criteria, finding that tested models fall short of satisfying all requirements."
+  },
+  "neurips-2022-ltmd-learning-improvement-of-spiking-neural-networks-with-learnable-thresholding-neurons-55ee6fae88": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Spiking neural networks often use fixed neuronal mechanisms throughout the network. The authors argue that this restricts precise information transmission, especially in deeper networks. Inspired by differences between neuronal mechanisms across brain regions, they propose learning the thresholds that govern spiking behavior instead of relying on preset values.",
+      "Learnable thresholding allows neuronal behavior to vary across layers through training. The intended benefits are more appropriate information flow and faster convergence. The paper also introduces moderate dropout, an additional training technique designed to reduce inconsistencies between independent dropout runs. Together, the two methods address both the behavior of individual neurons and variability introduced during training.",
+      "The authors evaluate image classification across different kinds of datasets and initial threshold settings. Their methods outperform comparison approaches on almost all evaluated datasets while using fewer timesteps. The result supports adapting thresholds as a useful part of training spiking networks, with moderate dropout providing a complementary enhancement. The reported superiority remains an empirical finding across the evaluated datasets."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ba15cf5337d1cc9ffaede9e2b9ad8b1c20e96af4553799780c7ef79926e23185",
+    "tldr": "Learnable spiking thresholds and moderate dropout improve image-classification results on almost all tested datasets while requiring fewer timesteps."
+  },
+  "neurips-2022-model-based-opponent-modeling-a581564938": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "An agent in a multi-agent environment may face unfamiliar opponents whose behavior is fixed, changing through learning, or informed by reasoning about others. The paper addresses adaptation across these different opponent types. Its starting point is that understanding an opponent's possible behavior can help an agent adjust its own policy.",
+      "Model-Based Opponent Modeling, or MBOM, uses an environment model to simulate recursive reasoning and imagine a collection of improving opponent policies. It then combines these imagined policies according to how closely they match the opponent's observed behavior. This makes the opponent representation responsive to evidence from the actual interaction while drawing on simulated possibilities.",
+      "Across a variety of tasks, MBOM adapts more effectively than existing methods in experiments involving fixed-policy opponents, naive learners, and reasoning learners. The contribution is a common modeling approach for opponent types that prior work usually considers separately. The empirical results support that broader adaptability across the tested tasks and opponent categories."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f24fb187f62653340cb029f0cac08d07c8bb54a55276bf7a06161e6a0f8400a7",
+    "tldr": "MBOM combines simulated opponent policies according to observed behavior to improve adaptation to fixed, learning, and reasoning opponents."
+  },
+  "neurips-2022-nonlinear-mcmc-for-bayesian-machine-learning-78058a68b1": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper investigates the use of an existing nonlinear Markov chain Monte Carlo technique for Bayesian machine learning. Its focus combines mathematical analysis of the sampling method with applications to Bayesian sampling problems. The technique itself was introduced previously; the contribution here is its analysis and use in this machine-learning setting.",
+      "The authors provide a convergence guarantee measured in total variation, a way of expressing how closely the sampler's distribution approaches its target. Their argument uses new results on two aspects of convergence: behavior over long running times and behavior as the number of particles becomes large. The latter is described as propagation of chaos, and both aspects contribute to the stated guarantee.",
+      "The applications include sampling for a Bayesian neural network on CIFAR10. This connects the convergence analysis to a concrete neural-network problem rather than leaving the work entirely theoretical. The stated findings establish a convergence result and demonstrate application of the technique; they do not assert a numerical advantage over other samplers."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "09c3a24c60f939a65b34993ecf1b77b34b9464d8af6ae5adf81cbc3f8dec3064",
+    "tldr": "The paper establishes total-variation convergence for a nonlinear MCMC technique and applies it to Bayesian sampling, including a neural network on CIFAR10."
+  },
+  "neurips-2022-on-scalable-testing-of-samplers-893df880c6": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies how to test constrained samplers for high-dimensional distributions with formal guarantees expressed through epsilon, eta, and delta. Such testing matters when samplers are used in safety-critical machine-learning applications. The central practical obstacle is the number of queries required to test a sampler as the distribution's dimension grows.",
+      "The previous algorithm, Barbarik2, has worst-case query complexity that grows exponentially with dimension. The proposed Barbarik3 reduces that dependence to linear growth. This is an exponential improvement in dimensional scaling, making the testing procedure substantially more suitable for larger instances under the paper's testing framework.",
+      "The authors implement Barbarik3 and compare it with Barbarik2 on two samplers. Barbarik3 uses ten times fewer samples for wUnigen3 and 450 times fewer for wSTS in these experiments. These results provide concrete evidence alongside the complexity analysis: the new algorithm improves the theoretical scaling and also substantially reduces sample requirements in the evaluated cases."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "68a6aec4672a18aaf0549da1a085b98caadaea1096b84688ad22c24794623c47",
+    "tldr": "Barbarik3 reduces sampler-testing query complexity from exponential to linear in dimension, with substantial sample savings in two evaluated samplers."
+  },
+  "neurips-2022-on-the-learning-mechanisms-in-physical-reasoning-79bddf0684": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper questions whether predicting physical dynamics is indispensable for physical reasoning. It compares Learning from Dynamics, which uses a dynamics-prediction component, with Learning from Intuition, a simpler alternative. On the PHYRE benchmark, the authors initially find that the intuition approach matches or exceeds state-of-the-art dynamics-based approaches.",
+      "They then supply exact dynamics directly from a simulator. In this idealized setting, dynamics substantially improve reasoning performance beyond intuition alone, establishing the potential value of accurate physical information. The important distinction is therefore between having correct dynamics and relying on a learned approximation of them.",
+      "Further experiments suggest that approximate dynamics can cause downstream reasoning to fall back into the intuition paradigm. The authors identify accumulated prediction error over long horizons as a difficult obstacle. Their final experiment reinforces the effectiveness of a properly implemented intuition strategy. Taken together, the findings favor the simpler approach in the tested practical setting while preserving the possibility of substantial gains from better dynamics-based reasoning."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "fda886e70c65b5feffdd21e6f0b2875c71d490f1760bc932c0310ac65dc15f4a",
+    "tldr": "On PHYRE, simple intuition-based learning matches or beats learned-dynamics approaches, although exact simulator dynamics reveal substantial potential gains."
+  },
+  "neurips-2022-oracle-inequalities-for-model-selection-in-offline-reinforcement-learning-56666cfd7e": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Offline reinforcement learning must learn from previously logged data without further interaction with the environment. Choosing an appropriate value-function model is difficult because more expressive classes can reduce approximation error while increasing estimation error. This paper studies that tradeoff for a nested sequence of candidate model classes.",
+      "The proposed algorithm, ModBE, takes those classes together with a generic offline reinforcement-learning algorithm. It successively eliminates classes using a one-sided generalization test. Computationally, this involves solving a sequence of squared-loss regression problems and comparing relative squared losses between classes, giving the selection process a concrete implementation.",
+      "The authors prove oracle inequalities that achieve minimax-optimal rates up to logarithmic factors. The returned policy's regret scales with the complexity of the minimally complete class, connecting the guarantee to an appropriate level of model complexity. Numerical simulations show reliable selection of a good class. The contribution is a model-selection procedure with both a practical regression-based structure and a strong theoretical performance benchmark."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ce7fae888d01eab2e6127dc3b454e9a8e346fcba3925934b0e05dd42d0c68dc0",
+    "tldr": "ModBE selects among nested offline-RL model classes using regression-based tests, with minimax-rate-optimal oracle guarantees up to logarithmic factors."
+  },
+  "neurips-2022-pragmatically-learning-from-pedagogical-demonstrations-in-multi-goal-environments-2320d8a8c1": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A demonstration that performs a task efficiently may still leave its goal unclear. Human teachers often change their behavior to make their intentions easier to recognize, and learners interpret demonstrations with that teaching intent in mind. This paper brings those complementary mechanisms into learning from demonstrations in environments with multiple possible goals.",
+      "The authors use a Bayesian model of goal inference to implement a pedagogical teacher and a pragmatic learner. The teacher's demonstrations help distinguish the intended goal, while the learner reasons about that intent. Both are artificial agents trained with goal-conditioned reinforcement learning, allowing the study to examine teaching and interpretation together.",
+      "Combining the two Bayesian goal-inference agents produces faster learning and less goal ambiguity than standard learning from demonstrations. The benefits are especially evident when only a few demonstrations are available, where identifying the goal is harder. The results show the value of treating demonstrations as intentional communication as well as examples of behavior to learn from."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e7c884c4b5d0c33f71573917885f65757c7e8118e6759c0e27a298ac31f84234",
+    "tldr": "A Bayesian pedagogical teacher and pragmatic learner reduce goal ambiguity and accelerate learning, especially when demonstrations are scarce."
+  },
+  "neurips-2022-simple-mechanisms-for-welfare-maximization-in-rich-advertising-auctions-24fdc1126d": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Rich advertising auctions must allocate limited space among ads of different sizes, with advertisers potentially offering several formats. Finding the welfare-optimal allocation is computationally intractable, making the standard truthful VCG approach impractical here. The paper seeks a simpler allocation mechanism that retains useful incentive and welfare properties.",
+      "The authors study rules that are monotone in both bids and the set of submitted rich ads. Such rules can be paired with suitable payments to obtain truthfulness. They show that no deterministic monotone rule can achieve an approximation factor better than two, then introduce a simple greedy monotone rule with a factor-three welfare guarantee.",
+      "They separately analyze pairing their rule with Generalized Second Price payments, a practice-motivated choice that does not make this mechanism truthful. Under standard no-overbidding assumptions, they bound inefficiency at pure and Bayes-Nash equilibria through Price of Anarchy guarantees. Experiments on real-world data complement the theoretical analysis. The payment distinction matters because truthfulness and equilibrium welfare are established through different claims."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d250af9653007ee2ef0c1edd8a7203c3b92722a1dce3020728833add573e821e",
+    "tldr": "A simple monotone greedy rule gives a factor-three welfare approximation for rich-ad auctions, with separate guarantees for truthful and GSP payment settings."
+  },
+  "neurips-2022-sparse-probabilistic-circuits-via-pruning-and-growing-097b2e448f": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Probabilistic circuits represent distributions while supporting exact, efficient likelihood and marginal calculations. Yet simply making these models larger does not keep improving training performance. The authors find that much of the capacity in existing large circuits is unused: layers with fully connected parameters are used only sparsely.",
+      "They propose alternating two structural operations. Pruning removes unimportant subnetworks to compress the circuit and comes with theoretical guarantees. Growing expands the dimensions of latent states to add capacity. By repeatedly removing weakly used structure and expanding the model, the learner increases the capacity that is meaningfully used rather than relying on size alone.",
+      "Experiments report state-of-the-art likelihoods on MNIST-family image datasets and Penn Tree Bank language data. The comparisons include other probabilistic-circuit learners and less tractable generative models such as flows and variational autoencoders. These results support pruning and growing as a way to scale circuit learning while retaining the representation's appeal for exact probabilistic computations."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e0f758a411ccddd48dee5d73e343e9d9d3e25a169493ec51d770acb8157a9395",
+    "tldr": "Alternating pruning and latent-state growth makes probabilistic-circuit capacity more useful and achieves strong likelihood results on image and language datasets."
+  },
+  "neurips-2022-statistical-robustness-and-computational-guarantees-for-sliced-wasserstein-distances-56de0799b8": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Sliced Wasserstein distances offer a more scalable way to compare high-dimensional distributions while preserving properties of classical Wasserstein distances. This paper quantifies that scalability along three separate axes: estimation from samples, robustness to contaminated data, and the computational cost of evaluating the distances.",
+      "For empirical convergence, the authors obtain fast rates with explicit dimensional dependence in the constants, assuming log-concave population distributions. For robustness, they characterize minimax-optimal estimation risks that do not depend on dimension. They also establish an equivalence between robust sliced 1-Wasserstein estimation and robust mean estimation, allowing guarantees for the latter to transfer to the former.",
+      "On computation, they show that higher dimension can improve the numerical-integration convergence of a Monte Carlo estimator for average-sliced distance. For max-sliced distance, they establish an O(epsilon^-4) complexity bound for a commonly used subgradient local-optimization method. Numerical experiments validate the theory. These results clarify several distinct meanings of scalability without treating higher dimension as uniformly beneficial."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5a6835958c177cc69bc8b61aac3b8328636ffd6d81498ea222c77ea5e56dac3e",
+    "tldr": "The paper quantifies sliced Wasserstein scalability through convergence rates, dimension-free robustness results, and guarantees for numerical computation."
+  },
+  "neurips-2022-tight-mutual-information-estimation-with-contrastive-fenchel-legendre-optimization-51c82951f2": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Contrastive mutual-information estimators such as InfoNCE are useful partly because they train stably. However, the paper identifies a tradeoff: they rely heavily on costly large batches and give up tightness of their information bounds to reduce variance. The authors seek an estimator that addresses these limitations while retaining the contrastive approach.",
+      "They revisit popular variational bounds through unnormalized statistical modeling and convex optimization. This produces a unified theoretical framework that includes existing bounds and leads to a new estimator called FLO, based on contrastive Fenchel-Legendre optimization. The authors establish that FLO is tight and converges under stochastic gradient descent.",
+      "Empirical evaluations find that FLO learns more efficiently and overcomes the identified shortcomings of earlier estimators in the studied settings. The paper also explores applications in meta-learning. Its contribution connects the mathematical form of a mutual-information bound to practical learning efficiency, using both theoretical guarantees and benchmark evidence to support the proposed estimator."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ce174e36ba14102cc4db059647df3cb666640a45e2a346a6eebbf4a9b936f7c1",
+    "tldr": "FLO is a contrastive mutual-information estimator with tightness and SGD-convergence guarantees, supported by empirical improvements in learning efficiency."
+  },
+  "neurips-2022-transboost-improving-the-best-imagenet-performance-using-deep-transduction-f07eadf1f1": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "TransBoost addresses deep transductive learning, where the unlabeled test inputs are available during training. The method fine-tunes an existing deep neural model with the aim of improving performance on that supplied test set. Availability of those inputs is a central feature of the setting, even though their labels are not provided.",
+      "The procedure is inspired by a large-margin principle and is described as efficient and simple to use. It is proposed as a broadly applicable fine-tuning method rather than a change tied to one network architecture. The paper evaluates it across ResNets, MobileNetV3-L, EfficientNetB0, ViT-S, and ConvNext-T, covering a range of models within image classification.",
+      "The authors report significant ImageNet classification improvements across these architectures and state-of-the-art transductive performance. They also demonstrate effectiveness on other image-classification datasets. These findings support using the specific unlabeled test set to guide fine-tuning in the transductive setting, with the reported gains spanning multiple architectures and datasets."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7e59c940206fa9272f66b06db1bda1a178b838e83214f230b9ca0cb7b93bf4e4",
+    "tldr": "TransBoost uses an available unlabeled test set for transductive fine-tuning, improving image classification across multiple architectures and datasets."
+  },
+  "neurips-2022-what-is-where-by-looking-weakly-supervised-open-world-phrase-grounding-without-text-inpu-3888eb1cfe": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper introduces a system that receives only an image and returns object bounding boxes together with descriptive phrases. It addresses an open-world setting in which objects may be unfamiliar to the trained localization mechanism. Training is weakly supervised: images and captions are available, but bounding-box annotations are not.",
+      "The method combines two pretrained networks with different roles. CLIP supplies image-text matching scores for training on COCO images and captions. At inference time, BLIP generates hypotheses about regions in the current image. This combination lets the system produce both descriptions and locations without requiring a human-written caption as an additional input.",
+      "The authors report improvements over prior methods in weakly supervised segmentation and phrase grounding. On phrase-grounding benchmarks, removing the need for human captions produces only a modest degradation relative to methods that receive those captions. The findings support a broader task in which the system must determine both what to describe and where it appears from visual input alone."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8d22152dbe6006e0cb22c6f78c676baa761f0676d9990800e40de16a59a9fd0c",
+    "tldr": "Combining CLIP and BLIP enables image-only object localization and description without bounding-box supervision or human captions at inference."
+  }
+}

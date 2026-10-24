@@ -1,0 +1,377 @@
+{
+  "icml-2026-amdp-asynchronous-multi-directional-pipeline-parallelism-for-large-scale-models-training-04b9e88853": {
+    "backgroundConcepts": [
+      "topic-161-s-3-increasing-gpu-utilization-during-generative"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "AMDP addresses a trade-off in training large models across pipeline stages: keeping hardware busy can make optimization less consistent. In asynchronous pipelines, parameters may change between a minibatch’s forward computation and its backward computation. The resulting mismatch can degrade convergence, so faster execution does not automatically translate into effective training.",
+      "The method restricts the first stage of each pipeline to processing at most two minibatches before backpropagation. This bounds how many parameter updates can intervene between the two computations. Because that restriction can introduce idle periods, AMDP runs several pipelines concurrently and adjusts their number to the pipeline depth. It also accumulates gradients from multiple minibatches before applying a single update.",
+      "Together, these choices bound the number of minibatches affected by parameter mismatch and keep that mismatch within one optimization step. Experiments with GPT-style and BERT-style models report substantial training acceleration while preserving convergence. The contribution is a coordinated scheduling and update strategy that controls optimization inconsistency while maintaining high hardware utilization."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0248934d461660f154739e9c6bbbb9427c91902bb9b26a1280a652276b63f852",
+    "tldr": "AMDP accelerates pipeline training by bounding parameter mismatch and using concurrent pipelines to maintain hardware utilization."
+  },
+  "icml-2026-babyvision-visual-reasoning-beyond-language-2ede7cc62c": {
+    "backgroundConcepts": [
+      "topic-081-a-benchmark-for-compositional-visual-reasoning"
+    ],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "BabyVision examines whether multimodal language models can solve basic visual problems without depending heavily on linguistic knowledge. The motivation is a striking gap: models that perform well on knowledge-heavy evaluations still fail visual tasks that humans, including young children, can solve readily. Strong language abilities may therefore conceal weaknesses in visual understanding.",
+      "The researchers build a benchmark containing 388 items, organized into 22 subclasses within four broad categories. Its purpose is to isolate core visual abilities from linguistic knowledge. They evaluate leading multimodal models and compare their results with human performance, making the benchmark a direct test of the gap between model and human visual reasoning.",
+      "The reported results show a substantial difference: Gemini3-Pro-Preview scores 49.7, compared with an adult average of 94.1. These findings indicate that the evaluated models still lack basic visual capabilities despite their strengths elsewhere. The work also introduces BabyVision-Gen and an automatic evaluation toolkit to explore generation models as another approach to visual reasoning."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7804cc82e51323141caa0996a3d24e95afe96df1a23b707f3a8bb594ed1cad79",
+    "tldr": "BabyVision reveals a large gap between leading multimodal models and humans on basic visual reasoning tasks."
+  },
+  "icml-2026-boundary-embedding-shaping-with-adaptive-contrastive-learning-for-graph-structural-disen-e9b7f7a8aa": {
+    "backgroundConcepts": [
+      "topic-044-a-collective-learning-framework-to-boost-gnn-exp"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Graph neural networks build node representations by combining information from neighboring nodes. This becomes problematic when neighbors are connected structurally but are irrelevant to the node’s meaning or class. Their information can introduce misleading correlations, especially for nodes whose representations already lie near the boundary between classes.",
+      "The paper identifies these boundary regions as the main bottleneck in graph structural entanglement. It proposes Boundary Embedding Shaping, or BES, a plug-in module that uses adaptive contrastive learning to selectively suppress misleading structural information near decision boundaries. The approach focuses its intervention on vulnerable representations while making only small changes to model parameters.",
+      "Experiments report consistently improved separation at class boundaries and performance above existing leading methods. For GCN, the reported average improvement in node classification is 3.3%, reaching 5.0% on WikiCS; BES also achieves superior link prediction accuracy. These findings support targeted treatment of boundary vulnerabilities as a useful way to improve graph representations and their downstream predictions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d6f7760b2cec4bd87ce1e77c2a518aa8f4f08fdb8d7a5ae3e94e7fc81f148c55",
+    "tldr": "BES improves graph predictions by selectively reducing misleading neighbor information near class boundaries."
+  },
+  "icml-2026-concur-high-throughput-agentic-batch-inference-of-llm-via-congestion-based-concurrency-c-f5ba8f04dc": {
+    "backgroundConcepts": [
+      "topic-161-s-3-increasing-gpu-utilization-during-generative"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "CONCUR studies a serving problem that emerges when many long-running language-model agents execute together. As agents accumulate state, they place sustained pressure on the GPU key–value cache. The researchers identify a failure pattern called middle-phase thrashing: cache efficiency deteriorates and throughput falls sharply even before memory capacity is exhausted.",
+      "The proposed response is to regulate admission at the agent level. CONCUR treats the cache as a shared resource whose pressure should be controlled through feedback, drawing on congestion-control ideas. Its lightweight control layer reads runtime cache signals and dynamically adjusts the number of active agents, aiming to bound total cache pressure while preserving continuity for ongoing execution.",
+      "Across the evaluated large models and real-world agent workloads, CONCUR prevents the identified thrashing behavior. Reported throughput improvements reach 4.09 times on Qwen3-32B and 1.90 times on DeepSeek-V3. Its compatibility with existing serving systems makes the contribution a control mechanism for managing concurrency, with the results showing why admitting more agents can require careful regulation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c4cce4a0ad707e247c962ace37df28a29c5ccf2d473800f80bbac5eda6e5ed8b",
+    "tldr": "CONCUR adjusts active-agent concurrency using cache feedback, preventing thrashing and improving batch inference throughput in the evaluated workloads."
+  },
+  "icml-2026-general-quantification-of-covariate-and-concept-shifts-f9e79dd7fa": {
+    "backgroundConcepts": [
+      "topic-216-who-experiences-large-model-decay-and-why-a-hier"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper seeks to make distribution-shift theory usable for measuring how changes between training and deployment data affect prediction error. It identifies a problem with an existing definition of concept shift: the definition breaks when source and target distributions cover different regions of the input space. That mismatch matters for describing shifts beyond idealized settings.",
+      "The authors use entropic optimal transport to introduce a new notion called γ*-concept shift. They derive an error bound that combines this notion with covariate shift, bringing changes in inputs and changes in labeling into one framework. The bound accommodates broad classes of losses and label spaces, including settings where labeling is stochastic.",
+      "The work also develops sample-based estimators with concentration guarantees and an algorithm called DataShifts. These provide a route from the theoretical quantities to measurements and an estimated error bound in most applications, as stated in the abstract. The contribution therefore connects a more general definition of shift with tools intended to quantify its implications for learning error."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "071dbf99f068d30f32c05cce9f0ecbab40efe847f9958fcb9ba5c5804a3db1d2",
+    "tldr": "DataShifts connects a transport-based definition of concept shift with sample-based estimates and a general prediction-error bound."
+  },
+  "icml-2026-generalizable-and-actionable-parts-pose-estimation-with-symmetry-annotation-free-learnin-5418c38aa9": {
+    "backgroundConcepts": [
+      "topic-195-text-di-2-text-pose-discrete-diffusion-model-for"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "SAFAG addresses perception of object parts that robots can interact with across different object categories. Accurate pose estimation is important for this goal, but symmetry complicates the task. The paper argues that existing approaches either handle symmetry inadequately or depend on extensive symmetry annotations, making precise estimation difficult when annotated data are scarce.",
+      "The proposed framework removes the need for symmetry annotations. It estimates pose through a two-stage process that progressively refines candidate quaternion predictions into final predictions. Alongside this refinement, it treats symmetry prediction as a probability-distribution problem and learns it through self-supervision. This combines a structured pose-estimation process with a way to learn symmetry without explicit symmetry labels.",
+      "The experiments report superior performance and robustness for SAFAG. Those findings support the framework’s approach to the symmetry problem in generalizable, actionable part perception. The authors also describe potential applications across embodied AI. That broader application claim remains a statement of potential, while the reported experimental contribution concerns the quality and robustness of part pose estimation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "23c887d791d7cce2fa8451877b896d2fa55f611d5dcead7aa5aed60fc0582526",
+    "tldr": "SAFAG combines progressive pose refinement with self-supervised symmetry prediction to estimate actionable part poses without symmetry annotations."
+  },
+  "icml-2026-guidedbridge-training-freely-improving-bridge-models-with-prior-guidance-3e4ee3e606": {
+    "backgroundConcepts": [
+      "topic-080-text-s-2-q-vdit-accurate-quantized-video-diffusi"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "GuidedBridge improves pretrained bridge models, which generate data from other data using an informative clean prior. The central question is how to make a model exploit that prior more effectively without additional training. The approach builds guidance from a deliberate difference in the quality of two denoising results.",
+      "Prior Guidance introduces a weak prior that the bridge model did not encounter during pretraining. This reduces the model’s ability to use the prior and produces a worse denoising result. Contrasting that result with one obtained from a familiar prior provides a direction for strengthening prior use, controlled by a scale. A frequency-modulated version adjusts that scale separately for low- and high-frequency bands.",
+      "For image inpainting, the paper combines classifier-free guidance with frequency-modulated prior guidance in a cascade. The first stage creates a noisy hidden representation, which the second uses as its generative prior. Experiments report consistent improvements across diverse image translation tasks, while the inpainting design combines the two guidance methods without compromising inference efficiency."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8ba4028c5855e515230549397ce9fb4509f9b2d93fcb98f1a4a50fc52e574066",
+    "tldr": "GuidedBridge improves pretrained bridge models without training by contrasting strong and weak prior use during generation."
+  },
+  "icml-2026-ho-sfl-hybrid-order-split-federated-learning-with-backprop-free-clients-and-dimension-fr-40f6e6768c": {
+    "backgroundConcepts": [
+      "topic-164-a-federated-stochastic-multi-level-compositional"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "HO-SFL tackles the memory demands of fine-tuning large models on edge devices. Backpropagation makes conventional federated and split learning expensive for these clients. Zeroth-order optimization can reduce memory needs, but its slow convergence creates a competing cost. The paper seeks to retain its memory advantage without accepting the usual convergence penalty.",
+      "The method reformulates split learning within a Lagrangian framework and assigns different optimization methods to the server and clients. The server uses first-order updates through backpropagation, while clients use zeroth-order optimization. This removes client-side backpropagation and enables dimension-free model aggregation, substantially lowering communication costs as well as client memory requirements.",
+      "The theoretical analysis shows that HO-SFL mitigates the dimension-dependent slowdown associated with zeroth-order optimization and achieves a convergence rate comparable to first-order methods. Experiments across vision and language tasks likewise report comparable convergence speeds alongside significant memory and communication reductions. The findings support dividing optimization responsibilities according to the different capabilities of the server and edge devices."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d37989cf6f7ee2cd8a45c36376e40ecc6af24862187bfab66650175ab4abf071",
+    "tldr": "HO-SFL pairs server backpropagation with client zeroth-order updates to reduce memory and communication while retaining comparable convergence speed."
+  },
+  "icml-2026-int-vs-fp-a-comprehensive-study-of-fine-grained-low-bit-quantization-formats-6a8f344654": {
+    "backgroundConcepts": [
+      "topic-194-1-bit-wonder-improving-qat-performance-in-the-lo"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This study compares low-bit integer and floating-point quantization across different block sizes. Its motivation is that hardware increasingly favors floating-point formats for handling large activation outliers in language models, while a unified comparison across quantization granularities has been missing. The paper examines how granularity changes the balance between accuracy and hardware efficiency.",
+      "The main finding is a crossover: floating-point formats perform better with coarse quantization, but integer formats consistently surpass them as blocks become smaller in the study. For MX formats with a block size of 32, the authors report that MXINT8 and MXINT4 outperform their floating-point counterparts in both algorithmic accuracy and hardware efficiency.",
+      "The paper also introduces symmetric clipping to resolve gradient bias during fine-grained, low-bit integer training. This enables nearly lossless performance for MXINT8 training. Together, the findings support prioritizing fine-grained integer formats in future accelerator design. The argument depends on quantization granularity, so the reported advantage should be understood alongside the study’s contrasting result for coarse-grained formats."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c8eed727ec7ac73ef50427fa3e9b7aa73ac5d6c47d614450d2769070bd6a0ad4",
+    "tldr": "The study finds that integer quantization overtakes floating point at smaller block sizes, with MX integer formats improving accuracy and hardware efficiency."
+  },
+  "icml-2026-metastreet-semi-supervised-multimodal-learning-for-street-level-socioeconomic-prediction-63fbf593fc": {
+    "backgroundConcepts": [
+      "topic-185-textit-bifr-ost-3d-aware-image-compositing-with-"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "MetaStreet predicts street-level socioeconomic indicators using urban imagery and additional structured learning signals. The paper argues that extracting generic visual features and propagating them through a graph leaves useful information underused. Urban scenes contain relationships between objects, task-relevant descriptions, and geographic structure that can help learning when labeled streets are limited.",
+      "The framework combines three components. A visual encoder models which object categories occur together and which are spatially adjacent. A textual encoder uses task-specific prompts to steer a language model toward features relevant to the prediction. A geography-aware graph contrastive module uses spatial autocorrelation to extend learning signals to streets without labels.",
+      "This last component lets unlabeled streets actively shape the learned representations, giving the framework its semi-supervised character. Experiments spanning two cities and three socioeconomic prediction tasks report consistent improvements over state-of-the-art methods. The findings support combining semantic relationships, task-directed text, and geographic structure to obtain more useful street representations for these prediction tasks."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d2fe97aa13efc1b20aaca42549e2d802d1b5a77da21fab571be053eb227350ab",
+    "tldr": "MetaStreet combines visual structure, task-focused text, and geographic learning signals to improve socioeconomic prediction from street scenes."
+  },
+  "icml-2026-mitigating-reward-hacking-in-llm-based-recommendation-a-preference-optimization-approach-f03f2fe8ed": {
+    "backgroundConcepts": [
+      "topic-157-textits-sppo-semantic-calibrated-self-play-prefe"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper investigates why preference training can improve a recommendation model’s training scores without improving its actual rankings. Methods such as Direct Preference Optimization learn from pairwise comparisons, but those comparisons can leave important ranking relationships weakly affected. The model can therefore exploit imperfections in the training signal rather than deliver better recommendations.",
+      "The authors analyze gradients and define ε-insensitive regions, where pairwise updates barely change the ordering between positive items and negative items that were not sampled. Under the Bradley–Terry model, they show that these regions can occupy a substantial portion of preference space and lead to misaligned rankings. This gives a specific account of how the training objective can miss ranking quality.",
+      "Their method, SIRIUS, introduces pseudo-negative samples to enrich the contrastive signal and reduce these insensitive regions. Experiments on three public benchmarks report consistent ranking improvements and effective mitigation of reward hacking. The contribution links a conditional theoretical explanation with a practical change to preference training that targets the identified weakness."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "77cbd9a9a4827204dafcd2d4052f131567e653630d8e31bdb6b861e19b42f3c1",
+    "tldr": "SIRIUS uses pseudo-negatives to strengthen weak ranking signals and reduce reward hacking in language-model recommendation."
+  },
+  "icml-2026-nanospec-accelerating-speculative-decoding-using-minimalist-in-context-vocabularies-9d1dcfa44a": {
+    "backgroundConcepts": [
+      "topic-012-quest-query-aware-sparsity-for-efficient-long-co"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "NanoSpec targets the cost of projecting model outputs over very large vocabularies during speculative decoding. Existing pruning approaches retain relatively large active vocabularies to preserve draft quality. The paper instead uses the temporal locality of language generation to choose a much smaller vocabulary that changes with the current context at every generation step.",
+      "This selection requires no training or auxiliary learned parameters. The reported average active vocabulary falls by more than 40 times to fewer than 3,000 tokens while maintaining high coverage. To turn that reduction into hardware speedups, NanoSpec combines asynchronous gathering with GPU-resident state management, addressing the inefficient memory access that can otherwise undermine sparse computation.",
+      "Across seven tasks, NanoSpec reduces draft time by an average of 51.6%. As a complementary module for EAGLE-2 and EAGLE-3, it delivers end-to-end speedups of 1.17 to 1.29 times and outperforms complex training-based pruning baselines. The difference between draft-time and overall gains highlights the specific part of decoding that the method accelerates."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "dca58686ae37ad7b63d3ff69ef59dbff3d689d0307876ed32170ed3b64546eec",
+    "tldr": "NanoSpec accelerates speculative decoding with tiny context-dependent vocabularies and hardware-aware execution, without additional training."
+  },
+  "icml-2026-onepo-direct-one-stage-policy-optimization-for-sft-free-domain-adaptation-0ccccd64a8": {
+    "backgroundConcepts": [
+      "topic-153-v-0-a-generalist-value-model-for-any-policy-at-s"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "OnePO investigates adapting a pretrained language model directly through reinforcement learning without a separate supervised fine-tuning stage. The paper argues that the conventional two-stage process can constrain exploration through imitation and cause capability regression during the transition. Pure reinforcement learning, however, can converge slowly, motivating temporary help from a teacher.",
+      "The method uses teacher outputs as guidance while addressing two problems with naive integration: weak gradients for teacher tokens the model initially considers unlikely, and continued attachment to the teacher’s distribution. Adaptive Objective Evolution reshapes the learning objective to absorb teacher knowledge quickly. Teacher Retirement removes those outputs once the model surpasses them.",
+      "In medical adaptation, OnePO reaches 67.2 on HealthBench using 20,000 training samples, exceeding SFT plus RL by 2.7 points and pure RL by 7.4 points. Scaling the approach yields HuatuoGPT-3, whose 32B variant scores 70.3. Writing and legal-domain experiments also show applicability beyond medicine, supporting temporary teacher guidance within a single reinforcement-learning stage."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b569a72e02408305c3b1ae3e18e89d34f46bf6061d0dc964eebad9aedb0f6286",
+    "tldr": "OnePO adapts language models in a single reinforcement-learning stage using teacher guidance that is retired once the model surpasses it."
+  },
+  "icml-2026-online-linear-programming-for-multi-objective-routing-in-llm-serving-b35cebf817": {
+    "backgroundConcepts": [
+      "topic-161-s-3-increasing-gpu-utilization-during-generative"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies how to route incoming language-model requests among parallel decoding workers. Each decision must respect limits on batch size and key–value cache capacity while balancing service goals such as latency and throughput. The authors argue that common heuristics provide limited control over these trade-offs because they are not tied to explicit service-level objectives.",
+      "They formulate routing as an online linear program with interpretable rewards. A bid-price policy admits a request when its benefit, weighted by the service objectives, exceeds the shadow prices associated with resource use. These prices provide a changing measure of resource pressure. Warm-started, projected first-order updates track them online with predictable runtime to support millisecond-scale decisions.",
+      "The router is evaluated within the Vidur simulator. Across multiple service-objective regimes, the reported results improve on standard baselines for end-to-end latency, time to first token, throughput, and tail performance. The evidence supports explicitly optimizing service goals and resource constraints for routing, with the demonstrated gains established in simulation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "902fafcfe6a209b56bc6e60705fb506aa5844873438cc31a92283be4283537f7",
+    "tldr": "An online optimization router uses service-weighted benefits and resource prices to improve simulated language-model serving trade-offs."
+  },
+  "icml-2026-pcrnet-phase-aware-complex-refinement-network-for-eeg-based-auditory-attention-decoding-d226f620de": {
+    "backgroundConcepts": [
+      "topic-130-a-deep-learning-approach-for-the-segmentation-of"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "PCRNet uses EEG signals to identify which speaker a person is attending to in a multi-speaker setting. The paper focuses on phase information, which existing approaches often overlook. Its premise is that ignoring phase makes it harder to separate structured neural activity from random frequency-domain noise, weakening auditory attention decoding.",
+      "The network combines temporal and spectral processing. Temporal Context Calibration uses attention at multiple temporal scales to capture long-range dependencies. Dual-Domain Integration then applies phase-guided spectral filtering to suppress frequencies dominated by noise. It refines the real and imaginary signal components separately, enabling phase recalibration and making target-related features more distinguishable in the complex representation.",
+      "Experiments on three public datasets report performance above state-of-the-art methods, particularly when decoding uses windows as short as 0.1 seconds. These results support the value of retaining and refining phase information when little signal duration is available. The contribution is the coordinated use of temporal context and phase-aware filtering for more robust decoding."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "413a24c70f9d1d76f8459fa7bb49215b3bb655a3402456097f4b79a8afb3a8f4",
+    "tldr": "PCRNet combines temporal attention and phase-guided filtering to improve EEG-based speaker-attention decoding, especially with very short windows."
+  },
+  "icml-2026-policy-driven-world-model-adaptation-for-robust-offline-model-based-reinforcement-learni-db7a166554": {
+    "backgroundConcepts": [
+      "topic-147-textdt-text2-decision-targeted-digital-twins"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Offline model-based reinforcement learning learns a simulator from a fixed dataset and then uses it to train a policy. This paper identifies a mismatch in the usual two-stage procedure: predicting recorded transitions accurately does not necessarily produce the best model for policy learning. It also observes that small adversarial environmental disturbances can sharply reduce learned-policy performance.",
+      "The proposed framework adapts the world model dynamically alongside the policy under a shared objective focused on robustness. It formulates the interaction as a maximin optimization problem and uses Stackelberg learning dynamics to solve it. This makes model adaptation responsive to policy learning rather than leaving the policy to optimize against a previously fitted, fixed simulator.",
+      "The authors provide theoretical support and computationally efficient implementations. Evaluation covers twelve noisy D4RL MuJoCo tasks and three stochastic Tokamak Control tasks, with reported state-of-the-art performance. The findings support aligning model and policy objectives when robustness matters, specifically in the noisy and stochastic control settings tested."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b9b0b025968c7200e699ac80c350680b34a56d45efbabf18dce18c4940881c18",
+    "tldr": "The framework jointly adapts a world model and policy through robust optimization, improving performance on noisy and stochastic offline-control benchmarks."
+  },
+  "icml-2026-real-world-unsupervised-models-generalize-to-predict-brain-responses-to-out-of-distribut-6adeb2e8a9": {
+    "backgroundConcepts": [
+      "topic-162-i-mind-insightful-multi-subject-invariant-neural"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This study asks whether neural networks trained without labels on real-world data better predict sensory brain responses. The motivation concerns biological plausibility: commonly used supervised models depend on labeled, manually curated datasets whose statistics differ from natural experience. A model’s success at predicting neural activity may therefore depend strongly on what kind of data it encounters.",
+      "The researchers report that unsupervised models trained on real-world data significantly outperform supervised models in predicting responses in human auditory and visual cortex. Their analysis attributes this advantage to the data distribution rather than network architecture or dataset size. This makes the structure of the training experience central to interpreting the result.",
+      "The models also generalize across substantial differences between training inputs and evaluated stimuli. A model trained only on Mandarin speech predicts responses driven by English, while one trained on infant head-camera footage predicts adult responses to curated object images. These findings show how such models can help investigate the natural statistics associated with neural representations."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "021277e3af9e9f6c2a714baf3b529937ee85c0b3a1a002340a9597f1f4c54c43",
+    "tldr": "Unsupervised models trained on real-world data better predict sensory brain responses and generalize across language and visual-experience differences."
+  },
+  "icml-2026-riemannian-networks-over-full-rank-correlation-matrices-2d3163add1": {
+    "backgroundConcepts": [
+      "topic-050-a-geometric-take-on-metric-learning"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper develops neural networks for full-rank correlation matrices. These matrices form a normalized alternative to symmetric positive definite matrices, whose use as learned representations has already received considerable attention. The authors focus on the comparatively underexplored geometry of correlation matrices and how to build network operations around that structure.",
+      "The approach uses five recently developed correlation geometries. For each, the work extends basic network layers, including multinomial logistic regression, fully connected layers, and convolutional layers. The contribution therefore covers several building blocks needed to construct networks over correlation representations. It also provides methods for accurate backpropagation in two of the geometries, addressing how those networks can be trained.",
+      "Experiments compare the resulting approach with existing networks based on symmetric positive definite and Grassmannian representations and demonstrate its effectiveness. The findings support correlation geometry as a useful basis for neural-network design. The paper’s main contribution is the systematic development of geometry-aware layers and training methods for this normalized matrix representation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e67de3f97606e60e6575206615d309c5a25b1442c9af31e2cf9fa2d34b295cc7",
+    "tldr": "The paper builds geometry-aware neural-network layers for correlation matrices and demonstrates their effectiveness against other geometric networks."
+  },
+  "icml-2026-scalingar-scaling-confidence-for-autoregressive-image-generation-9fac562fca": {
+    "backgroundConcepts": [
+      "topic-118-a-closer-look-at-self-supervised-lightweight-vis"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "ScalingAR improves next-token autoregressive image generation by adapting computation at inference time. Existing approaches often inspect partially decoded images and rely on external reward models. The paper argues that unstable intermediate images make those strategies inefficient and often ineffective for this particular generation process, motivating confidence signals available directly from token prediction.",
+      "The framework uses token entropy to assess confidence. At its profile level, it combines the model’s intrinsic uncertainty with how it uses conditioning information. At its policy level, that combined state controls which generation trajectories are pruned and how guidance changes over time. These decisions require neither early image decoding nor auxiliary rewards.",
+      "Experiments report improvements of 12.5% on GenEval and 15.2% on TIIF-Bench over base models. ScalingAR also reduces visual-token consumption by 62.0% while outperforming baselines and mitigates performance degradation by 26.0% in challenging scenarios. The results support confidence-guided allocation of generation effort as a way to improve quality, efficiency, and robustness in the evaluated settings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0a319bb4a1340f21e7c7e3bbde2a095cb1f3cf8f0c70b81b29d502b3c6996cca",
+    "tldr": "ScalingAR uses token-level confidence to adapt image-generation trajectories and guidance, improving quality while reducing token consumption."
+  },
+  "icml-2026-self-supervised-dynamical-system-representations-for-physiological-time-series-e7eb9e3537": {
+    "backgroundConcepts": [
+      "topic-229-discriminative-regularization-for-latent-variabl"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "PULSE addresses a tension in self-supervised learning for physiological signals: representations should preserve the underlying process while filtering irrelevant noise. The paper argues that weakly constrained learning tasks may overlook meaningful dynamics, while strongly structured models may retain sample-specific noise. Either problem can reduce the usefulness of representations for clinical transfer tasks.",
+      "The proposed pretraining objective uses a dynamical-systems model to distinguish information that transfers between time-series windows from information that does not. A cross-reconstruction objective targets the transferable portion. This gives the learning task a specific structural aim: preserve relationships associated with the physiological process while selectively removing noise that does not carry across windows.",
+      "The authors establish conditions under which transferable information is recovered and validate the theory through synthetic experiments. On several real-world datasets, PULSE better distinguishes clinical semantic classes, increases label efficiency, and improves transfer learning. The recovery claim is conditional, while the empirical results support the practical usefulness of combining dynamical structure with selective noise removal."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ac239298a93086150b3dcd70402347042cb80528e1941c7b15e087c689b41b00",
+    "tldr": "PULSE learns physiological representations by preserving transferable dynamics across signal windows while selectively filtering irrelevant noise."
+  },
+  "icml-2026-semanticnvs-improving-semantic-scene-understanding-in-generative-novel-view-synthesis-f8d877c30b": {
+    "backgroundConcepts": [
+      "topic-027-4dgcpro-efficient-hierarchical-4d-gaussian-compr"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "SemanticNVS generates images of a scene from new camera viewpoints. Existing methods can perform well near the input viewpoint but produce distorted or semantically implausible images when the camera moves farther away. The authors suggest that incomplete understanding of the input scene or intermediate generated content may contribute to this degradation.",
+      "Their approach adds pretrained semantic feature extractors to a camera-conditioned, multi-view diffusion model. These features provide stronger scene information to guide generation. The paper investigates two strategies: warping semantic features and alternating scene understanding with generation at every denoising step. Both seek to make semantic information more directly available as the model constructs distant views.",
+      "Experiments on multiple datasets report improved visual quality and consistency compared with state-of-the-art alternatives, including FID improvements ranging from 4.69% to 15.26%. These findings support semantic conditioning as a useful intervention for novel-view generation. They do not turn the proposed explanation for existing models’ failures into an established cause; that explanation is presented as a hypothesis."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8cc9e1d33d0b843a4ef8f9a0a9a0cef6536168da3e6629351628b22cf8706376",
+    "tldr": "SemanticNVS adds pretrained semantic features to diffusion-based novel-view synthesis, improving generated views under large camera movements."
+  },
+  "icml-2026-show-dont-tell-morphing-latent-reasoning-into-image-generation-3bc1a82df5": {
+    "backgroundConcepts": [
+      "topic-183-artificial-spectator-developing-ai-audiences-for"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "LatentMorph adds adaptive reasoning to text-to-image generation through continuous internal representations. The paper argues that explicit reasoning pipelines introduce costs when they repeatedly convert intermediate thoughts into text and decode and re-encode images. Its goal is to let generation refine itself while avoiding those repeated conversions and their associated information loss.",
+      "Four lightweight components coordinate the process. A condenser summarizes intermediate generation states into visual memory. A translator turns latent thoughts into guidance, and a shaper uses that guidance to steer upcoming image-token predictions. An invoker trained with reinforcement learning decides when reasoning should occur, making the timing adaptive rather than fixed.",
+      "Experiments report improvements to Janus-Pro of 16% on GenEval and 25% on T2I-CompBench. Against explicit reasoning paradigms, reported gains are 15% on WISE and 11% on IPV-Txt, alongside 44% lower inference time and 51% lower token consumption. The paper also reports 71% alignment with human intuition about reasoning invocation, supporting the usefulness of its adaptive scheduling."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "486da28147a9d4cda919ce99237ed4c51d16e3a4a80648762e613cfdda59ce0a",
+    "tldr": "LatentMorph performs adaptively invoked reasoning inside image generation’s latent space, improving benchmark performance and reducing inference costs."
+  },
+  "icml-2026-towards-disentangled-preference-optimization-dynamics-suppress-the-loser-preserve-the-wi-c21d3fca43": {
+    "backgroundConcepts": [
+      "topic-157-textits-sppo-semantic-calibrated-self-play-prefe"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Preference optimization aims to favor chosen responses over rejected ones, but many margin-based objectives can reduce the likelihood of both. This paper studies how to suppress a rejected response while preserving the chosen response. The problem concerns the dynamics of the two likelihoods, beyond simply increasing the gap between them.",
+      "The authors introduce an incentive-score decomposition showing that different objectives share local update directions and differ in scalar weights. This provides a common language for analyzing their behavior. From the chosen and rejected likelihood dynamics, they identify a testable condition called the disentanglement band, under which training can follow the desired path, possibly after an early stage.",
+      "Reward calibration then adaptively rebalances the updates to satisfy this condition without redesigning the underlying objective. Experiments show more disentangled training dynamics and better downstream performance across several settings. The contribution links a shared analysis of preference objectives with a plug-in intervention, while retaining the qualification that the desired behavior may emerge only after initial training."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5146e2abe8b3505d2e3905babda530a1722dd5960954e43f279d6504d6709b0c",
+    "tldr": "Reward calibration rebalances preference updates to help suppress rejected responses while preserving chosen ones under a testable condition."
+  },
+  "icml-2026-trustworthyqenn-a-quantum-evidential-neural-network-based-on-complex-valued-contrastive--89df10988d": {
+    "backgroundConcepts": [
+      "topic-127-a-hybrid-quantum-classical-approach-based-on-the"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "TrustworthyQENN addresses the joint task of classifying familiar samples and detecting data outside the training distribution. The paper identifies two weaknesses in existing approaches: reliance on magnitude features that omit phase information, and insufficient theoretical structure for representing uncertainty. It proposes a quantum-inspired framework combining complex-valued representations with generalized quantum evidence theory.",
+      "Supervised complex-valued contrastive learning coordinates amplitude distributions and phase correlations to make familiar classes compact and distinct. An evidence-generation mechanism then represents the out-of-distribution state using generalized quantum probability amplitudes in a Hilbert space. A further combination rule fuses evidence from multiple views, connecting representation learning with the framework’s treatment of uncertainty.",
+      "Experiments evaluate the method on MSTAR, EuroSAT, and FUSAR-Ship. The reported peak AUROC on MSTAR is 95.94%, and the method outperforms state-of-the-art alternatives across all evaluated scenarios. These results support the proposed combination of phase-aware features and evidential modeling for the tested classification and anomaly-detection settings. The framework is described as quantum-inspired."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3bb7b627aefd6b6a7bb5e46666bad0625024bf76a40bd5b120d5131a15c443b8",
+    "tldr": "TrustworthyQENN combines complex-valued contrastive features with quantum-inspired uncertainty modeling to improve out-of-distribution detection."
+  },
+  "icml-2026-vipo-value-function-inconsistency-penalized-offline-reinforcement-learning-6edb77ee78": {
+    "backgroundConcepts": [
+      "topic-147-textdt-text2-decision-targeted-digital-twins"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "VIPO improves world-model training for offline reinforcement learning, where policies must be learned from previously collected data. Model errors can mislead policy learning, so existing approaches often introduce conservatism based on uncertainty estimates. The paper argues that these heuristic estimates can be unreliable and seeks a more direct learning signal from value estimation.",
+      "The method compares two sources of value information: a value learned directly from the offline dataset and a value estimated using the learned model. Model training includes an additional objective that reduces inconsistency between them. This supplies self-supervised feedback, tying model improvement to a quantity used to evaluate the policy’s expected outcomes.",
+      "Comprehensive evaluations report efficient learning of highly accurate models and consistent improvements over existing methods. VIPO achieves state-of-the-art performance on almost all tasks in both D4RL and NeoRL. The authors also present the inconsistency penalty as a general framework that can be integrated into existing model-based offline reinforcement-learning algorithms to improve model accuracy."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "dbfbe9b7f4dfc884dd804660d046c5ff567e117e192c2a2c17b3c8aafb5253d8",
+    "tldr": "VIPO improves offline world models by penalizing disagreement between values learned from data and values estimated through the model."
+  }
+}

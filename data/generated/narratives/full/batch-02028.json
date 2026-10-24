@@ -1,0 +1,327 @@
+{
+  "icml-2026-adaptive-residual-update-steering-for-low-overhead-hallucination-mitigation-in-large-vis-f9413a509c": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Vision-language models often receive an image before they begin generating a description. The paper argues that this initial visual information becomes diluted as generation continues, allowing familiar language patterns to outweigh image evidence. Its proposed method, RUDDER, maintains a persistent visual reminder inside the decoding process to reduce descriptions of objects that are not present.",
+      "RUDDER extracts an evidence direction, called CARD, from the model’s residual updates during its initial processing of the input. It then injects that direction during generation. An adaptive mechanism called the Beta Gate controls when this reminder is needed, rather than applying the same intervention throughout the response. This connects the correction directly to information already produced by the model.",
+      "Across the evaluated model architectures, RUDDER consistently reduces hallucination while retaining more than 96% of throughput. With greedy decoding, the reported average relative reductions are 24.4% for CHAIR_S and 23.6% for CHAIR_i. These results support the approach as a comparatively low-overhead way to preserve visual grounding during generation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "28a594974d0ffebd0bc0a0ab5248979421a6ea1b875957df1bdcedbd3a47bdb2",
+    "tldr": "RUDDER adaptively reinforces visual evidence during generation, reducing object hallucinations while retaining more than 96% of throughput in the reported experiments."
+  },
+  "icml-2026-affine-equivariant-kernel-space-encoding-for-nerf-editing-ef9ab6a62b": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Neural radiance fields can render detailed scenes, but their internal representations often entangle information across space. This makes changing one region difficult without affecting others or introducing artifacts. The paper introduces Affine-Equivariant Kernel Space Encoding, or EKS, to make scene features more local and better behaved when the scene is spatially transformed.",
+      "Instead of reading features directly from individual points or grid corners, EKS combines them through anisotropic Gaussian kernels. Each kernel defines a localized region of influence whose shape can vary by direction. This provides a continuous feature field and supports stable interpolation under transformations. The kernels also become explicit controls through which a user can make localized scene edits.",
+      "To retain fine detail, training transfers information from a multi-resolution hash grid into the kernel representation through feature distillation. The resulting inference representation is compact and no longer requires that grid. The paper reports that this design supports localized editing through the Gaussian kernels without retraining, while maintaining high reconstruction and rendering quality."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4cde1ea86a9c0db3e8074bbbd96d4f6b680041a32459900678acee4911697be7",
+    "tldr": "EKS uses localized Gaussian kernels and training-time feature distillation to support detailed NeRF editing without retraining."
+  },
+  "icml-2026-can-local-learning-match-self-supervised-backpropagation-6a81057c38": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "End-to-end self-supervised learning updates a network using a learning signal propagated through its layers. Local learning rules instead train through more localized signals, but have struggled to produce strong representations in deep networks. This paper investigates when those local updates can match, or approximate, the updates produced by global backpropagation.",
+      "The authors first study deep linear networks and identify conditions under which local methods, including Forward-forward and CLAPP, produce exactly the same weight update as global self-supervised backpropagation. They then use those theoretical insights to design local learning variants for nonlinear convolutional networks. In that setting, the goal is approximation rather than the exact equivalence established under the linear-network conditions.",
+      "On CIFAR-10, STL-10, Tiny ImageNet, and ImageNet, variants whose updates more closely resemble global updates also perform better. The best CLAPP-based local rule matches a comparable global method using InfoNCE or CPC-like losses and improves the reported state of the art for layer-wise self-supervised learning. The findings connect update similarity with practical representation quality."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "be66a0cb4ae8d708d13d823074bc9f2c2ea538db48ce4b42889575d3551ac928",
+    "tldr": "Theory-guided local learning rules approximate global self-supervised updates and match a comparable backpropagation method on the evaluated image benchmarks."
+  },
+  "icml-2026-conflict-aware-adaptive-alignment-for-llm-hallucination-mitigation-aadee77bad": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Training language models to express uncertainty or refuse unsupported answers can improve truthfulness, but it can also reduce helpfulness. The paper examines how preference alignment manages these two goals. It argues that treating truthfulness and helpfulness as always compatible, or always opposed, misses an important difference between individual training examples.",
+      "The authors find that the objectives agree for most samples and conflict only for a smaller subset. Their method, Conflict-Aware Adaptive Margin Preference Alignment, or CAMP, explicitly models where that conflict arises. It then adjusts optimization strength accordingly. This makes the trade-off depend on the sample, concentrating adaptive balancing where the two objectives actually pull in different directions.",
+      "Experiments using UltraFeedback and hallucination benchmarks show consistent improvements in truthfulness with a favorable helpfulness trade-off relative to strong mitigation and multi-objective alignment baselines. The contribution is a training approach that responds to the structure of objective conflicts. The results support more selective balancing, rather than assuming every example requires the same compromise between answering usefully and avoiding unsupported claims."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "73f5f173784b601f1cd82206a186814880bc775e88c772b64181943ef8c75bcc",
+    "tldr": "CAMP adapts preference training to samples where truthfulness and helpfulness conflict, improving truthfulness with a favorable helpfulness trade-off."
+  },
+  "icml-2026-darc-disagreement-aware-alignment-via-risk-constrained-decoding-9149bf9a49": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "People can systematically disagree about which model responses are desirable. When alignment reduces their preferences to one average reward, a response can score well overall while performing poorly for some preference patterns. DARC addresses this problem during response selection, without retraining the language model.",
+      "The method uses multiple preference samples or scalable proxies for disagreement to rerank candidate responses. Its objective incorporates a pessimistic view of satisfaction under changes to the preference distribution, formalized through KL-based distributional robustness. Deployment controls can cap or penalize an entropic risk premium relative to mean satisfaction. These controls make the acceptable level of preference-related risk an explicit part of decoding.",
+      "The paper theoretically connects its selection rule to principled pessimism and robust optimization. On alignment benchmarks with noisy, heterogeneous feedback, DARC reduces disagreement and tail risk while keeping average response quality competitive. The findings suggest that inference-time selection can account for uneven preference outcomes, provided the method has preference samples or disagreement proxies to inform that selection."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "349e21b723024cb5e82f1578377baf9f15dcfb0b0f0c1c6681f4b35e1d7c83e8",
+    "tldr": "DARC reranks responses using disagreement-aware risk controls, reducing tail risk while maintaining competitive average quality without retraining."
+  },
+  "icml-2026-efficient-adaptive-testing-via-gradient-path-matching-subset-selection-for-ai-education-0980247bad": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Adaptive testing aims to estimate a person’s ability from a carefully chosen subset of questions. The best subset depends on the examinee, and finding an optimal one is computationally difficult. Previous gradient-matching formulations try to make a subset behave like the full question pool across the entire space of possible ability estimates, which is expensive.",
+      "Gradient Path Matching, or GPM, narrows that alignment problem to possible optimization paths toward the final estimate. Rather than matching learning signals everywhere, it uses intermediate gradients along those paths as supervision. From large-scale data, it learns an explicit selection algorithm intended to generalize across testing cases. This focuses selection on the process by which an ability estimate is actually refined.",
+      "The paper provides theoretical analysis of convergence and scalability. In experiments on real and synthetic datasets, GPM reaches the same estimation accuracy with 20% fewer questions on average. That result links the computational reformulation to a practical testing benefit: obtaining an equally accurate estimate while asking examinees fewer questions in the evaluated settings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f094a220ad53f348cd84ec398bee865306e66a7e0d074a52772acfa1386b120f",
+    "tldr": "GPM learns question selection by matching gradients along estimation paths, achieving the same accuracy with 20% fewer questions on average."
+  },
+  "icml-2026-generalization-bounds-for-out-of-distribution-generalization-35fd461963": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Out-of-distribution generalization asks how well a model trained on source domains can perform on a different target domain. This paper studies the theoretical relationship between source data and achievable target performance. It develops a lower bound on generalization error and then investigates upper bounds, allowing the performance of learning methods to be compared with a theoretical limit.",
+      "The central result is conditional on the paper’s RCS and empirical-RCS conditions. Under those conditions, minimizing average empirical risk across source domains can achieve a nearly optimal error rate, apart from a logarithmic factor. This does not require knowing or estimating distributional parameters or the discrepancy between source and target domains.",
+      "The result offers a theoretical perspective on DomainBed observations in which carefully designed methods do not outperform ordinary empirical risk minimization. It does not establish that simple risk minimization is always sufficient for distribution shifts; the stated conditions matter. The analysis also yields a no-free-lunch theorem and an optimistic bound, characterizing both obstacles and favorable possibilities for generalization."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "57ba511c7e5d44d7f84620ab8e2545e0655ba10cac3d71233c6e5faa1ae485db",
+    "tldr": "Under RCS and empirical-RCS conditions, average source-domain risk minimization achieves a nearly optimal OOD error rate without estimating distributional discrepancies."
+  },
+  "icml-2026-geometric-control-of-out-of-distribution-shift-in-safe-offline-rl-fc68ce52a9": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Safe offline reinforcement learning must improve decisions using a fixed dataset while respecting safety constraints. A central difficulty is preventing an improved policy from drifting too far from behavior supported by that data. This paper proposes explicit geometric controls for that drift, addressing the reliance of latent generative policies on implicit regularization.",
+      "The framework uses conditional normalizing flows, whose invertible mapping connects a latent base space to policy outputs. Constraints on divergence in the base space yield tractable upper bounds on Wasserstein distance and total variation in the resulting policy distribution. This gives a mathematically analyzable connection between a restriction imposed during latent optimization and the distributional change it permits downstream.",
+      "The architecture separates two roles. A flow prior uses Hamilton–Jacobi reachability signals to shape a feasibility-weighted latent representation, while a latent refiner improves the policy under geometric constraints. Across multiple safe reinforcement-learning benchmarks, the method achieves consistently low violation rates with competitive returns. The reported results support structured control of policy shift as a useful approach to balancing improvement and safety."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6f08167f4c54c5e75ce60d6b281164a877d5d8deecf1fdb17133e0f4063f11a8",
+    "tldr": "The framework constrains policy changes in a flow model’s latent space, connecting distributional bounds with low safety-violation rates and competitive returns."
+  },
+  "icml-2026-haloprobe-bayesian-detection-and-mitigation-of-object-hallucinations-in-vision-language--c2cedfdd28": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Attention to image tokens might appear to reveal whether a vision-language model is describing a real object. This paper finds that coarse attention statistics can be misleading because token position and repeated object mentions affect the signal. Aggregating these cases can reverse or erase trends, producing Simpson’s paradox and undermining a simple attention-based detector.",
+      "HaloProbe separates external description features from internal decoding evidence in a Bayesian framework. Balanced training encourages its detector to learn from internal signals, while a learned prior captures external features. Combining the two produces token-level estimates of hallucination probability. The separation is designed to account for confounding factors rather than letting them dominate the detection signal.",
+      "The resulting probabilities also guide decoding as an external scoring mechanism. This allows mitigation without directly intervening in the model’s internal representations. In the reported experiments, HaloProbe-guided decoding reduces hallucinations more effectively than state-of-the-art intervention-based methods while preserving caption usefulness and fluency. Its contribution joins a diagnosis of misleading detection statistics with a practical way to use corrected estimates."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "cff43840daa11f9814594e53a1f92d83806aa7e33b9e76b86582a3967819d04a",
+    "tldr": "HaloProbe accounts for confounded attention signals to estimate hallucination probabilities and guide decoding while preserving caption utility and fluency."
+  },
+  "icml-2026-learning-normalized-energy-models-for-linear-inverse-problems-6516d45436": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Imaging inverse problems reconstruct an image from incomplete or degraded measurements. Diffusion models provide useful prior knowledge for this task, but the paper identifies two obstacles: their prior density is implicit, and approximate likelihoods can bias sampling. The proposed energy-based model aims to retain generative sampling while making posterior probabilities explicitly computable.",
+      "The model is trained for denoising with a covariance-based regularizer that enforces consistency across measurement conditions. After training, it can compute normalized posterior densities for different linear inverse problems without further training or fine-tuning. This connects one learned model to multiple reconstruction settings through a consistent probabilistic representation.",
+      "Explicit posterior densities enable energy-guided adjustment of sampling schedules, unbiased Metropolis–Hastings correction steps, and Bayesian estimation of an unknown degradation operator. Evaluations on ImageNet, CelebA, and AFHQ include inpainting and deblurring, with competitive or superior performance relative to established baselines. The contribution therefore concerns both reconstruction quality and the additional inference operations made possible by accessible posterior densities."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "73f56b4f623b1de4f181b1b46998d4c83aea2c6b801cbff0b6b5292375089655",
+    "tldr": "A denoising energy model computes normalized posteriors across linear imaging problems, enabling adaptive sampling, sampling corrections, and degradation estimation without retraining."
+  },
+  "icml-2026-less-token-more-signal-moe-expert-pruning-via-critical-token-selection-4b8311d729": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Mixture-of-Experts language models can contain a large collection of expert parameters, making deployment expensive even when their architecture scales effectively. Expert pruning removes parts of that collection. This paper argues that estimating expert importance by treating every token equally can obscure the contribution of informative tokens and lead to weaker removal decisions.",
+      "Step, short for Selective Token-guided Expert Pruning, makes token selection part of expert evaluation. It combines loss-aware assessment with a lightweight mechanism for preserving knowledge as redundant experts are removed. The aim is to base pruning decisions on stronger signals about useful model behavior, reducing information loss during compression.",
+      "Experiments span multiple MoE architectures and model scales. For the 30B Qwen3 MoE model at 50% expert sparsity, the paper reports nearly 50% lower memory use, minimal performance degradation, and a 1.5-fold throughput improvement. The complete pruning process takes under ten minutes in that reported setting. These findings show that selective token guidance can translate into practical deployment savings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3122c9517532b3f52b74beef66e4ab713ce78139af2470681b0e730432481ea0",
+    "tldr": "Step uses informative tokens to guide expert pruning, substantially reducing memory and improving throughput with minimal degradation in the reported Qwen3 setting."
+  },
+  "icml-2026-mitigating-manifold-departure-uncertainty-aware-subspace-rectification-for-trustworthy-m-fd4679c57f": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Language priors help a multimodal model produce meaningful text, but they can also cause it to describe objects unsupported by an image. The paper argues that indiscriminately suppressing those priors can damage the structure of the model’s representations and reduce performance. It calls this disruption Manifold Departure and proposes a more selective decoding intervention.",
+      "Manifold-Guided Adaptive Projection, or MGAP, first uses singular value decomposition on blind hidden states to identify a language-prior subspace. During multimodal generation, it projects each hidden state onto that subspace. A consistency-aware gate then adaptively weakens only the projected prior component, largely preserving semantic components orthogonal to it.",
+      "This training-free design makes both the location and strength of the correction selective. It addresses potentially harmful prior information while retaining representation structure that supports coherent language. Experiments on POPE and CHAIR report stronger hallucination suppression than previous decoding baselines without sacrificing coherence. The stated findings support treating language priors according to their consistency with visual evidence, rather than assuming they are uniformly harmful."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9face86d61a844a00889b0e2ab8a335a08e7c8efd77b17ff1240b596eedfb24d",
+    "tldr": "MGAP selectively attenuates language-prior components during multimodal decoding, reducing hallucinations while preserving coherent representation structure."
+  },
+  "icml-2026-mixfp4-enhancing-nvfp4-with-adaptive-fp4-int4-block-representations-5211ec7898": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Four-bit representations reduce the memory and computation demands of large language models, but one numerical format may not suit every block of a tensor. MixFP4 addresses that mismatch by letting each block choose between two stored floating-point micro-formats, E2M1 and E1M2. The adaptation targets differences in the numerical statistics of individual blocks.",
+      "The design preserves NVFP4’s existing hierarchy of scales. It records the format choice by repurposing the sign bit of the FP8 E4M3 block scale, so the choice requires no additional metadata. Both stored formats are decoded into a common internal E2M2 representation for computation, avoiding the need for duplicated arithmetic datapaths.",
+      "This arrangement keeps the standard block-scaled matrix multiplication execution path while adding flexibility to storage. Across representative language-model families, the paper reports better quantization accuracy and robustness than NVFP4 baselines. Reported tensor-core costs are 3.1% additional area and 1.5% additional power. The contribution is an adaptive representation whose accuracy benefits come with modest stated hardware overhead."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e8effa2b05f229a32ef9e7edc34c20def37508749fec7b910fc32d2398cb57c8",
+    "tldr": "MixFP4 selects between two four-bit formats per tensor block, improving quantization accuracy with no extra metadata and modest tensor-core overhead."
+  },
+  "icml-2026-near-optimal-dynamic-matching-via-coarsening-with-application-to-heart-transplantation-82029b0395": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Online matching makes allocation decisions as opportunities arrive, rather than with complete knowledge of the future. Practical policies can work well without having strong theoretical guarantees. This paper develops matching algorithms based on coarsening: grouping offline nodes into clusters that have capacities, instead of treating every node separately throughout the decision process.",
+      "Although grouping discards some granularity, the authors show that this approach can yield near-optimal theoretical guarantees. They apply the methodology to heart transplant allocation, using structural properties of historical data to construct theoretically grounded policies. The key idea is that an appropriately structured aggregate representation can support strong allocation decisions despite using a coarser description.",
+      "In simulations based on real data, the proposed policy achieves a competitive ratio of 0.91 against an omniscient benchmark, compared with 0.51 for the US status quo policy. These are simulated allocation results, rather than reported clinical deployment outcomes. Together with the theory, they show how data-informed structure can help connect effective practical policies with stronger performance guarantees."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2733207ea56f7e346bede01d4bbf3ac196ca7465d51a6e2cf23aa3ca4117a490",
+    "tldr": "Clustering matching candidates yields near-optimal theoretical guarantees and a 0.91 competitive ratio in heart-allocation simulations based on real data."
+  },
+  "icml-2026-on-information-self-locking-in-reinforcement-learning-for-active-reasoning-of-llm-agents-3a48742de0": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Agents solving interactive tasks must both seek useful observations and incorporate what they learn. This paper identifies a failure mode in outcome-based reinforcement learning called information self-locking. An agent can become poor at gathering informative feedback and poor at using evidence it already receives, leaving both abilities difficult to improve.",
+      "The analysis separates action selection, which determines the observations available, from belief tracking, which updates the agent’s understanding. The two capabilities create a bidirectional bottleneck: weak belief tracking hides the value of informative actions, while weak action selection withholds useful evidence from belief tracking. Theoretical and empirical analyses connect this coupling to weakened learning signals.",
+      "The proposed Advantage Reweighting method, AREW, uses readily obtainable directional critiques to redistribute credit within trajectories. This changes how learning rewards are attributed across the interaction, aiming to weaken the bottleneck between gathering and using information. Across nine agentic tasks of varying complexity, the paper reports substantial mitigation of self-locking and gains of up to 60 points in final performance."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "df2eed42e555792678436c7cc6b026696ba13c1d4f2b166838c6d9e4028e4143",
+    "tldr": "AREW reassigns credit within agent trajectories to mitigate a feedback loop between weak information gathering and weak belief updating."
+  },
+  "icml-2026-on-the-spectral-unreachability-of-brain-graph-learning-73f4958b98": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Brain-network classification also seeks interpretable functional regions, whose boundaries depend on precise partitioning. The paper identifies a theoretical problem in standard architectures that couple graph encoding with pooling: smoothing node representations corrupts the high-frequency topological information needed to distinguish sharp boundaries. It names this limitation Spectral Unreachability.",
+      "HiSP-Net addresses the problem by separating partition learning from feature smoothing. Its project-then-align design first uses a topology-agnostic projection to map representations directly into partition space, preserving information across frequencies. A topology-aware alignment regularizer subsequently encourages spatial coherence. This ordering separates the preservation of boundary detail from the enforcement of a structurally coherent partition.",
+      "The reported evaluations show consistent classification improvements over state-of-the-art baselines, alongside stable and structurally coherent functional biomarkers. The contribution therefore links an architectural limitation to a structural remedy, rather than treating partition quality only as an empirical tuning problem. Its findings support learning partitions in a space that retains fine topological detail before imposing coherence."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7e07a32317820fc8086ae52041afb412aa44b11dbb48ebc648f0f2faa0dcbb6b",
+    "tldr": "HiSP-Net separates brain-network partition learning from smoothing to preserve boundary information and improve classification and biomarker extraction."
+  },
+  "icml-2026-one-step-gradient-delay-is-not-a-barrier-for-large-scale-asynchronous-pipeline-parallel--0cf335a8d8": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Pipeline parallel training divides a language model across devices, but synchronized schedules can leave GPUs idle. Asynchronous execution removes these pipeline bubbles at the cost of using delayed gradients. The paper studies PipeDream-2BW, whose gradient delay remains one step regardless of pipeline depth, and asks whether that delay necessarily causes unstable optimization.",
+      "The empirical analysis finds that the consequences depend strongly on the optimizer. AdamW suffers severe degradation in the studied setting, whereas Muon is substantially more robust to a one-step delay. The authors also introduce an optimizer-agnostic correction inspired by error feedback to further reduce delay effects. Supporting theory establishes convergence for Muon with and without the correction.",
+      "Evaluations on models with up to 10 billion parameters show that the proposed strategies bridge the performance gap with synchronous training. The result challenges treating gradient staleness alone as a sufficient reason to avoid asynchronous pipelines. In the investigated one-step-delay setting, optimizer choice and correction mechanisms make a material difference to training quality."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "de8d2dc5dda3933c9f41097d8f13c8f34fd3eff6b174ee339ed36bff713cb770",
+    "tldr": "Muon and an error-feedback-inspired correction mitigate one-step gradient delay, bridging the reported training-quality gap between asynchronous and synchronous pipelines."
+  },
+  "icml-2026-pac-bayesian-reinforcement-learning-trains-generalizable-policies-fb2e17bca5": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Reinforcement-learning observations arrive in sequences, so nearby data points can depend on one another. This complicates generalization guarantees built around independent samples. The paper derives a PAC-Bayesian bound that explicitly accounts for Markov dependence through the chain’s mixing time, bringing the temporal structure of reinforcement-learning data into the guarantee.",
+      "The resulting bound provides non-vacuous certificates for modern off-policy algorithms such as Soft Actor-Critic. A non-vacuous certificate is informative rather than a mathematically valid statement too loose to be useful. The contribution is therefore not only a formal bound, but one intended to produce meaningful confidence information for contemporary learning algorithms.",
+      "The authors turn the bound into a training method called PB-SAC, which optimizes it to guide exploration. Experiments on several continuous-control tasks show meaningful confidence certificates alongside competitive task performance. These results suggest that a dependence-aware generalization bound can serve two connected purposes: assessing a learned policy and influencing the learning process that produces it."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "323dd8b3826a93396b4a6157753e2ac37524b2c705b0eba63ca714e1d94fc5be",
+    "tldr": "PB-SAC uses a PAC-Bayesian bound that accounts for temporal dependence to guide exploration and provide meaningful generalization certificates."
+  },
+  "icml-2026-phase-type-variational-autoencoders-for-heavy-tailed-data-a8a456c136": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Rare extreme observations can dominate the variability and risk in heavy-tailed data. Standard variational autoencoders often use decoder distributions that represent such observations poorly, while specialized alternatives can impose a predetermined tail family. PH-VAE introduces a decoder that learns more flexible finite-range tail behavior from the observed data.",
+      "Its decoder uses a latent-conditioned Phase-Type distribution, defined through the time a continuous-time Markov chain takes to reach absorption. Combining multiple exponential time scales produces an analytically tractable distribution with adaptable behavior over the range being modeled. The finite-range qualification matters: the paper’s claim concerns fitting observed heavy-tail behavior rather than asserting unrestricted tail equivalence.",
+      "On synthetic and real-world benchmarks, PH-VAE better approximates diverse heavy-tailed distributions and extreme quantiles than Gaussian, Student-t, and extreme-value-based VAE decoders. In multivariate settings, a shared latent representation also captures realistic dependence between extreme values across dimensions. The approach connects a structured probability model with learned representations to improve modeling of both individual extremes and their joint behavior."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "fccd1311d58790220dbe9c40de540725ed158cd2ec4720ba4f0bed9fe5eb10a1",
+    "tldr": "PH-VAE learns flexible finite-range tail behavior through a Phase-Type decoder, improving observed extreme-value modeling and multivariate tail dependence."
+  },
+  "icml-2026-ranking-time-series-using-a-time-warping-ideal-point-model-b7788ca3eb": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Experts may disagree when assigning individual labels to time series, particularly when judgments depend on subjective thresholds. This paper instead uses pairwise comparisons, asking for relative judgments that are typically easier and more consistent. It turns the annotation problem into one of learning a ranking from those comparisons.",
+      "The proposed ideal point model incorporates elastic similarity measures, including Dynamic Time Warping and Time Warp Edit Distance. These measures allow the model to compare time series while accommodating temporal misalignment. This adapts the ranking framework to sequential data rather than treating each series as a fixed collection of directly aligned values.",
+      "The authors prove Lipschitz continuity for the distances and establish several convergence guarantees for the model. They also introduce a differentiable version of Time Warp Edit Distance so it can support gradient-based optimization. Experiments show accurate and robust rankings under noisy annotations. Together, the statistical formulation and optimization tools provide a way to learn useful orderings when direct expert labels are inconsistent."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4b2e1024d04f198fbaa275588117d93bebf2f0ed2aad51efdcf77797527a1220",
+    "tldr": "A time-warping ideal point model learns robust time-series rankings from pairwise judgments, supported by continuity and convergence results."
+  },
+  "icml-2026-rethinking-graph-transformers-as-graph-signal-denoisers-the-role-of-block-diagonal-prior-aca974e9fb": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Graph Transformers combine graph connections with attention, but different designs propagate information in different ways. This paper asks what makes a propagation operator desirable for node classification. Through a graph-signal denoising perspective, it identifies block-diagonal structure as a useful prior: information exchange should have a structured separation that limits noisy propagation across classes.",
+      "BDFormer implements this idea using a compact set of latent anchors. Spectral regularization shapes the relationships between anchors, while hard node-to-anchor assignments create sparse, structured propagation. This suppresses noisy cross-class communication in linear time. Applying the prior to a compact anchor representation provides an efficient route to organizing global information flow.",
+      "The learned global affinity also guides removal of inter-class edges from the graph topology. Consequently, both the attention-based global pathway and the local graph pathway are encouraged toward the same block structure. Benchmark experiments report superior performance and scalability. The contribution is a shared structural principle that connects the model’s global and local propagation mechanisms."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d82a76dba0fb68ac8d279b2050fef02ca71626a8c7ea02d3ebec13c7c132344e",
+    "tldr": "BDFormer organizes global attention and local graph propagation around a block-diagonal prior to suppress cross-class noise efficiently."
+  },
+  "icml-2026-the-geometric-reasoner-manifold-informed-latent-foresight-search-for-long-context-reason-c0d7ccd183": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Spending more computation during reasoning can improve answers, but exploring many reasoning paths can be costly or repetitive. The Geometric Reasoner, or TGR, is a training-free framework designed to explore useful trajectories under strict memory bounds. It organizes long reasoning into chunks and uses latent-space geometry to help decide how exploration should continue.",
+      "At each chunk boundary, TGR evaluates candidate latent anchors with a lightweight estimate of what lies ahead. Soft geometric regularizers encourage trajectories to remain smooth while also exploring diverse possibilities. These are preferences guiding the search, rather than hard requirements. Resetting the key-value cache between chunks keeps memory linear in chunk length.",
+      "On challenging mathematics and coding benchmarks, the method improves trajectory coverage as measured by area under the Pass@k curve. The reported gain reaches up to 13 points on Qwen3-8B, with approximately 1.1–1.3 times overhead. The findings indicate that guided exploration can improve coverage across attempts while keeping additional computation modest and bounding cache memory through chunking."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0125faa16240799014c538e8ed371806925488d60c0f1731136b2a419b331118",
+    "tldr": "TGR guides training-free reasoning search with latent foresight and geometric regularization, improving trajectory coverage under chunk-based memory bounds."
+  },
+  "icml-2026-think-in-cloud-look-at-edges-semantic-driven-query-decomposition-for-efficient-video-rea-4e47b96bff": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Long-video reasoning creates a tension between powerful cloud models and the cost of sending video to them. Existing collaborative systems often select evidence using similarity to a single representation of the query. The paper argues that this can bury subtle but logically essential cues beneath dominant visual features, a problem it calls Semantic Submergence.",
+      "SCOPE uses a cloud multimodal model to decompose a complex query into a directed acyclic graph. This structured observation plan tells edge devices which evidence is needed and how the observations relate. Retrieval is therefore guided by logical requirements in the question, rather than only by broad statistical similarity between the query and video content.",
+      "On Video-MME and LongVideoBench, the paper reports cloud-level accuracy with significantly lower transmission costs, along with improvements over state-of-the-art baselines on complex reasoning tasks. The findings support assigning planning to the cloud and evidence retrieval to the edge. Explicit query structure helps determine which video information must be transmitted to support the reasoning."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a907f315375abead7f8abedd00d5b103037aec5f1f5a64a690b8312baed34c97",
+    "tldr": "SCOPE converts complex video queries into cloud-generated observation plans, enabling edge retrieval that preserves accuracy with lower transmission costs."
+  },
+  "icml-2026-training-language-model-agents-to-find-vulnerabilities-with-ctf-dojo-0713775320": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Training agents through executable tasks provides feedback that can verify whether their actions worked. CTF-Dojo expands this kind of training infrastructure with 658 functional Capture-The-Flag challenges packaged in Docker for reproducibility. The environment targets a shortage of scalable execution-grounded tasks for developing language-model agents.",
+      "An accompanying pipeline, CTF-Forge, converts publicly available artifacts into executable environments automatically. The paper reports that this takes minutes, replacing configuration work that traditionally required weeks of expert effort. This automation matters because the training resource includes runnable challenges and verifiable interaction outcomes, rather than only static descriptions of tasks.",
+      "Agents trained on 486 high-quality, execution-verified trajectories achieve gains of up to 11.6 percentage points over strong baselines across InterCode-CTF, NYU CTF Bench, and Cybench. The best 32B model reaches 31.9% Pass@1, which the paper reports as an open-weight state of the art rivaling named frontier models. These results support the effectiveness of verified execution feedback for training capable agents."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "bf5c3b49ba442daf3b89cb9232656f02670be571392053a6409aa8f9e80dd2ea",
+    "tldr": "CTF-Dojo provides reproducible executable security challenges whose verified training trajectories improve agent performance across three CTF benchmarks."
+  },
+  "icml-2026-understanding-the-ability-of-llms-to-handle-character-level-perturbation-5c83c2c859": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies how language models understand text after substantial changes to its characters. The authors test three forms of disruption: frequent typos, shuffled characters within words, and large quantities of invisible characters. These transformations can make input difficult for people to read or interfere with how the model divides text into tokens.",
+      "Many of the investigated models retain notable performance even under severe disruption. Examples include shuffling characters in nearly every word and adding invisible characters that outnumber visible ones several times over. The analysis connects this robustness to an ability to cope with chaotic segmentation and fragmented tokenization, rather than requiring clean word-like input units.",
+      "The authors also examine implicit and explicit mechanisms by which models handle perturbations and recover meaning. The findings concern resilience in the studied settings, rather than immunity to every kind of corrupted input. They provide evidence about low-level language-model capabilities that can inform reliable deployment and help explain potential misuse risks associated with understanding heavily altered text."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2ed05850de86960508378f55eed74d238a21bed07ad2c2787104eb49b4a8976a",
+    "tldr": "Many language models retain notable comprehension under severe character corruption, showing resilience to fragmented tokenization and disrupted text segmentation."
+  }
+}

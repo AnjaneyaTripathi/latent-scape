@@ -1,0 +1,327 @@
+{
+  "icml-2024-accelerated-speculative-sampling-based-on-tree-monte-carlo-7a333c9d66": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Speculative sampling accelerates language-model generation by producing multiple tokens in a forward pass while preserving the model’s original output distribution. This paper examines the probability construction behind that process. It observes that conventional speculative sampling applies maximum coupling, a way of coordinating two distributions, separately at each successive token.",
+      "The authors argue that these local decisions do not make full use of the branching structure of possible continuations. They instead study distributions over trees of generated sequences. This leads to Tree Monte Carlo, a broader family of sampling methods for which they establish unbiasedness and convergence, providing theoretical support for the approach.",
+      "Accelerated Speculative Sampling is a particular algorithm within that family. The stated result is that it produces more tokens per step on average than conventional speculative sampling and achieves faster inference while retaining the original distribution. The contribution therefore concerns how generation is organized and sampled: considering branches together enables acceleration without changing the distribution the language model is supposed to generate."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d8491d897d146d51f829f3e8cb0622bcffc2ac8594aa990cc4f59a1b8958d817",
+    "tldr": "Tree-based speculative sampling generates more tokens per step on average while preserving the language model’s original output distribution."
+  },
+  "icml-2024-accelerating-transformer-pre-training-with-2-4-sparsity-b032c63aaf": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies how to turn hardware support for sparse computation into faster transformer pre-training. NVIDIA Ampere GPUs can perform supported 2:4 sparse matrix multiplications twice as fast as dense equivalents. The researchers focus on transformer feed-forward networks, where exploiting that capability requires both stable learning and an efficient implementation.",
+      "To address learning stability, they introduce a measure called flip rate. They use it to guide changes to gradient estimation, apply a masked decay term to gradients, and select a suitable decay factor during warm-up. They also return to dense fine-tuning near the end of pre-training to improve model quality.",
+      "The implementation separately accelerates construction of transposable sparsity masks using convolution and improves gated activation computation by reducing GPU cache misses. Experiments report convergence similar to dense training across several pre-training tasks, alongside actual speedups for different transformer-block shapes. The hardware’s twofold multiplication advantage is the motivation; the stated end-to-end evidence is practical acceleration without a quantified universal training-speed multiplier."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1b038774b657be7af77952d643b1ee3a0ed369aa417436f6056f5c3e2b487183",
+    "tldr": "Training adjustments and GPU implementation improvements make 2:4 sparse transformer pre-training faster while achieving convergence similar to dense training."
+  },
+  "icml-2024-an-information-theoretic-approach-to-interaction-grounded-learning-55528fd65a": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Interaction-grounded learning considers agents that receive feedback but cannot directly observe the reward they should optimize. Here, the hidden reward is binary. A central assumption is that, once the reward is known, the feedback contains no further dependence on the context and action. Learning a reward decoder must respect that structure.",
+      "VI-IGL translates this assumption into an information-based learning objective. It uses conditional mutual information to capture the relevant dependence between context-action pairs and environmental feedback. A variational representation makes the information terms estimable and optimizable for continuous variables, yielding a min-max problem in which opposing optimization components are trained together.",
+      "The theoretical analysis shows that this optimization problem can be solved sample-efficiently. The authors also extend the framework beyond mutual information to general f-information measures. Experiments in several reinforcement-learning settings indicate better performance than the previous IGL-based algorithm. These results support information-theoretic reward decoding within the stated conditional-independence setting, connecting an assumption about feedback to a concrete learning procedure."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "59c468bd8d09dde14f002c35a1268a1fd1a63166e7abb1e7af96ecc8af34c3d6",
+    "tldr": "VI-IGL learns hidden rewards through an information-based objective that enforces the conditional-independence structure assumed in interaction-grounded learning."
+  },
+  "icml-2024-auctionformer-a-unified-deep-learning-algorithm-for-solving-equilibrium-strategies-in-au-03ecb27501": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Finding equilibrium bidding strategies becomes difficult when auctions have different rules and bidders differ from one another. Learning methods tailored to particular auction settings can require substantial resources and adapt poorly across settings. Auctionformer addresses this by representing diverse auction games in a form that a shared transformer-based framework can process.",
+      "Its flexible tokenization converts each auction into a standardized token sequence. Training uses Nash error as the loss, measuring departure from equilibrium rather than requiring known equilibrium solutions as training targets. This matters because obtaining those solutions is itself the problem the system is intended to help solve.",
+      "The framework also supports adaptation to new auction mechanisms through a few-shot procedure and self-supervised fine-tuning. Experiments report superior performance over contemporary methods. Together, these components offer a way to reuse a common model architecture across auction settings while adapting its behavior to different mechanisms. The stated findings support the framework’s efficiency and adaptability and suggest potential for broader applications, rather than establishing deployment results in every trading environment."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d4d9248a70302bd18da2988d2c9d519484f37dd4bf6c4ccc72ba578828a1e0f4",
+    "tldr": "Auctionformer represents diverse auctions as token sequences and learns equilibrium strategies using Nash error without requiring solved equilibria as labels."
+  },
+  "icml-2024-bayesian-design-principles-for-offline-to-online-reinforcement-learning-24731fad66": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "An agent trained on previously collected data may still need further interaction to improve its policy. That transition creates a dilemma: continued pessimism can prevent useful exploration, while an abrupt move toward optimism can cause performance to fall. This paper studies how to make the transition from offline learning to online fine-tuning more effective.",
+      "The proposed design principle is probability matching. The agent chooses behavior in accordance with its beliefs about which policies are optimal. This makes uncertainty about good policies part of the decision rule, instead of committing to a uniformly optimistic or pessimistic approach. The theoretical analysis shows that such an agent can avoid a sudden performance drop while retaining a guarantee of finding the optimal policy.",
+      "The authors translate these findings into an algorithm and report that it outperforms existing methods on several benchmarks. The contribution connects a Bayesian principle for choosing actions with the practical problem of improving an offline policy. Its stated results combine theoretical support for the transition strategy with empirical evidence for the resulting algorithm."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7370eab2693a0ab15c225071a77e243220915b531d82b2d57caa9d7560d78c3e",
+    "tldr": "Matching behavior to beliefs about optimal policies offers a theoretically supported way to improve offline policies through online interaction without an abrupt performance drop."
+  },
+  "icml-2024-case-based-or-rule-based-how-do-transformers-do-the-math-82f6fb9653": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper investigates whether transformers solve mathematical problems by applying reusable rules or by relying on cases resembling their training examples. The distinction matters for generalization: a model may answer familiar-looking problems successfully yet struggle when the same operation must be performed on longer inputs. Addition provides a concrete example of that challenge.",
+      "Intervention experiments across five mathematical tasks support case-based reasoning in the tested transformers, both with and without scratchpads. To change that behavior, the authors introduce Rule-Following Fine-Tuning. Training inputs include explicit rules, and the model is instructed to recite those rules and follow them step by step while solving the problem.",
+      "Models fine-tuned on addition involving one to five digits generalize to addition involving up to twelve digits with accuracy above 95%. The abstract reports an improvement of over 40% relative to scratchpad. These findings support explicit rule-following instruction as a way to improve length generalization in the studied setting, while the intervention evidence concerns the transformers and mathematical tasks examined."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d09195a4521e96e05c156afee1f477cbbc2bb183c1d8a600829ffdbd260ca755",
+    "tldr": "Explicit rule-following fine-tuning improves addition length generalization after intervention experiments identify case-based reasoning in the tested transformers."
+  },
+  "icml-2024-contrastive-predict-and-search-for-mixed-integer-linear-programs-071293d538": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Mixed integer linear programs express optimization problems in which some decisions must take integer values. ConPaS uses machine learning to help solve these problems by learning distinctions between promising assignments and poor ones. Its training signal includes both high-quality solutions and examples that are low-quality or violate the problem’s constraints.",
+      "The authors construct negative examples through optimization-based and sampling procedures, then train with a contrastive objective. Contrasting positive and negative examples encourages discriminative predictions about solution assignments. This makes unsuccessful or infeasible candidates useful training evidence alongside successful solutions, rather than learning only from examples of good outcomes.",
+      "At test time, the model predicts values for a subset of integer variables and fixes those choices. A solver then handles the reduced optimization problem to find a high-quality solution. This division of work combines learned predictions with subsequent optimization. Empirical results report state-of-the-art solution quality and speed compared with other machine-learning approaches, supporting the usefulness of contrastive training for guiding this predict-and-search process."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "50fafaea541f50e43956f84f3d34ec560d5fb19f24dda7354d3093466b62ac79",
+    "tldr": "ConPaS learns from good and bad MILP solutions, fixes selected integer decisions, and solves the reduced problem to improve solution quality and speed."
+  },
+  "icml-2024-harmodt-harmony-multi-task-decision-transformer-for-offline-reinforcement-learning-4ab5e0269d": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Offline multi-task reinforcement learning aims to train one policy for several tasks using existing data, without additional environmental interaction. Sharing transformer parameters can help the policy exploit similarities between tasks. However, tasks differ in content and difficulty, and their training gradients can push shared parameters in conflicting directions.",
+      "HarmoDT learns which parameters should participate in each task through task-specific masks. These masks define what the authors call a harmony subspace: a selection of parameters intended to support effective learning for that task. The method treats mask selection and policy training as linked parts of a two-level optimization problem.",
+      "At the upper level, a gradient-based meta-learning procedure learns the masks. At the inner level, the policy parameters are updated to improve overall performance. This makes the arrangement of parameter sharing itself something the system learns. Benchmark evaluations report superior performance for HarmoDT, supporting the effectiveness of coordinating task-specific parameter use within a unified policy instead of assuming that every task benefits equally from the same shared parameters."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6d47edb549394cf47c26744e6d8d12e3cc3d49fec27f66e0791981a9cc03eaee",
+    "tldr": "HarmoDT learns task-specific parameter masks to reduce conflicts when training a shared transformer policy from offline multi-task data."
+  },
+  "icml-2024-high-performance-temporal-reversible-spiking-neural-networks-with-mathcalo-l-training-me-ab61fefb83": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Spiking neural networks process information across multiple simulation timesteps, which increases training memory and inference energy requirements. T-RevSNN changes the network’s forward computation to address both costs together. Its central choice is to switch off temporal dynamics in most spiking neurons while concentrating temporal interactions in selected neurons.",
+      "Those remaining interactions are organized to be temporally reversible at multiple levels, producing the stated O(L) training-memory scaling. The authors also redesign input encoding and network organization to obtain the stated O(1) inference-energy scaling. Adjustments to the basic block’s internal units and residual connections help preserve effective information exchange despite the sparse temporal interactions.",
+      "The paper reports strong ImageNet accuracy alongside improvements of 8.6 times in memory efficiency, 2.0 times in training speed, and 1.6 times in inference-energy efficiency. These findings support an architectural approach to reducing the costs of multi-timestep computation while retaining high performance. The broader ambition is to ease the memory and training-time bottlenecks of large spiking networks while keeping inference energy low."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2873b617b3dd03a6984ef1f1302eee669bf3f6880f01dba4cf6ac68d2ef743fb",
+    "tldr": "T-RevSNN uses sparse, reversible temporal interactions to improve spiking-network memory use, training speed, and inference-energy efficiency while retaining strong ImageNet accuracy."
+  },
+  "icml-2024-improving-interpretation-faithfulness-for-vision-transformers-82ba1b594f": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A vision transformer’s attention can suggest which image regions matter to its behavior, but those apparent focal points can change under small adversarial perturbations. This paper addresses that fragility by defining Faithful Vision Transformers through two requirements: mostly stable indices of the largest attention entries and a prediction distribution that is robust to perturbations.",
+      "The proposed method, Denoised Diffusion Smoothing, combines randomized smoothing with diffusion-based denoising. The authors theoretically establish that applying this processing to vision transformers can produce models satisfying their faithfulness requirements. They also show that Gaussian noise is nearly optimal in the analyzed cases involving both l2 and l-infinity perturbation norms.",
+      "Experiments report increased resistance to adversarial attacks while retaining attention-based explainability. The contribution ties the stability of an explanation to the stability of the prediction it accompanies. Its meaning of faithfulness is therefore concrete: the model should keep broadly similar attention priorities and predictive behavior when its input is perturbed, with theoretical and empirical support for the proposed processing method."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ab3b8ec0c092109e1d8dbfed6bf8906671d419fc718c100a14d97a5876870cb4",
+    "tldr": "Denoised Diffusion Smoothing improves vision-transformer robustness while supporting stable attention-based explanations under input perturbations."
+  },
+  "icml-2024-in-context-convergence-of-transformers-afe5d4acf0": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies how training gives a transformer the ability to learn linear functions from examples supplied in its prompt. The analysis concerns a one-layer transformer with softmax attention trained by gradient descent. It uses a structured data model in which tokens are sampled from a set of feature vectors with either balanced or imbalanced frequencies.",
+      "For balanced features, the authors prove finite-time convergence to near-zero prediction error. Their analysis separates attention learning into two phases. For imbalanced features, convergence happens in stages: prediction error becomes small for queries involving dominant features before it becomes small for queries involving underrepresented features.",
+      "The proof tracks competition between two types of attention weights, whose changing strengths determine the training phases. Dominant and underrepresented features follow one-phase and four-phase convergence descriptions, respectively. These results provide a theoretical account of how feature frequency can shape learning progress in the specified setting. They also extend convergence analysis beyond the linear-transformer models emphasized by earlier theoretical work to a model with softmax attention."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "db35101e999e2bce625f7dc7bc0e297a61198fa254a2e390c1a0447dfc35c741",
+    "tldr": "A convergence analysis of a one-layer softmax transformer shows that imbalanced feature frequencies cause common features to be learned before underrepresented ones."
+  },
+  "icml-2024-infiagent-dabench-evaluating-agents-on-data-analysis-tasks-521d6d7831": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "InfiAgent-DABench evaluates language-model agents on complete data-analysis tasks that require interaction with an execution environment. Its DAEval dataset contains 603 questions based on 124 CSV files. The benchmark also includes an agent framework that supports both running language models as data-analysis agents and evaluating how well they perform.",
+      "A central challenge is that data-analysis questions often allow open-ended answers, making automatic scoring difficult. The authors use format prompting to turn each question into a closed-form version that can be evaluated automatically. This creates a practical connection between realistic analysis tasks and repeatable assessment without requiring human judgment for every answer.",
+      "The study benchmarks 34 language models and reports that the results reveal challenges in current data-analysis capabilities. Using the same framework, the authors also develop DAAgent, a specialized agent that exceeds GPT-3.5 performance by a reported 3.9% on DABench. The contribution combines an evaluation resource, a mechanism for automatic scoring, and an agent demonstrating improvement within that evaluation setting."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1f0b81ea4f073404ad2e5cc84743cb6161e2bbeaa860a9704852e629e4a196fd",
+    "tldr": "InfiAgent-DABench provides automatically scored, end-to-end data-analysis tasks and an agent framework for comparing language-model agents."
+  },
+  "icml-2024-infonet-neural-estimation-of-mutual-information-without-test-time-optimization-0f04a14ee4": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Mutual information measures statistical dependence between variables or data streams. Estimating it can be computationally inconvenient: some neural approaches require optimization for each new estimation problem, while histogram methods lack the differentiability needed for end-to-end learning. InfoNet aims to make neural mutual-information estimation practical when results are needed quickly.",
+      "The model uses attention to process data streams and directly output an estimate. Its expensive learning phase happens beforehand through large-scale simulated training that maximizes a dual formulation of mutual information. This separates learning how to estimate dependence from applying the estimator to new inputs, removing the need for test-time optimization.",
+      "Evaluations cover several distribution families and applications, examining both effectiveness and generalization. The reported results show an efficiency-accuracy trade-off and order-preserving properties, supporting uses where estimates must also reflect relative dependence. The contribution is a reusable estimation approach whose training prepares it for new data streams, with empirical evidence that this reuse can balance speed and estimation quality."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7f0dbe73dc97808b9ad165891f9667cd8f17ce847c37bdeab3d3436e9867feff",
+    "tldr": "InfoNet learns from simulated data to estimate mutual information directly, avoiding neural-network optimization at test time."
+  },
+  "icml-2024-multigroup-robustness-3f5d4ee806": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Data corruption can be concentrated in particular parts of a training dataset rather than spread evenly throughout it. This matters when a model makes predictions about people belonging to many overlapping subpopulations. A robustness guarantee based only on overall corruption can miss how differently those groups are affected by the data-gathering process.",
+      "The paper introduces multigroup robustness, where each subpopulation receives a guarantee that degrades only with corruption inside that subpopulation. This changes what the analysis tracks: the relevant quantity is local corruption for each group, including groups that overlap, rather than a single corruption level applied indiscriminately to everyone.",
+      "The authors develop algorithms providing these guarantees and connect their techniques to multigroup fairness. When corruption is distributed unevenly, the resulting assurances are more meaningful than guarantees that ignore the relationship between corrupted data and affected groups. The contribution is a way of defining and achieving robustness that accounts for who is represented in the damaged portions of a dataset, rather than treating the dataset as homogeneous."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b1025db6cb5c143f0f67c1b5328d6a269f47fd0afd2ec331a68447a0e6673207",
+    "tldr": "Multigroup robustness gives each overlapping subpopulation guarantees that degrade only with the corruption within that group."
+  },
+  "icml-2024-near-linear-time-approximation-algorithms-for-k-means-with-outliers-5079742d41": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Clustering with outliers aims to discard up to z points and cluster the remainder around k centers. Fast approximation methods have often had runtimes depending on the aspect ratio, the largest pairwise distance divided by the smallest. This paper develops sampling-based algorithms to reduce that dependence and achieve nearly linear scaling in data size.",
+      "Its Fast-Sampling component identifies useful inliers without guessing the optimal clustering cost. It gives a 4-approximation while opening O(k/epsilon) centers and discarding up to (1+epsilon)z outliers. Its runtime is O(ndk log log n / epsilon²), where n is the number of points and d their dimension.",
+      "A second procedure reduces the result to exactly k centers, obtaining an O(1/epsilon)-approximation with the same relaxed outlier allowance. This adds a runtime term involving log(n times the aspect ratio), so aspect-ratio dependence remains in that stage. Experiments suggest better performance than state-of-the-art methods. The guarantees expose a useful trade-off between speed, approximation quality, the number of centers, and permission to discard slightly more outliers."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ebd8350ddd8688b1b52f5b75e82d6544bba26a3961f550d2568d93b34e5ee0e3",
+    "tldr": "Sampling-based algorithms accelerate k-means with outliers through explicit trade-offs in approximation quality, center count, and the allowed number of discarded points."
+  },
+  "icml-2024-neuralindicator-implicit-surface-reconstruction-from-neural-indicator-priors-d6ec6001da": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Reconstructing a surface from an unorganized point cloud is difficult when points are missing, noisy, or describe a shape with complicated topology. NeuralIndicator addresses this by using information about the shape as a whole to guide a neural implicit surface model. The motivation is to supplement the local shape guidance used by previous approaches.",
+      "The method introduces a differentiable module that produces a smooth indicator function. This function encodes global indicative information together with local signed-distance information from the full point cloud. NeuralIndicator learns the indicator and the neural implicit function jointly, allowing the global representation to regularize the surface-learning process.",
+      "The framework reconstructs surfaces without requiring normal information, which would describe local surface orientations. Evaluations on synthetic datasets and real scans report consistent improvements over previous approaches, especially for incomplete or noisy inputs with complex topology. The findings support learning a global shape prior alongside the surface representation as a way to make reconstruction more reliable when local point evidence is difficult to interpret."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c9c75cd39d4305a260d038919589ac6be37c77b23c9403e0792e90e1b4f18fea",
+    "tldr": "NeuralIndicator jointly learns a global shape prior and an implicit surface to improve reconstruction from noisy or incomplete point clouds without normals."
+  },
+  "icml-2024-on-computational-limits-of-modern-hopfield-models-a-fine-grained-complexity-analysis-3b4159b0b0": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Modern Hopfield models retrieve stored patterns in response to input queries. This paper asks when that retrieval can be made computationally efficient, studying the question through fine-grained complexity analysis. Its central finding is a transition in computational feasibility governed by the norms of the query patterns and stored memory patterns.",
+      "The authors establish a norm criterion delimiting the regime where subquadratic variants can exist, assuming the Strong Exponential Time Hypothesis. This is a conditional computational boundary, not an unconditional impossibility claim. Within the efficient regime, they give a formal construction using low-rank approximation to demonstrate that the theoretical opportunity can be realized.",
+      "The analysis also derives a runtime lower bound that scales linearly with the larger of the number of stored patterns and the input query-sequence length. For the construction, the authors prove a retrieval-error bound and exponential memory capacity. Together, these results relate computational cost to pattern magnitude while also addressing retrieval quality and storage capacity, giving a more complete picture than speed analysis alone."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "166b8834020b3c64a92c5d3daf83ab26b149d92172e1fb6a8b74e4d2a0ef8995",
+    "tldr": "A conditional complexity analysis identifies a pattern-norm boundary for efficient Hopfield retrieval and provides a low-rank construction within the efficient regime."
+  },
+  "icml-2024-optimal-hessian-jacobian-free-nonconvex-pl-bilevel-optimization-14262d9801": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Bilevel optimization links an outer learning problem to an inner optimization problem, as in hyperparameter learning or meta-learning. Many existing algorithms assume a convex inner problem. This paper considers a broader setting where both levels may be nonconvex, provided the inner problem satisfies the Polyak–Łojasiewicz condition, a restriction on its optimization geometry.",
+      "Existing methods for this setting can require many optimization steps or expensive Hessian and Jacobian computations. The proposed HJFBiO method avoids those matrices while targeting optimal convergence complexity. Its purpose is to reduce the computational burden of accounting for how the inner optimization affects the outer objective.",
+      "Under stated mild conditions, the authors prove an O(1/T) convergence rate after T iterations and O(epsilon⁻¹) gradient complexity for finding an epsilon-stationary solution. Stationarity is the solution criterion in these guarantees. Numerical experiments on a bilevel PL game and hyper-representation learning demonstrate efficiency. The contribution therefore combines a less expensive computational procedure with theoretical rates for the specified nonconvex-PL problem class."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "67535854c1a40ce4b86e6f5db63b72b91b5e15b20e3c1806d7400a0959a2f400",
+    "tldr": "HJFBiO avoids Hessian and Jacobian computations while attaining optimal stated convergence rates for nonconvex bilevel problems with a PL inner objective."
+  },
+  "icml-2024-provable-privacy-with-non-private-pre-processing-bdea1f146f": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A machine-learning pipeline can use a differentially private learning algorithm after performing data-dependent preprocessing that is not itself private. The paper addresses the privacy cost of that earlier stage, which is frequently omitted from accounting. The goal is to evaluate the guarantee for the complete pipeline rather than considering only its final private component.",
+      "The framework uses two technical ingredients: Smooth DP, a variant of differential privacy, and bounds on the sensitivity of preprocessing algorithms. These ingredients let the authors derive upper bounds on the overall privacy cost. Sensitivity captures how strongly preprocessing can react to a change in the underlying data.",
+      "Beyond the general framework, the paper provides explicit guarantees for combinations involving imputation, quantization, deduplication, standard scaling, and principal component analysis with several private algorithms. The authors also describe the approach as straightforward to integrate into existing pipelines. Its contribution is to make preprocessing part of provable privacy accounting, allowing common data preparation steps to be analyzed together with the private learning procedures that follow them."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d7c9d4f18bd9a2bf9afdc45ad724b6e62b3471111bd5dbbb25e91de74ec7f1b4",
+    "tldr": "A privacy-accounting framework bounds the additional cost of non-private, data-dependent preprocessing before differentially private algorithms."
+  },
+  "icml-2024-pseudo-calibration-improving-predictive-uncertainty-estimation-in-unsupervised-domain-ad-cd24c606fd": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Unsupervised domain adaptation transfers a model from labeled source data to an unlabeled target domain. Even when prediction accuracy improves, the model’s confidence on target examples can remain poorly calibrated. Correcting that confidence is difficult because target labels are unavailable and the target distribution can differ substantially from the source.",
+      "PseudoCal treats calibration as a problem specific to the target domain and applies it after model training. It uses mixup during inference to construct a labeled pseudo-target dataset that captures structure in the real unlabeled target data. This supplies a surrogate supervised calibration problem where direct target supervision is missing.",
+      "The resulting dataset is used with temperature scaling to adjust predictive confidence. Evaluations span five adaptation scenarios and ten adaptation methods, with consistently superior reported performance over existing calibration solutions. The findings support the versatility of constructing target-informed calibration data. The method’s role is to improve uncertainty estimates for adapted models, addressing a distinct concern from whether their predicted labels are accurate."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5bf63f4c16e4a866587dfc4681c22540d885d001834efa19e7edbcbbb6a42ae1",
+    "tldr": "PseudoCal creates labeled pseudo-target data from unlabeled target examples to calibrate adapted models using temperature scaling."
+  },
+  "icml-2024-q-value-regularized-transformer-for-offline-reinforcement-learning-f96e9f2ed3": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Offline reinforcement learning learns action choices from previously collected trajectories. Conditional sequence models use trajectory history and desired returns, but can struggle to combine useful portions of different imperfect trajectories. Returns recorded within a single trajectory may not reflect the best future return achievable by combining information across the dataset.",
+      "The Q-value regularized Transformer combines transformer trajectory modeling with an action-value function inspired by dynamic programming. It adds a term encouraging higher action values to the sequence-model training loss. The aim is to favor valuable actions while keeping them close to the behavior policy represented in the data.",
+      "This combination addresses complementary weaknesses: sequence modeling has difficulty stitching trajectories, while dynamic-programming methods can learn unstably, especially with long horizons or sparse rewards. Evaluations on D4RL report better performance than traditional approaches from both families. The results support using value estimates to guide a trajectory model, giving it an additional basis for selecting actions beyond the returns attached to individual recorded sequences."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b689ff943b2abca242b8617493edddecca9ca3b98cd02378193e6c11ddbc91bd",
+    "tldr": "QT adds action-value guidance to transformer trajectory modeling to improve offline action selection and combine useful behavior across imperfect trajectories."
+  },
+  "icml-2024-reconboost-boosting-can-achieve-modality-reconcilement-e7ce21dbfe": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "When multiple modalities are trained simultaneously, a dominant modality can overpower learning from a weaker one. ReconBoost studies alternating updates as a way to balance learning useful features within each modality with learning interactions across modalities. It updates one modality at a time rather than adjusting every modality together.",
+      "The training objective changes dynamically through a regularization term that manages competition with historical models. With a KL-based choice of this term, the authors show a resemblance to gradient boosting: the learner being updated can correct errors made by other learners and improve their combined performance.",
+      "ReconBoost keeps only the newest model for each modality, a design intended to avoid overfitting from ensembling strong learners. It also incorporates memory consolidation and global rectification to strengthen the alternating procedure. Experiments across six multimodal benchmarks support the method’s effectiveness. The contribution is an update strategy that makes room for individual modalities to improve while coordinating their contribution to the overall prediction, with boosting providing a theoretical connection for the chosen regularization."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "10e228959817461425bfab3dbe31c1878bcda83404a50d20ecc409a533bc75ca",
+    "tldr": "ReconBoost alternates modality updates and uses boosting-related regularization to reduce competition and improve multimodal learning."
+  },
+  "icml-2024-scenecraft-an-llm-agent-for-synthesizing-3d-scenes-as-blender-code-7074752f1b": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "SceneCraft turns text descriptions into Python scripts that Blender can execute to render scenes containing up to a hundred 3D assets. The main challenge is arranging those assets coherently. The system first builds a scene graph that records spatial relationships, providing a blueprint before it commits those relationships to numerical positions.",
+      "It then writes scripts that translate the blueprint into layout constraints. After rendering, a vision-language model examines the resulting image and helps refine the scene through repeated revisions. SceneCraft also collects common script functions into a reusable library, supporting continued improvement without expensive tuning of the language model’s parameters.",
+      "Evaluations report better constraint adherence and more favorable human assessments than existing language-model agents for complex scene rendering. The paper additionally demonstrates reconstruction of detailed scenes from the Sintel movie and use of generated scenes as intermediate controls for a video-generation model. These results illustrate how explicit planning, executable code, visual feedback, and reusable functions can work together in a scene-generation agent."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "936e6f8054da889481c76003e8c22e91b9896df6625e274ccac300129d6d5bff",
+    "tldr": "SceneCraft converts text into Blender scenes through scene-graph planning, code generation, visual refinement, and a reusable library of script functions."
+  },
+  "icml-2024-sparse-model-inversion-efficient-inversion-of-vision-transformers-for-data-free-applicat-b6a056cafe": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Model inversion seeks to reconstruct training data from a pretrained discriminative model when the original data is unavailable. For large vision transformers and high-resolution images, reconstructing every image region can be costly. This paper identifies wasted effort in noisy backgrounds and in spurious correlations that it calls inversion hallucinations.",
+      "Sparse Model Inversion focuses reconstruction on semantic foregrounds while stopping work on noisy backgrounds and potential spurious correlations. It is designed as an extension to existing dense inversion procedures and does not require changes to their original loss functions. The approach changes which parts of the image receive inversion effort.",
+      "Theoretical and empirical studies support the method, with reported acceleration reaching 3.79 times. Downstream results in data-free model quantization and knowledge transfer remain comparable or improve. This matters because faster reconstruction is useful only if the generated data still serves its intended purpose. The stated results suggest that selectively reconstructing meaningful foreground content can save substantial computation while preserving the usefulness of inverted data for those applications."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3fb3296ed55ebbda7ab84811bc61a099e79768c4a7da8f8a517a1f796d9d4f45",
+    "tldr": "Sparse Model Inversion accelerates image reconstruction by focusing on semantic foregrounds while preserving or improving performance in tested data-free applications."
+  },
+  "icml-2024-symbolic-music-generation-with-non-differentiable-rule-guided-diffusion-832edddfbf": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Symbolic music generation produces representations such as piano rolls, where notes and their timing are explicit. Controlling generation through rules about note density or chord progressions is challenging because many such rules are non-differentiable. That makes them difficult to incorporate into diffusion guidance methods that depend on derivatives.",
+      "The paper introduces Stochastic Control Guidance, which requires only forward evaluations of rule functions. It can therefore use a rule’s computed result without differentiating through that rule. The method works with pretrained diffusion models as an add-on, providing guidance without additional training for the specified non-differentiable rules.",
+      "The authors also introduce a latent diffusion architecture for symbolic music with high temporal resolution and combine it with the guidance method. Comparisons against strong symbolic-music baselines report improvements in musical quality and rule-based controllability across a variety of settings. The contribution links a music-generation architecture with a control procedure that broadens the kinds of symbolic rules available for steering its outputs."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "528b963ec31db41c1d5b91b200f0842a8042d8487e81b3e123ab91e3d6edfdff",
+    "tldr": "Stochastic Control Guidance steers pretrained music diffusion models with non-differentiable symbolic rules using only rule evaluations and no additional training."
+  }
+}

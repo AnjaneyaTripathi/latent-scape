@@ -121,6 +121,70 @@ def test_export_marks_dblp_as_record_and_uses_reviewed_original_sources(tmp_path
     assert next(item for item in search if item["slug"] == "repaired")["originalUrl"] == repaired["originalUrl"]
 
 
+def test_export_strips_editorial_provenance_from_browser_records(tmp_path):
+    settings = Settings(
+        root=tmp_path,
+        cache_dir=tmp_path / "cache",
+        raw_dir=tmp_path / "raw",
+        derived_dir=tmp_path / "derived",
+        output_dir=tmp_path / "output",
+    )
+    papers = [{
+        "slug": "reader-paper", "title": "Reader Paper", "authors": ["Author"],
+        "abstract": "A source abstract.", "originalAbstract": "A source abstract.",
+        "abstractStatus": "present", "abstractQuality": "official-landing-page",
+        "abstractSource": "internal-source-note", "sourceRecoveryLocked": True,
+        "summaryEvidenceStatus": "accepted", "provenance": ["official"],
+        "url": "https://example.test/paper", "venue": "ICML", "year": 2024,
+        "topicSlugs": ["reader-topic"], "citationCount": 3,
+        "summary": {
+            "tldr": "A short explanation.", "paragraphs": ["One.", "Two.", "Three."],
+            "difficulty": "beginner", "model": "gpt-6-astra", "source": "abstract",
+            "sourceAbstractSha256": "secret-editorial-hash", "backgroundConcepts": ["reader-topic"],
+        },
+    }]
+    write_json(settings.raw_dir / "papers-full.json", papers)
+    corpus_fingerprint = fingerprint(papers)
+    papers_path = settings.derived_dir / "papers-topics-full.json"
+    write_json(papers_path, papers)
+    write_meta(papers_path, "full", corpus_fingerprint)
+    topics_path = settings.derived_dir / "topics-full.json"
+    write_json(topics_path, [{
+        "slug": "reader-topic", "title": "Reader topic", "area": "Area", "broadGroupId": "broad-00",
+        "overview": "A reader-facing overview.", "paperSlugs": ["reader-paper"], "relatedTopics": [],
+        "curationStatus": "complete", "provenance": {"model": "gpt-6-astra"},
+    }])
+    write_meta(topics_path, "full", corpus_fingerprint)
+
+    export_site_data(settings, "full")
+
+    paper = next(
+        item for path in (settings.output_dir / "papers").glob("*.json")
+        for item in json.loads(path.read_text())
+    )
+    topic = json.loads((settings.output_dir / "topics.json").read_text())[0]
+    assert not {"provenance", "abstractSource", "sourceRecoveryLocked", "summaryEvidenceStatus"}.intersection(paper)
+    assert not {"model", "source", "sourceAbstractSha256", "backgroundConcepts"}.intersection(paper["summary"])
+    assert not {"provenance", "curationStatus"}.intersection(topic)
+    assert topic["broadGroupId"] == "broad-00"
+    assert "coverage" not in json.loads((settings.output_dir / "manifest.json").read_text())
+    assert not any((settings.output_dir / name).exists() for name in ("coverage.json", "corpus-report.json", "report.json", "schema.json"))
+
+
+def test_export_removes_legacy_review_page_from_configured_output(tmp_path):
+    settings = Settings(
+        root=tmp_path, cache_dir=tmp_path / "cache", raw_dir=tmp_path / "raw",
+        derived_dir=tmp_path / "derived", output_dir=tmp_path / "output",
+    )
+    papers = [{"slug": "paper", "title": "Paper", "abstract": "A source abstract.", "url": "https://example.test/paper", "venue": "ICML", "year": 2024, "topicSlugs": [], "citationCount": 0}]
+    write_json(settings.raw_dir / "papers-sample.json", papers)
+    review = settings.output_dir / "summary-review.html"
+    review.parent.mkdir(parents=True)
+    review.write_text("legacy internal review")
+    export_site_data(settings, "sample")
+    assert not review.exists()
+
+
 def test_optional_link_repair_normalizes_only_exact_duplicate_markdown_destinations(tmp_path):
     settings = Settings(
         root=tmp_path,

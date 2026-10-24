@@ -1,0 +1,331 @@
+{
+  "neurips-2024-a-geometric-view-of-data-complexity-efficient-local-intrinsic-dimension-estimation-with--02aec14f2b": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A data point can have many recorded coordinates while varying along relatively few underlying directions. Local intrinsic dimension measures how many such directions matter near that point. The paper treats this quantity as a geometric description of complexity and asks whether a diffusion model can estimate it efficiently.",
+      "The proposed estimator, FLIPD, uses the Fokker–Planck equation associated with a diffusion model. It addresses drawbacks of previous generative approaches, including computational cost and the need for multiple pretrained models. The authors describe it as straightforward to implement and compatible with popular diffusion models. On synthetic benchmarks, diffusion models built from fully connected networks produce estimates that outperform existing baselines.",
+      "For natural images, the true dimension is unknown, and estimates depend on network architecture. Nevertheless, FLIPD provides useful relative complexity scores: its estimates correlate more strongly with PNG compression rate than competing estimators and better match qualitative assessments. The reported speed improvement is orders of magnitude, making estimation tractable at Stable Diffusion scale. These results support both efficient dimension estimation on synthetic data and practical complexity comparisons on images."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1aa6ca6f99a1554440ac7fd0942112e077984b318a0f16af1f0c72cb05470ad3",
+    "tldr": "FLIPD uses diffusion models to estimate local data complexity efficiently, with strong synthetic results and useful but architecture-sensitive image complexity estimates."
+  },
+  "neurips-2024-activating-self-attention-for-multi-scene-absolute-pose-regression-760e84576c": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Multi-scene absolute pose regression estimates a camera's position and orientation across different environments. Transformer models can predict these quantities directly, but their attention mechanism may contribute less than expected. This paper investigates attention collapse, where many queries concentrate on only a few keys, restricting the relationships the model represents.",
+      "The authors trace this behavior to the geometry of query and key embeddings. Their statistical analysis finds that these embeddings occupy substantially different regions, with only a few keys entering the query region. Many queries consequently match the same small set of keys. The proposed auxiliary loss aligns the two embedding spaces, encouraging attention to capture broader relationships.",
+      "A second change replaces undertrained learned positional encodings with fixed sinusoidal encodings, supplying positional information to the attention inputs. Together, these adjustments address the identified collapse and yield better results than existing methods in the reported indoor and outdoor evaluations. The contribution connects an observed weakness in pose estimation to a specific internal representation problem, then shows that targeted changes can make the existing attention mechanism more effective."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8e33be0587b4c60adb136a1049036c70adda31a60db5418bd92f04f8e5e97f66",
+    "tldr": "Aligning query and key embeddings and using fixed positional encodings improves transformer attention and camera pose estimation across scenes."
+  },
+  "neurips-2024-active-perception-for-grasp-detection-via-neural-graspness-field-3716e0135c": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A robot facing a cluttered scene may lack the three-dimensional information needed to identify a reliable grasp. Moving its camera can reveal more, but collecting many views takes time. This paper asks how the robot can choose useful views while building a representation specifically suited to grasp detection.",
+      "The proposed Neural Graspness Field represents where promising grasps occur in three-dimensional space. It is constructed incrementally in real time as the camera moves, using graspness predictions rendered from individual views. To choose the next view, the system looks for discrepancies between the field's outputs and a pretrained graspness network. These inconsistencies guide camera movement toward observations intended to reduce uncertainty.",
+      "The field also supports a sampling method that decodes graspness values to improve grasp pose detection. Thus, the representation helps decide both where to look and which grasps to consider. Experiments on GraspNet-1Billion report significant improvements over previous work, while real-world experiments show a better balance between grasping performance and time cost. The findings support directing perception toward the grasping task instead of treating additional observations as equally valuable."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "fc2f49290f5276db15e7391b6c390a07e0c78911051c3462085a2cdf83a8f399",
+    "tldr": "A continuously updated graspness field guides camera movement and grasp selection, improving the measured trade-off between grasping performance and observation time."
+  },
+  "neurips-2024-an-eye-for-an-ear-zero-shot-audio-description-leveraging-an-image-captioner-with-audio-v-841db73985": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Image captioning models learn to connect visual content with language. This paper investigates whether that capability can be reused to describe sounds. Videos containing both images and audio provide a connection between the modalities, but visible content and audible content do not always correspond, making their alignment difficult.",
+      "The method matches the distribution of tokens produced by an audio backbone to the distribution of image tokens used by an image captioner. This targets the modality gap that can hinder integration of representations learned across different inputs. Once aligned, audio tokens can enter the existing image-language decoder, allowing its learned descriptive capabilities to operate on auditory information.",
+      "The aligned audio encoder can replace the image encoder or work alongside it, supporting audio-only and audiovisual inputs. The authors report significantly better zero-shot audio captioning performance than existing approaches, with the alignment learned in an unsupervised fashion. The central result is that adapting the representation supplied to a captioner can make its language-generating capability useful for another modality, without requiring the decoder's semantic knowledge to originate from audio captioning."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d4587c709c7255323dfb487dbfd7dafe22b64bd6f7a4b084612a15086798f51f",
+    "tldr": "Matching audio and image token distributions lets an image captioner describe audio, improving zero-shot audio captioning."
+  },
+  "neurips-2024-attack-resilient-image-watermarking-using-stable-diffusion-276212305a": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Image watermarks support provenance tracking and ownership claims, but image generation technology can also help remove them. The paper focuses on this tension: Stable Diffusion can defeat existing watermarking approaches, yet its own representation and processing may provide a way to create more resilient watermarks.",
+      "The proposed method, ZoDiac, uses a pretrained Stable Diffusion model to embed a watermark in a trainable latent space. Detection then looks for the watermark in the latent vector. This places the identifying signal within the model's representation of the image, with the aim of keeping it detectable after attacks alter the image.",
+      "Across MS-COCO, DiffusionDB, and WikiArt, the authors report detection above 98% and false positives below 6.4% against the evaluated state-of-the-art attacks, outperforming existing watermarking methods. They also investigate and report support for the hypothesis that the diffusion model's reciprocating denoising process helps watermark robustness. The results include resistance to Stable-Diffusion-based attacks, making diffusion technology a promising defensive tool in these evaluations as well as a means of watermark removal."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e516a5bfd32fc128f074157d041a3706ae520e798369f38ea88fd64895744878",
+    "tldr": "ZoDiac embeds watermarks through Stable Diffusion's latent space and reports strong detection under evaluated attacks, including diffusion-based removal attempts."
+  },
+  "neurips-2024-bayesian-optimization-of-functions-over-node-subsets-in-graphs-96e3080e48": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Some graph optimization problems require choosing a group of nodes whose combined value is expensive to evaluate. The number of possible groups creates a combinatorial search problem, and the objective may be available only as a black box. This paper develops a Bayesian optimization framework for learning which groups are worth evaluating.",
+      "The framework maps every subset containing k nodes to a node in a new combinatorial graph. Searching for a good subset then becomes a search over this transformed graph. To make traversal efficient, the method uses local models and a recursive algorithm that progressively samples subgraphs. This lets the search incorporate information about the objective function as well as the original graph's structure.",
+      "The authors evaluate the framework on synthetic and real-world problems spanning different graph types and optimization tasks. They report effective performance and use ablation studies to examine its behavior. The contribution is a general approach to expensive subset selection: it combines the sample efficiency of Bayesian optimization with a graph representation of the candidate combinations, while organizing the modeling locally to manage the search."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8dadbd89b7321dd0f4c39ba5d4065be22bc5e8b8c98cf1cde862b677b2d20d60",
+    "tldr": "The paper combines Bayesian optimization with local search on a graph of node subsets to tackle expensive combinatorial objectives."
+  },
+  "neurips-2024-bias-amplification-in-language-model-evolution-an-iterated-learning-perspective-b4e621e7c7": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Language models increasingly produce material that other models consume, including examples used to train later models. Repeated interactions among agents create another setting where model outputs influence subsequent behavior. This paper examines these processes through an analogy with cultural evolution, where information passes between people and changes across successive rounds.",
+      "The authors use Bayesian iterated learning, a framework developed to explain how small biases can become amplified during cultural transmission. They apply it to language models to characterize agent behavior across repeated learning and interaction. The focus is on how successive stages can reshape tendencies, rather than viewing each model's behavior as an isolated outcome.",
+      "The paper derives behavioral predictions within this framework and reports experimental support from several language models. This gives the cultural-evolution analogy a theoretical structure and connects its predictions to observed model behavior. The authors suggest that the framework could help anticipate and guide the evolution of language models. That prospective use remains a possibility supported by the analysis, while the stated empirical contribution is verification of predictions across the tested models."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d71555f67117041e51384680ccd222de6d2d770c327660694b6f96264a75d3b8",
+    "tldr": "A Bayesian iterated-learning framework explains aspects of bias amplification across language-model interactions, with predictions supported by experiments."
+  },
+  "neurips-2024-clevrskills-compositional-language-and-visual-reasoning-in-robotics-237246a869": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A robot's larger tasks often require combining smaller abilities while responding to a changing scene. Knowing how to reach, pick up, and move objects does not by itself establish that a model can organize those skills into a new task. ClevrSkills is designed to test this ability to compose previously learned capabilities.",
+      "The benchmark combines environments built on the ManiSkill2 simulator with a dataset of robot trajectories. These trajectories include language and visual annotations, and tasks can be specified through multimodal prompts. A curriculum spans three levels of compositional understanding, beginning with basic motor skills and providing a structured way to examine more demanding combinations.",
+      "The authors evaluate multiple vision-language model baselines and find failures in compositional robotic reasoning even after pretraining on many tasks. The finding identifies a gap between exposure to numerous tasks and successfully combining capabilities in the evaluated situations. ClevrSkills provides a setting for studying that gap, bringing together task execution, language understanding, visual information, and the need to respond to changes caused by the robot's own actions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a3d9f42c3efda88c50c9f295d3d9f58ff262410ce3833c8bb912b74bffd6aa90",
+    "tldr": "ClevrSkills tests whether robots can combine learned skills into larger tasks and exposes compositional reasoning failures in evaluated vision-language models."
+  },
+  "neurips-2024-contactfield-implicit-field-representation-for-multi-person-interaction-geometry-9860fd7b5e": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Reconstructing several interacting people in three dimensions is difficult when bodies obscure one another or make close contact. Processing each person separately can miss interaction geometry, while merging nearby surfaces can lose their identities. ContactField introduces a representation that jointly describes occupied space, person identity, and contact between bodies.",
+      "The method uses implicit fields supported by a module that combines local and global features from multiple views and interacting groups. This connects detailed evidence about a small region with broader information about the people involved. Dense point retrieval in small areas helps model close interactions, where accurately distinguishing neighboring surfaces is especially important.",
+      "The authors also create a synthetic dataset with varied multi-person interactions to strengthen geometry estimation. Their experiments show better reconstruction of human geometry and identity tags than conventional multi-view techniques. Contact points can additionally be estimated without dedicated contact supervision. This means the contact capability does not require specifically labeled contact training data, while the overall approach still uses learned representations and training data for its reconstruction task."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ffb88543aa2d3c0d96e0d6dd035a73eba8c152c787ff1aa6ee1a775f1ff4ea78",
+    "tldr": "ContactField jointly reconstructs interacting people's geometry and identities while estimating contact points without dedicated contact supervision."
+  },
+  "neurips-2024-credal-learning-theory-552f8a0409": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Classical statistical learning theory studies the risk of a model trained on data from an unknown probability distribution. Deployment becomes harder when that distribution changes. This paper develops a theoretical framework that represents variability in the data-generating distribution directly, making it part of the learning problem being analyzed.",
+      "The framework uses credal sets: convex collections of probability distributions. These sets allow the theory to describe multiple possible data-generating distributions together. The authors argue that such a collection may be inferred from a finite sample of training sets. The relevant evidence therefore comes from several datasets, supporting an account of variation beyond uncertainty about one fixed distribution.",
+      "The paper derives risk bounds for finite hypothesis spaces, both when realizability is assumed and when it is not, and also treats infinite model spaces. These bounds directly generalize classical learning-theory results. The contribution is foundational: it supplies a way to formulate learning guarantees when distributional variability is represented by a set of probabilities, connecting familiar theoretical questions about learned-model risk to domain adaptation and generalization concerns."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2b558729dfb425f0ac79361f4ba4c91c7f2bfede0c3bf818195e2107ae29a69e",
+    "tldr": "Credal learning theory generalizes classical risk bounds by representing changing data distributions through convex sets of probabilities."
+  },
+  "neurips-2024-generalized-protein-pocket-generation-with-prior-informed-flow-matching-f04da11c17": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Designing a protein that binds a chosen ligand requires creating a suitable binding pocket: the part of the protein that interfaces with that ligand. Existing approaches can depend on expensive physical calculations or templates, and generation quality can suffer when relevant interaction knowledge is overlooked. PocketFlow incorporates that knowledge into a generative model.",
+      "The model uses flow matching and learns important protein-ligand interaction types during training, including hydrogen bonds. During generation, it receives guidance at two scales: overall binding affinity and geometric constraints on interactions. These complementary signals aim to produce pockets that bind strongly while maintaining valid interaction arrangements.",
+      "Experiments report improvements over baselines on multiple benchmarks, including average improvements of 1.29 in Vina Score and 0.05 in scRMSD. The model also supports several ligand modalities, covering small molecules, peptides, and RNA. The stated significance is that explicitly modeling interactions supports both pocket quality and broader applicability across ligand types. The reported benchmark results provide evidence for the generation approach in the evaluated settings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9dac4d4264e712b61c7eb5e95c6c475156de3d6c2c3d36531a5e17191a9bcab7",
+    "tldr": "PocketFlow combines flow matching with protein-ligand interaction knowledge to generate improved binding pockets across several ligand types."
+  },
+  "neurips-2024-kuro-siwo-33-billion-m-2-under-the-water-a-global-multi-temporal-satellite-dataset-for-r-b8f9c8ed34": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Rapid flood mapping helps assess damage, understand vulnerability, and guide restoration. Synthetic Aperture Radar can collect imagery at night and through different weather conditions, but developing deep learning systems for flood segmentation requires substantial annotated data. Kuro Siwo addresses that need with manually labeled satellite observations spanning multiple times and 43 flood events worldwide.",
+      "The dataset covers more than 338 billion square meters of land, including 33 billion labeled as flooded areas or permanent water. It offers two forms of radar data. A heavily processed Ground Range Detected product supports flash flood mapping, while a minimally processed Single Look Complex product preserves flexibility for studying phase and amplitude information and choosing downstream preprocessing.",
+      "The authors add a large collection of unlabeled radar samples to support self-supervised pretraining. They also introduce BlackBench, a benchmark with strong baselines across diverse flood events. Together, these resources support both practical flood segmentation and research into how radar data should be represented and processed. The contribution is a dataset and evaluation foundation, with data and code made publicly available."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3c3e1ced46647f54d72e75f40f42e12d9056ef4dc869468ef765fcf19b06e5e0",
+    "tldr": "Kuro Siwo provides annotated radar data from 43 flood events, unlabeled pretraining samples, and a benchmark for flood mapping."
+  },
+  "neurips-2024-learnability-matters-active-learning-for-video-captioning-eeaae5e1d6": {
+    "backgroundConcepts": [
+      "topic-237-active-statistical-inference"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Active learning chooses which examples should receive human annotations. For video captioning, choosing difficult examples can be unhelpful when those examples are hard to learn from. This paper studies collective outliers and identifies inconsistent ground-truth captions as one major cause of their difficulty, motivating explicit attention to learnability.",
+      "The proposed selection algorithm balances learnability, diversity, and uncertainty. Because human captions are unavailable before annotation, it uses predictions from existing models as approximate ground truths. Consistency among these estimates provides a learnability signal. The predictions also support estimates of sample frequency and reliability, which inform diversity and uncertainty. A caption-wise annotation protocol makes human input part of this selection process.",
+      "Across public datasets and several captioning models, the authors report large improvements over state-of-the-art active learning methods. On MSR-VTT, the method reaches about 103% of the full-annotation CIDEr performance using 25% of human annotations. This result suggests that annotation value depends on whether examples provide usable learning signals, alongside how unfamiliar or uncertain they appear. The learnability estimate itself relies on model-generated approximations before human involvement."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b5c6a9bf571172b25e872b70aa11387592d7ab8fb5069f76df12517c6e819b4c",
+    "tldr": "Selecting video captions for learnability, diversity, and uncertainty improves annotation efficiency, reaching about 103% of full CIDEr performance with 25% of annotations on MSR-VTT."
+  },
+  "neurips-2024-learning-action-and-reasoning-centric-image-editing-from-videos-and-simulation-9b4b188f84": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Instruction-guided image editing includes changes that require understanding actions, movement, and spatial relationships. Static image datasets can teach object or style changes, but provide less suitable material for these other demands. This paper introduces AURORA, a dataset curated from videos and simulation engines with human annotation.",
+      "Its central data-quality requirement is that each source image, instruction, and target image describe a single meaningful visual change. Keeping that change minimal makes the requested transformation clear: the target should demonstrate the instruction without introducing unrelated changes. Videos and simulation supply examples involving temporal behavior, physical dynamics, and spatial reasoning that static sources may lack.",
+      "The authors fine-tune an editing model on AURORA and evaluate it using AURORA-Bench, an expert-curated benchmark covering eight editing tasks. Human raters judge the resulting model significantly better than previous editing models. The paper also identifies flaws in existing automatic metrics for semantically difficult edits and proposes a metric centered on discriminative understanding. Its contribution therefore joins carefully controlled training examples with evaluation designed to assess whether a requested edit was actually understood."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "00d0d63e740923581c91d160e0e50dae8aca99bdc30b31956205a4f05d07aed6",
+    "tldr": "AURORA uses carefully curated video and simulation examples to improve action- and reasoning-focused image editing, with gains judged by human raters."
+  },
+  "neurips-2024-learning-multimodal-behaviors-from-scratch-with-diffusion-policy-gradient-dd0fa70e0b": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A control task may admit several useful ways of behaving, but common reinforcement learning policies and objectives can concentrate learning on a single mode. Diffusion models can represent multiple modes, yet using them in online reinforcement learning introduces difficulties with policy likelihoods and objectives that favor only the most immediately attractive behavior.",
+      "Deep Diffusion Policy Gradient, or DDiffPG, is an actor-critic algorithm that learns a diffusion policy from scratch. It discovers behavioral modes through unsupervised clustering and novelty-based intrinsic motivation. Training batches include multiple modes, and mode-specific Q-learning is used to improve behavior across those modes while reducing the tendency to collapse onto one.",
+      "The policy can also receive mode-specific embeddings, allowing explicit control over which learned behavior it uses. Experiments demonstrate multimodal behavior in complex, high-dimensional continuous control tasks with sparse rewards. The paper additionally presents a proof of concept for online replanning in mazes with unseen obstacles. These findings support the possibility of discovering, retaining, and selecting among multiple behaviors within one learned policy, with replanning demonstrated at proof-of-concept scope."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e3612204f0bffb78576d7afda31b74a9119e18096d1d510c44fe90e8c66c82ec",
+    "tldr": "DDiffPG learns diffusion policies from scratch while discovering, preserving, and enabling selection among multiple behavioral modes."
+  },
+  "neurips-2024-mission-impossible-a-statistical-perspective-on-jailbreaking-llms-e4daaf0200": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Preference alignment trains language models toward desired behavior, yet adversarial prompts can still elicit harmful responses. This paper studies that problem statistically. Within its framework, the authors first show that pretrained models will imitate harmful behavior present in their training corpus, linking later risks to what pretraining teaches.",
+      "The authors then define a statistical notion of alignment and derive a lower bound on the probability of jailbreaking. Under the framework and assumptions they describe as reasonable, jailbreaking cannot be fully prevented. The scope of this conclusion is conditional on that mathematical setting; the lower bound establishes residual risk within it.",
+      "The analysis motivates E-RLHF, a modification of the reinforcement learning from human feedback objective intended to increase the likelihood of safe responses. It adds no training cost and can be combined with other methods. In the reported evaluations, E-RLHF improves on RLHF across the alignment problems supplied by AdvBench and HarmBench while preserving performance measured by MT-Bench. The paper thus combines a conditional theoretical account of persistent vulnerability with an empirically tested improvement to alignment."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "738399bf4a94c02e8f2bbd5ea753e8a5b90a3c76c7114cfd4442ae91b35dda16",
+    "tldr": "The paper derives unavoidable jailbreak risk under its statistical assumptions and introduces an RLHF modification that improves evaluated safety without reducing measured model performance."
+  },
+  "neurips-2024-noisygl-a-comprehensive-benchmark-for-graph-neural-networks-under-label-noise-31cec7913c": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Graph neural networks classify nodes by exchanging information across graph connections. Incorrect training labels can undermine this process because erroneous information influences learning through the graph. Such labels can arise from unreliable sources or adversarial attacks, making robustness to label noise an important concern for graph-based prediction.",
+      "Research on this problem is difficult to compare when studies use different datasets, splits, and preprocessing choices. NoisyGL addresses the comparison problem with a comprehensive benchmark and a unified experimental interface. It places methods under shared settings across multiple datasets so their behavior on noisy labels can be examined more consistently.",
+      "The authors report that this benchmarking effort reveals insights overlooked in previous research. The abstract does not enumerate those findings, so the concrete contribution described here is the common evaluation infrastructure and its demonstrated analytical value. By standardizing experimental conditions, NoisyGL supports fairer comparisons and more detailed investigation of how methods handle corrupted node labels. The benchmark is released as an open-source library for further work in this area."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c3a5eeeaa1b43d1d9f0d0e5d86d7218af651e77e8e19bbce4ea412f8d33999aa",
+    "tldr": "NoisyGL standardizes evaluation of graph neural networks under incorrect node labels, enabling fairer comparisons across methods and datasets."
+  },
+  "neurips-2024-on-the-power-of-small-size-graph-neural-networks-for-linear-programming-2a392bf86f": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Earlier theory shows that graph neural networks can approximate solution mappings for linear programs, but those results typically call for large networks. Experiments suggest that smaller networks can work well. This paper addresses that mismatch by identifying classes of linear programs for which compact networks have a theoretical justification.",
+      "The main result proves that constant-width graph neural networks with polylogarithmic depth are sufficient to solve packing and covering linear programs. The construction relies on the network's ability to simulate a variant of gradient descent applied to a carefully chosen potential function. This connects network computation to a specific optimization procedure and establishes sufficiency for those two classes.",
+      "The authors also introduce an architecture called GD-Net. Experiments show that it significantly outperforms conventional graph neural network structures while using fewer parameters. Together, the proof and architecture provide theoretical and empirical support for compact models in this setting. The theorem concerns packing and covering problems, so its significance lies in explaining small-network capability for these widely used classes without requiring a universal claim about every linear program."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8c1892e37d58df0a935623ef6bdffe7c19c847e34a4082dc33b159db6d37ccd3",
+    "tldr": "The paper proves compact GNNs suffice for packing and covering linear programs and introduces GD-Net, which improves reported performance with fewer parameters."
+  },
+  "neurips-2024-randomized-truthful-auctions-with-learning-agents-109bdba7e5": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "An auction can make truthful bidding optimal without ensuring that learning bidders eventually become truthful. This paper studies repeated auctions with no-regret learners. It extends a known failure of truthful convergence in second-price auctions to all deterministic truthful auctions and shows that bidders' relative learning rates can qualitatively change convergence.",
+      "The authors construct a transformation from any truthful auction into a randomized version. All participating mean-based no-regret learners converge to truthful bidding in the transformed auction, while its allocation and payment rules remain negligibly different from the original. For sufficiently long interactions, randomized auctions can consequently offer strictly better revenue guarantees than second-price auctions with reserves in this learning setting.",
+      "The paper also analyzes revenue over a finite number T of interactions. Auctioneer regret compares earned revenue with a second-price auction receiving truthful bids. Using one fixed auction yields an almost-tight bound scaling as T to the three-quarters power, up to logarithmic factors. Allowing a sequence of auctions chosen independently of bids improves this to an almost-tight square-root scaling. These results show how auction design and scheduling affect revenue when bidders learn over time."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a430d9b510ecd5cd32844da2133e1afcfd76819af9e91accc446823923db3e1b",
+    "tldr": "Randomization can induce truthful convergence for mean-based no-regret bidders and improve revenue guarantees in repeated auctions."
+  },
+  "neurips-2024-randumb-random-representations-outperform-online-continually-learned-representations-bfe7d3af17": {
+    "backgroundConcepts": [
+      "topic-083-online-continual-learning-from-imbalanced-data"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Continual learning often emphasizes avoiding catastrophic forgetting while adapting to new data. This paper asks a more basic question: how useful are the representations learned during that process? Because representations and classifiers usually change together, evaluating the final system can obscure weaknesses in the representation itself.",
+      "RanDumb embeds raw pixels using a fixed random transform that approximates an RBF kernel. The transform is initialized before seeing data, and only a linear classifier is trained. Learning proceeds one sample at a time without retaining exemplars. This supplies a simple reference point for judging what online representation learning contributes.",
+      "The authors report that RanDumb significantly outperforms state-of-the-art continually learned representations across the standard online continual learning benchmarks they study. In additional exemplar-free settings with pretrained models, a linear classifier on fixed pretrained representations surpasses most continual fine-tuning and prompt-tuning strategies. These are empirical findings about the evaluated settings, particularly online and low-exemplar learning. They challenge the assumption that continuously adapting the representation necessarily produces a better foundation for classification."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "fb43a2b67571d72bc607c2359c407d66c88e39f2a9a5be6108c2383e4057aff2",
+    "tldr": "Fixed random features with an online linear classifier outperform continually learned representations in the paper's benchmark study."
+  },
+  "neurips-2024-reinforcement-learning-gradients-as-vitamin-for-online-finetuning-decision-transformers-acf70cf40c": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Decision Transformers learn from recorded trajectories by predicting their continuation. After this offline training, online fine-tuning should let them improve through further interaction. The paper investigates why the Online Decision Transformer struggles with this transition when its initial training data contains low rewards.",
+      "The theoretical analysis identifies a problem with return-to-go conditioning: a requested return far from the expected return can hamper online fine-tuning. Standard reinforcement learning provides value functions and advantages that address this issue. The analysis therefore motivates bringing reinforcement learning updates into the fine-tuning process rather than relying entirely on the existing trajectory-completion objective.",
+      "In experiments, simply adding TD3 gradients improves Online Decision Transformer fine-tuning, especially after pretraining on low-reward data. The result connects a specific conditioning mismatch to a practical modification of training. It suggests that value-based learning signals can help a pretrained sequence model improve when its offline experience offers a weak starting point. The paper presents this combination as a direction for further Decision Transformer development, supported by its theoretical analysis and reported experiments."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1fa9bc94713cbf1c3fabc89b680de868b2a9080706de818c0e0ae0599cea85bf",
+    "tldr": "Adding TD3 gradients improves online Decision Transformer fine-tuning, particularly when low-reward pretraining makes return-to-go conditioning problematic."
+  },
+  "neurips-2024-selma-learning-and-merging-skill-specific-text-to-image-experts-with-auto-generated-data-0bd20cb280": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Text-to-image models can produce convincing pictures while missing requested objects or placing them in the wrong relationships. SELMA targets this gap between visual quality and fidelity to instructions by generating training data organized around distinct skills and adapting the model to those skills separately.",
+      "A language model first generates collections of prompts for different skills, and a text-to-image model produces the corresponding images. SELMA trains separate low-rank adaptation experts on these collections, then merges the experts into one model. Separate specialization and subsequent merging aim to combine capabilities while reducing conflicts among the datasets.",
+      "The authors report improved semantic alignment and prompt faithfulness, including gains of 2.1% on TIFA and 6.9% on DSG, along with improvements in preference metrics and human evaluation. Training on the automatically collected pairs performs comparably to training on ground-truth data. They also find that images from a weaker generator can improve a stronger generator. This last result suggests a promising form of weak-to-strong generalization, with the overall evidence supporting skill-specific training and merging as a route to more faithful generation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "abb2734af68721da829fd0687230b9959e21c57aad1c941df80810657d65e57d",
+    "tldr": "SELMA trains and merges skill-specific image-generation experts using automatically generated data, improving how closely images follow text prompts."
+  },
+  "neurips-2024-simplifying-latent-dynamics-with-softly-state-invariant-world-models-d54a2b286a": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A world model supports planning by predicting how actions change the environment. Actions often have systematic effects, but a learned internal representation may not express those effects consistently. The Parsimonious Latent Space Model addresses this by encouraging simpler, more predictable action effects in the model's latent space.",
+      "Its regularization minimizes mutual information between a latent state and the change produced by an action. In plain terms, it discourages the predicted change from depending too strongly on the particular starting state. This creates soft state invariance: a preference for systematic dynamics, rather than an absolute requirement that an action have exactly the same effect everywhere.",
+      "The authors combine this regularization with model classes used for future latent-state prediction, planning, and model-free reinforcement learning. They report improvements in accuracy, generalization, and downstream task performance. These findings support the value of shaping how a world model represents action effects, alongside learning to predict outcomes. The same simplifying principle proves useful across the different applications examined, connecting more regular latent dynamics with better performance in the reported evaluations."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "aea7b295748d2c9bfca1132e618e8c8c08c906d7300e14c306bfdc06f43a951a",
+    "tldr": "PLSM encourages action effects to depend less on the starting latent state, improving prediction, generalization, and downstream performance in experiments."
+  },
+  "neurips-2024-soft-ascent-descent-as-a-stable-and-flexible-alternative-to-flooding-4ea64baa93": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Flooding modifies classifier training by switching from gradient descent to gradient ascent when average training loss falls below a chosen threshold. It can improve classification accuracy, but selecting that threshold takes care, and accuracy alone does not describe test loss or model complexity. This paper proposes a smoother alternative called SoftAD.",
+      "SoftAD applies a softened ascent-descent mechanism to individual examples. It reduces the influence of examples near the switching boundary and limits the effects of outliers while retaining flooding's ability to alternate between decreasing and increasing loss. The method adds no computational overhead, and the authors compare its formal stationarity guarantees with those of flooding.",
+      "Empirically, SoftAD achieves classification accuracy competitive with flooding and the more expensive SAM method. It also produces a much smaller gap between training and test surrogate loss and a smaller model norm. These findings show why judging a training method through several measures can matter: similar accuracy can accompany different loss behavior and parameter magnitude. SoftAD is presented as a way to obtain this broader performance balance with less fine-tuning."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c52ef8cfbdeaa72d24555c7d3d71d5487e41ac72935ca2db92f3d621f1c73461",
+    "tldr": "SoftAD smooths flooding's ascent-descent updates, achieving competitive accuracy with smaller reported loss generalization gaps and model norms."
+  },
+  "neurips-2024-when-is-multicalibration-post-processing-necessary-f556efb64a": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Calibration concerns whether a predictor's uncertainty estimates meaningfully reflect outcomes. Multicalibration asks for this property across many potentially overlapping subpopulations, including protected groups. This paper investigates when an additional post-processing step provides practical value beyond the calibration a model already has.",
+      "The study spans tabular, image, and language datasets, with models ranging from decision trees to fine-tuned language models containing 90 million parameters. This breadth lets the authors examine whether the usefulness of multicalibration depends on the model and data setting, rather than assuming that every predictor needs the same corrective treatment.",
+      "They find that models already calibrated tend to be relatively multicalibrated without extra processing. Multicalibration can help inherently uncalibrated models and large vision and language models, while traditional calibration measures may sometimes provide multicalibration implicitly. These are qualified empirical patterns: ordinary calibration is not established as a universal guarantee of subgroup calibration. The practical contribution is evidence about where additional processing is likely to help and where a model may already possess much of the desired behavior."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7c3848ab6377810180657c5963471863555ad0ebb8e45c6c1b53387dc67b2b2e",
+    "tldr": "A broad empirical study finds that multicalibration post-processing helps some models, while already calibrated predictors often need less additional correction."
+  }
+}

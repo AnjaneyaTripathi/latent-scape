@@ -1,0 +1,327 @@
+{
+  "neurips-2020-a-b-testing-in-dense-large-scale-networks-design-and-inference-6aa3b2da6d": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A/B testing becomes difficult when changing one participant’s treatment also affects neighboring participants. In densely connected networks, these spillovers can be strong, and the abstract reports that many existing methods become less effective as connections increase. This paper addresses estimating causal effects for a particular class of treatments under those conditions.",
+      "The procedure combines experiment design with a correction during analysis. First, it solves an optimization problem to allocate treatments while accounting for competition among neighboring nodes. This produces an approximation to a randomized controlled experiment. It then uses importance sampling to adjust the estimated average treatment effect for bias left by that approximation.",
+      "These two stages address complementary parts of the problem: treatment allocation manages interference before outcomes are analyzed, while the adjustment addresses remaining estimation bias. The authors provide theoretical guarantees, examine robustness through simulation, and test the procedure in an experiment on a large social network. That real-world experiment supports the method’s scalability and usefulness within the treatment setting studied."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "50e7b43b7abbd9ff6a272ffae7cc69800bbbadec463ae85c36665b2687bce250",
+    "tldr": "An optimized treatment allocation and importance-sampling correction support causal effect estimation in dense networks with interference."
+  },
+  "neurips-2020-a-universal-approximation-theorem-of-deep-neural-networks-for-expressing-probability-dis-1e891761be": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper asks whether a neural network can transform samples from one probability distribution into samples approximating another. It considers source and target distributions in the same d-dimensional space. Under assumptions, the authors prove that a suitable deep network can represent a transformation whose resulting distribution is arbitrarily close to the target.",
+      "The construction uses a scalar-valued network with ReLU activations, then takes its gradient to obtain the transformation applied to source samples. The authors measure the resulting distribution’s accuracy in three ways: Wasserstein-1 distance, maximum mean distance, and kernelized Stein discrepancy. They also bound the network width and depth needed for a requested approximation error.",
+      "The choice of discrepancy substantially changes these size bounds. The bound can grow exponentially with dimension for Wasserstein-1, whereas its dimensional dependence is at most polynomial for the other two discrepancies. The proof combines empirical-distribution convergence estimates with semi-discrete optimal transport. The result establishes representational capacity under the stated assumptions, with different complexity guarantees depending on how distributional agreement is measured."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "16083d09798ffcc1abdfd7602299b759f68aa1497135691524ddaafc4b52a6bc",
+    "tldr": "Under assumptions, gradients of deep ReLU networks can approximate target distributions, with network-size bounds that depend strongly on the chosen discrepancy."
+  },
+  "neurips-2020-adversarial-self-supervised-contrastive-learning-dcd2b736b4": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Adversarial training commonly uses class labels to construct misleading inputs and then trains a network to resist them. This paper asks whether robust training can proceed without those labels. Its answer is Robust Contrastive Learning, or RoCL, which builds an adversarial learning objective around the identity of individual samples.",
+      "The proposed attack perturbs unlabeled data so that the model confuses which instance it represents. Training then encourages a randomly augmented version of a sample and its adversarially perturbed version to have similar representations. This supplies a robustness objective through relationships between versions of the same instance, allowing the self-supervised training stage to operate without labeled data.",
+      "Across multiple benchmarks, RoCL achieves robust accuracy comparable to leading supervised adversarial methods and substantially improves robustness against black-box and previously unseen attack types. Adding supervised adversarial fine-tuning improves robust accuracy beyond self-supervised learning alone. The authors also report strong robust transfer results. Together, these experiments show that instance-based supervision can provide useful robustness, while labels can still offer further gains during fine-tuning."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "00a59ea9b4609808c1d6ff86eadbe67002101fbf638e33622f3d2533c0de3d5e",
+    "tldr": "RoCL learns adversarially robust representations without class labels by aligning augmented samples with their instance-level adversarial perturbations."
+  },
+  "neurips-2020-adversarial-weight-perturbation-helps-robust-generalization-2a22cb5507": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Adversarial training exposes a network to deliberately perturbed inputs to improve its resistance to attacks. This paper examines a second source of sensitivity: changes to the network’s weights. It studies the weight loss landscape, meaning how much the training loss changes as model parameters move, and its relationship to robust generalization.",
+      "The authors identify a clear correlation between flatter weight loss landscapes and the robust generalization gap. They also find that several established improvements to adversarial training implicitly flatten this landscape, including early stopping, alternative objectives, and use of unlabeled data. These observations motivate directly encouraging the same property during training.",
+      "Their method, Adversarial Weight Perturbation, adds adversarial changes to weights alongside the usual adversarial changes to inputs. This creates a training procedure that addresses sensitivity in both spaces. Extensive experiments show that AWP produces flatter weight loss landscapes and improves adversarial robustness when incorporated into various existing training methods. The empirical improvements support its practical value, while the motivating relationship between flatness and generalization is described as a correlation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "72e5ae5cd9f6747d9bf9f8168b45a5aa54531853fc4606f7ed87a0a88efe27ed",
+    "tldr": "Adversarial Weight Perturbation adds weight attacks to input attacks during training, empirically flattening the weight loss landscape and improving robustness."
+  },
+  "neurips-2020-finding-second-order-stationary-points-efficiently-in-smooth-nonconvex-linearly-constrai-9311ed4072": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies smooth nonconvex optimization with linear constraints. It seeks approximate second-order stationary points, which satisfy both a near-stationarity requirement and a condition on negative curvature. Finding these points is computationally intractable for the full problem class, but the authors show that generic instances admit efficient algorithms.",
+      "The key is a strict complementarity condition that they establish for every Karush–Kuhn–Tucker solution of a generic instance. Using this condition, SNAP alternates between ordinary gradient projection and projection steps based on negative curvature. For gradient tolerance εG and curvature tolerance εH, its iteration bound is a softened order of max{1/εG², 1/εH³}, hiding eigenvalue-decomposition complexity.",
+      "The authors also develop SNAP+, a first-order version requiring O(1/ε²·⁵) iterations for an (ε, √ε) approximate stationary point. Both methods have per-iteration costs polynomial in the number of constraints and the problem dimension. The contribution is an efficient route to these stronger stationarity guarantees for generic instances, including a first-order method with a global sublinear rate. The generic-instance qualification is essential to reconciling this result with the intractability of the unrestricted class."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7c8001d62bd04a08994e0939a7fa385c017fbef2ffaae12170aa3a2015634149",
+    "tldr": "SNAP and SNAP+ efficiently find approximate second-order stationary points for generic smooth nonconvex problems with linear constraints."
+  },
+  "neurips-2020-fourier-spectrum-discrepancies-in-deep-network-generated-images-67faf7fccb": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Generated images can look realistic while still differing from real images in their frequency content. This paper examines high-frequency Fourier components, which describe rapidly changing image patterns. The authors find a systematic discrepancy in how the studied deep generative models reproduce these components, revealing information that visual realism alone can obscure.",
+      "They use this discrepancy to build a detector based on an image’s frequency spectrum. On a dataset of 5,000 images from various GAN and VAE architectures, the method reaches classification accuracy of up to 99.2% with as few as eight training examples. These figures describe the reported experimental setting and show that the observed spectral signal can be useful even with very little training data.",
+      "The study also examines how compression, cropping, and reduced resolution affect classification accuracy. Finally, it suggests a way to modify generated images’ high-frequency properties to resemble those of real images. The work therefore connects a measurable generation shortcoming to detection, while also investigating transformations and modifications that matter when interpreting that detection signal."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "49e77491a6cce5751852aa1e8361dc54908a36194204437c96f77bc64266237f",
+    "tldr": "Systematic high-frequency spectral differences enable strong detection of generated images in the reported experiments, even with very few training examples."
+  },
+  "neurips-2020-geometric-all-way-boolean-tensor-decomposition-44e10254d4": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Boolean tensors organize binary information across multiple dimensions, such as space, time, and other relationships. Boolean tensor decomposition represents this information as a Boolean combination of simpler rank-one components. Although this can expose underlying structure, finding a decomposition is NP-hard, and existing methods can be costly for large tensors or tensors with many dimensions.",
+      "The paper introduces Geometric Expansion for all-order Tensor Factorization, or GETF. It approaches decomposition geometrically and identifies the rank-one basis components sequentially. This gives a way to build the representation component by component across tensor orders. The authors provide theoretical analysis of both the method’s validity and its algorithmic efficiency.",
+      "Experiments on synthetic and real data report better reconstruction accuracy and better recovery of latent structures than other leading methods, together with an order-of-magnitude speed advantage. These outcomes matter because they connect faster computation with the quality of the extracted representation. GETF’s contribution is therefore an efficient decomposition approach backed by analysis and empirical results, within a problem class whose general computational difficulty remains part of the motivation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0bfbf59f1ad1324d0c60fcef1524f11a25f5acafa173fc8bb58bc5dcc39d8bea",
+    "tldr": "GETF sequentially extracts Boolean tensor components geometrically, improving reconstruction and latent-structure recovery while running substantially faster in experiments."
+  },
+  "neurips-2020-hold-me-tight-influence-of-discriminative-features-on-deep-network-boundaries-6a7907a3f8": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A classifier’s decision boundary separates inputs assigned to different classes. This paper investigates how features in training data determine where that boundary forms. Using tools from adversarial robustness, the authors relate dataset features to the distance between samples and the boundary, making it possible to study how controlled changes in samples reshape classification behavior.",
+      "Their framework carefully changes the positions of training examples and measures the resulting boundary changes in convolutional networks trained on large-scale vision datasets. They confirm strong invariance to features that do not help distinguish classes. They also show that maintaining a decision boundary requires training features that support it, connecting boundary geometry to the discriminative information available during learning.",
+      "The study further finds that boundary construction is highly sensitive to small changes in training samples. Perturbations along certain directions can produce sudden invariance along perpendicular directions. The authors identify this as the mechanism through which adversarial training achieves robustness. These findings explain how changing the features a network encounters can reorganize which input variations affect its predictions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3f37680bd43c14ab6871c49b8904e3cac89d6bdc4b204b4265017f2409570569",
+    "tldr": "Controlled training-data perturbations reveal how discriminative features shape neural decision boundaries and how adversarial training induces invariance."
+  },
+  "neurips-2020-implicit-regularization-and-convergence-for-weight-normalization-addaccebba": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies how weight normalization changes which solution an optimization method approaches. Its main setting is overparameterized least-squares regression, with additional consideration of more general losses. The authors analyze weight normalization and a related method, reparametrized projected gradient descent, to understand both their convergence and their implicit preference among possible solutions.",
+      "Both methods express a weight vector through a scale and a unit-length direction. Although this makes the objective nonconvex, the authors show that the new formulation provides beneficial regularization relative to gradient descent on the original objective. The methods adaptively constrain the weights and converge at a linear rate to a point close to the minimum Euclidean-norm solution, even from initializations far from zero.",
+      "Certain two-phase variants can reach the minimum-norm solution itself. In the comparison described by the abstract, ordinary gradient descent reaches that solution only when initialized at zero, making its result more sensitive to initialization. The distinction between approaching the minimum-norm solution and reaching it exactly is central: the stronger conclusion applies to the specified two-phase variants."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4b680f3fdc8f785dae566de4c8cfe92c375c35db0936d6a53161a6def4ad8f91",
+    "tldr": "Weight normalization can implicitly favor near-minimum-norm solutions with linear convergence, while certain two-phase variants reach the minimum-norm solution."
+  },
+  "neurips-2020-lamina-specific-neuronal-properties-promote-robust-stable-signal-propagation-in-feedforw-1bb7f4af11": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Feedforward networks in neural systems pass signals through successive layers of neurons. The cells in one layer often have intrinsic properties different from those in neighboring layers. This paper investigates what those differences contribute to reliable signal transmission, focusing on how information carried by an input-driven spike signal changes as it moves through the network.",
+      "The authors find that variation in cellular properties between layers can support transmission. Each layer transforms the incoming spike signal, and the transformations can demodulate distortions introduced by earlier layers. In this mechanism, the effect of a layer depends on how it processes the altered signal it receives from the preceding layer.",
+      "This interaction increases the information conveyed by the propagating spike signal and supports reliable transmission through a deep feedforward network. The result assigns a functional role to differences among layer-specific cell types: their distinct computations can work together to improve processing across the whole network. The authors present this as evidence suggesting that cellular diversity helps neural circuits preserve and transmit information."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3bc7c41dfc52b4fc1fa017fb4f259ba68b21af1c2c49b5606f00072764e3cb5c",
+    "tldr": "Differences in neuronal properties across layers can counteract preceding signal distortions and improve information transmission through feedforward networks."
+  },
+  "neurips-2020-learning-dynamic-belief-graphs-to-generalize-on-text-based-games-a5c8700ca2": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Text-based games require an agent to interpret language and make decisions over time. Earlier work often supplied handcrafted structures or heuristics to support these abilities. This paper investigates whether an agent can instead learn graph-based representations directly from game text and use them to plan and generalize across different game configurations.",
+      "The proposed graph-aided transformer agent, GATA, infers a latent belief graph and updates it during planning. This graph represents learned information about the game’s underlying dynamics and helps guide action selection. Training combines reinforcement learning with self-supervised learning, allowing the structured representation and decision-making system to be learned together from raw text.",
+      "Experiments cover more than 500 distinct games in the TextWorld suite. The learned graphs help agents converge to better policies than text-only counterparts and support generalization between configurations. The best agent exceeds text-based baselines by an average of 24.2%. These results support learned, dynamically updated structure as a useful component of text-game agents, while human-level performance remains an open challenge in the abstract’s framing."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c66d9a7a9a1b89ca980812e5597ca9e5fb99bcf6f627cc23448fc26e3b40a5ba",
+    "tldr": "GATA learns and updates belief graphs from raw game text, improving policies and generalization across hundreds of TextWorld games."
+  },
+  "neurips-2020-learning-from-mixtures-of-private-and-public-populations-078f8a130e": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies supervised learning when a dataset mixes people who require privacy with people whose data can be public. Crucially, the two groups may follow different distributions. Each example includes a bit identifying its privacy status, and the learning algorithm must provide differential privacy for the examples marked private.",
+      "Earlier approaches assumed that public and private examples came from the same distribution. The authors investigate how to move beyond that assumption through the case of linear classifiers in d-dimensional space. Their positive result concerns a setting where privacy status is correlated with the target label, as in the abstract’s motivating example of different privacy preferences among healthy and unhealthy individuals.",
+      "Under that condition, the required number of samples is comparable to classical non-private PAC learning. This holds both when a linear classifier can fit the labeling rule and in the more general agnostic setting. The abstract contrasts this learnability with an impossibility when all data is private. The result shows how explicitly modeled public data can enable learning even when it differs systematically from the protected population."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5b07646d4331f7a66292ebabbd9f5bda2d4c1764f21040019879b4fac6265360",
+    "tldr": "When privacy status correlates with labels, mixed public and private data can support private linear classification with sample complexity comparable to non-private learning."
+  },
+  "neurips-2020-learning-graph-structure-with-a-finite-state-automaton-layer-8b76a27f09": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Graph models can encode both an object’s intrinsic structure and additional relationships useful for reasoning. For a program, these might be its syntax structure and relations obtained through program analysis. This paper asks how a neural model can learn those more abstract relationships from the original graph rather than relying on manually supplied edges.",
+      "The authors consider relationships defined by graph paths accepted by a finite-state automaton. They make these relationships learnable by relaxing the problem into automaton policies in a graph-based partially observable decision process, trained through implicit differentiation. The resulting Graph Finite-State Automaton layer produces a weighted adjacency matrix that adds a learned edge type to the base graph.",
+      "The layer finds shortcuts in grid-world graphs and reproduces simple static analyses of Python programs. Integrated into a larger model for detecting variable misuse, it performs better than hand-engineered semantic edges and other tested methods for learning additional edges. These results connect structured path-following behavior with useful learned relations, showing how a differentiable layer can derive task-relevant graph structure during end-to-end training."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "44f5b15ccdabae9ccd18f78fcb0e1e42ef6dae8fe9ecc80b9f3ebeb649fe380b",
+    "tldr": "A differentiable finite-state automaton layer learns useful graph edges from paths, improving variable-misuse detection in the reported experiments."
+  },
+  "neurips-2020-learning-to-summarize-with-human-feedback-0213711ea4": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Summarization systems are often trained to imitate reference summaries and judged using overlap-based metrics such as ROUGE. This paper treats those signals as imperfect substitutes for summary quality. It investigates whether training directly toward human preferences can produce summaries that people judge more favorably.",
+      "The authors collect human comparisons between summaries and train a model to predict which summary people prefer. They then use that model’s predictions as rewards to fine-tune a summarization policy with reinforcement learning. On a version of the Reddit TL;DR dataset, the resulting summaries significantly outperform both human reference summaries and summaries from much larger models trained with supervised learning alone.",
+      "The models also transfer to CNN/DM news articles without news-specific fine-tuning, producing summaries judged nearly as good as the human references. Further analysis finds that the reward model generalizes to new datasets and that optimizing it produces better human judgments than optimizing ROUGE. These findings show how changing the training objective can improve the behavior users value, even when conventional reference-based training already has substantial model capacity."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8c6f97f77a973df7b4cb6b041cfaa5c2c00a93901bcc5e1a5943a0229fe8127a",
+    "tldr": "Training a summarizer with a reward model learned from human comparisons improves judged summary quality and transfers to news without news-specific fine-tuning."
+  },
+  "neurips-2020-logarithmic-pruning-is-all-you-need-c92f16b809": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The lottery ticket hypothesis proposes that a large neural network contains a smaller network that can match its performance after being trained separately. This paper concerns a stronger result: sufficiently overparameterized networks can contain subnetworks that already achieve comparable accuracy without training. The question is how much extra network size is needed to guarantee such a subnetwork exists.",
+      "Previous theory established this stronger claim under restrictive assumptions and required a polynomial size overhead relative to the target function. The authors remove what they describe as the most limiting assumptions and substantially tighten the size guarantee. Their bound requires a number of neurons per target-subnetwork weight that grows only logarithmically in the relevant variables other than depth.",
+      "The significance is a sharper theoretical relationship between overparameterization and what pruning can uncover. A smaller guaranteed overhead strengthens the claim that an untrained large network can already contain useful computational structure. The depth exception remains part of the result: the abstract does not claim logarithmic dependence on every aspect of network size. The contribution is specifically an improved existence and size guarantee for suitable subnetworks."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "04d3c7b6c2b33dd06f0af5e76aa89f184f559876b93d6a9f1366c63cea50f44f",
+    "tldr": "Improved pruning theory reduces the overparameterization needed to contain an accurate untrained subnetwork to a logarithmic factor in variables other than depth."
+  },
+  "neurips-2020-model-based-policy-optimization-with-unsupervised-model-adaptation-3db59d018c": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Model-based reinforcement learning learns how an environment changes and uses that model to generate simulated experience for training an agent. Errors in the learned dynamics can make simulated experience differ from real experience, degrading policy performance. This paper focuses on explicitly reducing that mismatch during policy optimization.",
+      "The authors first derive a lower bound on expected return. That bound motivates an algorithm that improves the objective by bringing real and simulated data distributions into closer agreement. Their framework, AMPO, uses unsupervised model adaptation to reduce an integral probability metric between feature distributions drawn from the two sources. A practical version uses Wasserstein-1 distance as the discrepancy.",
+      "This approach links distribution alignment to a return-based theoretical objective, giving adaptation a direct role in policy learning. On a range of continuous-control benchmarks, AMPO achieves reported state-of-the-art sample efficiency. The empirical finding concerns how effectively the method uses environmental data, while the proposed mechanism addresses the gap created when a learned simulator generates experience that differs from the real environment."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f681d0c4c8914464041c5f2e6103791a549f8d1310d21909031091b0a233b59a",
+    "tldr": "AMPO aligns real and simulated feature distributions through unsupervised model adaptation, achieving strong sample efficiency on continuous-control benchmarks."
+  },
+  "neurips-2020-modular-meta-learning-with-shrinkage-d15147d2e2": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Adapting a large model to a task with little data can benefit from changing only a small set of task-specific components. The challenge is deciding which components should vary and which should be shared. This paper addresses that choice in meta-learning, especially when adaptation needs to continue for many optimization steps.",
+      "The proposed approach uses Bayesian shrinkage to discover both reusable modules and modules that should specialize to individual tasks. This removes the need to hand-select the task-specific architecture. It targets a practical gap described by the authors: existing approaches either struggle with long adaptation or depend on manually designed choices about which parts of the model can change.",
+      "Experiments show that the method discovers a small set of meaningful task-specific modules and outperforms existing meta-learning approaches in settings such as few-shot text-to-speech. These settings combine scarce task data with long adaptation horizons. The authors also show that MAML, iMAML, and Reptile are special cases of their formulation, connecting the proposed modular approach to established methods within a common framework."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "197da2132f72a7f960888035329517d22d998882591d125021bda72db52fa04d",
+    "tldr": "Bayesian shrinkage lets a meta-learning system discover which modules to share and which to adapt, improving low-data tasks with long adaptation."
+  },
+  "neurips-2020-multimodal-graph-networks-for-compositional-generalization-in-visual-question-answering-44c8440807": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Visual question answering requires connecting language with what appears in an image. A difficult case arises when familiar concepts appear in combinations absent from training. This paper addresses that form of compositional generalization by representing visual and linguistic information through graphs that explicitly organize entities, attributes, and relationships.",
+      "The model uses neural factor graphs to strengthen connections between concepts across modalities. It first constructs a multimodal graph and processes it with a graph neural network to produce a factor correspondence matrix. It then outputs a symbolic program used to predict the answer. This sequence connects structured representations of the inputs with a structured computation for answering the question.",
+      "In experiments, the model achieves nearly perfect results on a caption truth-prediction task and reported state-of-the-art performance on CLOSURE. The abstract reports a 4.77% improvement in mean overall accuracy across seven compositional templates over earlier approaches. These results support the usefulness of explicitly linking concepts across image and text representations when evaluating combinations that differ from those encountered in training."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7a2c6d8c379d093c802e2a781195ce2bead44f9bc918150b1f191e5426fd310f",
+    "tldr": "Multimodal graphs and symbolic programs improve visual question answering on unseen concept combinations, with strong results on compositional benchmarks."
+  },
+  "neurips-2020-normalizing-kalman-filters-for-multivariate-time-series-analysis-15b9cbaa78": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper models collections of complex time series containing many variables. It combines classical state-space models with deep learning in a probabilistic framework. The motivation is to keep the useful treatment of uncertainty found in state-space methods while reducing inaccuracies caused by their idealized modeling assumptions.",
+      "The proposed model augments a state-space model with normalizing flows. This increases flexibility while retaining several practical properties: uncertainty and observation errors are accounted for, inference remains tractable, and sampling remains efficient. Those properties matter together because a richer model still needs to support useful probabilistic calculations when analyzing a large collection of time-dependent observations.",
+      "The authors observe good generalization, including in low-data settings, and compare the approach with leading deep learning methods on real-world forecasting tasks. They also evaluate its handling of different amounts of missing data and report competitive performance. The findings support combining flexible learned transformations with classical temporal structure, giving a model that can represent more complex observations while preserving the computational and uncertainty-handling advantages emphasized in the abstract."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "17d68db4d7593c315aaf9d05b996ea54b73a41272c7c7d6f33a608b4e9adada8",
+    "tldr": "Normalizing flows make state-space time-series models more flexible while retaining tractable inference, uncertainty handling, and competitive forecasting performance."
+  },
+  "neurips-2020-partial-optimal-tranport-with-applications-on-positive-unlabeled-learning-bdb2395536": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Classical optimal transport matches distributions while preserving all their mass, which requires equal total mass on both sides. Some applications need only part of one distribution matched to another, or involve unequal masses. This paper develops partial transport formulations that accommodate those situations, covering both Wasserstein and Gromov–Wasserstein problems.",
+      "The authors propose exact algorithms for these partial problems and apply them to positive-unlabeled learning. In that setting, the available data include known positive examples and examples whose labels are unknown. Partial matching is relevant because the goal does not require treating the whole unlabeled collection as corresponding to the positive collection.",
+      "The reported results distinguish two useful settings. Partial Wasserstein-based metrics work effectively in usual positive-unlabeled learning scenarios. Partial Gromov–Wasserstein metrics are effective when the positive and unlabeled datasets come from different domains or have different features. The contribution therefore combines algorithms for matching only selected distributional mass with an application demonstrating how the two formulations address different relationships between the available datasets."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d6ec57a87cce152e1368fca7958f6cfb581df1b9411fd43657155380391557ae",
+    "tldr": "Exact partial transport algorithms support positive-unlabeled learning, including cases where the two datasets have different domains or features."
+  },
+  "neurips-2020-partially-view-aligned-clustering-ed2067b567": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Multi-view clustering groups data using more than one representation, but it often assumes that the correspondence between examples across views is already known. This paper studies a less aligned setting: only a small fraction of rows in two data matrices have established matches. Obtaining the remaining correspondences can require substantial effort.",
+      "The proposed method, partially view-aligned clustering, uses the matched subset to learn a common space across views. For the unmatched data, it introduces a differentiable approximation to the Hungarian matching algorithm as a module within a neural system. Making the matching operation differentiable allows it to participate in learning the latent representation.",
+      "The aim is to establish category-level correspondence for unaligned data while using the known pairs to connect the views. This targets the clustering problem without requiring complete row-by-row alignment as an input. Extensive experiments produce promising clustering results in the partially aligned setting. The key contribution is a way to combine limited known correspondences with learned matching, reducing dependence on fully prepared multi-view data."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "90def19216a9acdbd7bfbaa045339a88f29139573dd7a08e17792aa1e5c429ec",
+    "tldr": "Partially view-aligned clustering combines a small matched subset with differentiable matching to cluster data whose cross-view correspondences are mostly unknown."
+  },
+  "neurips-2020-stateful-posted-pricing-with-vanishing-regret-via-dynamic-deterministic-markov-decision--0116f9f61c": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Posted prices can affect both immediate outcomes and the resources available for later decisions. This paper introduces dynamic resource allocation with capacity constraints, or DRACC, to study such stateful pricing problems. The formulation includes applications such as online job scheduling and matching in a changing bipartite graph.",
+      "To obtain vanishing regret, the authors develop an online learning framework over deterministic Markov decision processes whose transition and reward functions can change. Their guarantee requires an oracle that can simulate any specified policy from any starting state while incurring bounded loss. They show that DRACC satisfies this condition, connecting the general framework to the pricing applications.",
+      "The proof reduces the problem to online learning with switching costs, where changing the selected action incurs an additional cost. This connects the difficulty of managing state across decisions to an established form of online decision-making penalty. Under the oracle condition, the resulting framework achieves vanishing regret. The paper also formally develops the connection and shows how its resource-allocation formulation applies to the stated pricing problems."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "26b40e1ce7fc9da3a1bed951959f0d21e9f97f1b4969372d3dfad73e84a944a5",
+    "tldr": "A reduction to online learning with switching costs yields vanishing regret for stateful pricing under a bounded-loss policy-simulation condition."
+  },
+  "neurips-2020-toward-the-fundamental-limits-of-imitation-learning-7829c719f6": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper asks how closely an agent can match an expert using demonstrations in an episodic Markov decision process. With N expert trajectories and no environmental interaction, a policy that imitates the expert whenever possible has expected suboptimality bounded, up to constants, by |S|H² log(N)/N. Here |S| counts states and H is episode length; the result permits stochastic experts.",
+      "A lower bound of order |S|H²/N shows that this guarantee is close to the worst-case statistical limit, apart from the logarithmic factor. The lower bound applies even to deterministic experts or learners that interact for N episodes and query the expert at visited states. The upper guarantee also avoids dependence on the number of actions without additional assumptions.",
+      "When the transition model is known and the expert is deterministic, a different algorithm based on minimum-distance functionals improves the upper bound to order |S|H³ᐟ²/N. This is within a factor of √H of the corresponding lower bound. The stronger information assumptions thus enable a better dependence on episode length, overcoming the quadratic horizon dependence associated with compounding imitation errors."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "eea3e8f4b85fd24746994e3eabc1d31ff09b3825a0e4add2ff016680ffeb8940",
+    "tldr": "Nearly matching imitation-learning bounds reveal worst-case quadratic horizon dependence, while known dynamics and a deterministic expert enable an improved guarantee."
+  },
+  "neurips-2020-triple-descent-and-the-two-kinds-of-overfitting-where-why-do-they-appear-b7aecf8e68": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Increasing the number of training examples can sometimes make prediction error rise before it falls again. This paper separates two peaks often treated as the same phenomenon: one when sample count N matches parameter count P, and another when N matches input dimension D. Both can occur in noisy neural-network regression, producing sample-wise triple descent.",
+      "Using random-feature theory and comparisons with neural-network experiments, the authors identify different causes. The nonlinear peak at N=P reflects extreme sensitivity to label noise and feature or weight initialization. It can remain without label noise and can be suppressed by explicit regularization. The linear peak at N=D arises entirely from fitting noise in the labels and develops earlier during training.",
+      "Activation nonlinearity controls the relative prominence of the peaks. It implicitly regularizes the linear peak, which becomes prominent mainly at high noise and responds weakly to explicit regularization. These distinctions explain why apparently similar error curves can react differently to noise and regularization. The theoretical analysis supplies a mechanism for two separate overfitting effects to coexist in the same learning problem."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "cd87245a43b1fd3de4d7c1cb130e327bee6d7a28d28e7cd70cac269fae854bb3",
+    "tldr": "Two distinct overfitting mechanisms can create separate error peaks at sample counts matching input dimension and parameter count, producing triple descent."
+  },
+  "neurips-2020-what-neural-networks-memorize-and-why-discovering-the-long-tail-via-influence-estimation-4701883595": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Deep networks often fit individual training labels closely, including unusual or mislabeled examples. This paper tests an explanation for why memorization can help generalization: natural datasets contain many rare examples, and learning those examples can matter for predicting other uncommon cases. Earlier theory established a necessity for memorization in a simple model with a long-tailed distribution.",
+      "Testing that explanation requires measuring how individual training examples affect accuracy on individual test examples, together with how strongly training examples are memorized. Directly estimating these quantities is computationally prohibitive. The authors develop more efficient estimates of closely related subsampled influence and memorization quantities, making an empirical investigation feasible.",
+      "Experiments on several standard benchmarks show substantial generalization benefits from memorization and provide quantitative and visual evidence supporting the long-tail explanation. The distinction between the theoretical and empirical claims matters: necessity was established in the earlier simple model, while this work supplies evidence from benchmark learning problems. Its contribution links efficient influence estimation to a concrete account of why remembering particular examples can support prediction beyond the training set."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3a7c6907ad19cd7179b0f9b50fb738c51ab73898d9255185b80a42ce21355e7a",
+    "tldr": "Efficient subsampled influence estimates provide empirical evidence that memorizing rare training examples can improve generalization on long-tailed data."
+  }
+}

@@ -1,0 +1,327 @@
+{
+  "neurips-2024-adaptive-sampling-for-efficient-softmax-approximation-1b4193752c": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Softmax turns a collection of scores into normalized values, but evaluating it after a large matrix-vector product can be expensive. Many applications only need the largest few outputs. This paper asks how to exploit that narrower requirement without paying the full computational cost of evaluating every output precisely.",
+      "The proposed algorithm, AdaptiveSoftmax, uses adaptive sampling to approximate the top k softmax values with probabilistic guarantees. A central part of the approach is estimating the partition function: the denominator that normalizes the scores. Even when only a few outputs matter, their normalized values still depend on this shared denominator, making its efficient estimation an important part of the problem.",
+      "Experiments on real and synthetic data support the theoretical sample-efficiency results. The authors report gains exceeding tenfold over full softmax computation on most evaluated datasets, reaching thirtyfold for Mistral7B on Wikitext. These are reported results for the evaluated settings. The denominator-estimation method also has potential uses beyond softmax, including kernel density estimation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4c50fe6121dda39a5a932eaaedbb7cefc23a3bb44aeb58e383e23174f4fbcfa9",
+    "tldr": "AdaptiveSoftmax uses adaptive sampling to approximate the largest softmax values efficiently, with probabilistic guarantees and substantial reported computational gains."
+  },
+  "neurips-2024-code-repair-with-llms-gives-an-exploration-exploitation-tradeoff-a6a46c0dc9": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Generating a difficult program can involve repeated repair: an LLM produces code, tests reveal failures, and the model uses those failures to propose improvements. Once several candidate programs exist, deciding which one to repair becomes a separate problem. The candidate passing the most tests looks promising, but another candidate may offer a better route to a solution.",
+      "The paper treats this choice as an exploration-exploitation tradeoff. Exploitation means investing more effort in the strongest current candidate; exploration means trying a candidate that has received less attention. The authors formulate the process as an arm-acquiring bandit problem and use Thompson Sampling to decide where further refinement effort should go.",
+      "The resulting program-synthesis method is evaluated on loop invariant synthesis, visual reasoning puzzles, and competition programming. Across these settings, the authors find that it solves more problems with fewer language-model calls. The contribution is therefore a strategy for allocating repair attempts, showing that how candidates are selected can materially affect the effectiveness of iterative code generation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a859e7b60be73117cab27e0ef95fc116ba8682810d6809fbdc4599fdbcaec028",
+    "tldr": "Treating code repair as a bandit problem helps an LLM choose which candidate to refine, solving more evaluated problems with fewer calls."
+  },
+  "neurips-2024-data-acquisition-via-experimental-design-for-data-markets-4b8b8d13e0": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A data market gives potential providers an incentive to supply training examples, but buyers still need to decide which examples are worth acquiring. This is especially relevant where data are scarce. The paper focuses on that selection problem when data remain distributed across participants, rather than assuming that everything is already available in one central location.",
+      "The proposed approach draws on linear experimental design to estimate the value of additional data for predictions on a test set. That makes acquisition depend on the predictive benefit the buyer seeks. The method can be optimized through a fast federated procedure and does not require labeled validation data to guide the acquisition decision.",
+      "The authors report lower prediction error using this approach. Its central contribution is the connection between a prediction-focused acquisition objective and decentralized computation: estimating how candidate data would help test-set prediction fits the structure of a market where access is distributed. The result addresses which data to acquire, with the federated procedure making that decision possible without the centralized access assumed in prior valuation work."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "68c3e1f213eba1b8a3adb0b2c09bd876b01028142961147bb9dfd92034f9db6e",
+    "tldr": "A federated acquisition method uses experimental-design ideas to select useful training data without labeled validation data, reporting lower prediction error."
+  },
+  "neurips-2024-deep-bayesian-active-learning-for-preference-modeling-in-large-language-models-2a120e7e3c": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Human preferences can guide language-model behavior, but obtaining those labels is costly. Active learning tries to reduce that cost by selecting examples that will teach a preference model the most. This paper investigates why earlier Bayesian approaches to that selection problem did not deliver the expected benefits.",
+      "The authors identify redundancy as a problem with naive estimates of epistemic uncertainty, meaning uncertainty associated with what the model has not yet learned. Selecting highly uncertain examples can repeatedly acquire similar information. Their method, BAL-PM, combines attention to uncertain examples with an objective that increases the entropy of the selected prompt distribution in the language model's feature space, encouraging a more varied selection.",
+      "BAL-PM implements this combination through a stochastic acquisition policy. On two human-preference datasets, the authors report needing 33% to 68% fewer preference labels and outperforming earlier stochastic Bayesian acquisition policies. The findings support using both uncertainty and prompt diversity when selecting feedback, rather than assuming that uncertainty alone identifies the most useful collection of examples."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f2a65caed3567080f6eafe31aaec1e393713ba014b7cf7cd8b9ea83246c5f000",
+    "tldr": "BAL-PM combines model uncertainty with prompt diversity to reduce preference-label requirements by 33% to 68% in two evaluated datasets."
+  },
+  "neurips-2024-differentiable-structure-learning-with-partial-orders-fc4fcbe9c4": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Differentiable structure learning searches for causal structures using continuous optimization. In practical problems, researchers may already know that certain variables must precede others, without knowing a complete ordering. Such partial-order information can narrow the search, but expressing it within optimization over graphs has been difficult.",
+      "This paper develops graph-space constraints that are equivalent to the supplied partial orders. It packages them into a module intended to be added to differentiable structure-learning methods. The theoretical results establish correctness and completeness of the translation, supporting the claim that the graph constraints preserve the effect of the original ordering information.",
+      "Evaluations on synthetic cases and a real-world dataset show improved recovered structures while retaining good efficiency. On the real-world dataset, the method learns better structures using 90% fewer samples than the data-based comparison method. This is a result for that evaluated setting, illustrating how usable prior ordering knowledge can reduce the amount of observational data needed to recover a good structure."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "44962a343ed0a773f1a3e681e05a547fd50d10c97001eefcb011014b03835aa8",
+    "tldr": "An equivalent graph-space formulation lets differentiable causal discovery incorporate partial-order knowledge and improve recovered structures with fewer samples."
+  },
+  "neurips-2024-dmplug-a-plug-in-method-for-solving-inverse-problems-with-diffusion-models-8f8daa6ea2": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Inverse problems reconstruct an object from measurements, so a useful answer must both resemble a plausible object and agree with the available measurements. Pretrained diffusion models can help with plausibility. Existing approaches commonly alternate diffusion steps with steps that improve measurement agreement, but the paper describes difficulties satisfying both requirements, especially for nonlinear problems.",
+      "DMPlug changes how the pretrained model is used by treating its reverse diffusion process as a function. The proposed plug-in method uses that viewpoint to address manifold feasibility, meaning resemblance to natural objects of interest, together with measurement feasibility. This gives the reconstruction procedure a different organization from methods that interleave the two kinds of iterative steps.",
+      "The authors evaluate DMPlug on two linear and three nonlinear inverse problems. They report consistent improvements over state-of-the-art methods, often by large margins on nonlinear tasks. They also describe promising robustness to measurement noise whose type and level are unknown. That robustness is presented as demonstrated potential, rather than a universal guarantee covering every possible noise process."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5a1c2a64e86ca5d63c35af5b176e58caca9e9ba70bfb6468f83183fe9b985da9",
+    "tldr": "DMPlug treats reverse diffusion as a function to improve measurement-consistent reconstruction, with strong reported results especially on nonlinear inverse problems."
+  },
+  "neurips-2024-does-reasoning-emerge-examining-the-probabilities-of-causation-in-large-language-models-f940072f00": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Language models can produce solutions that resemble human reasoning, but that observation leaves open what kind of reasoning their behavior demonstrates. This paper approaches the question through two causal quantities: the probability of necessity and the probability of sufficiency. These provide a more specific target for analysis than the broad question of whether a model reasons.",
+      "Necessity concerns whether a cause was needed for an effect, while sufficiency concerns whether a cause can bring about that effect. The authors develop a framework with theoretical and practical components for assessing language models through these quantities. They treat a model as an abstract information-processing machine accessed through natural language and examine conditions under which suitable approximations can be computed.",
+      "Mathematical examples illustrate the framework and its relevance to understanding when language models can reason. The contribution is a way to formulate and investigate that question using causal probabilities. Its claims depend on the conditions for approximating those probabilities; the abstract does not present an unconditional conclusion that reasoning emerges in all language models."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c612bd0f655d799520cd134c47ee2433b2129a73303b0f5714ea1bdce727e29d",
+    "tldr": "The paper develops a conditional framework for assessing LLM reasoning through approximations to the probabilities of causal necessity and sufficiency."
+  },
+  "neurips-2024-efficient-multi-task-reinforcement-learning-with-cross-task-policy-guidance-d9ab888bb2": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Multi-task reinforcement learning tries to make learning several tasks more efficient by sharing useful information. Existing approaches often share network parameters or modify optimization. This paper explores another route: a policy that already performs useful behaviors for one task can guide the experiences collected while learning another.",
+      "Cross-Task Policy Guidance, or CTPG, trains a guide policy for each task. That guide selects which task's control policy will interact with the environment, drawing from the available collection of policies. The aim is to collect better training trajectories for skills that remain unmastered. Two gates regulate this process: one excludes policies that provide unhelpful guidance, while the other excludes tasks that do not need guidance.",
+      "CTPG is designed to work alongside existing parameter-sharing approaches, making policy guidance a complementary source of transfer. Experiments on manipulation and locomotion benchmarks show significant performance improvements when it is added to those approaches. The findings support sharing useful behavior across tasks as well as sharing the parameters used to represent that behavior."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "945239f6013f91733cdddc916ebba7bbd451b6ddd19036b9564bd5a3ffa5b646",
+    "tldr": "CTPG lets tasks learn from other tasks' control policies, using gates to select helpful guidance and improving evaluated manipulation and locomotion performance."
+  },
+  "neurips-2024-instructg2i-synthesizing-images-from-multimodal-attributed-graphs-2283bf3ad9": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Generating an image from a graph requires using both information attached to entities and the relationships between them. Large graphs make it difficult to select relevant context, while dependencies between entities complicate image generation. InstructG2I addresses this Graph2Image task with a diffusion model conditioned on graph context.",
+      "The method first chooses informative neighbors using personalized PageRank together with reranking based on vision-language features. A graph QFormer then encodes graph nodes into auxiliary prompts that guide diffusion denoising. These stages connect graph-based context selection to the image generator, giving the model a way to use selected structural and multimodal information during synthesis.",
+      "The authors also introduce graph classifier-free guidance to control generation. Users can vary the strength of graph guidance and the multiple edges connected to a node, changing how graph conditions influence the result. Experiments on three datasets from different domains support the method's effectiveness and controllability. The contribution combines context selection, graph encoding, and adjustable guidance within one image-generation approach."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "cce61cc1731de20c1e7b8686657aa138b23614383b7e698747e2596eb83a6bea",
+    "tldr": "InstructG2I selects and encodes multimodal graph context to guide diffusion image generation with adjustable graph influence."
+  },
+  "neurips-2024-is-the-mmi-criterion-necessary-for-interpretability-degenerating-non-causal-features-to--7a39355672": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Rationale extraction seeks a small part of an input that explains a prediction. A common objective maximizes mutual information with the label, rewarding features that are informative about the answer. The difficulty is that spurious features can also be highly informative without being causal, making them attractive to the same objective.",
+      "The paper proposes Maximizing the Remaining Discrepancy, or MRD. Its theoretical observation is that removing noise or spurious features leaves the relevant conditional distribution of the remaining components unchanged, whereas removing causal features produces a substantial change. MRD builds on this distinction to treat spurious features like plain noise during rationale extraction, instead of preserving their special status as label-correlated features.",
+      "Experiments on six datasets evaluate rationale quality through overlap with human annotations. The authors report improvements of up to 10.4% over several recent competitive variants of mutual-information-based methods. These findings support the proposed criterion for extracting human-aligned rationales in the evaluated settings. The measured result concerns annotation overlap, while the method's motivation and theoretical analysis concern separating causal information from spurious correlations."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "740c5e83705f1481d033a215bcbe0c8ba8b670ff041b43138e7a0d221270ada8",
+    "tldr": "MRD uses changes caused by feature removal to seek causal rationales, improving overlap with human explanations by up to 10.4% in evaluated datasets."
+  },
+  "neurips-2024-latent-diffusion-for-neural-spiking-data-04d1392cac": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Neural recordings capture discrete spikes from many neurons, but generating realistic recordings linked to behavior remains difficult. Latent Diffusion for Neural Spiking data, or LDNS, combines low-dimensional representation learning with generative modeling. It aims to extract compact descriptions of neural activity and use them to produce realistic new activity.",
+      "An autoencoder with structured state-space layers converts high-dimensional spike recordings into continuous, time-aligned latent representations. Diffusion models are then trained in that latent space, including models conditioned on behavior. An additional observation model can represent individual-neuron dynamics that are not mediated by the shared latent state, further improving the realism of generated recordings.",
+      "On synthetic data, LDNS recovers latent structure, firing rates, and spiking statistics. The authors also generate variable-length recordings resembling human cortical activity during attempted speech. For motor-cortex recordings, conditional generation produces realistic spikes from reach directions or previously unseen reach trajectories. Together, these results support both representation inference and behavior-dependent generation, with potential for simulating hypotheses that could subsequently be tested experimentally."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8b9fe46531d052095968b05b3418ab7e134c21c8a38869d745d000fee0ce71a2",
+    "tldr": "LDNS combines an autoencoder and latent diffusion to infer compact neural representations and generate realistic, behavior-conditioned spike recordings."
+  },
+  "neurips-2024-neural-residual-diffusion-models-for-deep-scalable-vision-generation-52c0f47a77": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Increasing the depth of diffusion networks is one route toward stronger image and video generation, but the paper argues that deeper stacks can accumulate numerical propagation errors and impair noise prediction. It investigates how the internal dynamics of residual networks relate to the reverse diffusion process used to generate content.",
+      "The authors identify consistency between residual-unit dynamics and reverse diffusion as a basis for effective generative denoising. Building on U-Net and Transformer architectures, they introduce Neural-RDM, a framework that adds learnable gates to residual contributions. These parameters are designed to make the network's residual behavior conform to the dynamics of generation while supporting much deeper architectures.",
+      "The paper provides theoretical proofs and experiments supporting the gated mechanism. Across evaluated image and video generation benchmarks, the authors report state-of-the-art scores, along with improvements in content fidelity, consistency, and support for large-scale training. The contribution ties a relatively simple architectural change to a dynamical explanation of denoising, giving a specific mechanism for pursuing greater depth in generative vision models."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "227113b16c34c7404bf0068a183008a674428698eac7a887dc225d197e662bca",
+    "tldr": "Neural-RDM adds learnable residual gates aligned with diffusion dynamics to support deeper image and video generators, with strong reported benchmark results."
+  },
+  "neurips-2024-noise-contrastive-alignment-of-language-models-with-explicit-rewards-9cd2266b18": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Language-model alignment data can provide numerical rewards for responses, while methods such as Direct Preference Optimization primarily target pairwise preferences. This paper develops a noise-contrastive-estimation framework that handles explicitly scored responses as well as preference comparisons. Its two algorithms, NCA and InfoNCA, directly derive a language-model policy from these forms of feedback.",
+      "The authors show that DPO's loss is a special case of InfoNCA under pairwise preference settings. They also analyze why the likelihood of a chosen response can decrease under DPO and InfoNCA: these objectives focus on relative likelihoods across responses. NCA instead optimizes each response's absolute likelihood, which the authors show effectively prevents this chosen-response decline.",
+      "Experiments use Mistral-8×7B and 7B models in both reward and preference settings. The results suggest that NCA and InfoNCA outperform various preference baselines when reward datasets are available. NCA also significantly outperforms DPO on evaluated math and coding tasks. The work connects existing preference objectives to a broader framework and shows why the likelihood quantity being optimized can matter."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b95ec28726ded807717d05dab8c2b38960dc9850cf86034094505e95f09211d8",
+    "tldr": "NCA and InfoNCA extend language-model alignment to explicit rewards, with NCA's absolute-likelihood objective showing benefits on evaluated reasoning tasks."
+  },
+  "neurips-2024-oracle-efficient-reinforcement-learning-for-max-value-ensembles-dc45fd01c1": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "When reinforcement learning starts with several available policies, a useful goal is to combine their strengths. This paper targets the max-following policy, which chooses, at each state, the action of the constituent policy with the highest value there. That policy is at least as good as the best constituent and can be substantially better.",
+      "The challenge is that the learner has access to the constituent policies but not their value functions. The authors give an efficient algorithm that learns to compete with the max-following policy under an empirical-risk-minimization oracle assumption. The oracle supports value-function approximation for constituent policies on distributions that can be sampled, rather than requiring approximation of the globally optimal or max-following policy.",
+      "This distinction matters because the learning assumption is tied to the supplied collection of policies. It offers a scalable route to improvement without directly assuming that the more ambitious target policy's value function can be learned. Experiments on several robotic simulation testbeds illustrate the algorithm's effectiveness and behavior alongside the theoretical result."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "293bd2d775a131707d5a4ed75ff4276c887c6d5ac976d094e2d71e5b9b447a0a",
+    "tldr": "An oracle-efficient RL algorithm learns to compete with a statewise combination of existing policies without receiving their value functions."
+  },
+  "neurips-2024-padellm-ner-parallel-decoding-in-large-language-models-for-named-entity-recognition-6875b709dc": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Named entity recognition identifies entity mentions in text and assigns their labels. When a language model generates all mentions and labels sequentially, the resulting output can be long, increasing the time needed to obtain a prediction. This paper focuses on reducing that generation delay.",
+      "PaDeLLM-NER changes the decoding process so that mentions can be decoded simultaneously. The method fits into existing generative-model frameworks without adding modules or changing the architecture. Its central idea is to reduce the sequential work associated with producing multiple mentions, making the organization of generation itself the target of the efficiency improvement.",
+      "Experiments in English and Chinese report inference speeds between 1.76 and 10.22 times those of the autoregressive approach. Prediction quality remains comparable to state-of-the-art results across the evaluated datasets. These findings indicate that parallel mention decoding can deliver substantial latency reductions while preserving competitive recognition quality in the tested settings. The range of reported gains also makes clear that the improvement varies across evaluations."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "061428555f12375439b01f2207d33ffcd9652adeec8938fc7592df9012231e81",
+    "tldr": "PaDeLLM-NER decodes entity mentions in parallel, reporting 1.76–10.22 times faster inference while maintaining competitive recognition quality."
+  },
+  "neurips-2024-pruning-neural-network-models-for-gene-regulatory-dynamics-using-data-and-domain-knowled-78ae27144e": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "For a model of gene regulation, having fewer connections does not automatically make those connections biologically meaningful. The paper shows that established neural-network pruning techniques can find sparse models while struggling to recover useful biological structure. This matters when a model is intended to support scientific understanding as well as prediction.",
+      "DASH guides pruning with domain-specific structural information during model fitting. In the gene-regulation application, that information concerns potential interaction partners within the proposed regulatory network. Incorporating it into pruning directs simplification toward structures informed by biological knowledge, addressing an aspect of interpretability that generic sparsity alone does not capture.",
+      "The authors evaluate DASH on synthetic data with known ground truth and on real gene-expression data. They report substantially better results than general pruning methods, producing sparser models that are easier to interpret and more robust to noise. The findings support using both data and structural knowledge when simplifying scientific neural models, with the resulting networks providing deeper insights into the studied biological systems."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "fdfcef72b842006974760ceb722f26e991cef6c54ada8b89999f9630faa59002",
+    "tldr": "DASH uses biological structural knowledge to guide neural-network pruning, yielding sparser, more interpretable gene-regulation models with improved noise robustness."
+  },
+  "neurips-2024-quadmamba-learning-quadtree-based-selective-scan-for-visual-state-space-model-0867a8b5a2": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Applying sequence models such as Mamba to images requires deciding how to scan two-dimensional visual tokens. A raster scan can disrupt spatial adjacency, while manually fixed windows can restrict longer-range relationships. Images also contain information at different levels of detail, making a single rigid partition poorly suited to their varied structure.",
+      "QuadMamba learns a quadtree-based partition and scan. Its lightweight module estimates locality scores from token features and uses them to adaptively divide tokens into window quadrants. An omnidirectional window-shifting scheme helps capture information across local regions. Together, these mechanisms are designed to preserve useful spatial relationships while accommodating different granularities within an image.",
+      "Because the partition decisions are discrete, the authors introduce sequence masking based on Gumbel-Softmax and a straight-through gradient estimator to enable end-to-end training. Experiments report state-of-the-art performance across image classification, object detection, instance segmentation, and semantic segmentation. The contribution is a learned way of organizing visual data for state-space processing, supported by results across several kinds of visual prediction."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "55fe651b01f673eb81f5c878ff7e277edaf9d740b6122a704d8501498435c889",
+    "tldr": "QuadMamba learns adaptive quadtree scans that preserve image locality, reporting state-of-the-art results across several vision tasks."
+  },
+  "neurips-2024-regression-under-demographic-parity-constraints-via-unlabeled-post-processing-62eee654e0": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies how to adjust regression predictions to satisfy demographic parity even when sensitive attributes are unavailable at inference. The approach operates through post-processing, using estimates of the regression function together with a predictor of the sensitive attribute. Accurate estimates of these quantities are part of the stated basis for the method.",
+      "The algorithm discretizes the problem and performs stochastic minimization of a smooth convex function. Its analysis requires precise control of the gradient norm, so the authors use optimization techniques more advanced than standard stochastic gradient descent. The post-processing step uses only unlabeled data, and the framework also accommodates online post-processing and multiclass classification.",
+      "Finite-sample analysis and post-processing bounds provide the theoretical foundation, with experiments supporting the theoretical findings. The result is a general-purpose procedure for imposing a demographic-parity constraint after prediction while avoiding the need to observe sensitive attributes at deployment. The unlabeled-data requirement applies to the post-processing stage; the method still relies on the regression and sensitive-attribute predictors it takes as inputs."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5f5d6313aa3c02934c170c129382df7170fb02bdb338dd62d51f6ff936331fc4",
+    "tldr": "A theoretically grounded post-processing method targets demographic parity using unlabeled data and accurate predictors, without sensitive attributes at inference."
+  },
+  "neurips-2024-robust-conformal-prediction-using-privileged-information-9f76f554fc": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Conformal prediction constructs sets of possible answers with a guaranteed coverage rate under its assumptions. Missing or noisy training variables can create a distribution shift that makes a naive application unreliable. This paper develops a way to retain coverage guarantees when training-data corruption causes that mismatch.",
+      "The method assumes access to privileged information: additional features that explain the shift but are available only during training. It introduces a generalization of weighted conformal prediction that uses this information to account for the distribution change. The key challenge is obtaining reliable prediction sets at test time even though those explanatory features are no longer available.",
+      "The authors provide theoretical coverage guarantees for their approach. Experiments on real and synthetic datasets indicate that it achieves valid coverage and produces more informative predictions than the compared existing methods, which lack the stated theoretical support. The contribution therefore connects training-only knowledge about corruption to test-time uncertainty estimates, with the availability of suitable privileged information forming an explicit assumption of the approach."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f7c3287ce6f551a490ce3503b6658037ad6399129cf2008f30092bb27400815d",
+    "tldr": "A generalized weighted conformal method uses training-only privileged information to provide coverage guarantees despite corruption-induced distribution shifts."
+  },
+  "neurips-2024-semi-truths-a-large-scale-dataset-of-ai-augmented-images-for-evaluating-robustness-of-ai-895256bb6c": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "An image can combine real content with localized AI-generated edits, making detector evaluation more complicated than distinguishing wholly real from wholly generated pictures. Semi-Truths is designed to test how detectors respond to different kinds and amounts of AI augmentation, as well as differences in scenes and data distributions.",
+      "The dataset includes 27,600 real images, 223,400 masks, and 1,329,155 AI-augmented images. Its targeted edits are produced with varied augmentation techniques, diffusion models, and source distributions. Each augmented image includes metadata that supports standardized evaluation and more focused tests of particular editing conditions.",
+      "The authors find that state-of-the-art detectors respond differently to perturbation type, perturbation degree, data distribution, and augmentation method. This means detector behavior can depend on how an image was modified and where it came from. The dataset makes those dependencies more directly examinable, providing a way to assess robustness across localized edits instead of relying only on a broad aggregate assessment of detection performance."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b6ecdc5e485c46c4ec81d438dd68ca8e95d4e77f796c78105c53275658a4a91f",
+    "tldr": "Semi-Truths provides over 1.3 million locally AI-edited images to reveal how detector performance varies with edits, methods, and data distributions."
+  },
+  "neurips-2024-state-free-reinforcement-learning-2fcb1fe3ce": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Reinforcement-learning algorithms may depend on information about the environment's state space before interaction begins. This paper studies a setting where that information is unavailable. The goal is to learn without advance knowledge of the state space while obtaining a performance guarantee that reflects the states relevant to the learner's policy class.",
+      "The authors define the reachable set as states that have a positive probability of being visited under at least one policy in the considered class. Their algorithm requires no prior state-space information, and its regret depends on this reachable set rather than the full state space. Regret measures the performance shortfall accumulated through learning, so the result links that shortfall to reachability.",
+      "This distinction matters because the full collection of states can include states outside the reach of the considered policies. The guarantee avoids dependence on that larger collection. The authors present the result as a first step toward parameter-free reinforcement learning, whose broader goal is to remove hyperparameter tuning; the stated contribution specifically addresses prior state-space information."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2af857a0e1a07355c7f6093085f2cca4e610bab5eeb9124ad917fd75e44dba33",
+    "tldr": "A state-free RL algorithm needs no advance state-space information and has regret depending on reachable states rather than the full state space."
+  },
+  "neurips-2024-synrs3d-a-synthetic-dataset-for-global-3d-semantic-understanding-from-monocular-remote-s-bf42c1ddfd": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Understanding land cover and height from a single remote-sensing image requires richly annotated training data. Collecting that data is costly, and existing coverage can be geographically narrow. SynRS3D addresses these obstacles with a synthetic-data pipeline designed for Earth observation, where annotations can be generated automatically alongside the images.",
+      "The dataset contains 69,667 high-resolution optical images spanning six city styles from around the world. It includes eight land-cover categories, precise height information, and building-change masks. These annotations support learning both what occupies a location and its vertical structure, giving the synthetic images several complementary forms of supervision.",
+      "The authors also introduce RS3DAda, a multitask unsupervised domain-adaptation method for transferring from synthetic imagery to real imagery. It targets land-cover mapping and height estimation together. Experiments on multiple real-world datasets support the adaptability and effectiveness of the dataset and method. The contribution pairs a diverse synthetic resource with an explicit mechanism for addressing the synthetic-to-real transition, an essential part of making those generated annotations useful for real Earth observation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "db3fb6afa42575c1649f28f92e61ea2409227f90cca031294650bd800048e1b3",
+    "tldr": "SynRS3D pairs richly annotated synthetic remote-sensing imagery with domain adaptation to support real-world land-cover mapping and height estimation."
+  },
+  "neurips-2024-the-fairness-quality-tradeoff-in-clustering-a43db2994c": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Clustering can involve competing goals: producing high-quality groups and satisfying a fairness objective. Choosing one balance hides the other available compromises. This paper develops algorithms for tracing the Pareto front, the set of solutions for which no other clustering improves one objective without worsening the other.",
+      "The algorithms cover two broad classes of quality and fairness objectives, encompassing many previously studied cases. Computing the complete front exposes how much quality must be exchanged for a fairness improvement, or vice versa. However, the front itself can contain exponentially many solutions, so listing it can inherently require exponential time.",
+      "The authors also prove a stronger obstacle: even when the front has polynomial size, exponential computation cannot generally be avoided unless P equals NP. They identify a tractable special case with fixed cluster centers and a fairness objective that sums the imbalance between two groups across clusters. For that setting, a polynomial-time algorithm computes the entire front, establishing both general computational limits and a concrete setting where complete tradeoff analysis is efficient."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "362af809539b5b2179e5d2bd36f3bb6d4ff2ab5506b764873b2602a809e4f28e",
+    "tldr": "The paper computes fairness-quality tradeoff fronts for clustering, proves general complexity barriers, and gives an efficient algorithm for a fixed-center special case."
+  },
+  "neurips-2024-truncated-variance-reduced-value-iteration-bd344143b6": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper develops faster randomized algorithms for finding approximately optimal policies in discounted Markov decision processes with bounded rewards. It studies two access settings: an unknown transition model that can be sampled through a generative oracle, and a known sparse transition matrix available offline.",
+      "The method builds on variance-reduced value iteration, which improves value estimates while controlling sampling noise. Its new ingredient carefully truncates how far successive iterates progress. That control improves the variance of new sampling procedures used to implement the updates, yielding better running-time bounds.",
+      "In the sampling setting, the improvement reduces an additive inverse-discount-gap dependence from cubic to quadratic while retaining the accuracy-dependent term. In the offline setting, runtime is nearly the transition matrix's sparsity plus a quadratic inverse-discount-gap term, suppressing logarithmic factors. The sampling implementation is essentially model-free and uses space nearly linear in the number of state-action pairs. Under the stated generative-oracle access assumptions, these results narrow the sample-complexity gap between model-free and model-based methods without claiming to close it completely."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1446cd10de61be6e440d363fb80b4c439e962110175981543e63b98b687eef2d",
+    "tldr": "Carefully truncating variance-reduced value-iteration updates yields faster policy computation for sampled and known sparse discounted Markov decision processes."
+  },
+  "neurips-2024-verified-safe-reinforcement-learning-for-neural-network-dynamic-models-0a2f9304f6": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A controller can perform well during training yet remain difficult to verify formally. This paper combines reinforcement learning with safety verification for nonlinear systems represented by neural dynamics. Its safety target is a reachability proof over a finite horizon, while the learning process also seeks high overall performance.",
+      "Three components support that goal. A curriculum gradually extends the horizon over which safety is verified. Incremental verification reuses information from earlier verification runs as gradient-based learning updates the controller. Finally, the method learns multiple verified controllers associated with different initial states, helping address domains where one universally verified controller is especially difficult to obtain.",
+      "Across five safe-control problems, the authors report verified horizons up to an order of magnitude longer than state-of-the-art baselines while maintaining high reward. They also observe a perfect safety record over complete experimental episodes. These are complementary forms of evidence: the formal proofs cover finite horizons, while the full-episode safety record describes observed experimental behavior. The method therefore improves both verified reach and practical performance in the evaluated problems."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e19c595b571ebbd02cb4c71b5005e4b2fc8321e8908828e5841e168e5f211963",
+    "tldr": "Curriculum learning, incremental verification, and initial-state-specific controllers extend formally verified safety horizons while retaining high reward in evaluated control problems."
+  }
+}

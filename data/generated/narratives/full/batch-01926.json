@@ -1,0 +1,377 @@
+{
+  "icml-2026-adamo-a-collapse-suppressed-optimizer-for-offline-rl-b36cc7cbff": {
+    "backgroundConcepts": [
+      "topic-209-a-deep-bayesian-policy-reuse-approach-against-no"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Offline reinforcement learning estimates the usefulness of actions from a fixed dataset. Its critic repeatedly learns from targets that depend on its own predictions, creating a feedback loop in which errors can grow into extreme, unusable values. This paper argues that the optimizer itself can trigger or suppress that collapse, alongside the learning rule and network architecture.",
+      "The authors analyze Adam-based critic learning as a feedback system. Within this analysis, stability holds exactly when the spectral radius of the update dynamics is below one, meaning repeated updates do not amplify disturbances indefinitely. They also identify how Adam can distort parameter geometry in ways that amplify temporal-difference errors.",
+      "AdamO adds a separate orthogonality correction to Adam, with a strict budget controlling its alignment with the task. The authors prove worst-case task safety and preservation of Adam’s continuous-time dissipative dynamics for their design. Experiments across offline reinforcement learning methods and benchmarks show improved stability and returns. The contribution makes optimizer design a direct intervention point for controlling self-amplifying critic errors."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f98b03e6c6914d1c3e9d51906a22fa530f1721ab35616d4e77b10b3a056f524e",
+    "tldr": "AdamO modifies Adam with a constrained orthogonality correction to suppress critic collapse and improve offline reinforcement learning."
+  },
+  "icml-2026-behavior-invariant-task-representation-learning-with-transformer-based-world-models-for--ff0f5103a9": {
+    "backgroundConcepts": [
+      "topic-087-reinforcement-learning-with-prototypical-represe"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Offline meta-reinforcement learning uses previously collected experience to prepare an agent for unfamiliar environments. A central difficulty is separating what defines a task from how the data-collecting policy happened to behave. If those become entangled, changes in observed experience can disrupt adaptation. Sparse rewards make the problem harder by providing fewer signals about useful behavior.",
+      "This paper combines information-theoretic task representation learning with a stochastic world model built around a Transformer. The representation extracts hidden task variables that are invariant to the behavior policy. This aims to preserve task identity even when the pattern of collected behavior changes, reducing the mismatch between training contexts and those encountered during adaptation.",
+      "The world model also supports imagined rollouts, but an agent could exploit inaccuracies in those predictions. A conservative value penalty addresses that risk and the shift in policy behavior. Evaluations report better performance than state-of-the-art approaches, together with greater stability and generalization in out-of-distribution and sparse-reward settings. The framework therefore addresses both task recognition and cautious policy improvement within a learned model."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f2dcf974e5202b35e47d79463a48391f022ff294687d1ea8b431f2b5d30f3771",
+    "tldr": "Behavior-invariant task representations and conservatively evaluated world-model rollouts improve adaptation in offline meta-reinforcement learning."
+  },
+  "icml-2026-class-prior-perturbation-robust-regularization-for-imbalanced-unreliable-partial-label-l-ec85671fe1": {
+    "backgroundConcepts": [
+      "topic-247-a-close-look-at-negative-label-guided-out-of-dis"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Learning becomes especially difficult when some classes are rare and each example comes with an uncertain, potentially unreliable set of candidate labels. Many techniques for class imbalance depend on estimating class frequencies, also called class priors. Those estimates then guide decisions such as resampling examples or adjusting predictions.",
+      "The paper identifies a problem with relying on these estimates early in training: ambiguous labels can make them unstable or inaccurate, sending the model toward a poor solution. CLAPOR addresses this by training under deliberately varied class priors. It samples these alternatives from a Dirichlet distribution that departs from the current estimate, encouraging performance to remain consistent despite uncertainty about the true class proportions.",
+      "The method still uses a current estimate to construct perturbations, but its design avoids requiring that estimate to be accurate. Training across plausible disturbances also helps preserve attention to minority classes. Experiments on benchmark datasets report effectiveness across multiple imbalanced, unreliable partial-label settings. The main idea is to make balancing robust to uncertain class frequencies instead of letting an early estimate dictate learning."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6c88805317e78e5bca1b5b0f2b374c939ebbad184960c35555d2e10a28567f65",
+    "tldr": "CLAPOR improves learning with imbalanced, unreliable candidate labels by making training robust to deliberately perturbed class-frequency estimates."
+  },
+  "icml-2026-confu-contemplate-the-future-for-better-speculative-sampling-51f0603539": {
+    "backgroundConcepts": [
+      "topic-248-a-partition-cover-approach-to-tokenization"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Speculative decoding speeds up language-model generation by having a lightweight model propose tokens for a larger target model to verify. Its usefulness depends on how often those proposals are accepted. The paper identifies accumulating draft errors as a bottleneck: conditioning only on the existing prefix can let successive predictions drift away from the target model.",
+      "ConFu gives the draft model signals about the future direction of generation. It introduces contemplate tokens and soft prompts that draw future-oriented information from the target model at a cost the authors describe as negligible. A mixture-of-experts mechanism dynamically adapts contemplate tokens to the context, while anchor token sampling and future prediction replication train the model to anticipate future generation more robustly.",
+      "Experiments with Llama-3 models of 3B and 8B parameters report improvements in token acceptance and generation speed over EAGLE-3 of 8–11% across downstream tasks. These findings support future-oriented guidance as a way to improve draft usefulness. The framework connects speculative decoding with continuous reasoning tokens, giving the draft model an additional source of direction before its proposals are verified."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "cf6939448fff91e3b931f38f70063ad4698dce28029a16e48e6862f3e4564e22",
+    "tldr": "ConFu gives speculative draft models future-oriented signals, improving token acceptance and generation speed over EAGLE-3 in the reported evaluations."
+  },
+  "icml-2026-conserve-fine-grained-gpu-harvesting-for-llm-online-and-offline-co-serving-bcd48eea47": {
+    "backgroundConcepts": [
+      "topic-161-s-3-increasing-gpu-utilization-during-generative"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Language-model serving must respond quickly to interactive requests while keeping GPUs productive. Variable demand makes those goals difficult to combine: hardware can sit partly idle even though background work is available. Running that work alongside interactive requests creates an opportunity, but coarse resource management can let background execution delay urgent responses.",
+      "ConServe coordinates the two workloads at much smaller intervals. It schedules at the token level with latency in mind, allows execution to be interrupted between layers within an iteration, and manages the key-value cache incrementally. Together, these mechanisms let offline tasks occupy GPU gaps lasting only milliseconds while preserving strict latency guarantees for online requests.",
+      "Across real-world workloads using Llama-3.1 and Qwen-2.5, the system reports 2.2 times higher throughput on average and a 2.9-fold reduction in online tail latency compared with state-of-the-art systems. Tail latency concerns the slower end of response times, so the results address responsiveness as well as total work completed. The contribution shows how fine-grained coordination can make latency-tolerant work useful during brief periods of otherwise unused capacity."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d3f52cd67e2b367a2248fbf8d3ab05ac65d2b35c16137423bf55f667c5b014bb",
+    "tldr": "ConServe fills millisecond-scale GPU idle periods with offline work while preserving online latency guarantees and improving measured serving performance."
+  },
+  "icml-2026-epistemic-gain-aleatoric-cost-uncertainty-decomposition-in-multi-agent-debate-for-math-r-7e7a7149fd": {
+    "backgroundConcepts": [
+      "topic-017-texttt-multi-2-hierarchical-multi-agent-decision"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Having several language-model agents debate a mathematical problem can improve reasoning, but the effects of exchanging information are not straightforward. Accuracy can rise even as token entropy increases, and groups of similar agents can behave differently from mixed groups. These observations make a single measure of uncertainty an incomplete explanation of debate quality.",
+      "The paper introduces a Bayesian analysis that separates answer-level predictive uncertainty into epistemic and aleatoric components. It interprets these as the potential informational gain and uncertainty cost of debate. Across agent configurations, the authors find that effective debate combines substantial epistemic gain with controlled aleatoric cost. This distinguishes useful information exchange from uncertainty that makes the reasoning process less productive.",
+      "The authors turn that analysis into an uncertainty-guided multi-agent reinforcement learning algorithm. Training encourages agents to use epistemic information more effectively while lowering aleatoric cost. Experiments report improvements in each agent’s accuracy and in the productivity of the debate process. The contribution supplies both an explanation for seemingly contradictory uncertainty patterns and a training objective aimed at improving how agents learn from one another."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "64064663209cfdcfde6a4bb47f67e5ce49335f87819292a2a26709dae0c6f631",
+    "tldr": "Separating informational gains from uncertainty costs helps explain multi-agent math debate and guides training that improves individual agents’ accuracy."
+  },
+  "icml-2026-evaluating-and-explaining-prompt-sensitivity-of-llms-using-interactions-8b334a6091": {
+    "backgroundConcepts": [
+      "topic-199-a-benchmark-for-systematic-generalization-in-gro"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Small wording changes that do not alter a prompt’s meaning can still change a language model’s performance. Most evaluations measure this sensitivity by comparing final answers. This paper asks what those comparisons miss when the answer stays the same but the relationships supporting its output score change substantially.",
+      "The authors decompose the output score into interactions, each representing a nonlinear relationship among a set of input variables. They find that subtle prompt changes can destabilize these interactions even without changing the final output. Their Interaction-based Prompt Sensitivity metric measures how much the interactions move under small prompt perturbations, exposing sensitivity that answer-level comparisons can conceal.",
+      "Applying the metric to 50 open-source language models, the study identifies four factors associated with reduced prompt sensitivity: supervised fine-tuning, larger models, dense architectures, and few-shot learning. It also finds a shared pattern: all four tend to stabilize low-order interactions, which involve relatively few input variables. The results give a more detailed account of prompt robustness by linking observed improvements to particular kinds of input relationships."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "74ff908ebe5dd31a4ecf6c0844a41bb70de9b281ec628dc8b69a1cf47102d1e7",
+    "tldr": "An interaction-based metric reveals prompt sensitivity hidden by unchanged answers and connects several robustness factors to more stable low-order interactions."
+  },
+  "icml-2026-focus-then-contact-speeding-up-robotic-contact-rich-task-learning-with-affordance-guided-0e517dc0d5": {
+    "backgroundConcepts": [
+      "topic-131-textit-himacon-discovering-hierarchical-manipula"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Robotic tasks involving sustained physical contact can require substantial human involvement during reinforcement learning. Visual distractions and changes in object position add difficulty because the robot must both reach the relevant area and interact with it successfully. Focus Then Contact aims to accelerate this learning process through a lightweight, low-cost combination of action guidance, rewards, and feedback.",
+      "The method uses residual reinforcement learning with base actions to help the arm reach target regions quickly, improving sample efficiency. An affordance-guided reward directs learning toward regions relevant to the intended interaction. Force-control feedback then helps the arm continue engaging those goal areas, connecting visual focus with physical contact.",
+      "The authors also refine how human input and reinforcement learning share control, preventing conflicts over the robotic arm. Evaluations on six contact-rich tasks show higher success rates than baseline methods and faster learning in the real world. The result supports coordinating movement toward a target, task-relevant attention, contact feedback, and human intervention as complementary ways to improve learning efficiency. Human participation remains part of the proposed training setting."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "834f2008d62f4cab78675ee82470e02b23561ae03e67b11a96651719d2c983c1",
+    "tldr": "Focus Then Contact combines residual learning, affordance-guided rewards, and force feedback to accelerate human-assisted learning of robotic contact tasks."
+  },
+  "icml-2026-information-dynamics-and-memory-in-neural-networks-through-fisher-information-diffusion-0d3b97dcde": {
+    "backgroundConcepts": [
+      "topic-028-textit-neuropath-a-neural-pathway-transformer-fo"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A recurrent network can remember a past input through its ongoing activity, without settling into a fixed state that represents that input. This paper develops a theory of such dynamic memory. It asks how network connections govern the movement and retention of information across interacting groups of neurons over time.",
+      "Using dynamic mean-field theory and ideas from physical diffusion, the authors derive a Fisher information diffusion operator. This connects the network’s connectivity to the time-dependent propagation of information. The analysis finds that operating near criticality, with spectral radius near one, is necessary but insufficient for reliable memory in structured or non-normal recurrent networks. Input and output structure must also align with stable dynamical subspaces.",
+      "That distinction yields initialization rules designed to balance stability with sensitivity to inputs and reduce vanishing or exploding gradients. On the copy task and sequential MNIST, these initializations produce faster convergence and higher accuracy than standard random initialization. The work therefore connects a theory of information retention to practical network design, showing why a suitable overall stability level alone does not ensure useful memory."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "dde6b7a87ae8555adfe09dfffebfd223f7fe55f2cbbdf2244aa3246aa66e86e8",
+    "tldr": "A theory of information flow in recurrent networks shows why near-critical dynamics alone are insufficient for memory and guides better initialization."
+  },
+  "icml-2026-innoeval-on-research-idea-evaluation-as-a-knowledge-grounded-multi-perspective-reasoning-4fecbbcaba": {
+    "backgroundConcepts": [
+      "topic-095-g-2-reader-dual-evolving-graphs-for-multimodal-d"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Language models can generate research ideas rapidly, but judging those ideas requires informed comparison, multiple criteria, and deliberation. The paper argues that existing automated evaluators often have narrow knowledge, collapse distinct dimensions of quality together, and inherit biases from using a language model as the judge.",
+      "InnoEval treats evaluation as evidence-grounded reasoning across several perspectives. A search engine gathers current evidence from diverse online sources to inform assessments. A review board with distinct academic backgrounds then evaluates multiple dimensions separately and works toward consensus. This design gives knowledge gathering and collective judgment explicit roles in the evaluation process.",
+      "The authors build evaluation datasets from authoritative peer-reviewed submissions and test individual scoring, pairwise comparisons, and evaluations involving groups of ideas. InnoEval consistently outperforms the tested baselines, with judgment patterns and consensus closely aligned with human experts. These findings support combining diverse evidence with differentiated reviewer perspectives for research assessment. Although the framework is designed to emulate human-level assessment, the stated evidence is its comparative performance and alignment with expert judgments."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "fc0d74637ae923dde6c9a7f301e0f4c0b800788f21f834ca2141936c884ace4d",
+    "tldr": "InnoEval combines evidence retrieval and reviewers with different academic perspectives to assess research ideas more closely in line with human experts."
+  },
+  "icml-2026-its-time-towards-the-next-generation-of-time-series-forecasting-benchmarks-abbd056f1f": {
+    "backgroundConcepts": [
+      "topic-026-k-2-vae-a-koopman-kalman-enhanced-variational-au"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "As forecasting models become more general-purpose, evaluation must reveal how well they handle new tasks. The authors argue that existing benchmarks are constrained by repeated use of legacy data, insufficient quality checks, unrealistic task configurations, and analyses that obscure broader patterns in model capability.",
+      "TIME introduces 50 fresh datasets and 98 forecasting tasks for strict zero-shot evaluation, designed to avoid data leakage. Its construction pipeline combines language models with human expertise to check data integrity. Forecasting configurations are shaped by operational requirements and the predictability of the variables involved, making task design part of the benchmark’s contribution.",
+      "The benchmark also evaluates models by temporal patterns rather than relying only on dataset identities or static labels. Structural time-series features describe properties of the underlying signals, helping connect performance to patterns that can recur across datasets. The authors evaluate 12 time-series foundation models and provide a leaderboard at multiple levels of detail. The resulting resource aims to make generalization easier to inspect through both realistic tasks and analyses of the temporal structures models handle."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "dec1e5576a97655e343ca2e4c555ef25808cb10297601b42540b86f0213020f4",
+    "tldr": "TIME evaluates forecasting foundation models on fresh, operationally grounded tasks and analyzes performance through shared temporal patterns."
+  },
+  "icml-2026-mada-attack-transferable-multi-modal-attention-distraction-adversarial-attack-against-vi-bce1f427d0": {
+    "backgroundConcepts": [
+      "topic-029-delta-mathrm-energy-optimizing-energy-change-dur"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Vision-language models depend on alignment between visual content and language. The paper studies universal adversarial perturbations that disrupt this alignment, arguing that approaches focused mainly on images overlook textual structure and cross-modal interactions. That omission can limit how well attacks transfer across tasks and model architectures.",
+      "The authors first observe that attention to each modality differs across layers and that early optimization is decisive. MADA-Attack builds on those observations with semantic token manipulation to redirect text-guided attention and fused embedding training to optimize textual and visual losses together. Adaptive data augmentation balances attack strength, transferability, and training efficiency.",
+      "Experiments report state-of-the-art attack performance and strong transferability while keeping computation lightweight. Average attack success rates are 82.60% for zero-shot classification and 73.42% for image captioning. The abstract also reports a 10% improvement over the state-of-the-art baseline for visual question answering and image-text retrieval. These results indicate that coordinated disruption across modalities can expose vulnerabilities that visual-only perturbation methods do not exploit as effectively in the evaluated settings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6ef6ae41ad88da762f0b540de0d94999a1692d87cb824522f3038b35e6e92d14",
+    "tldr": "MADA-Attack coordinates textual and visual disruption to produce strong, transferable adversarial attacks against vision-language models."
+  },
+  "icml-2026-not-all-frequencies-are-equal-energy-adaptive-diffusion-for-time-series-forecasting-a1efd9abf9": {
+    "backgroundConcepts": [
+      "topic-080-text-s-2-q-vdit-accurate-quantized-video-diffusi"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Diffusion forecasting learns to generate future signals through a process of adding and removing noise. The paper argues that applying uniform Gaussian noise ignores how unevenly energy is distributed across time-series frequencies. The same corruption can overwhelm higher-frequency details while leaving stronger low-frequency trends insufficiently diffused.",
+      "EADiff moves the process into the wavelet domain, where components at different scales can receive different noise levels. Its guiding principle is to perturb high-energy components more strongly and low-energy details more gently. A learnable mechanism adjusts this balance separately for each frequency band and each input instance, making the schedule responsive to the signal being forecast.",
+      "The framework uses low-frequency trends as conditions for generation and weights the training loss according to noise levels and signal characteristics. These elements coordinate how multiscale information is treated during both corruption and reconstruction. Experiments report consistent improvements over existing diffusion-based forecasting approaches and state-of-the-art deterministic methods. The results support matching the noise process to the signal’s energy structure as a useful design choice for forecasting."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "60a71474b752488c8b2033f995d6fd5e439be8cc3380aa516d44102436822399",
+    "tldr": "EADiff improves time-series forecasting by adapting diffusion noise to the energy of each frequency band for each input."
+  },
+  "icml-2026-offline-multi-agent-reinforcement-learning-via-sequential-score-decomposition-a227b925a7": {
+    "backgroundConcepts": [
+      "topic-147-textdt-text2-decision-targeted-digital-twins"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Offline cooperative learning can draw on datasets containing several distinct ways for agents to coordinate. This creates a joint behavior distribution with multiple modes. Keeping each agent individually close to the data may still produce an unfamiliar combination of actions, because individually plausible choices need not belong to the same coordinated behavior.",
+      "OMSD addresses this by sequentially decomposing the joint behavior policy into conditional distributions for individual agents. Diffusion-based generative models then provide regularization that coordinates agents around compatible behavior modes. A centralized critic guides the policy toward valuable regions while this conditional structure keeps joint actions aligned with the dataset.",
+      "The approach aims to explore high-value, in-distribution combinations and avoid joint actions outside the observed behavior distribution. Experiments across multiple datasets and continuous-control tasks report consistent state-of-the-art performance, with particular strength in difficult multimodal settings. The findings highlight why offline coordination must account for relationships among agents’ choices: matching each agent’s behavior separately can miss the structure that made the original joint behavior cooperative."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d4c798d2e9a34127dffb200b7ebb3c1ecddc9341d2b5d6a79896ab4d3b1d4364",
+    "tldr": "OMSD uses conditional diffusion-based regularization to keep offline agents’ actions coordinated within valuable behavior modes represented in the data."
+  },
+  "icml-2026-on-the-identifiability-of-poisson-branching-structural-causal-model-under-latent-confoun-aa7301e38f": {
+    "backgroundConcepts": [
+      "topic-090-a-causal-framework-for-decomposing-spurious-vari"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Count data can arise through branching events, such as an advertisement impression leading to a purchase with some probability. Poisson branching causal models describe these processes using probabilistic thinning for branching and independent Poisson noise for external influences. Existing approaches assume that all common causes are observed, which excludes hidden confounders.",
+      "This paper extends the model to include latent confounding. It uses probability generating functions, mathematical representations of count distributions, to characterize the resulting dependencies. A trie representation theorem connects the branching structure to algebraic properties of the functions’ monomials, creating a link between causal structure and observable distributional relationships.",
+      "The authors establish a complete local identifiability condition for three variables, covering causal patterns distinguishable up to monomial equivalence. That qualification defines the resolution of the result: patterns equivalent in this representation are not claimed to be distinguishable. They also develop a practical structure-learning algorithm and demonstrate its effectiveness on synthetic and real-world datasets. The contribution extends causal discovery for branching counts while explicitly characterizing which local structures can be recovered despite hidden common causes."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a7b19a3a51b48b97b1893d42a49290254fbf1261c0cb2394bfd0f6b0952537dd",
+    "tldr": "A latent-confounder extension of Poisson branching causal models characterizes local three-variable identifiability and supports practical structure learning."
+  },
+  "icml-2026-on-the-plasticity-and-stability-for-post-training-large-language-models-93712789a0": {
+    "backgroundConcepts": [
+      "topic-153-v-0-a-generalist-value-model-for-any-policy-at-s"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Post-training a language model must balance learning new reasoning behavior with retaining broader capabilities. For Group Relative Policy Optimization, the paper identifies a source of instability in this balance: gradients supporting adaptation and gradients supporting retention can point in conflicting directions, so an update can undermine one objective while advancing the other.",
+      "The authors argue that deterministic gradient projections do not adequately account for the randomness inherent in estimates formed from groups of samples. Probabilistic Conflict Resolution instead models gradients as random variables within a Bayesian framework. It uses uncertainty-aware soft projection to arbitrate conflicts dynamically, with the goal of improving the signal-to-noise ratio of the resulting updates.",
+      "This changes conflict handling from a decision based only on an estimated direction to one that also accounts for uncertainty in that estimate. Experiments report substantially smoother training trajectories and better performance across reasoning tasks. The findings support treating gradient uncertainty as part of the optimization problem when balancing reasoning plasticity and stability, rather than assuming every observed conflict reflects an equally reliable learning signal."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2a9e72d56922a3ecfa40caa4ccadc4e7167317effe5d96724a4263ffadc8d8ad",
+    "tldr": "Probabilistic Conflict Resolution accounts for gradient uncertainty to reduce destructive interference and improve GRPO reasoning training."
+  },
+  "icml-2026-symspectra-symmetric-information-bottleneck-framework-for-molecular-structure-recognitio-fc27e5fb28": {
+    "backgroundConcepts": [
+      "topic-092-pocket2mol-efficient-molecular-sampling-based-on"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Recognizing molecular structure from spectra is complicated by uneven representation of functional groups and dependencies among them. A model can become good at frequent groups while missing rare ones. Combining several spectroscopic modalities also requires retaining useful distinctions without accumulating redundant information.",
+      "SymSpectra addresses these issues through a symmetric conditional information bottleneck. It merges multimodal spectral features into a shared representation designed to preserve discriminative signals and suppress redundancy. Conditional mutual information in the training objective increases sensitivity to rare functional groups and difficult molecular cases. A separate module models relationships among functional groups, supporting both prediction and chemically meaningful interpretation.",
+      "Experiments on multimodal spectral datasets report better performance than state-of-the-art methods, including an F1 score of 0.970 for substructure classification and robustness across different imbalance settings. The approach brings representation fusion, rare-group sensitivity, and dependency modeling into the same framework. Its stated results show that these components can work together to improve substructure recognition when the available examples favor common chemical groups."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "cfce19412c9ecf1dee3a7353aba8a5c82e98c3e92d201c1319c1e7eb28a0c761",
+    "tldr": "SymSpectra combines spectral information and functional-group dependencies to improve molecular substructure recognition under class imbalance."
+  },
+  "icml-2026-the-quality-utility-paradox-why-high-reward-data-impairs-small-model-mathematical-reason-024fb2f5c4": {
+    "backgroundConcepts": [
+      "topic-100-3-in-1-2d-rotary-adaptation-for-efficient-finetu"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A stronger reasoning model can produce mathematical solutions that receive higher reward-model scores, yet those solutions may be worse teaching material for a smaller model. The paper documents this mismatch across Qwen2.5, LLaMA-3, and DeepSeek families: stronger-model refinements or synthetic traces consistently underperform selected traces generated by the smaller learner itself.",
+      "The authors trace the problem to two changes happening together. Refinement repairs logic, but also shifts the reasoning trace away from the learner’s native distribution. Adapting to that unfamiliar form carries a cost that can outweigh the benefit of better logic. Perceived solution quality therefore does not directly determine how much a particular learner benefits from training on it.",
+      "To test this explanation, the authors introduce Style-Aligned Refinement, preserving the learner’s native reasoning trajectory while incorporating the stronger model’s logical repairs. This reduces adaptation cost and restores training utility, letting distilled models match or exceed baselines built from their own traces. The findings suggest evaluating teaching data jointly for logical quality and compatibility with the learner, rather than relying on reward-model scores alone."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "582b8403c523d7c94d060765f96d63ed4f5d5c1048f388adfd556e0b08d61dc9",
+    "tldr": "Higher-scoring mathematical traces can teach small models less effectively when their style drifts from the learner’s native reasoning distribution."
+  },
+  "icml-2026-toward-subspace-perturbed-trajectory-aware-backdoor-attacks-in-deep-reinforcement-learni-382f86a1f7": {
+    "backgroundConcepts": [
+      "topic-209-a-deep-bayesian-policy-reuse-approach-against-no"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Backdoor attacks on reinforcement-learning agents must balance several objectives: conceal the trigger, influence learning efficiently, and avoid inconsistencies that expose or weaken the attack. This paper presents SpecDRL as a framework that coordinates those objectives across the agent’s observations, experience trajectory, and reward-based value learning.",
+      "Its first component places triggers in relatively insensitive subspaces of the state representation, targeting perceptual blind spots. A second component uses return-to-go and temporal-difference error to identify influential moments in a trajectory. A third modifies reward poisoning under analytical constraints that enforce bounded value-function inconsistency and bound deviations in overall return.",
+      "These components connect where a trigger is embedded, when poisoned experience is introduced, and how its learning effects remain compatible with value estimates. Across 12 Atari environments, the authors report near-100% attack success, faster backdoor convergence, and preserved benign task performance. The results demonstrate a vulnerability in the evaluated agents: successful ordinary behavior can coexist with highly effective triggered behavior. The stated analytical bounds concern value consistency and return deviation, while attack effectiveness is supported by the reported experiments."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1f82e7ad2237dc622bbad147b6a48e84190a1227794116e7ea3e313815578ccb",
+    "tldr": "SpecDRL coordinates concealed triggers, influential trajectory moments, and value-consistent reward poisoning to achieve strong backdoor attacks in Atari evaluations."
+  },
+  "icml-2026-towards-rule-based-knowledge-sharing-in-federated-learning-a6b20bd13b": {
+    "backgroundConcepts": [
+      "topic-168-fl-2-overcoming-few-labels-in-federated-semi-sup"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Federated learning becomes harder when participants use different model architectures as well as different data. Their internal representations may be incompatible, making direct knowledge exchange confusing. Proxy models can support collaboration through distillation but add computation and communication, while lighter prototype representations can mix features with different meanings.",
+      "Rule-based federated learning changes the form of shared knowledge to interpretable rules that distinguish classes. A rule network unifies clients’ decision features, allowing collaboration at the rule level. The system selects a sparse collection of useful rules with broad coverage and broadcasts a compact class-rule set, reducing the amount of knowledge that must be communicated and processed.",
+      "Each client activates only the rules relevant to its local classes. This selective use is intended to reduce negative transfer while preserving personalization. Experiments across heterogeneous settings report a better balance between accuracy and communication cost. The contribution makes the knowledge-sharing format central to collaboration: clients exchange decision-relevant rules without requiring their incompatible internal features to be forcibly averaged."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5d1d694cab4e72c096cbb0c9373196c3cf6dfefa93f204f98d23c81721a057d0",
+    "tldr": "Rule-based federated learning shares compact, interpretable class rules to improve collaboration among clients with different model architectures."
+  },
+  "icml-2026-tracing-the-persona-circuit-how-large-language-models-encode-and-express-character-trait-e9861459d3": {
+    "backgroundConcepts": [
+      "topic-109-how-do-language-models-track-state"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Language models can drift out of character during extended role-playing conversations. Understanding why is difficult because personality appears across many tokens and behaviors, whereas standard causal attribution methods often target a single token. The paper develops a measurable proxy that makes this broader behavioral tendency accessible to fine-grained causal analysis.",
+      "The Latent Persona Vector is a differentiable representation used to trace how personality signals develop inside the model. The analysis reveals three stages: preparation, establishment, and expression. During establishment, persona-specific signals compete with a default assistant-like direction. The authors identify this competition as a mechanistic contributor to personality decay.",
+      "Guided by that diagnosis, the intervention recalibrates signal magnitude in fewer than 5% of attention heads. The authors report that this strengthens the persona signal and substantially restores character consistency while preserving general reasoning capabilities. The contribution links a behavioral measurement problem to an internal mechanism and a targeted intervention. It explains one contributor to out-of-character behavior through the balance of competing signals at a particular stage of processing."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "081b0c60f1f55342780021c4d44ed085324f76829ddb67cdb11d27c447b17151",
+    "tldr": "A Latent Persona Vector reveals competition behind character drift and guides a small attention-head intervention that improves persona consistency."
+  },
+  "icml-2026-uground-towards-unified-visual-grounding-with-unrolled-transformers-04da27df07": {
+    "backgroundConcepts": [
+      "topic-087-reinforcement-learning-with-prototypical-represe"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Visual grounding connects a language request to the corresponding image region. A common approach uses a segmentation token’s final hidden representation to prompt a vision model. UGround targets two weaknesses in that design: errors can accumulate through successive layers, and a textual representation alone does not provide explicit spatial guidance.",
+      "Its Policy-Prompted Masking mechanism makes both the layer choice and the prompt more spatially useful. A reinforcement-learning policy stochastically selects which intermediate transformer layer supplies the segmentation token representation. The method then compares that representation with image tokens to form a similarity map. This map becomes a soft mask prompt for the vision model, providing activation regions that indicate where to look.",
+      "The framework covers referring-expression and reasoning segmentation, single and multiple targets, and false-premise requests whose correct target is empty. This breadth treats those cases as attributes within a unified grounding framework. The central contribution is a flexible connection between language processing and mask generation: the model can select an intermediate representation and translate it into explicit spatial evidence instead of relying on a fixed final-layer prompt."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3ad90b2e254e6ce013186d42cb8ef758dee15453be4e1a9d68e11acee4467812",
+    "tldr": "UGround dynamically selects transformer layers and turns language-image similarity into spatial mask prompts for unified visual grounding."
+  },
+  "icml-2026-unifying-value-alignment-and-assignment-in-cross-domain-offline-reinforcement-learning-w-8e3819c577": {
+    "backgroundConcepts": [
+      "topic-147-textdt-text2-decision-targeted-digital-twins"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Cross-domain offline reinforcement learning uses source experience to supplement limited target-domain data. Differences in environment dynamics can make direct transfer harmful. The paper considers a broader setting in which source data comes from several domains and behavior policies, making it harder to decide which experience is useful for the target.",
+      "The authors identify value misassignment as a critical problem in this heterogeneous setting. Their empirical and theoretical analysis shows that assigning value incorrectly can undermine value alignment, make filtering favor suboptimal samples, and weaken the suboptimality bound. A filtering method can therefore make poor choices even when it is explicitly trying to retain high-value experience.",
+      "V2A combines dynamics alignment, value alignment, and value assignment. It learns temporally consistent representations to distinguish dynamics modalities, uses modality-aware advantage learning to correct value alignment, and then filters source data for policy learning. Experiments report substantial gains over strong baselines in heterogeneous cross-domain settings. The contribution makes the dynamics context of a value estimate part of the transfer decision, helping determine which source experience should actually be shared."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "93494d672886ca122a3f0a9f11da1699bb9686695d785e9ab579b3edfc694b81",
+    "tldr": "V2A improves heterogeneous offline transfer by correcting value assignment before filtering source experience for target-domain learning."
+  },
+  "icml-2026-veq-modality-adaptive-quantization-for-moe-vision-language-models-5b6cc131fe": {
+    "backgroundConcepts": [
+      "topic-029-delta-mathrm-energy-optimizing-energy-change-dur"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Mixture-of-experts vision-language models are expensive to store and run, making post-training quantization useful for compression. The paper argues that existing methods overlook two sources of uneven sensitivity: visual and language tokens behave differently, and different experts contribute unequally. A compression procedure that ignores either distinction can allocate error poorly.",
+      "Visual Expert Quantization incorporates both distinctions into calibration. One component uses expert activation frequency to prioritize error reduction for pivotal experts. Another combines token-expert affinity with modality information in an enhanced Hessian matrix, which guides how quantization error is treated. Together, these components make compression responsive to which experts are used and how their use relates to the input modality.",
+      "Across benchmarks, VEQ reports consistent gains over state-of-the-art quantization baselines. Under W3A16, the configuration using 3-bit weights and 16-bit activations, reported average accuracy gains are 2.04% on Kimi-VL and 3.09% on Qwen3-VL. The findings support accounting for both modality and expert heterogeneity when compressing these models, with robustness demonstrated across the evaluated multimodal tasks."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "af5be852632fb2062499fbb2befe04d8de61c69d5c88b3b655a757cbfb30de79",
+    "tldr": "VEQ improves quantization of mixture-of-experts vision-language models by accounting for modality differences and unequal expert contributions."
+  },
+  "icml-2026-when-sample-selection-bias-precipitates-model-collapse-7c24adf9dc": {
+    "backgroundConcepts": [
+      "topic-219-high-dimensional-structured-quantile-regression"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Repeatedly training models on synthetic data can gradually remove rare patterns and make outputs more uniform. Selecting apparently good synthetic examples is often proposed as a safeguard. This paper shows why that safeguard can fail when the verifier’s real-data reference is small, biased, and fragmented across separate institutions.",
+      "A verifier with only a local reference preferentially retains examples resembling its own slice of the distribution. It can reject rare patterns that matter globally but are poorly represented locally. Under the studied siloed-selection setting, the authors prove that selection accelerates collapse and produces power-law diversity decay. The issue arises from the reference used to judge samples, so filtering itself can become part of the collapse mechanism.",
+      "As an initial mitigation, the authors construct Wasserstein proxy references using information from multiple silos without sharing raw data. Experiments show that local-reference selection fails on skewed distributions, while collaborative proxies reduce diversity degradation. These findings qualify the value of synthetic-data filtering: when real-data coverage is fragmented or scarce, broader reference coverage matters for retaining globally relevant diversity."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0e0f2dffcefd9e2814211a1e7d902aeda8f8cf744524d3325b1097a07a396b94",
+    "tldr": "Filtering synthetic data against fragmented local references can accelerate model collapse, while collaborative proxy references mitigate diversity loss."
+  }
+}

@@ -1,0 +1,327 @@
+{
+  "icml-2022-active-multi-task-representation-learning-178f20230c": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Multi-task pretraining learns a shared representation from several source tasks before applying it to a target task with limited data. The paper asks how to choose source examples when those tasks are not equally useful. Sampling uniformly can spend resources on tasks with little relevance to the particular target.",
+      "The proposed algorithm makes source selection an active learning problem. It repeatedly estimates how relevant each source task is to the target and uses those estimates to decide how much to sample from each task. This makes the allocation responsive to information gathered during learning, rather than fixing equal sampling rates at the outset.",
+      "For linear representations, the authors prove that reaching the same error can require fewer source samples than uniform sampling, with a possible saving as large as the number of source tasks. This is an upper-end improvement, not a guaranteed saving in every case. Experiments on computer vision datasets illustrate the method with both linear representations and convolutional neural networks, extending the empirical investigation beyond the class covered by the stated theoretical result."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b020437a7b690595758d18ecb6e58df12065a917a0475e4c42a03243eb46eedf",
+    "tldr": "Actively estimating source-task relevance can reduce the data needed to learn a representation for a particular target task."
+  },
+  "icml-2022-coarsening-the-granularity-towards-structurally-sparse-lottery-tickets-82cb141c75": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The lottery ticket hypothesis concerns sparse subnetworks that can be trained on their own while matching the accuracy of a full network. Finding such subnetworks commonly involves repeatedly removing small weights. The resulting pattern can be highly irregular, making the mathematical reduction in weights difficult to turn into faster execution on hardware.",
+      "This paper adds structural post-processing after each round of ordinary magnitude pruning. One operation restores removed elements in channels judged important. Another rearranges nonzero elements into flexible groups. These steps seek hardware-friendly channel or group patterns while retaining the advantages of the pruning process that identifies promising subnetworks.",
+      "Experiments across multiple datasets and network backbones find both channel-based and group-based winning tickets with comparable accuracy and substantial inference speedups on existing hardware. The reported running-time savings reach roughly 60–65 percent across the named dataset settings. The result matters because it connects sparse subnetworks that train successfully with sparsity patterns that can actually accelerate computation, addressing the practical mismatch between removing individual weights and reducing execution time."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "bea729de0217ecec3050298f3548e034c68a1011dc8f8b4e419d2cfb59c1497b",
+    "tldr": "Adding channel restoration and weight regrouping to iterative pruning produces sparse winning tickets with demonstrated hardware speedups."
+  },
+  "icml-2022-flow-based-recurrent-belief-state-learning-for-pomdps-10092f6340": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "In a partially observable decision problem, the agent cannot directly see the complete environment state. A belief state represents its uncertainty as a probability distribution conditioned on past information. Learning this distribution is particularly challenging when hidden states are continuous and high dimensional, and the environment model is unknown.",
+      "FORBES combines recurrent belief-state learning with normalizing flows inside variational inference. Its purpose is to make the learned distribution more flexible than the approximations used by existing methods. Rather than forcing uncertainty into a restrictive shape, the model can represent more complicated possibilities about the hidden state. The resulting belief representation can then serve as input to downstream reinforcement learning algorithms.",
+      "The experiments show complex learned beliefs supporting predictions with multiple modes and high-quality reconstructions. On challenging tasks involving visual input and motor control, the authors report improved performance and sample efficiency. These findings connect the quality of uncertainty representation with downstream decision-making results: the learned beliefs are useful both for describing possible states and for supporting control in the tested environments."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3d3cdc756d0e806dd84875daeb557b5ae8a400f5c7e5296cf009fcc58e83f083",
+    "tldr": "FORBES uses normalizing flows to learn flexible belief distributions that improve control performance and sample efficiency in the reported experiments."
+  },
+  "icml-2022-improved-no-regret-algorithms-for-stochastic-shortest-path-with-linear-mdp-b1309d39a2": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The stochastic shortest path problem concerns learning to reach a goal while controlling accumulated cost. This paper studies the problem under a linear MDP model and introduces two algorithms with improved regret guarantees. Regret measures the extra cost incurred while learning compared with following an optimal policy.",
+      "The first algorithm is computationally efficient. Its regret grows with the square root of the number of episodes, with additional dependence on feature dimension, optimal expected cost, and optimal expected time to reach the goal. A modification gives a logarithmic-type bound involving the minimum suboptimality gap and minimum state-action cost. The analysis improves the accuracy of a finite-horizon approximation used to handle the original problem.",
+      "The second algorithm uses confidence sets that account for variance within a global optimization problem. It is computationally inefficient, but its regret bound has no polynomial dependence on optimal hitting time or inverse minimum cost. This separates two achievements: an efficient method with stronger guarantees than earlier results, and a horizon-free theoretical bound that approaches the stated lower bound while retaining a gap in its dependence on feature dimension."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2f29464d2a5282e6e7e8f62e5af933eee29427edf13868ed54af841b16867114",
+    "tldr": "Two algorithms improve regret guarantees for linear stochastic shortest path problems, including a computationally inefficient method with a horizon-free bound."
+  },
+  "icml-2022-learning-bellman-complete-representations-for-offline-policy-evaluation-ba579e616a": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Offline policy evaluation estimates how a policy would perform using previously collected data. Having a representation that can express the correct Q-function is insufficient by itself. The paper focuses on two sufficient ingredients: Bellman completeness, which concerns compatibility with value-update operations, and coverage, which concerns whether the data adequately support evaluation.",
+      "BCRL learns a representation designed to be approximately linear Bellman complete while providing good coverage. A second stage applies least-squares policy evaluation with linear functions of that representation. The authors analyze both stages together and establish polynomial sample complexity, conditional on the considered representation class containing a linear Bellman-complete representation.",
+      "Experiments use image-based continuous-control tasks. The learned representation improves evaluation over earlier representation-learning methods for off-policy reinforcement learning. It achieves errors competitive with fitted Q-evaluation and outperforms it when evaluation extends beyond the initial-state distribution. Ablations identify both completeness and coverage as crucial components. The contribution is therefore a method for learning properties that previous analyses often assumed were already supplied, together with theoretical and empirical evidence for their usefulness."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2a7cba53cdad8d8de45dedca1ba0d3edcfe2c95b822b2c89ae6fc26fd29c6ffa",
+    "tldr": "BCRL learns representations with Bellman-completeness and coverage properties to support accurate offline policy evaluation."
+  },
+  "icml-2022-learning-domain-adaptive-object-detection-with-probabilistic-teacher-88e3c7256d": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Adapting an object detector to an unlabeled target domain often relies on pseudo boxes: predicted object locations and categories used as training targets. Their quality strongly influences self-training. This paper focuses on uncertainty in those predictions, which previous approaches had largely overlooked.",
+      "Probabilistic Teacher uses a gradually evolving teacher to capture uncertainty in target-domain examples and guide a student detector. Uncertainty informs consistency training for both category prediction and object localization. The framework therefore uses uncertainty throughout adaptation instead of relying on an elaborate confidence threshold to filter boxes. It also adapts anchors alongside localization, treating anchors as learnable parameters.",
+      "The authors introduce Entropy Focal Loss to further support this uncertainty-guided training. With that loss, they report that Probabilistic Teacher substantially outperforms the previous baselines considered and achieves new state-of-the-art results. The central idea is to make the reliability of generated supervision part of the learning process. Classification, localization, and anchor adaptation are brought together within a framework designed to learn from unlabeled target data whose predicted annotations are uncertain."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1d850434ebce1e7059cd04a03439df67a2c2d6eb939c7c74bf7338adf8700713",
+    "tldr": "Probabilistic Teacher uses uncertainty in pseudo boxes to guide object-detector adaptation to unlabeled target data."
+  },
+  "icml-2022-learning-infinite-horizon-average-reward-markov-decision-process-with-constraints-b05fe19fa4": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies an agent that learns continually while seeking high average reward and respecting cost constraints. Two quantities matter: regret, which measures reward lost during learning, and constraint violation, which measures departure from the cost requirements. The results distinguish different classes of Markov decision processes.",
+      "For ergodic MDPs, the authors design a policy optimization method with a carefully constructed action-value estimator and bonus term. They prove regret proportional to the square root of elapsed time and constant constraint violation. This improves on the cited earlier algorithm, whose bounds for both quantities grow as time to the two-thirds power.",
+      "For the broader class of weakly communicating MDPs, a finite-horizon approximation yields an algorithm whose regret and violation both grow as time to the two-thirds power. A modification improves both rates to square-root growth but makes computation inefficient. The paper thus provides different guarantees depending on environment structure and computational demands. The constant violation result belongs to the ergodic setting; the more general setting receives separate bounds rather than inheriting that stronger guarantee."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9ea150dfb560915da9426ab96c3e03ac3635e73b40e68196c900d4da1b6bc505",
+    "tldr": "The paper gives improved reward-regret and cost-violation guarantees for constrained learning in ergodic and weakly communicating MDPs."
+  },
+  "icml-2022-learning-mixtures-of-linear-dynamical-systems-fe5258e26e": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper considers short time series generated by several different linear dynamical systems. Each observed trajectory comes from one system, but the learner is not told which one. The goal is to recover the underlying systems from this unlabeled collection, rather than treating all trajectories as observations of a single model.",
+      "Three difficulties interact. The trajectory assignments are hidden, individual sequences may be much shorter than the dimension of the systems, and observations within a sequence depend on one another over time. These features make it challenging to provide a guarantee covering the entire learning procedure, which the authors identify as largely absent from existing work.",
+      "The proposed solution is a two-stage meta-algorithm with an efficient recovery guarantee. Its stated error scales as the square root of system dimension divided by total sample size, up to logarithmic factors. This expresses how recovery benefits from more observations across the dataset while becoming harder as dimension increases. Numerical experiments support the theoretical study and the effectiveness of the algorithm for recovering multiple systems from short unlabeled trajectories."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0dba4ea7ce7d0e8b7ee4da8d92b0ff1a58f9e723fc7782a32f6bed08cf096cf2",
+    "tldr": "A two-stage algorithm recovers mixtures of linear dynamical systems from short unlabeled trajectories with an end-to-end error guarantee."
+  },
+  "icml-2022-me-gan-learning-panoptic-electrocardio-representations-for-multi-view-ecg-synthesis-cond-6d4e0beac8": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "ECG generation can provide synthetic signals for downstream analysis, but the paper identifies two gaps in previous methods: producing multiple views and conditioning the output on heart disease. ME-GAN addresses both by learning a shared electrocardio representation conditioned on disease and projecting it into multiple standard ECG views.",
+      "The architecture includes two specialized mechanisms. Mixup normalization injects disease information into suitable waveform locations, reflecting the observation that disease manifestations can be localized. A view discriminator learns to restore disordered ECG views to a predetermined order. This supplies supervision intended to make each generated view exhibit its appropriate characteristics.",
+      "The authors also introduce rFID as a metric for assessing generated ECG quality. Their experiments report effective multi-view synthesis with credible disease manifestations. The contribution combines a common representation across views with explicit guidance about where disease features should appear and how views should differ. The stated findings concern the quality and disease-related characteristics of synthesized signals, supporting the paper's goal of more controlled ECG generation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f6e61517b8de30f8e22e6095bb8d72ea5e49039ae1ef78915bdc4350804b2d37",
+    "tldr": "ME-GAN generates multiple ECG views conditioned on heart disease, with mechanisms for localized disease features and correct view characteristics."
+  },
+  "icml-2022-nystrom-kernel-mean-embeddings-bd89989258": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A kernel mean embedding represents a probability distribution as a single point in a Hilbert space. This makes distributions available to methods that operate on such representations, even when their original data live in varied kinds of spaces. Computing and storing the embeddings, however, can become too expensive for large datasets.",
+      "The paper proposes a Nyström approximation that uses a small random subset of the dataset. Its central theoretical result bounds the error introduced by this approximation. From that bound, the authors derive sufficient conditions on subset size for retaining the standard inverse-square-root sample-size rate while reducing computational costs.",
+      "The distinction between sufficient conditions and an unconditional promise matters: the result explains when a smaller representation can preserve the desired rate. The authors also discuss approximating maximum mean discrepancy, a comparison between distributions, and quadrature rules for approximating integrals. Numerical experiments illustrate the theory. Together, these contributions show how one efficient representation procedure can support several uses of kernel embeddings, with an explicit account of its approximation error."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7403c7e481d7470e28fecac3c9cbb4c3664eb7b537a54b97e908d4b2eddce110",
+    "tldr": "A Nyström approximation uses a small random subset to reduce kernel-embedding costs while retaining the standard error rate under sufficient conditions."
+  },
+  "icml-2022-on-collective-robustness-of-bagging-against-data-poisoning-6b2ee10690": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Bagging combines models trained on subsampled data and aggregates their predictions through voting. Earlier robustness certificates addressed individual predictions for particular forms of this procedure. This paper instead asks how many predictions a single global poisoning attack could change simultaneously, giving a collective view of damage across predictions.",
+      "The authors formulate that maximum number of changed predictions as a binary integer linear programming problem. This provides tight collective certification for general bagging. They also analyze ordinary bagging and derive an upper bound on the amount of poisoning it can tolerate, using that analysis to motivate a change to how training subsets are formed.",
+      "The resulting method, hash bagging, replaces random subsampling with deterministic subsampling based on hashes. Its purpose is to control the scope of influence of each poisoned sample across the ensemble. The authors describe this robustness improvement as coming at little additional cost and report experimental advantages in applicability and robustness. The work connects a stronger way to measure ensemble vulnerability with a concrete modification intended to reduce that vulnerability."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f405c6decd4b3b18b11b05811ebae89c6c01bbc599574c3a258ca0eec1d29989",
+    "tldr": "Collective certification measures how many bagging predictions poisoning can change, and hash-based subsampling improves the ensemble's robustness."
+  },
+  "icml-2022-on-non-local-convergence-analysis-of-deep-linear-networks-a4224154d9": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper analyzes optimization trajectories in deep linear networks under quadratic loss. Its setting includes a structural restriction: at least one layer has only one neuron. Within that setting, the authors study gradient flow from arbitrary balanced initializations, allowing a broader range of starting points within the balanced class.",
+      "The analysis characterizes where trajectories converge, including those that end at saddle points. Accounting for these paths matters because a description of successful trajectories alone would not explain the behavior across all of the allowed initializations. The result therefore concerns both the destination of optimization and the possibility of convergence to points other than global minimizers.",
+      "For trajectories that do reach global minimizers, the authors give convergence rates across different stages. These rates range from polynomial to linear. The work's non-local perspective extends beyond analyses restricted to lazy training or specially favorable initializations. Its contribution is a more detailed description of optimization dynamics under the stated network and initialization conditions, including how the speed of convergence can change along successful paths."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1a1a5b7d846b918ee6b2c398e0e23384d90e70d98b68c191619b29089f6a429d",
+    "tldr": "For deep linear networks with a one-neuron layer, the paper characterizes gradient-flow limits and staged convergence rates from arbitrary balanced initializations."
+  },
+  "icml-2022-on-the-sample-complexity-of-learning-infinite-horizon-discounted-linear-kernel-mdps-b31e9d8a7f": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper studies reinforcement learning in continuing environments where future rewards are discounted. It assumes a linear-kernel MDP: transition probabilities depend linearly on a predefined feature mapping. The question is how much interaction is needed to learn accurately, rather than only how much regret accumulates during learning.",
+      "The authors extend uniform-PAC sample-complexity analysis from episodic problems to this infinite-horizon setting and introduce UPAC-UCLK. Their bound is, up to logarithmic factors, the sum of d squared divided by ((1−γ) to the fourth power times ε squared) and one divided by ((1−γ) to the sixth power times ε squared). Here d is feature dimension, γ is the discount factor, and ε is the desired accuracy.",
+      "Both terms have inverse-square dependence on accuracy, while the discount factor contributes a substantial additional dependence. The authors identify this as the first such accuracy dependence for discounted infinite-horizon MDPs with linear approximation without access to a generative model. The contribution closes a gap left by an earlier regret guarantee, which did not yield a tight sample-complexity bound."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e20a07fdb7bf1d1e41c8183e58e4759369f7206605bff3a3729eee7f69880d4d",
+    "tldr": "UPAC-UCLK provides a uniform-PAC sample-complexity bound with inverse-square accuracy dependence for discounted linear-kernel MDPs without a generative model."
+  },
+  "icml-2022-on-well-posedness-and-minimax-optimal-rates-of-nonparametric-q-function-estimation-in-of-3d9e8ae052": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper studies off-policy evaluation in infinite-horizon environments with continuous states and actions. It focuses on estimating the Q-function and its derivatives without imposing a fixed parametric form. The authors recast this task as a special nonparametric instrumental-variables estimation problem, creating a route to analyze its statistical difficulty.",
+      "Under a condition described as mild, they show that this formulation is well-posed in an L2 sense relative to the data-generating distribution. This bypasses a strong restriction on the discount factor used in recent convergence analyses. The result addresses the stability of the estimation problem, providing a basis for establishing achievable error rates.",
+      "The authors derive minimax lower bounds for estimating both the Q-function and its derivatives under sup-norm and L2 error. These match the rates of classical nonparametric regression. They then propose a sieve two-stage least-squares estimator and prove that it reaches the optimal rates under mild conditions. The combination identifies the problem's statistical limits and supplies an estimator attaining them, while also informing analysis of other estimators and target-policy values."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "bc2d2bb0e075f74c2d3c9ee6cbcd3106ad54f0921989d7593ed4509b38378d7b",
+    "tldr": "An instrumental-variables formulation yields conditional well-posedness results and optimal nonparametric rates for off-policy Q-function estimation."
+  },
+  "icml-2022-online-active-regression-c78e2d5390": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Active regression seeks to fit a linear model while requesting labels for only a small portion of the available examples. This paper studies the online version: examples arrive individually, and the learner must immediately decide whether to obtain each label. The objective is to maintain a good regression fit as data accumulate under a limited query budget.",
+      "The authors propose algorithms for losses in the ℓp family with p between one and two. To obtain a solution within a multiplicative factor of 1+ε of the target regression objective, their label-query bound is approximately d divided by a polynomial in ε, with logarithmic factors suppressed. Here d describes the dimension of the regression problem.",
+      "The theoretical result ties label demand to dimension and desired accuracy while accommodating immediate decisions about incoming examples. Numerical results support the analysis and show performance comparable to offline active regression methods. This matters because the online learner must select labels incrementally, whereas an offline method can operate on the available collection together."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6e4bfb9d9065ffc483d16062acfbb0b0fd8b674ff1845093fd37c3ec97898e9f",
+    "tldr": "Online active regression algorithms choose labels as examples arrive and obtain approximate fits with a dimension- and accuracy-dependent query budget."
+  },
+  "icml-2022-perfectly-balanced-improving-transfer-and-robustness-of-supervised-contrastive-learning-7f42d88bd3": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Supervised contrastive learning can collapse all examples of a class to the same representation, losing distinctions useful for transfer and robustness. The paper argues that simply spreading examples apart is insufficient: the same spread can remain after arbitrary rearrangements within a class. Useful representations also need a mechanism that gives this internal arrangement meaningful structure.",
+      "The authors prove that a weighted class-conditional InfoNCE loss controls the degree of spread. They then examine three ways to break the permutation invariance: constraining the encoder, adding a class-conditional autoencoder, and using data augmentation. Their analysis finds that the latter two encourage latent-subclass clustering under more realistic conditions than the constrained-encoder approach.",
+      "Combining appropriately weighted class-conditional InfoNCE with a class-conditional autoencoder produces reported gains of 11.1 points on coarse-to-fine transfer across five datasets and 4.7 points on worst-group robustness across three datasets. The reported CelebA result improves the state of the art by 11.5 points. These findings support treating both the amount of within-class variation and its organization as central design choices."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6540483d32aaf10e7411a1a15e4b77b9a5247fb937a697193d734382115b9722",
+    "tldr": "Controlling within-class spread while organizing latent subclasses improves transfer and worst-group robustness in the reported supervised contrastive learning experiments."
+  },
+  "icml-2022-sample-efficient-learning-of-predictors-that-complement-humans-667f6a03c6": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "An expert-deferral system can make a prediction itself or pass the decision to a human expert. The paper emphasizes that the model should complement the expert's abilities. A predictor optimized only for its own average error may not target the cases where human assistance is weakest and automated prediction would be most valuable.",
+      "The authors provide a theoretical analysis of the benefit of learning such complementary predictors. They also study a family of consistent surrogate loss functions for expert deferral. These losses provide training objectives whose theoretical properties can be related to the underlying deferral task, helping connect practical optimization with the goal of an accurate combined decision system.",
+      "The final contribution is a set of active learning schemes designed to reduce the amount of human-expert prediction data needed during training. This addresses the cost of learning when to rely on the expert, alongside learning what the model should predict. The work frames sample efficiency around the joint human-model system, with complementarity and selective collection of expert predictions serving as linked parts of the learning problem."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e2038349d9488f430615c299f6807abf9c886eb8e086887ca542f177f83cff30",
+    "tldr": "The paper develops theory and active learning methods for predictors that complement human experts and learn when to defer."
+  },
+  "icml-2022-selling-data-to-a-machine-learner-pricing-via-costly-signaling-c2fbc21f2b": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper studies a seller offering training data to a machine learner when neither party knows the data's true quality. Estimating quality costs resources, and more precise information can affect the price a buyer will accept. The seller therefore faces a joint problem of acquiring information and designing a revenue-maximizing sale.",
+      "The authors investigate mechanisms that price data through costly signaling. They first consider homogeneous data, motivated by the assumption that examples are independently drawn from the same distribution. For this setting, they derive an optimal selling mechanism within the class under study, connecting the cost of quality assessment with the selling decision.",
+      "The analysis then turns to heterogeneous data, motivated by selling multiple datasets. Here the optimization becomes harder: achieving the stated constant approximation ratio e/(e+1)+o(1) is NP-hard. On the constructive side, the authors provide a 1/k approximation algorithm, where k is the number of possible private buyer types. These results distinguish an optimally solvable homogeneous setting from a heterogeneous setting with both computational barriers and a provable approximation method."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f6d679f368ab7d9e89ffde83efb8e711d3bf97815ff363185f91d3aee1fd490f",
+    "tldr": "Costly quality signaling yields an optimal selling mechanism for homogeneous data and approximation results for harder heterogeneous-data sales."
+  },
+  "icml-2022-strategies-for-safe-multi-armed-bandits-with-logarithmic-regret-and-risk-770f4d7e43": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "In this bandit problem, each action has unknown reward and safety-risk distributions. An action is considered unsafe when its mean risk exceeds a specified threshold. The learner seeks high rewards while avoiding unsafe actions, so uncertainty about safety is part of the exploration problem.",
+      "The paper defines a pseudo-regret measure that penalizes safety violations on individual rounds, regardless of any reward gained on those rounds. This captures a concern that aggregate reward or average performance alone could obscure. The proposed strategies maintain optimistic indices for both safety and reward, allowing both kinds of uncertainty to guide action selection.",
+      "The authors analyze versions using frequentist and Bayesian indices. They prove tight gap-dependent logarithmic regret bounds and show that unsafe actions are selected only logarithmically many times in total. This is a bound on the frequency of unsafe choices, rather than a guarantee that none occur during learning. Simulations demonstrate the strategies' effectiveness and investigate where they are appropriate, complementing the theoretical account of reward learning under per-round safety penalties."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0dea5ca8cf514acf70f1c1e0c9c9292c10d96fd0d26c8af747672d2c3f4ad930",
+    "tldr": "Strategies optimistic about both safety and reward achieve logarithmic regret and logarithmically many unsafe selections under the analyzed bounds."
+  },
+  "icml-2022-streaming-algorithms-for-support-aware-histograms-131b029fc6": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Histograms compress distributions into regions with constant values. Traditional error measures sum discrepancies across every item in the domain, treating errors equally whether or not an item has probability mass. The paper argues that this can prevent even relatively simple distributions from having compact, accurate histogram approximations.",
+      "The proposed alternative counts errors only for items in the distribution's support: those carrying mass. Under this support-aware definition, the authors develop one-pass and two-pass streaming algorithms that construct near-optimal histograms using sublinear space. Changing which errors count is therefore central to the result, rather than merely changing the implementation of an existing approximation objective.",
+      "The authors also establish lower bounds on required storage. A striking finding is an exponential gap between the space complexity of one-pass and two-pass methods under this error definition. This shows that allowing another pass can substantially change the memory demands of the problem. Experiments on real and synthetic datasets demonstrate the algorithms' usefulness, alongside the theoretical analysis of how approximation quality, storage, and access to the data interact."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0b8a88ed34738ad20ba36e127c35eb2356f46176efb6a9adc3e3f45860a52ef2",
+    "tldr": "Counting histogram errors only on a distribution's support enables compact streaming approximations and reveals an exponential one-pass versus two-pass space gap."
+  },
+  "icml-2022-structure-aware-transformer-for-graph-representation-learning-a75f5eca23": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Graph Transformers can encode graph structure through positional information while avoiding the strict structural biases of conventional graph neural networks. The paper shows that positional encoding alone does not necessarily make node representations reflect structural similarity. Nodes' surrounding graph patterns therefore need a more direct role in attention.",
+      "The Structure-Aware Transformer first extracts a representation of a subgraph rooted at each node. It incorporates these representations into self-attention, so attention uses information about local structure. The authors propose several ways to generate the subgraph representations and prove that the resulting representations are at least as expressive as those supplied to the attention mechanism.",
+      "The framework can use an existing graph neural network as its subgraph extractor. Experiments report state-of-the-art results on five graph prediction benchmarks and systematic improvements over the corresponding base graph neural network. The approach thus provides a way to combine structural representations produced by graph networks with Transformer attention. Its theoretical guarantee preserves the extractor's expressive strength, while the reported empirical results show benefits from the combined architecture."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0a7d66bcac4463263a6bc9fec9bfd8cd6bc2ec238bee003a9ec8e227fde234c5",
+    "tldr": "Structure-Aware Transformers incorporate node-rooted subgraph representations into attention and improve graph prediction in the reported benchmarks."
+  },
+  "icml-2022-style-equalization-unsupervised-learning-of-controllable-generative-sequence-models-8cb7fa7a00": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Controllable sequence generators aim to combine desired content with the style of a reference example, such as a voice or handwriting sample. In the unsupervised-style setting studied here, conventional training uses the same example for content and style. At inference, those inputs can come from unrelated examples, creating a mismatch between training and actual use.",
+      "Style equalization introduces a transformation module that transfers the target style into an unrelated style input. This makes it possible to train with unpaired content and style samples. The mechanism addresses how training examples are constructed, helping the model encounter the separation of content and style that it must handle when generating new sequences.",
+      "The authors apply the approach to text-to-speech and text-to-handwriting synthesis across three datasets. Their evaluation includes quantitative assessment and qualitative user studies. They report style-replication scores comparable to real data in those user studies. That finding supports the value of reducing the training-inference mismatch for perceived style replication, with the stated comparison specifically concerning style scores rather than every aspect of generated-data quality."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "79d0376a7e710df046da1c5f7938bbf704afce9dcc0e5db9aa52204d21a886b8",
+    "tldr": "Style equalization enables training with unpaired content and style inputs, improving style replication in speech and handwriting synthesis."
+  },
+  "icml-2022-the-fundamental-price-of-secure-aggregation-in-differentially-private-federated-learning-d0f4c4a46f": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Secure aggregation lets a federated-learning server see a noisy sum of client updates without seeing the individual updates. This paper asks how much each client must communicate to match the best accuracy available under central differential privacy, where a fully trusted server faces no communication constraint.",
+      "Accounting for secure aggregation's restrictions, the authors characterize the required communication as the smaller of n squared times ε squared and d, up to logarithmic factors. Here n is the number of clients, d is model dimension, and ε is the privacy parameter. They establish both sufficiency and necessity at this scale and give a linear scheme using sparse random projections that attains the limit.",
+      "The result improves on earlier secure-aggregation distributed privacy schemes whose communication scales with model dimension and additional logarithmic terms. Experiments on real-world federated-learning tasks agree with the theoretical picture. In realistic privacy settings, the authors report communication below 1.78 bits per parameter without reduced test performance. This connects a fundamental communication bound with evidence that the proposed construction can deliver practical savings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f8015d18b837f4a00d1c0c1aa167a461d77bb6a32bb6684da19f2b9be300589b",
+    "tldr": "The paper characterizes the communication needed for secure aggregation to match central-private accuracy and gives a scheme attaining that scale."
+  },
+  "icml-2022-the-poisson-binomial-mechanism-for-unbiased-federated-learning-with-secure-aggregation-169c47db1c": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The Poisson Binomial mechanism addresses private estimation of a mean across distributed participants, with applications to federated learning and analytics. Instead of adding noise directly to a local value, it encodes local information in a binomial distribution's parameter. The transmitted random output is discrete and has bounded support.",
+      "A tight privacy analysis shows the same privacy-accuracy trade-offs as the continuous Gaussian mechanism. The analysis uses a new bound on Rényi divergence between Poisson binomial distributions. A distinctive property is that the output support becomes smaller as the privacy budget approaches zero, so stronger privacy can reduce communication demands.",
+      "Bounded support allows the mechanism to work with secure aggregation without modular clipping, yielding an unbiased estimate of the sum of local vectors. The authors use this property to establish an upper bound on stochastic gradient descent's convergence rate in private federated learning. They also report advantages over earlier additive-noise distributed privacy schemes in high-privacy or low-communication regimes. The contribution links the distribution's design to privacy, unbiased aggregation, and communication efficiency."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6a3cc71ce3b96da6381739764bb512a72c073d349bd73ba6773210bdf838e0c1",
+    "tldr": "The Poisson Binomial mechanism combines discrete privacy, unbiased secure aggregation, and communication costs that decrease as privacy strengthens."
+  },
+  "icml-2022-weisfeiler-lehman-meets-gromov-wasserstein-577395bf13": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The Weisfeiler-Lehman test distinguishes graphs through their structural patterns. This paper develops a corresponding distance for labeled measure Markov chains, a class that includes labeled graphs. For graphs, the distance is positive exactly when the WL test distinguishes them, connecting a numerical comparison with the test's distinguishing power.",
+      "The distance can be computed in polynomial time and captures subtle structure in the underlying chains. The authors show that it is more discriminating than the graph distance used in the Wasserstein Weisfeiler-Lehman kernel. They also identify a neural architecture that is universal for continuous functions on the space of these chains equipped with the WL distance.",
+      "A further result links the construction to a natural variant of Gromov-Wasserstein distance for metric Markov chains. The WL distance is stable with respect to that variant and provides a polynomial-time lower bound for a distance whose computation is generally NP-hard. The paper therefore connects graph distinguishability, numerical structural comparison, and neural-network expressiveness through a shared mathematical construction."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "bffa2e87ea93db32e3241b365677dc3e6d913743f399bdbf89a1f4596e15ef46",
+    "tldr": "A polynomial-time WL distance connects graph distinguishability with neural-network universality and a lower bound on a Gromov-Wasserstein distance variant."
+  }
+}

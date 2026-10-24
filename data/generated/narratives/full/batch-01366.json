@@ -1,0 +1,327 @@
+{
+  "icml-2020-an-em-approach-to-non-autoregressive-conditional-sequence-generation-3bb39f2730": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Generating a sequence one token at a time can make prediction slow. Non-autoregressive models reduce that delay by generating tokens in parallel, but handling several valid outputs for the same input is difficult. The paper addresses this tension by training an autoregressive model and a non-autoregressive model together.",
+      "The training procedure alternates between two steps in an Expectation-Maximization framework. First, the autoregressive model learns to approximate a regularized posterior belonging to the non-autoregressive model. Then the non-autoregressive model learns from that updated posterior and selects examples for the next round of autoregressive training. Each model therefore helps shape the other's next update.",
+      "This repeated exchange guides training toward resolving the competing output possibilities that hinder parallel generation. In machine translation experiments, the approach achieves performance competitive with, and sometimes better than, existing non-autoregressive models while significantly reducing inference latency. The stated comparison supports its usefulness for fast translation; it does not establish that parallel generation universally matches autoregressive accuracy."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "676134b68d63537b1d57f5196aee6c01a953706cb8a451f30f19323ebb520126",
+    "tldr": "Joint EM training lets autoregressive and parallel sequence models guide each other, yielding competitive non-autoregressive translation with lower inference latency."
+  },
+  "icml-2020-clinician-in-the-loop-decision-making-reinforcement-learning-with-near-optimal-set-value-5f64f3ced5": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A reinforcement learning policy usually recommends one action for each situation. In healthcare, however, several actions may offer nearly the same cumulative reward, such as a similar survival outcome. Selecting only one can hide alternatives that matter to a clinician or patient for reasons beyond that reward.",
+      "The paper instead learns policies that return a set of near-equivalent actions. Its model-free algorithm uses temporal difference learning together with a near-greedy action-selection heuristic. The central change is the objective: identify meaningful choices with similar long-term rewards, leaving room for a human to decide among them.",
+      "The authors analyze the algorithm's theoretical properties and provide optimality guarantees. Experiments in simulated environments and a real clinical task show good convergence and the discovery of meaningful alternatives. These findings support a decision-making arrangement in which the learned policy supplies a set of options and humans incorporate additional knowledge, including side effects or patient preferences, when choosing an action."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "78ce54ee7079d9c2bb6c98f80c8c9063bde4777ae20665fa5c41f7256d30f741",
+    "tldr": "Set-valued reinforcement learning policies identify near-equivalent actions so clinicians and patients can incorporate additional knowledge when choosing among them."
+  },
+  "icml-2020-convolutional-dictionary-learning-based-auto-encoders-for-natural-exponential-family-dis-e0a4372b11": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Some observations, including counts and neural spikes, are naturally described by distributions such as Poisson or binomial rather than Gaussian distributions. This paper develops auto-encoders for data in the natural exponential family by connecting neural network design to convolutional dictionary learning.",
+      "Dictionary learning seeks filters that explain observations through a convolutional generative model with sparsity constraints. The authors turn the iterative optimization procedure for this problem into an unfolded, constrained neural network. Repeated input adjustments account for the chosen generative distribution. This construction provides a flexible framework for unsupervised learning and can also be extended to supervised, discriminative training.",
+      "For neural spiking data, learning the underlying latent stimulus produces better goodness-of-fit than the compared baselines. For supervised Poisson image denoising, the method performs competitively with state-of-the-art algorithms while using significantly fewer parameters. The paper also characterizes gradient dynamics in a shallow binomial auto-encoder. Together, these results connect distribution-aware generative modeling with practical neural architectures and analysis of their training behavior."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5820d67658ee1b5573b5b34add68f5f23199ddc18e39bda2b271372979de77e0",
+    "tldr": "Unfolding convolutional dictionary learning produces distribution-aware auto-encoders with strong neural-data fitting and parameter-efficient Poisson denoising results."
+  },
+  "icml-2020-distinguishing-cause-from-effect-using-quantiles-bivariate-quantile-causal-discovery-d7d5fc93dc": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Determining which of two observed variables causes the other is difficult without interventions. This paper proposes Bivariate Quantile Causal Discovery, or bQCD, for that task. Its causal interpretation assumes that there is no confounding, selection bias, or feedback between the variables.",
+      "The method connects an independence postulate about causal generating mechanisms to quantile regression through the minimum description length principle. Quantile regression examines multiple levels of a conditional distribution, rather than describing it only through its mean. That broader view lets bQCD accommodate additive, multiplicative, and location-scale mechanisms, covering different ways a cause can influence the distribution of its effect.",
+      "The authors compare the approach extensively on synthetic and real datasets. They report computational efficiency, favorable results against state-of-the-art methods, and robustness across different quantile-regression implementations. These findings support using distributional information beyond the conditional mean for causal direction discovery, while the stated assumptions remain essential to the setting the method addresses."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "fae01940018ccdd2295cbb2a19ebf3fc4052cbdf4526a6e07e11eecad3b112ba",
+    "tldr": "bQCD uses multiple conditional quantiles to infer causal direction under assumptions excluding confounding, selection bias, and feedback."
+  },
+  "icml-2020-dropnet-reducing-neural-network-complexity-via-iterative-pruning-ad17824f76": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Large neural networks demand substantial computing resources, which can restrict their use on edge devices. DropNet reduces network complexity by repeatedly removing whole nodes or filters. Inspired by iterative weight pruning, it applies pruning at the level of these larger network components.",
+      "The selection rule is simple: measure each component's average output after activation across the training samples, then remove those with the lowest averages. This gives the method a concrete signal for deciding which components to prune. Iterating that process progressively reduces the size of the network.",
+      "Experiments cover multilayer perceptrons and convolutional networks on MNIST, CIFAR-10, and Tiny ImageNet. The authors report that up to 90% of nodes or filters can be removed without significant accuracy loss in the tested settings. The resulting networks also perform well after their weights and biases are reinitialized. DropNet achieves accuracy similar to a greedy oracle that removes components individually to minimize training loss, supporting the effectiveness of its activation-based selection rule."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5c3146f2c920a07efe0e028838875953693eeb2daace7248597d62218e5a3e10",
+    "tldr": "DropNet repeatedly removes low-activation nodes or filters, achieving substantial network pruning without significant accuracy loss in the reported experiments."
+  },
+  "icml-2020-few-shot-domain-adaptation-by-causal-mechanism-transfer-a6879fb6b3": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper studies regression when many labeled examples are available from a source domain but only a few from the target domain. Transferring knowledge is difficult when the two observed distributions look very different. Assumptions based on small distributional differences or specific forms of shift can rule out such cases.",
+      "The proposed alternative is mechanism transfer: assume that a data-generating mechanism remains invariant across domains. This moves the basis for transfer from apparent similarity in the observed data to shared structure in how the data arise. The framework can accommodate nonparametric shifts that produce visibly different distributions while still providing a statistical basis for adaptation.",
+      "The authors develop a concrete adaptation method using structural equations from causal modeling as the shared mechanism. They establish theoretical usefulness and provide experimental support. The contribution is a way to make use of a few target labels when distributional resemblance is weak, provided that the assumed invariant generating mechanism connects the domains."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2c33d51a210f3d683a6f499bf38f7d26af70cc0b7ed692d1e843f93069d8f0ad",
+    "tldr": "Mechanism transfer supports few-shot regression adaptation by assuming shared causal generating structure across domains with potentially very different distributions."
+  },
+  "icml-2020-fiedler-regularization-learning-neural-networks-with-graph-sparsity-c975bc0ca2": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Regularization influences what a neural network learns by penalizing aspects of its parameters or structure. Many familiar penalties treat weights uniformly and do not account for how those weights connect the network. This paper develops a regularizer that explicitly uses the network's underlying graph.",
+      "The proposed quantity is the graph's Fiedler value. The authors use spectral graph theory to justify this choice and establish properties that make it suitable for regularization. Because evaluating the quantity during training can be costly, they also introduce an approximate variational method for faster computation.",
+      "An alternative formulation expresses the framework as an L1 penalty with weights determined by structure, connecting the approach to encouraging sparse networks. This gives a concrete interpretation of how graph information can influence which connections are penalized. Experiments compare Fiedler regularization with methods including Dropout and weight decay, and the reported results support its effectiveness. The contribution combines a structural motivation, theoretical support, and a practical approximation for incorporating that motivation into training."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "105e3f1e304fd28f5c684dbac304e5e52fd69023511dbdd232ae38d886b79a14",
+    "tldr": "Fiedler regularization uses neural network graph structure to guide sparsity, with theoretical support and an approximation for practical training."
+  },
+  "icml-2020-inductive-relation-prediction-by-subgraph-reasoning-808f014947": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Knowledge graph relation prediction often relies on learned representations of particular entities and relations. The paper identifies two drawbacks of that approach: it does not explicitly capture compositional logical rules, and it requires the entities to be known during training. These properties make prediction for new entities difficult.",
+      "GraIL instead uses a graph neural network to reason over local subgraph structures. Its design encourages learning relational meaning that does not depend on entity identity. Because the learned reasoning operates on structure, the framework can generalize after training to unseen entities and even unseen graphs.",
+      "The authors provide a theoretical proof and empirical evidence that GraIL can represent a useful subset of first-order logic. It outperforms the compared rule-induction methods in the inductive setting. Combining GraIL with knowledge graph embedding methods also produces significant gains when entities are already known during training. Those ensemble results indicate that structural reasoning can complement the information captured by entity embeddings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8ad83991d9106cce2d2647b4383c6f37f88ef172b384a64de2a2fee04e4d3a40",
+    "tldr": "GraIL predicts knowledge graph relations from local structure, enabling generalization to unseen entities and complementing embedding-based models."
+  },
+  "icml-2020-learning-disconnected-manifolds-a-no-gans-land-3772fe602a": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A target distribution can contain separate regions of valid data with gaps between them. The paper examines why typical generative adversarial networks struggle with this geometry. In the setup studied, a continuous generator transforms a unimodal input distribution, producing a modeled distribution whose support is connected.",
+      "That connectedness creates a problem when the desired output occupies disconnected manifolds. The generator must also sample a low-quality region between separated modes. The authors formalize the resulting restriction through a theorem that places an upper bound on precision when learning such distributions. The claim concerns this specified generator setup and the disconnected structure of the target.",
+      "The paper then derives a rejection sampling method based on the norm of the generator's Jacobian, which measures how the output changes with its input. This provides a way to filter generated samples using information from the generator itself. Evaluations on several generators, including BigGAN, demonstrate the method's efficiency and connect the theoretical analysis to a practical sampling procedure."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ef6cf17f985a7f0903c15d7190676e632213e02ad574ddbf2049bf81c67cbda9",
+    "tldr": "The paper bounds precision when continuous GAN generators model disconnected data and proposes Jacobian-based rejection sampling to address low-quality connecting regions."
+  },
+  "icml-2020-multi-agent-routing-value-iteration-network-624e41241c": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Routing several agents toward a shared goal requires both route planning and coordination. Sparse road connections and changing, initially unknown traffic complicate the task. The paper develops a learned routing system for these conditions, motivated by applications such as vehicle mapping and ride sharing.",
+      "The model uses a graph neural network to perform learned value iteration over a sparsely connected graph. A learned communication module lets agents coordinate while operating and adjust to changes. Route decisions can therefore reflect both the graph and information exchanged among the agents as conditions evolve.",
+      "The authors create a simulated autonomous-vehicle mapping environment with unknown minimum edge-coverage requirements and traffic conditions. In this environment, their approach significantly improves total cost and runtime over traditional solvers. They also report that a model trained with two agents on graphs of at most 25 nodes generalizes to settings with more agents or nodes. This demonstrates transfer beyond the training scale in the evaluated routing situations."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7d83e9d547ad40b686a7d9da8e1364fc79e4687839e1e594a7651ad3fac9b432",
+    "tldr": "A graph-based routing network combines learned planning and communication to coordinate agents under changing traffic and generalize beyond its training scale."
+  },
+  "icml-2020-multi-fidelity-bayesian-optimization-with-max-value-entropy-search-and-its-parallelizati-f3d63b2d1d": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "When evaluating an objective is expensive, Bayesian optimization tries to choose informative evaluations carefully. Multi-fidelity optimization also uses cheaper, lower-fidelity observations to accelerate this search. The challenge is deciding which observations are worth acquiring when their costs and usefulness differ.",
+      "The paper proposes multi-fidelity max-value entropy search, or MF-MES, an information-based approach centered on the maximum objective value. The authors report a more reliable evaluation of information gain than existing information-based multi-fidelity methods. Most acquisition-function calculations can be derived analytically; the remaining numerical integration is at most two-dimensional and can be handled efficiently with simple approximations.",
+      "The method is also extended to parallel evaluation, particularly when queries finish asynchronously. That setting is relevant because different fidelity levels have different sampling costs. Experiments on benchmark datasets and materials science data demonstrate the approach's effectiveness. The contribution connects information-guided evaluation choices with computationally manageable acquisition calculations and parallel execution suited to unequal evaluation times."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ca37841a8b30de152272e40fd80033b71890a012985e9a23c27d708b57a45f52",
+    "tldr": "MF-MES selects informative evaluations across fidelity levels using tractable entropy calculations and supports asynchronous parallel optimization."
+  },
+  "icml-2020-multi-objective-bayesian-optimization-using-pareto-frontier-entropy-5a0ad68967": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Optimizing several objectives requires understanding trade-offs: improving one objective may come at the expense of another. The Pareto frontier describes these competing possibilities. This paper proposes Pareto-frontier entropy search, or PFES, to choose evaluations according to how much they reveal about that frontier.",
+      "Existing entropy-based approaches can require complicated approximations or simplify the problem in ways that discard objective trade-offs. PFES reduces its entropy evaluation to a closed-form expression with straightforward computation while retaining the trade-off relation. This matters because the information used to guide the search should reflect the multi-objective structure being sought.",
+      "The authors also extend the method to a decoupled setting, where objectives can be observed separately. They derive a natural extension of the acquisition function that remains simple to evaluate, allowing the search to accommodate separate objective observations. Numerical experiments on benchmarks and materials science datasets support the effectiveness of PFES in the tested problems, linking its computational formulation to practical multi-objective search."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f05f800c71b24b1211dd0e6e2976101df4a585de0fd7afe7824ded7b1fb0d5a2",
+    "tldr": "PFES guides multi-objective optimization with tractable information-gain calculations that preserve Pareto trade-offs and allow separately observed objectives."
+  },
+  "icml-2020-no-regret-exploration-in-goal-oriented-reinforcement-learning-466de3a298": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "In stochastic shortest-path reinforcement learning, an agent must reach a goal while minimizing accumulated cost. Episodes need not have a predetermined length, and a poor policy may never reach the goal. This makes exploration difficult: gathering information can leave the agent following an unproductive policy indefinitely.",
+      "The paper introduces UC-SSP for this general setting without requiring loop-free dynamics. Its key mechanism is a stopping rule that can interrupt a policy when reaching the goal takes too long. The algorithm then switches to alternative policies designed to bring the episode to an end quickly.",
+      "For unknown problems with positive costs and SSP-diameter D, the authors prove a regret bound scaling as D times S times the square root of A times D times K, up to logarithmic factors. Here S counts states, A actions, and K episodes; D describes the smallest expected goal-reaching time from any starting state. The bound establishes no-regret learning under these conditions while allowing repeated state visits and policies that fail to terminate."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "84260eefab82d4250ffab9952649cfda59840a3efb5003978a395f2acef80540",
+    "tldr": "UC-SSP achieves a no-regret guarantee for positive-cost stochastic shortest-path problems by interrupting policies that take too long to reach the goal."
+  },
+  "icml-2020-quantized-decentralized-stochastic-learning-over-directed-graphs-41c206e356": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "In decentralized learning, computing nodes hold different data and exchange model updates with neighboring nodes. As models grow, sending these updates can become a major bottleneck. This paper studies how to reduce that communication burden when the connections between nodes form a directed graph.",
+      "The proposed algorithm quantizes communicated updates, using a more compact representation of the messages. It builds on push-sum, a method used for decentralized consensus optimization. The approach therefore combines reduced communication with a coordination mechanism suited to directed communication links.",
+      "The authors prove that the resulting method matches the convergence rates of decentralized stochastic learning with exact communication for both convex and non-convex losses. This is a statement about convergence rates, rather than identical behavior at every update. Numerical evaluations support the theory and show significant speed-ups over exact-communication methods. The combined result suggests that reducing message precision can ease a practical communication bottleneck while retaining the established rate of learning progress in the analyzed settings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "577b118848338eeb98a1827a7fc5832c4f64e066f3d224afff68947a7fa21e4c",
+    "tldr": "A quantized push-sum learning algorithm reduces communication over directed graphs while matching exact-communication convergence rates in the analyzed settings."
+  },
+  "icml-2020-reinforcement-learning-for-integer-programming-learning-to-cut-716b584a3f": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Integer programming expresses many difficult optimization tasks, including scheduling, production planning, and graph problems. Practical solvers rely on heuristics to make progress efficiently. This paper asks whether reinforcement learning can improve one important solver decision: selecting cutting planes during the cutting-plane method.",
+      "The authors develop a deep reinforcement learning formulation, a network architecture, and algorithms for adaptive cut selection. The learned agent makes choices within an existing optimization procedure. This targets a recurring solver component whose behavior has traditionally depended on heuristics designed and refined by people.",
+      "Across a wide range of integer programming tasks, the trained agent significantly outperforms the compared human-designed heuristics. It also generalizes to larger instances and across problem classes in the reported experiments. The authors further demonstrate benefits when the learned selection is used within Branch-and-Cut, a core framework in modern commercial solvers. That integration shows that the learned decision rule can improve a broader solving procedure beyond the isolated cutting-plane setting."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "180c7e53fe94848a338127a2c217df3493605899bce3d4f7f84b73dd6fc60ac0",
+    "tldr": "A reinforcement learning agent learns adaptive cutting-plane selection, outperforming tested heuristics and improving downstream Branch-and-Cut solving."
+  },
+  "icml-2020-sequential-transfer-in-reinforcement-learning-with-a-generative-model-d17c51187d": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Previous reinforcement learning tasks can help an agent approach a new one, but transfer has two possible aims: perform reasonably well immediately or gather information that quickly identifies an optimal solution. This paper focuses on the second aim, assuming access to a generative model for sampling state-action pairs.",
+      "Given previously solved tasks that include an approximation of the target task, the proposed algorithm seeks the state-action pairs most informative for identifying an accurate solution. The authors derive probably approximately correct sample-complexity bounds that demonstrate how this prior knowledge can reduce the amount of sampling required.",
+      "The paper also addresses how to obtain the approximate tasks over time. It reduces the sequential transfer setting to a hidden Markov model and uses spectral methods to recover its parameters. Experiments in simple simulated domains support the theoretical findings. Together, the results connect purposeful information gathering with a mechanism for accumulating transferable task knowledge, under the specified sampling access and relationship between prior tasks and the target."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "344334156967d969c05931095f7e94bdad47551f71589fd0630c98b83034eae7",
+    "tldr": "With generative-model access and suitable prior tasks, informative sampling can reduce the sample complexity of identifying a solution to a new reinforcement learning task."
+  },
+  "icml-2020-sparse-sinkhorn-attention-664b811e0e": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Sparse Sinkhorn Attention aims to make attention more memory-efficient while retaining access to information spread across a sequence. Its central idea is to learn an internal ordering of representations before applying local attention. Reordering changes which items become neighbors in the attention computation.",
+      "A meta sorting network learns latent permutations through differentiable sorting. Once representations are sorted, local windows can provide quasi-global attention because nearby items in the learned ordering need not have been nearby originally. The paper also introduces Causal Sinkhorn Balancing and SortCut, a dynamic sequence-truncation method, to adapt the approach for encoding and decoding.",
+      "Experiments cover sequence sorting, language modeling, pixel-wise image generation, document classification, and natural language inference. The authors report performance competitive with standard attention and consistent improvements over the compared efficient Transformer models, including Sparse Transformers. These findings support learned reordering as a practical route to memory-efficient attention across the evaluated tasks, while preserving useful interactions beyond a fixed local neighborhood."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "df5a5f60906ea60bc49e43671ca472bade4e7765c012699538c240e8f5b845f9",
+    "tldr": "Sparse Sinkhorn Attention learns to reorder sequence representations so local attention windows can capture broader interactions with improved memory efficiency."
+  },
+  "icml-2020-student-specialization-in-deep-rectified-networks-with-finite-width-and-input-dimension-02209193d4": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper studies a student neural network trained by stochastic gradient descent to reproduce a fixed teacher's outputs. Both networks have the same depth and use ReLU or Leaky ReLU activations, but the student has more nodes at every layer. The question is whether student nodes specialize to individual teacher nodes.",
+      "Under conditions on the dataset and teacher, the authors prove that a small gradient at every sample implies that each lowest-layer teacher node has at least one specialized student node. For two-layer networks, they establish polynomial sample complexity with a specified gradient threshold. The result requires a particular data augmentation procedure, and the sample count includes those additional examples.",
+      "The analysis covers finite network widths and input dimension without requiring a parametric input distribution such as a Gaussian. It also suggests that teacher nodes with larger outgoing weights specialize earlier, while others require smaller gradients. Synthetic and CIFAR10 experiments support the findings, connecting this conditional theory to observed stages of training."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "818f9f572168a6489c87009e8f12b8de330b806bfef49d22f495a038dffef39e",
+    "tldr": "Under stated data and gradient conditions, wider student networks specialize to lowest-layer teacher nodes, with polynomial sample complexity established for two-layer networks."
+  },
+  "icml-2020-taylor-expansion-policy-optimization-49cbad3397": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper investigates Taylor expansions as a mathematical framework for reinforcement learning. Taylor expansions describe changes through successive orders of approximation. Here, the authors use that perspective to formulate policy optimization: the process of improving the rule that determines an agent's actions.",
+      "Their Taylor Expansion Policy Optimization framework includes prior work as a first-order special case. This gives existing policy optimization ideas a place within a broader formulation, making the order of approximation part of the conceptual picture. The authors also establish a close relationship between Taylor expansions and off-policy evaluation, which concerns evaluating a policy using experience associated with a different policy.",
+      "The contribution has an algorithmic consequence as well as a theoretical one. The new formulation leads to modifications that improve several state-of-the-art distributed reinforcement learning algorithms. The stated findings therefore connect a general mathematical treatment of policy improvement to practical algorithm changes, while also linking policy optimization with the separate task of off-policy evaluation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4fabc117402cd55315312bfa69ff65fb147c0c43ebe0fdcf89e3b80b2b876631",
+    "tldr": "Taylor Expansion Policy Optimization generalizes prior policy optimization, connects it to off-policy evaluation, and yields improvements to several distributed algorithms."
+  },
+  "icml-2020-test-time-training-with-self-supervision-for-generalization-under-distribution-shifts-f20b338ef9": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A predictive model may encounter test data that differ from the data used to train it. This paper proposes Test-Time Training as a general way to adapt to that mismatch. The main idea is to let the model learn from the particular test sample before producing its prediction.",
+      "The sample does not need a label. Instead, the method turns it into a self-supervised learning problem and updates the model's parameters using that problem. Prediction then uses the updated parameters. This makes the incoming sample both an object to predict and a source of information for adjusting the model.",
+      "The same approach extends naturally to an online stream of observations. On multiple image classification benchmarks designed to assess robustness to distribution shifts, the authors report improved performance. These results support the usefulness of adaptation during testing in the evaluated settings. The contribution is the simple sequence of constructing a self-supervised task, updating the model, and then making the requested prediction."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1449637dc5be57bd8e78b82fad3854acc89a1251e109560d6258bed4aca58433",
+    "tldr": "Test-Time Training updates a model on a self-supervised task from an unlabeled test sample before prediction, improving robustness on evaluated image benchmarks."
+  },
+  "icml-2020-the-buckley-osthus-model-and-the-block-preferential-attachment-model-statistical-analysi-136604200b": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies statistical estimation for two models of network growth: the Buckley-Osthus model and the block preferential attachment model. The focus is on learning model parameters from network observations. Estimation is the bridge between specifying a network model mathematically and using it to analyze an observed network.",
+      "The main theoretical result establishes consistency of maximum likelihood estimates for both models. Consistency means that, in the model's statistical setting, estimates approach the underlying parameters as the available information grows. It is an asymptotic reliability property, rather than a claim that estimates from every finite network are exact.",
+      "The authors conduct simulation studies that corroborate the theoretical findings and apply both models to the evolution of a real-world network. These components connect the estimation results to controlled experiments and an observed network history. The paper also presents open problems, placing its guarantees within an ongoing statistical investigation of these two preferential attachment models."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4f2f781cd6d63cc338cdea4b8c00faf05ad1c8f1715e85eb3396eb2bcb3ccd33",
+    "tldr": "The paper proves consistency of maximum likelihood estimation for two preferential attachment models and supports the results with simulations and a real-network application."
+  },
+  "icml-2020-the-k-tied-normal-distribution-a-compact-parameterization-of-gaussian-mean-field-posteri-f9de115f3b": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Variational Bayesian inference approximates uncertainty over neural network weights using a manageable probability distribution. Much work makes that distribution richer. This paper investigates a different possibility: whether the parameters of a Gaussian mean-field approximation contain structure that allows a more compact representation.",
+      "Across a variety of deep Bayesian networks, the authors observe that posterior standard deviations develop strong low-rank structure after training converges. They use a low-rank factorization to represent these variational parameters with fewer independent quantities. The restriction is therefore motivated by a pattern observed in trained models.",
+      "In the reported experiments, the compact parameterization preserves model performance. It also improves the signal-to-noise ratio of stochastic gradients used to optimize the variational lower bound, leading to faster convergence. These findings suggest that a smaller uncertainty parameterization can help both representation efficiency and optimization in the studied networks. The evidence supports exploiting the observed structure, rather than assuming that a more expressive posterior approximation will always perform better."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0374f8e156ff28c4a2b04cb8fa86377ab7ef66c246ebbbf34c7b1c9f42e7687b",
+    "tldr": "Low-rank factorization of posterior standard deviations makes studied Bayesian neural networks more compact while preserving performance and accelerating convergence."
+  },
+  "icml-2020-the-many-shapley-values-for-model-explanation-e3f90f4ad6": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Shapley-based explanation methods assign a model's prediction to its input features. Their justification often invokes a theorem saying that the Shapley value uniquely satisfies certain desirable properties. This paper explains why that theorem does not by itself select a unique way to explain a machine learning prediction.",
+      "Different methods operationalize the Shapley value using different references to the model, training data, and explanation context. Those choices change the attribution problem and can produce different answers. The paper also highlights a counterintuitive consequence of some data-dependent techniques: a feature unused by the model can still receive attribution.",
+      "The authors use axioms to examine these distinctions. They discuss Baseline Shapley, establish an appropriate uniqueness result for it, and compare it with Integrated Gradients and Conditional Expectation Shapley. The practical meaning is that the name 'Shapley' alone does not determine what an explanation represents. The formulation and its associated properties matter when interpreting the resulting feature contributions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2053f8de85f7950ac36954ab26db23b3a217df021e449743f324806c95b5eac9",
+    "tldr": "Different Shapley formulations can produce different explanations, so uniqueness claims must be tied to the specific attribution setup and axioms."
+  },
+  "icml-2020-the-shapley-taylor-interaction-index-4a1d9cfe85": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Feature attribution explains a model prediction by assigning contributions to individual inputs. Yet a prediction can also depend on features acting together. This paper proposes the Shapley-Taylor index to assign contributions to interactions among feature subsets up to a chosen size k.",
+      "The construction parallels a truncated Taylor expansion, which decomposes a function value through derivative information. The authors make that connection exact using a multilinear extension of the model's behavior over feature sets. This supplies a mathematical link between interaction attribution and a familiar way of decomposing functions.",
+      "The method is characterized using the standard Shapley axioms of linearity, dummy, symmetry, and efficiency, plus an interaction distribution axiom. The added axiom specifies how attribution is distributed for functions representing pure interactions. The paper contrasts this index with the earlier Shapley Interaction index and applies it to three models, obtaining qualitative insights. Its contribution is both an interaction-aware explanation method and an explicit account of the principles governing that method."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3d8cda42b5e460fb7d129b866554d9e2c0cc17a55ba51179de9e71169c3e7063",
+    "tldr": "The Shapley-Taylor index extends prediction attribution to feature interactions through a Taylor-series connection and an explicit set of axioms."
+  },
+  "icml-2020-variational-imitation-learning-with-diverse-quality-demonstrations-6fd0e3f5f2": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Imitation learning becomes difficult when demonstrations vary in quality. The problem is harder when those quality differences are unknown and no additional information is available to assess them. This paper develops a method specifically for learning from demonstrations in that setting.",
+      "The authors show that simple approaches to estimating demonstration quality can fail because errors compound. Their solution jointly estimates quality and reward through a variational approach. Treating these quantities together addresses the interaction between judging the examples and learning what behavior should be encouraged, rather than relying on a simple quality estimate as a separate starting point.",
+      "The method can be implemented within reinforcement learning frameworks and achieves state-of-the-art performance on the reported continuous-control benchmarks. The authors present it as enabling scalable, data-efficient imitation learning under more realistic demonstration conditions. The significance is that useful learning need not start with uniformly strong demonstrations or known quality labels; the proposed procedure learns quality information alongside the reward in the studied setting."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b00930ad5c5992246cb1dccf6e6667189c37d1cb853f8dad9b77d1430c7a57e5",
+    "tldr": "Joint variational estimation of demonstration quality and reward improves imitation learning when examples have mixed, unknown quality."
+  }
+}

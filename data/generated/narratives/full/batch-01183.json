@@ -1,0 +1,327 @@
+{
+  "neurips-2025-brain-informed-fine-tuning-for-improved-multilingual-understanding-in-language-models-73ad79eadc": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper asks whether brain recordings from bilingual readers can improve language models beyond the languages represented in those recordings. Its motivation connects two observations: multilingual models can share representations across languages, and human studies support a shared semantic system in bilingual people. The researchers investigate whether brain-informed training can help strengthen multilingual representations.",
+      "They fine-tune both monolingual and multilingual models using brain activity recorded while bilingual participants read English and Chinese stories. Evaluation covers the participants’ first and second languages, as well as languages in which they are not fluent. The researchers assess both brain encoding performance—how well model representations account for brain activity—and performance on downstream language-processing tasks.",
+      "The fine-tuned models outperform their original pretrained versions on brain encoding and most downstream tasks across multiple languages. These findings suggest that the benefit of bilingual brain data can extend beyond the participants’ own language proficiency. The result supports brain-informed fine-tuning as a promising connection between neuroscience and multilingual language modeling, without implying that every task improves."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5e218cf0dd8ae07a9e212450808f6bf5b85dadd9e6e43bffea0d062dcd72bd17",
+    "tldr": "Fine-tuning language models with bilingual brain recordings improves brain encoding and most evaluated language tasks across multiple languages."
+  },
+  "neurips-2025-denoising-trajectory-biases-for-zero-shot-ai-generated-image-detection-a77b21bf2f": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper detects AI-generated images by examining how they behave during a simulated diffusion process. Many detectors learn from labeled examples, while other approaches look for visible or statistical artifacts in finished images. Here, the central signal comes from the progression of denoising, providing a way to assess an image without training a detector on generated examples.",
+      "The method uses diffusion-based inversion to simulate an image’s sampling process. The researchers observe that intermediate denoising outputs approach the target image more quickly for generated images than for real ones. They turn this observation into a detection indicator by measuring similarity between the original image and outputs at points along the denoising trajectory.",
+      "Experiments across a broad range of generators report significant improvements over both supervised and zero-shot comparison methods. Avoiding training on generated images removes the corresponding opportunity to overfit to particular training generators or dataset biases. The findings support denoising behavior as useful detection evidence; the reported convergence difference is an empirical signal rather than a claim that every synthetic image is identifiable."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ef96095d5ef2ecc741761d80f4a46a02c7e8bc47faa6a9e5562b928b5e29a179",
+    "tldr": "Differences in how quickly diffusion denoising approaches an image provide a zero-shot signal for detecting AI-generated content."
+  },
+  "neurips-2025-faster-video-diffusion-with-trainable-sparse-attention-4183175c21": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Video diffusion transformers spend substantial computation on attention across space and time, even though much of the attention weight falls on relatively few positions. This paper introduces VSA, a trainable sparse-attention method that concentrates computation on those positions during both training and generation. Its design addresses the hardware layout as well as the mathematical reduction in attention work.",
+      "A lightweight first stage groups tokens into tiles and selects important regions. A second stage computes detailed token attention only within selected tiles, using a block layout suited to efficient computation. The resulting operation is differentiable and trains end to end without a separate profiling step. Experiments pretrain models ranging from 60 million to 1.4 billion parameters.",
+      "One reported operating point reduces training FLOPS by a factor of 2.53 without increasing diffusion loss. Applied to Wan2.1-1.3B, VSA reduces generation time from 31 to 18 seconds with comparable quality; the 14B model falls from 1,274 to 576 seconds. A preliminary Sparse-Distill study combines sparsity and distillation, reporting a 50.9-fold speedup for Wan-1.3B while maintaining quality."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e64c6317a66e3341f8ff70be8a4f78894af1a0c71c399c18d970e72adbcccad1",
+    "tldr": "VSA learns hardware-efficient sparse attention that reduces video diffusion training and generation costs while preserving reported loss or quality."
+  },
+  "neurips-2025-fin3r-fine-tuning-feed-forward-3d-reconstruction-models-via-monocular-knowledge-distilla-8feb34208e": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Feed-forward reconstruction models turn input images into 3D point maps in a shared reference frame in one forward pass. Their speed does not remove difficulties with fine geometry and robustness. This paper identifies two sources of those difficulties: limited high-quality depth and camera-pose supervision, and geometric misalignment arising when point maps are predicted across multiple views.",
+      "Fin3R adds a lightweight fine-tuning step focused on the image encoder, which extracts visual features. It freezes the decoder responsible for view matching. A strong model that learns geometry from single images acts as a teacher, transferring fine geometric information through large unlabeled datasets. A small, customized LoRA adapter provides the trainable additions to the encoder.",
+      "Tests on DUSt3R, MASt3R, CUT3R, and VGGT report consistently sharper boundaries, better recovery of complex structures, and higher geometric accuracy. These improvements appear in both single-view and multi-view settings. The results suggest that enriching image features can improve several reconstruction systems while preserving their existing matching component. Only small adapter weights are added, leaving inference memory and latency virtually unchanged."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9bbba88b502ea6b154780877cede7276bb70d09cf5d935fce1c2430c1e987f8c",
+    "tldr": "Fin3R transfers geometric knowledge from a single-image teacher into reconstruction encoders, improving detail with virtually unchanged inference costs."
+  },
+  "neurips-2025-from-contextual-combinatorial-semi-bandits-to-bandit-list-classification-improved-sample-aedbf7daf1": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper studies learners that observe a context, select a set of actions, and receive rewards only for the selected actions. Its key assumption is sparse reward: the total reward across all possible actions is bounded by a quantity much smaller than the action count. Recommendations motivate this setting because a customer may purchase only a few available products.",
+      "The main algorithm learns a nearly optimal policy from a finite policy class with high probability. Its sample requirement improves on previous bounds when rewards are sparse. When the sparsity parameter stays constant, the leading terms match rates available with full feedback. This qualification matters: matching leading terms does not eliminate every additional dependence on the number of actions. Computational efficiency assumes access to an empirical-risk-minimization oracle.",
+      "The framework also covers classification where the learner predicts a list and observes limited feedback, with improved bounds for the single-label case. A further result handles regret under adversarially generated data. Together, these guarantees show how sparsity can reduce the statistical cost of observing rewards for only selected actions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5bd596c60c077d02e86411f9f3d8277c2e458e699979853be3d840f0c555a2c9",
+    "tldr": "Sparse rewards enable improved learning guarantees for selecting action subsets with partial feedback, including leading-term full-information rates in a constant-sparsity regime."
+  },
+  "neurips-2025-globaltomo-a-global-dataset-for-physics-ml-seismic-wavefield-modeling-and-fwi-5f556ff841": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Seismic tomography uses earthquake waves to investigate Earth’s interior. Full-waveform inversion seeks to extract information from the detailed recorded waveforms, but the required global forward and adjoint simulations are computationally demanding. GlobalTomo supplies a dataset designed to support machine-learning approaches to this problem, connecting global seismic simulation with methods for faster modeling and inversion.",
+      "The dataset contains synthetic three-dimensional global wavefields generated through advanced forward simulations tailored to global calculations. It incorporates explicit wave physics and geophysical parameterizations at realistic global scales. This construction makes the dataset relevant to the physical modeling problem, providing simulated material for studying how machine learning can represent wave propagation and support tomography.",
+      "The authors analyze the dataset and establish machine-learning baselines. Their results indicate that these approaches are well suited to global full-waveform inversion through rapid forward modeling and flexible inversion strategies. The contribution combines a shared synthetic data resource with evidence for its intended use. It supports research toward more computationally accessible global tomography and, through that, improved understanding of Earth’s internal dynamics."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "cd3ec551b08629005bc4e83b8f045ee1a4210e103098d5fe4c17fe0ced8f83f2",
+    "tldr": "GlobalTomo provides physics-based synthetic global seismic data and machine-learning baselines for faster wave modeling and full-waveform inversion."
+  },
+  "neurips-2025-hadamax-encoding-elevating-performance-in-model-free-atari-1ba68bf197": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper investigates how much a change in neural-network architecture can improve reinforcement learning from pixels. Although architecture choices strongly influence many learning systems, reinforcement-learning networks have often remained simple because modifications produce only modest gains. The authors introduce Hadamax, an encoder intended to improve the representation learned from visual input in model-free reinforcement learning.",
+      "Hadamax combines parallel hidden layers after applying GELU activations. It forms Hadamard products, meaning element-by-element multiplication of their outputs, and applies max pooling to those products. These operations define the encoder’s distinctive way of combining features. The researchers integrate the encoder with the existing PQN learning algorithm to form Hadamax-PQN.",
+      "On Atari-57, the combined system achieves reported state-of-the-art model-free performance. The abstract reports an 80% performance improvement over standard PQN and a substantial advantage over Rainbow-DQN, without modifying the algorithm’s hyperparameters. This comparison makes the encoder change central to the reported improvement. The findings show that architecture can deliver substantial gains in this evaluated setting, and the authors release their implementation for reproducibility."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ef8960c6d4d9db62505147f9934c91bf39084240dd7e8dd5d846481b09d0f7da",
+    "tldr": "Hadamax combines multiplicative features and max pooling to improve PQN’s reported Atari-57 performance by 80% without algorithmic hyperparameter changes."
+  },
+  "neurips-2025-hypergraphrag-retrieval-augmented-generation-via-hypergraph-structured-knowledge-represe-f072090760": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Retrieval-augmented generation answers questions using retrieved knowledge. Standard systems retrieve text chunks, while graph-based systems organize knowledge through connected entities. This paper focuses on a restriction of ordinary graphs: each edge directly connects only two entities. Facts involving several entities together therefore do not fit directly into the same pairwise representation.",
+      "HyperGraphRAG uses a hypergraph, whose hyperedges can connect multiple entities in a single relation. This allows a fact involving several participants to be represented jointly. The proposed method covers the complete process of constructing the knowledge hypergraph, retrieving relevant information, and generating an answer. Its contribution therefore extends beyond a different storage format to a retrieval-and-generation pipeline built around that representation.",
+      "Experiments cover medicine, agriculture, computer science, and law. Across these evaluated domains, the authors report better answer accuracy, retrieval efficiency, and generation quality than standard RAG and earlier graph-based approaches. The findings support representing multi-entity facts explicitly when organizing knowledge for generation. They connect the choice of knowledge structure to improvements in both finding information and producing answers."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "151399b4d9c39e1e6193e4552cfa871e43d40a973024e79717bd9edac01b4857",
+    "tldr": "HyperGraphRAG represents multi-entity facts with hyperedges and reports improved retrieval and answers across four knowledge domains."
+  },
+  "neurips-2025-imbalances-in-neurosymbolic-learning-characterization-and-mitigating-strategies-1c5fcbfa78": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper studies a weakly supervised form of neurosymbolic learning. A neural classifier must learn individual labels, but training reveals only the result of applying a symbolic operation to those labels. The researchers ask why the resulting classifier can make substantially different amounts of error across classes when the underlying individual labels remain hidden.",
+      "Their theory shows that the symbolic component itself can strongly affect these class-specific error differences. This identifies a source of imbalance beyond the uneven class frequencies emphasized in prior supervised and weakly supervised research. The choice of symbolic supervision therefore matters for how learning errors are distributed, even though its role is to provide the available training signal.",
+      "The practical method first estimates the marginal distribution of hidden labels from weakly supervised observations. Algorithms then use that estimated distribution as a constraint to mitigate imbalance during training and testing. Evaluations against strong neurosymbolic and long-tailed-learning baselines suggest performance improvements of up to 14%. The contribution links a theoretical explanation of imbalance to interventions that remain usable when individual gold labels are unavailable."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8a67b9649f74d0e5fd6cb2360a81ee3ce971429747733d4c70551ede6e42a9c0",
+    "tldr": "Symbolic supervision can itself create class-specific learning imbalances, which the paper mitigates using estimated hidden-label distributions."
+  },
+  "neurips-2025-improved-algorithms-for-fair-matroid-submodular-maximization-6e3c27820f": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies selecting a valuable subset while respecting structural rules and fairness requirements. The objective is monotone and submodular, and a matroid specifies allowable selections. Fairness adds lower bounds on how many selected elements must have a given attribute. The challenge is to retain a strong objective value while meeting those representation requirements.",
+      "Previous approximation algorithms could guarantee only half the requested lower-bound representation, rounded down. A request for one element could consequently receive no positive guarantee, a problem relevant to perfect matching constraints. The new algorithm improves this trade-off: for any fixed positive epsilon, it obtains a constant-factor objective approximation while retaining a factor of one minus epsilon of the fairness lower bound in expectation.",
+      "The expectation qualifier is essential: the stated result does not promise that every individual output meets nearly the full quota. Within that guarantee, the fairness loss can be made arbitrarily small. Empirical evaluations on real-world clustering, recommendation, and coverage tasks demonstrate practical effectiveness, complementing the theoretical improvement in how closely expected representation approaches the requested lower bounds."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b76c4668faa9dbd87b86869812f0995612d8706980a4b4a6b50f8dc3d7e35a13",
+    "tldr": "A new approximation algorithm approaches full lower-bound fairness in expectation for monotone submodular selection under matroid constraints."
+  },
+  "neurips-2025-in-context-learning-of-stochastic-differential-equations-with-foundation-inference-model-22c422c3f5": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Stochastic differential equations describe systems with both systematic motion and random fluctuations. Their drift function captures the systematic component, while their diffusion function describes the randomness. Recovering these functions from noisy observations is a central modeling task. This paper introduces FIM-SDE, a pretrained model for estimating both functions in low-dimensional systems.",
+      "Training teaches FIM-SDE to map collections of noisy, discretely observed trajectories to drift and diffusion functions. The approach draws on amortized inference and neural operators, placing the learning effort into a reusable recognition model. For a new process, observations can serve as context for estimation without training on that target dataset. The model also supports rapid target-specific fine-tuning.",
+      "Evaluations span synthetic dynamics and real recordings, including stock prices, oil prices, and wind speeds. In-context estimates are reported to be robust and to match symbolic, Gaussian-process, and Neural SDE baselines trained on the target data. After fine-tuning, FIM-SDE consistently outperforms those baselines in the reported evaluations. These results support reusable inference for the stated low-dimensional setting, with additional gains from target adaptation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "65438cb10bdfbb43765a53c503ce4af4752dc204733488964b34bf4c29a01af9",
+    "tldr": "FIM-SDE estimates low-dimensional stochastic dynamics from noisy observations without target-specific training and improves further with fine-tuning."
+  },
+  "neurips-2025-low-rank-gradients-and-where-to-find-them-79ced1f2b4": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper examines why gradients in two-layer neural networks can concentrate in a small number of directions. It relaxes common assumptions that data and parameters behave uniformly across directions. The analysis uses a spiked data model with a potentially anisotropic, ill-conditioned background, allows dependence between data and weight matrices, and considers both mean-field and neural-tangent-kernel scaling regimes.",
+      "The main result is that gradients with respect to input weights are approximately low rank. Two rank-one terms dominate: one is aligned with the bulk data–residue, and the other with the rank-one spike in the input data. This decomposition identifies distinct sources of the dominant gradient structure rather than treating low rank as a single unexplained property.",
+      "The authors characterize how data properties, activation functions, and scaling choices change the balance between those components. They also show that weight decay, input noise, and Jacobian penalties selectively influence them. Experiments on synthetic and real data support the theoretical predictions. The findings explain gradient structure within the studied two-layer setting while accommodating less restrictive data geometry than isotropic analyses."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "72da2c74a8c5ee55bef17c788c96939a7f2f24f9fad2b9f9437afddf59867ad7",
+    "tldr": "An analysis of two-layer networks explains approximately low-rank input-weight gradients through two dominant components shaped by data, scaling, and regularization."
+  },
+  "neurips-2025-mechanistic-interpretability-of-rnns-emulating-hidden-markov-models-c9161722f6": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Hidden Markov models describe behavior through discrete hidden states with random transitions, whereas recurrent neural networks maintain continuous internal states. This paper investigates how an RNN can reproduce HMM emission statistics despite that difference. The researchers train networks to emulate these statistics and then analyze their internal dynamics to uncover the mechanism.",
+      "Without input, trained network activity approaches a single fixed point. With stochastic input, activity instead follows noise-sustained closed orbits. Movement around those orbits changes emission probabilities. The trajectories alternate between regions with slow, noise-driven motion and rapid, deterministic transitions connecting them. A small group of specialized neurons, called kick neurons, initiates transitions between the slow regions.",
+      "The mechanism develops during training as the network enters a stochastic-resonance regime, allowing noise to participate in probabilistic computation. Analyses of fully connected, cyclic, and linear-chain HMMs reveal modular reuse of the same dynamical pattern. These findings suggest a compositional way for continuous recurrent networks to emulate more complex discrete latent dynamics, while grounding that suggestion in the trained networks and HMM architectures examined."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d9b383db6720b6c458c44889ab4cadfcd308f79ffcad8b2dbb0b57a0afff2c45",
+    "tldr": "Trained RNNs emulate HMM statistics through noise-sustained orbits and specialized neurons that trigger transitions between slow dynamical regions."
+  },
+  "neurips-2025-mi-trqr-mutual-information-based-temporal-redundancy-quantification-and-reduction-for-en-3dcb45358a": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Spiking neural networks process information through events, offering opportunities for energy-efficient computation. However, reusing the same weights across timesteps can produce repetitive features, especially when a static image is presented repeatedly. MI-TRQR addresses this temporal redundancy by identifying and removing spikes that carry overlapping information across time.",
+      "The method uses mutual information to quantify redundancy between discrete spike features. It measures this relationship at two spatial scales: individual pixels and the full spatial representation. Those measurements guide probabilistic masking of redundant spikes. A subsequent recalibration adjusts the final representation to account for the removed activity. The module introduces no additional parameters and is designed to plug into different spiking architectures.",
+      "Experiments cover neuromorphic classification, static-image classification, and time-series forecasting. Across different architectures, the authors report sparser firing alongside improved performance and energy efficiency. On CIFAR10-DVS with four timesteps, they report a 1.7% accuracy increase and a 37.5% reduction in energy cost. These findings show that, in the evaluated settings, removing temporally repetitive activity can improve prediction as well as reduce computation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2471d03222d0d87bde11ee651514db06d74833775619c2c208dd1a993777410c",
+    "tldr": "MI-TRQR measures and masks redundant spikes across time, improving reported accuracy and energy efficiency without adding parameters."
+  },
+  "neurips-2025-mitigating-intra-and-inter-modal-forgetting-in-continual-learning-of-unified-multimodal--79f43f102c": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Unified multimodal generative models combine visual understanding and image generation in one autoregressive system. Learning additional tasks can damage previously acquired abilities within a modality or across modalities. This paper identifies and empirically validates the cross-modal form of forgetting, which has received less attention than forgetting within a single modality.",
+      "The authors explain the phenomenon through conflicting gradients: updates associated with different modalities can interfere with one another. Their proposed architecture, Modality-Decoupled Experts, isolates modality-specific updates to reduce that conflict. It also uses knowledge distillation to retain earlier knowledge and preserve pretrained capabilities. The design combines separating new updates with maintaining the behavior already learned.",
+      "Experiments across diverse benchmarks show substantial reductions in both within-modality and cross-modality forgetting compared with earlier continual-learning baselines. The findings make modality interaction a concrete concern when adapting unified generative systems over time. They also support a lightweight, scalable architectural response: allocating updates to modality-specific experts while using distillation to help retain capabilities. The reported outcome is mitigation of forgetting across the tested settings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d7a645230c75d21762559b31f1df2573f420f6cb16da908620ed4b5056433187",
+    "tldr": "MoDE separates modality-specific updates and uses distillation to reduce forgetting in continually trained unified multimodal models."
+  },
+  "neurips-2025-object-concepts-emerge-from-motion-2c6b932a59": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper explores learning visual representations organized around individual objects without human-provided labels. Inspired by developmental research on infants’ use of motion, it treats motion boundaries as evidence for grouping parts of a scene into objects. The aim is to obtain useful object-level supervision directly from raw video.",
+      "The framework applies existing optical-flow and clustering algorithms to produce motion-based instance masks. These masks supply automatically derived supervision for training visual encoders through contrastive learning. Because the process requires neither labels nor camera calibration, it can be applied to large collections of unstructured videos. Its central choice is to make visual instances, identified through motion, the organizing unit of representation learning.",
+      "Evaluation covers monocular depth estimation, 3D object detection, and occupancy prediction, spanning lower-level geometry and higher-level scene understanding. The models outperform previous supervised and self-supervised baselines and generalize strongly to unseen scenes in the reported experiments. These results suggest that object grouping derived from motion can yield broadly useful visual features and offers a promising alternative direction for vision foundation models."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9f85b3d5b37c2d472ef94e9f15cac9d38deeda7352323c432fc34fe0962b44fe",
+    "tldr": "Motion-derived object masks train label-free visual encoders that improve evaluated geometry and scene-understanding tasks."
+  },
+  "neurips-2025-omnipresent-yet-overlooked-heat-kernels-in-combinatorial-bayesian-optimization-3c468bc8a1": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Bayesian optimization can search combinatorial spaces, but its modeling depends on kernels suited to discrete choices. Several such kernels have been proposed without a clear account of their relationships. This paper develops a common framework based on heat kernels, deriving them systematically and expressing them in simple closed forms.",
+      "Within that framework, the authors prove that many successful combinatorial kernels are related to, or equivalent to, heat kernels. Experiments validate this theoretical connection. The analysis also examines sensitivity to where the best solutions lie. It confirms and extends earlier findings that certain algorithms perform substantially worse when the unknown optimum lacks a particular structure, while heat kernels are insensitive to the optimum’s location.",
+      "The practical contribution is a fast, simple optimization pipeline built around heat kernels. It achieves state-of-the-art results in the reported experiments, matching or outperforming certain slower or more complex algorithms. Together, the theory and experiments clarify connections among existing kernel designs and show that a unified construction can support competitive optimization without requiring those more elaborate approaches."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "bd99eea41e99abc3dca4e2daf22f06ac82570cfc6eb1dc3c80b1ffa456d7886f",
+    "tldr": "Heat kernels unify many combinatorial optimization kernels and support a simple, competitive pipeline insensitive to the location of optima."
+  },
+  "neurips-2025-optimal-mistake-bounds-for-transductive-online-learning-efe83e9c0a": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper asks how much online prediction can benefit from seeing the entire sequence of unlabeled inputs before predicting their labels. This transductive setting provides advance knowledge of the instances while retaining the sequential prediction problem. The authors tightly characterize its possible advantage over standard online learning using Littlestone dimension, a measure of concept-class complexity.",
+      "For every concept class with dimension d, they prove a transductive mistake lower bound proportional to the square root of d. They also construct, for every d, a class with a matching upper bound up to constants. The distinction between these statements matters: all classes face the lower bound, but the matching upper bound is established through the existence of suitable classes.",
+      "Together, the bounds establish a quadratic gap between transductive and standard online learning and resolve the stated longstanding open problem. They substantially strengthen previous lower bounds and improve the earlier existence upper bound. The result quantifies how advance access to unlabeled instances can help online prediction, contrasting with the PAC setting, where transductive and standard sample complexities are similar."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "938fd98fa3ee56eaaba874c19b20d6bc7731da90343c8d24151e9ab93ddb7b28",
+    "tldr": "Matching lower and existential upper bounds establish a quadratic possible advantage from advance unlabeled inputs in online learning."
+  },
+  "neurips-2025-pass-k-policy-optimization-solving-harder-reinforcement-learning-problems-880e45add5": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Reinforcement learning often generates several attempts per problem but rewards each independently. This emphasizes the quality of individual attempts, even when the useful outcome is that at least one attempt succeeds. Pass-at-k Policy Optimization changes the objective toward the collective value of a set of attempts, emphasizing sets with a high maximum reward.",
+      "The authors derive low-variance, unbiased estimators for pass@k and its gradient under both binary and continuous rewards. These estimators translate into an efficient, stable joint transformation of rewards within a batch. The method supports any k up to the number of sampled attempts. It also allows k to be annealed during training, helping optimize single-attempt and multiple-attempt performance together.",
+      "Toy experiments demonstrate variance reduction, while examples using Gemma and Llama show effective optimization for the selected k. Higher k values enable solving more and harder problems; annealing improves both reported metrics. On challenging task sets where pass@1 training stalls, the method restores progress. Better exploration through collective reward is offered as a likely explanation for that improvement."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ec1385dab1ab678938e8a88bca9164612721b8db3b060805338a74ab23e55b4a",
+    "tldr": "PKPO jointly transforms batch rewards to optimize pass@k, enabling progress on harder problems and gains in both pass@1 and pass@k through annealing."
+  },
+  "neurips-2025-quantization-error-propagation-revisiting-layer-wise-post-training-quantization-4c9e998be8": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Layer-wise post-training quantization compresses a language model by reducing the precision of its numerical representation one layer at a time, without retraining. This paper identifies accumulated error as an important weakness of that approach. Errors introduced by quantization grow across layers and can substantially damage performance, particularly when numerical precision is extremely low.",
+      "Quantization Error Propagation, or QEP, explicitly carries quantization errors forward and compensates for their accumulation. The framework is designed to enhance existing layer-wise methods rather than replace the overall compression strategy. A tunable propagation mechanism controls computational overhead and prevents overfitting, allowing the approach to accommodate different architectures and available resources.",
+      "Experiments on several large language models show substantially higher accuracy when layer-wise quantization is enhanced with QEP. The largest gains appear in the extremely low-bit setting, where the identified error-growth problem is most consequential. These findings support treating compression as a sequence of interacting approximations: accounting for errors inherited from earlier layers can improve the accuracy retained by the final compressed model."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e2f9723a705d7a7f39d300fa18c50b146ba70d8822e53ebbb621bfaac5ae8422",
+    "tldr": "QEP improves layer-wise language-model quantization by propagating and compensating for accumulated errors, with the strongest gains at extremely low precision."
+  },
+  "neurips-2025-toward-real-world-text-image-forgery-localization-structured-and-interpretable-data-synt-7920c423c2": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Locating altered text in images requires training data that reflect real editing behavior. Existing methods struggle to generalize when real datasets are small and synthetic examples differ from actual tampering. This paper introduces Fourier Series-based Tampering Synthesis, a framework that builds synthetic training examples from a structured analysis of human editing traces.",
+      "The researchers collect 16,750 real tampering instances covering five representative types. Their pipeline records edits through formats including video, PSD files, and editing logs. They analyze recurring patterns at individual and population levels. Individual editing parameters are modeled using compact combinations of basic operation-and-parameter configurations, and those behaviors are aggregated into a population distribution.",
+      "Inspired by Fourier series, the representation uses basis functions and learned weights to make the approximation interpretable. Sampling the modeled distribution produces varied training images intended to better reproduce real forgery traces. Across four evaluation protocols, models trained on these examples generalize significantly better to real-world datasets. The findings support modeling how people edit as a useful foundation for synthesizing forgery-localization training data."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "33e081941529b1abdf171855e0daa06bd6598d3dada46ea80a8ace32e6cb5e40",
+    "tldr": "FSTS models recorded human editing behavior to synthesize text forgeries that improve localization on real-world data."
+  },
+  "neurips-2025-track-inpaint-resplat-subject-driven-3d-and-4d-generation-with-progressive-texture-infil-a081bfe5ba": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Generating an attractive 3D or 4D asset does not necessarily preserve the identity of a particular subject across viewpoints. Subject-driven generation aims to retain that identity using one or a few reference images. This paper introduces TIRE to address the relatively underexplored problem of personalization in 3D and 4D generation.",
+      "TIRE starts with a 3D asset produced by an existing generative model. Video tracking identifies regions that require modification. A subject-driven 2D inpainting model then progressively fills those regions with content aligned to the subject. Finally, the modified observations from multiple views are resplatted into 3D while maintaining consistency. The pipeline links tracking, image editing, and reconstruction into a single refinement process.",
+      "Experiments report significantly better identity preservation than state-of-the-art comparison methods for 3D and 4D generation. The approach matters because it applies subject-specific changes through 2D observations while bringing those changes back into a consistent 3D asset. Its findings support progressive editing of an existing generated asset as an effective route to preserving who or what the subject is across views."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6fe0b1645d39f09f60edad7963c40ca0dd15f779b00a3ee363a724b4718244c9",
+    "tldr": "TIRE tracks, inpaints, and resplats generated assets to improve subject identity preservation across 3D and 4D views."
+  },
+  "neurips-2025-two-heads-are-better-than-one-simulating-large-transformers-with-small-ones-3e9eb56304": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Self-attention becomes costly as input sequences grow because its complexity is quadratic in sequence length. Meanwhile, modern accelerators process short transformer inputs efficiently. This paper asks whether computations over long sequences can be carried out using transformers restricted to shorter sequences. Here, large and small refer to input length, which is central to the question.",
+      "The authors prove that a transformer accepting N inputs can be simulated efficiently using on the order of (N/M) squared transformers that accept M inputs, with M much smaller than N. They also prove that the number required cannot be improved in the worst case. Thus, splitting the work into shorter inputs has a precisely characterized general-case requirement.",
+      "The result improves under several natural scenarios, including average-case inputs, sliding-window masks, and attention sinks. In those settings, only on the order of N/M small transformers suffice, which the paper establishes as optimal. These are simulation guarantees that distinguish unrestricted attention from favorable cases. They explain when short-input transformer computations can represent long-input behavior with a linear rather than quadratic number of components."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0cd8e4f0e6751afd3da57382c604dcb38fc89339fd95bd3454542b69c54bf8c3",
+    "tldr": "Short-input transformers can simulate long-input transformers with optimal quadratic worst-case counts and linear counts in several natural settings."
+  },
+  "neurips-2025-unigen-enhanced-training-test-time-strategies-for-unified-multimodal-understanding-and-g-5f762034e3": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "UniGen is a single multimodal language model designed for both understanding images and generating them. The paper studies its full training process from a data-centered perspective, covering multiple pretraining stages, supervised fine-tuning, and direct preference optimization. All training stages use open-source datasets, making the data choices part of the overall contribution.",
+      "The authors also introduce Chain-of-Thought Verification, a method for improving generation through additional computation at test time. UniGen generates candidate images and then serves as its own verifier, assessing step by step how well each image matches the meaning of the text prompt. This assessment supports a Best-of-N selection strategy, connecting the model’s understanding ability to its generation ability.",
+      "The model achieves reported state-of-the-art results across a range of image-understanding and image-generation benchmarks, including 0.78 on GenEval and 85.19 on DPG-Bench. Verification significantly improves generation quality in the reported evaluations. Extensive ablations examine the training and test-time choices, providing evidence about building a unified system across its full development process rather than considering generation and understanding separately."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a89621e66beef78a89f2839771a3ec1811d204a996ebd28b20f1c9dd4f8b4c7e",
+    "tldr": "UniGen combines open-data multimodal training with self-verification of candidate images to improve unified understanding and generation."
+  },
+  "neurips-2025-zero-shot-denoising-via-neural-compression-theoretical-and-algorithmic-framework-5e3a675520": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Zero-shot denoising removes noise without a training dataset or clean reference image. This setting is relevant when suitable examples are difficult to obtain, including specialized imaging domains. The paper introduces ZS-NCD, which uses a neural compression architecture to recover an image directly from its noisy observation.",
+      "The compression network starts untrained and is optimized on patches extracted from that single image. Its outputs for overlapping patches are then aggregated into the final reconstruction. The architecture’s built-in entropy constraints provide the mechanism for avoiding overfitting. As a result, the proposed method does not require manually chosen regularization or early stopping to control fitting to the noisy input.",
+      "Experiments report state-of-the-art performance among zero-shot denoisers for Gaussian and Poisson noise, with good generalization across natural and non-natural images. The paper also derives finite-sample upper bounds on reconstruction error for a broader class of maximum-likelihood compression-based denoisers. These two contributions connect a practical single-image algorithm with theoretical analysis of how compression can support denoising when clean training examples are unavailable."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "df31cbca85862243666e8b636a8a01a9e60f0fca02376e439ad35fcaf0d6184b",
+    "tldr": "ZS-NCD denoises a single image using an initially untrained compression network whose entropy constraints control overfitting."
+  }
+}

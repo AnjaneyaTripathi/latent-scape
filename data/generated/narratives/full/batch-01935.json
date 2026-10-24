@@ -1,0 +1,335 @@
+{
+  "icml-2026-active-budget-allocation-for-efficient-scaling-law-estimation-via-surrogate-guided-pruni-5fc1b53c51": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Scaling laws help predict how model loss changes as training compute increases. Estimating them can itself be expensive because researchers must collect learning curves across training configurations. This paper studies how to distribute a fixed compute budget so that the resulting curves reveal the loss-compute frontier more efficiently.",
+      "The authors investigate Successive Halving, a procedure that progressively removes less promising candidates, both alone and combined with surrogate models. These surrogates provide parametric or non-parametric estimates to guide resource allocation. The aim is to spend more of the available budget on curves that are useful for identifying strong performance at a given computational cost.",
+      "In the reported experiments, combining Successive Halving with surrogates finds a set containing a better loss-compute curve than uniform allocation or Successive Halving alone. Mean relative improvements reach 2.84% on real-world curves and 5.47% on synthetic curves. The authors also report accurate scaling-law estimates with computational savings of up to 98.7% compared with exhaustive collection, making experiment allocation part of the estimation method itself."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "223bd438d6fa24c358d3ef4499c95bad27e77a4f08d05be3d526da38eae1ecde",
+    "tldr": "Surrogate-guided allocation of training compute improves scaling-law estimation efficiency, with reported savings of up to 98.7% over exhaustive collection."
+  },
+  "icml-2026-contrastive-geometric-learning-unlocks-unified-structure-and-ligand-based-drug-design-d8b7da84ae": {
+    "backgroundConcepts": [
+      "topic-075-a-3d-generative-model-for-structure-based-drug-d"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Computational drug design can use protein structures or information about molecules and their biological activity. These approaches have traditionally used separate data sources and modeling assumptions. ConGLUDe brings them into a single model trained jointly on protein-ligand complexes and large collections of bioactivity measurements.",
+      "Its protein encoder represents both the whole protein and multiple predicted binding sites, while a separate encoder represents ligands. Contrastive learning aligns ligand representations with the relevant protein and candidate-site representations. Because the model predicts possible sites internally, it does not require a predefined binding pocket. This design supports screening candidate ligands, finding likely protein targets, and selecting a pocket based on a particular ligand.",
+      "Across the reported benchmarks, ConGLUDe delivers competitive zero-shot virtual screening, substantially improves on existing methods in a challenging target-finding task, and achieves state-of-the-art ligand-conditioned pocket selection. These findings support the value of combining structural and activity data within one representation system. The paper presents the model as progress toward broader drug-discovery models, with different levels of success across its evaluated tasks."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "313267bd99e248432b73cc5fd71ce4a96b37fb2a3fd4091829a921a84fc48a8b",
+    "tldr": "ConGLUDe combines protein geometry and ligand activity data in one model for screening, target identification, and ligand-conditioned binding-site selection."
+  },
+  "icml-2026-eager-entropy-aware-generation-for-adaptive-inference-time-scaling-4f778e11c4": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Generating several answers to the same prompt can improve reasoning by exploring different solution paths, but assigning every prompt the same budget can waste computation. EAGer starts from the assumption that prompts differ in complexity and therefore in how much exploration they need. It adjusts generation without additional model training.",
+      "The method uses token-level entropy as a signal of model uncertainty. It branches into multiple reasoning paths only when uncertainty is high, rather than repeatedly generating whole sequences independently. Computation saved on less uncertain portions can then be allocated to instances where alternative paths are more useful. This connects the amount of exploration to uncertainty during generation.",
+      "Experiments cover multiple open-source models and reasoning benchmarks, with specific gains reported on AIME 2025. When target labels are available, the authors report up to 37% higher Pass@k and 59% fewer tokens. At test time, they report 12% higher Pass@k and 64% fewer tokens relative to Full Parallel Sampling. These distinct settings show how label access affects the reported gains from adaptive exploration."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "43a66d95a3aae53cc88b2d76f4ac22477b8d81dc34339520944bc3e3ffb0a3e7",
+    "tldr": "EAGer branches reasoning at high-uncertainty tokens to improve reported solution success while using fewer generated tokens."
+  },
+  "icml-2026-efficient-training-of-boltzmann-generators-using-off-policy-log-dispersion-regularizatio-0478881fab": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Boltzmann generators learn to produce independent samples from the distribution of a physical system at a specified temperature. Training them efficiently matters because simulation data and evaluations of the system's energy can both be expensive. This paper introduces log-dispersion regularization, or LDR, to extract more useful training information from available data and energy labels.",
+      "LDR generalizes a log-variance objective and can be combined with standard data-based training losses in an off-policy setting. It does not require additional samples from the model's current distribution. Target energy labels guide the regularizer, which constrains the shape of the learned energy landscape rather than relying only on matching observed samples.",
+      "The framework supports both biased and unbiased simulation datasets, as well as purely variational training without target-distribution samples. Across the reported benchmarks, adding LDR improves final performance and data efficiency, with sample-efficiency gains reaching one order of magnitude. The contribution is therefore a broadly applicable training regularizer that makes costly information more useful across several ways of fitting Boltzmann generators."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9a4a799a00ebd7551a4fc5a01caca7fe4f847de7364d34d508eaafac25edefe4",
+    "tldr": "Log-dispersion regularization uses energy labels to improve Boltzmann-generator training without additional on-policy samples."
+  },
+  "icml-2026-flat-minima-and-generalization-insights-from-stochastic-convex-optimization-8b010e01c7": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Flat minima are often associated with good generalization: nearby parameter changes have little effect on training loss. This paper examines that connection in stochastic convex optimization with a non-negative, smooth objective. It shows that even in this setting, flatness alone can be misleading: flat training minima may have constant-order population risk while sharp minima generalize optimally.",
+      "The authors extend this analysis to Sharpness-Aware Gradient Descent and Sharpness-Aware Minimization. For the former, they prove fast convergence to a flat minimum, yet the resulting population risk can remain large. For the latter, minimizing empirical loss may lead to a sharp minimum that also has constant-order population risk. These are possible failure behaviors, rather than claims that either method always fails.",
+      "The paper also derives population-risk upper bounds for both algorithms using algorithmic stability. Together, the results separate optimization success, local flatness, and performance on the underlying data distribution. They show why reaching a flat solution cannot by itself establish generalization, while providing another theoretical route for studying these algorithms."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a97463acde91334473bab99f4317849ad439666cdf977fb9c3e52b5cf4157b6f",
+    "tldr": "Even for smooth convex objectives, flat training minima can generalize poorly, so flatness alone does not guarantee low population risk."
+  },
+  "icml-2026-from-associations-to-activations-comparing-behavioral-and-hidden-state-semantic-geometry-ae1c2b0a5d": {
+    "backgroundConcepts": [
+      "topic-109-how-do-language-models-track-state"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper asks how much a language model's observable word judgments reveal about its internal representation of meaning. The authors compare two behavioral tasks: choosing between alternatives based on similarity and freely producing associated words. Across eight instruction-tuned transformers, they collect more than 17.5 million trials over a shared vocabulary of 5,000 words.",
+      "The responses become similarity matrices describing which words the models treat as related. Representational similarity analysis then compares these behavioral patterns with similarities in hidden states at different layers. FastText, BERT, and agreement across models provide reference points for assessing how much information the behavioral measurements contain.",
+      "Forced-choice judgments align substantially more closely with hidden-state geometry than free associations do. In a regression test using held-out words, behavioral similarities also predict unseen internal similarities beyond the lexical baselines and cross-model consensus. The findings indicate that behavior contains recoverable information about internal semantic structure, especially when elicited through forced choice. They support a route to studying hidden representations through carefully selected tasks without establishing complete recovery of those representations."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1ab5fc23fdfbc56c734055867e14ca161c28f9a0251b18f3b5a9b2c3e01e3cd3",
+    "tldr": "Forced-choice word judgments reveal more about language models' hidden semantic geometry than free association does."
+  },
+  "icml-2026-icr-rl-deep-reinforcement-learning-via-in-context-regression-8a91fe02b1": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Building foundation models directly from many reinforcement-learning tasks can require expensive environment development and training. This paper explores another route: using a foundation model already trained for regression. Its starting point is the classical connection that allows reinforcement-learning problems to be approached through regression subproblems.",
+      "The proposed method, ICR-RL, uses in-context regression to apply that connection without further training or fine-tuning the foundation model. It is gradient-free and draws on the model's existing ability to solve regression tasks from supplied context. The authors instantiate the approach with TabPFN, which was pretrained on a broad range of regression problems.",
+      "On the Gymnasium classic-control benchmark, ICR-RL matches or outperforms evaluated state-of-the-art methods, including DQN and PPO. These experiments show that a model pretrained outside the control-task setting can serve as a useful component for reinforcement learning. The result supports regression pretraining as a possible foundation for RL-oriented systems, with the demonstrated performance grounded in the classic-control tasks evaluated in the paper."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f4254032f2d1199530c7080335fcdcffcc5e98c9f4d70af4fd41dd4c9cbd1b6b",
+    "tldr": "ICR-RL applies a pretrained regression foundation model to reinforcement learning without additional training, with strong classic-control results."
+  },
+  "icml-2026-improved-algorithms-for-nash-welfare-in-linear-bandits-af58622aee": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Linear bandits model repeated decisions whose expected rewards depend on action features. This paper studies fairness-aware evaluation of those decisions through Nash regret. Earlier guarantees had a suboptimal dependence on the feature dimension, which the authors attribute to restrictive concentration inequalities used in their proofs.",
+      "The authors introduce analytical tools that establish an order-optimal Nash regret bound. They also extend the objective to p-means regret, a broader family that interpolates between fairness and utility and includes Nash regret as a special case. Their FairLinBandit framework operates as a wrapper around a linear bandit strategy, separating the fairness-oriented framework from the underlying decision algorithm.",
+      "The paper instantiates this framework with Phased Elimination and Upper Confidence Bound, proving sublinear p-means regret across the entire range of p. Sublinear growth means that regret per decision decreases as the number of decisions increases. Experiments on linear bandit instances constructed from real-world datasets consistently outperform the existing state-of-the-art baseline. The contribution combines sharper theory for Nash regret with a more general way to study fairness-utility objectives."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "495e8d0d6e19cca6606223e3036bd489e48fa8dd8d68e398bbd0c405d6575c3a",
+    "tldr": "New analysis improves Nash regret guarantees, while FairLinBandit extends fairness-aware linear bandits to the broader family of p-means objectives."
+  },
+  "icml-2026-influence-guided-symbolic-regression-scientific-discovery-via-llm-driven-equation-search-53557d0cdb": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Symbolic regression searches for equations that explain data. When a language model proposes an equation and receives only an overall error score, it gets little guidance about which terms help. Influence-Guided Symbolic Regression addresses this problem by providing feedback on individual components of a candidate equation.",
+      "The method alternates between generating diverse basis functions and selecting useful ones. A language model proposes the functions for a linear combination, and influence scores measure each term's marginal contribution to generalization accuracy. These scores guide pruning. Monte Carlo Tree Search organizes the larger search, balancing exploration of new functional forms with further development of components that already appear useful.",
+      "The authors evaluate the method on equation-discovery benchmarks, pharmacological models, an epidemiological simulation, and genomic data. In a high-dimensional biological case study, it identifies a previously unreported relationship between DNA methylation and RNA Polymerase II pausing. Subsequent wet-lab experiments support that hypothesis. This case illustrates how detailed model-selection feedback can help equation search produce a scientifically testable relationship."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ec5b3e251a43e8bc93a0263eaf543f15c3674cf8bb608ec6f995cc3c227032d2",
+    "tldr": "IGSR guides language-model equation search with term-level influence scores and reports a biological hypothesis supported by wet-lab experiments."
+  },
+  "icml-2026-on-the-ability-of-transformers-to-verify-plans-32f57cae6b": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A planning verifier checks whether a proposed sequence of actions solves a given problem. This paper studies when decoder-only transformers can learn that task and generalize to longer plans. The motivation is the inconsistent performance of transformers on planning tasks and the limited theoretical understanding of when successful generalization should be expected.",
+      "The analysis addresses a setting where test problems contain more objects than training problems. This expands both the sequence length and the effective vocabulary, so a guarantee about longer inputs alone would not capture the full challenge. The authors introduce C*-RASP, an extension of C-RASP designed to reason about these two kinds of growth together.",
+      "Using this framework, the paper identifies a large class of classical planning domains in which transformers can provably learn to verify long plans. It also identifies structural properties that substantially affect whether length-generalizing solutions are learnable. Experiments support the theoretical account. The results clarify conditions for successful verification across planning domains, rather than asserting that every planning task admits the same generalization behavior."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "feca62427ec8b578256feb0c6a8bf51494a710d4257d3b20b3b10b58cfe1e677",
+    "tldr": "C*-RASP provides a framework for proving transformer plan-verification generalization as both plan length and object vocabulary grow."
+  },
+  "icml-2026-optimal-anytime-algorithms-for-online-convex-optimization-with-adversarial-constraints-443b70bc0e": {
+    "backgroundConcepts": [
+      "topic-056-optimistic-online-mirror-descent-for-bridging-st"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Online convex optimization requires making decisions as costs arrive over time. Here, decisions must also approximately satisfy changing convex constraints, and both costs and constraints may be chosen adversarially. The paper develops an anytime algorithm whose guarantees apply without knowing in advance how many rounds will occur.",
+      "Its central tool is a time-varying Lyapunov function that tracks constraint violations without depending on a final horizon. Allowing this function to change breaks a monotonicity property used in earlier analyses, so the authors develop a new proof technique. They establish regret of order square root of time and cumulative constraint violation of the same order up to logarithmic factors, at every time step.",
+      "The framework also handles comparison against a changing sequence of decisions, with bounds that adapt to the sequence's unknown path length. An optimistic version adapts to cumulative prediction error when predictions are available. Numerical experiments on online shortest paths support practical effectiveness. The overall contribution combines ongoing performance guarantees with adaptation to changing comparators and imperfect predictions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2f84ef8bd908fd8360247357e51a3960e57d2c1519b47287a9dc6e38b3e5307c",
+    "tldr": "A horizon-independent algorithm achieves square-root regret and nearly square-root cumulative constraint violation under adversarial convex costs and constraints."
+  },
+  "icml-2026-probabilistic-performance-guarantees-for-multi-task-reinforcement-learning-7387c7060f": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Multi-task reinforcement learning aims to produce one policy that can perform several tasks. Strong measured performance does not automatically provide a formal guarantee for a new task. This paper develops a way to compute high-confidence performance guarantees for tasks that were not used during training, addressing a concern that matters for safety-critical deployment.",
+      "The approach combines two sources of uncertainty. Within each evaluated task, finitely many rollouts support a lower confidence bound on performance. Across tasks, finitely many sampled tasks support a generalization bound. Composing these levels accounts for limited experience both within individual tasks and across the task distribution.",
+      "The guarantee applies to new tasks drawn from the same distribution as the sampled tasks; that distribution may be arbitrary and unknown. The authors show that the resulting bounds are theoretically sound and informative at realistic sample sizes across state-of-the-art multi-task RL methods. This makes the contribution a way to quantify confidence in generalization, with the shared-distribution condition defining the scope of what is certified."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "afc65178685d6767293722494c3aa6caea8be9ea57e6852f14d9fe8a109f1588",
+    "tldr": "A new bound combines rollout uncertainty and task-sampling uncertainty to certify multi-task policy performance on new tasks from the same distribution."
+  },
+  "icml-2026-ranking-free-rag-replacing-re-ranking-with-selection-in-rag-for-sensitive-domains-424e8148ac": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "METEORA uses explicit explanations of evidence needs to guide retrieval-augmented generation. Conventional similarity retrieval often takes a fixed number of chunks, leaving the reason for each selection unclear. The proposed framework preference-tunes a general-purpose language model to explain what evidence a query requires and then uses those rationales throughout retrieval.",
+      "Selection first assesses relevance by pairing rationales with candidate chunks, then dynamically determines where to stop selecting evidence. The same rationales support a verification stage that filters poisoned or misleading material before answer generation. This gives the explanations a functional role in both evidence selection and checking.",
+      "Across six datasets, METEORA reports 21.05% higher precision than the strongest baseline; a context-expansion variant reports 13.41% higher recall. It uses 80% less evidence for comparable recall and reports a 33.34% improvement in answer accuracy. Under poisoning attacks, F1 rises from 0.10 to 0.44. Four experienced annotators reconstruct evidence decisions with 86% accuracy and give mean confidence of 3.64 out of five. These results support improved retrieval, robustness, and human interpretability in the evaluated settings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8e1e99f6b266a6d83d88dcf5d433cb3632c4acad7f0ae40daf66909d2f3e1904",
+    "tldr": "METEORA uses query-specific rationales to select and verify evidence, improving reported retrieval quality, interpretability, and resistance to poisoning."
+  },
+  "icml-2026-robust-in-context-reinforcement-learning-under-reward-poisoning-attacks-afe779ea9d": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "In-context reinforcement learning uses contextual experience to guide action selection. This paper examines what happens when an attacker corrupts the rewards in that experience, focusing on the Decision-Pretrained Transformer. Such poisoning can make the feedback used for decision-making disagree with the true reward the agent should maximize.",
+      "The proposed Adversarially Trained DPT trains the decision model alongside a population of attackers. The attackers learn to alter environment rewards in ways that reduce the model's true reward, while the model learns to infer optimal actions from the corrupted data. Training therefore makes reward corruption an active part of the learning problem.",
+      "In bandit experiments under a learned attacker, the resulting model significantly outperforms standard algorithms, including robust baselines designed for contaminated rewards. The authors also report generalization to adaptive attackers and more complex Markov decision processes. These findings suggest that adversarial training can help in-context reinforcement learning acquire effective corruption-resistant decision strategies, with the evidence extending beyond the initial bandit setting to the additional environments tested."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "df39b85e0a9ab9225ccd5f86895b52daa9b1d2b70e8b98c3d66f6fae0c5a6cd1",
+    "tldr": "Training a decision transformer against learned reward-poisoning attackers improves its reported robustness in bandits and more complex environments."
+  },
+  "icml-2026-sphericaldreamer-generating-navigable-immersive-3d-worlds-with-panorama-fusion-c226240a74": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "SphericalDreamer generates outdoor 3D environments from text prompts, targeting two requirements together: users should be able to travel across a large area and look in every direction. The paper identifies the combination as a limitation of earlier methods. A scene needs complete horizontal and vertical coverage as well as enough spatial extent to support long-range navigation.",
+      "The method first generates multiple panoramic images. It then converts those images into 3D content and fuses the results while maintaining visual and geometric consistency. Using several panoramas connects the all-around coverage of panoramic imagery with the broader spatial coverage needed for movement through an environment.",
+      "The authors report detailed, fully immersive environments with substantially improved scale and navigability compared with prior approaches. The significance is the joint treatment of viewing coverage and travel distance within one generated world. The stated result concerns text-conditioned outdoor environments, where panorama generation and consistent 3D fusion together support a larger space to explore while preserving an omnidirectional field of view."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "21564e37813736529f31caf8ed01f81bffad81da0f6c31da517329da81c223e2",
+    "tldr": "SphericalDreamer fuses generated panoramas into text-conditioned outdoor 3D worlds with all-direction viewing and improved long-range navigation."
+  },
+  "icml-2026-step-size-stability-in-stochastic-optimization-a-theoretical-perspective-4875c645eb": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The step size controls how far an optimization method moves during an update. Choosing it too large can harm performance, and different methods tolerate this differently. This paper develops a theoretical way to compare stochastic optimization methods through their sensitivity to oversized steps, making robustness to step-size choice an explicit object of analysis.",
+      "The authors identify a quantity that characterizes how each method's performance deteriorates as the step size grows too large. For convex problems, they show that this quantity directly affects the bound on how far the resulting objective value is from optimal. The analysis provides theoretical evidence that adaptive methods such as SPS and NGN are more robust than stochastic gradient descent.",
+      "Experiments show that the theoretical bound qualitatively tracks the observed relationship between step size and performance, including on non-convex problems. This empirical extension does not change the stated convex scope of the bound. Together, the findings explain an advantage of adaptive step-size methods and connect that explanation to observed optimization behavior."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d5545c0e933dde0389a5955a8b6021a555318d5675d85ce8dbfe51f880e39c9d",
+    "tldr": "A theoretical sensitivity measure explains why adaptive methods such as SPS and NGN can tolerate oversized steps better than SGD."
+  },
+  "icml-2026-temperature-scaling-in-discrete-sequence-language-models-38947c71d1": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Temperature scaling changes how a model distributes probability among possible outputs. Applying it to entire sequences is difficult because the required normalizing quantity is usually intractable. Scaling each token separately introduces bias relative to the sequence-level target. Discrete diffusion models add complications because tokens can be generated in multiple possible orders.",
+      "This paper develops a common formalism for sequence-level temperature scaling across a broad class of sequence models. It introduces fine-tuning objectives designed to produce the desired temperature change. To assess whether that change has been achieved, the authors also propose two metrics based on likelihood ratios, avoiding the need to compute the intractable normalizing quantity.",
+      "Experiments with GPT2 and BD3LM show more consistent generation and lower negative log-likelihood using the proposed approach. The authors additionally provide empirical evidence of improved reasoning performance. The contribution joins a training method with a way to evaluate its intended distributional effect, helping distinguish successful sequence-level temperature adjustment from the biased effect of naive token-wise scaling."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2c924582653c378d88f970a7854dd4b788c2f4cb18d12f50d16d99ae21a1b97d",
+    "tldr": "New fine-tuning objectives and likelihood-ratio metrics make sequence-level temperature scaling more tractable and measurable."
+  },
+  "icml-2026-the-geometry-of-representational-failures-in-vision-language-models-9489c7dda9": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Vision-language models can struggle with scenes containing multiple objects, sometimes reporting absent elements or confusing which objects are most similar. This paper investigates these failures through the geometry of internal representations. It studies open-weight models from the Qwen, InternVL, and Gemma families to connect visual errors with how concepts are encoded.",
+      "The authors compare ways of extracting concept vectors: directions in the model's internal space associated with visual concepts. They test these vectors by intervening on model processing and observing changes in behavior. The interventions reliably steer responses in simplified and naturalistic tasks, including making a model perceive a red flower as blue.",
+      "The study finds that geometric overlap between concept vectors strongly correlates with particular error patterns. This supplies a quantitative connection between internal representation structure and visible failures. The steering experiments establish that the extracted directions can influence behavior, while the overlap analysis links their geometry to mistakes. Together, these results provide a mechanistic perspective on how overlapping visual representations may contribute to multi-object confusion."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "59291d64723371a2f6dc248d1575010bbbed1dae15f190566b6abfc35a9cd77b",
+    "tldr": "Steerable visual concept vectors reveal a strong correlation between representational overlap and specific vision-language model errors."
+  },
+  "icml-2026-training-free-bayesian-filtering-with-generative-emulators-f9b45630a4": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Bayesian filtering estimates plausible hidden states of a changing system from observations. Particle filters represent that uncertainty using candidate states and can handle nonlinear dynamics and observations. Although theoretically exact, they are difficult to scale to high-dimensional systems. This paper studies how generative models of system dynamics can help overcome that computational obstacle.",
+      "The authors show that diffusion-based emulators can implement an optimal variant of particle filtering without additional training. That variant has received limited practical attention because implementing it with classical numerical solvers is challenging. The contribution is to use the capabilities of an existing generative emulator to make this filtering procedure accessible.",
+      "Experiments on nonlinear chaotic systems, including atmospheric dynamics, demonstrate successful particle filtering in high-dimensional settings. Here, training-free means the filtering approach requires no extra training of the emulator; the method still relies on a diffusion-based dynamical model. The results show a useful role for such emulators beyond simulating trajectories: they can also enable more effective inference about system states from observations."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "576902f978c0ce4f7b548c45a8c4e3f0a6eb08cebbe1f46f96518f59300bccbb",
+    "tldr": "Existing diffusion-based dynamical emulators enable an optimal particle-filter variant without further training, with successful high-dimensional demonstrations."
+  },
+  "icml-2026-trajectory-level-data-augmentation-for-offline-reinforcement-learning-4282179498": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Offline reinforcement learning trains from previously collected experience, so the usefulness of that experience matters greatly. This paper focuses on learning from a limited number of suboptimal trajectories, motivated by active positioning problems. Its goal is to make those recorded sequences more useful for training off-policy models.",
+      "The proposed augmentation works at the trajectory level and uses structure specific to the task. In particular, it draws on geometric relationships between rewards and value functions, together with mathematical properties of the policies that collect the data. The approach therefore connects how experience is collected with how it can later be augmented for learning.",
+      "The authors provide theoretical justification and evaluate the strategies on positioning tasks with different dimensionalities, including settings with partial observability. They report higher data quality and improved offline reinforcement-learning performance while supporting suboptimal data-collection policies. The findings show how task structure can help extract stronger learning signals from limited experience, with the demonstrated benefits tied to the positioning settings studied."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5b86eb4d2efd2d53a826cec2069df55dd703b4422cc9b144a4760a6dce6be0a1",
+    "tldr": "Task-aware trajectory augmentation improves offline reinforcement learning from limited, suboptimal experience in positioning tasks."
+  },
+  "icml-2026-transitive-representation-learning-enhances-histopathology-annotation-602334dfbf": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Histopathology annotations often describe tissue too coarsely to identify individual cell types. SpatialWhisperer addresses this by connecting tissue images, gene expression, and natural-language descriptions in a shared representation. The model uses contrastive learning across these three modalities to support more fine-grained interpretation of H&E images.",
+      "Training combines spatial gene-expression measurements paired with tissue images and single-cell gene-expression profiles paired with detailed annotations. Gene expression supplies the shared link: image-to-expression and expression-to-text relationships can induce image-to-text alignment. The authors formalize this transitive mechanism and give a sufficient condition for it to occur. This provides a theoretical basis for the connection without claiming that every such pairing automatically produces alignment.",
+      "SpatialWhisperer enables zero-shot cell-type annotation directly from images. Across three benchmarks covering 19 tissues and 20 cell types, it outperforms published baselines with relative AUROC gains of up to 15.9%. Training with all three modality pairs also improves performance when data are limited. The results show how a shared biological modality can connect visual evidence to detailed textual labels."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b1756baa73f8fe3764312b5f02bd1f1e116fd48361dd53ae8ef3e01d907a6478",
+    "tldr": "SpatialWhisperer uses gene expression to connect tissue images with textual cell labels, improving zero-shot histopathology annotation."
+  },
+  "icml-2026-transport-clustering-solving-low-rank-optimal-transport-via-clustering-3c7697a18a": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Optimal transport finds a low-cost way to match probability distributions. Constraining the transport plan to low rank makes latent structure explicit and offers statistical advantages, including more robust estimation. It also creates a non-convex, NP-hard optimization problem. This paper introduces Transport Clustering to obtain efficiently computable approximations to that structured matching problem.",
+      "The algorithm first performs full-rank transport registration, then turns the resulting correspondences into a clustering problem. The authors prove polynomial-time, constant-factor approximation guarantees for this reduction. The guarantees depend on the cost structure: negative-type metrics, kernel costs, and general metrics satisfying the triangle inequality receive different bounds.",
+      "The approximation factors depend on the ratio between optimal full-rank and low-rank transport costs; the general-metric bound also includes an asymmetry coefficient for cluster variances. Both quantities lie between zero and one, keeping the stated factors bounded. Numerical evaluations show Transport Clustering outperforming existing solvers on synthetic benchmarks and large-scale datasets. The contribution connects a difficult structured transport problem to clustering while retaining explicit guarantees on solution quality."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9c3437c6e216072bc9c8511939bc7dcb8fc792db9bc50b8d33939ceb8dfe0bc6",
+    "tldr": "Transport Clustering reduces low-rank optimal transport to clustering and provides polynomial-time constant-factor approximation guarantees."
+  },
+  "icml-2026-two-layer-linear-auto-regressive-models-estimate-latent-states-d8e1873367": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies how a prediction model can learn an internal estimate of a system's hidden state without being explicitly told that state. The setting is a two-layer linear autoregressive model trained by empirical risk minimization on observations from a partially observed linear dynamical system. In this setting, the authors show that training naturally approximates Kalman filtering.",
+      "The learned hidden representation matches the optimal filter's state estimates up to a similarity transformation, meaning the state can be represented in different coordinates. The argument first shows that a finite autoregressive model approximates the Kalman filter with bounded truncation error. It then establishes a benign optimization landscape: every stationary point is either a strict saddle or a global minimum.",
+      "The main guarantees quantify prediction error, parameter estimation error, and latent-state recovery with finitely many training samples. Numerical simulations support the theory and show hidden representations recovering state estimates. The result explains a concrete mechanism for learning latent representations from prediction, with its guarantees specifically grounded in the linear model and dynamical-system setting analyzed."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f4ba5daced6e9693f3c4056ed39c4884926fe92b54f058f6d84ffac630fe38f1",
+    "tldr": "Two-layer linear autoregressive models trained on partially observed linear systems can recover Kalman state estimates up to a change of coordinates."
+  },
+  "icml-2026-vlm-robustbench-a-comprehensive-benchmark-for-robustness-of-vision-language-models-838f99c153": {
+    "backgroundConcepts": [
+      "topic-203-automated-synthetic-to-real-generalization"
+    ],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "VLM-RobustBench examines how vision-language models respond when images are distorted. Strong performance on clean datasets may leave these weaknesses hidden. The benchmark includes 49 augmentation types covering noise, blur, weather, digital changes, and geometric changes, with severity levels and binary transformations producing 133 corrupted settings.",
+      "The authors evaluate 15 models from five families on two complementary benchmarks: MMBench for visually grounded tasks and MMMU-Pro for reasoning-oriented tasks. The comparison asks whether a distortion's apparent visual severity predicts how much it disrupts a model. The results show that this relationship is weak: mild spatial changes can cause more damage than visually severe photometric changes.",
+      "Low-severity glass blur reduces MMBench accuracy by about eight percentage points on average across models. The largest reported drops, reaching 34 percentage points, come from resampling and geometric distortions such as upsampling and elastic transformations. These findings suggest that current models combine strong semantic abilities with spatial fragility, motivating evaluation and training that pay closer attention to geometric and resampling invariance."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a816da7fa197a5d4cb1c6732f4a5e736904724151ccae1306de2329a443ca420",
+    "tldr": "VLM-RobustBench finds that mild spatial distortions can damage vision-language model performance more than visually severe image corruptions."
+  },
+  "icml-2026-when-does-predictive-inverse-dynamics-outperform-behavior-cloning-fa1eac846b": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Behavior cloning learns to imitate expert actions from demonstrations, but limited data can make it unreliable. Predictive inverse dynamics models take a two-part approach: predict a future state, then use an inverse dynamics model to infer the action. This paper explains why that extra structure can improve imitation learning and when it is beneficial.",
+      "The theoretical account centers on a tradeoff. Conditioning action inference on a predicted future state can substantially reduce variance, but predicting that state introduces its own bias and variance. The authors establish conditions under which the overall balance yields greater sample efficiency and lower prediction error than behavior cloning. They also show that the advantage can grow when additional data sources are available.",
+      "Experiments in 2D navigation support the analysis: behavior cloning needs up to five times as many demonstrations, and three times as many on average, for comparable performance. In a complex 3D video-game environment with visual inputs and stochastic transitions, it requires over 66% more samples. These results illustrate the conditional benefits identified by the theory."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "134d70e080e163fca59bc06bcb4826fe9f9ee1e32c132188af0d4a74585c49d9",
+    "tldr": "Predictive inverse dynamics can outperform behavior cloning when reduced action-prediction variance outweighs the errors introduced by forecasting future states."
+  }
+}

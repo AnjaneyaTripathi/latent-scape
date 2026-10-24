@@ -9,33 +9,55 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 import re
 import sys
 from pathlib import Path
 from typing import Any
 from urllib.parse import urlsplit
 
-
 # GitHub Pages documents these limits in decimal units. Using their exact values
 # keeps the check conservative rather than silently permitting an oversized file.
 MAX_FILE_BYTES = 100_000_000
 MAX_SITE_BYTES = 1_000_000_000
 MODEL_FILES = (
+    "models/Xenova/all-MiniLM-L6-v2/config.json",
+    "models/Xenova/all-MiniLM-L6-v2/special_tokens_map.json",
     "models/Xenova/all-MiniLM-L6-v2/tokenizer.json",
+    "models/Xenova/all-MiniLM-L6-v2/tokenizer_config.json",
+    "models/Xenova/all-MiniLM-L6-v2/vocab.txt",
     "models/Xenova/all-MiniLM-L6-v2/onnx/model_quantized.onnx",
 )
 DATA_FILES = (
     "data/manifest.json",
     "data/search.json",
     "data/topics.json",
+    "data/topic-graph.json",
     "data/vectors.json",
-    "data/coverage.json",
-    "data/schema.json",
-    "data/report.json",
 )
 TEXT_ASSET_SUFFIXES = {".html", ".js", ".css"}
 REMOTE_ASSET = re.compile(r"https?://[^\"'\s)<>]+", re.IGNORECASE)
 EXTERNAL_ASSET_SUFFIXES = (".js", ".mjs", ".css", ".wasm", ".onnx", ".json")
+FORBIDDEN_PUBLIC_PATHS = {
+    "data/coverage.json",
+    "data/corpus-report.json",
+    "data/report.json",
+    "data/schema.json",
+    "summary-review.html",
+}
+FORBIDDEN_PUBLIC_FILENAMES = {"ASSET-AUDIT.json"}
+FORBIDDEN_PAPER_FIELDS = {
+    "provenance", "sourceRecoveryLocked", "abstractSource", "summaryEvidenceStatus",
+}
+FORBIDDEN_SUMMARY_FIELDS = {"model", "sourceAbstractSha256", "source"}
+FORBIDDEN_TOPIC_FIELDS = {"provenance", "curationStatus"}
+LEGAL_FILES = {"LICENSE", "NOTICE", "ThirdPartyNotices.txt"}
+STATIC_RUNTIME_FILES = {"index.html", "sw.js"}
+STATIC_DATA_FILES = set(DATA_FILES) | {"data/glossary.json"}
+WASM_FILE = re.compile(r"wasm/ort-wasm-[A-Za-z0-9_.-]+\.(?:wasm|mjs)$")
+ASSET_FILE = re.compile(r"assets/[A-Za-z0-9_.-]+\.(?:js|css|wasm)$")
+PAPER_SHARD = re.compile(r"papers/[0-9a-f]{2}\.json$")
+VECTOR_SHARD = re.compile(r"vectors/[0-9]{4}\.i8$")
 
 
 def error(errors: list[str], message: str) -> None:
@@ -68,6 +90,10 @@ def validate_hosted_files(root: Path, files: list[Path], errors: list[str]) -> i
             error(errors, f"file exceeds 100 MB: {relative} ({size} bytes)")
         if path.suffix.lower() == ".pdf":
             error(errors, f"PDF found in static artifact: {relative}")
+        if path.suffix.lower() == ".map":
+            error(errors, f"source map found in static artifact: {relative}")
+        if relative.as_posix() in FORBIDDEN_PUBLIC_PATHS or path.name in FORBIDDEN_PUBLIC_FILENAMES:
+            error(errors, f"internal review or operational artifact found in static bundle: {relative}")
         if path.suffix.lower() in TEXT_ASSET_SUFFIXES:
             try:
                 text = path.read_text(encoding="utf-8")
@@ -86,6 +112,160 @@ def require_json(path: Path, errors: list[str]) -> Any | None:
     except (OSError, json.JSONDecodeError) as exc:
         error(errors, f"invalid JSON: {path}: {exc}")
         return None
+
+
+def _safe_dynamic_path(value: object, pattern: re.Pattern[str]) -> str | None:
+    """Accept only a normalized data-relative path with the expected shard name."""
+    if not isinstance(value, str) or not pattern.fullmatch(value):
+        return None
+    return value
+
+
+def validate_public_paths(root: Path, files: list[Path], manifest: dict[str, Any], errors: list[str]) -> None:
+    """Allow only reader runtime assets and manifest-declared static data.
+
+    This is deliberately an allowlist. A stale progress log or review page is
+    still a privacy boundary failure even if no route links to it.
+    """
+    vectors = require_json(root / "data" / "vectors.json", errors)
+    allowed = set(STATIC_RUNTIME_FILES) | set(MODEL_FILES) | STATIC_DATA_FILES | LEGAL_FILES
+    shards = manifest.get("shards", {}) if isinstance(manifest, dict) else {}
+    paper_shards = shards.get("papers", {}) if isinstance(shards, dict) else {}
+    if not isinstance(paper_shards, dict):
+        error(errors, "manifest paper shards must be an object for static allowlist validation")
+    else:
+        for prefix, relative in paper_shards.items():
+            safe = _safe_dynamic_path(relative, PAPER_SHARD)
+            if safe is None or prefix != Path(safe).stem:
+                error(errors, f"manifest has invalid paper shard allowlist entry: {prefix!r}")
+            else:
+                allowed.add(f"data/{safe}")
+    if not isinstance(vectors, dict) or not isinstance(vectors.get("shards"), list):
+        error(errors, "vectors must provide shard metadata for static allowlist validation")
+    else:
+        for shard in vectors["shards"]:
+            safe = _safe_dynamic_path(shard.get("path") if isinstance(shard, dict) else None, VECTOR_SHARD)
+            if safe is None:
+                error(errors, "vectors has invalid shard allowlist entry")
+            else:
+                allowed.add(f"data/{safe}")
+    for path in files:
+        relative = path.relative_to(root).as_posix()
+        if relative in allowed or WASM_FILE.fullmatch(relative) or ASSET_FILE.fullmatch(relative):
+            continue
+        error(errors, f"unexpected static artifact outside reader allowlist: {relative}")
+
+
+def _finite_number(value: object) -> bool:
+    return isinstance(value, (int, float)) and not isinstance(value, bool) and math.isfinite(value)
+
+
+def validate_topic_graph(root: Path, topics: list[dict], errors: list[str]) -> None:
+    """Verify each precomputed neighborhood is grounded in sanitized topic links."""
+    graph = require_json(root / "data" / "topic-graph.json", errors)
+    if not isinstance(graph, dict):
+        return
+    if set(graph) != {"version", "layoutKind", "defaultTopicSlug", "bounds", "cardDimensions", "topics", "neighborhoods"}:
+        error(errors, "topic graph exposes unsupported or operational fields")
+    rows, neighborhoods, bounds, cards = (
+        graph.get("topics"), graph.get("neighborhoods"), graph.get("bounds"), graph.get("cardDimensions"),
+    )
+    if graph.get("version") != 1 or graph.get("layoutKind") != "focused-semantic-neighborhoods":
+        error(errors, "topic graph has unsupported version or layout kind")
+    if not isinstance(rows, list) or not isinstance(neighborhoods, list) or not isinstance(bounds, dict) or not isinstance(cards, dict):
+        error(errors, "topic graph must contain topics, neighborhoods, bounds, and card dimensions")
+        return
+    if set(bounds) != {"width", "height"} or not all(_finite_number(bounds.get(key)) and bounds[key] > 0 for key in ("width", "height")):
+        error(errors, "topic graph bounds must be positive finite geometry")
+        return
+    if set(cards) != {"root", "neighbor"} or any(
+        not isinstance(card, dict)
+        or set(card) != {"width", "height"}
+        or not all(_finite_number(card.get(key)) and card[key] > 0 for key in ("width", "height"))
+        for card in cards.values()
+    ):
+        error(errors, "topic graph card dimensions must be positive width/height pairs")
+        return
+    source_index = {topic.get("slug"): index for index, topic in enumerate(topics)}
+    if len(rows) != len(topics) or len(neighborhoods) != len(topics):
+        error(errors, "topic graph counts do not match sanitized topics")
+        return
+    # Length equality was checked above; avoid ``zip(strict=True)`` because the
+    # GitHub workflow's system Python may be 3.9.
+    for index, (source, row) in enumerate(zip(topics, rows)):
+        expected_related = [source_index[slug] for slug in source.get("relatedTopics", []) if slug in source_index]
+        if (
+            not isinstance(row, dict)
+            or set(row) != {"slug", "title", "area", "paperCount", "overview", "relatedTopics"}
+            or not isinstance(row.get("overview"), str)
+            or len(row["overview"]) > 240
+            or row.get("slug") != source.get("slug")
+            or row.get("title") != source.get("title")
+            or row.get("area") != source.get("area")
+            or row.get("paperCount") != len(source.get("paperSlugs") or [])
+            or row.get("relatedTopics") != expected_related
+        ):
+            error(errors, f"topic graph topic is stale or inconsistent: {index}")
+    if graph.get("defaultTopicSlug") not in source_index:
+        error(errors, "topic graph default topic is absent from sanitized topics")
+    related = [row.get("relatedTopics", []) if isinstance(row, dict) else [] for row in rows]
+    incoming = [[] for _ in rows]
+    for source, targets in enumerate(related):
+        if not isinstance(targets, list) or any(not isinstance(target, int) or target < 0 or target >= len(rows) for target in targets):
+            error(errors, f"topic graph has invalid related topic indices: {source}")
+            continue
+        for target in targets:
+            incoming[target].append(source)
+    def adjacent(index: int) -> set[int]:
+        return set(related[index]) | set(incoming[index])
+    for root, neighborhood in enumerate(neighborhoods):
+        if not isinstance(neighborhood, dict) or set(neighborhood) != {"rootTopic", "nodes", "edges", "directNeighborTotal", "secondDegreeTotal"} or neighborhood.get("rootTopic") != root:
+            error(errors, f"topic graph neighborhood has wrong root: {root}")
+            continue
+        direct = related[root][:5]
+        root_adjacent = adjacent(root)
+        candidate_scores: dict[int, tuple[int, int, str]] = {}
+        for neighbor in direct:
+            for candidate in adjacent(neighbor):
+                if candidate == root or candidate in direct or candidate in root_adjacent:
+                    continue
+                rank = related[neighbor].index(candidate) if candidate in related[neighbor] else 10_000 + candidate
+                connections, old_rank, _ = candidate_scores.get(candidate, (0, rank, rows[candidate].get("slug", "")))
+                candidate_scores[candidate] = (connections + 1, min(old_rank, rank), rows[candidate].get("slug", ""))
+        second_all = sorted(candidate_scores, key=lambda item: (-candidate_scores[item][0], candidate_scores[item][1], candidate_scores[item][2]))
+        second = second_all[:6]
+        expected_nodes = [root, *direct, *second]
+        nodes = neighborhood.get("nodes")
+        if not isinstance(nodes, list) or [node.get("topic") for node in nodes if isinstance(node, dict)] != expected_nodes or [node.get("degree") for node in nodes if isinstance(node, dict)] != [0, *([1] * len(direct)), *([2] * len(second))]:
+            error(errors, f"topic graph neighborhood nodes are stale or inconsistent: {root}")
+            continue
+        if neighborhood.get("directNeighborTotal") != len(root_adjacent) or neighborhood.get("secondDegreeTotal") != len(second_all):
+            error(errors, f"topic graph neighborhood totals are stale: {root}")
+        visible = set(expected_nodes); expected_edges: set[tuple[int, int, int]] = set()
+        for source in visible:
+            for target in visible:
+                if source >= target or target not in adjacent(source):
+                    continue
+                other = target if source == root else source
+                degree = 1 if root in {source, target} and other in direct else 2
+                expected_edges.add((source, target, degree))
+        actual_edges = neighborhood.get("edges")
+        actual = {(edge.get("source"), edge.get("target"), edge.get("degree")) for edge in actual_edges if isinstance(edge, dict)} if isinstance(actual_edges, list) else set()
+        if actual != expected_edges or len(actual) != len(actual_edges or []) or any(set(edge) != {"source", "target", "degree"} for edge in actual_edges or [] if isinstance(edge, dict)):
+            error(errors, f"topic graph neighborhood edges are stale or inconsistent: {root}")
+        rectangles: list[tuple[float, float, float, float]] = []
+        for node in nodes:
+            if not isinstance(node, dict) or set(node) != {"topic", "degree", "x", "y"} or not all(_finite_number(node.get(key)) for key in ("x", "y")):
+                error(errors, f"topic graph node has invalid geometry: {root}")
+                continue
+            card = cards["root" if node.get("degree") == 0 else "neighbor"]
+            rectangle = (node["x"], node["y"], card["width"], card["height"])
+            if rectangle[0] < 0 or rectangle[1] < 0 or rectangle[0] + rectangle[2] > bounds["width"] or rectangle[1] + rectangle[3] > bounds["height"]:
+                error(errors, f"topic graph card falls outside bounds: {root}")
+            for other in rectangles:
+                if rectangle[0] < other[0] + other[2] and other[0] < rectangle[0] + rectangle[2] and rectangle[1] < other[1] + other[3] and other[1] < rectangle[1] + rectangle[3]:
+                    error(errors, f"topic graph cards overlap: {root}")
+            rectangles.append(rectangle)
 
 
 def has_remote_asset(value: Any, key: str = "") -> bool:
@@ -145,6 +325,9 @@ def validate_corpus(root: Path, manifest: dict[str, Any], errors: list[str]) -> 
 
     summaries = 0
     for paper in papers:
+        restricted = FORBIDDEN_PAPER_FIELDS.intersection(paper)
+        if restricted:
+            error(errors, f"paper {paper.get('slug')} exposes internal fields: {sorted(restricted)}")
         if not valid_outbound_paper_url(paper.get("url")):
             error(errors, f"paper {paper.get('slug')} has no valid absolute HTTP(S) original URL")
         for field in ("originalUrl", "codeUrl", "projectUrl"):
@@ -160,13 +343,20 @@ def validate_corpus(root: Path, manifest: dict[str, Any], errors: list[str]) -> 
         citations = paper.get("citationCount")
         if citations is not None and (not isinstance(citations, int) or citations < 0):
             error(errors, f"paper {paper.get('slug')} has invalid citationCount")
-        if citations is not None and not {"OpenAlex", "Semantic Scholar"}.intersection(paper.get("provenance") or []):
-            error(errors, f"paper {paper.get('slug')} has citationCount without enrichment provenance")
         if paper.get("summary") is not None:
+            if not isinstance(paper["summary"], dict):
+                error(errors, f"paper {paper.get('slug')} has invalid summary")
+            else:
+                restricted_summary = FORBIDDEN_SUMMARY_FIELDS.intersection(paper["summary"])
+                if restricted_summary:
+                    error(errors, f"paper {paper.get('slug')} summary exposes internal fields: {sorted(restricted_summary)}")
             summaries += 1
     for topic in topics:
         if not isinstance(topic, dict):
             continue
+        restricted = FORBIDDEN_TOPIC_FIELDS.intersection(topic)
+        if restricted:
+            error(errors, f"topic {topic.get('slug')} exposes internal fields: {sorted(restricted)}")
         if set(topic.get("paperSlugs") or []) - paper_set:
             error(errors, f"topic {topic.get('slug')} has dangling paper reference")
         if set(topic.get("relatedTopics") or []) - topic_set:
@@ -228,9 +418,7 @@ def main() -> int:
 
     data_root = root / "data"
     manifest = require_json(data_root / "manifest.json", errors) if (data_root / "manifest.json").is_file() else None
-    coverage = require_json(data_root / "coverage.json", errors) if (data_root / "coverage.json").is_file() else None
-    report = require_json(data_root / "report.json", errors) if (data_root / "report.json").is_file() else None
-    for filename in ("search.json", "topics.json", "vectors.json", "schema.json"):
+    for filename in ("search.json", "topics.json", "topic-graph.json", "vectors.json"):
         path = data_root / filename
         if path.is_file():
             parsed = require_json(path, errors)
@@ -238,22 +426,16 @@ def main() -> int:
                 error(errors, f"external generated asset URL in data/{filename}")
     if not isinstance(manifest, dict) or not manifest.get("snapshot"):
         error(errors, "manifest must declare snapshot")
-    papers, topics, summaries = validate_corpus(root, manifest, errors) if isinstance(manifest, dict) else ([], [], 0)
+    elif {"coverage", "provenance", "report"}.intersection(manifest):
+        error(errors, "manifest exposes internal audit metadata")
+    if isinstance(manifest, dict):
+        validate_public_paths(root, files, manifest, errors)
+        papers, topics, summaries = validate_corpus(root, manifest, errors)
+        validate_topic_graph(root, topics, errors)
+    else:
+        _papers, topics, summaries = [], [], 0
     if args.expected_summaries is not None and summaries != args.expected_summaries:
         error(errors, f"expected {args.expected_summaries} summaries; found {summaries}")
-    if not isinstance(coverage, dict) or not {"NeurIPS", "ICML"}.issubset(coverage):
-        error(errors, "coverage audit must include NeurIPS and ICML")
-    if not isinstance(report, dict) or not {"siteBytes", "papers", "topics", "coverage", "summaries", "model"}.issubset(report):
-        error(errors, "report must include siteBytes, papers, topics, coverage, summaries, and model provenance")
-    elif report.get("siteBytes") != total:
-        error(errors, f"report siteBytes ({report.get('siteBytes')}) does not match built artifact ({total})")
-    elif report.get("papers") != len(papers) or report.get("topics") != len(topics):
-        error(errors, "report paper/topic counts do not match static data")
-    elif report.get("summaries") != summaries:
-        error(errors, "report summary count does not match static data")
-    elif not isinstance(report.get("model"), dict) or not report["model"].get("revision"):
-        error(errors, "report model provenance is incomplete")
-
     if errors:
         print("Static artifact validation failed:", file=sys.stderr)
         print("\n".join(f"- {item}" for item in errors), file=sys.stderr)

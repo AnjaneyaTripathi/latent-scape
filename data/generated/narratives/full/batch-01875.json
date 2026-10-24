@@ -1,0 +1,327 @@
+{
+  "icml-2026-a-kinetic-energy-perspective-of-flow-matching-541aece8b8": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Flow-based generators create samples by moving from noise toward data along a learned velocity field. This paper studies how much motion each individual sampling path accumulates. Its diagnostic, Kinetic Path Energy, measures the total kinetic effort along that path, providing a way to examine generation at the level of individual samples.",
+      "The authors report two empirical relationships: higher energy tends to accompany stronger semantic fidelity, and high-energy paths tend to end in sparsely populated representation regions. They also give theoretical guarantees connecting trajectory energy with data sparsity. However, the relationship between energy and useful generation is not uniformly positive. Their analysis of empirical flow matching shows that extreme energies can push outputs toward near-copies of training examples.",
+      "These findings motivate an intermediate-energy principle: additional motion can help, but excessive energy can encourage memorization. The proposed Kinetic Trajectory Shaping method increases early motion and softens the trajectory near its end. This two-phase sampling change requires no retraining and improves generation quality while reducing memorization across the reported benchmark tasks."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "306183cb617dec26e6dc888687bb97372faf40f40e1bc6fbeddb7dddb72f53ce",
+    "tldr": "Measuring sampling-path energy reveals a balance between semantic fidelity and memorization, motivating a training-free method that shapes early and late motion."
+  },
+  "icml-2026-capacity-aware-mixture-law-enables-efficient-llm-data-optimization-e6f957bc02": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Choosing a language model’s training mixture means deciding how much data to draw from each source. Testing many mixtures directly on a large model is expensive, while predictions from smaller models may transfer poorly. This paper develops a pipeline for predicting which mixture will work well at the target model size.",
+      "Its central component, CAMEL, models validation loss through the nonlinear interaction between model capacity and data mixture. A second prediction law connects validation loss to benchmark accuracy. Together, these components connect a proposed mixture to an estimated downstream result. The authors also investigate how to distribute a fixed fitting budget across model sizes to reduce prediction error.",
+      "They fit the laws using Mixture-of-Experts models up to 7B-A150M and test the predicted optimal mixture on a 55B-A1.2B target model. Relative to prior methods, the reported pipeline cuts mixture optimization costs by 50% and improves downstream benchmark performance by up to 3%. The results support accounting for model capacity when using smaller experiments to guide larger training runs."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c56c180748347fd6603ad184902c615781e4298d3f9cdb575f0cd9bdc7c90776",
+    "tldr": "CAMEL predicts how data mixtures interact with model capacity, reducing reported mixture optimization costs while improving target-model benchmark performance."
+  },
+  "icml-2026-dgg-hmr-multi-person-human-mesh-recovery-with-depth-guided-geometric-anchoring-9ad8cb2c83": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Recovering several people’s three-dimensional body meshes from one image is ambiguous: different spatial arrangements can produce the same two-dimensional view. A particularly difficult part is estimating each person’s distance from the camera. This paper addresses that problem by making person-specific depth estimates an explicit input to mesh recovery.",
+      "The framework first predicts the depth of each person’s pelvis. These predictions act as three-dimensional anchors, separating depth estimation from the subsequent prediction of body meshes. A refinement decoder uses each anchor to place a person in a plausible spatial neighborhood before refining the mesh. This gives the refinement process a concrete geometric starting point under combined two-dimensional and three-dimensional supervision.",
+      "Although the framework separates the roles of depth prediction and mesh regression, it trains them together in a single stage so they can coordinate. Experiments across multiple benchmarks report state-of-the-art mesh reconstruction accuracy and depth ordering. The stated findings support explicit depth anchoring as a useful way to improve both reconstructed body geometry and the relative placement of people."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "44ec2bbf44241e19796be77cc6529ca2dcb63a4d27b537583f2f89dbdb72f49f",
+    "tldr": "DGG-HMR uses explicit per-person depth anchors to improve multi-person body reconstruction and depth ordering from a single image."
+  },
+  "icml-2026-elign-equivariant-diffusion-model-alignment-from-foundational-machine-learning-force-fie-e322e7dc44": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A molecular conformation generator needs to produce structures that respect spatial symmetries and are physically favorable. However, equivariant diffusion models can inherit biases from their training data. Physics-based guidance can help, but accurate quantum-chemical evaluations are expensive, particularly when repeated at every generation step.",
+      "Elign moves this physical correction into post-training. It first substitutes a pretrained machine-learning force field for expensive DFT evaluations, obtaining faster estimates of molecular energies and forces. It then treats reverse diffusion as a reinforcement learning problem and fine-tunes the denoising policy with Group Relative Policy Optimization. Separate optimization of an energy reward and a force-based stability reward addresses both energetic favorability and mechanical stability.",
+      "The reported experiments produce conformations with lower energies and forces when assessed using gold-standard DFT, together with improved stability. Generation requires no energy evaluations, so inference remains as fast as unguided sampling. The contribution is therefore a way to incorporate physical steering into the model beforehand, avoiding repeated guidance queries while sampling each new molecular structure."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0633876931bb2375ae3987581669972754011e0e831a3e9b78c658c294bba076",
+    "tldr": "Elign uses force-field rewards during post-training to improve molecular stability and energy without adding energy evaluations at generation time."
+  },
+  "icml-2026-evaluating-the-representation-space-of-diffusion-models-via-self-supervised-principles-76a5f5e4c3": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Diffusion models learn internal features while learning to generate data. This paper asks how those features can help evaluate both representation quality and generation behavior. Drawing on self-supervised learning, the authors separate features into invariant components and residual variation, making it possible to study how these parts interact.",
+      "They derive the Invariant Contamination Ratio, a Fisher-based measure of how residual variation interferes with invariant information. In their representation analysis, invariance is strongest at intermediate noise levels. Those same levels also give the best downstream classification performance, connecting a property of the learned features with their usefulness for a separate predictive task.",
+      "The authors also examine training with limited data, where generation can move from generalization toward memorization. Increasing residual energy along Fisher directions signals the onset of memorization, and the proposed metric detects this using training features alone. No external evaluator or held-out test set is needed for that diagnostic. The findings suggest that representation geometry can provide useful monitoring signals for both feature learning and emerging memorization."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "192d4cb2f3086978fcefcac900661ba3f7b806c27b59ff4a09cb89f597106fbd",
+    "tldr": "A feature-space metric connects diffusion representations to classification quality and detects emerging memorization from training features alone."
+  },
+  "icml-2026-experience-evolving-multi-turn-tool-use-agent-with-hybrid-episodicprocedural-memory-7cfac6c455": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Agents using tools across several turns must adapt as user intentions and environments change. Reusing a complete past interaction can be too specific to its original circumstances, while reusing isolated tool actions loses context. H-EPM combines memories of particular situations with recurring procedures so an agent can reuse partially matching successful experiences.",
+      "The framework builds a graph from accumulated tool-use trajectories. Connections capture recurring dependencies between tools, and each connection also carries a compact summary of relevant circumstances. During inference, the agent balances contextual recall with execution of familiar routines. This structure gives past experience both a procedural form and information about when that procedure was useful.",
+      "H-EPM also guides reinforcement learning toward tool transitions that succeeded previously, addressing ineffective exploration along long interactions. The authors report consistent inference-time improvements over strong baselines, with gains reaching 50% or more, and out-of-distribution policy improvements reaching 40% or more. The learned policy generalizes at inference without requiring domain-specific experience collection, extending the role of memory beyond immediate retrieval to policy training."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a5f91a0e347988f41ed09f563a4eb1331b1bad5582f2e1ae41d9b4863ddae733",
+    "tldr": "H-EPM combines contextual memories with reusable tool routines to improve both multi-turn inference and reinforcement learning."
+  },
+  "icml-2026-hermes-an-evidence-driven-agentic-framework-for-trustworthy-and-explainable-ai-generated-396d070a60": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Detecting AI-generated video requires more than a plausible explanation of why footage looks suspicious. Multimodal language-model detectors can hallucinate evidence or reason inconsistently, producing false alarms and explanations that cannot be checked. Hermes organizes detection around concrete video evidence and explicit verification.",
+      "For each video, the framework retrieves relevant authenticity-verification knowledge and builds a detection strategy suited to that instance. It then records evidence and reasoning in an Evidence Reasoning Graph. This graph is intended to keep the analysis tied to observable support and reduce attention drift. A library of forensic tools supplies capabilities for the investigation.",
+      "Multiple agents subsequently audit and refine the graph, addressing conflicting evidence before a decision is finalized. The resulting explanation is connected to an inspectable reasoning structure. Extensive experiments report state-of-the-art detection performance together with auditable explanations. The contribution combines adaptive investigation with evidence checking, showing how the process behind a detection decision can become part of the system’s output rather than remaining hidden behind a final classification."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "dc272df4c0c77ce9fd45c8014b8f7f964616ece816839542f60f3d34c4f623ba",
+    "tldr": "Hermes detects AI-generated videos through tailored forensic investigation, evidence graphs, and multi-agent auditing that produces inspectable explanations."
+  },
+  "icml-2026-idlm-inverse-distilled-diffusion-language-models-c76f4fcfc1": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Diffusion language models generate text through multiple sampling steps, which can make inference slow. IDLM adapts inverse distillation, previously developed for continuous diffusion, to discrete language generation. Its purpose is to preserve the quality of an existing teacher model while reducing the number of steps needed to produce text.",
+      "Moving the method into a discrete setting creates two distinct problems. The inverse objective needs a uniqueness guarantee to avoid ambiguity in its solution, and propagating training gradients through discrete operations can be unstable. The authors provide a theoretical result establishing a unique solution for their inverse formulation. They also introduce relaxations designed to make gradient-based training stable.",
+      "Experiments across multiple diffusion language models report reductions of 4 to 64 times in inference step counts while preserving teacher generation quality. These results concern the number of sampling steps, rather than establishing the same numerical improvement in elapsed runtime. The work connects a theoretical foundation for discrete inverse distillation with a practical training method for accelerating existing diffusion language models."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f5bb0f87fc849258decadd9b4026043e8f7a548b9a3a1114c600accbd6ad4051",
+    "tldr": "IDLM extends inverse distillation to discrete text generation, cutting sampling steps by 4–64 times while preserving teacher quality in reported experiments."
+  },
+  "icml-2026-learning-fingerprints-for-medical-time-series-with-redundancy-constrained-information-ma-f239aee402": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Medical recordings such as ECG and EEG signals can be noisy, high-dimensional, and different lengths. General-purpose self-supervised encoders do not explicitly organize them into compact, fixed-size, interpretable summaries. This paper introduces a representation that compresses each recording into a fixed number of learned Fingerprint Tokens.",
+      "A cross-attention bottleneck produces these tokens, and two training objectives shape what they contain. Reconstruction requires the token set to retain information sufficient to recover the original signal. A diversity penalty based on Total Coding Rate reduces redundancy between tokens, encouraging them to represent statistically disentangled factors. The two objectives jointly address information preservation and the allocation of information across the summary.",
+      "The authors give a theoretical account through a Disentangled Rate-Distortion formulation, connecting compression quality with separation between the learned components. They describe the resulting representation as low-dimensional, interpretable, and sample-efficient. Each token is encouraged to capture an independent source of variation; that encouragement is central to the design. The proposed representation is presented as groundwork for more robust digital biomarkers."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ca479bb8ce0bc72620fb7405080fbb4cfe24577148c2314a1d2866c3b003355a",
+    "tldr": "A reconstruction-and-diversity objective compresses variable-length medical signals into compact Fingerprint Tokens encouraged to capture distinct factors."
+  },
+  "icml-2026-linearizing-vision-transformer-with-test-time-training-e944f01422": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Linear-complexity attention offers a route around the quadratic cost of Softmax attention, but training a replacement model from scratch is expensive. Reusing pretrained weights is attractive, yet differences in representation can make direct conversion ineffective. This paper tackles conversion by aligning both the architecture and its representational behavior.",
+      "The authors identify a two-layer dynamic Test-Time Training formulation whose structure permits direct inheritance of pretrained attention weights. They then add key instance normalization and a lightweight locality module to address shift-invariance and locality properties. The approach therefore combines a compatible computational structure with targeted corrections to how the converted model represents information.",
+      "They apply the method to Stable Diffusion 3.5, producing SD3.5-T⁵. After one hour of fine-tuning on four H20 GPUs, it achieves text-to-image quality comparable to the fine-tuned Softmax model. Reported inference accelerations are 1.32 times at 1K resolution and 1.47 times at 2K. This demonstrates a practical conversion route for the tested generator, using a short fine-tuning run to retain quality while reducing inference cost."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "36867706444007ac3db430f2065ee95ce031d8371d30612c63cbfe6b0f7f72ab",
+    "tldr": "A weight-compatible Test-Time Training architecture converts Stable Diffusion 3.5 to linear complexity with comparable quality and faster reported inference."
+  },
+  "icml-2026-low-cost-full-fine-tuning-learning-what-to-update-for-llms-f68ec33194": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Full fine-tuning can adapt every model parameter but carries substantial memory costs. Think-Touch explores whether selective updates can retain access to the full parameter space at lower cost. At each step, it predicts the potential value of parameter groups and updates only selected groups.",
+      "The theoretical guarantee depends on a sufficient condition: cumulative coverage of the expected gradient norm must diverge. Under that condition, any selection strategy can converge to a stationary point where full fine-tuning offers no further first-order improvement. This does not assert convergence to a global optimum. The authors also derive a general convergence rate and identify a rate-optimal, post-hoc greedy selection strategy.",
+      "That ideal strategy requires full, accurate gradient information, making it unsuitable for direct practical use. A bandit-based method instead approximates it online over time, with a regret guarantee. Experiments across tasks show substantially lower memory overhead than full fine-tuning and better performance than LoRA variants. The paper thus combines conditional full-space convergence theory with a practical way to learn which parameter groups to update."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "78f1a20eaceea291db7466e042368765dd798894cadb9c652345a4b2d92a2c1a",
+    "tldr": "Think-Touch learns which parameter groups to update, offering conditional full-space convergence and lower reported memory costs than full fine-tuning."
+  },
+  "icml-2026-omac-a-holistic-optimization-framework-for-llm-based-multi-agent-collaboration-95c2955d23": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Groups of language-model agents can collaborate on complex tasks, including code generation and arithmetic reasoning. Yet the way those groups are organized often depends on handcrafted decisions. OMAC treats the design of a multi-agent system as an optimization problem covering both what agents do and how they collaborate.",
+      "The framework identifies five optimization dimensions spanning agent functionality and collaboration structure. It first provides a general algorithm for optimizing an individual dimension, using two components called the Semantic Initializer and the Contrastive Comparator. It then extends the approach to joint optimization across multiple dimensions, bringing several design decisions into a shared optimization process.",
+      "This matters because the framework addresses the overall organization of collaboration alongside individual agent capabilities. Its single-dimension and joint algorithms provide two levels at which a system can be improved. Across diverse tasks, the reported experiments show superior performance against recent approaches. Those findings support systematic optimization as a useful alternative to relying entirely on handcrafted multi-agent designs in the evaluated settings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6877b461feee3816919ca0d5a59e551944740f5ce727c661f0215910ed9fa770",
+    "tldr": "OMAC systematically optimizes agent functionality and collaboration structure, outperforming recent multi-agent approaches across the reported tasks."
+  },
+  "icml-2026-path-decoupled-hyperbolic-flow-matching-for-few-shot-adaptation-72eb0ba6df": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Some few-shot adaptation methods align visual and textual features by transporting them continuously through feature space. This paper argues that flat Euclidean geometry can crowd these transport paths together, making diverse feature distributions difficult to accommodate. It proposes Hyperbolic Flow Matching, using the Lorentz manifold’s exponential expansion to separate trajectories.",
+      "The method first establishes a hierarchy with anchored textual roots and visual leaves pushed toward the boundary. This arrangement initializes more orderly flows. A second design supervises trajectories step by step, keeping each class within its own geodesic corridor. These constraints serve as semantic boundaries during transport, helping preserve separation between classes as features move toward alignment.",
+      "The framework also chooses when to stop transport using an adaptive diameter-based rule tied to intrinsic semantic scale. Its purpose is to avoid moving features too far into the crowded origin. Extensive ablations across 11 benchmarks report state-of-the-art performance and consistent improvements over Euclidean counterparts. The findings support combining a more expansive geometry with explicit path constraints and adaptive stopping for the evaluated few-shot adaptation problems."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1c90e2887b54bcebd021f88ea861a3b19b5ea5b30089806290b90e522f7f38be",
+    "tldr": "Hyperbolic Flow Matching separates class-specific feature trajectories and adaptively stops transport, improving reported few-shot adaptation performance."
+  },
+  "icml-2026-quantifying-cross-domain-knowledge-distillation-in-the-presence-of-domain-shift-1328f8b5b6": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Knowledge distillation transfers information from a teacher model to a student, but the teacher and student may operate in different domains. This paper studies when that transfer can still improve generalization. It analyzes a linear teacher–student model in a high-dimensional asymptotic setting, explicitly accounting for both model shift and changes in input distributions.",
+      "The analysis characterizes excess risk and establishes that useful distillation regimes may exist even when the source and target domains differ substantially. In those regimes, the student can generalize better than a baseline trained without the teacher. The qualification matters: the result identifies circumstances where cross-domain transfer helps, rather than claiming that any teacher remains beneficial under any domain mismatch.",
+      "The authors also identify crossed double descent. Excess risk can change non-monotonically as either the teacher’s or the student’s ratio of model dimension to sample size varies. Consequently, the theoretical picture depends on both sides of the transfer. Together, the results explain how domain shifts and the relative scale of the two learning problems influence whether distillation is useful."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5100eb369a92b58e096ea6461b4b663cfb32cce62f95c6d9b9023fd1e1971f7b",
+    "tldr": "A high-dimensional linear analysis identifies regimes where distillation helps despite domain shift and reveals non-monotonic risk across teacher and student scales."
+  },
+  "icml-2026-r-diverse-mitigating-diversity-illusion-in-self-play-llm-training-be5b70d810": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "In self-play training, a Challenger generates questions and a Solver learns from them, with the loop intended to expand reasoning ability. However, early improvements can fade as training continues. This paper identifies Diversity Illusion: questions appear varied while repeatedly exercising the same underlying patterns.",
+      "The authors distinguish two forms of this problem. Local diversity can hold within a batch while familiar modes return across later iterations. Surface diversity can make questions look different even when they demand nearly identical reasoning skills. R-Diverse addresses the first with a Memory-Augmented Penalty, using a persistent bank to discourage recycling. It addresses the second with Skill-Aware Measurement, judging diversity through the reasoning skills a question exercises.",
+      "The two mechanisms align the time horizon and the substance of diversity assessment with sustained learning. Across 10 mathematics and general reasoning benchmarks, R-Diverse maintains gains over more self-play iterations and consistently outperforms earlier methods. The reported results support tracking both historical repetition and skill overlap when generating training questions through self-play."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "afa1a4c0fdf0131e9b2d00ab93ca0ea8941e2bb36c879f211a41128a365234e0",
+    "tldr": "R-Diverse uses persistent memory and skill-based diversity measurement to sustain reasoning improvements during self-play training."
+  },
+  "icml-2026-saw-bench-learning-situated-awareness-in-the-real-world-ed7c248d6e": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Understanding a scene includes knowing how it relates to the observer’s own viewpoint, pose, and motion. Existing multimodal benchmarks often emphasize relationships between objects instead. SAW-Bench evaluates this observer-centered understanding through real-world first-person videos, focusing on situated awareness and possible actions in context.",
+      "The benchmark contains 786 self-recorded videos captured with Ray-Ban Meta Gen 2 smart glasses across indoor and outdoor environments. More than 2,071 human-annotated question-answer pairs cover six awareness tasks. This design puts the moving observer into the evaluation, testing whether models can relate visible surroundings to the perspective from which those surroundings are experienced.",
+      "The authors report a human–model performance gap of 37.66%, even for the strongest evaluated model, Gemini 3 Flash. Their analysis finds that models can use some geometric cues but often fail to infer a coherent camera geometry, producing systematic spatial reasoning errors. The benchmark therefore exposes a distinction between recognizing useful fragments of spatial information and maintaining a consistent account of the observer’s relationship to the environment."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "01590db7da2ffeb8c2569b740a2737ab3da9d58a995e9fbb5c2adb3073d95f0f",
+    "tldr": "SAW-Bench tests first-person spatial awareness and reveals a substantial human–model gap linked to inconsistent understanding of camera geometry."
+  },
+  "icml-2026-selling-data-as-a-digital-good-with-scaling-valuations-0d82d30e9f": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies data markets where buyers’ benefits from training AI models follow a scaling law. Producing data has a linear cost, while each additional amount gives buyers diminishing returns. Allocations are continuous quantities, so the market designer must decide both how much data to provide and how to sell it.",
+      "When all buyer types are known simultaneously, the authors characterize profit-optimal mechanisms and extend virtual-value methods to continuous allocations. With sequential arrivals, production must instead anticipate uncertain demand. They show that myopic allocation and fixed production plans can perform arbitrarily poorly. A two-stage algorithm combining initial production with adaptive expansion achieves a constant-factor approximation to the offline optimum.",
+      "The paper also considers a single buyer and seller whose value and cost are both private. Although the optimal truthful mechanism is structurally complex, simpler implementable mechanisms recover a constant fraction of the first-best gains from trade. These guarantees show how continuous allocation and adaptive production can support data-market design under the stated scaling valuations and information constraints."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "bbd100e884d9af3e0a4d542fb265e42bcfb4591346fc1aca42cfb3129ad8a378",
+    "tldr": "Under scaling-law valuations, adaptive production and simple trading mechanisms achieve provable approximation guarantees for selling continuous quantities of data."
+  },
+  "icml-2026-siamesenorm-breaking-the-barrier-to-reconciling-pre-post-norm-31b0e5e230": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Where normalization sits in a Transformer affects both training stability and representational capacity. Pre-Norm supports stable gradient propagation, while Post-Norm normalizes the main residual path. This paper argues that a single computational stream struggles to combine these structural properties, helping explain the limited robustness of earlier attempts.",
+      "SiameseNorm introduces two coupled streams: one behaves like Pre-Norm and the other like Post-Norm. They share residual blocks, allowing each block to receive optimization signals from both pathways. The architecture remains compatible with Pre-Norm training recipes and adds negligible overhead. Sharing the blocks makes the two streams a coordinated training structure rather than separate models.",
+      "Experiments cover 400M and 1.3B dense language models, 15B Mixture-of-Experts models, Vision Transformers, and Diffusion Transformers. Across these tested architectures and modalities, the authors report consistent performance improvements alongside strong training stability. The findings support a structural route to combining the benefits of normalization placements: give their respective gradient and residual-path roles distinct pathways while training shared computation through both."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f6476d65895e1b3f8aed6c5b6b98cf722e4ba07f5c26ddee343fa61e10acb835",
+    "tldr": "SiameseNorm couples shared Pre-Norm-like and Post-Norm-like streams to improve reported Transformer performance while preserving training stability."
+  },
+  "icml-2026-source-free-open-world-rf-fingerprint-identification-07c0082c6b": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Radio-frequency fingerprint identification uses signal characteristics to recognize wireless devices. This paper studies deployment where unfamiliar devices keep arriving and privacy constraints prevent retaining historical data. The system must learn new device classes while preserving recognition of old ones, despite similar signals and the absence of earlier examples.",
+      "The proposed Incremental Orthogonal ETF framework organizes the model’s output geometry to encourage separation and isolation of parameters. Its design is inspired by neural collapse. A complementary Triple-Level Geometric Alignment strategy brings unlabeled incoming signals into this structure using semantic optimal transport, progressive anchoring on the manifold, and retention of reliable subspaces.",
+      "The two components address the stability–plasticity trade-off: adapting to new devices can interfere with established knowledge, while preserving established knowledge can hinder discovery. Benchmark experiments report a superior balance between retaining old classes and discovering new ones. The contribution is a framework explicitly designed for this source-free, open-world setting, with geometric organization providing a common structure for learning from incoming signals without retaining the historical dataset."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6bafb4dadb92b83969b548ad099c2e552abc84ee449ead627aa525a9bff313fd",
+    "tldr": "IO-ETF uses output geometry and multilevel alignment to balance new-device discovery with old-device retention when historical radio data cannot be stored."
+  },
+  "icml-2026-spatial-memory-for-out-of-vision-manipulation-in-vision-language-action-9f5620ed02": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A robot’s current camera view may exclude an object it needs to manipulate. Vision-language-action models that depend on continuous visibility can become reactive or brittle in that situation. SOMA gives these models persistent spatial memory built from observations collected by a movable head camera.",
+      "The framework first scans different viewing angles and combines them into a shared representation of spatial and semantic information. A refinement component maintains global consistency over time. During manipulation, a retrieval component activates spatial cues relevant to the instruction. These stages connect previously observed surroundings with the robot’s current task, allowing reasoning beyond the camera’s present field of view.",
+      "Evaluation includes five real-world tasks with initially invisible targets, including multi-step and dual-arm scenarios. SOMA improves task success and changes observed behavior: targets are localized faster, viewpoint search decreases, and grasping becomes nearly one-shot under partial observability. Additional RoboCasa GR1 and SimplerEnv experiments support the memory design in fully observable settings as well. The reported benefit therefore includes both task completion and a more direct manipulation process."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "963ac0ada584fbb1437d6b04cdd2ab409daa4c55aaf70708ec8629e770e5cab7",
+    "tldr": "SOMA equips robot action models with persistent spatial memory, improving manipulation when task-relevant objects lie outside the current camera view."
+  },
+  "icml-2026-textual-stochastic-gradient-descent-discrete-optimization-of-external-memory-for-reasoni-2f954d2284": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "An agent can retain experience outside its model weights, but a memory that only grows may accumulate noise and repeated information. This paper treats external memory as something to optimize within an explicit capacity budget. The aim is continued learning from experience without retraining the language model’s parameters.",
+      "Textual Stochastic Gradient Descent updates an experience library through Add, Edit, and Delete operations triggered by failures. Self-reflection produces textual guidance for these changes, playing the role of a gradient in a discrete editing process. A dual-verification mechanism checks proposed updates for generalization and guards against fitting the library too closely to individual local errors.",
+      "On MATH and AIME, the authors report state-of-the-art performance, accuracy improvements of up to 18.7% over zero-shot baselines, and substantial gains over static retrieval-augmented generation. Hundreds of experiences are compressed into approximately 30 useful rules. The result illustrates the value of revising and removing memories as well as adding them: a small, actively maintained library can preserve useful experience without continual accumulation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "af6f005b09bff513d3b45d7f5c6f83d72e8ca5ce4242ff5b6e3728b8a43e686c",
+    "tldr": "TSGD improves reasoning by continually adding, editing, and deleting external-memory rules within a fixed capacity budget."
+  },
+  "icml-2026-the-structural-origin-of-attention-sink-variance-discrepancy-super-neurons-and-dimension-ba5a02d57b": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Attention sinks occur when initial tokens attract a disproportionate share of a language model’s attention. This paper proposes a mechanistic explanation that begins with value aggregation inside self-attention. The aggregation process creates a systematic variance difference between token positions, which subsequent network components amplify.",
+      "The authors trace this amplification to super neurons in feed-forward layers. Channel-sparse down-projections produce a dimensional imbalance in the first token’s representation, creating the need for an attention sink as a structural anchor in their account. They test the causal chain through attention-mask changes that isolate aggregation effects and interventions that increase the variance of selected token representations. Both can reproduce sinks at arbitrary positions.",
+      "These interventions support the proposed mechanism by showing that sink location can be changed through the identified statistical factors. As a practical demonstration, the authors introduce head-wise RMSNorm to stabilize value aggregation outputs during pretraining. Experiments show substantially faster convergence when statistical parity across positions is restored, connecting the mechanistic explanation with an architectural intervention."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9fe689179af5e8fe1119125697255388114ef02e10bc686cfd6b5b4e741710ee",
+    "tldr": "The paper traces attention sinks to amplified variance imbalances and demonstrates a normalization change that accelerates reported pretraining convergence."
+  },
+  "icml-2026-the-velocity-deficit-initial-energy-injection-for-flow-matching-a2104f77b9": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper identifies a practical failure in high-dimensional flow matching: the mean-squared-error objective underestimates velocity magnitudes. The authors call this the Velocity Deficit. The resulting trajectories can fall short of the data manifold, producing what they describe as Integration Lag.",
+      "Their correction relies on an asymmetry across the sampling path. Contracted velocities create harmful stagnation near the beginning, while contraction near the end can help denoise. Initial Energy Injection addresses the early deficit through two complementary methods: Magnitude-Aware Flow Matching changes training, and the Scale Schedule Corrector changes sampling without retraining. The latter requires only a one-line implementation change.",
+      "On ImageNet-1k at 256 by 256 resolution, the corrector improves FID from 13.68 to 7.58, a 44.6% reduction. A 50-step generator reaches FID 7.58 and outperforms a 250-step baseline at 8.65, with a reported fivefold speedup. Additional text-to-image and high-resolution results include a 22% FID improvement on MS-COCO. These findings support correcting velocity differently at different stages rather than treating contraction as uniformly harmful."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "dc8d34737155a978c8ea5b210dfac5fc48e8ef38cc819d834c66cbbd5f3412b0",
+    "tldr": "Correcting underestimated early velocities improves flow-matching generation, with a training-free schedule delivering substantial reported quality and efficiency gains."
+  },
+  "icml-2026-training-data-efficiency-in-multimodal-process-reward-models-8cb08f1e69": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Multimodal process reward models evaluate individual steps in visual reasoning. Training them commonly uses large corpora annotated through Monte Carlo procedures, creating substantial cost. This paper finds that performance quickly saturates when training data is randomly subsampled, suggesting that existing annotated collections contain considerable redundancy.",
+      "The authors develop a theoretical account of what makes a gradient update informative. Two factors matter: the mixture of positive and negative steps, and label reliability, measured through average Monte Carlo scores for positive steps. Their Balanced-Information Score combines these factors to rank complete reasoning rollouts using signals already present in the annotations, without requiring additional annotation cost.",
+      "Experiments use InternVL2.5-8B and Qwen2.5-VL-7B on VisualProcessBench. Selected subsets consistently match or exceed full-data performance while using small fractions of the corpus. A highlighted result reaches full-data performance with 10% of the data and improves on random subsampling by a relative 4.1%. The findings support selecting training examples for informative and reliable supervision instead of assuming every available rollout contributes equally."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "384c987bb4b3ea37f7dd3b8c64c88ee9730fc5afe757505140907be012b6ddb9",
+    "tldr": "Balanced-Information Score selects informative reasoning rollouts, matching full-data reward-model performance with 10% of the training data in a reported result."
+  },
+  "icml-2026-what-you-think-is-what-you-see-driving-exploration-in-vlm-agents-via-visual-linguistic-c-7a59f1a800": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A vision-language agent may reason about the world yet still fail to explore the places where that reasoning is incomplete. This is especially problematic when the environment is only partly visible and useful rewards are sparse. GLANCE connects the agent’s internal linguistic predictions with its visual observations to create a reason to seek new information.",
+      "The framework grounds the linguistic world model in stable visual representations supplied by an evolving target network. Disagreement between the agent’s linguistic prediction and visual reality becomes an intrinsic curiosity signal during reinforcement learning. This signal steers exploration toward areas where the internal model is uncertain, linking what the agent expects to what it subsequently observes.",
+      "Experiments across a series of agentic tasks demonstrate the effectiveness of this approach, including complex or sparse-reward settings. The contribution is the connection between reasoning and exploration: a world model supplies predictions whose mismatch with observation can influence action selection. The reported findings support aligning linguistic expectations with visual evidence as a useful mechanism for directing exploration and improving task solving."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3ad9a71b532d083269f4511fc610bd0be5b04972c7edd0dcd783906d3f7df285",
+    "tldr": "GLANCE turns disagreement between linguistic predictions and visual observations into curiosity-driven exploration for vision-language agents."
+  }
+}

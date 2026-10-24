@@ -1,0 +1,327 @@
+{
+  "icml-2024-a-fresh-take-on-stale-embeddings-improving-dense-retriever-training-with-corrector-netwo-d4715c9f5e": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Dense retrieval represents inputs and candidate targets as vectors, then uses their scores to assign probabilities over possible matches. Training becomes expensive when there are many targets and their encoder is costly to run. Caching target vectors helps, but those vectors become outdated as the encoder changes, making the cache less representative of the current model.",
+      "The paper introduces a small corrector network that adjusts cached vectors without recomputing them with the full target encoder. These corrected representations support an accurate approximation to the softmax distribution and help select current high-scoring hard negatives: targets that look plausible but are incorrect. The theoretical analysis connects the corrector’s generalization to its complexity, the age of the cached representations, and the available training data.",
+      "Experiments cover dense retrieval benchmarks and question answering with retrieval-augmented language models. The approach matches state-of-the-art results even when the target cache is created only once from the pretrained model. Reported re-embedding computation falls by a factor of 4–80, showing that learned corrections can substantially reduce this particular training expense."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "cd799587e1485694fc5d0ee7cae3099737a24758d6fbbb06d09179ba98fe1e58",
+    "tldr": "A small corrector network updates stale cached embeddings, preserving strong retrieval results while reducing re-embedding computation by 4–80 times in experiments."
+  },
+  "icml-2024-a-simple-early-exiting-framework-for-accelerated-sampling-in-diffusion-models-200ddff5a9": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Diffusion models generate outputs through a sequence of steps that repeatedly evaluate a score estimation network. These repeated evaluations create a practical speed bottleneck. The paper asks whether every step needs the same amount of computation, observing that the work required to estimate the score may change depending on the time step.",
+      "Its proposed framework uses early exits to allocate computation according to a time-dependent schedule. At selected stages, inference skips a subset of the score network’s parameters. This makes the computational effort within a network evaluation adjustable, allowing the sampling process to spend less work where the schedule permits it.",
+      "Experiments on image synthesis show that the approach can substantially increase sampling throughput without reducing image quality. The authors also demonstrate compatibility with several types of sampling solvers, so early exiting can be combined with methods that accelerate the sampling procedure itself. The stated result is an experimentally supported way to make diffusion generation more efficient by adapting how much of the network is evaluated over time."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7a6cff07d9942a0ece53a7c76783ff347902e7fdf07efdec8209b33685a18081",
+    "tldr": "Time-dependent early exits reduce computation inside diffusion networks and improve image sampling throughput without compromising quality in the reported experiments."
+  },
+  "icml-2024-a-theory-of-non-linear-feature-learning-with-one-gradient-step-in-two-layer-neural-netwo-e3d7bbc7a1": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper studies how much a two-layer neural network can learn about useful features after just one gradient update to its first layer. Earlier theory showed that, under certain conditions, this update creates a distinct rank-one component in the feature matrix’s spectrum. With a constant learning rate, however, that component captures only the linear part of the target function.",
+      "The authors show that a learning rate growing with the number of training samples changes this picture. A single update can then create several distinct rank-one components, each associated with a particular polynomial feature. This supplies a mathematical account of how one update can introduce nonlinear information into the network’s representation.",
+      "The analysis also characterizes limiting training and test errors when both dimension and sample size become large. In that setting, the newly formed spectral components fully determine those errors. By calculating the resulting improvements, the paper shows that these nonlinear features can enhance learning. Its contribution is a precise connection between learning-rate scaling, the features created by training, and their effect on prediction error."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "19dbd7f3223b2f0e591e7f8d527ba88fc017a6b0bd264f7af7dd9419eab27f6a",
+    "tldr": "With a learning rate that grows with sample size, one gradient step can create useful nonlinear features in the two-layer networks studied."
+  },
+  "icml-2024-causal-representation-learning-made-identifiable-by-grouping-of-observational-variables-b71d409656": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Causal representation learning aims to uncover hidden features and the causal relationships among them from observed data. This is difficult because both the representation and its causal structure can admit multiple explanations. Identifiability conditions address this ambiguity by specifying when the observations determine a unique solution within the model.",
+      "The paper establishes identifiability through constraints on how hidden features are mixed into groups of observed variables. Its assumptions concern suitable grouping in the observational mixing, without requiring temporal structure, interventions, or weak supervision. This shifts the source of identifying information toward the organization of the observations themselves.",
+      "The authors also introduce a self-supervised estimation framework compatible with this model and prove statistical consistency. Their experiments report better causal representation learning performance than state-of-the-art baselines, along with robustness to hidden confounders and causal cycles. The theoretical contribution remains conditional on the proposed grouping constraints; the practical results show how an estimator built around those constraints performs in the evaluated settings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ee77082695ad010c8f180f6f1f7c44dac586ce8b7959654ba59262420f5c2a4f",
+    "tldr": "Suitable grouping of observed variables enables identifiable causal representation learning under the paper’s constraints, without temporal data, interventions, or weak supervision."
+  },
+  "icml-2024-error-feedback-can-accurately-compress-preconditioners-890f672468": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Full-matrix preconditioners use information about the loss geometry to improve optimization updates. Methods such as GGT and M-FAC retain a sliding window of gradients to obtain this information. Because each stored gradient grows with the number of model parameters, the resulting memory requirement can become substantial even for relatively small neural networks.",
+      "The paper proposes compressing gradient information before it enters the preconditioner. It uses either sparsification, which retains fewer entries, or a low-rank representation. The key addition is error feedback: information lost during compression is carried forward into later iterations, giving subsequent updates a way to account for earlier compression errors.",
+      "The authors report compression of preconditioners by up to two orders of magnitude in practice without losing convergence. Experiments on deep networks also reach up to 99% sparsity without accuracy loss, effectively removing the reported memory overhead of these full-matrix methods. These findings support error feedback as a way to retain useful preconditioning information while greatly reducing the amount of gradient data that must be stored."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d426d15ea3c441a23d6e1158cfae81f658eb13f568510a943e39f01b2cdf5ae2",
+    "tldr": "Feeding compression errors into future iterations enables much smaller full-matrix preconditioners, reaching 99% sparsity without accuracy loss in experiments."
+  },
+  "icml-2024-faster-streaming-and-scalable-algorithms-for-finding-directed-dense-subgraphs-in-large-g-45a4d04040": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Finding dense regions of a graph is useful for data mining, community detection, and clustering. The task seeks a subgraph with a high ratio of edges to vertices. For very large graphs, an algorithm must also manage how much data it stores and how many times it reads the stream of edges.",
+      "The paper gives a single-pass algorithm for directed graphs whose edges arrive in randomized order. It achieves a (2 + epsilon) approximation while using memory proportional to the number of vertices times a polylogarithmic factor. The cited earlier approaches either require logarithmically many passes or use memory growing as the number of vertices to the power 3/2; those approaches also support arbitrary stream order.",
+      "The techniques extend to massively parallel computation, where the authors report a quadratic improvement over prior work. Empirically, output quality is essentially unchanged from the cited comparison method while execution is twice as fast on large graphs. This experimental advantage also appears on nonrandom streams, although the stated single-pass theoretical result assumes randomized order."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1f1bc41bbf555a1aa736093dd00701e9034bf2bf5036cb53ffc97a975c2a9cf7",
+    "tldr": "A single-pass algorithm approximates directed dense subgraphs with near-linear memory on randomized streams and runs twice as fast as the comparison method in experiments."
+  },
+  "icml-2024-finding-nem-u-explaining-unsupervised-representation-learning-through-neural-network-gen-21f268cb94": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Unsupervised representation models turn inputs into vector embeddings, but those vectors do not directly show which input regions matter most. Existing explanation methods often operate after the representation model has run. The paper identifies a practical tension in these methods: their explanations can be inaccurate, or producing them can take too much time.",
+      "Neural Explanation Masks address this by adding a masking network to a fixed representation model. During inference, the added network produces an occlusion-based explanation alongside the representation computation. The explanation therefore becomes part of the augmented model’s inference process, identifying important input regions through masks.",
+      "The authors instantiate this framework as NEM-U, using a U-net structure and the connection between segmentation and explanation masks. Their experiments show faster explanation generation and lower complexity than current state-of-the-art methods while retaining high accuracy according to locality. The result supports an approach in which a dedicated learned masking network makes explanations more practical to obtain whenever the representation model is evaluated."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9fd71b370340dcac3b9447a74bc302fa28323ba176d49064fa0877603948ba75",
+    "tldr": "NEM-U adds a masking network that explains embeddings during inference, producing faster, lower-complexity explanations while maintaining high locality-based accuracy."
+  },
+  "icml-2024-from-inverse-optimization-to-feasibility-to-erm-42839a2c4e": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Inverse optimization infers an optimization problem’s unknown parameters from solutions that have already been observed. Contextual inverse optimization also uses information about each instance to predict those parameters. This paper focuses on linear programs, where the lack of differentiability creates difficulties for learning through the optimization problem directly.",
+      "For a linear prediction model, the authors reformulate the task as a convex feasibility problem. This makes standard techniques such as alternating projections available and provides convergence guarantees without extra assumptions such as degeneracy or interpolation. They then reformulate the task as empirical risk minimization with a smooth, convex loss satisfying the Polyak–Lojasiewicz condition.",
+      "The second reformulation connects inverse optimization to scalable first-order learning methods and enables analysis of generalization to unseen instances. It also supports solving large nonconvex problems, while the stated theoretical guarantees remain in the convex setting. Experiments on synthetic and real-world problems show improvements over existing methods. Together, the reductions provide more accessible computational routes to a learning problem whose original optimization structure is difficult to differentiate."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "380c8595fb95a35a68f6df5ea490ff00940b0eb8f8cd6afc0f94262065e29137",
+    "tldr": "Reformulating contextual inverse linear programming as feasibility and smooth risk minimization enables scalable algorithms, convex-setting guarantees, and generalization analysis."
+  },
+  "icml-2024-gibbs-sampling-of-continuous-potentials-on-a-quantum-computer-2348dfc4f6": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper develops a quantum approach to sampling from Gibbs distributions defined by continuous, periodic functions. These distributions associate probabilities with the values of a function, making them relevant to machine learning. The central computational goal is to prepare a quantum state that encodes the desired distribution.",
+      "The algorithm combines quantum Fourier transforms with quantum methods for solving linear ordinary differential equations. These tools are used to solve the Fokker–Planck equation. The authors show that efficient interpolation and differentiation depend on how quickly the function’s Fourier coefficients decay, and provide functional analytic conditions supporting this property.",
+      "Using a quantum oracle that supplies function values, the algorithm achieves polynomial quantum speedups for estimating averages under the Gibbs distribution of generic nonconvex periodic functions. A further result applies at high temperatures to Morse functions, where sampling precision can improve exponentially. These are distinct, qualified advantages: the general mean-estimation result concerns periodic potentials, while the stronger precision result additionally depends on temperature and the specified class of functions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "073b646e4e28c7964aab846ac17ae6db1f249059371ceeb9b5d4e3d21612aa2a",
+    "tldr": "A Fourier-based quantum algorithm offers polynomial speedups for Gibbs mean estimation with periodic potentials and stronger precision gains under additional conditions."
+  },
+  "icml-2024-language-models-with-conformal-factuality-guarantees-cfd1b7fae3": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper treats language-model factuality as a problem of quantifying uncertainty. Its key connection is between whether an output is correct and an uncertainty set defined through what that output entails. This allows the authors to bring conformal prediction into the task of controlling the correctness of generated language.",
+      "The resulting framework uses a back-off procedure that gradually makes an output less specific. As details are removed or weakened, the associated uncertainty set becomes larger. This provides a mechanism for obtaining high-probability correctness guarantees while preserving useful content, with specificity acting as the quantity the procedure can adjust.",
+      "The approach works with a black-box language model and requires only a small number of human-annotated examples. Evaluations on closed-book question answering and mathematical reasoning report correctness guarantees of 80–90% while retaining most of the original output. The contribution is therefore a method for trading some detail for a stated probabilistic correctness level, rather than requiring access to the model’s internal computation or treating every generated statement as certain."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9b26223224667759132364c30fc61188be31e1286ff69eebc4a81572b47eb5c2",
+    "tldr": "Conformal factuality progressively reduces output specificity to obtain probabilistic correctness guarantees while retaining most generated content in evaluations."
+  },
+  "icml-2024-learning-optimal-deterministic-policies-with-stochastic-policy-gradients-a9ea0be363": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Policy gradient methods commonly train controllers that behave stochastically, using randomness to explore actions or policy parameters. In practice, the deployed controller is often a deterministic version of the learned policy. The paper studies this gap between the object used during learning and the behavior ultimately put into operation.",
+      "The authors introduce a framework that explicitly models this training-and-deployment arrangement. Under weak gradient domination assumptions, they analyze global convergence to the best deterministic policy. These assumptions are part of the theoretical result, tying the convergence claim to properties of the learning problem.",
+      "The analysis also explains how to tune the amount of exploration to balance sample complexity against the performance of the deployed deterministic controller. It quantitatively compares exploration in action space with exploration in parameter space, giving a formal account of their differences. The work matters because its performance target matches the deterministic policy used after training, connecting decisions about training randomness to the quality of that final policy."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "47e45cd9b2577b05a9f5daa93fa7951dc1a761ffccf54aed7e8c1051632f7ebd",
+    "tldr": "The paper analyzes when stochastic policy-gradient training converges to the best deterministic policy and how exploration affects sample cost and deployed performance."
+  },
+  "icml-2024-lookbehind-sam-k-steps-back-1-step-forward-0d7a1596a0": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Sharpness-aware minimization aims to reduce both the loss at the current parameters and its sensitivity to nearby parameter changes. It expresses this as a minimax problem: first seek a damaging perturbation, then update the model to improve performance against it. The paper develops Lookbehind to improve this balance between loss and sharpness.",
+      "Inspired by Lookahead’s use of multiple descent steps, Lookbehind takes multiple ascent steps when searching for a high-loss perturbation. This strengthens the maximization part of the procedure. It then uses linear interpolation to refine the minimization step and mitigate variance associated with the gradients gathered during those ascent steps.",
+      "Across the evaluated tasks, the authors report better generalization and greater resistance to noise in model weights. They also find improved learning and reduced catastrophic forgetting in lifelong learning settings, where retaining earlier learning matters. These results link the changes to both sides of SAM’s objective with several practical benefits, supporting the proposed optimization strategy beyond a single measure of training loss."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "642f34b3a662f6f34d7399ef40c96d990f2ebdea8d78a26ce798b41ff9157741",
+    "tldr": "Lookbehind strengthens SAM’s perturbation search and refines its descent update, improving generalization, weight-noise robustness, and lifelong learning in experiments."
+  },
+  "icml-2024-oak-enriching-document-representations-using-auxiliary-knowledge-for-extreme-classificat-80a8a52718": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Extreme classification assigns relevant labels to a document from a very large set of possibilities. Documents often come with useful associated data, such as webpages frequently clicked for a search query. OAK uses this auxiliary information to improve document representations, addressing the fact that many existing methods leave it unused.",
+      "The framework stores learned auxiliary information in a knowledge bank. For each document, it retrieves relevant knowledge embeddings and combines them with the document’s own embedding. Training proceeds through three stages: learning a linker to associate documents with auxiliary data, learning enriched document embeddings, and using those embeddings to train the final classifiers.",
+      "The enriched representations improve both candidate-label selection and final classification. The authors report gains of up to approximately 5% over state-of-the-art methods on academic datasets and approximately 3% in Precision@1 on an auxiliary-data-augmented LF-ORCAS-800K dataset. Deployment on a large search engine also yields statistically significant improvements in sponsored search metrics, supporting the practical value of incorporating linked auxiliary knowledge."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "413527eccaa82a6d76e9a32d068191fdab1b8edc0fdc041f297bf67f3fd9c063",
+    "tldr": "OAK retrieves auxiliary knowledge to enrich document embeddings, improving extreme classification benchmarks and sponsored search metrics in deployment."
+  },
+  "icml-2024-position-future-directions-in-the-theory-of-graph-machine-learning-75bff86a08": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Graph neural networks are used across disciplines with graph-structured data, including life sciences, social sciences, and engineering. Their practical success has outpaced the theory explaining their behavior. This position paper identifies an imbalance in that theory and argues for a broader research agenda.",
+      "Much recent theoretical work studies expressive power: what kinds of distinctions or functions a graph neural network can represent. The authors describe this work as largely combinatorial and coarse-grained. Such results do not fully explain what happens when networks are actually trained, especially how models learned through stochastic first-order optimization generalize beyond their training data.",
+      "The proposed direction is a balanced theory connecting expressiveness, generalization, and optimization. These questions concern different parts of the same learning process: available representational capacity, behavior on unseen examples, and the procedure used to fit the model. The paper’s contribution is an argument for studying their interaction, with the aim of bringing theoretical analysis into closer contact with the behavior of trained graph learning systems."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c33f19e584313f61321b9e86026f7d1494897ed19d6caf551579d2d7a6155787",
+    "tldr": "This position paper calls for graph-learning theory that jointly studies expressiveness, generalization, and optimization to better explain trained models."
+  },
+  "icml-2024-position-intent-aligned-ai-systems-must-optimize-for-agency-preservation-e89c52395b": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This position paper examines whether truthful AI systems that follow human intentions provide a sufficient standard for safe interaction. The authors argue that alignment to intent alone is insufficient because human intentions can themselves be manipulated. An interaction can therefore appear consistent with a person’s goals while raising concerns about their longer-term agency.",
+      "The paper draws on the science of intent and control to develop this argument. It provides a formal definition of agency-preserving interactions between people and AI, emphasizing explicit evaluations that look ahead. This directs attention toward how an interaction affects a person’s future agency, extending evaluation beyond whether a current recommendation matches a stated intention.",
+      "The authors propose that preserving long-term human agency may be a more robust standard and may need its own explicit optimization objective. They identify a potential pathway to harm in human–AI interaction and propose responses to it. As a position contribution, the paper advances a conceptual and formal case for treating agency preservation as a distinct concern in alignment."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4fc9a8fe9491e1575b65e215498e303d2da35ef62f396b636f75c5d7384075af",
+    "tldr": "The authors argue that truthful intent alignment is insufficient and propose explicitly evaluating and preserving people’s long-term agency."
+  },
+  "icml-2024-position-levels-of-agi-for-operationalizing-progress-on-the-path-to-agi-8c9494c92d": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper proposes a shared framework for describing artificial general intelligence and systems that precede it. Its purpose is to make comparisons, progress assessments, and discussions of risk more precise. It considers both capabilities and behavior, including how well a system performs, how broadly its abilities apply, and its autonomy.",
+      "The authors examine existing AGI definitions and extract six principles for a useful classification framework. They then propose levels organized around the depth and breadth of capabilities: performance and generality. They also consider how current systems fit into this structure and discuss the difficult requirements for benchmarks that could measure systems against these levels.",
+      "The framework connects capability assessment with deployment choices. In particular, the authors discuss how AGI levels interact with autonomy and risk, emphasizing the importance of selecting appropriate forms of human–AI interaction. The contribution is a vocabulary and structure for evaluating progress while keeping deployment behavior in view, so discussions of increasingly capable systems can distinguish what a model can do from how it is used."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "128975b2df41dac59e82cb5e9cc1a0db2aa9f602176f6bd6020bed911e187089",
+    "tldr": "The paper proposes AGI levels based on performance and generality, connecting capability measurement with autonomy, risk, and deployment choices."
+  },
+  "icml-2024-prodigy-an-expeditiously-adaptive-parameter-free-learner-f60d2cdd9e": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Adaptive optimizers such as AdaGrad and Adam still face the problem of choosing a learning rate. Prodigy addresses this by estimating the distance to a solution, denoted D, which is needed to set the learning rate optimally. It builds on D-Adaptation, a method designed to avoid manual learning-rate selection.",
+      "The algorithm modifies how this distance is estimated and provides a provable improvement in convergence rate over D-Adaptation. The improvement factor scales as the square root of the logarithm of D divided by its initial estimate, d0. This connects the theoretical benefit to the relationship between the solution distance and the estimate used at initialization.",
+      "The authors evaluate Prodigy across logistic regression and neural-network training tasks involving images, language, recommendation, and MRI. Their experiments consistently outperform D-Adaptation and achieve test accuracy close to manually tuned Adam. The findings support Prodigy as a practical route toward reducing learning-rate tuning while retaining competitive predictive performance across the tested workloads."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2fb7bb18b6bb6509dda41cc120558cdfbff455363c8c2ab6924fa0565aa8d8b0",
+    "tldr": "Prodigy improves distance-based learning-rate adaptation, outperforming D-Adaptation and approaching hand-tuned Adam’s test accuracy across the reported experiments."
+  },
+  "icml-2024-provable-interactive-learning-with-hindsight-instruction-feedback-bc3b5c3c2c": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper studies an interactive learner that receives a context and an instruction, then produces an action or trajectory. Its teacher responds by supplying an instruction that would fit what the agent actually did. This hindsight labeling can be easier to obtain than an expert demonstration of the optimal response.",
+      "The authors first establish a general difficulty: any algorithm’s regret must scale with the size of the response space. They then examine a structured setting in which the distribution connecting instructions and responses can be represented by a low-rank matrix. This assumption supplies a way to describe those relationships using a smaller intrinsic dimension.",
+      "For that setting, the proposed LORIL algorithm has regret growing with the square root of the number of interactions and depending on intrinsic rank rather than response-space size. This yields a no-regret result under the low-rank structure. Experiments in two domains illustrate practical performance. The theoretical contrast explains how structural assumptions can make hindsight feedback useful even when the agent has many possible responses."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "aa34550180f0db00af333d5b3712dafa48fb1ab357e260f3899e036bbee6fb20",
+    "tldr": "Under a low-rank instruction–response model, LORIL learns from hindsight instructions with regret depending on intrinsic rank rather than response-space size."
+  },
+  "icml-2024-rodeo-robust-outlier-detection-via-exposing-adaptive-out-of-distribution-samples-3d23550db2": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Image outlier detectors have improved under standard evaluation, but adversarial conditions remain difficult. The paper attributes this gap to inadequate training exposure to adversarial scenarios, especially those involving unseen outliers. RODEO addresses the training data used to develop robust detection features.",
+      "The authors show that combining outlier exposure with adversarial training can be effective when the exposed examples have suitable characteristics. These include diversity and a combination of conceptual distinction from, and similarity to, normal inputs. RODEO uses a text-to-image model to generate such examples, drawing on information from both image and text domains.",
+      "Quantitative and qualitative results indicate that the generated outliers are diverse and close to the normal data distribution. Training with these synthesized examples significantly improves detector performance in the reported experiments, particularly under adversarial conditions. The central finding is that the choice of training outliers matters: examples that remain recognizably different while resembling normal data can provide useful exposure for learning more robust outlier detection."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f4b0998ddf4290f4a99f6c860b7489fe10fffe19a1b78ce511c60903d48c9092",
+    "tldr": "RODEO generates diverse, near-distribution outliers for training, significantly improving adversarial outlier detection in the reported experiments."
+  },
+  "icml-2024-slot-abstractors-toward-scalable-abstract-visual-reasoning-bd7390a0ef": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Abstract visual reasoning requires identifying relationships that hold beyond the particular appearance of objects. Prior methods combined object-centered representations with architectural biases for learning relations, achieving strong systematic generalization. However, the approach described in the abstract was limited to single-rule problems and did not scale well to many objects.",
+      "A separate line of work introduced Abstractors, Transformer extensions designed to favor relational reasoning while retaining scalability and a multi-head architecture. Their application to visual scenes containing multiple objects had not yet been demonstrated. Slot Abstractors combine this approach with slot-based representations, bringing object extraction and relational abstraction into one method.",
+      "The resulting architecture scales to problems involving many objects and multiple relations among them. It achieves state-of-the-art performance across four abstract visual reasoning tasks and an additional reasoning task using real-world images. These findings support the value of combining explicit object-centered representations with a scalable mechanism for reasoning about relationships, addressing the object-count and relation-count restrictions described for earlier approaches."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a8b37af954f75d2e80e3157599a1bd33125d66faeeac0e61062739b491257c1b",
+    "tldr": "Slot Abstractors combine object-centered representations with scalable relational reasoning, achieving state-of-the-art results on the evaluated abstract visual reasoning tasks."
+  },
+  "icml-2024-straight-through-meets-sparse-recovery-the-support-exploration-algorithm-c6a9822ca6": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The straight-through estimator is widely used to train quantized neural networks, but its effective operating conditions remain poorly understood. This paper studies it through sparse support recovery, a more established problem concerned with identifying which components of a sparse solution are active.",
+      "The proposed Support Exploration Algorithm uses the estimator in an algorithm that promotes sparsity. It explores more candidate supports than state-of-the-art alternatives. In experiments, this leads to better recovery performance, especially when columns of the measurement matrix are strongly coherent, meaning that different columns closely resemble one another.",
+      "The authors also derive recovery guarantees when the measurement matrix satisfies the Restricted Isometry Property. Their sufficient conditions are comparable to, but more restrictive than, those of leading sparse recovery methods. The theoretical value lies in showing that an instance of the straight-through estimator admits formal recovery guarantees. The paper therefore combines an empirical advantage from broader support exploration with a qualified theoretical step toward understanding when this estimator can succeed."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "081ced0ce88566acc7e3dedccb901009bf1dc45e14ddb289bb139b89cfa56b40",
+    "tldr": "SEA applies the straight-through estimator to sparse recovery, improving experimental support selection while providing guarantees under comparatively stricter sufficient conditions."
+  },
+  "icml-2024-terd-a-unified-framework-for-safeguarding-diffusion-models-against-backdoors-324d883398": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Backdoored diffusion models produce specific unwanted outputs when a predefined trigger is present. TERD addresses this threat by building a unified model of current attacks, which the authors use to derive a reversed loss. This supplies a basis for recovering the trigger and detecting backdoor behavior.",
+      "Trigger recovery proceeds in two stages. First, the framework obtains an initial approximation using noise sampled from a prior distribution. It then refines that approximation with differential multi-step samplers. The recovered trigger supports detection in noise space, including an input detector and a model detector that measures KL divergence between recovered and benign distributions.",
+      "Across evaluations involving datasets at different resolutions, the authors report 100% true positive and true negative rates. They also demonstrate adaptability to other models based on stochastic differential equations. These reported detection rates describe the evaluated cases. The broader contribution is a framework connecting unified attack modeling, trigger reconstruction, and detection at both the input and model levels."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7610e68ea8aa31e17e5b6e6d59b330d78d7a2efc5ec3fa53079d3396e4036dc0",
+    "tldr": "TERD reconstructs diffusion-model backdoor triggers and uses them for input and model detection, achieving 100% detection rates in the reported evaluations."
+  },
+  "icml-2024-understanding-retrieval-augmented-task-adaptation-for-vision-language-models-47607619d0": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Pretrained contrastive vision-language models can struggle when a task contains categories poorly represented during pretraining. Retrieving examples from large databases has shown promise for adapting these models, especially when task-specific data are scarce. This paper asks which parts of that retrieval-augmented process account for its effectiveness.",
+      "The authors conduct a systematic study of the components involved in adaptation. They examine both unimodal retrieval, which stays within one modality, and cross-modal retrieval, which connects different modalities. They also highlight the critical role of logit ensembling: combining prediction scores as part of the adaptation procedure.",
+      "The paper adds theoretical support for its empirical observations, connecting observed component behavior with an explanatory account. Its contribution is therefore an analysis of how retrieval and prediction combination work together in adaptation. The findings direct attention to the design of the full adaptation process, including how retrieved information ultimately affects prediction scores, when interpreting the success of retrieval-augmented vision-language models."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a38bf91e2594511c12369fa7a286457b846d18aba97e4b233e14f8745a30a550",
+    "tldr": "A systematic study explains components of retrieval-augmented vision-language adaptation and highlights logit ensembling, with theory supporting the empirical observations."
+  },
+  "icml-2024-using-uncertainty-quantification-to-characterize-and-improve-out-of-domain-learning-for--3d02a56996": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Neural operators learn approximate solution mappings for partial differential equations, offering a fast alternative to classical numerical solvers. The paper finds that several uncertainty methods can fail even for moderately out-of-domain inputs. Good predictions on familiar tasks therefore do not ensure that the associated uncertainty remains informative on unfamiliar ones.",
+      "The authors show that ensembles of neural operators can identify regions of high error and produce uncertainty estimates that correlate well with prediction errors. They then propose DiverseNO as a less costly alternative. It encourages diversity among multiple prediction heads in the final feed-forward layer, aiming to reproduce useful ensemble properties within this architecture.",
+      "Operator-ProbConserv uses these calibrated uncertainty estimates within the ProbConserv framework to update the model. Experiments across challenging PDE problems show improved out-of-domain performance while satisfying physical constraints, including conservation laws. The work connects uncertainty estimation with corrective action: estimates that reveal where predictions are unreliable become inputs to a procedure that improves predictions while respecting the problem’s physical structure."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "18653f9838a9e5d8b24742109399406c7cbbc9d56c967c7ca94b189bc1f8c409",
+    "tldr": "Diverse neural-operator predictions provide useful uncertainty estimates that Operator-ProbConserv uses to improve out-of-domain accuracy while satisfying physical constraints."
+  },
+  "icml-2024-why-do-you-grok-a-theoretical-analysis-on-grokking-modular-addition-bedc8c502d": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Grokking describes a model beginning to generalize only long after it has overfit its training data. This paper analyzes that behavior for modular addition. It distinguishes an early period in which training approximately follows a kernel regime from later behavior after the model leaves that regime.",
+      "For the early regime, the authors show that permutation-equivariant models need at least a constant fraction of all possible examples to achieve small population error. They then prove that one-hidden-layer quadratic networks can generalize with substantially fewer examples when they fit the training data exactly and have bounded maximum absolute parameter size. Such networks exist and can be found by gradient descent with small regularization of that size.",
+      "Empirical evidence further shows these networks leaving the kernel regime only after initially overfitting. Together, the results strongly support a transition-based explanation of grokking: the behavior available later in training can generalize where the earlier kernel-like behavior cannot with the same limited data. The argument combines conditional mathematical results with observations of the training trajectory."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "60234cd6af2ef20076334532e40233e993d1711d3b65245719e7cbf3e35c1fa8",
+    "tldr": "Theory and experiments on modular addition support grokking as a transition from early kernel-like behavior to later behavior capable of generalizing from fewer examples."
+  }
+}

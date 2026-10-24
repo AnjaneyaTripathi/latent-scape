@@ -1,0 +1,345 @@
+{
+  "neurips-2024-adam-on-local-time-addressing-nonstationarity-in-rl-with-relative-adam-timesteps-c71cba9845": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Reinforcement learning changes the learning problem while a model is being trained. For example, replacing a target network can change gradient magnitudes. This paper examines how those changes interact with Adam, an optimizer developed largely around supervised learning settings. Its analysis shows that a change in gradient magnitude can produce unusually large parameter updates and hurt performance.",
+      "The proposed optimizer, Adam-Rel, changes the time reference used inside Adam. Instead of counting steps from the beginning of training, it uses the local step within an epoch, resetting that counter after target changes. The authors demonstrate that this adjustment avoids the large updates they analyze. When the relevant increases in gradient magnitude are absent, its behavior reduces to learning-rate annealing.",
+      "Experiments cover both on-policy and off-policy reinforcement learning and report improved performance on Atari and Craftax. The paper also checks that gradient-norm increases occur in practice and examines differences between its theoretical model and observed training behavior. The contribution connects an optimizer-level modification to a specific source of instability in changing learning problems."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "67bda2de53acf3037cdb8589985020da9ed90a5b97edae8911d61594acaaa76d",
+    "tldr": "Adam-Rel resets Adam’s timestep after target changes to control large updates and improve reinforcement learning performance."
+  },
+  "neurips-2024-adaptive-randomized-smoothing-certified-adversarial-robustness-for-multi-step-defences-8dd307a6a3": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A defense that adapts while processing an input raises a certification problem: its later operations can depend on information obtained earlier. Adaptive Randomized Smoothing, or ARS, extends randomized smoothing to support this kind of multistep prediction. The aim is to retain a mathematical robustness guarantee while allowing the model to adapt at test time.",
+      "The analysis uses f-Differential Privacy to certify adaptive compositions of operations on noisy inputs. The authors state that their theory covers general, high-dimensional functions in this setting. For image classification, they apply it to attacks bounded in the L-infinity norm and introduce input-dependent masking as a flexible way to adapt processing while remaining within the certification framework.",
+      "On adaptivity benchmarks built from CIFAR-10 and CelebA, ARS improves ordinary test accuracy by 1 to 15 percentage points. On ImageNet, it improves certified test accuracy by up to 1.6 percentage points over standard smoothing without adaptation. These findings distinguish two benefits: better predictions on the adaptation benchmarks and more predictions that meet the robustness certificate on ImageNet."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2ec2f2d88436be0b04f9c5df728e9d31bc05b26245398d62906e7dfbdfbb9230",
+    "tldr": "ARS certifies adaptive, multistep defenses and improves image-classification accuracy while preserving robustness guarantees."
+  },
+  "neurips-2024-an-improved-empirical-fisher-approximation-for-natural-gradient-descent-1b79b0fce9": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Natural gradient methods use Fisher information to reshape training gradients. Computing that information approximately makes these methods more practical. The empirical Fisher approximation is convenient because it reuses gradients already calculated for individual training examples, but its approximation can be poor. This paper identifies an inversely scaled projection issue as a major contributor to that weakness.",
+      "The authors propose improved empirical Fisher, or iEF, to address the issue while retaining the convenience of reusing those gradients. They motivate it through how an update reduces the loss, interpreting it as a generalized natural gradient method. Evaluations include parameter-efficient adaptation of T5-base and a vision transformer, alongside comparisons with tuned AdamW and Adafactor optimizers.",
+      "Exact iEF achieves the best test performance and lowest training loss on most evaluated tasks. It also more closely approximates exact natural gradient updates than empirical Fisher and sampled Fisher under the proposed evaluation framework, with robustness to damping choices. Benefits from incorporating iEF into other approximate optimizers remain an expectation; the reported experiments directly establish results for the evaluated implementations."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "352002342ba21e118da7d0b5663d15acba14bde348696edb4fca0fa5992d496d",
+    "tldr": "Improved empirical Fisher corrects a problematic scaling effect and yields stronger natural-gradient approximations and optimization results."
+  },
+  "neurips-2024-beating-adversarial-low-rank-mdps-with-unknown-transition-and-bandit-feedback-33c3121267": {
+    "backgroundConcepts": [
+      "topic-171-a-bandit-learning-algorithm-and-applications-to-"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies sequential decision problems with fixed, low-rank transition dynamics and adversarially chosen losses. The learner must control regret as experience accumulates. A central difficulty is combining unknown dynamics with bandit feedback, where the learner receives limited loss information. Earlier work had addressed unknown transitions with full loss information, or bandit feedback with known transitions.",
+      "For the full-information setting with unknown transitions, the authors improve the episode dependence of the regret bound from T^(5/6) to T^(2/3), retaining polynomial factors in rank, actions, and horizon. With bandit feedback and linearly structured losses, they obtain T^(2/3) regret using both model-based and model-free algorithms, although these algorithms are computationally inefficient. Oracle-efficient model-free alternatives achieve T^(4/5) regret.",
+      "The analysis also establishes a structural obstacle: without reward-function structure, bandit regret must depend polynomially on the number of states. Full-information feedback can avoid that state-count dependence even with unstructured rewards. The results therefore clarify both a computational trade-off and why limited feedback changes the assumptions needed to exploit low-rank dynamics."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8c8093037586cd74d093de883c96a6272cc8a3e08d8e2f1ab32d959bb25bdab7",
+    "tldr": "New regret bounds address unknown low-rank dynamics with adversarial losses, revealing computational trade-offs and the importance of reward structure under bandit feedback."
+  },
+  "neurips-2024-bisimulation-metrics-are-optimal-transport-distances-and-can-be-computed-efficiently-bdca5e600d": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Comparing Markov chains through optimal transport requires matching their probabilistic behavior over time. Earlier formulations worked with entire joint distributions and reduced the calculation to dynamic programming. Their computational bottleneck was repeated nesting: each dynamic-programming operation required solving a static transport problem, and the overall procedure needed many such operations.",
+      "This paper replaces that representation with discounted occupancy couplings, a flattened description of the joint distributions. The authors prove that the original transport distance can be computed equivalently through a linear program in this reduced space. That reformulation makes techniques from other transport problems available, including entropy regularization and a Sinkhorn-like algorithm called Sinkhorn Value Iteration.",
+      "Theoretical and empirical results show rapid convergence to an optimal coupling, with a cost essentially comparable to running ordinary Sinkhorn for each pair of states. The authors also establish that their transport distance exactly equals the common bisimulation metric between Markov chains. Consequently, the computational improvements apply directly to that metric, with substantially better efficiency than previously known methods."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9321e2ee96e766fdbe09bbc8dc78c423d9aebe5a70eb86f33ed9b03ce5880473",
+    "tldr": "A reduced optimal-transport formulation connects bisimulation metrics to a faster Sinkhorn-like computation."
+  },
+  "neurips-2024-can-llms-solve-molecule-puzzles-a-multimodal-benchmark-for-molecular-structure-elucidati-b73aa7a74e": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Identifying a molecule from spectral measurements requires connecting several kinds of evidence and revising candidate structures. This paper uses that problem to examine multistep chemical reasoning in language models. Success requires more than recognizing chemical facts: a model must interpret clues and combine them into a molecular structure that fits the available evidence.",
+      "The authors introduce MolPuzzle, containing 217 structure-elucidation instances and more than 23,000 question-answer samples. Its sequential format links three tasks: understanding molecules, interpreting spectra, and constructing molecules. This organization makes it possible to examine different parts of the reasoning process instead of assessing only a final answer.",
+      "Across 12 evaluated language models, GPT-4o performs best but remains substantially below humans, with only 1.4% of its answers exactly matching the ground truth. At the same time, its accuracy on molecule understanding is close to 100%. That gap points toward spectrum interpretation and molecule construction as important areas for improvement. The benchmark exposes how strong performance on an initial chemical understanding task can coexist with weak performance on the broader puzzle."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "05d21b635f6a551a37de1aad1d3557b3c96a09176773b4fb5cf164592cd58b93",
+    "tldr": "MolPuzzle reveals a large gap between LLMs’ molecule understanding and their ability to infer structures from spectral evidence."
+  },
+  "neurips-2024-certified-adversarial-robustness-via-randomized-alpha-smoothing-for-regression-models-bed6e6fd8c": {
+    "backgroundConcepts": [
+      "topic-158-de-randomized-smoothing-for-certifiable-defense-"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Randomized smoothing has enabled mathematical robustness guarantees for deep classifiers, but regression presents a different output problem. Its predictions are continuous and can be unbounded, rather than belonging to a fixed set of classes. This paper extends smoothing-based robustness analysis to deep regression networks, bringing certification into a setting not covered by the classification results discussed in the abstract.",
+      "The method uses robust statistics, specifically an alpha-trimming filter, as its smoothing function. Alpha acts as an adjustable control over the balance between certified robustness and predictive utility. This makes the robustness objective tunable: the framework explicitly accommodates different desired balances rather than presenting robustness and utility as independent outcomes.",
+      "The authors also propose a benchmark for certified regression in visual positioning, using the Cambridge Landmarks dataset. Position estimation connects the method to autonomous navigation, where continuous outputs matter directly. Together, the certification approach and benchmark provide a way to study how a regression model’s robustness changes with its smoothing configuration and how that protection relates to useful predictions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3130ab6890045a05c4d1604dfa5d844fd0409abd218e7d1b0fc9f331fa7c21b5",
+    "tldr": "Alpha-trimmed randomized smoothing extends robustness certification to regression with a tunable robustness–utility trade-off."
+  },
+  "neurips-2024-chronoepilogi-scalable-time-series-selection-with-multiple-solutions-eae8cbbca4": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Several different groups of time-series variables may predict the same target equally well. Finding just one group can be enough for forecasting, yet give an incomplete picture of which variables matter. ChronoEpilogi addresses the broader task of finding every smallest subset whose history supports an optimally predictive model of the target’s future.",
+      "The paper develops a theory of multiple feature selection for time series and an algorithm with soundness and completeness guarantees. Those guarantees depend on two stated distributional assumptions: Compositionality and Interchangeability of time-series variables in solutions. Identifying alternative solutions supports knowledge discovery by exposing multiple predictive explanations, an activity the authors connect to early steps in causal modeling.",
+      "Experiments on synthetic and real data demonstrate operation with hundreds of time-series variables and effective recovery of multiple solutions. On real datasets, the method reduces the variable count by 96% on average while preserving or improving forecasting performance. Its forecasting performance is comparable to GroupLasso, with the additional ability to return alternative minimal predictive subsets rather than a single selection."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "08602aaa0504917850ea02a0940ad70dbe651c05b4a3270d203c75b2044e30cb",
+    "tldr": "ChronoEpilogi finds multiple minimal predictive variable sets for time series, with guarantees under two distributional assumptions."
+  },
+  "neurips-2024-computational-aspects-of-bayesian-persuasion-under-approximate-best-response-7e8fb91724": {
+    "backgroundConcepts": [
+      "topic-011-a-computational-decision-theory-for-interactive-"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Bayesian persuasion studies how a sender chooses information to influence a receiver’s decision. Here, the receiver is allowed to select any action that is sufficiently close to optimal under the belief formed after seeing a signal. The sender’s computational problem must therefore accommodate approximate responses instead of relying on an exactly optimal receiver choice.",
+      "The authors develop algorithms for finding optimal or nearly optimal sender strategies despite the absence of the revelation principle, a simplification commonly used in persuasion problems. They obtain polynomial-time exact algorithms when either the state space or the action space is small. For the general setting, they provide a quasi-polynomial-time approximation scheme.",
+      "A complementary hardness result rules out a polynomial-time exact algorithm for the general problem unless P equals NP. Together, these results separate settings where exact computation is tractable from a broader setting where approximation offers an alternative. The paper also develops algorithmic ideas that may transfer to other principal-agent problems requiring robustness, although that wider applicability is presented as a possibility."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ead14e6338c55e2844ed730c10fe7b516053212e42b7f760d04cdbce35289818",
+    "tldr": "The paper gives exact and approximate persuasion algorithms for near-optimal receiver responses, alongside a general computational hardness result."
+  },
+  "neurips-2024-detecting-bugs-with-substantial-monetary-consequences-by-llm-and-rule-based-reasoning-3252972ce5": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Smart contracts can contain accounting bugs that implement a financial model incorrectly even when the surrounding program appears plausible. Finding these mistakes requires understanding what quantities mean financially. The paper targets this difficult vulnerability class with a hybrid system that combines language-model interpretation with explicit rules for tracing and checking contract logic.",
+      "The language model first labels variables with their financial meanings. Rule-based reasoning then carries those meanings through the program and validates suspected vulnerabilities. To address hallucinations, the system returns a vulnerability’s reasoning trace to the language model for iterative self-reflection. This division connects flexible interpretation of financial concepts with a structured account of how a suspected error arises.",
+      "Financial-meaning labels achieve 75.6% accuracy against human annotations. Across 23 real-world projects containing 21 accounting vulnerabilities, the system achieves 90.5% recall. Applied to eight recent projects, it finds four known and two previously unknown bugs. These results provide separate evidence for the annotation stage and the end-to-end detection process, while the newly discovered bugs demonstrate application beyond the existing vulnerability collection."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "96e8281b8ed81c000f4b4eb4096fd7467479155a00e9b0f682f421f0f04499b5",
+    "tldr": "A hybrid language-model and rule-based system detects smart-contract accounting bugs by interpreting financial meanings and validating reasoning traces."
+  },
+  "neurips-2024-edt-an-efficient-diffusion-transformer-framework-inspired-by-human-like-sketching-9e007cda47": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Diffusion transformers can generate strong images, but their computational demands limit practical use. Efficient Diffusion Transformer, or EDT, addresses that cost through a combination of architectural and training changes. The objective is to improve image synthesis while reducing the resources needed both to train the model and to generate images afterward.",
+      "EDT combines a lightweight diffusion architecture with a training-free Attention Modulation Matrix and an alternating arrangement inspired by human sketching. It also introduces a masking strategy designed to strengthen learning of relationships between tokens. These components target both the expense of computation and the model’s ability to use relationships among the image elements it processes.",
+      "Compared with corresponding MDTv2 sizes, EDT-S, EDT-B, and EDT-XL achieve training speed-ups of 3.93, 2.84, and 1.92 times, respectively. Their inference speed-ups are 2.29, 2.29, and 2.22 times, accompanied by lower FID. The reported results therefore pair faster computation with improved image-synthesis performance in the comparisons, showing that the framework’s savings do not require sacrificing the measured image quality."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "91853cbb35c83d3361e07b1f4a7ecfaf6b758f83c4c4ad412cfc2e227d7fa67e",
+    "tldr": "EDT combines lightweight architecture, attention modulation, and masking-based training to improve diffusion-image quality while accelerating training and inference."
+  },
+  "neurips-2024-gv-rep-a-large-scale-dataset-for-genetic-variant-representation-learning-f9c9e6bb01": {
+    "backgroundConcepts": [
+      "topic-249-be-cautious-bio-foundation-models-are-not-yet-ro"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Growing amounts of genetic-variant data create a challenge: models must help organize unfamiliar variants and connect them with clinically verified examples. Genomic foundation models are being developed for this purpose, but inconsistent evaluation makes their capabilities difficult to assess. GV-Rep introduces a large dataset focused on learning useful representations for variant indexing and classification.",
+      "The dataset contains seven million annotated records with variable-length contexts spanning traits, diseases, tissues, and experimental settings. Additional data include 17,548 gene knockout tests across 1,107 cell types, 1,808 variant combinations, and 156 distinct clinically verified variants from patients. This collection brings several kinds of information into the study of how variants are represented.",
+      "The authors analyze the dataset’s structure and evaluate pretrained genomic foundation models on it. Their results reveal a substantial gap between current model capabilities and accurate genetic-variant representation. The contribution is therefore both a resource and an assessment: it supplies material for developing representations while showing that existing models have significant room to improve on the intended task."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "07b44111e89295506f2533c5b91301a6f08ba82004dd7d1eb8df05201e3690f5",
+    "tldr": "GV-Rep provides seven million annotated genetic-variant records and exposes substantial gaps in existing genomic foundation models’ representations."
+  },
+  "neurips-2024-hamiltonian-monte-carlo-on-relu-neural-networks-is-inefficient-62cc5e33c5": {
+    "backgroundConcepts": [
+      "topic-188-a-bayesian-approach-to-analysing-training-data-a"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Hamiltonian Monte Carlo uses simulated movement to propose samples for Bayesian inference. This paper studies its leapfrog implementation for neural networks whose activation functions belong to the ReLU family. The key concern is the activation’s lack of differentiability, which changes the numerical behavior of the simulation used to construct sampling proposals.",
+      "The authors show that the local error has a lower bound of order epsilon for these networks, rather than the classical upper bound of order epsilon cubed. Here, epsilon is the integrator’s step size. This is a substantial deterioration in how numerical error behaves as steps become smaller. The resulting proposals are rejected more often, making the inference procedure inefficient.",
+      "Simulations and experiments on a real-world dataset support the theoretical analysis and compare ReLU-based networks with analytic networks. The findings connect an architectural choice directly to the behavior of an inference algorithm: activation nonsmoothness affects the integrator, which affects proposal acceptance. The result concerns leapfrog HMC with ReLU-family activations, the specific combination analyzed and tested in the paper."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b4a8d7feaf08ae51009b87f0fad0c9a04a7de00b96e43115b30b7dd02fca5a05",
+    "tldr": "ReLU nondifferentiability worsens leapfrog HMC’s local error and increases proposal rejection in Bayesian neural-network inference."
+  },
+  "neurips-2024-iac-eval-a-code-generation-benchmark-for-cloud-infrastructure-as-code-programs-dac06f1b50": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Infrastructure-as-Code programs describe cloud resources through code, but writing them requires navigating many services, workloads, and configuration details. This paper asks how well language models handle that specialized programming task. IaC-Eval provides a dedicated benchmark, addressing the lack of an evaluation resource for generated infrastructure programs described by the authors.",
+      "The benchmark contains 458 human-curated scenarios spanning popular AWS services and several difficulty levels. Each scenario pairs a natural-language request with an infrastructure intent specification. The request is given to the model, while the specification makes the required services, resources, and internal details explicit enough to check whether the generated program matches the intended infrastructure.",
+      "In the reported evaluation, the strongest model, GPT-4, achieves 19.36% pass@1, measuring success on a single generated answer. Its reported score on the Python benchmark EvalPlus is 86.6%. The comparison highlights a substantial gap between general code-generation performance and this infrastructure task. The dataset and evaluation framework establish a focused way to measure progress on satisfying cloud-infrastructure requirements."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5b4237b953c0ea72afd8ee6ed1b1ed82ffb1f03a5d0d841b484cba5870474b9f",
+    "tldr": "IaC-Eval tests cloud-infrastructure code generation and finds much weaker performance than a general Python benchmark suggests."
+  },
+  "neurips-2024-imdl-benco-a-comprehensive-benchmark-and-codebase-for-image-manipulation-detection-local-534b27dd33": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Image manipulation detection and localization concern identifying edited images and locating their altered regions. Comparing methods is difficult when baseline implementations are unavailable and training or evaluation procedures differ. IMDL-BenCo addresses these obstacles with a shared benchmark and modular codebase intended to make experiments more consistent and model comparisons more informative.",
+      "The framework divides the workflow into reusable components and revises model construction to support customization. It supplies common processing algorithms and training implementations for eight leading models, including one reproduced from scratch. It also provides two sets of standard training and evaluation protocols, 15 GPU-accelerated metrics, and three forms of robustness evaluation.",
+      "Using this infrastructure, the authors analyze model architecture, dataset characteristics, and evaluation standards. The contribution is therefore broader than collecting implementations: the shared setup supports examining how those choices affect the field’s understanding of progress. Standard components reduce the effort required to construct experiments, while explicit protocols and multiple evaluation measures provide a common basis for assessing different manipulation-detection and localization systems."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6cf98c58b534d26e76b443b3a87961ec1e42e22594f6f5ebf084cfb982d21367",
+    "tldr": "IMDL-BenCo standardizes implementations and evaluation for image-manipulation detection and localization."
+  },
+  "neurips-2024-inform-mitigating-reward-hacking-in-rlhf-via-information-theoretic-reward-modeling-9562f5a97f": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A language model trained against a learned reward can exploit signals that raise its score without matching human preferences. This paper focuses on reward misgeneralization, where the reward model depends on irrelevant features. InfoRM addresses that problem by changing reward-model training so that its internal representation filters out information unrelated to the preference task.",
+      "The method introduces a variational information bottleneck objective. The authors also identify a correlation between reward overoptimization and outliers in the bottleneck’s latent representation. Building on that observation, they define the Cluster Separation Index, which measures deviations in this space and serves as an indicator of overoptimization. Such an indicator could support mitigation during training.",
+      "Experiments across multiple settings and reward-model sizes of 70 million, 440 million, 1.4 billion, and 7 billion parameters support InfoRM’s effectiveness. Further analysis finds the detection mechanism effective across a broad range of datasets. The work combines a way to reduce reliance on spurious reward features with an empirical warning signal for overoptimization, while the observed correlation supplies the basis for that signal."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a01dd7d87c00bb8baf2e617bca592c33d1facd558bdcf43576869827e36bca2e",
+    "tldr": "InfoRM uses an information bottleneck to reduce reward hacking and latent-space deviations to flag reward overoptimization."
+  },
+  "neurips-2024-kernel-pca-for-out-of-distribution-detection-16fdf5e18e": {
+    "backgroundConcepts": [
+      "topic-103-poem-out-of-distribution-detection-with-posterio"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A neural network needs a way to recognize inputs that fall outside its familiar data distribution. Applying ordinary principal component analysis directly to network features has proved insufficient for this task. This paper argues that a linear subspace may fail to separate familiar and unfamiliar features, motivating a nonlinear representation before applying the principal-component framework.",
+      "The proposed detector uses kernel PCA with kernels chosen to improve separation between in-distribution and out-of-distribution data. It also employs explicit feature mappings associated with those task-specific kernels. These mappings make it possible to compute reconstruction errors for new examples efficiently at large scale, connecting the nonlinear representation to a practical detection calculation.",
+      "The authors present theoretical analysis and experiments across multiple datasets and network structures, reporting strong efficiency and state-of-the-art detection performance. The main implication is that the representation used for principal-component analysis matters: introducing suitable nonlinear mappings can address separation failures encountered by direct linear PCA. The explicit mappings are central to making that approach computationally useful beyond small datasets."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a6ae70285a845454994c993cac5e788e9c1d69eecdd10c24a112b368242572cc",
+    "tldr": "Task-specific nonlinear mappings make kernel PCA an effective and efficient detector of unfamiliar inputs."
+  },
+  "neurips-2024-learning-where-to-edit-vision-transformers-1c6f96f2dc": {
+    "backgroundConcepts": [
+      "topic-203-automated-synthetic-to-real-generalization"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Correcting a pretrained vision transformer requires deciding both what to change and how broadly the correction should apply. An edit should help related failures while limiting unintended changes on unrelated images. This paper focuses on errors caused by subpopulation shifts and separates editing into locating a suitable parameter subset and then updating that subset.",
+      "The location step uses a meta-learned hypernetwork trained with CutMix-augmented editing data. Given failure examples, it produces binary masks selecting a sparse, structured subset of model parameters. The selected parameters are then fine-tuned with a gradient-descent variant. Learning the selection mechanism allows the method to adapt where it intervenes in response to observed failures.",
+      "The authors construct a benchmark with shifts toward naturally underrepresented images and AI-generated images. Their method achieves superior performance on this benchmark and supports adjustable trade-offs between generalization to related failures and locality on unrelated examples. The findings show the value of treating parameter selection as a learned part of editing, alongside the subsequent optimization that performs the correction."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3970ef4811f91a76f2ee15e6a61e239139f7adea4ed2accb506a61e1e150d77d",
+    "tldr": "A learned parameter-selection mechanism enables targeted vision-transformer edits with adjustable generalization and locality."
+  },
+  "neurips-2024-meta-controller-few-shot-imitation-of-unseen-embodiments-and-tasks-in-continuous-control-8eda7f6955": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A robot-learning system may need to adapt both to a new body and to a new task. Existing modular policies and few-shot imitation approaches often address only part of that combination. Meta-Controller proposes behavior cloning that handles unseen embodiments and tasks together using a small number of demonstrations, such as five, without requiring rewards.",
+      "The framework describes inputs and outputs at the joint level, creating a shared representation for robots with different state and action spaces. A structure-motion encoder captures knowledge shared across embodiments as well as knowledge specific to each body. A matching-based policy then uses the supplied demonstrations to predict actions, producing an adaptive policy designed to resist overfitting.",
+      "Evaluation in the DeepMind Control suite shows better few-shot generalization to unseen embodiments and tasks than the compared modular-policy and few-shot imitation methods. The contribution joins representation design with demonstration-based adaptation: the joint-level description helps accommodate different bodies, while the policy uses a few examples to determine behavior for the new task."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9b2d2f5666212cd4b7cb5f9cf7b48a1f9d0ff7c8aa3c92d3671a665111af9c78",
+    "tldr": "Meta-Controller adapts to unseen robot bodies and tasks from a few reward-free demonstrations."
+  },
+  "neurips-2024-sand-smooth-imputation-of-sparse-and-noisy-functional-data-with-transformer-networks-bbc74dc2d9": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Measurements collected over time are often sparse, noisy, and unevenly spaced. Recovering the underlying curve requires filling gaps while producing a suitably smooth result. This paper adapts transformers to that functional-imputation problem, where their application has been more limited than in text and images. Its central change is to represent smoothness through how the curve varies.",
+      "The proposed SAND module applies self-attention to derivatives and models the imputed curve’s sub-derivative. This naturally encourages smooth reconstructions within the transformer architecture. The authors also provide a theoretical result describing the number of hidden nodes a network with SAND needs to achieve an epsilon prediction-error bound for functional imputation.",
+      "Experiments across several kinds of functional data show better imputations than standard transformers and transformers using alternative ways to encourage smoothness. SAND also outperforms kernel smoothing and PACE, established statistical approaches for this task. The findings support derivative-based modeling as a useful architectural bias for recovering curves, while the hidden-node result adds a theoretical account of the network capacity required for a specified error bound."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "57377e39ff106833bb90b1d10fc9dc21c1a51508d8148aa510e1757e1adb4377",
+    "tldr": "SAND adds derivative-based attention to transformers to improve smooth reconstruction of sparse, noisy time-dependent data."
+  },
+  "neurips-2024-semantic-density-uncertainty-quantification-for-large-language-models-through-confidence-73f24ff7fb": {
+    "backgroundConcepts": [
+      "topic-107-very-likely-means-uncertain-how-llms-diverge-fro"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A language model’s answer does not inherently come with a dependable measure of uncertainty. Existing approaches can be restricted to classification, require extra training, focus on wording rather than meaning, or assign confidence to an entire prompt instead of a particular answer. Semantic density is proposed to address these obstacles through response-level confidence measurement.",
+      "The framework interprets uncertainty using a probability-distribution perspective in semantic space, where the relevant information concerns meaning. It produces a confidence measure for each response and is presented as usable with new models and tasks without additional task-specific training or data. The method is not restricted to a particular task type, allowing evaluation on freely generated answers.",
+      "Experiments cover seven language models, including Llama 3 and Mixtral-8x22B, across four free-form question-answering benchmarks. The authors report better performance and robustness than prior approaches. These results support semantic density as a practical confidence-estimation method in the tested settings, with its response-level focus allowing different answers to the same prompt to receive their own uncertainty assessments."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7441b43cc2fafbb95415d060665d2b2e9cecbf6baca417c87c5b562685984a80",
+    "tldr": "Semantic density estimates confidence for individual LLM responses from their meaning, without requiring additional training."
+  },
+  "neurips-2024-the-benefits-of-balance-from-information-projections-to-variance-reduction-82f6eed0b1": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Balancing data from different sources or modalities is already part of several foundation-model methods. This paper identifies a statistical benefit of that practice: reducing variance. The result offers a way to understand balancing through the variability of the quantities being estimated, giving a more explicit account of why balancing can help learning.",
+      "The authors establish a non-asymptotic statistical bound that quantifies the variance reduction. Such a bound addresses finite-data behavior rather than only what happens in an unlimited-data limit. It connects the effect to the decay of eigenvalues of Markov operators, linking the size of the benefit to mathematical structure in the balancing analysis.",
+      "The paper then uses this perspective to interpret balancing in contrastive multimodal learning and self-supervised clustering, with CLIP and DINO motivating the broader setting. The authors explain how the variance-reduction view can clarify existing procedures and inform improvements. Its contribution is a common statistical explanation that connects balancing operations to a measurable benefit and provides a basis for thinking about their design."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "10a42c25f3e8e9c8fbb9261168b11f1109979e5a5c0f57eb77c68fd18bfcf404",
+    "tldr": "The paper shows how balancing data across modalities and sources reduces variance and quantifies the effect with a finite-sample bound."
+  },
+  "neurips-2024-to-err-like-human-affective-bias-inspired-measures-for-visual-emotion-recognition-evalua-cd87fe3a3d": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Accuracy counts every incorrect emotion label as an error of the same severity. Yet some emotions are psychologically closer than others: confusing excitement with awe differs from confusing it with anger. This paper develops evaluation measures for visual emotion recognition that account for those differences, aiming to reflect the character of a model’s mistakes.",
+      "The proposed approach uses distances on Mikel’s emotion wheel, a psychological representation of relationships among emotions. Those distances allow evaluation to distinguish between nearby and more distant confusions. As a result, assessment includes information that a simple count of correct predictions leaves out: how far an incorrect emotional interpretation lies from the intended one.",
+      "Experiments in semi-supervised emotion recognition and a user study find the proposed measures more effective than accuracy for assessing performance and more consistent with human emotional cognition. The contribution is an evaluation perspective grounded in psychological similarity. It gives researchers a way to judge whether a system’s errors resemble relatively close emotional confusions or more substantial misreadings of an image."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "798183f53bbd689a893a9e5ad80056a518bfee73196a1e427a4074edb75cced2",
+    "tldr": "Emotion-wheel-based metrics evaluate visual emotion recognition by accounting for the psychological severity of different mistakes."
+  },
+  "neurips-2024-understanding-hallucinations-in-diffusion-models-through-mode-interpolation-6a6200fd20": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies mode interpolation, a diffusion-model failure in which generation bridges nearby patterns in training data and produces samples outside the original distribution’s support. Such samples can contain combinations or structures that never occur in the data. The authors investigate this mechanism as an explanation for a particular class of image-generation hallucinations.",
+      "Experiments with one- and two-dimensional Gaussians connect the problem to a discontinuous decoder loss landscape: smooth approximation creates a region that produces these hallucinations. Artificial shape datasets reveal nonexistent combinations, and real-world examples extend the explanation to images with extra or missing fingers. These experiments connect a simplified mathematical setting with recognizable visual artifacts.",
+      "The authors also find a detection signal in unusually high variation near the end of the backward sampling trajectory. A simple metric based on that variation removes over 95% of hallucinations in the reported experiments. Finally, recursive training experiments, including MNIST, examine how hallucinations contribute to collapse and how removing them supports stabilization when models train on generated data."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "71d854db2fdfea8c573c5bd09a2fe133909de83e7086dedbc3fb1009c7c601ba",
+    "tldr": "Mode interpolation explains a diffusion hallucination mechanism, and late-sampling trajectory variation provides an effective detection signal."
+  },
+  "neurips-2024-understanding-the-differences-in-foundation-models-attention-state-space-models-and-recu-0de78a9b23": {
+    "backgroundConcepts": [
+      "topic-246-convolutional-sequence-to-sequence-learning"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Softmax attention becomes computationally expensive as sequences grow, motivating alternatives such as linear attention, state space models, and recurrent networks. These architectures have connections, but developing them separately can obscure the differences that affect performance and scaling. This paper introduces the Dynamical Systems Framework to place them in a shared mathematical representation.",
+      "The framework supports comparisons that distinguish shared structure from conditional equivalence. In particular, the authors compare linear attention with selective state space models and specify conditions under which they are equivalent. They also compare softmax attention with other model classes and discuss theoretical conditions that allow it to be approximated.",
+      "Mathematical arguments and empirical validations support the resulting insights. The contribution is a framework for analyzing architectural relationships and the conditions behind them, giving model designers a more systematic basis for assessing alternatives. Its potential value for future foundation models lies in connecting efficiency-oriented architectural choices to an explicit understanding of what those choices preserve or change in the represented computation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "bd97c5c49793265dd63bc2a628644fc735ef895ccf1d0089aa0f477b9895a53c",
+    "tldr": "A shared dynamical-systems framework clarifies differences, conditional equivalences, and approximation relationships among major sequence-model architectures."
+  }
+}

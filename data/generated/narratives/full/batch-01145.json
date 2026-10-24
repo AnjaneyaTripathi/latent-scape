@@ -1,0 +1,377 @@
+{
+  "neurips-2025-act-only-when-it-pays-efficient-reinforcement-learning-for-llm-reasoning-via-selective-r-96a2c0dc22": {
+    "backgroundConcepts": [
+      "topic-153-v-0-a-generalist-value-model-for-any-policy-at-s"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Reinforcement learning for reasoning models can spend considerable computation generating answers to prompts that contribute little to training. Sampling more prompts helps identify useful training examples, but generating those samples is itself expensive. This paper asks whether a model can avoid some of that expense by identifying low-value prompts before producing their answers.",
+      "The authors find that prompt value has substantial consistency over nearby training epochs: a prompt that is uninformative now is likely to remain so in the near future. GRESO uses this pattern to predict which prompts to skip. It is a lightweight, online filter applied before rollout, the stage where the model generates responses for reinforcement learning.",
+      "Across the reported mathematical reasoning benchmarks and model sizes, GRESO achieves up to 2.4 times faster rollouts and up to twice as fast overall training without observed accuracy degradation. These are maximum reported speedups, rather than uniform gains across every setting. The finding shows that recent reward history can help allocate generation effort more efficiently while preserving the training benefits measured in the experiments."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4bcc703659a84e971ddfdf5d7a53e91237e093bbe291c89ec181cbf961f73c1f",
+    "tldr": "GRESO uses recent reward patterns to skip uninformative prompts before generation, achieving up to twice as fast training without measured accuracy loss."
+  },
+  "neurips-2025-activation-guided-consensus-merging-for-large-language-models-27e29a3bad": {
+    "backgroundConcepts": [
+      "topic-236-beta-dpo-direct-preference-optimization-with-dyn"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Model merging combines capabilities from different language models into one model. A central challenge is deciding how much each source should contribute. Conventional approaches often treat layers as equally important, even though different neural components perform different functions. This paper investigates whether internal activation patterns can guide a more selective combination.",
+      "Activation-Guided Consensus Merging, or ACM, assigns separate merging coefficients to different layers. It bases these choices on mutual information between the activations of pretrained and fine-tuned models, using the relationship between their internal responses to guide the merge. The framework can supplement existing merging methods without gradient calculations or additional training, while aiming to preserve specialized capabilities.",
+      "The authors report that ACM outperforms all evaluated baselines on both general merging and tasks that seek shorter reasoning responses. For Qwen-7B models, adding ACM to TIES-Merging reduces response length by 55.3% while improving reasoning accuracy by 1.3 points. This result suggests that layer-sensitive merging can improve the balance between reasoning quality and response efficiency in the tested setting."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "998554155db74f5cff708e434f1377070f0f3341a84aeb65e67bc203bc1aaca4",
+    "tldr": "ACM uses relationships between model activations to guide layer-specific merging, improving tested merges without additional training."
+  },
+  "neurips-2025-adaptive-divergence-regularized-policy-optimization-for-fine-tuning-generative-models-7f0722a388": {
+    "backgroundConcepts": [
+      "topic-064-psi-sampler-initial-particle-sampling-for-smc-ba"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Reinforcement learning fine-tuning must balance improving rewards against changing a generative model too aggressively. Strong divergence regularization restrains those changes but can limit improvement; weak regularization permits larger changes but risks instability or reward hacking. ADRPO makes this restraint depend on the estimated value of individual training samples rather than keeping it fixed.",
+      "The method relaxes regularization for samples with high estimated advantage and strengthens it for poorer samples. In effect, it allows more movement where the training signal looks promising. The authors implement this idea with Wasserstein-2 regularization for flow matching image models and extend it to KL-regularized language and multimodal models, without adding networks or complex architectural changes.",
+      "The reported image experiments improve semantic alignment and diversity over the compared methods, with a 2B SD3 model surpassing larger models on the stated capabilities. Language experiments show escape from local optima through exploration, while audio reasoning experiments improve on GRPO and exceed the named commercial models. Together, these findings support adapting regularization to sample quality across the evaluated modalities."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "480759dbc65126a996721abba64bb413e3dc68c552e832acddaf2a86e5a235ef",
+    "tldr": "ADRPO adjusts reinforcement learning regularization to sample quality, improving reported image generation, language, and audio reasoning results."
+  },
+  "neurips-2025-analogy-based-multi-turn-jailbreak-against-large-language-models-a7c528db36": {
+    "backgroundConcepts": [
+      "topic-049-a-coin-flip-for-safety-llm-judges-fail-to-reliab"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies safety failures that develop over several conversational turns. The authors identify two problems in existing multi-turn jailbreak methods: sensitive language can trigger refusals early, and a gradually evolving conversation can drift away from the attacker's intended request. Their framework uses analogies to address both problems while operating through black-box access to the model.",
+      "The central idea is to separate the structure of a response from its subject matter. Earlier conversation establishes a response pattern through benign tasks, and a later semantic change connects that pattern to the harmful objective. The research therefore examines whether a model's willingness to continue an established conversational structure can undermine its safety behavior when the meaning changes.",
+      "Across six commercial and open-source models and two benchmark datasets, the authors report an average attack success rate of 93.3%, outperforming five baselines. This is an empirical result for the evaluated attacks and models. It highlights a vulnerability in handling conversational continuity: apparently safe earlier exchanges can influence how a model responds to a later unsafe request."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5cd61a87d191bb84ce8c7a527cbe2d27f95952b6602740b404e14128b024309f",
+    "tldr": "An analogy-based conversational attack exposes safety failures by carrying response structures from benign exchanges into a later harmful request."
+  },
+  "neurips-2025-clean-first-align-later-benchmarking-preference-data-cleaning-for-reliable-llm-alignment-36dacd8dea": {
+    "backgroundConcepts": [
+      "topic-157-textits-sppo-semantic-calibrated-self-play-prefe"
+    ],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Language model alignment often relies on human judgments about which responses people prefer. Those judgments can be noisy or inconsistent, weakening reward models and the training that depends on them. Although automated cleaning methods already exist, the paper identifies a lack of systematic evidence about how well they work across different alignment settings.",
+      "The contribution is a benchmark comparing 13 preference data cleaning methods under a standardized evaluation protocol. It assesses both downstream alignment performance and how well cleaning strategies generalize across datasets, model architectures, and optimization algorithms. This makes data preprocessing itself an object of comparison, rather than treating it as a fixed preparation step before model training.",
+      "The authors report identifying factors that influence when cleaning succeeds and release modular implementations of all evaluated methods. The abstract does not designate a single universally best cleaner. The benchmark's practical value is its common basis for testing whether a cleaning strategy improves alignment and whether that benefit persists when the surrounding data or training setup changes."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e865d7f737816dbe6ee8c92990cc7cad9f37dcb11c67bc42a496c50b06324bf1",
+    "tldr": "This benchmark compares 13 preference data cleaning methods to assess their effects on alignment and generalization across training settings."
+  },
+  "neurips-2025-deliberation-on-priors-trustworthy-reasoning-of-large-language-models-on-knowledge-graph-879a56af74": {
+    "backgroundConcepts": [
+      "topic-009-4dbinfer-a-4d-benchmarking-toolbox-for-graph-cen"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Knowledge graphs can supply facts that a language model lacks or remembers incorrectly. This paper argues that using them effectively also requires their structure and constraints. Connections between entities can guide a reasoning path, while explicit or implicit restrictions can help check whether the resulting answer is consistent with the available knowledge.",
+      "The proposed DP framework handles these two roles separately. Progressive knowledge distillation combines supervised fine-tuning with Kahneman-Tversky Optimization to teach the model structural information from the graph. This improves generation of relation paths, the linked relationships used during reasoning. A reasoning-introspection stage then draws on extracted constraints to verify and refine that reasoning before producing responses.",
+      "Experiments on three benchmarks report state-of-the-art performance, including a 13% improvement in Hit@1 on ComplexWebQuestions, alongside highly trustworthy responses. The findings support using knowledge graphs as both reasoning guidance and a source of checks on generated answers. The framework's contribution is therefore broader than retrieving additional facts: it teaches and verifies how the model connects those facts."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "30fe9ad8310725f35c27ba096c2b953da2cac5c23c75e9aac5aeb14ee612ea6b",
+    "tldr": "DP teaches language models knowledge-graph structure and checks their reasoning against graph constraints to improve answer reliability."
+  },
+  "neurips-2025-diffusion-classifiers-understand-compositionality-but-conditions-apply-5c4394fdaf": {
+    "backgroundConcepts": [
+      "topic-059-a-cat-is-a-cat-not-a-dog-unraveling-information-"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Generating a complex scene and recognizing its composition are related capabilities, but success at one does not establish success at the other. Diffusion classifiers repurpose text-to-image models for discrimination without task-specific training. This paper investigates how well they understand combinations of visual elements and under what conditions that capability appears.",
+      "The study evaluates three diffusion models, SD 1.5, SD 2.0, and SD3-m, across 10 datasets and more than 30 tasks. To examine the influence of the image domain, the authors introduce Self-Bench, a diagnostic benchmark containing images generated by diffusion models themselves. They also investigate timestep weighting, which changes how different stages of the diffusion process contribute to classification.",
+      "The findings support compositional capabilities while showing that performance depends on evaluation conditions. In particular, the study identifies a relationship between domain gap and sensitivity to timestep choices, especially for SD3-m. This means the apparent strength of a diffusion classifier depends partly on the images it encounters and how its diffusion-stage information is combined, rather than on model identity alone."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9f8d0ae467a0187d771077588e764f37f643e2188317e4495fd5ed97010d6dd3",
+    "tldr": "A broad evaluation finds compositional ability in diffusion classifiers, with performance depending on image domain and diffusion timestep weighting."
+  },
+  "neurips-2025-dnaedit-direct-noise-alignment-for-text-guided-rectified-flow-editing-77ba3a17bd": {
+    "backgroundConcepts": [
+      "topic-066-f-trajectory-balance-a-loss-family-for-tuning-gf"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Text-guided image editing must connect an existing image to a generative model's synthesis process. Methods that reverse this process step by step can accumulate error because each estimated noisy state helps approximate the next one. DNAEdit addresses this reconstruction drift in rectified flow models, where noisy states are formed by interpolating between an image and Gaussian noise.",
+      "Direct Noise Alignment refines the Gaussian noise itself. At each timestep, it compares the predicted velocity of the interpolated state with the expected velocity and uses their difference to adjust the noise. This reduces dependence on a chain of successive state approximations. A second component, Mobile Velocity Guidance, controls prompt-directed generation to balance changing the target object against preserving the background.",
+      "The authors validate the noise-alignment method, relate it to existing rectified flow inversion approaches, and introduce DNA-Bench for editing with long prompts. They report superior performance over the compared state-of-the-art editing methods. The contribution joins more accurate reconstruction with control over which image content changes, addressing two connected requirements of useful text-guided editing."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b98e6bb4a676d6855771c7376fe7eb9215ce215fd618c88c6d24975a9fe99e89",
+    "tldr": "DNAEdit refines noise directly and guides generation to reduce reconstruction drift while balancing object edits with background preservation."
+  },
+  "neurips-2025-ellice-efficient-and-provably-robust-algorithmic-recourse-via-the-rashomon-sets-9eb15fd97c": {
+    "backgroundConcepts": [
+      "topic-078-mathcal-m-4-a-unified-xai-benchmark-for-faithful"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Algorithmic recourse recommends changes a person could make to receive a more favorable model decision. Such advice becomes fragile when several models fit the data nearly equally well: a change that works for one model may fail for another. This collection of near-optimal models is called the Rashomon set, and ElliCE explicitly incorporates that uncertainty.",
+      "The framework approximates the Rashomon set with an ellipsoid and optimizes counterfactual recommendations over that region. Its validity guarantee covers the models inside this ellipsoidal approximation. The authors also establish theoretical properties concerning uniqueness, stability, and alignment with important feature directions. The scope of the guarantee matters: it is tied to the modeled region of uncertainty.",
+      "In the reported experiments, ElliCE produces more robust counterfactuals, accommodates user-specified constraints on features, and runs substantially faster than existing baselines. These capabilities connect mathematical robustness to practical advice that respects which inputs a user can change. The results support recommendations that remain useful across the represented alternatives, rather than depending entirely on one selected predictive model."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "de5806acb0dae5696ad8155cec592a31d402b09ea95eb6d2a1133f33542bff33",
+    "tldr": "ElliCE produces recourse recommendations guaranteed to work across an ellipsoidal approximation of near-optimal models."
+  },
+  "neurips-2025-escaping-saddle-points-without-lipschitz-smoothness-the-power-of-nonlinear-preconditioni-4c9e654e2f": {
+    "backgroundConcepts": [
+      "topic-124-a-catalyst-framework-for-minimax-optimization"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Optimization theory often assumes that gradients change at a globally controlled rate, a condition called Lipschitz smoothness. That assumption can be restrictive for relevant nonconvex problems. This paper studies broader smoothness conditions to understand whether nonlinear modifications of gradient updates, including gradient clipping, retain the ability to avoid saddle points.",
+      "The authors introduce a sufficient condition connecting two existing notions: (L0, L1)-smoothness and anisotropic smoothness. Their condition encompasses both and holds in applications including phase retrieval and matrix factorization. Using dynamical systems theory, they show that nonlinear preconditioning preserves classical gradient descent's saddle-avoidance property under the assumptions of their analysis. Those assumptions are satisfied in the highlighted applications.",
+      "The paper also analyzes a perturbed version of the method that efficiently reaches second-order stationarity, with only logarithmic dependence on dimension. This matches the type of guarantee available for classical gradient methods while extending the relevant smoothness framework. The result gives theoretical support for nonlinear updates in these settings; it does not establish that they find global optima."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6bd998366391cf220e2c44b575b2fcd8f960bbb8be6501acd02367f612851d93",
+    "tldr": "Under broader smoothness conditions, nonlinear gradient updates including clipping preserve saddle avoidance and admit efficient second-order stationarity guarantees."
+  },
+  "neurips-2025-forcefm-enhancing-protein-ligand-predictions-through-force-guided-flow-matching-352782c7cf": {
+    "backgroundConcepts": [
+      "topic-075-a-3d-generative-model-for-structure-based-drug-d"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Molecular docking predicts how a ligand sits within a protein, an important task in structure-based drug discovery. Deep learning can accelerate this prediction, but generated poses may still be physically implausible. ForceFM addresses the gap between producing an accurate-looking arrangement and producing a conformation consistent with physical information about the molecular system.",
+      "The model incorporates a force-guided network into the generation process. This guidance steers proposed ligand poses toward lower-energy, physically realistic conformations as they are generated. The key design choice is to make physical priors participate directly in constructing the prediction. The paper also examines whether this guidance remains effective when its underlying energy function changes.",
+      "The authors report improved docking accuracy and physical consistency, with force guidance halving inference cost relative to unguided approaches. Replacing the guiding potential with Vina, Glide, Gnina, or Confscore preserves or improves performance in their tests. These results support the method's flexibility across the evaluated energy functions and show that incorporating physical guidance can improve efficiency as well as plausibility."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "12856f04ed5be63fe6686a93a04d8b723f343504a6d22df6ae8adbd8b163cfd0",
+    "tldr": "ForceFM guides ligand-pose generation with physical forces, improving reported docking quality while halving inference cost versus unguided approaches."
+  },
+  "neurips-2025-from-euler-to-ai-unifying-formulas-for-mathematical-constants-5af2a2f442": {
+    "backgroundConcepts": [
+      "topic-186-3d-prover-diversity-driven-theorem-proving-with-"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Many formulas evaluate the same mathematical constant, yet their relationships can remain obscure. This paper builds an automated framework for finding those connections, using formulas for pi as its main case. Its goal is to organize isolated mathematical discoveries into shared structures that explain how apparently different expressions are related.",
+      "The workflow combines several distinct tools. Language models harvest formulas from papers, an interaction between language models and code validates them, and a symbolic algorithm groups formulas and establishes unifying relationships. The division of work connects large-scale document processing with mathematical manipulation, so collecting expressions becomes the starting point for discovering structure among them.",
+      "After processing 455,050 arXiv papers, the authors validate 385 distinct formulas for pi and prove relationships among 360, or 94%. They derive 166, or 43%, from a single mathematical object, linking classical formulas with more recent algorithmic discoveries. The method also generalizes to e, zeta(3), and Catalan's constant. These results demonstrate substantial unification of the collected formulas, while suggesting broader potential for AI-assisted mathematical organization."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "59043dd91bd6958fa501b6d55c0b2af37f4f38d186cb95d453e71057cee8e16d",
+    "tldr": "An automated language-model and symbolic pipeline proves connections among 360 collected formulas for pi and extends to other constants."
+  },
+  "neurips-2025-gradient-guided-epsilon-constraint-method-for-online-continual-learning-c7801c7c0a": {
+    "backgroundConcepts": [
+      "topic-083-online-continual-learning-from-imbalanced-data"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Online continual learning requires a model to absorb incoming data while retaining knowledge with limited memory. Experience Replay addresses this by revisiting stored examples. This paper interprets replay as an optimization problem with an implicit soft constraint on past performance, showing how a fixed weighting can create an inflexible trade-off between learning and retention.",
+      "The proposed Gradient-Guided Epsilon Constraint method makes that trade-off explicit. It minimizes loss on current data while constraining deterioration on memory samples using a predefined tolerance. When forgetting exceeds the tolerance, the update prioritizes satisfying the constraint. Otherwise, it emphasizes the incoming task while controlling how quickly memory loss increases. Gradients guide the choice of update direction.",
+      "The authors report improved overall performance and a better learning-retention balance on standard online continual learning benchmarks. The approach matters because it responds to the current state of memory performance instead of relying solely on a fixed mixture of objectives. Its tolerance concerns stored examples, and the reported experiments establish the resulting benefits for the evaluated continual learning settings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e4a0ee66bb314b032dd0870e87c5420d142c843de28a0bef6d49ad2cf229d691",
+    "tldr": "GEC dynamically redirects learning updates according to an explicit tolerance for forgetting on stored examples."
+  },
+  "neurips-2025-local-learning-for-covariate-selection-in-nonparametric-causal-effect-estimation-with-la-1f5d65388d": {
+    "backgroundConcepts": [
+      "topic-090-a-causal-framework-for-decomposing-spurious-vari"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Estimating a treatment's causal effect from observational data requires choosing which other variables to adjust for. An unsuitable choice can leave confounding bias. Many selection methods assume there are no hidden variables and attempt to recover the entire causal structure, even when the question concerns only one treatment and one outcome.",
+      "This paper proposes a local approach that allows latent variables and focuses on the target causal relationship. It uses testable patterns of independence and dependence among observed variables to identify a valid adjustment set. Concentrating on the relevant relationship can avoid the unnecessary work involved in reconstructing connections across the whole system.",
+      "The authors establish soundness and completeness under standard assumptions and evaluate their algorithm on synthetic and real-world data. Those guarantees are conditional on the assumptions of the analysis, rather than a promise that every observational problem admits successful adjustment. The contribution is a principled route to selecting adjustment variables in the presence of hidden factors, with experiments supporting the method's effectiveness for the tested problems."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "177fcd04ec2fab14dc4e27d512c0ceeb384cb0969eb6ae63c6688723b586506b",
+    "tldr": "A local causal-learning method selects adjustment variables while allowing hidden variables, with soundness and completeness under standard assumptions."
+  },
+  "neurips-2025-logic-in-frames-dynamic-keyframe-search-via-visual-semantic-logical-verification-for-lon-470969de46": {
+    "backgroundConcepts": [
+      "topic-141-a-unified-reasoning-framework-for-holistic-zero-"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Long-video question answering depends on finding the few frames that contain relevant evidence. Computational limits often force systems to inspect only a sparse sample, potentially missing important events. This paper argues that frame selection should consider logical relationships between the question and visual content, beyond the relevance of isolated images or captions.",
+      "Its Visual Semantic-Logical Search framework uses four kinds of dependency: spatial co-occurrence, temporal proximity, attribute dependency, and causal order. These describe relationships such as elements appearing together or events occurring in a meaningful sequence. The framework repeatedly updates its frame-sampling distribution using these relations, refining the search toward frames that satisfy the particular query's requirements.",
+      "The authors report state-of-the-art keyframe selection metrics on a manually annotated benchmark. Applying the selected frames to downstream question answering also produces the strongest reported gains over existing methods on LongVideoBench and Video-MME. The results support treating frame selection as an iterative reasoning problem: understanding relationships among visual clues can help determine where in a long video to look next."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3c9bb00406c582a9f9e1335f5fdffbb1083af379305c6f03369acab4f9cedea7",
+    "tldr": "Logic-in-Frames iteratively searches long videos using logical relationships to select more useful frames for answering questions."
+  },
+  "neurips-2025-noisygrpo-incentivizing-multimodal-cot-reasoning-via-noise-injection-and-bayesian-estima-17a958ca9e": {
+    "backgroundConcepts": [
+      "topic-043-exploration-a-study-of-count-based-exploration-f"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Reinforcement learning can improve a multimodal model's step-by-step reasoning, yet those improvements may transfer poorly beyond its training distribution. NoisyGRPO addresses this by modifying both what the model explores during training and how its generated reasoning is evaluated. It combines controlled visual perturbations with a probabilistic estimate of each reasoning trajectory's usefulness.",
+      "The exploration component adds Gaussian noise to visual inputs, exposing the model to a wider range of visual conditions. The estimation component uses a Bayesian framework: noise level provides prior information, and the observed trajectory reward supplies likelihood information. Combining them produces a posterior advantage estimate that guides training toward reasoning grounded in the visual evidence.",
+      "Experiments cover reasoning quality, general capabilities, and hallucination benchmarks. The authors report substantial improvements in generalization and robustness, particularly for small models such as Qwen2.5-VL 3B. The contribution is the coupling of exploration with evaluation: the method does not merely perturb images, but also accounts for that perturbation when deciding which generated reasoning should receive stronger reinforcement."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7c5264bdbd7fcd3ea80098308732ec0d9d3e3887a2b5b12f655add957bf21f09",
+    "tldr": "NoisyGRPO combines noisy visual exploration with Bayesian advantage estimates to improve multimodal reasoning generalization and robustness."
+  },
+  "neurips-2025-openvlthinker-complex-vision-language-reasoning-via-iterative-sft-rl-cycles-94c5d25184": {
+    "backgroundConcepts": [
+      "topic-081-a-benchmark-for-compositional-visual-reasoning"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Teaching visual models to reason involves more than copying reasoning from text-only systems. Such supervision can degrade performance when the reasoning does not accurately connect to the image. Reinforcement learning alone faces a different obstacle: smaller models must search through many possible behaviors before discovering useful reflection. OpenVLThinker alternates the two training approaches.",
+      "Supervised fine-tuning first brings out reasoning actions that the base model rarely displays, narrowing the space reinforcement learning must explore. Reinforcement learning then refines these behaviors and produces better examples for the next supervised stage. Repeating the cycle lets each stage improve the conditions for the other, creating a process of continued self-improvement.",
+      "OpenVLThinker-7B improves across six mathematical and general reasoning benchmarks, with reported gains of 3.2% on MathVista, 1.4% on EMMA, and 2.7% on HallusionBench. The analysis supports complementary roles for supervision and reinforcement learning. The authors frame the results as early evidence toward R1-style multimodal reasoning, preserving the distinction between promising progress and a fully established general capability."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7b26c13f699d1aba06fd44bdbb7dfaf4fc6ffc9b6191467f191bfda23abeba0d",
+    "tldr": "OpenVLThinker alternates supervised fine-tuning and reinforcement learning so each stage supplies better reasoning behaviors or data for the next."
+  },
+  "neurips-2025-r2r-efficiently-navigating-divergent-reasoning-paths-with-small-large-model-token-routin-9711e7d6e4": {
+    "backgroundConcepts": [
+      "topic-100-3-in-1-2d-rotary-adaptation-for-efficient-finetu"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Small reasoning models are cheaper to run, but they can take less successful reasoning paths than larger models. R2R starts from the observation that only a small fraction of generated tokens meaningfully separate those paths. Many other differences are neutral wording changes, while many tokens are identical across the two models.",
+      "The method trains a lightweight neural router to identify the critical tokens that need the larger model. The smaller model handles most generation, and the larger model intervenes selectively. An automatic data pipeline identifies path-divergent tokens and creates token-level training labels, connecting the routing decision to differences that matter for reasoning rather than treating every token as equally demanding.",
+      "Using DeepSeek R1-1.5B and R1-32B together, R2R averages 5.6B activated parameters across the evaluated math, coding, and question-answering tasks. It achieves 1.6 times R1-7B's average accuracy, surpasses R1-14B, and runs 2.8 times faster than R1-32B with comparable performance. These results demonstrate an improved measured trade-off between inference cost and reasoning quality through selective use of the larger model."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "559c1636f6884e5d9632c06a796f66d21e6cb864a43fc85ec3d8b44b7175f38f",
+    "tldr": "R2R routes critical reasoning tokens to a large model while a small model handles most generation, improving measured speed and accuracy trade-offs."
+  },
+  "neurips-2025-self-supervised-learning-for-in-vivo-localization-of-microelectrode-arrays-using-raw-loc-87d7db4180": {
+    "backgroundConcepts": [
+      "topic-130-a-deep-learning-approach-for-the-segmentation-of"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Knowing which brain region an electrode records from matters for consistent neural recordings and stimulation. Existing localization approaches commonly use anatomical atlases or later tissue examination, which have limitations for precision and ongoing feedback. Lfp2vec instead learns to infer anatomical regions directly from local field potential signals recorded in vivo.",
+      "The framework begins with a transformer pretrained on audio, continues self-supervised learning on a large collection of unlabeled neural recordings, and then fine-tunes for region identification. Ablation experiments show that combining this outside-domain initialization with learning on neural signals outperforms training from scratch. The resulting representations also form clusters that correspond coherently to anatomical regions.",
+      "The authors report strong zero-shot transfer across laboratories, probe geometries, and novel subjects, along with performance exceeding compared self-supervised electrophysiology models. The representations also adapt to disease classification with minimal fine-tuning. These findings indicate that raw local field potentials contain useful anatomical information and that learning from unlabeled recordings can produce reusable representations for multiple neural decoding tasks."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f887c44daec6313d4cdd980b3e39dd88bcb3e32a8eedbcceb3ade137d3e77b8d",
+    "tldr": "Lfp2vec adapts an audio-pretrained transformer to neural recordings, enabling brain-region prediction that transfers across subjects, labs, and probe geometries."
+  },
+  "neurips-2025-sirius-self-improving-multi-agent-systems-via-bootstrapped-reasoning-011e3a404f": {
+    "backgroundConcepts": [
+      "topic-112-knowledge-evaluating-conversational-agents-over-"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Systems of multiple language-model agents can tackle complex tasks, but their behavior often depends on manually written prompts and fragile heuristics. Improving specialized agents also requires suitable training examples. SiriuS addresses this data problem by turning the system's own reasoning experiences into material for further optimization.",
+      "Its central component is an experience library containing high-quality reasoning trajectories. The framework retains reasoning steps associated with successful outcomes and uses them as training data. It also augments the library by refining unsuccessful trajectories. Together, these procedures allow both successful attempts and revised failures to contribute to improving the multi-agent system.",
+      "The authors report performance gains ranging from 2.86% to 21.88% on reasoning and biomedical question answering, as well as better negotiation in competitive settings. The contribution includes both the improved agents and the reusable experience data generated during optimization. Those data could support future self-correction and self-play improvements; the abstract presents these future uses as opportunities rather than additional demonstrated results."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d453066cf235f29d2529498bcc7fb2a2ca5574f43723df097795a0374e40e8e2",
+    "tldr": "SiriuS improves multi-agent systems by training on a reusable library of successful reasoning and refined unsuccessful attempts."
+  },
+  "neurips-2025-ssr-enhancing-depth-perception-in-vision-language-models-via-rationale-guided-spatial-re-d05c5bb2e0": {
+    "backgroundConcepts": [
+      "topic-185-textit-bifr-ost-3d-aware-image-compositing-with-"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Vision-language models can interpret images while still struggling with precise spatial understanding. RGB inputs provide limited depth information, and simply adding spatial data does not ensure that a model uses it for higher-level reasoning. SSR addresses this by turning raw depth data into structured textual explanations that make spatial information interpretable.",
+      "These rationales act as intermediate representations between depth measurements and reasoning. The framework then uses knowledge distillation to compress them into compact latent embeddings. This supports resource-efficient integration into existing vision-language models without retraining those models, connecting an explicit explanatory representation during development with a more compact form for use.",
+      "The paper also introduces SSR-CoT, a million-scale visual-language dataset with intermediate spatial reasoning annotations, and SSRBench, a benchmark spanning multiple tasks. Experiments across several benchmarks report substantial improvements in depth utilization and spatial reasoning. The findings support the value of organizing depth information into reasoning-relevant representations, with the dataset and benchmark providing ways to train and evaluate that connection."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a9a45e5899c0d35db583da6a80ca2e187e0438f294ecb4aeb2c6e8e8dfda153d",
+    "tldr": "SSR converts depth data into spatial explanations and compact embeddings that improve spatial reasoning in existing vision-language models."
+  },
+  "neurips-2025-the-burden-of-interactive-alignment-with-inconsistent-preferences-00aa331ae6": {
+    "backgroundConcepts": [
+      "topic-017-texttt-multi-2-hierarchical-multi-agent-decision"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "An engagement-driven algorithm can mistake time spent on content for evidence that the content serves a user's interests. This becomes problematic when people choose to engage deliberately but continue impulsively. The paper studies how much forward planning such users need to steer an algorithm toward their longer-term interests despite these inconsistent signals.",
+      "The model separates a rational system that decides whether to engage from an impulsive system that determines engagement duration. Users commit to engagement strategies, and the algorithm responds to the interactions it observes. Within this Stackelberg game, the burden of alignment is the minimum planning horizon users need to influence the algorithm effectively.",
+      "The analysis establishes a critical horizon: sufficiently foresighted users can achieve alignment, while less foresighted users are instead aligned to the algorithm's objective. That threshold can be demanding, but even a small costly signal, such as an extra click, can significantly reduce it. These are conclusions within the proposed game-theoretic framework, explaining how interaction design can alter the strategic burden placed on users."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0d4f2746270ecad1428c25e832b7d403bd3bcbc9d9a3f80cf0dd0685c8b20757",
+    "tldr": "A game-theoretic model shows that users may need substantial foresight to steer engagement algorithms, while small costly signals can reduce that burden."
+  },
+  "neurips-2025-transition-matching-scalable-and-flexible-generative-modeling-ea9d7b20a1": {
+    "backgroundConcepts": [
+      "topic-059-a-cat-is-a-cat-not-a-dog-unraveling-information-"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Transition Matching offers a shared framework for diffusion, flow matching, and continuous autoregressive generation. It represents generation as a sequence of transitions between continuous states at discrete steps. Each transition can be probabilistic, and supervision need not follow a continuous process, expanding the choices available for designing a generative model.",
+      "The paper explores three variants. Difference Transition Matching generalizes flow matching by learning transition probabilities in discrete time. Autoregressive Transition Matching and Full History Transition Matching extend continuous autoregressive methods with partially and fully causal structures, respectively. These variants examine how different transition and information-access choices affect generation within the same overall framework.",
+      "Large-scale comparisons hold architecture, training data, and hyperparameters fixed. The authors report state-of-the-art image quality and text adherence for Difference Transition Matching, while Full History Transition Matching matches or surpasses flow-based text-to-image performance in continuous domains. The causal variants also reach quality comparable to non-causal approaches. Integration with existing autoregressive text generation is presented as a potential benefit, rather than an already demonstrated outcome."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7f19d654dd03ea6ebfef0895f6c296198ffdb824d5ade275aa7cb863dfacc8e6",
+    "tldr": "Transition Matching unifies continuous generative approaches through discrete probabilistic transitions, with strong reported results for both causal and non-causal image generation."
+  },
+  "neurips-2025-urbaning-v2x-a-large-scale-multi-vehicle-multi-infrastructure-dataset-across-multiple-in-0fe95d08e3": {
+    "backgroundConcepts": [
+      "topic-115-a-diffusion-model-of-joint-interactive-navigatio"
+    ],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Cooperative perception lets vehicles and roadside sensors combine observations to improve scene understanding, including when objects are occluded. Evaluating it only at one intersection or with one vehicle can give an overly narrow picture of performance. UrbanIng-V2X broadens the setting by collecting coordinated observations across three urban intersections in Ingolstadt, Germany.",
+      "The dataset contains 34 sequences lasting 20 seconds each, with aligned timing and calibrated spatial coordinates. Each sequence covers one intersection and includes two vehicles and up to three sensor poles. Across the collection, the sensor inventory includes 12 vehicle RGB cameras, two vehicle LiDARs, 17 infrastructure thermal cameras, and 12 infrastructure LiDARs.",
+      "Annotations provide 3D bounding boxes at 10 Hz for 13 object classes, totaling approximately 712,000 instances. The authors also evaluate state-of-the-art cooperative perception methods and release the dataset, codebase, HD map, and a digital twin of the collection environment. This combination supports benchmarking across multiple layouts and sensing viewpoints, addressing the risk of misleading results from overly similar traffic environments."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9a225a5848c3d6f220f3dae04bdc0c085672d41908b8a0bf1a2ac760f7749d80",
+    "tldr": "UrbanIng-V2X provides synchronized vehicle and roadside sensor data across three intersections for broader cooperative perception evaluation."
+  },
+  "neurips-2025-vitrix-univitar-unified-vision-transformer-with-native-resolution-010ae35c39": {
+    "backgroundConcepts": [
+      "topic-118-a-closer-look-at-self-supervised-lightweight-vis"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Vision Transformers commonly process inputs at a uniform resolution, which can lose spatial context from naturally varied visual data. UniViTAR develops a model family and training recipe for native-resolution processing while supporting visual modalities together. The work combines architectural changes with a staged approach to learning visual representations.",
+      "Training begins at fixed resolution and progresses to native-resolution tuning, using the transformer's ability to handle sequences of different lengths. Another component switches between image and video batches to balance computational efficiency with temporal reasoning. A hybrid objective combines sigmoid-based contrastive learning with feature distillation from a frozen teacher, helping accelerate convergence early in training.",
+      "The authors report state-of-the-art results across a wide range of visual tasks for models spanning 0.3B to 1B parameters, stating that training uses exclusively publicly accessible image-caption data. The contribution is a coordinated recipe for handling resolution and modality variability. Its reported results suggest that native-resolution modeling benefits from matching the architecture with a progressive training strategy and complementary learning objectives."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "898c80d952a3ca1c7c8d606bd2d22052c318e67128522cd41d0a3396dd6d164b",
+    "tldr": "UniViTAR combines progressive resolution training, image-video adaptation, and teacher distillation to build strong native-resolution vision models."
+  }
+}

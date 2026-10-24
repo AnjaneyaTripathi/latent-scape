@@ -1,0 +1,327 @@
+{
+  "icml-2026-a-queueing-theoretic-framework-for-stability-analysis-of-llm-inference-with-kv-cache-mem-69cfbed431": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "An inference service needs enough capacity to keep incoming requests from accumulating indefinitely. For language models, that capacity depends on both computation and GPU memory. The key–value cache speeds up decoding by retaining information, but its growing memory footprint can constrain service capacity even when computation alone appears sufficient.",
+      "The paper introduces a queueing framework that includes both constraints. It derives conditions for stability, where the service can sustain incoming demand, and instability, where queues grow without bound. This turns memory availability into part of the capacity calculation rather than treating it as a separate deployment concern.",
+      "Operators can combine an estimated arrival rate with the framework’s stable service rate to calculate a suitable cluster size. The intended benefit is more informed provisioning, balancing unnecessary purchases against insufficient capacity. Experiments in real GPU production environments support the theoretical predictions, with deviations typically within 10%. That agreement suggests the framework could be useful for deployment planning, while the reported tolerance remains an empirical observation rather than an exact guarantee."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "bccfd5b71556fe6df7269313621143f951e5c1e0d90a78e5db5e3a6fa1814c8a",
+    "tldr": "A queueing framework accounts for computation and KV-cache memory to predict sustainable LLM service capacity and guide GPU provisioning."
+  },
+  "icml-2026-agent-omit-adaptive-context-omission-for-efficient-llm-agents-8194d44923": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "An agent’s interaction history contains its thoughts and observations from the environment, but these are not equally useful at every turn. Agent-Omit investigates that variation and trains agents to leave out redundant material adaptively. The central idea is that context management should respond to what an interaction needs at that moment.",
+      "Training begins with a small synthesized dataset covering omission within individual turns and across multiple turns. Fine-tuning teaches the initial omission behavior. A subsequent reinforcement learning stage uses two sampling mechanisms and a reward designed for omission, encouraging the agent to learn when skipping thoughts or observations is worthwhile.",
+      "The paper also proves an upper bound on omission-policy deviation expressed through KL divergence. Across five agent benchmarks, Agent-Omit-8B achieves performance comparable to seven frontier LLM agents and the best effectiveness–efficiency balance among seven efficient-agent methods in the comparison. These findings support learning selective omission as a practical efficiency strategy: the agent can reduce redundant context while maintaining strong task performance in the evaluated settings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6faae59250d78b275f65f3784d4db3307c516b57d5e6f8e2f33c15b416598f40",
+    "tldr": "Agent-Omit trains agents to selectively skip redundant thoughts and observations, improving the balance between task performance and efficiency."
+  },
+  "icml-2026-asymmetric-contrastive-objectives-for-efficient-phenotypic-screening-36c2156b3e": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Phenotypic screening uses microscope images to examine how cells respond to different perturbations. Useful representations must distinguish meaningful changes from controls while grouping perturbations that produce similar biological effects. That is difficult when the relevant visual differences are subtle and experimental classes can have overlapping appearances.",
+      "The paper adapts contrastive training by representing experimental metadata with learned class vectors. Its SPC variant constrains these vectors to a unit sphere and updates them using only attractive terms. This asymmetric treatment allows classes with similar phenotypes to overlap more, rather than requiring their representations to remain strongly separated.",
+      "Evaluations cover BBBC021, RxRx3-core, and uncurated HaCaT-cell screens. The method outperforms prior approaches across measures of phenotype grouping, biological recall, drug-target interactions, and mechanism-of-action inference. It also retains its advantage against models with more than ten times as many parameters, and SPC works effectively for fine-tuning. Together, these results suggest that shaping the training objective around biological similarity can deliver useful representations without requiring very large models, especially where data or computation is limited."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "cc5be1cb742fb09db0e1751f53b26e24616e04d138ba74ebb05ff488e1ccd022",
+    "tldr": "Asymmetric contrastive training improves cellular-image representations by allowing biologically similar experimental classes to overlap."
+  },
+  "icml-2026-beyond-heuristics-learnable-density-control-for-3d-gaussian-splatting-cf3ef06817": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "3D Gaussian Splatting supports fast rendering, but controlling the density of its Gaussian elements commonly depends on handcrafted rules. Those rules have limited flexibility across scenes with different geometric complexity. This paper asks whether density control can instead be learned from how individual elements contribute to the reconstruction.",
+      "The proposed LeGS framework expresses density control as a policy network trained with reinforcement learning. Its reward uses sensitivity analysis to quantify each Gaussian’s marginal contribution to reconstruction quality. This gives the policy a learning signal connected to the usefulness of individual elements, rather than relying entirely on fixed density-control heuristics.",
+      "Computing that reward efficiently is a central part of the method. The authors derive a closed-form calculation that reduces its complexity from quadratic to linear in the number of Gaussians. Experiments on Mip-NeRF 360, Tanks & Temples, and Deep Blending report significant improvements over state-of-the-art methods in the balance between reconstruction quality and efficiency. The contribution therefore combines adaptable control with a reward calculation designed to make that control computationally practical."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6c96316e1be0c631486f46dcf1f86935a3ad0d02de95a32b40ae5ca847cc2d69",
+    "tldr": "LeGS learns Gaussian density control through reinforcement learning, using an efficient reward based on each element’s contribution to reconstruction quality."
+  },
+  "icml-2026-contrastive-spectral-rectification-test-time-defense-towards-zero-shot-adversarial-robus-6720ae8ef8": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "CLIP can recognize categories without task-specific training, yet adversarial changes to an image can undermine its predictions. This paper studies what happens to adversarial examples as image frequencies are progressively attenuated. It finds pronounced inconsistency in their features and attributes this behavior to the model’s inherent spectral bias.",
+      "Contrastive Spectral Rectification uses that observation to defend the model at inference time. For each input, it optimizes a corrective perturbation under a contrastive objective guided by frequency information. The aim is to bring the input back toward the structure of natural images, with the correction adapted to the particular image being processed.",
+      "Across 16 classification benchmarks, CSR exceeds the compared state of the art by a reported average of 18.1% against the strong APGD attack, while adding modest inference overhead. The authors also report applicability across different visual tasks. These results suggest that frequency-dependent feature behavior provides a useful defense signal, supporting an input-adaptive correction procedure that balances measured robustness with inference cost."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "aa8c96b679dda35fefb208fb182e9d307ae812722b7b658037fc9db3d9e8e824",
+    "tldr": "CSR uses frequency-guided, input-adaptive corrections to improve CLIP’s adversarial robustness at test time with modest overhead."
+  },
+  "icml-2026-dsgym-a-holistic-framework-for-evaluating-and-training-data-science-agents-9fcde86b0a": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A data science benchmark should test whether an agent can actually use data to produce a valid analysis. The authors find that a substantial share of tasks in existing benchmarks can be solved without consulting the data. They also identify fragmented evaluation interfaces and narrow task coverage as obstacles to meaningful comparison.",
+      "DSGym supplies standardized, self-contained execution environments within a modular framework. Researchers can add tasks, agent scaffolds, and tools. Its task suite refines existing benchmarks through quality checks and filtering for shortcut solvability, then extends coverage with literature-grounded bioinformatics tasks and prediction problems spanning vision, molecules, and single-cell perturbations.",
+      "The framework also supports training through a data-synthesis pipeline that verifies outputs by execution. In a case study, a 2,000-example training set substantially improves a 4B model on standardized analysis benchmarks. The contribution therefore links better evaluation with a way to generate training material. Its intended measure of progress is whether agents can plan, implement, and validate analyses grounded in the supplied data and scientific context."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7b2cdcdf68e394f5fa3ffa88d8470accc88f7b599c45b6fcbcf8b79995693866",
+    "tldr": "DSGym standardizes data science agent evaluation and training around executable tasks that require meaningful use of the actual data."
+  },
+  "icml-2026-eco-quantized-training-without-full-precision-master-weights-b00c795ae8": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Low-precision training often keeps a separate high-precision copy of the weights so that small gradient updates can accumulate accurately. These master weights consume substantial memory, particularly in sparse mixture-of-experts models. ECO removes this buffer and applies updates directly to the quantized parameters.",
+      "After each update, ECO quantizes the weights and feeds the resulting error into the optimizer’s momentum. This uses existing optimizer memory to carry an error-correction signal into later steps. Under standard assumptions and a decaying learning rate, the authors prove convergence to a constant-radius neighborhood of the optimum. Simply removing master weights can instead produce error that grows inversely with the learning rate.",
+      "Experiments include FP8 pretraining of small Transformers, Gemma-3 1B, and a 2.1B sparse mixture-of-experts model, plus INT4 fine-tuning of DeepSeek-MoE-16B. Across these settings, ECO nearly preserves the accuracy of master-weight baselines while improving the trade-off between static memory and validation loss. The result makes error compensation central to removing the buffer: reduced storage comes with a mechanism for retaining information otherwise lost through quantization."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1bd29e321c3bae45205bc11b9f84cfbe7a8af96462f6fc8d3c1247f52d2622ae",
+    "tldr": "ECO removes full-precision master weights by feeding quantization errors into optimizer momentum, reducing memory with nearly preserved empirical accuracy."
+  },
+  "icml-2026-emergence-of-exploration-in-policy-gradient-reinforcement-learning-via-retrying-a7f3639698": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper frames exploration around opportunities to retry similar situations. Trying a different action can be valuable when later encounters allow an agent to benefit from what it discovers. The authors formalize this intuition through an objective that evaluates the best return across a set of retries while accounting for uncertainty in returns.",
+      "Called ReMax, this objective uses the expected maximum return from a retry set of size M. Optimizing it induces stochastic exploration without adding an explicit exploration bonus. Exploration therefore arises from the criterion used to judge the policy: the objective values what a policy can achieve across repeated opportunities.",
+      "The authors derive a policy-gradient formulation and build RePPO, a variant of PPO that optimizes ReMax. They extend the integer retry count to a continuous positive parameter, allowing finer control over exploration. Experiments on MinAtar and Craftax show that RePPO promotes exploration without explicit bonuses. The stated empirical finding supports retry-based objective design as a way to influence exploratory behavior, rather than establishing universal performance gains across reinforcement learning tasks."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b5afcc7c9ec8fa66fdc1cdd1353ff5b8f955dd746367b08469b6f2be2ebe9447",
+    "tldr": "ReMax evaluates the best outcome across retries, making exploration emerge from policy optimization without explicit exploration bonuses."
+  },
+  "icml-2026-flexibility-aware-geometric-latent-diffusion-for-full-atom-peptide-design-06ba549a41": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Peptide design must account for a close relationship between sequence and three-dimensional shape. Flexibility helps peptides fit shallow or flexible binding interfaces, but it also makes design harder: a useful model needs to represent multiple conformations while keeping them physically plausible. The paper identifies fixed geometric representations as a bottleneck.",
+      "PepFGLD conditions full-atom peptide generation on a receptor and incorporates flexibility throughout the process. Its FlexEGNN component makes geometric representations more sensitive to local flexibility. Bidirectional interaction between sequence and structure, together with a nonlinear latent mapping, builds an adaptable representation of possible conformations rather than combining the two kinds of information statically.",
+      "During diffusion, a time-dependent energy-guidance mechanism supplies geometric feedback to balance exploration with convergence toward physically feasible structures. This addresses the identified tendency of unguided diffusion trajectories to drift away from reasonable energy landscapes. The authors report improved binding affinity and design success across multiple peptide design tasks. The overall finding supports coordinating flexible representations, sequence–structure interaction, and ongoing geometric guidance within one generation framework."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "afa3dfb861ab8fce0e01a10244ebe4d59d3218f0f97f3afb43be512d67b74d4a",
+    "tldr": "PepFGLD combines flexibility-sensitive representations and energy-guided diffusion to improve receptor-conditioned, full-atom peptide design."
+  },
+  "icml-2026-from-absolute-to-relative-rethinking-reward-shaping-in-group-based-reinforcement-learnin-46f43456fe": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Group-based reinforcement learning methods such as GRPO learn from performance differences among outputs in the same group. Absolute numerical rewards can make those differences difficult to use. Identical evaluations provide sparse supervision on verifiable tasks, while unstable reward-model score ranges can disrupt estimates based on the group’s average score.",
+      "Reinforcement Learning with Relative Rewards changes the reward formulation to emphasize rankings within a group. The paper also introduces a Ranking Reward Model that evaluates preferences over a list and directly produces relative rankings. This pairs the training framework with an evaluator designed to supply the kind of comparative signal it needs.",
+      "By converting evaluations into relative signals, RLRR mitigates both sparse supervision and reward instability. Experiments show consistent improvements over standard group-based baselines on reasoning benchmarks and open-ended generation tasks. The significance is that reward representation itself can affect learning quality: a group optimizer benefits from feedback that expresses useful comparisons among its candidate outputs, and the reported results support ranking as an effective way to provide those comparisons."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "35d545d34646b58f0cdbbf3d267c2132a4a7a77f006517fca0650125612b09cb",
+    "tldr": "RLRR replaces absolute reward scoring with relative rankings to improve supervision and stability in group-based reinforcement learning."
+  },
+  "icml-2026-gp2scale-a-class-of-compactly-supported-non-stationary-kernels-and-distributed-computing-ab1a8927d9": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Scaling Gaussian processes often involves approximations that trade computational speed against prediction quality, uncertainty estimates, or customization. gp2Scale takes a different route by designing kernels whose covariance matrices naturally contain sparse structure. It uses flexible, non-stationary kernels with compact support, so the sparsity belongs to the specified model itself.",
+      "The method exploits that structure to compute the linear-system solution and log-determinant needed for training, alongside distributed computation. It scales exact Gaussian processes beyond 10 million data points without inducing points, kernel interpolation, or neighborhood-based approximations. Exactness here applies to Gaussian processes built using the method’s kernel design, which supplies the computationally useful sparse structure.",
+      "The authors demonstrate the approach on real-world datasets and compare it with state-of-the-art approximation algorithms, reporting better approximation performance in many cases. They emphasize its flexibility toward kernel, noise, and mean-function customization and different input spaces. The broader contribution is a route to large-scale Gaussian processes that preserves expressive modeling choices while obtaining computational savings from the covariance structure."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1096221887e64721cc3277d507d9d74c14803793271b9b85e2204c0872727d7e",
+    "tldr": "gp2Scale uses naturally sparse covariance matrices and distributed computation to scale exact Gaussian processes beyond 10 million data points."
+  },
+  "icml-2026-inference-time-alignment-with-rewards-in-besov-spaces-provable-advantages-of-feature-lea-23d7c6de4e": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Inference-time alignment adapts a pretrained model using reward feedback during inference. This paper studies why neural-network reward estimators can help and how they should be trained. Its theoretical setting assumes the true reward lies in a Besov space, a function class used here to represent smoothness that varies across regions.",
+      "Within that setting, the authors compare neural networks with linear estimators and establish advantages tied to feature learning. The key distinction is the network’s ability to adapt its representation while learning the reward. The analysis connects that flexibility to improved alignment performance under the stated assumptions about reward structure.",
+      "The paper also studies a multi-step procedure that alternates between drawing samples from the current policy and refitting the reward estimator. It proves an improvement in regret, particularly when the reward has local structure. Together, the results give theoretical support for combining learned reward features with repeated sampling and refitting. Their force is conditional on the mathematical setting, and they explain advantages of these design choices rather than claiming every neural reward model or update procedure will perform better."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d9c464a018c27cd22653680bddecf64e087ccefacd881008c52294ca50e79321",
+    "tldr": "Under a Besov-space reward assumption, feature learning and repeated reward-model refitting provide provable advantages for inference-time alignment."
+  },
+  "icml-2026-invgnn-learning-invertible-node-representations-on-graphs-97e43894f0": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Common graph neural networks combine neighboring information with operations such as means, maxima, or sums. These operations are not invertible: their outputs do not uniquely recover the information that went into them. That creates a barrier for graph tasks requiring reversible transformations or models that calculate exact likelihoods.",
+      "InvGNN introduces an invertible graph neural network layer and builds fully invertible models by stacking these layers. This brings benefits associated with invertible networks, including low memory use in deep architectures, exact likelihood computation, and generative modeling. The authors also show that InvGNNs can match the expressive power of the one-dimensional Weisfeiler–Leman algorithm, establishing that invertibility is compatible with that level of graph discrimination.",
+      "On standard graph classification benchmarks, InvGNN performs comparably to established graph neural networks. The paper also demonstrates density-estimation applications, including outlier detection and node-feature generation. These findings connect the architectural property to practical tasks: reversible graph representations can retain useful classification capability while enabling probabilistic and generative uses that depend on invertible transformations."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2af1d6a7fcac642eeca20231b3675dd06615cb089d2e94791c5e226c0be4d373",
+    "tldr": "InvGNN builds fully invertible graph networks that retain 1-WL-level expressiveness and support classification, density estimation, and generation."
+  },
+  "icml-2026-kernelcraft-benchmarking-for-agentic-close-to-metal-kernel-generation-on-emerging-hardwa-017519b0e3": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "New AI accelerators need low-level kernels that fit their instruction sets. Writing these kernels manually is slow and error-prone, and success with LLM coding in established GPU environments does not settle whether agents can handle unfamiliar hardware. KernelCraft creates a benchmark focused on that question.",
+      "The benchmark evaluates agents through a function-calling workflow in which feedback supports repeated refinement of generated kernels. It covers three emerging accelerators and more than 20 machine-learning tasks, each with five configurations. This tests whether an agent can both produce valid hardware-specific code and improve its efficiency across varied workloads.",
+      "Across four leading reasoning models, the strongest agents produce functionally correct kernels for previously unseen instruction sets within a few refinement steps. Their optimized kernels match or exceed compiler baselines in the reported evaluation. These results indicate that feedback-driven agents can contribute to software development for emerging accelerators. The authors present faster accelerator development as a potential consequence, with the benchmark supplying evidence about kernel-generation capability rather than a direct measurement of hardware time to market."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6b0386b9bfb702fb50c77a1d2ca5110ecf3ed732672d04e26fbc68814cec18c3",
+    "tldr": "KernelCraft evaluates feedback-driven agents on unfamiliar accelerators, where the strongest agents generate correct kernels and competitive optimizations."
+  },
+  "icml-2026-log-normal-multiplicative-dynamics-for-stable-low-precision-deep-learning-75bde3597b": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Log-Normal Multiplicative Dynamics addresses stability when deep learning uses low-precision computation. Its inspiration comes from biological neural networks: synaptic spine sizes follow a log-normal distribution and change through noisy multiplicative dynamics. The paper uses these properties as a starting point for an algorithm, translating the biological motivation into a statistical training formulation.",
+      "LMD uses variational Bayesian learning with a log-normal posterior over weights. This makes the distributional assumption part of how the model learns, rather than leaving the biological analogy as an informal explanation. The method brings together the stated synaptic properties in an approach intended to support training large models under reduced numerical precision.",
+      "The evaluation uses low-precision matrix multiplications in the forward pass and includes training a Vision Transformer and GPT-2 from scratch. The authors interpret their findings as evidence that biologically inspired dynamics can help design stable, energy-efficient learning algorithms. The reported scope is specifically low-precision forward computation; the contribution is an algorithmic route toward stability supported by these training demonstrations."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "de8c4125edf71c9cdc690b52da14042a30d034b663d6c4a6235913ac46f6c9f7",
+    "tldr": "LMD translates biological synaptic dynamics into Bayesian weight learning to support stable training with low-precision forward computation."
+  },
+  "icml-2026-logit-distance-bounds-representational-similarity-958097b0b3": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Two models can make similar predictions without organizing their internal representations similarly. For a broad model family, identifiability results connect exactly matching conditional distributions to representations related by an invertible linear transformation. This paper asks what remains true when predictions are merely close, as commonly happens in distillation.",
+      "The authors define a distance based on logit differences and prove that it bounds a representation-dissimilarity measure matched to the models’ identifiability class. Small logit distance therefore provides a linear-similarity guarantee. KL divergence can upper-bound that distance when probabilities stay away from zero, but the resulting bound does not provide useful control in practice.",
+      "This distinction matters when a student should preserve concepts that can be recovered linearly from a teacher’s representations. KL-based distillation can reproduce predictions while losing that property. In synthetic and image-data experiments, logit-distance distillation produces greater linear representational similarity and better preservation of the teacher’s linearly recoverable concepts. The results show why the choice of prediction-matching objective can matter for retaining internal representational structure."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6e4af08b350ef96590fa7ce7f4da74693b6323957d9e16f4c65c06fc52613784",
+    "tldr": "A logit-based distance provides guarantees and empirical benefits for preserving linear representational structure during model distillation."
+  },
+  "icml-2026-mecat-a-multi-experts-constructed-benchmark-for-fine-grained-audio-understanding-tasks-e66a27ddab": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "An audio model can produce a broadly plausible description without capturing the details that distinguish one recording from another. Existing annotations and evaluation metrics can struggle to separate those cases. MECAT addresses this measurement problem by creating a benchmark centered on fine-grained audio understanding.",
+      "Its construction pipeline combines analyses from specialized expert models with chain-of-thought reasoning by a language model. The resulting material includes detailed captions from multiple perspectives and open-set question-answer pairs. This provides complementary ways to examine what a model understands about an audio sample, beyond whether it can generate a generic description.",
+      "The paper pairs the benchmark with DATE, a metric that combines semantic similarity for an individual sample with discriminability across samples. It penalizes generic terms and rewards descriptions that capture distinguishing details. The authors also evaluate state-of-the-art audio models to examine their capabilities and limitations. Together, the dataset and metric make specificity part of the evaluation target, so broadly applicable language is less likely to receive the same credit as a detailed, sample-relevant account."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "cf92555434fe51175a2b5eadaeb5de0f56af7b22f450febd99a1e4f000b32b5c",
+    "tldr": "MECAT pairs detailed audio tasks with a metric that rewards distinguishing information and penalizes generic descriptions."
+  },
+  "icml-2026-spectral-reach-understanding-neural-scaling-as-progress-into-the-spectral-tail-183ed1e4ef": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Scaling laws describe how performance changes with model size, data, and computation, but explaining the mechanism requires tools for observing learning itself. This paper introduces spectral position, a scalable measure of which eigenvalues of the empirical neural tangent kernel are currently associated with loss reduction.",
+      "In scaling experiments, spectral position falls during training: learning moves from dominant eigenmodes toward the spectral tail. Larger models reach farther into that tail than smaller models. The authors call this size-dependent ability spectral reach and suggest that it helps explain lower losses in larger models, which sustain learning on weaker spectral signals.",
+      "The study identifies feature learning as a key contributor. As training progresses, changing representations adaptively amplify gradient magnitudes, allowing progress where frozen representations stall. This connects model capacity to the continued development of useful features, rather than treating scale only as a parameter count. The findings point toward architecture and optimizer interventions that might improve spectral reach, while the proposed explanation of scaling is grounded in the reported experimental observations."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "74548a2622a0b45ce970163863635f1b23dfcb1323ec69f1bf2ab0dc5029e05c",
+    "tldr": "Spectral reach tracks how larger models continue learning from weaker spectral signals, with feature learning helping sustain that progress."
+  },
+  "icml-2026-squeezing-more-from-the-stream-learning-representation-online-for-streaming-reinforcemen-2b2c26e5c2": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Streaming reinforcement learning uses each transition for one update and then discards it. This saves resources for on-device learning, but makes every observation especially valuable. Value-based losses alone can struggle to build useful representations from such short-lived data, contributing to poor sample efficiency.",
+      "The paper extends Self-Predictive Representations to this setting so that each frame supplies an additional representation-learning signal. Simply adding the auxiliary loss is unstable because streaming samples are highly correlated. The proposed solution uses gradient updates orthogonal to the momentum target and addresses conflicts introduced by optimizers designed for streaming learning.",
+      "Across Atari, MinAtar, and Octax, the approach systematically improves on existing streaming baselines. Analyses using t-SNE and effective rank support the claim that it learns richer representations. The reported gains help bridge the performance gap associated with having no replay buffer, while training remains feasible on a few CPU cores. The contribution is therefore both a way to extract more learning from transient observations and a set of changes that make the auxiliary objective workable in the streaming regime."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3ffdfa61ed9ed0e4059d532b2f0ef4b8150207df199cb892775c6adc72517936",
+    "tldr": "Streaming-compatible self-predictive learning improves representations and reinforcement learning performance while retaining low resource requirements."
+  },
+  "icml-2026-stem-rethinking-causal-information-flow-in-sparse-attention-30965f90fb": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Long-context attention is expensive, especially while a model processes its input before generating output. Sparse attention reduces that work by selecting fewer tokens, but uniform selection rules can overlook how information accumulates in a causal model. Early tokens can contribute to many later token representations, creating dependencies across positions.",
+      "Stem introduces a plug-and-play sparsity module built around that information flow. Its Token Position-Decay strategy varies the number of retained tokens by position within a layer, helping preserve early-token information involved in recursive dependencies. Its Output-Aware Metric additionally prioritizes tokens according to their approximate contribution to output magnitude.",
+      "These two choices address complementary questions: how token position affects information flow, and which tokens have substantial output impact. The evaluations report better accuracy alongside reduced computation and pre-filling latency. The findings support treating causal structure as part of the sparsity decision, so attention selection can preserve influential information while reducing the work required to process long inputs."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "745feba901b1e6218bb743b43368c530266f8f2041fcbaf1a35098e83fd5b6dc",
+    "tldr": "Stem makes sparse attention sensitive to token position and output impact, improving accuracy while reducing computation and pre-filling latency."
+  },
+  "icml-2026-the-flexibility-trap-rethinking-the-value-of-arbitrary-order-in-diffusion-language-model-d6271e17f6": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Diffusion language models can generate tokens in arbitrary orders, creating more possible generation paths than a fixed left-to-right process. This paper investigates why that freedom may fail to improve reasoning. On general reasoning tasks such as mathematics and coding, the authors observe behavior that can make the flexibility counterproductive.",
+      "The models tend to bypass highly uncertain tokens that are important for exploring possible solutions. Avoiding those choices can narrow solution coverage prematurely. This observation challenges the value of reinforcement learning machinery devoted to preserving arbitrary-order generation, especially when doing so introduces complicated trajectories and difficult likelihood calculations.",
+      "The proposed JustGRPO approach gives up arbitrary generation order and applies standard Group Relative Policy Optimization. It still retains parallel decoding, separating that efficiency benefit from order flexibility. The paper reports strong reasoning performance, including 89.1% accuracy on GSM8K. The result supports a simpler training route and shows that arbitrary order can be dispensable for effective reasoning in the evaluated setting; it does not establish that generation-order flexibility is always harmful."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8486be8214f853bf7051d690af0bd389007dd70808613408c8c13f570a4fa366",
+    "tldr": "JustGRPO improves diffusion-model reasoning by dropping arbitrary generation order while retaining parallel decoding."
+  },
+  "icml-2026-unimedvl-unifying-medical-multimodal-understanding-and-generation-through-observation-kn-bbee7bbd3f": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Medical workflows can require both interpreting images and producing new visual or textual outputs. When separate models handle these abilities, they cannot fully share the knowledge a unified architecture could use. UniMedVL combines multimodal understanding and generation in one model that performs these roles without switching weights.",
+      "The model uses a progressive training pipeline designed for understanding and generation to reinforce each other. Supporting that pipeline, the authors curate UniMedVL-5M, containing more than 5.6 million examples across eight medical imaging modalities. The dataset is organized for multimodal input and output tasks, matching the goal of training a single model with both capabilities.",
+      "UniMedVL achieves competitive results on five medical understanding benchmarks and supports interleaved generation tasks, including virtual staining, super-resolution, and cross-modal synthesis. These results demonstrate the range of tasks the unified model can address. The paper’s significance lies in connecting interpretation and production within a shared system, with dataset construction and training designed around the mixed visual and textual demands described in medical workflows."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b335b6fcffa02bd76de823febb3d1060a155a53055c4c3178ae5b33e46c583e1",
+    "tldr": "UniMedVL combines medical image understanding and multimodal generation in one model, supported by progressive training and a large curated dataset."
+  },
+  "icml-2026-v-abs-action-observer-driven-beam-search-for-dynamic-visual-reasoning-ba6c558bf8": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Multi-step visual reasoning requires a model to connect its planned actions with what actually happens after execution. The paper identifies a mismatch between prior expectations and observed feedback, termed imagination-action-observer bias. Agents that overlook execution feedback can continue reasoning from expectations that no longer fit their observations.",
+      "V-ABS addresses this through beam search organized around thinker, actor, and observer iterations. An entropy-based adaptive weighting method balances confidence from the model’s prior policy with confidence from observational feedback. The authors also construct more than 80,000 supervised fine-tuning samples to teach the model to assign greater prior confidence to correct action paths.",
+      "Across eight benchmarks, V-ABS achieves state-of-the-art performance and a reported average improvement of 19.7% over the Qwen3-VL-8B baseline. It also yields consistent gains with both open-source and proprietary models. These findings support combining search, execution feedback, and learned action confidence to improve visual reasoning. The framework makes observation an active influence on which reasoning paths receive support as the task unfolds."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a4de4b89ea926e26de7cf3c96fd1cee1945cbe7a6772c771456d3ce4ec74cad2",
+    "tldr": "V-ABS improves multi-step visual reasoning by balancing planned-action confidence with execution feedback during beam search."
+  },
+  "icml-2026-when-actions-go-off-task-detecting-and-correcting-misaligned-actions-in-computer-use-age-274597454c": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Computer-use agents can take actions that depart from the user’s intent because of external attacks or their own reasoning errors. This paper studies detection of those departures at the action level. Its scope includes both sources of misalignment, connecting safety concerns with ordinary failures of reliability and task efficiency.",
+      "The authors identify three common categories of misaligned actions and build MisActBench from realistic trajectories with human-annotated alignment labels for individual actions. They also introduce DeAction, a guardrail that checks proposed actions before execution. When it detects a problem, it supplies structured feedback and iteratively works toward a corrected action.",
+      "DeAction outperforms all compared baselines in offline and online evaluations, with moderate latency overhead. On MisActBench, its F1 advantage exceeds 15 percentage points. In adversarial online settings, it reduces attack success by more than 90%, while preserving or improving task success in benign environments. These findings support checking action alignment before execution as a practical intervention that can address malicious interference and internally generated mistakes."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "497f4df046622a70dfb8ebf5102b148451e99bdfddfe6075a95dd645c46fc0bf",
+    "tldr": "DeAction checks and corrects computer-use actions before execution, improving alignment detection and reducing attack success in the reported evaluations."
+  },
+  "icml-2026-wise-world-knowledge-informed-semantic-evaluation-for-text-to-image-generation-f79aef6fdb": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A generated image can look convincing and include the words’ obvious visual counterparts while still failing to express the knowledge a prompt requires. WISE evaluates this deeper requirement. It focuses on whether image generation incorporates world knowledge, extending evaluation beyond realism and shallow correspondence between text and image.",
+      "The benchmark contains 1,000 crafted prompts covering 25 subdomains within cultural common sense, reasoning about space and time, and natural science. The authors also introduce WiScore to assess alignment between the required knowledge and the generated image. This metric is intended to address limitations of traditional CLIP-based measurement for these tasks.",
+      "Testing covers 20 models: ten dedicated text-to-image systems and ten unified multimodal models. The results reveal substantial limitations in applying world knowledge during image generation. The contribution is therefore a targeted evaluation framework and evidence of a capability gap across the tested systems. By making knowledge-dependent correctness explicit, WISE helps distinguish visual quality from successful interpretation of the semantic demands of a prompt."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "05402f2c67290b08b359ef67f1faff6888acbd9c7eca4ff9d01b921fb1733b6c",
+    "tldr": "WISE tests whether image generators apply world knowledge, revealing substantial gaps across 20 evaluated models."
+  }
+}

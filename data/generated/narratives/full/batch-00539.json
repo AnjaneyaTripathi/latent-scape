@@ -1,0 +1,377 @@
+{
+  "neurips-2021-a-geometric-analysis-of-neural-collapse-with-unconstrained-features-0a2ae19cdd": {
+    "backgroundConcepts": [
+      "topic-046-the-loss-surface-of-deep-and-wide-neural-network"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Near the end of neural-network training, examples from the same class can acquire almost identical final-layer representations. At the same time, class centers and classifier directions arrange themselves into a highly symmetric geometric pattern. This paper analyzes that phenomenon, called neural collapse, through a simplified model that treats the final features as unconstrained variables.",
+      "Within this model, the authors characterize the optimization landscape of cross-entropy training with weight decay. The only global minima have the simplex equiangular tight-frame structure: class directions are arranged with equal angular relationships, up to scaling. Every other critical point is a strict saddle, meaning there is a direction of negative curvature rather than a competing local minimum.",
+      "These results connect the geometry of the learned features to why optimization can reach that geometry efficiently in the simplified setting. The paper also tests a practical consequence: fixing the classifier to this symmetric arrangement and using one feature dimension per class. On ResNet18, the reported experiment reduces memory use by over 20% without sacrificing generalization performance."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "052be1f501edae69765071ac693fe9ce75fe2f63f938ba97db4e6cb4a8644452",
+    "tldr": "A simplified optimization analysis explains neural collapse and motivates a fixed classifier that reduces memory use in a reported experiment."
+  },
+  "neurips-2021-activation-sharing-with-asymmetric-paths-solves-weight-transport-problem-without-bidirec-796f45d284": {
+    "backgroundConcepts": [
+      "topic-007-high-performance-zero-memory-overhead-direct-con"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Backpropagation creates a difficulty for biological accounts of learning: forward and feedback pathways would need access to matching synaptic weights. This is the weight transport problem. Some alternative learning algorithms avoid sharing those weights and perform well in large networks, but still require bidirectional connections between forward and feedback neurons. The paper identifies that requirement as another mismatch with biological connectivity.",
+      "The proposed Activation Sharing algorithm changes what information is shared during learning. Hidden-layer outputs, or activations, are made available across multiple layers during weight updates. Applying this learning rule to both the forward and feedback networks removes the requirement for bidirectional connections between the two types of neurons while addressing the weight transport problem.",
+      "The authors report good performance across several datasets, including with deep convolutional networks. The contribution therefore combines a less restrictive connection structure with demonstrated learning capability. They also identify a possible hardware benefit: sharing activations in this way could substantially reduce memory-access overhead. That hardware advantage is presented as a potential consequence of implementation, rather than an established measured result."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d52b19308252dbf08a76f6f16349932ed4148b07478db4feb9175bdb401725be",
+    "tldr": "Activation Sharing trains forward and feedback networks without requiring matched weights or bidirectional connections between their neurons."
+  },
+  "neurips-2021-adjusting-for-autocorrelated-errors-in-neural-networks-for-time-series-2d14a029e3": {
+    "backgroundConcepts": [
+      "topic-026-k-2-vae-a-koopman-kalman-enhanced-variational-au"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Neural networks trained on time series often use maximum-likelihood objectives that assume errors at different times are uncorrelated. Temporal data can violate that assumption: an error at one step may be related to errors at other steps. The paper argues that ignoring this dependence makes the resulting likelihood-based estimation inaccurate, even when the network itself models a time series.",
+      "The proposed adjustment learns an autocorrelation coefficient together with the network parameters. This makes temporal dependence in the errors part of the estimation problem. The central change is therefore in how training accounts for prediction errors, allowing the approach to be evaluated with multiple existing neural-network models.",
+      "Across a broad collection of real-world forecasting datasets and models, the authors report improvements in almost all cases. They also use the experimental findings to suggest empirical thresholds for assessing the severity of error autocorrelation. Additional analyses examine advantages of the method, and experiments on other time-series tasks support its usefulness beyond forecasting. The results support accounting for correlated errors without claiming that every model and dataset necessarily improves."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "891fdc1b5c0babbcf21571162c1065936c380acfb00092f544c3d066cce51793",
+    "tldr": "Jointly learning error autocorrelation and network parameters improves time-series performance in almost all reported forecasting cases."
+  },
+  "neurips-2021-autobahn-automorphism-based-graph-neural-nets-6f710f6093": {
+    "backgroundConcepts": [
+      "topic-173-a-complete-expressiveness-hierarchy-for-subgraph"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Graph neural networks need to process connections without making their answers depend on arbitrary node names. Autobahn approaches this requirement through the symmetries of smaller pieces of a graph. It decomposes a graph into subgraphs and applies local convolutions that respect each piece's automorphisms: rearrangements of its nodes that preserve its connection structure.",
+      "Respecting these local symmetries means that a permitted rearrangement of a subgraph produces the corresponding rearrangement of its features. The framework also preserves permutation equivariance for the whole graph. This connects the behavior of each local operation to the structural transformations available within that neighborhood, giving graph convolution a concrete geometric interpretation.",
+      "Different choices of subgraphs lead to different architectures. Some choices recover existing message-passing networks, while the paper introduces another construction based on paths and cycles. Thus, Autobahn is both a framework for understanding established models and a way to build new ones. Experiments on molecular graphs produce results competitive with state-of-the-art message-passing methods, supporting the practical usefulness of this symmetry-based design."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "772a54a701eb515ae16a3ccd844f1f705dd5afebb5a7e346ae736b4d1716e53a",
+    "tldr": "Autobahn builds graph convolutions around subgraph symmetries and achieves competitive results on molecular graphs."
+  },
+  "neurips-2021-batched-thompson-sampling-cf2c983500": {
+    "backgroundConcepts": [
+      "topic-071-mathttvits-variational-inference-thompson-sampli"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "In a batched multi-armed bandit problem, an agent chooses actions repeatedly but receives rewards and updates its policy only at batch boundaries. The challenge is to make good choices with infrequent feedback. This paper introduces a batched Thompson sampling policy that can operate without knowing the total number of actions, or time horizon, in advance.",
+      "Its dynamic batching strategy uses the agent's current estimates to adaptively increase batch lengths. The analysis establishes problem-dependent regret of order log(T) and worst-case regret of order square root of T log(T), where regret measures the cost of choosing actions below the best available option. The number of batches is bounded by order log(T), independently of the problem instance.",
+      "A sharper, instance-dependent result bounds the expected number of batches by order log log(T). The distinction matters: this smaller bound is an expectation, rather than a universal bound on every run. Together, the findings show that an anytime policy can combine strong regret guarantees with very few feedback rounds, without designing its batch schedule around a predetermined experiment length."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "012123d42d6fdd725dba3158f2cd5dc2891b74d613d38293d394819dbcfe90f6",
+    "tldr": "Adaptive batching lets Thompson sampling achieve strong regret guarantees with few expected feedback rounds and no advance knowledge of the horizon."
+  },
+  "neurips-2021-beta-crown-efficient-bound-propagation-with-per-neuron-split-constraints-for-neural-netw-6b1e32f289": {
+    "backgroundConcepts": [
+      "topic-117-a-convex-relaxation-barrier-to-tight-robustness-"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Robustness verification asks whether a neural network's behavior can be guaranteed across a specified set of inputs. Fast bound-propagation methods help answer this, but complete verification often also uses branch-and-bound to split the problem into smaller cases. Existing propagation methods do not fully incorporate the neuron constraints created by these splits, weakening bounds and increasing verification work.",
+      "Beta-CROWN introduces optimizable parameters that fully encode these split constraints within bound propagation. Joint optimization in intermediate layers generally yields tighter bounds than typical linear-programming verifiers with neuron splits. At the same time, the method retains the efficiency and GPU parallelism associated with CROWN, connecting stronger constraints to a computationally efficient verification procedure.",
+      "On complete-verification benchmarks, the authors report speedups of up to three orders of magnitude over linear-programming branch-and-bound methods, alongside lower timeout rates. Stopping the search early also supports incomplete verification, with higher verified accuracy in many tested settings. The method powered the alpha-beta-CROWN verifier that won VNN-COMP 2021. These findings concern both how much can be certified and the time required to certify it."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f7a75d0362721226d4cbe4082d6ad4874569c5136acca5d0173e39bdfe10faf6",
+    "tldr": "Beta-CROWN incorporates neuron-split constraints into efficient bound propagation, substantially accelerating robustness verification in the reported benchmarks."
+  },
+  "neurips-2021-blendgan-implicitly-gan-blending-for-arbitrary-stylized-face-generation-55dae0c99a": {
+    "backgroundConcepts": [
+      "topic-010-3d-aware-scene-manipulation-via-inverse-graphics"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Generating faces in many artistic styles is difficult when each style requires its own collection of consistent training images. Earlier layer-swapping approaches also struggle to accommodate arbitrary styles within one model. BlendGAN addresses these issues by learning representations of style and combining them with face representations through a flexible blending mechanism.",
+      "The system first trains a self-supervised style encoder on a general artistic dataset. This encoder extracts style representations that can be used across different artistic appearances. A weighted blending module then combines face and style information implicitly, providing control over the stylization effect. The approach is designed to support a unified model without preparing a separate style-consistent training collection for every case.",
+      "The paper also introduces AAHQ, a large artistic-face dataset. In extensive experiments, BlendGAN outperforms the compared state-of-the-art methods in visual quality and style diversity. The reported advantages cover both latent-guided synthesis and synthesis guided by a reference image. The findings support learning a reusable style representation and a controllable blending process as a practical route to varied stylized face generation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "31161280074b6706d0cb5547b35b48fe22b0518f56845aee7d8b3c3b9485ad55",
+    "tldr": "BlendGAN combines learned face and style representations to generate diverse artistic faces within one controllable model."
+  },
+  "neurips-2021-data-augmentation-can-improve-robustness-aaa6a9075d": {
+    "backgroundConcepts": [
+      "topic-065-a-closer-look-at-smoothness-in-domain-adversaria"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Adversarial training can suffer from robust overfitting: performance on adversarially perturbed test inputs begins to decline as training continues. This paper investigates whether common data augmentations can reduce that problem. Its central finding is conditional on how augmentation is used: combining augmentation with model weight averaging can substantially improve robust accuracy.",
+      "The authors compare augmentation techniques and find that spatial composition methods work best in their adversarial-training experiments. This shifts attention from whether augmentation helps in isolation to how it interacts with the training procedure. The reported results show that common augmentation schemes can be useful when paired with averaging model weights.",
+      "On CIFAR-10, the approach improves robust accuracy over previous state-of-the-art methods by 2.93 percentage points for the stated infinity-norm perturbations and 2.16 points for the stated two-norm perturbations. It reaches 60.07% robust accuracy against infinity-norm perturbations of size 8/255 without external data. Experiments with other architectures and with CIFAR-100, SVHN, and TinyImageNet also show significant gains, supporting the usefulness of the combination across the evaluated settings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e61b1100de9ad7a50408affd3af0c3190fb8fab1fb6e844cb1f913cf085f4981",
+    "tldr": "Common data augmentations can improve adversarial robustness when combined with model weight averaging."
+  },
+  "neurips-2021-deep-explicit-duration-switching-models-for-time-series-2ac9b984ef": {
+    "backgroundConcepts": [
+      "topic-026-k-2-vae-a-koopman-kalman-enhanced-variational-au"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A complex time series may contain several persistent regimes, each with its own dynamics. Understanding the series requires identifying both what happens within a regime and when transitions occur. RED-SDS models these two aspects together, allowing switching behavior to depend on the system's state and on how long a regime has lasted.",
+      "A recurrent connection from the state to the switching mechanism captures state-dependent transitions. An explicit duration-count variable improves the representation of time-dependent switching. For inference, the method combines a neural approximation for continuous hidden states with exact inference for discrete switches and counts. This division lets the model handle different kinds of hidden variables through different computational methods.",
+      "Training maximizes a Monte Carlo lower bound on the marginal log-likelihood, computed efficiently as part of inference. Across multiple datasets, the authors report substantial improvements in time-series segmentation and forecasting performance competitive with the state of the art. The results suggest that explicitly representing regime duration helps identify temporal structure while retaining useful predictive capability."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ccded29b97b095d26750e3a8e0fe49827f303ac10086b39342fd54e630b017fe",
+    "tldr": "RED-SDS models state-dependent transitions and regime duration to improve time-series segmentation while providing competitive forecasts."
+  },
+  "neurips-2021-differentially-private-model-personalization-378759a1fd": {
+    "backgroundConcepts": [
+      "topic-178-texttt-pfl-research-simulation-framework-for-acc"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Personalized learning must accommodate users whose data come from different distributions. If their tasks share some structure, learning together could help each user more than learning alone. This paper studies how to exploit that common structure while protecting information about each user's entire dataset through joint, user-level differential privacy.",
+      "The authors develop algorithms that adapt established personalization approaches, including Almost-No-Inner-Loop, and provide strong user-level privacy guarantees for their general framework. The unit of protection is important: the formulation controls leakage about a whole user's dataset, rather than treating each individual training example as the only privacy concern.",
+      "The strongest stated estimation result concerns linear regression with a specific shared structure. Each user's regression vector must lie in the same unknown low-dimensional subspace. Under that assumption, the efficient algorithms achieve nearly optimal estimation-error guarantees. The paper also gives a general information-theoretic upper bound using an exponential-mechanism-based algorithm. Together, these results establish both an efficient solution for a structured setting and a broader bound on what private personalization can achieve."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d356a88be262a9c8bacf5dd4d1d1615a16cf7fca8f1cffb8b3e4d3f345502461",
+    "tldr": "The paper develops private personalization algorithms with nearly optimal estimation guarantees for regression tasks sharing a low-dimensional subspace."
+  },
+  "neurips-2021-discovery-of-options-via-meta-learned-subgoals-7e6f338fd6": {
+    "backgroundConcepts": [
+      "topic-006-a-boolean-task-algebra-for-reinforcement-learnin"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Reinforcement-learning agents can learn faster when they choose extended behaviors, called options, alongside individual actions. Discovering useful options through interaction remains difficult. This paper addresses that problem in environments containing multiple tasks, aiming to learn reusable behaviors whose value extends beyond a single task.",
+      "The agent has a manager-worker organization. A task-dependent manager chooses among primitive actions and a shared set of discovered options. Each option's subgoal is specified by a reward function and a termination function, both represented by neural networks. Meta-gradients train these functions to make the resulting options useful for learning, connecting the definition of a subgoal to its downstream benefit.",
+      "Experiments in gridworlds and DeepMind Lab show that the method discovers diverse, meaningful behaviors that extend over time. Agents frequently choose these options while learning the training tasks. The options also help a newly initialized manager learn faster on entirely new tasks. This transfer result matters because it shows empirical usefulness beyond the particular manager and tasks involved in discovering the options."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "725a777c3f664a221bffd60351b82bab675721d134aad6f173a28fbe9f7ed1ed",
+    "tldr": "Meta-learning option rewards and termination rules discovers reusable behaviors that accelerate learning on new tasks in the reported experiments."
+  },
+  "neurips-2021-distributional-gradient-matching-for-learning-uncertain-neural-dynamics-models-7cc2f57ff6": {
+    "backgroundConcepts": [
+      "topic-113-a-call-to-lagrangian-action-learning-population-"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Neural ordinary differential equations describe how a system changes continuously over time. Many learning methods produce deterministic models, but applications such as exploration, filtering, and robust control also need predictive uncertainty. This paper targets epistemic uncertainty, the uncertainty associated with what the model has learned, while avoiding a numerical-integration bottleneck.",
+      "Distributional gradient matching represents uncertainty directly in the system's state space instead of placing it on the differential equation's parameters. It jointly trains a smoother and a dynamics model. Their gradients are matched by minimizing a Wasserstein loss, so learning aligns distributions of changes rather than relying on parameter uncertainty propagated through the usual integration-based approach.",
+      "Compared with traditional approximate-inference methods that use numerical integration, the experiments show faster training and faster prediction of previously unseen trajectories. In the neural-ODE setting, the authors also report substantially greater accuracy. These findings support matching uncertain state-space dynamics as a way to combine predictive uncertainty with computational efficiency. The reported speed and accuracy advantages are experimental comparisons, rather than universal guarantees for every continuous-time system."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c51a73a45d08434f7da311ef1dc8b70cf78d2f1f33ec0503c358b78491e5a4f4",
+    "tldr": "Distributional gradient matching learns uncertain neural dynamics in state space and improves speed and accuracy in the reported comparisons."
+  },
+  "neurips-2021-gradient-inversion-with-generative-image-prior-d405ec61e1": {
+    "backgroundConcepts": [
+      "topic-119-textttfhaim-fully-homomorphic-aim-for-private-ta"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Federated learning keeps local training data on client devices while allowing a server to learn from gradients computed on those data. This arrangement can still leak private information. The paper studies gradient inversion, where an attacker attempts to reconstruct sensitive inputs from the gradients that clients reveal.",
+      "A gradient alone is often insufficient for reconstruction without prior knowledge. The authors show that a generative model pretrained on the relevant data distribution supplies useful prior information and can enable a privacy breach. The contribution highlights how knowledge of the kinds of images users hold can make an otherwise difficult reconstruction problem substantially more revealing.",
+      "The paper also investigates the case where such a pretrained prior is unavailable. Experiments show that a generative prior can itself be learned from gradients observed over repeated federated-learning interactions. Consequently, privacy exposure can depend on a sequence of shared updates, not just one isolated gradient. The findings demonstrate why retaining raw data locally does not by itself prevent leakage and motivate additional privacy mechanisms, such as differential privacy."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "956ae0ee07a3dace07e652a6165684639d2a28e15d806756862b48c4ab4360bd",
+    "tldr": "Generative image priors enable gradient-based data reconstruction, and experiments show that such priors can also be learned from federated updates."
+  },
+  "neurips-2021-near-optimal-lower-bounds-for-convex-optimization-for-all-orders-of-smoothness-a8363bdd79": {
+    "backgroundConcepts": [
+      "topic-003-a-convergence-theory-for-svgd-in-the-population-"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper asks how many information requests are fundamentally needed to approximately minimize a highly smooth convex function. An algorithm can query an oracle for the function value and derivatives through order p. The setting assumes that the pth derivative is Lipschitz, placing a bound on how rapidly that derivative can change.",
+      "Existing algorithms achieve an approximate minimum with an oracle-call count scaling, up to logarithmic factors, as one over epsilon raised to 2/(3p+1), for fixed p. Here epsilon specifies the desired accuracy. Matching lower bounds were already known for deterministic algorithms, but the available randomized lower bounds left open whether randomness could improve this dependence.",
+      "The authors prove a matching lower bound, again up to logarithmic factors, for randomized algorithms and even quantum algorithms. This closes the stated complexity gap in the oracle setting. The result does not introduce a faster optimizer; it establishes that the existing accuracy dependence is nearly the best possible under these assumptions, even when the algorithm has access to these broader computational strategies."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d3296980464bc1baabd304e23ee1109a3f65b85d89d3e1f2d1b8282bee0dd655",
+    "tldr": "New lower bounds show that existing high-order convex optimization rates are nearly optimal even for randomized and quantum algorithms."
+  },
+  "neurips-2021-ners-neural-reflectance-surfaces-for-sparse-view-3d-reconstruction-in-the-wild-c09b90b43a": {
+    "backgroundConcepts": [
+      "topic-214-a-hypertoroidal-covering-for-perfect-color-equiv"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Neural scene representations often describe occupancy and appearance throughout a volume. NeRS instead models an object's surface, motivated by the well-defined boundaries of many real-world objects. Its learned surface is constrained to be smoothly equivalent to a sphere, guaranteeing a closed, watertight reconstruction within that shape family.",
+      "The surface representation also supports learning reflectance. NeRS separates view-dependent appearance into environmental lighting, diffuse surface color, and specular shininess. This decomposition matters because changes in appearance across viewpoints can come from materials and illumination as well as geometry. Modeling these factors explicitly lets the reconstruction represent more than the visible colors in the input images.",
+      "The authors assemble multi-view image sets from online marketplaces, where objects have few available views and camera information is unknown or approximate. On this challenging data, NeRS outperforms volumetric neural-rendering reconstructions. The findings support surface-based reconstruction from informal image collections, with the spherical-topology constraint remaining a substantive part of the model. The broader aim is to support libraries of real-world geometry, materials, and lighting."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "fc4f035f325f9516db010548ace677bcb464990b82fe6bd2727279d4ca983567",
+    "tldr": "NeRS reconstructs watertight surfaces and reflectance from sparse marketplace images, outperforming volumetric approaches on the reported data."
+  },
+  "neurips-2021-program-synthesis-guided-reinforcement-learning-for-partially-observed-environments-e60b4f4c8e": {
+    "backgroundConcepts": [
+      "topic-006-a-boolean-task-algebra-for-reinforcement-learnin"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Long-horizon reinforcement learning often requires an agent to complete a sequence of subtasks before reaching its goal. Programs can provide useful guidance, but manually writing a new program for each task creates substantial work. Partial observability makes that work harder because a guiding strategy must account for parts of the environment that the agent cannot yet see.",
+      "Model predictive program synthesis automates the creation of those guiding programs. It trains a generative model to predict hidden portions of the world, samples possible configurations from that model, and synthesizes a program that is robust to the modeled uncertainty. The generated guidance therefore incorporates several possible hidden situations instead of relying on a single assumed configuration.",
+      "On challenging benchmarks, including a two-dimensional Minecraft-inspired environment with complex subtask sequences, the approach significantly outperforms methods without program guidance. It also performs similarly to guidance from handcrafted programs. These experiments show that automatically synthesized guidance can retain the practical benefits of program-guided learning while removing the need for a user to supply a fresh guiding program for each new task."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "fc151b7f9d4fdfb44bab2f8c57c12f819c232a34d7c492e404af0b63e5c9d894",
+    "tldr": "Model predictive program synthesis automatically creates uncertainty-aware guidance that matches handcrafted-program performance in the reported reinforcement-learning benchmarks."
+  },
+  "neurips-2021-rates-of-estimation-of-optimal-transport-maps-using-plug-in-estimators-via-barycentric-p-d2db176648": {
+    "backgroundConcepts": [
+      "topic-197-diffusion-models-are-minimax-optimal-distributio"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Optimal transport maps describe how to move one probability distribution into another, but practical applications must estimate them from samples. This paper analyzes plug-in estimators built through barycentric projections, which turn transport assignments into representative destinations. Its main question is how quickly these estimated maps approach the true maps as more data become available.",
+      "The central technical contribution is a stability estimate for barycentric projections under minimal smoothness assumptions. It provides a common tool for analyzing several estimators, including natural discrete-discrete and semi-discrete constructions. With additional Besov or Sobolev smoothness assumptions, the same analysis shows that wavelet-based or kernel-smoothed estimators converge faster and substantially reduce the dimensionality burden faced by the natural estimators.",
+      "The additional smoothness is essential to the stated improvements; the paper does not present them as unconditional. The analysis also yields faster convergence rates for estimates of the Wasserstein distance under those assumptions. Further applications give rates for Wasserstein barycenters between two distributions and asymptotic detection thresholds for certain transport-based independence tests, extending the usefulness of the stability result beyond map estimation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a16ea4f7ac2efa97a4b4f66aaa4dbafa45777480bb9e57f5cbd7c299a236a73b",
+    "tldr": "A stability bound unifies transport-map estimation analysis and shows how additional smoothness can improve convergence rates."
+  },
+  "neurips-2021-robust-allocations-with-diversity-constraints-00e86d9f13": {
+    "backgroundConcepts": [
+      "topic-033-2d-shapley-a-framework-for-fragmented-data-valua"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "When divisible resources are allocated among several agents, one agent may request a demographically balanced allocation. Such constraints can arise when resources represent advertising slots or workers with demographic attributes. The paper asks whether adding a diversity constraint changes other agents' allocations so much that they disproportionately bear its cost.",
+      "The authors formalize robustness through two requirements. No negative externality concerns avoiding harm to other agents. Monotonicity concerns preventing a large increase in the value received by the agent imposing the constraint. Together, these criteria examine how an allocation rule redistributes value when someone changes the constraints on their own allocation.",
+      "The analysis identifies Nash Welfare, which maximizes the product of agents' values, as uniquely positioned to achieve robustness in the paper's formal sense. Almost all other natural rules fail the criterion, and Nash Welfare's guarantees are nearly optimal within a widely studied class of rules. A simulation of advertising allocation using real-world data also shows the gap persisting empirically. This supports the rule's robustness under the studied framework, rather than establishing that every diversity constraint is costless."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "774a7cfef54290c3bc3ea5ffe2c24ff1ae0f2882269f94aaf5464c0b26f7ddfd",
+    "tldr": "Nash Welfare has distinctive, nearly optimal robustness guarantees when agents add diversity constraints to divisible-resource allocations."
+  },
+  "neurips-2021-robust-generalization-despite-distribution-shift-via-minimum-discriminating-information-a18fef3168": {
+    "backgroundConcepts": [
+      "topic-216-who-experiences-large-model-decay-and-why-a-hier"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A model trained on one distribution may be evaluated on another, making ordinary training-data evidence insufficient for assessing its performance. This paper studies a setting where the learner also possesses partial structural knowledge about the shifted test distribution. That extra knowledge is an explicit ingredient of the framework, even though the full test distribution remains unknown.",
+      "The method uses the principle of minimum discriminating information to incorporate this prior knowledge. It then applies distributionally robust optimization to account for uncertainty caused by having only a limited sample. These components address different sources of information: structural knowledge constrains how the test distribution is understood, while robust optimization handles remaining sampling uncertainty.",
+      "Using large-deviation results, the authors derive explicit generalization bounds relative to the unknown shifted distribution. They demonstrate the framework in two distinct applications: classification from systematically biased data and off-policy evaluation in Markov decision processes. The contribution is a way to connect partial knowledge of distribution shift to formal performance bounds, with applications spanning prediction and policy evaluation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a4587593d97d2c618ac01b9225ac80833a04ec17119c1f17bf130667620c4d8b",
+    "tldr": "The framework combines partial knowledge of a shifted test distribution with robust optimization to derive explicit generalization bounds."
+  },
+  "neurips-2021-shape-from-blur-recovering-textured-3d-shape-and-motion-of-fast-moving-objects-a20e69ac65": {
+    "backgroundConcepts": [
+      "topic-140-1000-fps-4d-gaussian-splatting-for-dynamic-scene"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A single motion-blurred photograph mixes information about an object's appearance and its movement. This paper attempts to recover the object's three-dimensional shape, texture, and motion together. Modeling these properties in three dimensions provides a way to explain the blurred observation through the moving object that produced it.",
+      "The method represents the image as a combination of a background and a three-dimensional object undergoing constant translation and rotation. It uses differentiable rendering to reconstruct the input image, then adjusts the estimated object and motion to minimize reconstruction loss with regularization. The constant-motion model is a stated assumption of this reconstruction procedure.",
+      "The authors report high-fidelity textured meshes and substantially better fast-object deblurring than competing approaches on several benchmarks. The three-dimensional representation also supports outputs beyond a sharper version of the original photograph. Qualitative results show novel viewpoints and temporal super-resolution, producing views of the recovered object at finer temporal intervals. These findings demonstrate how explaining blur through geometry and motion can improve image decomposition while enabling additional renderings of the object."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0dedb01b5b65892d9bc4715d72de3c73a931241dfcbbe28e728446acd2612796",
+    "tldr": "The method fits a moving textured 3D object to one blurred image, improving deblurring and enabling new views."
+  },
+  "neurips-2021-shaping-embodied-agent-behavior-with-activity-context-priors-from-egocentric-video-0acbfaf6d0": {
+    "backgroundConcepts": [
+      "topic-131-textit-himacon-discovering-hierarchical-manipula"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Physical tasks often require an agent to arrange the right objects before attempting an interaction. Learning all these preconditions through trial and error can be inefficient. This paper extracts useful context from first-person videos of people carrying out everyday activities, then uses that context to guide an embodied agent's learning.",
+      "For each object, an activity-context prior describes other objects that are compatible with successful activities involving it. A tomato, for example, can be brought together with a knife and cutting board for cutting. The method converts these video-derived relationships into an auxiliary reward that encourages the agent to gather compatible objects before interacting with them.",
+      "The authors use unscripted kitchen activities from EPIC-Kitchens to support virtual household agents performing complex tasks in AI2-iTHOR. Their experiments show significantly faster agent learning. The demonstrated transfer is from human video to simulated embodied behavior: observed object relationships become incentives for useful preparation. This gives the agent information about interaction preconditions without requiring it to discover every such relationship solely from its own experience."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e09b4d72d142c11f31cb16c9a03d158f04324776601258b44f28e30ecfca2264",
+    "tldr": "Object relationships learned from first-person human videos provide auxiliary rewards that accelerate virtual household-agent learning."
+  },
+  "neurips-2021-shared-independent-component-analysis-for-multi-subject-neuroimaging-0521f3b4ce": {
+    "backgroundConcepts": [
+      "topic-130-a-deep-learning-approach-for-the-segmentation-of"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Shared response modeling seeks common underlying signals across several datasets or views. ShICA models each view as a linear transformation of shared independent components with additive Gaussian noise. The authors show that the model is identifiable when components are non-Gaussian or when noise variances have enough diversity, specifying conditions under which the underlying structure can be distinguished.",
+      "The paper examines multi-set canonical correlation analysis as a recovery method. Although it can recover the correct unmixing matrices in some cases, even small sampling noise can make that recovery fail. ShICA-J addresses this problem by adding joint diagonalization after multi-set canonical correlation analysis. Simulations show improved results with very fast fitting.",
+      "A second method, ShICA-ML, uses maximum likelihood to exploit non-Gaussian components, achieving greater accuracy at greater computational cost. The framework also provides a principled procedure for estimating the shared components themselves. Experiments on fMRI and MEG data show more accurate component estimation than alternatives, supporting the framework for identifying common neuroimaging signals across views."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3d3d04d8cff6a892d3cd8336d5588e34a59ed73a1e6e23cbbbdd2bf13c963b65",
+    "tldr": "ShICA estimates shared independent signals across noisy views, with fast and maximum-likelihood variants that improve reported neuroimaging results."
+  },
+  "neurips-2021-soft-calibration-objectives-for-neural-networks-07f24bfc3b": {
+    "backgroundConcepts": [
+      "topic-105-epsilon-softmax-approximating-one-hot-vectors-fo"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A classifier's confidence is useful only when it agrees with how often its predictions are correct. Neural networks can be overconfident or underconfident, even when their classification accuracy is good. This paper introduces training objectives that directly target calibration through a continuous version of the binning operation used in common calibration-error estimates.",
+      "Replacing discrete binning with soft binning makes the calibration objective differentiable, allowing it to influence network training. Across multiple datasets, the resulting losses achieve state-of-the-art single-model expected calibration error with less than a 1% decrease in accuracy. On CIFAR-100, the authors report an 82% reduction in calibration error alongside a 0.7% relative accuracy decrease against the cross-entropy baseline.",
+      "The objective can also be applied after training, where it improves upon temperature scaling in the reported experiments. Across losses and datasets, calibration-sensitive procedures yield better uncertainty estimates under dataset shift than standard cross-entropy training followed by post-hoc recalibration. The findings show an empirical tradeoff: a small accuracy decrease can accompany a substantial improvement in how faithfully confidence represents correctness."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "db5c518ec3d4ee54e67eac359f57fc760c2263d9137c469deddaa4b40d9b9909",
+    "tldr": "Differentiable soft-binning losses improve neural-network calibration during or after training, with small reported accuracy costs."
+  },
+  "neurips-2021-topology-imbalance-learning-for-semi-supervised-node-classification-8bd592aba3": {
+    "backgroundConcepts": [
+      "topic-177-a-clt-for-polynomial-gnns-on-community-based-gra"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Class imbalance in graph learning is usually described by counting labeled examples in each class. This paper identifies another source: labeled nodes can occupy structurally unequal positions in a graph. Their influence on learning therefore depends on where they are located, not simply on how many labels each class has.",
+      "The authors study this topology imbalance and connect it with quantity imbalance through node-influence shifts under label propagation. They introduce Totoro, a metric based on conflicts in influence, to measure topology imbalance. They also propose ReNode, which adaptively reweights labeled nodes according to their positions relative to class boundaries. The method is designed to work across models.",
+      "Systematic experiments show that ReNode reduces the effects of topology imbalance and improves semi-supervised node classification. Further analysis finds that graph neural-network architectures differ in their sensitivity to the issue. The practical implication is that label placement deserves attention alongside label counts: two sets of labeled nodes can provide different learning signals because their structural roles differ, and adaptive weighting can help in the tested settings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "15517089df7f52b792d02e2a62e9b11d56b7dbad3385548a56c49b0b46a92eff",
+    "tldr": "ReNode addresses unequal structural influence among labeled graph nodes by adaptively reweighting them relative to class boundaries."
+  },
+  "neurips-2021-unleashing-the-power-of-contrastive-self-supervised-visual-models-via-contrast-regulariz-937b398867": {
+    "backgroundConcepts": [
+      "topic-125-alpha-req-assessing-representation-quality-in-se"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Contrastive self-supervised pretraining learns visual features that distinguish individual examples and spread them throughout feature space. When adapting these models to labeled tasks, ordinary cross-entropy training separates classes but has limited ability to reduce the remaining scatter among examples of the same class. This paper examines whether contrastive learning can also help during fine-tuning.",
+      "The analysis finds benefits for both discriminative representation learning and optimization. Building on those findings, the authors propose Contrast-regularized tuning, or Core-tuning. It goes beyond adding a contrastive term to the objective: it uses hard-pair mining to make contrastive fine-tuning more effective and smooths the decision boundary to better use the learned feature structure.",
+      "Experiments on image classification and semantic segmentation support the method's effectiveness. The contribution concerns how pretrained representations are adapted to a downstream task, where distinctions between individual examples must be reconciled with shared class membership. The results support treating fine-tuning as a stage for shaping the feature space itself, with contrastive objectives and boundary smoothing working together in the proposed procedure."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6c73777af46c681d1b03a1d477b48c7730eed00bccdae5cfaa987afeb43324be",
+    "tldr": "Core-tuning improves adaptation of contrastively pretrained visual models through hard-pair contrastive learning and decision-boundary smoothing."
+  }
+}

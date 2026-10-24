@@ -1,0 +1,327 @@
+{
+  "neurips-2025-adjusting-initial-noise-to-mitigate-memorization-in-text-to-image-diffusion-models-2112c16686": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Text-to-image diffusion models can reproduce images from their training data. The paper studies this behavior through an attraction-basin explanation: some denoising trajectories enter a region where classifier-free guidance steers generation toward memorized outputs. Delaying that guidance can help avoid copying, but it can also weaken the connection between the resulting image and its prompt.",
+      "The authors focus on the initial noise that starts generation. They empirically find that different starting samples lead to different times of escape from the attraction basin. This makes the starting noise a useful intervention point: encouraging an earlier escape could let prompt guidance begin sooner while reducing the pull toward memorized images.",
+      "The paper proposes two strategies that adjust initial noise, either collectively or individually, to obtain starting samples that encourage earlier escape. The reported results show significantly reduced memorization while preserving image-text alignment. The contribution is a way to improve the balance between avoiding training-image replication and retaining the prompt guidance needed for useful generation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2f6cd86301dcb855fb9e261487231539029a3411c14f9bacd702827b01672598",
+    "tldr": "Adjusting the starting noise helps diffusion models escape memorization-prone trajectories earlier while preserving alignment with text prompts."
+  },
+  "neurips-2025-blending-complementary-memory-systems-in-hybrid-quadratic-linear-transformers-5bbdf8ef9c": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper investigates how to combine two memory mechanisms used in sequence models. Softmax attention stores information in key-value memory and supports precise retrieval, but its computation grows quadratically with sequence length. Fast-weight memory changes connections dynamically, supports arbitrarily long sequences, and allows more expressive computation, while sacrificing precise recall.",
+      "The authors develop and compare three ways to blend these complementary mechanisms into one memory system. Their designs differ in how and when information from the input reaches each component. The central question is therefore how information should flow between the mechanisms so that their respective strengths become useful together.",
+      "The evaluation includes language modeling and retrieval with models containing 340 million and 1.3 billion parameters, trained from scratch. Synthetic algorithmic tasks clarify why particular hybrids perform better than others, and reinforcement-learning experiments test partially observable environments. Overall, the results show that a well-designed hybrid can overcome limitations of its individual components, making the arrangement of memory systems an important architectural choice."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5d055f1994eed8b698deba25746059d4cb4cea3b9456f7cb2b383e5b71a00264",
+    "tldr": "Combining precise attention memory with fast-weight memory can overcome weaknesses of either system when their information flow is designed well."
+  },
+  "neurips-2025-block-diagonal-lora-for-eliminating-communication-overhead-in-tensor-parallel-lora-servi-f30680c46c": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Serving many LoRA adapters on one language model requires keeping adapter computations separate from the base model. Simply merging each adapter into the model would introduce swapping overhead and prevent batching requests that use different adapters. Across multiple devices, distributing these separate computations can introduce communication costs that are substantial in practice.",
+      "The paper constrains certain LoRA factors to a block-diagonal structure. That structure enables a different distribution of adapter computations across devices, eliminating additional communication for those computations. The change connects adapter design directly to the execution pattern of the underlying model, addressing overhead at the level of how the adapter is represented.",
+      "Experiments find similar downstream performance to standard LoRA at similar parameter counts, alongside significant end-to-end speedups over S-LoRA. On eight A100 GPUs, reported examples reach up to 1.79 times speedup for Llama-3.1-70B with 0.87 times the adapter parameters, and 1.63 times for Llama-3.1-8B with 0.86 times the parameters. These results demonstrate practical serving benefits from making adapter structure compatible with distributed execution."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3f006befddf8868e97af29fae17e10331e048610a453a1d791003f587ae21f44",
+    "tldr": "Block-diagonal LoRA factors eliminate additional adapter communication across devices and improve serving speed while retaining similar parameter efficiency."
+  },
+  "neurips-2025-can-diffusion-models-disentangle-a-theoretical-perspective-b9cda921e7": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Disentangled representations separate underlying sources of variation rather than mixing them together in a learned description. This paper develops a theoretical framework for understanding when diffusion models can learn such representations using weak supervision, including partial labels and multiple views. The question is what these limited signals allow a model to recover.",
+      "The authors establish identifiability conditions for latent-variable models whose mixing processes can be stochastic and non-invertible. These conditions specify circumstances in which the underlying factors can be distinguished despite randomness or information loss in how observations are formed. They also prove finite-sample global convergence for disentangling independent subspace models, giving a learning guarantee for that particular model class.",
+      "Experiments examine subspace recovery in latent subspace Gaussian mixtures, image colorization, denoising, and voice conversion for speech classification. Training strategies motivated by the theory, including style guidance regularization, consistently improve disentanglement in these evaluations. The paper therefore connects conditional mathematical guarantees with practical training choices, rather than claiming that diffusion models automatically disentangle every kind of data."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a4a4c706c537729fae288911e9c1f6132e3213f5a9377271c8f91918eb21ed82",
+    "tldr": "The paper establishes conditions and convergence guarantees for diffusion-based disentanglement under weak supervision and derives training strategies that improve empirical results."
+  },
+  "neurips-2025-cat-content-adaptive-image-tokenization-e6f1d54cb7": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Image tokenizers usually allocate the same number of tokens to every image, even though images differ greatly in complexity. CAT changes that allocation according to content, using fewer tokens for simpler images. The aim is to match representation capacity to the information an image contains, reducing unnecessary computation while retaining useful detail.",
+      "The method combines a caption-based complexity assessment with a nested variational autoencoder. A language model uses captions to estimate content complexity and choose a compression ratio. The nested architecture then supports different compression rates within one model, allowing the tokenizer to handle images with varying levels of detail.",
+      "Across seven detail-rich datasets, CAT reduces reconstruction FID by an average of 15%. On ImageNet and COCO, it uses 18% fewer tokens while maintaining high-fidelity reconstructions. Downstream experiments report improved classification accuracy across five datasets and a 23% increase in image-generation training throughput on ImageNet, together with improved generation FIDs over fixed-token baselines. The results connect adaptive compression to both representation quality and computational efficiency."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0ab3abad2aacf11a1613df79e58bf6f4c8be6173beeb2bc145f8ae5b694cdfea",
+    "tldr": "CAT adjusts image token counts to content complexity, improving reconstruction and downstream results while reducing token use and increasing training throughput."
+  },
+  "neurips-2025-come-adding-scene-centric-forecasting-control-to-occupancy-world-model-0d3972406d": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A driving world model must predict how the surrounding scene changes, but its observations also change when the vehicle itself moves. Mixing these effects makes it harder to distinguish actual interactions from shifts in viewpoint. COME addresses this by making predictions in coordinates centered on the scene, separating environmental evolution from ego-vehicle motion.",
+      "A dedicated prediction branch first generates future features that remain spatially consistent and independent of ego motion. A tailored ControlNet converts those features into conditioning information, which is injected into an occupancy world model. This gives the model scene-level guidance for predicting what space will be occupied in the future.",
+      "On nuScenes-Occ3D, COME reports consistent, significant improvements across ground-truth, camera-based, and fusion-based occupancy inputs, with prediction horizons of three and eight seconds. Under matched settings, reported mIoU improvements are 26.3% over DOME and 23.7% over UniScene. These findings support separating viewpoint changes from scene dynamics as a useful way to improve the accuracy and controllability of future occupancy predictions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "852c749c4e1e6ef3a5c8a42b90a9c28e4f89e58abf8a86ea30eac74ce497f9b9",
+    "tldr": "COME separates scene changes from vehicle motion and uses scene-centered guidance to improve future occupancy predictions."
+  },
+  "neurips-2025-dci-dual-conditional-inversion-for-boosting-diffusion-based-image-editing-7f48e7620b": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Diffusion inversion finds a latent noise representation corresponding to an existing image. That representation supports reconstruction and subsequent editing, but existing methods often face a tradeoff: accurately reproducing the original image can conflict with keeping it easy to edit. The paper attributes this tension to difficulty preserving both semantic alignment and visual structure during inversion.",
+      "Dual-Conditional Inversion guides the process with both the source prompt and the reference image. It formulates inversion as a fixed-point optimization problem that minimizes a latent noise gap and reconstruction error under these two conditions. The text and image jointly anchor the inversion trajectory, aiming to produce latent representations that preserve the source while remaining responsive to edits.",
+      "Experiments report state-of-the-art performance across multiple editing tasks, with significant improvements in reconstruction quality and editing precision. Strong reconstruction results also suggest a degree of robustness and generalizability. The contribution is a joint formulation of the two guidance signals that improves both sides of the reconstruction-editability tradeoff in the reported evaluations."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5a812995b6bd921f8a5b5f6f8ffb38c3d693cffcddfe8f8983207f035f30ae04",
+    "tldr": "DCI jointly uses a source prompt and reference image during diffusion inversion to improve both reconstruction and editing precision."
+  },
+  "neurips-2025-diffusion-feature-field-for-text-based-3d-editing-with-gaussian-splatting-502ca7397e": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Editing a 3D scene by independently editing its 2D views can produce incompatible results across viewpoints. DFFSplat addresses these inconsistencies by introducing a shared, 3D-consistent diffusion feature field into the editing pipeline. Rendered features from that field guide intermediate layers of a 2D diffusion model, promoting geometric alignment and consistent meaning across the edited views.",
+      "The paper identifies a complication: averaging features while learning the 3D field can erase fine texture details. Its dual-encoder architecture separates view-independent structure from appearance details that depend on the viewpoint. Only the structural information enters the shared field, giving the editing model consistent spatial guidance without forcing all appearance information into that representation.",
+      "A time-invariance objective further encourages learned representations to remain consistent across diffusion timesteps, improving their stability. Experiments report state-of-the-art text fidelity and better structural and semantic consistency than existing approaches. The approach matters because it coordinates edits through shared structure while explicitly accounting for the different demands of geometry, viewpoint-dependent appearance, and text instructions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "fb22dd8f373233992f98cce0441b5add26581bbfba825b64ece25aefbe233229",
+    "tldr": "DFFSplat shares structural diffusion features across 3D viewpoints while separating appearance details, improving text-guided editing consistency."
+  },
+  "neurips-2025-engibench-a-framework-for-data-driven-engineering-design-research-43ef8f6abc": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Engineering design optimization searches for component shapes, structures, or parameters that perform well under specified conditions. Comparing methods is difficult because the required physics simulations can be expensive, hard to install, and dependent on specialist knowledge. EngiBench addresses this practical barrier with an open-source library and datasets covering multiple engineering domains.",
+      "The framework provides one interface for benchmarks in areas including aeronautics, heat conduction, and photonics. A companion library, EngiOpt, supplies compatible optimization and machine-learning algorithms. Both libraries allow new problems and algorithms to be added, and include utilities for generating datasets, checking feasibility, visualizing results, and analyzing performance within automated experimental workflows.",
+      "The authors demonstrate comparisons of leading techniques across several design problems, a process they describe as previously prohibitively time-consuming. They also find that standard machine-learning methods struggle with design spaces that are highly sensitive and tightly constrained. EngiBench therefore contributes both shared experimental infrastructure and a set of demanding problems for studying whether data-driven methods can handle engineering requirements."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "16e5704d1a0716033f7643969458a07f0feb2c2f854e4020f6c11c86def9c844",
+    "tldr": "EngiBench and EngiOpt provide shared benchmarks, algorithms, and workflows for comparing data-driven engineering design methods across domains."
+  },
+  "neurips-2025-freecontrol-efficient-training-free-structural-control-via-one-step-attention-extraction-b15943f194": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "FreeControl aims to guide the spatial arrangement and semantic structure of generated images directly from reference images. Existing approaches can require specially prepared condition maps, retraining, or costly inversion procedures. The paper instead builds structural guidance from attention extracted at one selected diffusion timestep and reuses that information throughout denoising.",
+      "This single extraction avoids repeatedly gathering attention across timesteps and enables control without inversion or retraining. The method also introduces Latent-Condition Decoupling, which separates the timestep condition from the noised latent used during attention extraction. That separation provides finer control over the quality of the attention signal and is reported to eliminate structural artifacts.",
+      "FreeControl supports references assembled from multiple image sources, allowing users to compose a desired scene layout and guide generation from it. The authors report structurally and semantically aligned, visually coherent outputs with stronger prompt alignment and approximately 5% additional cost. The contribution is an efficient way to reuse reference-derived attention as structural guidance while supporting intuitive composition with modern diffusion models."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "16618f99aa9bfcc171759490f236e2c124591690b5b3de394fc80d3b3fb2754c",
+    "tldr": "FreeControl reuses attention extracted at one timestep to guide image structure without retraining or inversion, at approximately 5% additional cost."
+  },
+  "neurips-2025-locdiff-identifying-locations-on-earth-by-diffusing-in-the-hilbert-space-b38a2e6000": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "LocDiff predicts where on Earth an image was taken. Grid classifiers and retrieval systems depend on predefined geographic divisions or reference galleries, which can generalize poorly when test locations differ from those choices. Generative approaches avoid those dependencies, but using raw coordinates can lose information about location at different spatial scales.",
+      "The paper introduces a representation called Spherical Harmonics Dirac Delta, which encodes locations on a sphere as spherical-harmonic coefficients in a Hilbert space. It decodes locations by finding modes in spherical probability distributions. This supplies a multiscale location space in which the model can perform diffusion, with the input image guiding the generation of a geographic prediction.",
+      "A SirenNet-based architecture called CS-UNet learns the conditional reverse process using a latent KL-divergence loss. Across five global image-geolocalization datasets, experiments show that LocDiff can outperform the evaluated grid, retrieval, and diffusion baselines, with significantly stronger generalization to unseen locations. The results support representing geography at multiple scales when generating image-conditioned location estimates."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "aca5fe358a13b4673b62131f4eac88c70dd10e5494c36a47712908af59e48c65",
+    "tldr": "LocDiff generates image geolocations through diffusion in a multiscale spherical representation, improving results and generalization to unseen locations."
+  },
+  "neurips-2025-mitigating-sexual-content-generation-via-embedding-distortion-in-text-conditioned-diffus-b5b314a0de": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper tackles the difficulty of suppressing sexual image generation while preserving the quality of benign outputs. Prompt filtering and concept-removal methods can struggle against adversarial prompts. Distorting Embedding Space, or DES, intervenes in the text encoder's representations, changing how unsafe prompts are communicated to the image generator.",
+      "DES moves embeddings from unsafe prompts toward calculated safe regions while reproducing the original embeddings for safe prompts. It also aligns the embedding for nudity with a neutral embedding to strengthen resistance to adversarial attacks. These operations aim to reduce unsafe generation without broadly disrupting the representations that support ordinary image creation.",
+      "Experiments report attack success rates of 9.47% on FLUX.1 and 0.52% on Stable Diffusion v1.5. Those are reductions of 76.5% and 63.9% relative to EraseAnything and AdvUnlearn, respectively. Benign-image FID and CLIP scores remain comparable to the original models. The findings show a substantial empirical improvement in defense while retaining measured benign quality, rather than complete prevention of successful attacks."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e9f3536585f3881dfa9a3e7f196b64d64501fb0e4a19f05dbed147d3b2446bb0",
+    "tldr": "DES redirects unsafe text embeddings toward safe regions, reducing adversarial sexual-content generation while maintaining comparable benign-image quality."
+  },
+  "neurips-2025-oskar-omnimodal-self-supervised-knowledge-abstraction-and-representation-5009e3fdeb": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "OSKAR learns multimodal representations by predicting missing latent features. Its training objective emphasizes higher-level information while retaining information specific to each modality. The approach avoids requiring negative pairs, large memory banks, or handcrafted augmentations, and is designed to avoid spending model capacity on memorizing unnecessary details such as pixels.",
+      "During pretraining, the model receives masked tokens from several modalities and predicts a subset of missing tokens for each. Separate target encoders for individual modalities supply supervision and are updated through momentum. A parameter-efficient cross-attention predictor uses the full multimodal context to inform each prediction, linking modality-specific targets to shared contextual information.",
+      "The architecture fixes the budget of representative input and target tokens to decouple computation from the number of modalities. The authors instantiate it with video, skeleton, and text. Their unified pretrained encoder outperforms similarly sized specialized architectures across the reported action recognition, localization, video-text retrieval, and video question-answering evaluations. These results support latent feature prediction as a way to learn a broadly useful multimodal encoder."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0bfef3421b323af272d2802a37214832068444178b0d148658baeb3d8ecd8659",
+    "tldr": "OSKAR predicts missing multimodal latent features within a fixed token budget to learn a unified encoder that performs well across video-related tasks."
+  },
+  "neurips-2025-post-hoc-regression-refinement-via-pairwise-rankings-96636916fc": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Predicting continuous properties becomes harder when few labeled examples are available. RankRefine improves an existing regressor after training by adding knowledge expressed as pairwise rankings. Instead of requiring an expert to supply an exact property value, the method uses comparisons involving a query item and a small reference set whose properties are known.",
+      "Those comparisons produce a rank-based estimate, which RankRefine combines with the original regression prediction using inverse-variance weighting. This weighting lets the two estimates contribute according to their uncertainty. The procedure requires no retraining and is model-agnostic, so its contribution is a refinement step that can be attached to an existing predictor.",
+      "For molecular property prediction, the paper reports up to a 10% relative reduction in mean absolute error using only 20 pairwise comparisons supplied by a general-purpose language model without fine-tuning. The authors also report that rankings from human experts or general-purpose language models can improve regression across diverse domains. The findings suggest a practical route for adding comparative knowledge when exact labels are scarce."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "80bffccf63c973f7ea0f72a74d377212abf0a562b2348b307e0b4805cb5e9bf5",
+    "tldr": "RankRefine combines existing regression predictions with estimates from pairwise rankings to improve accuracy without retraining."
+  },
+  "neurips-2025-randomized-mlp-regularization-improves-domain-adaptation-and-interpretability-in-dinov2-f09f034cf4": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Vision Transformers can repurpose image-patch tokens that carry little useful information, making their attention and feature maps harder to interpret. The paper examines this issue in DINOv2, particularly when adapting to medical images. In that setting, differences between the original and target domains can harm both prediction performance and the transparency of learned representations.",
+      "The authors introduce Randomized-MLP regularization, a method based on contrastive learning that encourages representations to align more closely with semantic content. They apply it during DINOv2 fine-tuning on medical and natural images. The intervention therefore targets the representations learned during adaptation, with the aim of improving how meaning is reflected in the model's attention maps.",
+      "The reported results show improved or maintained downstream performance alongside more interpretable attention maps. The paper also supplies a mathematical analysis of randomized MLPs to explain their role in this learning setting. Together, the empirical and analytical contributions suggest that regularization during fine-tuning can improve representational interpretability without necessarily sacrificing performance on the evaluated tasks."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9dd8b6a22a9c8df96a6f2cfba312d855d00e61b38ce4eeeb73e5d606759f60c0",
+    "tldr": "Randomized-MLP regularization makes fine-tuned DINOv2 attention maps more interpretable while improving or maintaining downstream performance."
+  },
+  "neurips-2025-repurposing-alphafold3-like-protein-folding-models-for-antibody-sequence-and-structure-c-495e1a6f12": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Antibody design models face a shortage of antibody-antigen complexes for training. This paper draws on protein folding models resembling AlphaFold3, which have already learned from a large collection of crystal structures. The authors use that broader understanding of biomolecular interactions as a starting point for designing antibodies conditioned on an antigen.",
+      "They adapt the folding model's diffusion module to generate antibody sequence and structure together. A sequence diffusion head is added to the existing structure diffusion module, and the entire folding model is fine-tuned for the joint design task. This transfers knowledge from structure prediction into a model that coordinates the two design outputs.",
+      "Benchmarks show better antibody-design performance than the evaluated state-of-the-art methods while retaining structure-prediction accuracy comparable to the original folding model. The reported CDR-H3 recovery rate is 65% for typical antibodies, outperforming baselines by 87%, and 63% for nanobodies. These findings support repurposing broadly pretrained folding models for joint antibody design and demonstrate improvements on the reported recovery and prediction measures."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "938f61c337d6538d18594ff0c45f6f340e3b16e93fdd53027ae38190a0074319",
+    "tldr": "Adapting AlphaFold3-like folding models for joint sequence and structure diffusion improves benchmark antibody design while preserving comparable structure-prediction accuracy."
+  },
+  "neurips-2025-robust-and-computation-aware-gaussian-processes-a2242fd9f7": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Gaussian processes provide predictions with uncertainty estimates, but large datasets containing outliers create two interacting difficulties. Computation requires approximations, and those approximations can worsen the influence of unusual observations. The paper argues that handling outliers and handling approximation error separately is insufficient because each can affect the reliability of the other.",
+      "Robust Computation-aware Gaussian Process combines uncertainty about computational approximations with robust generalized Bayesian updating. It explicitly addresses uncertainties introduced by operations such as low-rank matrix multiplication while reducing sensitivity to outliers. The authors rigorously demonstrate more conservative and reliable uncertainty estimates, making uncertainty treatment a central part of the method.",
+      "The paper also establishes a robustness property and identifies the mean function as important for preserving it. This motivates a tailored model-selection scheme for robust mean functions. Experiments report superior performance in both clean and outlier-contaminated settings across regression and high-throughput Bayesian optimization benchmarks. The contribution is a joint treatment of statistical contamination and computational approximation, supported by theoretical properties and empirical results."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "23cddf503dd9be27f2e51d609de8bb2e8c30bc082c5178e69b3a6c33c86649c2",
+    "tldr": "RCaGP jointly accounts for outliers and computational approximation uncertainty to improve Gaussian-process reliability and benchmark performance."
+  },
+  "neurips-2025-roft-mol-benchmarking-robust-fine-tuning-with-molecular-graph-foundation-models-a61eddac02": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Molecular graph foundation models must adapt to downstream tasks with scarce labels and risks of overfitting. Their pretraining datasets are also relatively small, making generalization especially important. The paper studies robust fine-tuning under these conditions while accounting for the need to support both continuous-property regression and classification.",
+      "The authors organize eight fine-tuning methods into three mechanisms: methods operating on weights, methods operating on representations, and methods that fine-tune only part of a model. They compare these approaches across supervised and self-supervised pretrained models, multiple labeling settings, and both task types. This broad evaluation provides the basis for designing a refined method.",
+      "The resulting ROFT-MOL approach combines simple post-hoc weight interpolation with more complex weight-ensemble fine-tuning methods. The authors report improved performance for regression and classification while retaining the ease of use associated with post-hoc interpolation. The work contributes both an organized benchmark of adaptation strategies and a method informed by that comparison, addressing practical fine-tuning choices for molecular models with limited downstream data."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b11e5d114b3982046391e489a6749b1c3b9cad67cc5a8f97755c08541f9afd64",
+    "tldr": "RoFt-Mol benchmarks robust molecular-model fine-tuning and combines weight interpolation with ensemble-based methods to improve regression and classification."
+  },
+  "neurips-2025-sals-sparse-attention-in-latent-space-for-kv-cache-compression-fbf3361935": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Long-context language-model inference requires large key-value caches and substantial memory bandwidth. Low-rank compression can reduce storage, but rotary position embeddings complicate it: applying them increases key-vector variance and rank, while reconstructing the whole compressed cache to apply them creates overhead. SALS addresses compression and token selection together.",
+      "The framework projects the cache into a compact latent space and selects important tokens through query-key interactions without rotary position embeddings in that space. It then reconstructs only a small subset of tokens. This uses the authors' observation that transformed key vectors largely maintain their representation across most layers, avoiding the cost of rebuilding the entire cache.",
+      "Evaluations report competitive accuracy and, under different settings, 6.4-fold cache compression and 5.7-fold attention-operator speedup over FlashAttention2 at a 4K sequence length. End-to-end throughput improves by 1.4-fold at 4K and 4.5-fold at 32K relative to GPT-fast. Additional evaluation on RULER-128k supports scalability. The results distinguish savings in the attention operation from gains in overall inference throughput."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "fa14ac3934d124da4a0c799b8ebf634fd02dcf1537336838994ecc5e34fa181d",
+    "tldr": "SALS compresses the key-value cache and selects tokens in latent space, reconstructing only important entries to accelerate long-context inference."
+  },
+  "neurips-2025-stochastic-forward-forward-learning-through-representational-dimensionality-compression-30a4bb032d": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Forward-Forward learning trains neural networks layer by layer using a local goodness measure as an alternative to backpropagation. Existing measures often sum squared activations and rely on carefully prepared negative examples. This paper replaces that measure with dimensionality compression, which accounts for correlated fluctuations between neurons through the effective dimensionality of their responses.",
+      "The objective compresses responses to noisy copies of the same input while expanding effective dimensionality across different samples. These two pressures encourage structured representations without requiring prepared negative samples. The method uses second-order statistical information, so the relationships among fluctuating neural responses become part of what each layer learns.",
+      "Experiments show competitive performance against other methods that do not use backpropagation. The authors also find that noise can improve generalization and inference when predictions use mean squared outputs, interpreted as an energy term. These findings support treating stochasticity as a computational resource and suggest suitability for neuromorphic computing, while contributing a more biologically plausible direction for neural-network training."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "44a3f815514a32de7619f3f326d56f021039bafb3bf55ddf81bea68d68e5b4ce",
+    "tldr": "A dimensionality-based Forward-Forward objective learns from noisy neural responses without prepared negative samples and can benefit from stochasticity."
+  },
+  "neurips-2025-struct-bench-a-benchmark-for-differentially-private-structured-text-generation-6791f17ffd": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Private enterprise datasets often combine structured records with natural-language fields. Evaluating synthetic versions requires checking more than the quality of individual text passages: the structure and correlations also matter. Struct-Bench addresses this evaluation problem for differentially private synthetic data, where conventional measures can miss important properties of structured datasets.",
+      "The framework asks users to describe their dataset's structure using a context-free grammar. It provides reference metric implementations and a leaderboard for standardized comparisons. Its benchmark contains five real-world datasets and two synthetic datasets, giving researchers a shared collection on which to investigate whether generation methods preserve relevant structured-data properties.",
+      "The authors show that these datasets remain challenging even for state-of-the-art differentially private generation methods. They also present a case study in which using Struct-Bench improves the quality of structured synthetic data produced by Private Evolution. The contribution is therefore both diagnostic and practical: it makes structural weaknesses easier to evaluate and supplies an evaluation framework that can help guide improvements to a generation method."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a385ffd23a62b11ad50ec80d77721f74c4f1014621f0029bf8ddc6ae809a5242",
+    "tldr": "Struct-Bench uses grammar-described dataset structure to evaluate differentially private synthetic records containing natural language."
+  },
+  "neurips-2025-ufo-rl-uncertainty-focused-optimization-for-efficient-reinforcement-learning-data-select-c156e2bf63": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Reinforcement-learning training for language models is expensive partly because evaluating and optimizing policies often requires multiple sampled responses. UFO-RL studies whether training can focus on examples that the model has not mastered but may be ready to learn. This is a hypothesis inspired by the educational idea of a zone of proximal development.",
+      "The method estimates uncertainty with one forward pass, without iterative next-token computation, and uses that estimate to select informative training examples. This makes selection itself much cheaper than approaches based on repeated sampling. The authors report up to a 185-fold acceleration in data evaluation compared with multi-sampling methods.",
+      "Across the evaluated language models and mathematical benchmarks, training on a selected 10% of the data matches or exceeds full-data training performance. Reported overall training-time reductions reach 16-fold, alongside better stability and generalization. These findings support uncertainty-guided selection in the tested settings, and distinguish the speed of evaluating candidate data from the smaller but substantial savings in complete training runs."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a8ce7d79bb9bbdaadb7cde34fb7d525b79b048842579228d0b37a55969c0d7ca",
+    "tldr": "UFO-RL uses single-pass uncertainty estimates to select informative training data, matching or exceeding full-data results with 10% of the data in reported experiments."
+  },
+  "neurips-2025-vulnerable-data-aware-adversarial-training-6cd188b876": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Fast adversarial training reduces the cost of learning models that resist adversarial perturbations, but commonly treats all training examples equally. This paper argues that their value differs with their distance from the decision boundary. Examples farther from that boundary are less important to adversarial robustness, so spending equal effort on them can add cost and hurt results.",
+      "Vulnerable Data-Aware Adversarial Training first estimates each sample's vulnerability with a margin-based calculation. It then filters the training data according to those estimates, reducing the set used for adversarial training. The method connects an assessment of vulnerability directly to the allocation of training computation.",
+      "Experiments cover adversarial training and robust neural architecture search on CIFAR-10, CIFAR-100, and ImageNet-1K. VDAT is reported to be up to 76% more efficient than state-of-the-art fast adversarial training methods, while improving both natural and adversarial accuracy in both scenarios. Visualizations and ablations support the effectiveness of the vulnerability calculation and filtering components, showing benefits from directing effort toward more vulnerable examples."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "04e94ab50a62d7b8e4eddb2fdfbc736879be62acee01231b9711a554c0ab0953",
+    "tldr": "VDAT filters training examples using margin-based vulnerability estimates to improve adversarial-training efficiency and accuracy."
+  },
+  "neurips-2025-wan-move-motion-controllable-video-generation-via-latent-trajectory-guidance-fee8737ca2": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Wan-Move adds detailed motion control to image-to-video generation by making the model's existing conditioning features describe movement. It represents object motion using dense point trajectories, providing fine-grained guidance about how scene elements should travel. The goal is to improve control granularity while keeping the approach scalable for existing video models.",
+      "The method projects these trajectories into latent space and moves first-frame features along them. This creates a spatial and temporal feature map aligned with the requested motion. The map becomes the updated latent condition for an image-to-video model such as Wan-I2V-14B, requiring no architectural change or auxiliary motion encoder and supporting scalable fine-tuning.",
+      "After scaled training, Wan-Move generates five-second, 480p videos whose motion controllability rivals Kling 1.5 Pro's Motion Brush in user studies. The authors also introduce MoveBench, with varied content and verified motion annotations. Experiments on that benchmark and a public dataset consistently show superior motion quality, supporting trajectory-guided conditioning as an effective interface for controlling generated movement."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5e8d655d885d6470c1a27315dda5fdb29445c779188e0bcecd74e69d0604b841",
+    "tldr": "Wan-Move guides video motion by propagating first-frame latent features along dense trajectories without changing the base model's architecture."
+  },
+  "neurips-2025-zooming-from-context-to-cue-hierarchical-preference-optimization-for-multi-image-mllms-19547b0875": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Multimodal language models can omit context, confuse information between images, or misinterpret details when handling several images together. The paper argues that preference optimization focused on a single image does not adequately address the complete sequence. Context-to-Cue Direct Preference Optimization instead trains understanding at two connected levels, moving from overall context to specific visual evidence.",
+      "The first stage uses sequence preference pairs to teach the model to distinguish complete multi-image contexts from disrupted ones. The second stage combines region-specific visual prompts with multimodal preference supervision, directing attention toward critical local details. Because the stages are sequentially dependent, the method first addresses contextual understanding and then refines perception within that context.",
+      "The authors also build MultiScope-42k, an automatically generated dataset containing hierarchical preference pairs to support scalable optimization. Experiments show significantly fewer hallucinations and consistent performance improvements on both single-image and multi-image tasks. The findings support combining sequence-level supervision with localized visual supervision to improve how models connect overall context to the evidence needed for their answers."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "89f4520aa1811dc6c72eb874f503cd4728dad08c3cabaafe66a751adacbcac16",
+    "tldr": "CcDPO trains multi-image models first on complete context and then on local visual cues, reducing hallucinations and improving task performance."
+  }
+}

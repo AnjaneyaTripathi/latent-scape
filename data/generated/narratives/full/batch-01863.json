@@ -1,0 +1,327 @@
+{
+  "icml-2026-augmask-training-diffusion-models-on-incomplete-tabular-data-via-stochastic-augmentation-bcb328a5af": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Diffusion models for tables often expect every field in every training example to contain a value. Real datasets frequently violate that expectation. AugMask addresses this mismatch through a training framework that lets existing diffusion architectures learn from incomplete tables without requiring a backbone specifically designed to handle missing entries.",
+      "The framework uses lightweight auxiliary models to sample plausible values for missing fields, conditional on the available information. These sampled values complete the input and provide context, but the training loss supervises only fields that were actually observed. This distinction matters: an invented completion can help the model interpret a row without being treated as a known correct target.",
+      "The theoretical analysis connects this procedure to an objective that averages over missing values. That averaging introduces a penalty discouraging reconstructed observed fields from being overly sensitive to uncertain completions. Across the reported datasets and missingness settings, standard generators trained with AugMask match or exceed specialized alternatives in generated-data fidelity and downstream usefulness. The findings support stochastic completion and selective supervision as a practical combination for incomplete tables."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e5ec43f7b9f493bafc6a26ddca2b5b97b53bb13e2922908dd7a1725dc3e04020",
+    "tldr": "AugMask trains standard tabular diffusion models on incomplete data by sampling missing inputs while supervising only observed values."
+  },
+  "icml-2026-beyond-the-final-answer-evaluating-the-reasoning-trajectories-of-tool-augmented-agents-3dc6fe7953": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "An agent can reach a correct answer through a wasteful or poorly supported sequence of actions. Benchmarks that check only the final response miss those differences. This paper introduces TRACE to evaluate how tool-using language models proceed through a task, including the efficiency, factual support, and adaptability of their trajectories.",
+      "Comparing each trajectory against an approved sequence would require annotating the many different ways a task can be solved. TRACE avoids that requirement. Its central mechanism is an evidence bank that accumulates information from earlier steps, giving the evaluator a growing record against which to assess subsequent reasoning and actions. Evaluation therefore draws on the trajectory's available evidence without requiring a reference solution path.",
+      "The authors build a dataset of varied trajectories, including flawed ones, with scores covering multiple performance dimensions. Their results show that TRACE can assess complex trajectories accurately even when using small open-source language models. They also apply it to agents solving tool-based tasks. The contribution is an evaluation framework that makes the quality of the process visible alongside the correctness of its outcome."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "25f81fc2014bc2da48994ddcc28b79818939d6b0e67c1ca131141f25a626b487",
+    "tldr": "TRACE evaluates tool-using agents through their reasoning trajectories using accumulated evidence, without requiring reference solution paths."
+  },
+  "icml-2026-causalarmor-efficient-indirect-prompt-injection-guardrails-via-causal-attribution-8096e38981": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Indirect prompt injection occurs when instructions inside untrusted material redirect an agent toward unauthorized actions. Defenses that sanitize everything can impose costs even on harmless requests. CausalArmor instead looks for a shift in what supports a privileged action: an untrusted passage becomes disproportionately influential while the user's request loses decisive influence.",
+      "At privileged decision points, the framework uses lightweight leave-one-out checks to estimate the contributions of different inputs. It triggers targeted sanitization when an untrusted segment dominates user intent. It also masks earlier reasoning traces affected by the injection, addressing the possibility that contaminated reasoning could continue influencing actions after the original content has been sanitized.",
+      "The theoretical analysis gives a conditional, exponentially small upper bound on malicious-action probability when sanitization uses attribution margins. This is a qualified guarantee, rather than an unconditional promise of protection. On AgentDojo and DoomArena, the method reportedly matches aggressive defenses in security while preserving agent utility and latency. Its central contribution is selective intervention guided by attributable influence, which also provides an explanation for why a particular segment required attention."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "34f87f0c17784e1e4ee3cfa6f9e5437eb8e8f80cba91ce4397ac1f3cfdb9cd86",
+    "tldr": "CausalArmor selectively sanitizes untrusted content when attribution checks indicate that it dominates an agent's privileged decision."
+  },
+  "icml-2026-discounted-betabernoulli-reward-estimation-for-sample-efficient-reinforcement-learning-w-cb64cca08c": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Reinforcement learning with verifiable rewards trains language models using outcomes that can be checked. Group-based methods estimate learning signals from small sets of generated responses, which can make reward estimates noisy or cause their estimated variance to collapse. This paper treats the problem as estimating a changing reward distribution from limited observations.",
+      "Discounted Beta–Bernoulli estimation combines current observations with historical reward statistics while accounting for the fact that the policy, and therefore its reward distribution, changes during training. The estimator deliberately accepts bias in exchange for lower, more stable variance. The analysis shows that it avoids variance collapse and, under mild non-stationarity, has lower mean squared error than standard point estimation.",
+      "Adding the estimator to GRPO improves results across six in-distribution and three out-of-distribution reasoning benchmarks. For the 1.7B and 8B models, average Acc@8 gains over GRPO are 3.43 and 2.32 points in-distribution, and 10.05 and 8.34 points out-of-distribution. The reported improvements require no additional computation or memory. These results connect better statistical estimation of rewards with more effective use of generated training responses."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "355950cc903e0d7d88447b0d06e639ca2fdcfba357445409756a50c6d5c5db7b",
+    "tldr": "Discounted Beta–Bernoulli reward estimation improves GRPO by using historical outcomes to stabilize learning signals from small response groups."
+  },
+  "icml-2026-discoverllm-from-executing-intents-to-discovering-them-164c1aaa0c": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "An ambiguous request does not always hide a preference that the user can explain if asked. Sometimes people need to see possible outcomes before deciding what they want. DiscoverLLM trains language models to support that process, treating the formation of user intent as part of the task rather than assuming intent already exists.",
+      "The framework uses a simulated user whose cognitive state contains a hierarchy of intentions. Those intentions become more concrete as the assistant presents relevant options, and the degree of concretization supplies a training reward. This encourages the assistant to explore alternatives when preferences remain unclear, then shift toward refinement and execution as the user develops a clearer direction.",
+      "On interactive benchmarks for creative writing, technical writing, and SVG drawing, the resulting models achieve over 10% higher task performance and shorten conversations by up to 40%. A study with 75 people also reports improved satisfaction and efficiency compared with baselines. The findings suggest that productive interaction can involve helping users discover preferences through exploration, with clarification and implementation adapting to how formed those preferences are."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7cd3d9c88027b6b3bb16b77ea3127a69f7b496315fb8ddb9119aa658c217e538",
+    "tldr": "DiscoverLLM trains assistants to help users form preferences by exploring options before refining and implementing a chosen direction."
+  },
+  "icml-2026-diversity-over-frequency-rethinking-tool-use-in-visual-chain-of-thought-agents-301fa033ea": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Visual reasoning agents can call tools to inspect fine details, but complex tasks also require relating those details to a larger scene. This paper studies that interaction in settings including 3D spatial reasoning and medical visual question answering. It asks how tool use during training relates to the reasoning abilities agents develop.",
+      "The authors observe that models can become more accurate while progressively using tools less often. Removing tools entirely hurts performance, yet encouraging more calls produces only small gains despite substantially greater usage. Their analysis links this asymmetry to reduced diversity in generated reasoning trajectories: both ordinary training and explicit tool-use encouragement narrow the range of explored approaches.",
+      "The proposed change adds entropy regularization to encourage more varied exploration across language generation and tool invocation. This produces the best reported performance even as tool usage gradually declines. The findings support viewing tools as training scaffolding: they help agents explore useful evidence and reasoning strategies, while their eventual call frequency is an incomplete indicator of the reasoning benefit gained."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "53368c1a30d88e8bf7b06088c641debf90d55bf2cb0130c6af3805468a13d6a1",
+    "tldr": "The study finds that encouraging diverse reasoning trajectories improves visual agents more effectively than simply encouraging more tool calls."
+  },
+  "icml-2026-dnachunker-learnable-tokenization-for-dna-language-models-34930923c4": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "DNA language models need to turn nucleotide sequences into units they can process, but DNA lacks a canonical equivalent of word boundaries. A fixed segmentation can be brittle when sequences shift or contain insertions, deletions, and repeated regions. DNAChunker makes the choice of boundaries a learned part of the model.",
+      "Its masked language model includes an adaptive segmentation module that creates variable-length units according to sequence context. The learned procedure allocates smaller units to regions enriched for biological function and compresses repetitive or redundant stretches. This lets the representation devote finer resolution to some parts of a sequence without forcing that same granularity everywhere.",
+      "The authors pretrain the model on the human reference genome and evaluate it on five benchmarks, reporting consistent improvements over strong models with fixed tokenization. Additional analyses and ablations indicate that the learned segmentation reflects biological information and is resilient to mutations. The contribution is therefore both a representation method and evidence that learning where to divide DNA can improve how genomic language models use their inputs."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "116ef41d6d287a0f0cb077703114d540a42f06f4ce58bb81b4302ab9c3f3a384",
+    "tldr": "DNAChunker learns context-dependent DNA segments, improving benchmark performance while allocating finer resolution to functionally enriched regions."
+  },
+  "icml-2026-eqgino-equivariant-geometry-informed-fourier-neural-operators-for-3d-pdes-395cb675e7": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A learned model of a physical system should respond consistently when the geometry is reoriented. Many neural surrogates for three-dimensional partial differential equations depend too strongly on their coordinate system. Networks designed around symmetry address this issue, but combining symmetry with the global interactions needed for these equations can be computationally expensive.",
+      "EqGINO builds on Fourier neural operators, which efficiently represent interactions across a whole domain. It imposes isotropy in the spectral representation, providing a way to incorporate geometric structure without the prohibitive spectral group convolutions described in the paper. The resulting architecture guarantees exact equivariance for the discrete symmetries supported by its discretized computational domain.",
+      "The distinction between discrete and continuous transformations matters here. For arbitrary continuous orientations, the abstract claims effective generalization rather than exact equivariance. It reports that the structural prior supports this generalization with relatively few training examples transformed by three-dimensional rotations and translations. The approach therefore combines global interaction modeling with a precise discrete symmetry guarantee and broader empirical geometric robustness on complex, irregular three-dimensional domains."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c91879e820b90ce03ae117da1ec56626b7dd8c818a7a7ab20c98c1b37ecb2f01",
+    "tldr": "EqGINO combines Fourier neural operators with exact discrete equivariance and effective generalization to continuous orientations for 3D physical modeling."
+  },
+  "icml-2026-gsrq-gain-shape-residual-quantization-for-sub-1-bit-kv-cache-75378634f6": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Long-context language models retain attention keys and values in a cache whose memory grows with context length. Residual quantization compresses those vectors through successive approximations drawn from small codebooks. This paper investigates a weakness in the standard K-means procedure commonly used to learn those codebooks, especially at very low storage rates.",
+      "The authors identify centroid shrinkage: averaging high-dimensional vectors can shorten the representative vectors and weaken the directional component of the reconstruction objective. They introduce Gain-Shape K-means to preserve direction more faithfully while matching, and sometimes improving, ordinary squared reconstruction error. A weighted version of that procedure becomes the codebook-learning component of their Gain-Shape Residual Quantization pipeline.",
+      "On LLaMA-3-8B, the resulting GSRQ method improves over strong cache-quantization baselines across bit rates. At one bit, average LongBench accuracy rises from VQLLM's 11.34 to 33.54, an improvement of 22.20 percentage points. The result highlights the practical importance of preserving vector direction during aggressive compression: changing the codebook-learning primitive can materially improve the usefulness of the compressed attention cache."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "070ec905714f97f7809b160fe4456f05aa4be4c62dc548762a11b9ad76117ba1",
+    "tldr": "GSRQ improves aggressive KV-cache compression by learning codebooks that better preserve vector direction."
+  },
+  "icml-2026-identifiable-token-correspondence-for-world-models-e451043c5e": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Visual world models predict future observations, but long predicted sequences can contain objects that duplicate, disappear, or change identity. This paper connects those failures to treating every next-frame token as a fresh generation decision. That formulation gives insufficient attention to the persistence of visual content from one frame to the next.",
+      "Identifiable Token Correspondence changes decoding by casting next-frame prediction as a structured assignment problem. Each future token receives an explanation: it either copies a token from the previous frame or is newly generated. Latent correspondence variables represent those relationships. Because the change operates at decoding, it can be placed on existing transformer backbones without modifying their architecture or training procedure.",
+      "The reported experiments achieve state-of-the-art performance on four benchmarks. On Craftax-classic, the method reaches a return of 72.5% and a score of 35.6%, compared with previous best values of 67.4% and 27.9%. These results support explicitly representing continuity during prediction. The method provides a way to distinguish persistence from new content within token generation, with improvements in the evaluated visual reinforcement-learning settings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d5ac2a7256d8f7f65cd42dab2d4e7cf2acf676d139f3d0ed5c06033a92198df2",
+    "tldr": "ITC improves visual world-model decoding by assigning future tokens either to copied past tokens or to newly generated content."
+  },
+  "icml-2026-identifying-connectivity-distributions-from-neural-dynamics-using-flows-d3d628a996": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Observed neural activity does not necessarily determine a unique pattern of connections: different networks can generate identical dynamics. Consequently, fitting a low-rank recurrent neural network can produce apparent structure that the recordings do not actually require. This paper first analyzes which connectivity structures are identifiable and establishes conditions under which a unique solution exists.",
+      "The proposed inference framework learns a distribution of connection weights rather than selecting a single connectivity matrix. It combines a maximum-entropy principle with continuous normalizing flows trained through flow matching. The goal is to reproduce the observed dynamics while remaining maximally unbiased about components that cannot be identified. The distribution can also express complex features, including heavy tails, when those features are needed.",
+      "Validation covers synthetic systems with multiple stable attractors, limit cycles, and ring attractors, alongside recordings from rat frontal cortex during decision-making. The framework changes the interpretive question: which properties of connectivity are required to explain the computation, and which arise from choosing one solution to an underconstrained problem? That distinction makes uncertainty about circuit structure part of the inference itself."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "726107d47ed5216af657bf862523183ed190b7e18e4beeee0cb93ad5603ccf30",
+    "tldr": "This framework infers distributions of neural connectivity to distinguish structure required by observed dynamics from underdetermined features."
+  },
+  "icml-2026-investigating-component-contributions-in-multi-agent-ml-systems-e904e9271e": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Agents for machine-learning engineering often combine planning, memory, repeated refinement, and multiple collaborating agents. When complete systems differ in all these respects, their overall scores reveal little about which ingredients help. This paper uses controlled component removals and comparisons to investigate the contribution of individual design choices.",
+      "The study includes more than 4,000 experiments and introduces K-live, a benchmark based on 25 active competitions. The evaluation responds to two problems with historical competitions: their data may already occur in language-model training corpora, and fixed human baselines can become outdated. The authors present the active-competition benchmark as a contamination-free environment with a changing performance reference.",
+      "The findings place greater weight on iterative feedback than on architectural complexity. They also show that coordination among multiple agents can harm performance as often as it helps. These are findings from the examined systems and evaluations, rather than a claim that collaboration always fails. Their practical implication is that adding agents or elaborate structure needs component-level evidence, while opportunities to inspect results and revise work deserve close attention."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2f886602e50abecb63ec716b774fb9875f372c7ea82600d6441cae8f6634f05c",
+    "tldr": "Across over 4,000 controlled experiments, iterative feedback contributes more than architectural complexity, while multi-agent coordination has mixed effects."
+  },
+  "icml-2026-lookahead-sample-reward-guidance-for-test-time-scaling-of-diffusion-models-b05f64532c": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Diffusion models can generate strong samples while still missing aspects of human intent. Reward-guided sampling spends extra computation during generation to favor better-aligned outputs. A central challenge is estimating the future reward of a partially denoised sample: full rollouts are expensive, while the alternative approximations discussed in this paper introduce bias and sampling difficulties.",
+      "The authors show that expected future reward at a diffusion state can be computed using marginal samples from a pretrained diffusion model. This yields closed-form reward guidance without neural backpropagation. They then introduce a few-step lookahead procedure and a solver that steers sampling particles toward promising lookahead samples, forming the method they call LiDAR sampling.",
+      "For SDXL, LiDAR matches the GenEval performance of the latest gradient-guidance method used in the comparison while delivering a 9.5-fold speedup. That result concerns a specific model, evaluation, and comparator. Its broader significance is methodological: the paper connects an alternative expression for future reward to a sampling procedure that reduces the cost of steering generation toward high-reward outcomes."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c646b45b9cb9c7fede52a8a50c56d9f58d01ce2311120b192a5e9925b7d699d8",
+    "tldr": "LiDAR uses sample-based future-reward guidance and short lookahead to steer diffusion generation efficiently without neural backpropagation."
+  },
+  "icml-2026-manifold-aligned-guided-integrated-gradients-for-reliable-feature-attribution-d64eb1f509": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Integrated Gradients explains a prediction by accumulating gradient information along a path from a baseline to the input. The path matters: intermediate inputs can pass through implausible regions where gradients are noisy. Guided Integrated Gradients adapts its path using gradient magnitudes, but making those adjustments directly in input space can still produce unrealistic intermediate examples.",
+      "Manifold-Aligned Guided Integrated Gradients constructs the path in the latent space of a pretrained variational autoencoder. Decoding intermediate latent states produces inputs biased toward the structure learned by that generative model. This provides a way to reduce exposure to implausible input regions, without claiming that every decoded point is guaranteed to lie on the true data manifold.",
+      "The authors evaluate the resulting attributions qualitatively and quantitatively across multiple datasets and classifiers. They report more faithful explanations and improvements over earlier path-based attribution methods, connecting these gains to reduced off-manifold noise and gradient aggregation on path features close to the input. The main contribution is to make a learned representation of plausible data guide the route used to compute explanations."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "675e255634b39fcf9f9a08e207ba214d8f16a656b71780772c554b8bef29c059",
+    "tldr": "MA-GIG uses a pretrained autoencoder's latent space to guide attribution paths toward plausible inputs and reduce noisy explanations."
+  },
+  "icml-2026-moco-ea-exploiting-adversarial-mode-connectivity-for-efficient-evolutionary-attacks-58c07ab699": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Evolutionary adversarial attacks search for input perturbations using populations of candidates, without needing model gradients. A difficulty arises when crossover combines successful candidates: discrete mixing can destroy the properties that made the parent perturbations effective. MoCo-EA changes this operation to use the geometric relationships between successful attacks.",
+      "The method optimizes a continuous Bézier curve connecting two parent perturbations and searches along that curve. Its motivation is the observed connectivity of successful adversarial examples: intermediate perturbations on suitable paths can preserve, and sometimes improve, attack effectiveness. This turns crossover into path optimization instead of assuming that discrete combinations of parent components will remain useful.",
+      "The paper reports that successful perturbations exhibit mode connectivity, that intermediate points on optimized paths transfer better than the endpoints, and that Bézier crossover outperforms discrete genetic operations while reducing convergence time and model queries. These findings support using connected regions of adversarial space to organize search. They also challenge a view of successful attacks as isolated discoveries by showing how relationships between candidates can contribute directly to attack generation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d68e864597e1583445f6aeebd9f24429d56f51ef2e4941bd1b56ea236864678d",
+    "tldr": "MoCo-EA improves gradient-free adversarial search by replacing discrete crossover with optimized continuous paths between successful perturbations."
+  },
+  "icml-2026-multi-task-linear-regression-without-eigenvalue-lower-bounds-adaptivity-robustness-and-s-355ef0133f": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Learning related regression tasks together can help when most tasks have similar parameters, even if some are arbitrary outliers. Existing guarantees often require each task's empirical second-moment matrix to have a smallest eigenvalue bounded away from zero. That requirement can fail in high-dimensional settings, leaving the guarantees uninformative.",
+      "This paper proposes matrix-weighted norm regularization and a relative balancedness condition. Instead of requiring every task to have strong information in every direction, balancedness compares each task's second-moment structure with the average geometry of the inlier tasks. The analysis still assumes that a majority of task parameters are close in Euclidean distance, while allowing a fraction of tasks to be contaminated.",
+      "With moderate balancedness in favorable regimes, prediction-error bounds match an earlier rate under weaker spectral assumptions, and aggregate error is minimax optimal up to logarithmic factors. The estimator also has a safety guarantee: when balancedness is unfavorable or tasks are unrelated, it performs no worse than learning tasks independently. This links useful sharing to the available task geometry while providing protection when sharing offers no advantage."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1d061ad5d4301fb4747cc129ab21fbd226b93ffae116f3782e4c93151164270c",
+    "tldr": "A matrix-weighted estimator provides robust multi-task regression guarantees under weaker spectral assumptions and safeguards against harmful task sharing."
+  },
+  "icml-2026-nnit-width-agnostic-neural-network-generation-with-structurally-aligned-weight-spaces-d54550922a": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Generating a neural network's weights is difficult when the target architecture changes size. There is also an alignment problem: rearranging hidden units can preserve a network's behavior while substantially changing its parameter representation. Neural Network Diffusion Transformers address both issues by treating weight matrices as locally structured collections of patches.",
+      "The approach uses Graph HyperNetworks with a convolutional decoder to structurally align weight space. The authors establish that this creates the local correlations needed for patch-based processing. A single sequence model then handles both discrete tokens describing architecture and continuous patches containing weights. This representation allows generation across different network widths rather than binding the generator to one fixed matrix shape.",
+      "The experiments focus on multilayer perceptrons and show that NNiT produces functional networks across architectures. On ManiSkill3 robotics tasks, it exceeds 85% success for architecture topologies absent from training, while the compared baselines fail to generalize. The same pipeline also extends to MNIST classification. Together, these results connect weight-space alignment with the ability to generate useful networks for previously unseen architectural arrangements."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1979fd6ffa1690169aa6d3e93da907f910054f791772f25a9396a2b19d6f83fa",
+    "tldr": "NNiT generates functional networks across widths by modeling architecture tokens and patches of structurally aligned weights together."
+  },
+  "icml-2026-persona-pruner-sculpting-lightweight-models-for-role-playing-d8a0207def": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Running a full general-purpose language model for every character can be expensive, especially when many characters interact at once. Persona-Pruner investigates whether a particular persona can be supported by a smaller portion of a model's capacity. Ordinary pruning is problematic because it can remove abilities essential to maintaining that character's identity and style.",
+      "The framework uses a single persona description to isolate a subnetwork suited to that role. Its purpose is to distinguish capacity that can be removed from capacity important to the specified character. This makes the target persona part of the pruning objective, aligning compression with the behavior the resulting model is expected to preserve.",
+      "Experiments report stronger preservation of role-playing performance than existing pruning methods while maintaining general language-model capabilities. On RoleBench, Persona-Pruner reduces the performance loss relative to the dense model by up to 93.8% compared with the strongest baseline, measured using a language-model judge. That figure describes a reduction in performance degradation, not a model-size reduction. The findings support persona-specific pruning as a route to lighter character models."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a0e8c92ddb12f8b4ff0cd49a07ae6a31887c6c75bf04e9020a899bdab7ddaa43",
+    "tldr": "Persona-Pruner uses a character description to extract a smaller subnetwork that better preserves the model's role-playing performance."
+  },
+  "icml-2026-privasis-synthesizing-the-largest-public-private-dataset-from-scratch-77b2916678": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Research on handling sensitive personal information faces a data bottleneck: the material needed to study these systems is itself difficult to make broadly available. Privasis addresses this by constructing fully synthetic text from scratch, providing examples rich in private-information attributes without building the dataset from real personal records.",
+      "The dataset contains 1.4 million records and 55.1 million annotated attributes, including details such as ethnicity, birth date, and workplace. Its documents span medical, legal, and financial records as well as calendars, emails, meeting transcripts, and text messages. This variety gives researchers a large collection of sensitive-information patterns across different kinds of writing and document organization.",
+      "The authors also create paired data for text sanitization using a pipeline that recursively divides texts and applies targeted sanitization. Models with at most four billion parameters trained on this corpus outperform the compared large models, including GPT-5 and Qwen-3 235B, on the reported sanitization task. The work therefore contributes both a synthetic research resource and evidence that specialized training data can support strong sanitization with compact models."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1eebcfaff07c6c0a424e53648fd7b902e01cd8104ca42fe83dcfdb2eeb9ecb35",
+    "tldr": "Privasis provides 1.4 million synthetic sensitive-information records and supports compact sanitization models that outperform the compared larger models."
+  },
+  "icml-2026-stability-analysis-of-sharpness-aware-minimization-4917c8e835": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Sharpness-aware minimization trains a model against the worst loss in a neighborhood around its current parameters, with the aim of finding flatter solutions. This paper investigates a potential difficulty in those dynamics near saddle points. A saddle is a location where the loss landscape offers different behavior in different directions, making escape important for optimization.",
+      "Using dynamical-systems theory, the authors prove that a saddle point can become an attractor under SAM. They also derive a diffusion description of stochastic SAM and show that the instability can persist in that setting. In their saddle-escape analysis, SAM's diffusion behaves worse than that of ordinary gradient descent. These results identify a possible failure mechanism rather than asserting that every SAM run becomes trapped.",
+      "The paper examines momentum and batch size as factors that might mitigate the instability and help achieve strong generalization. Experiments on optimization problems and benchmark tasks support the theoretical and empirical analysis. The contribution is an explanation of how a method designed to favor flat solutions can develop undesirable local dynamics, together with evidence that familiar training choices can matter for managing them."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2b3ca061a7c55fa420db8b3cccdbcf9a550a21f7b1904e33cf7d543a33f1beba",
+    "tldr": "The paper shows that SAM can make saddle points attractive and examines momentum and batch size as possible mitigations."
+  },
+  "icml-2026-stretchtime-adaptive-time-series-forecasting-via-symplectic-attention-65c69b0b4f": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Regularly spaced measurements do not necessarily imply that a system's underlying rhythms progress at a constant rate. Cycles can stretch or contract while the sampling index advances uniformly. StretchTime addresses this mismatch in transformer forecasting, where standard positional encodings often tie temporal relationships directly to index distance.",
+      "The authors formalize the problem and prove that rotary position embeddings cannot represent non-affine temporal warping. They introduce Symplectic Positional Embeddings, derived from Hamiltonian mechanics, which generalize the rotations used by RoPE to a broader transformation group. An input-dependent warp module learns how to expand or compress temporal coordinates, allowing attention to represent locally changing periodicities without a predefined warping function.",
+      "The resulting multivariate forecasting architecture achieves state-of-the-art performance on the reported standard benchmarks and stronger robustness on datasets with non-stationary temporal dynamics. The contribution connects a representational limitation of an existing positional encoding to a learnable alternative. Its practical motivation is to let the timing relationships used by attention follow the changing behavior of the observed system, rather than relying solely on uniform sample positions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4c8f791661638edf622d0e0083d681ba7c558db9ac9d2217df6760ac09054c9c",
+    "tldr": "StretchTime learns to stretch and contract attention's temporal coordinates to forecast systems whose rhythms change over time."
+  },
+  "icml-2026-teaching-molecular-dynamics-to-a-non-autoregressive-ionic-transport-predictor-8ec447ee66": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Ionic transport depends on how atoms move, so predicting it from a static atomic structure is difficult. Molecular-dynamics simulations capture that motion but are computationally costly. Learned predictors face a tradeoff: sequential models retain dynamics but remain slow and can accumulate errors, while direct property predictors lose accuracy when they fail to use motion information.",
+      "This paper trains a direct, non-autoregressive predictor with atomic trajectories as an auxiliary modality. Trajectories help teach the model about dynamics during training, but the predictor does not need them when making a prediction. The framework can also benefit from datasets that lack trajectories, bringing both kinds of training data into the same approach.",
+      "On the dataset containing atomic trajectories, the framework is over 200 times faster than the compared autoregressive models. It also substantially reduces prediction error relative to non-autoregressive benchmarks across both dataset types. The findings show that dynamic training information can improve static-input prediction without requiring sequential simulation at inference, addressing both the cost of predicting transport and the uneven availability of trajectory data."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4ed09a3705d60c6b79e64e373d4e71628d7a6decd99c7c5723ed1be15bc8e3d9",
+    "tldr": "The framework uses atomic trajectories during training to improve fast ionic-transport prediction without requiring trajectories or sequential simulation at inference."
+  },
+  "icml-2026-temporal-preference-optimization-for-unsupervised-retrieval-4c1c43515d": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A document can match a question's subject while describing the wrong time period. This creates a problem for dense retrievers trained to recognize semantic similarity, particularly when collections contain information from many periods. TPOUR adds temporal relevance to unsupervised retrieval so that topic similarity does not obscure when an answer applies.",
+      "Its training method, Temporal Retrieval Preference Optimization, expresses temporal alignment as a preference between documents. The retriever learns to favor material aligned with the query's temporal needs. A learned time embedding also supports interpolation to unseen periods, providing a way to represent temporal alignment beyond the particular periods encountered during training.",
+      "On temporal retrieval experiments, TPOUR outperforms the compared supervised and unsupervised baselines. Its Contriever version is about 72.7 times smaller than Qwen-Embedding-8B yet improves average nDCG@5 by 4.04 points for explicit temporal queries and 4.98 points for implicit ones. The corresponding relative gains are 12.15% and 15.21%. These results suggest that training specifically for temporal preference can yield substantial retrieval benefits even with a much smaller model."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "77ddaaca3e9fe25a3f21a24cf4e90ae6fb1d2e71d10b9f5ffbd4fd8d13252dcd",
+    "tldr": "TPOUR teaches an unsupervised retriever to prefer temporally aligned documents and interpolate its time representation to unseen periods."
+  },
+  "icml-2026-tokendrop-token-level-importance-aware-backward-propagation-skipping-for-efficient-llm-f-57c55bf9e2": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Fine-tuning can remain expensive even when only a small subset of model parameters is updated. Storing activations and computing gradients still consumes memory and processing time. TokenDrop addresses those costs by deciding which tokens warrant backward computation, allowing less informative tokens to skip that part of training.",
+      "The method estimates importance from the magnitude of residual updates observed during the forward pass. This produces a lightweight score without first calculating gradients. Cumulative token selection is designed to preserve gradient continuity across layers, while a delayed selection schedule allows importance decisions to incorporate broader information under memory constraints. These mechanisms coordinate skipping so that it follows token importance rather than applying an isolated decision at every layer.",
+      "Across the reported experiments, TokenDrop reduces memory usage by up to 42.9% and accelerates training by up to 1.50 times while preserving accuracy. It also outperforms existing backward-skipping baselines. These are reported maxima across experiments, not promised savings for every setting. The results show that token-level decisions can address training costs that parameter-efficient methods alone leave substantial."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c2f990e1a6f2231949f816bec61283e8d6df29e0075ef269caab0d537cbd4fcb",
+    "tldr": "TokenDrop reduces fine-tuning costs by using forward-pass importance estimates to skip backward computation for less informative tokens."
+  },
+  "icml-2026-transfer-learning-in-high-dimensional-ising-models-dff837c27c": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Ising-model estimation concerns relationships among binary variables, but a target dataset may contain too few observations to estimate those relationships well. Auxiliary datasets could help, although their relevance may be unknown. Trans-Ising combines source selection with a correction procedure to borrow useful information while addressing the risk of harmful transfer.",
+      "The method first screens candidate sources using held-out target pseudolikelihood, assessing them through a criterion tied to the target data. It then pools selected information for nodewise logistic regression with an L1 penalty. A second estimation stage uses only the target data and a folded-concave penalty to correct the initial estimate. This separates the benefit of shared data from the need to fit target-specific structure.",
+      "The theoretical results include fixed-node estimation-error bounds, exact graph-selection consistency, and conditional consistency of the source-screening rule. Simulations and real-data analyses show lower estimation errors than both target-only learning and indiscriminate pooling. The findings support a selective approach to transfer: screening and subsequent target correction jointly help make auxiliary binary datasets useful when their relevance cannot be assumed in advance."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8fffa3d13679865a0c08b17fbe6a3d54230bb737866c79ca1c5c963d41a18278",
+    "tldr": "Trans-Ising screens auxiliary binary datasets, pools useful sources, and applies target-only correction to improve Ising-model estimation."
+  }
+}

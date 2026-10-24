@@ -1,0 +1,333 @@
+{
+  "neurips-2023-abide-by-the-law-and-follow-the-flow-conservation-laws-for-gradient-flows-19766194d5": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Training can preserve traces of a model’s initialization even as its parameters change. This paper studies that phenomenon through conservation laws: quantities that remain constant along gradient flow for a given model architecture, regardless of the training data or loss. Such laws offer a precise way to describe some restrictions on where training can take the parameters.",
+      "The authors establish the definition and basic properties of these laws, then develop a method for counting the maximum number of independent ones. Their approach uses finite-dimensional algebraic calculations involving a Lie algebra generated from the model’s Jacobian. They also provide separate algorithms for finding polynomial conservation laws and counting independent laws that need not be polynomial.",
+      "The paper works through theoretical examples and applies the algorithms to several ReLU architectures. In those cases, the computations recover the known laws and establish that no additional independent laws exist. These tools support investigation of initialization and implicit bias; the abstract presents favorable generalization as a possible motivation, rather than a consequence proved by the conservation results."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a7ead7ecb3e2077fa02cfaba5af716c8a1bbb7ed5b59473b927dd29e230f4315",
+    "tldr": "The paper develops mathematical tools to find and count quantities that remain unchanged during a model’s gradient flow."
+  },
+  "neurips-2023-achieving-cross-modal-generalization-with-multimodal-unified-representation-9da446fba5": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper introduces Cross Modal Generalization: pretrain on paired multimodal data, then use labels from just one modality to support downstream predictions in other modalities without additional labels there. The central challenge is learning a shared representation that preserves useful correspondences without assuming that every piece of information in one modality has an equivalent in another.",
+      "Uni-Code addresses this challenge through a shared discrete latent space. Its Dual Cross-modal Information Disentangling module and Multi-Modal Exponential Moving Average mechanism enable supervision in both directions between modalities. Together, they align semantically equivalent information and support detailed representations of multimodal sequences. This targets finer correspondences than a single broad alignment of whole inputs.",
+      "The authors investigate audio-visual, audio-text, and audio-visual-text pretraining. Experiments cover event classification and localization, cross-modal retrieval, query-based video segmentation, and event localization across datasets. The reported results support the effectiveness of the proposed representation methods across these tasks. The practical significance is that multimodal pretraining can make supervision supplied through one modality useful for another, reducing the need for separately labeled downstream data in each modality."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9991f803d4fadaf0aca6f5d5c51eaea6b6240e09d426af01f80d10b25bd63dc6",
+    "tldr": "Uni-Code learns shared discrete multimodal representations that support transfer to other modalities when only one has downstream labels."
+  },
+  "neurips-2023-aligning-gradient-and-hessian-for-neural-signed-distance-function-7afe4676b6": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A signed distance function represents a surface implicitly through distances to it, making it useful for reconstructing a watertight shape from scattered points. This paper learns such a function directly from point clouds without requiring normals. Its central concern is how to guide the learned function’s gradient directions so that they reflect the actual shape.",
+      "The method draws on a geometric property near a smooth surface. Within a sufficiently thin surrounding region where the signed distance function is differentiable, its gradient is an eigenvector of its Hessian with eigenvalue zero. This connects first-order information about direction with second-order information about how that direction changes. The authors use this relationship to align the learned gradient and Hessian.",
+      "That alignment provides a mechanism for controlling gradient directions and making their changes better reflect underlying shape variation. The experiments report accurate shape recovery together with suppression of ghost geometry, meaning unwanted reconstructed geometry. The stated smooth-surface and nearby-region conditions matter: the mathematical relationship motivating the method is local to that setting, while the experiments demonstrate its usefulness for learning surfaces from the evaluated point clouds."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "85e77ad92bbf446e2f271573d2447c88415c0f12ae3a2d4e39f292e2ac4b2629",
+    "tldr": "The method uses a local gradient–Hessian relationship to learn signed distance functions from points without normals and suppress unwanted geometry."
+  },
+  "neurips-2023-atman-understanding-transformer-predictions-through-memory-efficient-attention-manipulat-0f87715871": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Explaining a large generative transformer can require substantial memory beyond what is needed to produce its prediction. The paper identifies backpropagation as a major source of this overhead in existing explanation methods. AtMan aims to make explanations practical during inference by estimating which input elements matter to an output without running backward through the model.",
+      "AtMan perturbs the transformer’s attention mechanisms and uses the resulting behavior to construct input relevance maps for a prediction. Its search operates on tokens and uses neighborhoods defined by cosine similarity in embedding space. Because this search can be parallelized and does not depend on a specific input modality, the method can be applied to both text and multimodal inputs.",
+      "Experiments on text and image-text benchmarks report better performance than leading gradient-based explanation methods on several metrics, alongside computational efficiency. These findings support the proposed use of AtMan in large-model inference deployments where explanation memory costs are a concern. Its contribution is an attention-manipulation procedure for producing relevance maps, with the reported advantage tied to the evaluated benchmarks and metrics."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6ab39d9cc4680a1a59e441e007639c243d50fe9431dd91f73f7c541d7c759e42",
+    "tldr": "AtMan explains transformer predictions by manipulating attention, producing relevance maps without memory-intensive backpropagation."
+  },
+  "neurips-2023-breadcrumbs-to-the-goal-goal-conditioned-exploration-from-human-in-the-loop-feedback-d3a98e532a": {
+    "backgroundConcepts": [
+      "topic-043-exploration-a-study-of-count-based-exploration-f"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Reinforcement learning faces two connected difficulties: discovering useful behavior and specifying rewards that encourage it. Human guidance can help an agent explore, but requiring a supervisor to provide constant, timely, accurate feedback makes that approach expensive. Human Guided Exploration, or HUGE, is designed to work with feedback that is infrequent, delayed, noisy, and supplied by non-experts.",
+      "The key design separates exploration from policy learning. Human feedback directs where the agent explores, while a self-supervised learning process independently learns behaviors from the collected experience. This division lets imperfect guidance influence data collection without making carefully designed rewards or exploration bonuses necessary for the demonstrated tasks. Human input helps steer experience toward useful parts of the task.",
+      "The authors demonstrate learning on challenging multistage robotic navigation and manipulation tasks in simulation using crowdsourced feedback from non-experts. They also report that the approach can scale to learning directly on real robots. The findings show that useful human participation need not take the form of continuous expert supervision: intermittent guidance can support exploration while the policy learns separately from experience."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "419fc3f289e4497105fa191d9452c48cf2ccf29dd808e6e487750dbd32f12c01",
+    "tldr": "HUGE separates human-guided exploration from self-supervised policy learning to use noisy, asynchronous feedback without handcrafted rewards."
+  },
+  "neurips-2023-collat-on-adding-fine-grained-audio-understanding-to-language-models-using-token-level-l-a5e588b48a": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Audio classifiers trained on fixed categories struggle with sounds outside those categories. Language-based audio learning offers a way to describe unfamiliar concepts, but the paper identifies two remaining problems: preserving the pretrained language model’s text capabilities and understanding clips containing multiple audio concepts. CoLLAT addresses these problems by connecting audio learning to a language model that remains locked.",
+      "The framework uses contrastive audio-language tuning together with a new audio-to-text grounding objective. Its token-level approach targets fine-grained audio understanding, so the connection between sound and language can represent more detailed concepts within a clip. Keeping the language model fixed allows the audio understanding component to learn against an existing textual representation without changing that model’s parameters.",
+      "The authors evaluate CoLLAT through audio classification, cross-modal retrieval, and audio-guided image generation. They report state-of-the-art audio understanding performance in their experiments. The broader significance is that audio can become an additional source of guidance for applications already built around pretrained language models, while the grounding objective addresses the difficulty of representing several concepts within the same audio input."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "16393a8f402c2d3d85487548de20d959ffc1176a8bcc8ee08827a5dbd9620936",
+    "tldr": "CoLLAT learns fine-grained audio-to-text grounding with a fixed language model, enabling audio understanding and guidance for language-based applications."
+  },
+  "neurips-2023-convergence-analysis-of-ode-models-for-accelerated-first-order-methods-via-positive-semi-b325287397": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies how to prove convergence rates for ordinary differential equation models of first-order optimization methods. Such models describe optimization through a continuous trajectory. The authors propose a systematic way to analyze these trajectories by translating a convergence-rate proof into a different mathematical task: checking whether a particular integral operator is positive semidefinite.",
+      "The framework builds on performance estimation problems, but moves beyond the finite-dimensional linear algebra used in earlier work of that kind. It instead uses functional analysis and Hilbert–Schmidt integral operators. The significance of this reformulation is methodological: properties of an operator become a route to certifying how quickly an optimization flow approaches its objective, providing a common framework for studying multiple accelerated flows.",
+      "Using this method, the authors establish convergence rates for several accelerated gradient-flow models, including some new rates. The framework also yields a correspondence between minimizing function values and minimizing gradient norms. That connection links progress measured through the objective with progress measured through its gradient, giving the analysis relevance to two different ways of assessing optimization."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c82ccb9b841e11db8fa9f8c16f8fc83bfe782b82471264bad1784af165ccf9eb",
+    "tldr": "The paper proves convergence rates for accelerated optimization flows by checking positive semidefiniteness of integral operators."
+  },
+  "neurips-2023-curvature-filtrations-for-graph-generative-model-evaluation-7d441d2fea": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Evaluating a graph generator requires comparing distributions of graphs, so the evaluation needs summaries that capture meaningful structural differences across collections. This paper focuses on graph curvature as one source of such information. The motivation is that curvature offers a way to characterize graphs, while its expressive power, stability, and practical value for evaluating generators have remained insufficiently explored.",
+      "The proposed approach combines descriptors based on graph curvature with methods from topological data analysis. Curvature supplies structural information, and the topological methods contribute to turning that information into descriptors for comparison. The resulting representation is intended to be both expressive and robust, addressing the need to capture salient graph properties efficiently when assessing a generative model.",
+      "The stated contribution is therefore a way to represent graphs for distribution-level evaluation. Expressiveness matters because a comparison needs to retain structural distinctions, while robustness matters because the representation should support reliable comparisons. By bringing curvature and topological analysis together, the paper provides descriptors designed around both concerns and positions them as tools for evaluating the graph distributions a model produces."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "42145d7660a9cde7a696a9bfb70b981cac757aeb01f85f22c983c2a9d041e948",
+    "tldr": "The paper combines graph curvature and topological data analysis to build robust, expressive descriptors for evaluating graph generators."
+  },
+  "neurips-2023-diffute-universal-text-editing-diffusion-model-7b046e1d6f": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Changing words inside an image requires more than generating plausible visual content. The replacement must have the correct characters and a suitable visual style while fitting the source image. DiffUTE addresses this problem with a diffusion model designed to replace or modify image text while maintaining a realistic appearance.",
+      "The authors modify the network structure to incorporate glyph and position information. These inputs supply guidance about character shapes and where the text belongs, supporting the rendering of multilingual characters. They also develop a self-supervised training framework that uses large amounts of web data to strengthen the model’s representations. The approach therefore combines explicit information about the desired text with learning from abundant visual examples.",
+      "Experiments report strong performance on controllable text editing in images encountered outside controlled settings, with high visual fidelity. The significance is that text is treated as content whose spelling, placement, and appearance must be coordinated during image editing. The findings support DiffUTE’s usefulness for these edits, including multilingual characters, without establishing that every language or image style is handled equally well."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a76bd972dfd534ee5b3a7d1837adc320b99f88010a8a52779557903b74faddf3",
+    "tldr": "DiffUTE uses glyph and position guidance with self-supervised diffusion training to edit text inside images while preserving realistic appearance."
+  },
+  "neurips-2023-distributionally-robust-skeleton-learning-of-discrete-bayesian-networks-64411343aa": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper studies how to recover the skeleton of a discrete Bayesian network from potentially corrupted data. The skeleton records which variables are connected without recovering the directions of those connections. The goal is exact recovery despite the possibility that outliers distort the empirical distribution used for learning.",
+      "The proposed method combines regression with distributionally robust optimization. Instead of optimizing risk only on the observed distribution, it considers the worst risk among distributions within a bounded Wasserstein distance or KL divergence of it. This makes possible distributional changes part of the objective. The approach handles general categorical variables without requiring faithfulness, an ordering of categories, or a specified conditional-distribution form.",
+      "The authors provide efficient algorithms and relate their methods to standard regularized regression. Under stated mild assumptions, they establish finite-sample guarantees for successful structure recovery, with logarithmic sample complexities for bounded-degree graphs. Studies on synthetic and real datasets support the method’s effectiveness. The theoretical result is conditional, while its practical motivation is to make structural learning less vulnerable to contamination in the data."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "93874c263926e1e658a9df8a68f84726b78dace53331e841485b15d36550ea78",
+    "tldr": "The paper uses distributionally robust regression to recover discrete Bayesian-network skeletons from potentially corrupted data, with conditional finite-sample guarantees."
+  },
+  "neurips-2023-embroid-unsupervised-prediction-smoothing-can-improve-few-shot-classification-f8759c7190": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Language models can label data from a prompt, but improving that prompt often requires labeled examples to judge whether a revision helped. Embroid approaches this cost from a different direction: it keeps the prompt and corrects its predictions without additional labeled data. Its guiding intuition is that samples with similar representations should receive consistent predictions.",
+      "The method embeds the dataset in several different representation spaces and examines predictions among neighboring samples. Disagreement within these neighborhoods helps identify possible mistakes. Embroid then creates additional predictions from neighborhood information and combines them with a latent-variable graphical model to produce a corrected label. Multiple embeddings provide several views of which samples should be treated as similar.",
+      "The paper includes theoretical analysis and evaluation across six language models and up to 95 tasks. It reports improvements over original prompts, including an average gain of 7.3 points for GPT-JT, and gains with more sophisticated prompting such as chain-of-thought. Domain-specific embeddings can also specialize the method, including for law. These findings support prediction consistency as a useful source of improvement without collecting extra labels."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "186ac50016f0c31dfaee0274d7587cb266f799cfe69853d4bac4c092b3b608f0",
+    "tldr": "Embroid improves prompt-based classification without extra labels by combining predictions from neighborhoods in multiple embedding spaces."
+  },
+  "neurips-2023-explore-to-generalize-in-zero-shot-rl-4bb967e8b1": {
+    "backgroundConcepts": [
+      "topic-043-exploration-a-study-of-count-based-exploration-f"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A reinforcement-learning policy may succeed on its training tasks yet fail on a similar unseen task. This paper studies cases where learning invariance to task appearance cannot provide an adequate solution, including ProcGen Maze. It proposes that effective exploration is harder to memorize than reward-maximizing behavior tied to a particular task, making exploration a promising transferable skill.",
+      "Explore to Generalize, or ExpGen, combines exploratory behavior with an ensemble of agents trained to maximize reward. At test time, the system follows the ensemble when its members agree on an action. When they disagree, it explores instead. Exploration can move the agent to a different part of the state space where the ensemble may agree again, allowing useful task behavior to resume.",
+      "The authors report strong generalization on difficult ProcGen tasks, including success rates of 83% on Maze and 74% on Heist with 200 training levels. They also combine ExpGen with an invariance-based approach and report further state-of-the-art results. The evidence supports exploration as a useful fallback and complement to invariance on the evaluated tasks."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "30feb32319e0f961775881af0674d46833445216a247e0154c17dcd74c138fa6",
+    "tldr": "ExpGen uses exploration when reward-trained agents disagree, improving zero-shot generalization on challenging ProcGen tasks."
+  },
+  "neurips-2023-fast-attention-requires-bounded-entries-ec90873997": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Standard attention computation forms a matrix containing pairwise interactions among n inputs, which creates a quadratic-time burden even when their dimension is small. This paper asks whether algorithms can approximate the output faster by using that matrix implicitly. Its main result ties the answer to B, the maximum absolute entry in the query, key, and value matrices.",
+      "When the dimension is O(log n) and B grows more slowly than the square root of log n, the authors give an almost-linear-time approximation algorithm. It achieves inverse-polynomial additive error. Thus, under these dimension and magnitude conditions, obtaining an accurate attention output does not require explicitly constructing every entry of the full attention matrix.",
+      "At entry bounds on the order of the square root of log n, the paper establishes a contrasting hardness result. Assuming the Strong Exponential Time Hypothesis, an approximation with the stated error cannot be computed in truly subquadratic time. The conditional lower bound and constructive upper bound reveal a sharp transition, providing a theoretical explanation for why smaller input entries can make attention computation more efficient."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f40085e0193a795866edaa923076ec84cc73b813e7f54c14af1a89bc54faf74f",
+    "tldr": "For logarithmic-dimensional attention, the paper identifies an entry-size threshold separating almost-linear approximation from conditional subquadratic hardness."
+  },
+  "neurips-2023-going-beyond-persistent-homology-using-persistent-homology-ea155006fc": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Persistent homology is used to add topological information to graph neural networks, but its ability to distinguish attributed graphs needs a precise characterization. This paper examines the persistence of connected components under filter functions built from vertex and edge colors. It asks exactly when that information can distinguish two graphs.",
+      "The authors introduce color-separating sets and establish necessary and sufficient conditions for distinguishability in this setting. Their constructions show that vertex-level and edge-level persistent homology have different strengths: neither captures everything the other can distinguish. That result motivates combining both sources of information, since choosing only one leaves out distinctions available through the other.",
+      "Building on the theory, the paper proposes RePHINE, a method for learning topological graph features that efficiently combines vertex-level and edge-level persistent homology. It is proved more expressive than either approach individually. When incorporated into message-passing graph neural networks, RePHINE increases their expressive power and improves graph-classification results over standard persistent homology on several benchmarks. The contribution connects a precise representational analysis to a method that also shows empirical benefits."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "367a13431396b89d8aef2c491c69c0530098ff45615f374b40f37c5736eba4b7",
+    "tldr": "RePHINE combines vertex- and edge-level persistent homology using theory that shows their graph-distinguishing abilities are complementary."
+  },
+  "neurips-2023-implicit-variance-regularization-in-non-contrastive-ssl-1ae829e91c": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Non-contrastive self-supervised learning must avoid representational collapse, where learned features lose useful variation, without relying on negative samples. Methods such as BYOL and SimSiam use asymmetric predictor networks for this purpose. This paper investigates how those predictors stabilize learning, addressing the gap between earlier Euclidean-loss analyses and the cosine similarity commonly used in practice.",
+      "The authors analyze learning dynamics in the eigenspace of closed-form linear predictors. They show that Euclidean and cosine objectives both implicitly regulate variance, though they do so through different dynamics. They also find that predictor eigenvalues behave like multipliers on the effective learning rate, causing different spectral directions to learn at different speeds.",
+      "These observations motivate IsoLoss, a family of losses designed to equalize convergence rates across eigenmodes. Empirically, IsoLoss accelerates early learning and improves robustness, allowing the authors to remove the exponential-moving-average target network in their evaluated setting. The analysis supplies a mechanism for understanding collapse avoidance and a way to design losses around spectral learning dynamics, with the theoretical conclusions developed for the specified linear-predictor framework."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0d36c2b87d037d1827c477a339d2346f6d77318c2a9dba6cebac53c8a903cef5",
+    "tldr": "The paper links collapse avoidance to implicit variance regulation and proposes IsoLoss to balance learning speeds across predictor eigenmodes."
+  },
+  "neurips-2023-open-compound-domain-adaptation-with-object-style-compensation-for-semantic-segmentation-d97edec22f": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Semantic segmentation assigns categories throughout an image, and adapting between domains often depends on generating reliable pseudo annotations for target images. Existing approaches reduce differences in overall scene style, but the paper argues that this can leave individual object categories or instances improperly adapted. A scene-level adjustment may therefore fail to address the style differences most relevant to an object.",
+      "Object Style Compensation introduces a memory containing sets of discrepancy features. Each set describes style changes for instances of the same category when adapting from the target domain toward the source domain. These features are learned from source and target images and stored for later use. The method selects suitable features from memory to compensate the style of individual objects.",
+      "This object-specific compensation aligns instances from different categories with the source domain’s style and improves the computation of target pseudo annotations. Those annotations then support segmentation training. The authors report state-of-the-art results across different datasets. The contribution is a more targeted adaptation mechanism: it represents and corrects category-specific style discrepancies that a global scene transformation can leave unresolved."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8b449dcb8aca1efad95fcbf5a2d9f675968c8449d03cdb7f5ee7412479635704",
+    "tldr": "Object Style Compensation uses a category-aware discrepancy memory to improve target-domain pseudo annotations and semantic segmentation."
+  },
+  "neurips-2023-perceptual-kalman-filters-online-state-estimation-under-a-perfect-perceptual-quality-con-c6d4a819da": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Reconstructing a temporal signal as observations arrive requires decisions before the entire signal is available. This paper studies causal filtering with a strict perceptual requirement: reconstructed signals must follow the same distribution as natural signals. The analysis considers a Gaussian Markov signal observed through a linear noisy transformation, a setting where the ordinary Kalman filter minimizes mean squared error without that requirement.",
+      "Adding the distribution-matching constraint creates a conflict between using new evidence and remaining consistent with earlier outputs. The authors show that a filter may need to knowingly leave some newly revealed information unused. Preserving the required temporal distribution can therefore increase mean squared error substantially, beyond the cost associated with processing a complete signal at once.",
+      "To analyze this conflict, the paper introduces an unutilized information process that goes beyond the Kalman filter’s usual innovation process. This leads to a recursive formula for perceptual filters. A video reconstruction example demonstrates qualitative effects of the constraint. The result clarifies how distributional realism and estimation accuracy can pull in different directions when reconstruction must proceed causally."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f5a39420a038b1e4dc8d8a285595bc01df9264052a614f81e9c3ccc4894ea1e9",
+    "tldr": "Under a Gaussian linear observation model, perfect distributional realism can force causal filters to ignore new information and incur greater error."
+  },
+  "neurips-2023-riemannian-residual-neural-networks-4e5fa13589": {
+    "backgroundConcepts": [
+      "topic-050-a-geometric-take-on-metric-learning"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Some learning problems involve data that lie on curved geometric spaces, or Riemannian manifolds. Examples motivating this paper include hierarchical graphs and manifold-valued scientific data. Neural networks for these settings often adapt familiar Euclidean architectures, but such extensions have been difficult and restricted to a limited selection of manifolds.",
+      "The authors develop a geometrically principled extension of residual neural networks to general Riemannian manifolds. Residual networks are attractive because of their learning behavior and their ease of incorporation into larger architectures. The aim is to carry those architectural benefits into manifold-based learning through a construction that respects the underlying geometry and applies beyond a few specially handled spaces.",
+      "The paper compares its Riemannian ResNets with existing networks for hyperbolic space and the manifold of symmetric positive definite matrices. It reports stronger results on relevant test metrics and better training dynamics in both settings. These experiments support the usefulness of the general construction in two distinct geometries, while the broader methodological contribution is a residual-network framework formulated for general Riemannian manifolds."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "387f2de8eb236a8ccefa559cdd78b2e5a9a09ba335698796de8130d98fb95e82",
+    "tldr": "The paper extends residual networks to general Riemannian manifolds and reports improved learning in hyperbolic and positive-definite-matrix settings."
+  },
+  "neurips-2023-robust-matrix-sensing-in-the-semi-random-model-50c92571c0": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Matrix sensing reconstructs a low-rank matrix from linear measurements. This paper considers a semi-random setting where an unknown subset of sensing matrices satisfies the Restricted Isometry Property, while an adversary can add arbitrarily many other sensing matrices. The measurements still correspond to the same underlying matrix, but the added sensing directions can create bad local optima for existing non-convex objectives.",
+      "The authors develop a descent-style algorithm with a guarantee of recovering the underlying matrix in this model. A tempting strategy would globally reweight the sensing matrices to enforce the desired geometric property, but checking that property is NP-hard. The proposed algorithm instead adapts its weights to the current solution at each iteration and takes a weighted gradient step that is guaranteed to work well locally.",
+      "The analysis builds on a framework for semi-random sparse regression and exploits the relationship between sparse vectors and low-rank matrices. The result provides a recovery method despite the problematic optimization landscape caused by adversarial additions. The authors also identify this sparsity–low-rank connection as a possible route toward other robust algorithms."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "db779ecdabb01d32816cdc1538b73d2a0d8debd2d03d286d4cb17d010a8f4374",
+    "tldr": "An adaptively reweighted descent algorithm provably recovers low-rank matrices when adversarial sensing matrices accompany an unknown RIP-satisfying subset."
+  },
+  "neurips-2023-sampling-weights-of-deep-neural-networks-cc967c8b54": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper constructs fully connected neural networks by sampling weights and biases from a distribution informed by both training inputs and outputs. The method builds on random-feature models but replaces data-agnostic sampling with a supervised distribution. It avoids iterative optimization and gradient computation for internal network parameters when obtaining a trained network.",
+      "The authors prove that the sampled networks are universal approximators. For shallow networks approximating Barron functions, they establish an L2 error rate that decreases inversely with the square root of the neuron count. The sampling scheme is also invariant to rigid transformations and scaling of the inputs, making many common preprocessing operations unnecessary for this construction.",
+      "Numerical experiments report accuracy comparable to iteratively trained networks while constructing networks orders of magnitude faster. The examples include an OpenML classification benchmark, neural operators for mappings between function spaces, and transfer learning with established architectures. These results combine theoretical approximation properties with empirical evidence for faster construction. The stated speed and accuracy comparisons concern the tested cases, while the approximation rate specifically applies to shallow networks and Barron functions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a69a2df0302c9a23d8da56d11a28cf07fa868ce49d5c67141b123f4674605b9b",
+    "tldr": "Data-dependent sampling constructs neural networks without iterative internal-parameter training, with approximation guarantees and large empirical construction-speed gains."
+  },
+  "neurips-2023-seenn-towards-temporal-spiking-early-exit-neural-networks-ba0c747a79": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Spiking neural networks process information through binary spikes over time. The number of timesteps affects how much information they can represent, creating a tradeoff between prediction accuracy and computation. This paper asks whether every input needs the same amount of temporal processing, or whether some predictions can finish earlier without spending redundant timesteps.",
+      "Spiking Early-Exit Neural Networks, or SEENNs, make the timestep count depend on the input. SEENN-I uses confidence thresholds to distinguish predictions that can exit from those that remain uncertain. SEENN-II uses reinforcement learning to determine how many timesteps to allocate. The framework is compatible with directly trained spiking networks and with networks produced by converting conventional artificial neural networks.",
+      "The authors report substantial reductions in average inference timesteps through this adaptive allocation. In one example, SEENN-II with ResNet-19 achieves 96.1% accuracy on the CIFAR-10 test set with an average of 1.08 timesteps. The result illustrates the benefit of varying temporal computation across samples: the model can devote additional processing where needed while reducing the average processing budget across the evaluated inputs."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d5f0ea59b924b30a3ccd8e8256d7bbc18bdd346a981012a0fd1765179b738a16",
+    "tldr": "SEENN adapts each input’s spiking-network timestep budget using confidence or reinforcement learning to reduce average inference computation."
+  },
+  "neurips-2023-temperature-balancing-layer-wise-weight-analysis-and-neural-network-training-d3f7b2820c": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Learning rates strongly influence neural-network training, and many schedules adjust them as training proceeds. This paper views the learning rate as a temperature-like quantity and asks how that temperature should be balanced across layers. Its proposed method, TempBalance, uses layer-wise weight analysis to guide learning-rate choices during training.",
+      "The method is motivated by Heavy-Tailed Self-Regularization theory, which characterizes implicit regularization in different layers of trained networks. TempBalance uses metrics derived from that theory to schedule and balance learning rates across the network. The underlying idea is to make layer-level differences relevant to optimization, using measured properties of the layers to guide how strongly their weights are updated.",
+      "The authors evaluate the method on CIFAR10, CIFAR100, SVHN, and TinyImageNet with ResNets, VGGs, and WideResNets of varying sizes. They report improved test performance over ordinary SGD, carefully tuned spectral-norm regularization, and several leading optimizers and learning-rate schedulers. These results support the practical value of using weight-derived layer statistics to guide training, connecting a theory of implicit regularization to an actionable learning-rate method."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a3f29d29b499e64f154ab28e61a8b59fadd13875f2b7e217f80f986e9e0b42f0",
+    "tldr": "TempBalance uses metrics motivated by heavy-tailed self-regularization to adjust layer-wise learning rates and improve test performance."
+  },
+  "neurips-2023-test-time-amendment-with-a-coarse-classifier-for-fine-grained-classification-ab9d689f3d": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Fine-grained classification can make errors that differ substantially in severity: a prediction can be wrong while remaining close to the correct category, or it can miss the broader category too. This paper aims to reduce that severity. Its motivation is that coarse classification requires less specialized knowledge than distinguishing closely related fine-grained classes.",
+      "Hierarchical Ensembles, or HiE, uses coarse predictions to correct a trained fine-grained classifier at test time. It relies on the label hierarchy and requires only the parents of the leaf classes. Because the correction is post hoc, it can be applied to an existing trained model, using broader category information to amend its detailed predictions.",
+      "On iNaturalist-19 and tieredImageNet-H, the authors report reduced average mistake severity alongside improved top-1 accuracy, reaching state-of-the-art results on both benchmarks. They also examine semi-supervised settings and find gains as fine-grained training data decreases. The findings suggest that readily available coarse distinctions can help both the correctness of predictions and the consequences of remaining errors, particularly when detailed labels are scarce."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "cba3d0a4033e9e9ab35fd98fca7192b5caad396740d5485ae22b521da21480c2",
+    "tldr": "HiE uses coarse category predictions to amend fine-grained classifiers at test time, improving accuracy and reducing mistake severity."
+  },
+  "neurips-2023-textually-pretrained-speech-language-models-f034cb41b6": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Speech language models process and generate acoustic data without textual supervision. This paper asks whether they can benefit from initialization with a model already pretrained on text. TWIST uses that warm start to train a speech language model, transferring the starting parameters from a textual language model into the speech-learning process.",
+      "The authors compare TWIST with a speech model trained from a cold start and report improvements across both automatic and human evaluations. They also study design choices including the speech tokenizer, the textual model used for initialization, and the amount of training data. Their experiments identify both model scale and dataset scale as important factors in better speech-model performance.",
+      "Based on these observations, the authors present what they describe, to the best of their knowledge, as the largest speech language model in parameters and training data. They also introduce two spoken adaptations of StoryCloze to expand evaluation. Together, the results support textual pretraining as a useful starting point for acoustic language modeling and provide evaluation resources for further work on the task."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "309b286ebaa8254b2d5fff085ad890f0cc6de133bcfb3a1bbc2af0a1755fd2bf",
+    "tldr": "TWIST initializes speech language models from pretrained text models, improving over cold starts in automatic and human evaluations."
+  },
+  "neurips-2023-wasserstein-quantum-monte-carlo-a-novel-approach-for-solving-the-quantum-many-body-schro-7a5662f7b1": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Quantum Variational Monte Carlo seeks a system’s ground state by minimizing energy within a parameterized family of wave functions. Neural networks can make that family more expressive, but the energy objective remains difficult to optimize. This paper changes the geometric perspective on optimization by working with the Born probability distributions associated with wave functions that obey particle-permutation symmetry or antisymmetry.",
+      "The authors interpret conventional variational Monte Carlo as a Fisher–Rao gradient flow in this distribution space, followed by projection back onto the permitted variational family. This interpretation provides a framework for deriving algorithms by changing the metric that defines the flow. Their proposed Wasserstein Quantum Monte Carlo uses Wasserstein geometry, describing its probability updates as transporting mass rather than relocating it without transport.",
+      "The resulting method changes how optimization moves through probability distributions while retaining projection onto the variational family. Experiments on molecular systems show faster convergence to the ground state. The contribution is therefore both a geometric reinterpretation of the existing method and an algorithm derived from an alternative metric, with the convergence advantage demonstrated empirically."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3744555a4d27fb514eeb48096c3f5958be8371ed3edf9350c26df124f48b2dd7",
+    "tldr": "Wasserstein Quantum Monte Carlo optimizes Born distributions through probability transport and empirically converges faster on molecular ground-state problems."
+  }
+}

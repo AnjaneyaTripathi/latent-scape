@@ -1,0 +1,327 @@
+{
+  "neurips-2025-accelerating-model-free-optimization-via-averaging-of-cost-samples-028af0da75": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Model-free optimization searches for a better solution by evaluating costs at nearby perturbed candidates. The paper examines a common inefficiency in this process: methods often use only the measurements collected in the current iteration, discarding earlier measurements that may still contain useful information. Its proposed improvement is to give the optimizer a small, continually updated memory.",
+      "That memory takes the form of an auxiliary vector storing updated cost information. The algorithm combines the available perturbation directions, weighting them using the vector’s components, to estimate a direction of improvement. This makes historical information part of the next update without increasing the number of function evaluations. The contribution is therefore a change in how measurements are used, rather than a demand for additional measurements.",
+      "The authors analyze the algorithm as a dynamical system whose behavior changes over time. For strongly convex problems, their analysis guarantees linear convergence to an arbitrarily small neighborhood of the optimum, rather than exact convergence to the optimum itself. Regression simulations show substantially faster convergence than existing model-free methods in the tested settings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "737b218ace3b56ca3c108995605a55339dd7d1d64acc80ff234aad6cb5c7e072",
+    "tldr": "Reusing past cost measurements accelerates model-free optimization without additional function queries, with convergence guarantees for strongly convex problems."
+  },
+  "neurips-2025-adaptive-discretization-for-consistency-models-aff2369db6": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Consistency models aim to generate samples in a single step, but their training still depends on choices about how to divide the noise process into discrete steps. Those choices are often designed manually and adjusted for different datasets or noise schedules. This paper makes the discretization step an optimization variable so that training can adapt it automatically.",
+      "The method balances two requirements. Local consistency serves as the optimization objective, helping keep the model trainable by avoiding excessive discretization. Global consistency acts as a constraint that controls denoising error in the training target and supports stability. A Lagrange multiplier connects these competing requirements, and a Gauss–Newton method performs the adaptive optimization. The resulting approach is called ADCMs.",
+      "Experiments on CIFAR-10 and ImageNet report improved training efficiency and better generative performance with little additional training overhead. The authors also report adaptability to more advanced diffusion-model variants. These findings suggest that choosing the training discretization automatically can improve both the learning process and its generated outputs, while reducing dependence on manually selected discretization schemes."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1a637897367e803cabf93a370d452956c0de96d1d62a82fbf1cbecd3ba7ab8c5",
+    "tldr": "ADCMs automatically optimize consistency-model discretization by balancing trainability and stability, improving training efficiency and generation in reported experiments."
+  },
+  "neurips-2025-adastar-adaptive-data-sampling-for-training-self-taught-reasoners-e9ec9841bb": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Self-taught reasoning methods improve language models through a training process that uses the models’ own generated reasoning. A common choice is to sample training problems randomly. The paper identifies an imbalance this can create: the model spends too much training effort on problems it already solves while receiving too little effective training on harder problems.",
+      "AdaSTaR changes how problems are selected using two adaptive principles. The first promotes diversity by balancing training across examples. The second provides a curriculum that adjusts problem difficulty to the model’s current ability. Together, these principles make the sampling process respond to learning progress, addressing both which examples receive attention and whether their difficulty is appropriate for the model.",
+      "Across six benchmarks, AdaSTaR achieves the best test accuracy among the compared methods in every case and reduces training computation by an average of 58.6%. The authors also report benefits across different pretrained language models and larger models. The results support adaptive data selection as a way to improve reasoning accuracy while spending substantially less computation in the evaluated self-improvement pipelines."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e8a053e3f9aaa31991e9544fb7aa0ac567cc794cca821d2afd1a8ef12bb9e95c",
+    "tldr": "AdaSTaR adapts training-example diversity and difficulty, achieving the best accuracy across six benchmarks while reducing training FLOPs by 58.6% on average."
+  },
+  "neurips-2025-aide-q-synthetic-labeled-datasets-can-enhance-learning-models-for-quantum-property-estim-e03c694723": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Learning the ground-state properties of quantum systems is difficult, and deep-learning approaches often assume abundant, noiseless labeled data. The paper challenges the practicality of that assumption, particularly when access to quantum hardware is limited. AiDE-Q addresses the data problem by repeatedly generating synthetic examples with labels that can help train property-estimation models.",
+      "The framework includes a confidence check that assesses the quality of synthetic labels. Examples identified as high quality are then used to improve the learning model, and the process continues iteratively. This makes label selection an explicit part of synthetic-data generation: the framework seeks useful training evidence rather than treating every generated label as equally reliable.",
+      "Numerical simulations cover quantum many-body and molecular systems containing up to 50 qubits. AiDE-Q improves prediction performance for several reference models, with gains reaching 14.2% in the reported evaluations. A basic supervised model combined with AiDE-Q also outperforms more advanced reference models. That result highlights how improving the training dataset can matter alongside improving model architecture, within the systems studied."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0d8b31fc7515bb728b42a37f7f42f35c65ef8c181ecd1802c7eb3f23e371edef",
+    "tldr": "AiDE-Q improves quantum-property prediction by iteratively generating synthetic labeled data and retaining examples that pass a confidence check."
+  },
+  "neurips-2025-approximate-gradient-coding-for-distributed-learning-with-heterogeneous-stragglers-35bcd97520": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Distributed learning can be slowed by workers that return their computations late. Gradient coding addresses this straggler problem by organizing computations so that useful gradient information remains available when some workers fail to respond promptly. This paper focuses on heterogeneous systems, where different workers have different probabilities of becoming stragglers.",
+      "The authors formulate an optimization problem that accounts for each worker’s straggler probability. It minimizes residual estimation error while requiring the gradient estimate to remain unbiased, meaning that its average does not systematically depart from the target gradient. Using Lagrangian duality and convex optimization, they derive closed-form encoding and decoding coefficients. They also develop data-allocation strategies intended to reduce redundant work and computational load.",
+      "The convergence analysis applies to loss functions that are strongly convex and smooth. Numerical evaluations show reduced disruption from stragglers and faster convergence than existing methods in the tested settings. The central contribution is to make coding and allocation reflect unequal worker reliability, instead of relying on a uniform straggler model or excessive replication of training data."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4e4b193d768fc8a73c5117ca0e48dd5ba1f8786f5cd0ece596009229cc65d594",
+    "tldr": "A gradient-coding scheme accounts for unequal worker straggler probabilities to reduce estimation error and accelerate distributed learning."
+  },
+  "neurips-2025-bootstrap-your-uncertainty-adaptive-robust-classification-driven-by-optimal-transport-a87d12c35e": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Distributionally robust optimization trains a model against the worst case within a collection of possible data distributions. Its usefulness depends heavily on how that collection, called the uncertainty set, is chosen. This paper addresses the problem of uncertainty sets that are too inflexible or poorly matched to the distribution shifts a classifier may encounter.",
+      "The authors reinterpret entropy-regularized Wasserstein robust optimization as a process that combines distributional exploration with semantic alignment. Both are driven by optimal transport, which determines how distributions are related through transport costs. Semantic calibration uses inverse optimal transport to develop costs that reflect meaningful relationships. Adaptive refinement then uses transport-based feedback to adjust the uncertainty set. These two components allow the costs and candidate distributions to evolve together during training.",
+      "The paper analyzes this adaptive process and establishes a convergence guarantee. Experiments across several distribution-shift scenarios report stronger robustness than existing methods, including state-of-the-art results in those evaluations. The findings support jointly learning what constitutes a meaningful shift and which shifts training should defend against."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "987f26bc84f66d81cedc89f2d6a933ba81a770384eba56711726c42c64feb13a",
+    "tldr": "This method jointly adapts transport costs and uncertainty sets during robust training, improving classification robustness in reported distribution-shift experiments."
+  },
+  "neurips-2025-double-descent-meets-out-of-distribution-detection-theoretical-insights-and-empirical-an-046b63ae5f": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Out-of-distribution detection asks whether an input falls outside the kind of data a model is expected to handle. This paper studies post-hoc detection, which uses an already trained model without changing its training objective or procedure. The authors investigate whether increasing model capacity changes detection performance in the same nonmonotonic way observed in double descent.",
+      "Double descent describes a pattern in which increasing model complexity can improve performance, then worsen it, and then improve it again. The authors empirically observe this phenomenon in post-hoc out-of-distribution detection and provide theoretical insights into why it can arise. This connects a question about model size with a separate question about recognizing unfamiliar inputs.",
+      "The findings also qualify the appeal of simply using a larger model: the overparameterized regime does not consistently deliver the best detection results. Based on their observations, the authors propose a method for identifying the most suitable regime. The practical implication is that capacity should be assessed for detection itself, rather than assuming that benefits associated with overparameterization automatically carry over."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "bad7359a325fb02943b7c5c822a5027a90f89d25b2e0cd2df2225d5cf973b585",
+    "tldr": "Post-hoc out-of-distribution detection exhibits double descent, but overparameterized models do not consistently provide the best detection performance."
+  },
+  "neurips-2025-escort-efficient-stein-variational-and-sliced-consistency-optimized-temporal-belief-repr-7b5ead3d35": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "In partially observable decision problems, an agent maintains a belief distribution over states it cannot directly observe. That distribution summarizes what its actions and observations imply about the environment. When several different states remain plausible, especially across many interacting dimensions, a simple belief approximation can lose information and lead to poorer decisions.",
+      "ESCORT represents beliefs using particles and extends Stein variational gradient descent. Its correlation-aware projections capture dependencies between state dimensions, while temporal consistency constraints stabilize belief updates and preserve those dependencies. The method retains particle interactions that combine attraction and repulsion, supporting representations of distributions with several distinct modes. It adapts to belief complexity without resampling or imposing a restrictive distributional form.",
+      "Evaluations include partially observable decision-making domains and synthetic distributions with multiple modes and varying numbers of dimensions. ESCORT consistently improves both belief-approximation accuracy and downstream decision quality relative to the state-of-the-art methods evaluated. The connection between these two outcomes matters: representing uncertainty more faithfully is useful because the agent can use that representation to choose better actions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9bf24d0b67242ba0aca86469eb88f1209eea4d8d570c03fd4e7d6e49c4f69fe8",
+    "tldr": "ESCORT improves particle-based belief tracking by preserving correlations and temporal consistency, leading to better uncertainty estimates and decisions in evaluated POMDPs."
+  },
+  "neurips-2025-generating-informative-samples-for-risk-averse-fine-tuning-of-downstream-tasks-d88a344236": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Risk-averse training focuses attention on particularly costly failures rather than only average performance. Conditional Value-at-Risk, or CVaR, measures expected loss in the high-loss tail of a distribution. Optimizing it is difficult because the most relevant events can be rare, leaving ordinary samples with too little information to estimate the tail accurately.",
+      "The paper proposes generating more informative training examples using a guided diffusion model. The generator samples from a reweighted distribution that emphasizes inputs likely to produce high loss for a pretrained reference model. A loss-weighted importance-sampling scheme then incorporates these examples into optimization. The generation and weighting steps work together to reduce noise in the training updates.",
+      "The authors establish convergence guarantees and show that the generated dataset’s emphasis on high-loss inputs contributes substantially to noise reduction. Experiments cover several settings, including a real-world wireless channel compression task, and report significant improvements over standard risk-minimization strategies. The approach makes rare, consequential errors more available to the optimizer, helping it learn from the portion of the loss distribution that CVaR specifically targets."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ec99255c791a83c09856e71faf1a01c360931c1235e737e2ee4a2a12780d7917",
+    "tldr": "Guided diffusion generates high-loss examples that, combined with importance weighting, make risk-averse fine-tuning less noisy and more effective."
+  },
+  "neurips-2025-global-minimizers-of-ell-p-regularized-objectives-yield-the-sparsest-relu-neural-network-628185e3be": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Many different overparameterized networks can fit the same training data exactly. This paper asks how to select the sparsest such network, measured through nonzero parameters or neurons. Instead of first fitting a large network and pruning it afterward, the authors study a training objective designed to make sparsity part of the optimization problem itself.",
+      "Their formulation uses weight penalties based on ℓᵖ quasinorms with p strictly between zero and one. These penalties promote sparsity, but transferring that idea to neural networks requires handling an infinite-dimensional function class and a highly nonconvex objective. The authors prove that, under their formulation, global minimizers correspond exactly to the sparsest interpolating single-hidden-layer ReLU networks.",
+      "The result connects a discrete selection problem with a continuous objective that is differentiable almost everywhere. This potentially opens the problem to gradient-based training methods. Crucially, the guarantee concerns global minima; it does not state that ordinary training will necessarily find them. The contribution is a theoretical characterization of which solutions the objective selects when globally minimized."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "bf5cf02d55c9287a832ce4a833a24be474351d77b5796790d56bf19cbbc129a9",
+    "tldr": "The paper proves that global minima of its ℓᵖ-based objective recover the sparsest interpolating single-hidden-layer ReLU networks."
+  },
+  "neurips-2025-incentive-aware-dynamic-resource-allocation-under-long-term-cost-constraints-d36ae5d7c9": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Allocating a reusable resource over many rounds becomes difficult when recipients can strategically report their needs or values. The paper studies mechanisms that must simultaneously promote social welfare, respect several long-term cost constraints, and encourage truthful reporting. Motivating settings include allocating cloud GPUs and deploying mobile health units among competing regions.",
+      "Numerical evaluations reveal that conventional primal-dual methods can be manipulated: an agent’s report can distort future constraint-related updates and produce a later advantage. The proposed framework combines updates organized into epochs, dual-adjusted pricing, and randomized exploration. These components discourage manipulation and obtain approximately truthful information for learning. A new online-learning procedure also resolves a circular dependence between actions and predictions in the dual updates.",
+      "The resulting mechanism achieves social-welfare regret of order √T up to logarithmic factors, where T is the number of allocation rounds. It also satisfies the cost constraints and ensures incentive alignment. Its regret rate matches that of non-strategic allocation methods, showing that the framework can accommodate strategic reporting while retaining that rate of performance."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "55f8d354af79c9cd9bdc64d4d3cdc2c0b5f7190318691847c4251bf4c8a2fec9",
+    "tldr": "An incentive-aware allocation framework handles strategic reports while satisfying long-term costs and matching non-strategic methods’ regret rate."
+  },
+  "neurips-2025-inductive-domain-transfer-in-misspecified-simulation-based-inference-071db03700": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Simulation-based inference estimates hidden physical parameters from observations, but simplified simulators can produce data that differ from reality. The paper addresses this mismatch while removing a deployment constraint of RoPE, an earlier approach that requires a batch of test observations during inference. The proposed framework learns a reusable inference model that can handle new observations inductively.",
+      "Training combines calibration and distribution alignment within one end-to-end model. Mini-batch optimal transport, using a closed-form coupling, aligns simulated and real observations associated with the same latent parameters. Both paired calibration examples and unpaired samples contribute to this process. A conditional normalizing flow then learns to approximate the posterior distribution induced by that alignment.",
+      "Once trained, the model performs inference without accessing the simulator at test time. Across synthetic and real-world benchmarks, including medical biomarker estimation, it matches or exceeds RoPE’s performance. The significance is both statistical and operational: the method addresses simulator mismatch while moving the alignment work into training, improving scalability and making inference applicable beyond a jointly processed test batch."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4d86c7fb0ccd5e0ad3c8c9f0231b92e8fe5d2339dfd280873f933fff1298f5fe",
+    "tldr": "An end-to-end simulation-based inference framework learns to bridge simulator mismatch and infer new cases without simulator access at test time."
+  },
+  "neurips-2025-learning-pattern-specific-experts-for-time-series-forecasting-under-patch-level-distribu-1a2ee89020": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Different segments of a time series can follow different patterns as seasons, regimes, or contexts change. A forecasting model trained to use one predictive function across all segments may struggle with those local shifts. TFPS addresses this problem by learning specialized experts for distinct patterns within the historical data.",
+      "The architecture first encodes each segment using information from both the time domain and the frequency domain. These views capture temporal behavior in complementary ways. It then uses subspace clustering to identify distinct patterns dynamically across segments. Specialized experts model those patterns, allowing the overall system to learn multiple predictive functions rather than requiring one model behavior to fit every segment.",
+      "Experiments on real-world datasets report better forecasting performance than state-of-the-art methods, with particular gains on datasets containing substantial distribution shifts. The findings support treating changes between local patches as a central modeling problem. TFPS links representation, pattern discovery, and specialization so that the forecast can reflect the kind of behavior present in a segment, rather than averaging all temporal behaviors together."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "dae3e2efd7620add93f35178d8143d2c5560b48e4876311c624d97a437ef0dc4",
+    "tldr": "TFPS discovers changing patterns within time-series segments and assigns specialized experts, improving forecasts especially under substantial distribution shifts."
+  },
+  "neurips-2025-light-weight-diffusion-multiplier-and-uncertainty-quantification-for-fourier-neural-oper-5b0f1db98a": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Fourier Neural Operators learn mappings used to solve partial differential equations, but their dense parameterization can be costly and does not naturally provide uncertainty estimates. DINOZAUR addresses both issues by changing a central component of the operator. Its design draws on the heat kernel, connecting the learned computation to a diffusion process.",
+      "The method replaces the dense tensor multiplier with a diffusion multiplier that uses one learnable time parameter per channel and is independent of dimensionality. This sharply reduces the parameter count and memory footprint. The authors then place probability distributions over those time parameters, creating a Bayesian neural operator that produces spatially correlated outputs and uncertainty estimates tied to its parameterization.",
+      "Across several partial-differential-equation benchmarks, DINOZAUR achieves competitive or better predictive performance while providing efficient, calibrated uncertainty estimates. The stated results indicate that the simpler multiplier can reduce resource requirements without sacrificing prediction quality in those evaluations. Its broader contribution is to connect compact operator design with uncertainty quantification, allowing both to arise from the same diffusion-based construction."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "eb66c3a3ee073fac12977162a8a701d367d996b8c86241a8843c3ad6b06569bd",
+    "tldr": "DINOZAUR replaces dense Fourier-operator multipliers with compact diffusion parameters that reduce memory use and support calibrated Bayesian uncertainty estimates."
+  },
+  "neurips-2025-military-ai-needs-technically-informed-regulation-to-safeguard-ai-research-and-its-appli-e4219e4f56": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper argues that regulating military AI requires attention to how AI systems actually behave. It focuses on lethal autonomous weapons that use AI for targeting or battlefield decisions, naming this subset AI-LAWS. The authors distinguish these systems from the broader category of autonomous weapons because they argue that modern AI introduces distinctive risks.",
+      "Those risks include unexpected escalation, unreliable behavior in unfamiliar environments, and weakened human oversight. The paper connects them to both military effectiveness and the openness of AI research. Its central policy argument is that high-level principles alone cannot adequately address behavior that depends on technical properties of the underlying models.",
+      "The authors propose a behavior-based definition of AI-LAWS as a foundation for technically informed regulation. They argue that existing frameworks do not sufficiently distinguish this subset from conventional autonomous weapons. Building on their definition, they propose policy directions and call for AI researchers to participate throughout the regulatory lifecycle. The contribution is a conceptual and policy framework for making technical expertise part of how these systems are defined and governed."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5a54c6e5e5fd7e5e5bcc219b30dd60eb62f06d8a9bff148c4dc1148189580ebd",
+    "tldr": "The paper advocates a behavior-based definition of AI-powered autonomous weapons and sustained AI-researcher involvement in technically informed regulation."
+  },
+  "neurips-2025-multi-objective-one-shot-pruning-for-large-language-models-058238f7a6": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Pruning removes parts of a language model to reduce its resource requirements. One-shot approaches aim to do this without expensive retraining, but they commonly optimize a single objective. This paper starts from the observation that language models serve multiple purposes, so a pruning decision that favors one capability may create an undesirable trade-off for another.",
+      "Multi-Objective One-Shot Pruning, or MOSP, formulates compression as a problem with several objectives. It generates a Pareto set of pruned models representing different capability trade-offs, giving users alternatives aligned with their preferences. The approach identifies shared core support while also allowing specialized support, so the resulting choices can reflect both common and capability-specific requirements.",
+      "Experiments across multiple language models and sparsity levels show better handling of multi-objective trade-offs than the compared baselines. The contribution is therefore a way to produce useful compression options, rather than treating one pruned model as the preferred answer for every application. Users can select among models according to the combination of capabilities they want to preserve."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "30625904005f00d47fe6885a476323a4188a2a1930e4b1742ffecc9aebf16617",
+    "tldr": "MOSP produces a Pareto set of pruned language models so users can choose compression outcomes that match their capability preferences."
+  },
+  "neurips-2025-protocols-for-verifying-smooth-strategies-in-bandits-and-games-4d91afad69": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "When a decision problem has many possible actions, checking the quality of a proposed strategy can itself be expensive. This paper asks whether approximate optimality can be verified using fewer utility queries than the number of available actions. It studies both multi-armed bandits and normal-form games, with a focus on strategies that spread probability across actions.",
+      "The key condition is sufficient smoothness: a strategy must not concentrate too much probability on any single action. Under this condition, the authors construct protocols that verify whether a bandit policy is close to optimal with sublinear query complexity. They also prove that verification requires fewer arm queries than learning in their settings and use cryptographic tools to reduce communication costs.",
+      "A nearly tight lower bound characterizes how far query costs can be reduced. The authors then apply their bandit protocol to verify approximate optimality of a strong smooth Nash equilibrium, again using sublinear queries. The result establishes an efficiency advantage for checking proposed strategies, with the smoothness requirement remaining central to the guarantee."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7080c758adbcf9dcc217b85d4b1fd9e075137d6103a0fcef0ba684139efcac99",
+    "tldr": "Sufficiently smooth strategies can be verified as approximately optimal using sublinear utility queries, with provable savings over learning in the studied settings."
+  },
+  "neurips-2025-recursive-transformer-boosting-reasoning-ability-with-state-stack-29f262772a": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Nested and hierarchical patterns call for structured ways to store intermediate states and return to them. The paper motivates its architecture through difficulties standard Transformers have with these patterns and their lack of an explicit recursion mechanism. StackTrans adds a differentiable stack inspired by pushdown automata, which use stacks to process deterministic context-free grammars.",
+      "The stack sits between Transformer layers and stores hidden states. Operations such as pushing and popping states are differentiable, allowing the model to learn how to use them through end-to-end training. Because the design introduces state stacks without modifying attention computation, it remains compatible with existing frameworks such as flash-attention.",
+      "Evaluations cover formal-language benchmarks across the Chomsky hierarchy and large-scale natural-language tasks. StackTrans consistently outperforms standard Transformers and other evaluated baselines, and the authors scale it from 360 million to 7 billion parameters. Their model pretrained from scratch at 360 million parameters also outperforms several open-source models two to three times larger. These results support explicit stack-based state handling as a useful architectural addition for the tested reasoning tasks."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b2d0176d1c1ebb2078ffb17e88906ab997fd7b9d9089027fdce39670902cd3dd",
+    "tldr": "StackTrans adds learnable hidden-state stacks between Transformer layers, improving performance on evaluated formal-language and natural-language tasks."
+  },
+  "neurips-2025-simple-distillation-for-one-step-diffusion-models-f2c06e32a3": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Diffusion models generate images through repeated denoising, which makes sampling slow for interactive applications. Distillation seeks to transfer a multistep model’s behavior into a generator that produces an output in one step. This paper introduces Contrastive Energy Distillation, or CED, to make that transfer simpler while retaining competitive generation performance.",
+      "CED builds an unnormalized joint energy-based model representing the generator and an auxiliary score model. It trains using a noise-contrastive estimation objective to transfer knowledge from the multistep teacher. The proposed formulation avoids additional modules or complex iterative training procedures. The authors also show that the objective implicitly optimizes the KL divergence between the teacher’s distribution and the one-step generator’s distribution.",
+      "That theoretical connection explains how the training objective relates to matching the teacher’s outputs at the distribution level. Experiments report performance competitive with representative distillation baselines alongside excellent memory efficiency. The findings position CED as a relatively simple route to one-step generation, with the reported advantage centered on training formulation and memory use as well as output quality."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "aab29ab628d1f46fe6bb164d9bde318cffff5cb3100df6bc61773ced272f4b52",
+    "tldr": "CED uses a contrastive energy-based objective to distill diffusion models into one-step generators with competitive performance and strong memory efficiency."
+  },
+  "neurips-2025-smoothed-agnostic-learning-of-halfspaces-over-the-hypercube-f0100275fc": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Learning Boolean halfspaces means learning threshold-based classifiers on inputs made of bits. In the agnostic setting, this is computationally difficult even when the goal is only weak learning. The paper investigates whether smoothing the problem can make it tractable, while preserving the discrete nature of the inputs rather than perturbing them with additive Gaussian noise.",
+      "The authors define a smoothing framework based on random bit flips. This creates a discrete counterpart to smoothed optimality and allows them to analyze learning directly on the Boolean hypercube. Under strictly subexponential assumptions on the input distribution, they give an algorithm whose runtime and sample complexity are approximately n raised to a polynomial in 1/(σε), with logarithmic factors suppressed.",
+      "Earlier algorithms for this discrete setting required strong structure such as independent coordinates or symmetric distributions. The new result provides an efficient guarantee under the paper’s different distributional assumptions and smoothing model. It therefore establishes a conditional route around worst-case hardness, rather than removing that hardness for unrestricted Boolean learning problems."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ad82af5870a08eb35a7c967dfcfe19a14a8c1f9fac143b091784bb673af62b1f",
+    "tldr": "Random-bit-flip smoothing enables provably efficient agnostic learning of Boolean halfspaces under strictly subexponential input-distribution assumptions."
+  },
+  "neurips-2025-sparsedit-token-sparsification-for-efficient-diffusion-transformer-5f12d2308c": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Diffusion Transformers are expensive because attention processes many token interactions and generation repeats computation across denoising steps. SparseDiT reduces this cost by varying token density both across network layers and across the generation process. The idea is to allocate computation according to the features and detail needed at each stage.",
+      "Its lower layers use Poolingformer for efficient global-feature extraction. Middle layers use Sparse-Dense Token Modules to balance global context with local detail, while upper layers retain dense tokens to refine high-frequency features. Across denoising stages, token counts increase as finer detail emerges. These spatial and temporal choices jointly adapt how much information the model processes.",
+      "For DiT-XL on 512-by-512 ImageNet generation, the authors report 55% fewer FLOPs and a 175% improvement in inference speed with a similar FID score. They also report 56% fewer FLOPs across video datasets and a 69% speed improvement for PixArt-α text-to-image generation, accompanied by a 0.24 decrease in FID. The framework is compatible with sampling optimizations, so its architectural savings can complement improvements to the sampling process."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5dde1a89bd0da109b5ec2c875adae5827c486734c01238ed1bf58297942e4acd",
+    "tldr": "SparseDiT varies token density across layers and denoising stages to cut diffusion-transformer computation while preserving generation quality in reported evaluations."
+  },
+  "neurips-2025-tokensqueeze-performance-preserving-compression-for-reasoning-llms-5500c8d117": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Reasoning language models can improve accuracy by generating long reasoning traces, but those traces increase token use, latency, and memory consumption. TokenSqueeze aims to shorten them without losing useful reasoning. It relies entirely on data generated by the model itself, avoiding dependence on manually curated datasets of short answers.",
+      "The method separates reasoning depth from linguistic expression. First, it selects generated examples whose reasoning depth is adaptively matched to problem complexity, addressing the risk of compressing difficult reasoning too aggressively. It then applies distribution-aligned linguistic refinement to make the wording clearer and more concise while preserving the underlying reasoning path. This allows compression to target expression as well as the amount of reasoning retained.",
+      "Experiments report lower token usage while maintaining accuracy. In one stated result, fine-tuning DeepSeek-R1-Distill-Qwen-7B with TokenSqueeze reduces average token use by 50% on MATH500 while preserving accuracy. The finding demonstrates that substantial compression is possible in that evaluated setting when training examples retain appropriate reasoning depth and express the reasoning more efficiently."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b8bd4e0e8e1a325a5145cd64342b92b401acd0c4e5734a95087e3fbe9ede2fa4",
+    "tldr": "TokenSqueeze uses self-generated data to shorten reasoning while preserving accuracy, including a 50% average token reduction on MATH500 for the evaluated model."
+  },
+  "neurips-2025-towards-3d-objectness-learning-in-an-open-world-414dee9306": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Open-world 3D object detection aims to find objects even when their categories were absent from training. This paper focuses on generalized objectness: recognizing that something is an object without first requiring a known category name. Its proposed detector, OP3Det, is class-agnostic and does not depend on handcrafted text prompts.",
+      "OP3Det combines semantic information from 2D foundation models with geometric information from 3D data to produce class-agnostic object proposals. It then brings together point-cloud and RGB-image information through a cross-modal mixture of experts. Dynamic routing uses both single-modality and combined features to learn objectness from complementary sources. This addresses difficulties that arise when open-world detection depends on an expanding vocabulary with overlapping meanings.",
+      "The reported experiments show gains of up to 16.0% in average recall over existing open-world 3D detectors and a 13.5% improvement compared with closed-world detectors. These results support using semantic and geometric evidence together to broaden object discovery. The method’s goal is to find objects beyond the training categories, with the reported improvements reflecting the evaluated detection settings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4a2213cb9fd86896aa22c534e0a740391db8737d97fc003d7800a031f7edd47c",
+    "tldr": "OP3Det combines 2D semantics, 3D geometry, and cross-modal experts to improve prompt-free detection of objects beyond known training categories."
+  },
+  "neurips-2025-unigte-unified-graphtext-encoding-for-zero-shot-generalization-across-graph-tasks-and-do-2ebfe9fa7e": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Graph models often specialize in a fixed set of labels, while language models can struggle to represent graph structure. UniGTE combines structural and language-based reasoning to address graph tasks without task-specific supervision at inference. Its encoder processes a tokenized graph together with a natural-language instruction describing the task.",
+      "The encoder augments a pretrained autoregressive language model with learnable alignment tokens and structure-aware graph–text attention. It produces compact, task-aware representations that remain invariant to node ordering. A frozen language-model decoder uses only those representations to answer the task and paraphrase the graph. Reconstructing the graph in language encourages the encoder to retain structural information alongside information needed for the immediate answer.",
+      "UniGTE is instruction-tuned on five datasets covering node-, edge-, and graph-level tasks, with no fine-tuning required at inference. The authors report state-of-the-art zero-shot results for node classification, link prediction, graph classification, and graph regression across tasks and domains. These findings support combining explicit structural handling with language semantics to make graph representations transferable across different prediction problems."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e91f0969cbdd1684c126a686626b5f389696fc1c3f8b31173357dcf2a11dfa07",
+    "tldr": "UniGTE combines structure-aware graph–text encoding with a frozen language decoder to achieve strong zero-shot transfer across graph tasks and domains."
+  },
+  "neurips-2025-unlabeled-data-can-provably-enhance-in-context-learning-of-transformers-071c795d5c": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "In-context learning typically gives a model a few labeled examples inside its prompt. This paper asks whether related inputs without labels can also improve predictions. The proposed framework augments the prompt with a block of unlabeled examples alongside the small labeled set, making unlabeled data part of the information available during the task.",
+      "The theoretical analysis focuses on multiclass linear classification. With chain-of-thought prompting, the authors show that a multilayer Transformer can emulate an expectation–maximization algorithm. This allows it to extract useful information jointly from labeled and unlabeled inputs and obtain provable accuracy improvements. They also show that teacher-forcing training can bring the Transformer’s parameters toward the desired solution at a linear convergence rate.",
+      "Experiments consistently favor the augmented framework over conventional few-shot in-context learning, supporting the theoretical result empirically. The contribution is a constructive account of how a Transformer can use unlabeled prompt examples, rather than merely observing that extra inputs sometimes help. The stated guarantees are tied to the multiclass linear-classification setting and the analyzed Transformer procedure."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7a1ab5238455efdf614152753ec4580a26848684fdd4b12819d02840535af9dd",
+    "tldr": "Adding unlabeled inputs to prompts can provably improve Transformer in-context learning in the studied multiclass linear-classification setting."
+  }
+}

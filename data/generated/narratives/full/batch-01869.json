@@ -1,0 +1,343 @@
+{
+  "icml-2026-can-i-have-your-order-monte-carlo-tree-search-for-slot-filling-ordering-in-diffusion-lan-097918cd77": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Masked diffusion language models can generate a response by filling open positions in a planned sequence. For mathematical and coding tasks, the order of those choices can substantially affect the final answer. DiffuSearch treats choosing the next position as a planning problem, making generation order an explicit part of the decoding method.",
+      "The framework uses Monte Carlo Tree Search to explore possible filling orders. Look-ahead simulations evaluate partial completions before the system commits to a choice. This lets the search consider consequences beyond the model’s immediate preference, while exploring the many possible ways to complete a sequence.",
+      "Experiments report average improvements of 3.2% over autoregressive baselines and 8.0% over baseline plan-and-infill, with gains of 19.5% on MBPP and 4.9% on MATH500. The observed orders remain mostly sequential, but non-sequential choices matter for maximum performance. The analysis also finds that stronger exploration, rather than simply more simulations, is necessary to overcome model confidence biases in the studied settings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3bda93b3d39fade425d2b0520012d25353ec5d61830d3c1360dbef4a6bcd6ef7",
+    "tldr": "DiffuSearch uses tree search to choose filling orders that improve masked diffusion models’ mathematical and coding outputs."
+  },
+  "icml-2026-decomposing-query-key-feature-interactions-using-contrastive-covariances-e3fa43d235": {
+    "backgroundConcepts": [
+      "topic-086-a-capacity-based-rationale-for-multi-head-attent"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "An attention score tells us how strongly one token attends to another, but it does not by itself explain the features driving that relationship. This paper studies the joint space of queries and keys, where their interaction determines attention scores. The goal is to expose interpretable structure within that interaction.",
+      "The authors introduce a contrastive covariance method that separates this space into low-rank components. Each component captures a smaller set of interacting directions that can be examined more easily. When query and key features align within these subspaces, they produce high attention scores, connecting a numerical attention pattern to identifiable feature relationships.",
+      "The method is investigated both analytically and empirically in a simplified setting before being applied to large language models. Those applications identify interpretable subspaces associated with semantic categories and binding features. The authors also demonstrate how to attribute attention scores to the identified features. This provides a way to explain contributions to token selection, beyond merely displaying which tokens receive attention."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "29675be8a6dd768b6328d3fb7c5b68934c185a4648847067714764657dd04bde",
+    "tldr": "A contrastive covariance method decomposes query–key interactions into interpretable features that help explain attention scores."
+  },
+  "icml-2026-dustin-draft-augmented-sparse-verification-for-efficient-long-context-generation-with-sp-b7e80322e8": {
+    "backgroundConcepts": [
+      "topic-012-quest-query-aware-sparsity-for-efficient-long-co"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Speculative decoding proposes tokens with a draft model and checks them with a target model. For long contexts and multiple batches, loading the target model’s key-value cache can dominate verification time. Dustin addresses this bottleneck by identifying which cached tokens are important across a window of verification steps.",
+      "Its selection method combines forward-looking signals from the draft model with historical attention from the target model. The combination addresses shifting token importance, which can make a fixed eviction policy inaccurate. Dustin also estimates importance using only a small subset of attention heads, reducing the computational cost of deciding what to retain during verification.",
+      "Evaluations use Qwen2.5-72B on PG-19 and LongBench. At a sequence length of 32k, the authors report a 27.85× self-attention speedup and a 9.17× end-to-end decoding speedup, with negligible accuracy degradation. These results show the practical value of making verification sparse while keeping its selection overhead low in the evaluated long-context setting."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "06651c9258057d506f69278ea7b123f815499a44bc17db954f9ca8127725ae85",
+    "tldr": "Dustin combines draft-model signals and target-model attention to accelerate sparse verification in long-context speculative decoding."
+  },
+  "icml-2026-fafo-lossy-kv-cache-compression-for-lossless-inference-acceleration-via-draftless-fumble-0475a8e271": {
+    "backgroundConcepts": [
+      "topic-012-quest-query-aware-sparsity-for-efficient-long-co"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Compressing a language model’s key-value cache can reduce latency, but discarding information can also cause serious generation errors. FAFO separates the use of compressed information for proposing text from the process that verifies it. Its aim is to retain lossless generation quality while benefiting from faster computation with a compressed cache.",
+      "The model generates multiple short token-sequence guesses using the lossy cache. In the same forward pass, it performs lossless verification in parallel. This adapts the candidate-pool decoding idea into a draftless framework: compressed computation supplies candidates that must pass verification before contributing to the generated output.",
+      "The authors describe conceptual compatibility with typical static and dynamic token-dropping compression methods. They also report that FAFO needs only one cache set and is less sensitive to model, task, and input-length conditions than comparable draftless approaches. Across their experiments, latency speedups range from 1.20× to 2.71× over the original model, with consistent improvements over other lossless, draftless solutions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d667bbdaaf712c5974393dd8a4055ce031d3e383f80c83494bdbd478b96670f7",
+    "tldr": "FAFO uses compressed-cache token guesses with lossless verification to accelerate generation without sacrificing generation quality."
+  },
+  "icml-2026-geneb-why-genomic-models-are-hard-to-compare-92d8d55afa": {
+    "backgroundConcepts": [
+      "topic-249-be-cautious-bio-foundation-models-are-not-yet-ro"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Genomic foundation models are often evaluated using different tasks, protocols, and reporting conventions. That makes apparent improvements difficult to interpret: a stronger reported result may not reflect a directly comparable evaluation. GENEB addresses this problem with a shared diagnostic benchmark designed to reveal both overall differences and task-specific trade-offs.",
+      "The benchmark evaluates frozen representations from 40 models on 100 tasks covering 13 functional categories. A unified probing protocol, including few-shot settings, provides a consistent basis for comparisons. It supports analysis of model size, architecture, tokenization, and pretraining data while preserving the distinctions between different kinds of genomic tasks.",
+      "The analysis finds that rankings change sharply across task categories, making aggregate leaderboards unstable. Larger models provide only modest and inconsistent gains, while architectural choices and pretraining alignment frequently matter more than parameter count. These findings support choosing models with the intended task category in mind. They also establish GENEB as a framework for comparing frozen genomic representations under a common evaluation procedure."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3fd653b041b7368071daa4b7b60ae6487f687bd8a86b2552f26ee46925491aca",
+    "tldr": "GENEB compares 40 genomic models under one protocol and finds that task alignment often matters more than model size."
+  },
+  "icml-2026-hierd-hierarchical-relational-distillation-for-vision-language-embedding-models-e2b027c7f4": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Vision-language embedding models support retrieval by representing images and text in forms that can be compared. Compressing these models requires transferring useful structure from a larger teacher to a smaller student. The paper argues that matching only global representations can leave students without the teacher’s object-level meaning and spatial relationships.",
+      "HieRD addresses this gap with hierarchical distillation within and across the visual and language modalities. It groups visual tokens and aligns information at multiple levels of detail with phrase-level text. This makes the transfer process sensitive to finer semantic and spatial structure, instead of relying only on a single overall representation.",
+      "Experiments on multimodal embedding and downstream tasks show consistent improvements over strong baselines. The stated findings support the value of preserving relationships at several levels during compression, while enabling compact and efficient embedding models. For retrieval-oriented modeling, the contribution is a distillation method that explicitly transfers internal organization and cross-modal correspondence alongside the representations used for comparison."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9247ff2b2b27e23f0c2c2876a2e84c058667c2e53f33f231388e53f2ca8f92a5",
+    "tldr": "HieRD improves compact vision-language embeddings by distilling hierarchical visual structure and phrase-level cross-modal relationships."
+  },
+  "icml-2026-imitation-learning-for-multi-turn-lm-agents-via-on-policy-expert-corrections-68bbcbfbe8": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "An agent trained on expert demonstrations may encounter unfamiliar situations once its own actions depart from the expert’s path. In a multi-turn task, that divergence changes the states it must handle next. The paper identifies this covariate shift as a fundamental weakness of training language-model agents only on off-policy expert trajectories.",
+      "The proposed on-policy expert corrections start a rollout with the student model, then hand control to an expert partway through. Inspired by DAgger, this produces partially on-policy training data containing expert behavior in situations reached by the student. The authors study software engineering agents that interact with development environments to fix bugs.",
+      "Their comparisons use environment-reward rejection sampling followed by supervised fine-tuning. On SWE-bench verified, correction trajectories improve results relative to traditional imitation learning by 14% for the 7b setting and 13% for the 32b setting. The findings support combining expert demonstrations with data shaped by the student’s own behavior when training multi-turn agents."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7a39d885a914911f5b92a56e173a332bf1c509fad60c547f0cb9ce89cbc1d7b6",
+    "tldr": "Letting students begin trajectories before experts take over improves imitation training for multi-turn software engineering agents."
+  },
+  "icml-2026-ldarnet-dna-adaptive-representation-network-with-learnable-tokenization-for-genomic-mode-e7830357f0": {
+    "backgroundConcepts": [
+      "topic-249-be-cautious-bio-foundation-models-are-not-yet-ro"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Fixed DNA tokenization divides a sequence according to predetermined rules that may obscure biologically relevant structure. LDARNet instead learns where to place token boundaries without boundary supervision. It is a hierarchical genomic foundation model with 110 million parameters, designed to make sequence segmentation part of representation learning.",
+      "The architecture adapts H-Net-style dynamic chunking to masked language modeling. It combines BiMamba-2 state-space layers, local attention, bidirectional routing, and a ratio-based regularizer. Together these components support adaptive boundaries while processing DNA in both directions, allowing the representation to organize sequence information beyond a fixed segmentation scheme.",
+      "After fine-tuning on 27 tasks, LDARNet records 15 of 18 wins among models below 300 million parameters and the best overall result on nine of ten histone modification tasks. A compute-matched experiment finds learned boundaries outperform fixed boundaries by up to 14 percentage points on histone tasks. Boundary analysis also finds alignment with promoter motifs and splice junctions, giving the learned segmentation a biological interpretation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "664a15ad11383b18877b3683dceb815ea146cd714da405363481785d75d44fff",
+    "tldr": "LDARNet learns DNA token boundaries that align with biological structure and improve genomic task performance at matched compute."
+  },
+  "icml-2026-learning-high-dimensional-parity-functions-with-product-networks-using-gradient-descent-b22f3a4e96": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Learning parity functions with many inputs is difficult for standard neural architectures in general settings, where sample requirements can grow exponentially. This paper studies a more structured setting in which a compact product-based network is paired with sparse input data. The central question is whether that combination makes gradient-based learning efficient.",
+      "The theoretical result depends on Bernoulli inputs with sparsity parameter p_e at most 1/N, together with appropriate hyperparameter choices. Under this setup, the authors provide convergence guarantees for parity learning. The architectural choice and input distribution work together: the claim concerns this combination of product structure, stochastic sparsity, and suitable training settings.",
+      "Experiments extend to 100,000 input dimensions and support the theory. They provide empirical evidence for optimal choices of the sparsity parameter and learning rate, as well as polynomial complexity scaling. The work connects architectural inductive bias with data sparsity and suggests possible applications in neural arithmetic, structured reasoning, binary networks, and automated protocol discovery."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "51c8e080e3d55df2438a66d8c43d649f522a331a749ba494e46e6f4efdcc5f2e",
+    "tldr": "Compact product networks can learn high-dimensional parity efficiently under sparse Bernoulli inputs and suitable hyperparameter choices."
+  },
+  "icml-2026-mafe-enabling-equitable-algorithm-design-in-multi-agent-multi-stage-decision-making-syst-5e412c3037": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Fairness in a social decision system can depend on the combined actions of several entities over time. Addressing disparities at one isolated decision point may leave accumulated inequalities unresolved. MAFE provides simulation environments for studying this interaction, extending evaluation beyond static decisions or a single centralized agent.",
+      "The suite covers loan processing, healthcare, and higher education. Its environments support different kinds of agents, configurable interventions, and fairness metrics within modular, dynamic systems. They are open source and compatible with standard multi-agent reinforcement learning libraries, providing a common basis for reproducible experiments with policies intended to improve equity.",
+      "Experiments in cooperative use cases demonstrate how the environments can support algorithm design and reveal trade-offs among fairness, performance, and coordination. The contribution is a research platform for observing how those objectives interact across multiple stages. It makes the consequences of coordinated decisions part of fairness evaluation, rather than assessing each agent’s choices solely in isolation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2c8ca90938a3a7f9d2cd33d7b13410b0940c6ce0f91c3186abf6cd34e2528545",
+    "tldr": "MAFE supplies multi-agent simulations for studying how sequential decisions create fairness, performance, and coordination trade-offs."
+  },
+  "icml-2026-multihal-multilingual-dataset-for-knowledge-graph-grounded-evaluation-of-llm-hallucinati-573a261979": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Many hallucination benchmarks concentrate on English and ground factual evaluation in text passages or web links. MultiHal adds multilingual evaluation based on knowledge graphs, which represent entities and their relationships in a structured form. Its multihop design uses paths through these relationships to support evaluation of generated text.",
+      "The collection pipeline begins with 140,000 paths mined from open-domain knowledge graphs. After removing noisy paths, the authors retain a curated subset of 25,900. This gives the benchmark a factual structure that can connect several relationships while supporting evaluation across languages, addressing two gaps identified in existing benchmark coverage.",
+      "Baseline experiments compare knowledge-graph retrieval-augmented generation with vanilla question answering across multiple models and languages. Reported absolute score improvements range from approximately 0.12–0.36 for semantic similarity, 0.16–0.36 for entailment, and 0.29–0.42 for hallucination detection. These findings indicate potential benefits from graph integration, while the dataset provides a resource for further work on multilingual factual generation and graph-based fact checking."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "cd256157226fd510af00d2c90ad6b085f5debd65b1008f4b0353126f71f4bed3",
+    "tldr": "MultiHal evaluates multilingual factual generation using curated knowledge-graph paths and finds benefits from graph-grounded retrieval."
+  },
+  "icml-2026-path-conditioned-training-a-principled-way-to-rescale-relu-neural-networks-7b6c79415b": {
+    "backgroundConcepts": [
+      "topic-046-the-loss-surface-of-deep-and-wide-neural-network"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "ReLU networks admit parameter rescalings that preserve the function they compute while changing how training proceeds. This creates an opportunity to improve optimization without changing the network’s current input-output behavior. The paper develops a principled geometric criterion for choosing such rescalings, addressing how to make practical use of this symmetry.",
+      "The approach builds on path lifting, a framework that compactly factorizes ReLU networks. Minimizing the proposed criterion produces a conditioning strategy that aligns a kernel in the path-lifting space with a selected reference. The authors derive an efficient algorithm for this alignment, turning the geometric objective into an actionable parameter-rescaling procedure.",
+      "For randomly initialized networks, the analysis examines how architecture and initialization scale jointly affect the method’s output. Numerical experiments illustrate its potential to accelerate training. The stated contribution therefore combines a structured way to choose equivalent parameterizations with analysis of initialization effects and empirical evidence of possible optimization benefits, without claiming that every rescaling or architecture will train faster."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a658cb155ceb912b37504fa6c48a2524b86aff84a9e550e4e0e22d6fd4c92099",
+    "tldr": "A geometric rescaling method exploits ReLU parameter symmetries and shows potential to speed up training."
+  },
+  "icml-2026-pisces-annotation-free-text-to-video-post-training-via-optimal-transport-aligned-rewards-32a6f16017": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Improving text-to-video models through reward-based post-training requires signals that reflect both video quality and fidelity to the prompt. Existing approaches can depend on extensive human annotations or poorly aligned pretrained embeddings. PISCES develops annotation-free reward supervision by using optimal transport to align text and video representations at two levels.",
+      "One reward operates at the distributional level to capture overall visual quality and temporal coherence. A second aligns discrete text and video tokens to capture semantic and spatial-temporal correspondence. This division gives the training process signals for both how a video looks and how its content relates to the requested description.",
+      "Experiments on short and long videos show improvements over evaluated annotation-based and annotation-free methods on VBench Quality and Semantic scores. Human preference studies further support effectiveness. The reward module also works with direct backpropagation and reinforcement learning fine-tuning, indicating that the alignment approach can serve more than one optimization procedure for generative post-training."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "60a2a967c94c4ebefcb43d0e8920f221a959eb8b9e24780b6e83d1dda9ff6b91",
+    "tldr": "PISCES uses optimal-transport-aligned rewards to improve video quality and prompt alignment without human training annotations."
+  },
+  "icml-2026-policy-search-via-bayesian-optimization-with-temporal-difference-gaussian-processes-e505847a1f": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Bayesian optimization is commonly used to search for policies with relatively few parameters. However, existing approaches can ignore the sequential structure within a policy rollout, discarding information that might improve learning. This paper develops a policy-search method that incorporates that structure into the statistical model used by Bayesian optimization.",
+      "The method combines Gaussian process regression with a temporal-difference formulation of discounted infinite-horizon value functions. This gives the search a way to use relationships within sequential experience when estimating policy value. The authors derive learning-error bounds for the resulting temporal-difference Gaussian processes, providing a basis for reasoning about their uncertainty.",
+      "They then use upper confidence bounds to analyze cumulative regret and refine that analysis through a bound on maximal information gain. These results connect the value estimator’s learning behavior to the performance of the search procedure. Comparisons with relevant baselines demonstrate practical advantages, supporting the idea that retaining rollout structure can improve policy search beyond treating evaluations as isolated outcomes."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7f216bc703fd1da534c4242ab87f3896a690df6e02ef6f8998ab793cc9e505fd",
+    "tldr": "Temporal-difference Gaussian processes let Bayesian policy search exploit rollout structure, with theoretical guarantees and demonstrated practical advantages."
+  },
+  "icml-2026-provably-data-driven-lagrangian-relaxation-for-mixed-integer-linear-programming-dfd12a4284": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Lagrangian relaxation makes some large mixed-integer optimization problems easier by relaxing constraints that couple their parts. This enables parallel subproblem solving and can produce useful bounds for pruning search. The paper studies how to learn the associated multipliers across a distribution of problem instances, supplying theory for a previously promising empirical approach.",
+      "With s coupling constraints and N training instances, the authors first derive a generalization bound of order s^1.5/√N. A minimax lower bound of order s/√N establishes unavoidable linear dependence on the constraint count. They then show constructively that stochastic gradient ascent with averaging achieves the matching optimal rate of order s/√N.",
+      "The framework also covers learning a warm start, where learning supplies an initial point for subsequent optimization. This setting achieves a faster minimax-optimal rate of order s/N. The results distinguish the statistical behavior of direct multiplier prediction from warm-start learning and establish a theoretical advantage for the latter within the analyzed framework."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9a4712950ac3e24e0046a6212ee424541306ef2858830ad5a41824c9cfe206ea",
+    "tldr": "The paper proves optimal learning rates for Lagrangian multipliers and a faster rate for learning optimization warm starts."
+  },
+  "icml-2026-provably-data-driven-multiple-hyper-parameter-tuning-with-structured-loss-function-05acd881f2": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Choosing several hyperparameters from data raises a statistical question: how well will the selected settings perform beyond the data used to choose them? The answer becomes difficult when performance depends on those settings implicitly or changes non-smoothly. This paper develops a general framework for guarantees in the multidimensional tuning setting.",
+      "The analysis strengthens existing tools for semi-algebraic function classes using real algebraic geometry. By exploiting this mathematical structure, the authors obtain sharper and more broadly applicable generalization guarantees. The contribution extends a theory previously focused on a single scalar hyperparameter to settings where several tuning choices must be considered together.",
+      "The framework is further extended to tuning through validation loss under minimal assumptions, with improved bounds when more structure is available. New learnability results for weighted group lasso and weighted fused lasso illustrate its scope. These examples show how the framework can support statistical analysis of concrete tuning problems whose dependence on multiple hyperparameters is more complicated than a simple smooth response."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "153fdb5008c4f80e12300c093d2915b05f5b1377e390874df1da9771dde4c31b",
+    "tldr": "A new theoretical framework provides generalization guarantees for tuning multiple hyperparameters with structured, potentially non-smooth losses."
+  },
+  "icml-2026-query-lens-interpreting-sparse-key-value-features-with-indirect-effects-7e55f5be40": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Sparse autoencoders can expose features that are easier to interpret than individual neurons, but explaining what those features do remains difficult. Query Lens expands the interpretation task to include both what activates a feature and what that feature promotes in the model’s output. This provides a more complete account of its role.",
+      "The method jointly examines encoder-side key features and decoder-side value features. It also follows indirect effects produced when downstream modules process a feature, extending beyond the direct output effect captured by Logit Lens. This matters because a feature’s eventual influence can depend on how later computation transforms or reads it.",
+      "Experiments find coherent token signatures for features that remain uninterpretable under Logit Lens. The authors also propose the Subspace Channel Hypothesis: downstream modules may read features through layer-specific subspaces. This is presented as a hypothesis about the organization of feature use, alongside empirical evidence that including activation conditions and indirect effects improves interpretability."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d045d937860db20fea56f5961f6c9d134b32cbfe3e74638bf0c82a118110765e",
+    "tldr": "Query Lens interprets sparse features through their activating inputs, promoted outputs, and indirect effects in downstream modules."
+  },
+  "icml-2026-routerinterp-understanding-superposed-specialisation-in-mixture-of-experts-routing-b2efc31886": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Mixture-of-experts models route tokens to selected expert networks, making routing an important part of how their computation is organized. A common explanation is that each expert specializes in one broad, coherent domain. This paper presents evidence for a different account: an expert can specialize in several distinct, fine-grained features.",
+      "The authors call this the Superposed Specialisation Hypothesis and use it to build RouterInterp. The method finds sparse-autoencoder features that best predict routing decisions, then combines them into concise natural-language explanations. This shifts the interpretation target from assigning each expert one domain label to describing the collection of features associated with its selection.",
+      "On gpt-oss-20b, RouterInterp achieves 57% higher detection accuracy than previous methods based on token statistics. The result supports the usefulness of feature-based routing explanations in that model and provides evidence for the proposed specialization account. The broader contribution is a scalable method for explaining expert selection while accommodating more varied specialization than a single-domain description allows."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1c8f06df4507a822b454c90da92442d316032d2b811484d5e402ef3ec1da56a2",
+    "tldr": "RouterInterp explains expert routing through collections of fine-grained features, improving detection accuracy over token-statistics methods."
+  },
+  "icml-2026-scout-before-you-attend-sketch-and-walk-sparse-attention-for-efficient-llm-inference-a117ddcbc7": {
+    "backgroundConcepts": [
+      "topic-012-quest-query-aware-sparsity-for-efficient-long-co"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Long-context language-model inference spends substantial computation and memory on self-attention. Sketch&Walk reduces that work by selecting attention blocks dynamically without additional training. It applies one selection approach to both prefill, which processes the input context, and decoding, which generates subsequent tokens.",
+      "The method first uses Hadamard sketches to obtain inexpensive estimates of attention scores. A deterministic walk then aggregates these estimates across layers, capturing influence that extends beyond direct token-to-token interactions. The accumulated scores identify the top-k blocks to retain, and custom sparse attention kernels perform computation on the selected blocks.",
+      "Across the evaluated models and tasks, the method maintains near-lossless accuracy with 20% attention density and occasionally slightly exceeds dense attention accuracy. The authors report up to a 4.7× end-to-end attention speedup over FlashAttention-2. These findings support using lightweight estimates and cross-layer influence to guide sparsity, with the reported acceleration applying to attention rather than establishing the same speedup for the entire generation pipeline."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "33b271cd7834babe635df6b567b5dd9ec1419a7ddc693db02822b318f635b653",
+    "tldr": "Sketch&Walk selects sparse attention blocks using cheap score estimates and cross-layer influence, preserving near-lossless accuracy in evaluations."
+  },
+  "icml-2026-spare-stacked-parallelism-with-adaptive-reordering-for-fault-tolerant-llm-pretraining-sy-0cf9baf229": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "At training scales above 100,000 GPUs, failures can become frequent enough that restarting dominates elapsed training time. SPARe targets this regime by allowing gradient synchronization to tolerate node failures. Its design combines redundant data placement across parallelism groups with adaptive changes to execution order.",
+      "The framework stacks redundant data shards so that computation can remain available when nodes fail. It achieves availability comparable to conventional replication while keeping computation overhead near 2–3×, even at high redundancy. Traditional replication, by comparison, requires overhead that grows linearly as redundancy increases, making the cost of additional resilience a central concern.",
+      "The authors derive closed-form expressions for tolerated failures and computation overhead, then validate them with SimGrid discrete-event simulations. They also jointly optimize redundancy and checkpointing to reduce training time. At simulated scales reaching 600,000 GPUs, SPARe reduces time-to-train by 40–50% compared with traditional replication. The findings show how execution organization and redundancy planning can reduce the training-time impact of frequent failures."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "97f6b212fd5d9319f9b0533745fb77d2fc6531472bd5b0fc56c20dd205d90522",
+    "tldr": "SPARe combines redundant data shards and execution reordering to reduce failure-related training delays at extreme GPU scales."
+  },
+  "icml-2026-the-catastrophic-failure-of-the-k-means-algorithm-in-high-dimensions-and-how-hartigans-a-c521e11e4d": {
+    "backgroundConcepts": [
+      "topic-089-distributed-and-provably-good-seedings-for-k-mea"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper identifies a severe failure mode of Lloyd’s algorithm, the widely used procedure commonly associated with k-means clustering. In high-dimensional settings with high noise, the authors prove that essentially every partition of the data is a fixed point with high probability. A fixed point gives the algorithm no reason to change its current partition.",
+      "Consequently, the procedure can simply return the partition it started with. The result is particularly striking because the underlying clusters can still be trivially recoverable by other methods. The difficulty therefore concerns the behavior of this clustering algorithm in the studied regime, even when the data contain enough information to identify the clusters.",
+      "The authors contrast this behavior with Hartigan’s k-means algorithm and prove that it avoids the same pathology. This establishes a sharp theoretical distinction between two algorithms for k-means clustering. It also offers an explanation for empirical difficulties with Lloyd’s algorithm in high dimensions, specifically connecting them to the abundance of fixed points under high noise."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3bc367248421561769f64216b6f51e0de7335b070208247cc3dfcec74631e8bf",
+    "tldr": "In high-dimensional, high-noise settings, Lloyd’s algorithm can remain stuck at essentially any initial partition, while Hartigan’s avoids this pathology."
+  },
+  "icml-2026-tight-margin-based-generalization-bounds-for-voting-classifiers-over-finite-hypothesis-s-5fc91117fa": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper proves a generalization bound for voting classifiers drawn from a finite hypothesis set. The result connects behavior on the training data to a guarantee about generalization. Its distinguishing feature is that the guarantee captures a jointly tight tradeoff among several quantities, rather than treating any one of them in isolation.",
+      "Those quantities are the number of available hypotheses, the margin, the fraction of training examples with the specified margin, the training sample size, and the allowed failure probability. Keeping these factors together matters because changing one can alter the guarantee associated with the others. The result describes how their combined influence enters a margin-based bound.",
+      "The authors claim the first bound that is asymptotically tight across this tradeoff. That is a statement about the sharpness of the theoretical dependence as the relevant quantities scale. The contribution is therefore a more precise characterization of margin-based generalization for finite hypothesis sets, with the confidence level and observed training margins included in the same analysis."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "580d3f0f4181a40e825df853c91ab40e873ae8e38689c3888a16a1728e1b94c5",
+    "tldr": "The paper proves an asymptotically tight margin-based generalization bound capturing five interacting factors for voting classifiers."
+  },
+  "icml-2026-translation-heads-disentangling-meaning-from-language-in-llm-based-machine-translation-daab49faf6": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Translating a sentence requires both producing the requested language and preserving the original meaning. This paper examines whether those functions correspond to different internal components of language models. It moves mechanistic analysis beyond individual words by studying attention heads involved in sentence-level translation.",
+      "Across three open-source model families and 20 translation directions, the authors find distinct, sparse sets of heads specializing in target-language identification and sentence equivalence. They use this separation to construct steering vectors for each subtask. Modifying just 1% of the relevant heads enables translation without instructions at performance comparable to instruction-based prompting.",
+      "The study also removes the identified heads and observes selective disruption of their associated translation functions. Together, steering and ablation provide evidence that these head sets play functionally distinct roles in the evaluated models. The findings make translation behavior more interpretable by separating the machinery associated with language choice from the machinery associated with preserving a sentence’s meaning."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "999609b7fef1a7ba562466a98fdca05a9c8c177ab0db7cc87754dbd3b9a4aa2c",
+    "tldr": "Distinct sparse attention-head sets support language choice and meaning preservation, enabling targeted steering of sentence translation."
+  },
+  "icml-2026-trust-region-diffusion-policies-for-massively-parallel-on-policy-rl-56da061082": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Massively parallel reinforcement learning often uses simple Gaussian policies, even though diffusion models offer a more expressive policy class. Training that richer class on-policy is challenging because the data distribution changes quickly between updates. TruDi develops a method for using diffusion policies in this rapidly changing simulation setting.",
+      "Its central mechanism is a trust-region optimization rule that constrains KL divergence over the entire diffusion trajectory. The constraint limits how far policy updates can move across the full generative process. This addresses training stability at the level of the diffusion policy’s trajectory, allowing the method to operate with newly collected on-policy experience.",
+      "The authors evaluate TruDi on four massively parallel reinforcement-learning benchmarks containing 73 tasks. It matches or exceeds strong baselines on standard tasks and produces clear gains on more challenging humanoid control tasks. These empirical results support the feasibility of combining expressive diffusion policies with massively parallel on-policy training, with the strongest stated benefits appearing in the more demanding control problems."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d5608cf18a7ec4ee58d7c4adb74274e95367d2d4255b0edab91e516d82bc22f0",
+    "tldr": "TruDi stabilizes massively parallel on-policy diffusion-policy training by constraining updates across the entire diffusion trajectory."
+  },
+  "icml-2026-when-does-adaptation-win-scaling-laws-for-meta-learning-in-quantum-control-5e26b01bee": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Quantum devices differ from one another and drift over time, making controller adaptation potentially useful but costly. This paper asks when task-specific gradient steps justify that cost. It derives a scaling-law lower bound linking expected fidelity improvement to the number of adaptation steps and the variance among tasks.",
+      "The bound describes exponentially saturating gains with additional gradient steps and linear scaling with task variance. Quantum gate-calibration experiments find negligible benefits for low-variance tasks, but fidelity gains above 40% for two-qubit gates under extreme conditions with ten times the training noise. These findings connect the value of adaptation to how strongly conditions differ across tasks.",
+      "Validation on classical linear-quadratic control supports an explanation based on general optimization geometry rather than quantum-specific physics. The authors also introduce a preliminary probing procedure that estimates the optimal adaptation budget from three to five steps, achieving 3–19% relative error across out-of-distribution regimes. This offers a practical way to estimate how much adaptation to perform before committing to its full cost."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "891c8e6984e0f4318ad8e063ad86ec087b028b19f7c83a71653fe0719f967875",
+    "tldr": "A scaling-law lower bound and a short probing protocol help determine when controller adaptation merits its computational cost."
+  }
+}

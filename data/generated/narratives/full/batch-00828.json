@@ -1,0 +1,327 @@
+{
+  "neurips-2024-absorb-escape-overcoming-single-model-limitations-in-generating-heterogeneous-genomic-se-ec8053aa12": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "DNA sequences contain connected regions with different statistical properties, making generation harder than modeling a single uniform pattern. The paper examines two approaches: autoregressive models, which learn sequential transition probabilities, and diffusion models, which recover an overall distribution. Its analysis identifies complementary weaknesses: autoregressive models miss global sequence properties, while diffusion models tend to make errors at the base-pair level.",
+      "Absorb & Escape combines these approaches during sampling after training. A diffusion model first produces a candidate sequence. An autoregressive model then helps refine it through alternating Absorb and Escape steps. This arrangement aims to combine the diffusion model's global modeling strength with the autoregressive model's local modeling strength, addressing the heterogeneous structure that challenges either model alone.",
+      "Experiments cover conditional and unconditional DNA generation across 15 species. The authors report that the combined method outperforms state-of-the-art individual autoregressive and diffusion models in motif distributions, diversity checks, and genome integration tests. They also report avoiding the slow sampling associated with traditional Markov chain Monte Carlo for composed energy-based distributions. These findings support combining pretrained models to improve sequence quality."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ccff6d7241d963e9225c875e6f1c71264ee0672b093926e68719ba4753a57dff",
+    "tldr": "Absorb & Escape refines diffusion-generated DNA with an autoregressive model, improving sequence quality across experiments involving 15 species."
+  },
+  "neurips-2024-acceleration-exists-optimization-problems-when-oracle-can-only-compare-objective-functio-0c20daa521": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Black-box optimization can require searching for a good solution without knowing how the objective function works. This paper studies an especially restricted source of feedback: an Order Oracle, which tells an algorithm how two objective values compare without revealing either value. The deterministic formulation also allows some bounded noise in those comparisons.",
+      "The authors develop a way to incorporate this comparison feedback into existing optimization tools. They obtain non-accelerated algorithms for non-convex, convex, and strongly convex problems. Their theoretical performance matches state-of-the-art coordinate methods using first-order information and existing Order Oracle methods up to a logarithmic factor. This comparison establishes how competitive optimization can remain despite receiving substantially less direct information about the objective.",
+      "The central contribution is what the authors identify as the first accelerated optimization algorithm using an Order Oracle. A separate approach provides an algorithm for stochastic order feedback and establishes its asymptotic convergence. Numerical experiments support the proposed methods. The results distinguish two advances: acceleration with comparison-based feedback, and convergence when the comparison mechanism itself is stochastic."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4ebc3f1778911dfa6ac53d9c2c746a7521f71abe7905c179e100562774b42d26",
+    "tldr": "The paper establishes accelerated optimization using only comparisons of objective values and separately proves convergence for a stochastic comparison oracle."
+  },
+  "neurips-2024-adaptive-variance-reduction-for-stochastic-optimization-under-weaker-assumptions-62e7eb03e2": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Stochastic optimization uses noisy information to update a candidate solution, and variance reduction methods aim to make those updates more reliable. This paper studies adaptive methods based on STORM. Earlier adaptive versions either require strong assumptions, such as bounded gradients and function values, or introduce an extra logarithmic factor into their convergence rates.",
+      "The authors design a new learning-rate strategy for an adaptive STORM method. For non-convex objectives, they establish an optimal convergence rate of O(T^(-1/3)) under weaker assumptions than the compared approaches, without the additional O(log T) factor. The contribution therefore concerns both the conditions needed for the analysis and the resulting rate; it does not claim optimization without assumptions.",
+      "The same technique extends to stochastic compositional optimization with the same stated optimal rate. For non-convex finite-sum problems, the paper develops another adaptive variance reduction method with rate O(n^(1/4) T^(-1/2)), where n counts component functions. Numerical experiments across several tasks support the methods' effectiveness. Together, the results broaden the settings where adaptive variance reduction achieves the stated optimal theoretical rates."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7d936aa117c3a19c1b07818ac72069551a813c930ae394ea0d09375841f6a40b",
+    "tldr": "New adaptive variance reduction methods achieve stated optimal convergence rates under weaker assumptions, including a STORM variant without an extra logarithmic factor."
+  },
+  "neurips-2024-betterbench-assessing-ai-benchmarks-uncovering-issues-and-establishing-best-practices-7b7e25dd17": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "AI benchmarks influence how people compare models, track progress, identify weaknesses, and choose systems for practical tasks. They can also inform policy. BetterBench examines the quality of these measuring tools themselves: a benchmark's usefulness depends on how it is designed and how easily others can use and reproduce its evaluation.",
+      "The authors create an assessment framework covering 40 best practices across a benchmark's life cycle and apply it to 25 AI benchmarks. They find substantial differences in quality, including significant problems in commonly used benchmarks. Most of the assessed benchmarks do not report the statistical significance of their results, and their results are not easily replicated. These findings complicate the interpretation of reported model comparisons.",
+      "The paper turns the assessment into practical resources: a minimum-quality checklist for benchmark developers and a living repository of benchmark assessments. The checklist helps developers align their work with the proposed practices, while the repository supports comparison between benchmarks. The contribution is an organized way to examine whether evaluation tools provide a dependable basis for judging AI systems."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "eb540328f22f7d3af83aec5fdef36dd9411aa2fff1db055c345d0a7264480d6d",
+    "tldr": "BetterBench assesses 25 AI benchmarks against 40 best practices, exposing substantial quality gaps and providing resources to improve evaluation."
+  },
+  "neurips-2024-can-we-leave-deepfake-data-behind-in-training-deepfake-detector-7b6a6a4908": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Deepfake detectors need to recognize manipulation beyond the examples encountered during training. Manually blended images, called blendfakes, help models learn general clues such as blending boundaries. Some leading methods train only on these images because earlier experiments found that simply mixing blendfakes with deepfakes could reduce performance. Yet deepfakes also contain potentially useful clues from the generation process.",
+      "The paper proposes organizing this information as a progression from real images through blendfakes to deepfakes. Blendfake and deepfake representations serve as oriented anchors along that progression, with forgery information increasing as the transition advances. An Oriented Progressive Regularizor constrains how the anchor distributions are arranged, giving the model a structured relationship between these training sources.",
+      "A feature-bridging mechanism further encourages smooth transitions between neighboring anchors. The authors report extensive experiments confirming that the design can use forgery information from both blendfake and deepfake data effectively. The findings suggest that the earlier difficulty with hybrid training concerns how these sources are combined: a structured progression provides a way to retain information that blendfake-only training excludes."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b1b83138dee513a7bcf82ee589025a5b352731d13b14cf4de116b59e88bb7b84",
+    "tldr": "A structured progression from real images to blendfakes to deepfakes helps detectors use complementary forgery clues from both fake-data sources."
+  },
+  "neurips-2024-depth-anything-v2-18f2c4d6ad": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Depth Anything V2 estimates scene depth from a single image. The paper focuses on training choices that produce finer and more robust predictions than its predecessor. Its central message is that substantial improvement can come from changing the supervision and teacher-student training setup, rather than introducing an elaborate new technique.",
+      "The approach replaces labeled real images with synthetic images, increases the capacity of the teacher model, and trains student models through a large collection of pseudo-labeled real images. Those real images provide a bridge between synthetic supervision and student learning. The released models span 25 million to 1.3 billion parameters, supporting different model scales. The authors also fine-tune them using metric depth labels to obtain metric depth models.",
+      "Compared with the latest Stable Diffusion-based models considered in the paper, the authors report greater accuracy and more than tenfold faster operation. They additionally introduce an evaluation benchmark using sparse depth annotations, motivated by limited diversity and frequent noise in existing test sets. The work therefore contributes both a training approach and a resource for assessing future depth models."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "289501e7e96fac01c7bb8e63e125dd5bd5bf4a03df849401f59facdab8df6f6c",
+    "tldr": "Depth Anything V2 improves single-image depth prediction through synthetic supervision, a larger teacher, and student training on pseudo-labeled real images."
+  },
+  "neurips-2024-dreammesh4d-video-to-4d-generation-with-sparse-controlled-gaussian-mesh-hybrid-represent-9ef800078a": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "DreamMesh4D builds a moving three-dimensional object from a monocular video, with time providing the fourth dimension. Earlier approaches using neural radiance fields or Gaussian splatting struggle with surface appearance and consistency across space and time. The proposed framework draws on animation techniques by combining a mesh surface with a mechanism for deforming that surface.",
+      "The method begins with a coarse mesh generated from an image. Gaussian splats are attached to its triangular faces, allowing appearance and vertex positions to be optimized together. Sparse control points sampled across the surface form a deformation graph. A network predicts their transformations, which then drive the mesh and attached Gaussians through a skinning method combining linear blending and dual-quaternion approaches.",
+      "This sparse control structure provides constraints while supporting computational efficiency. Training proceeds in two stages using reference-view image matching, score distillation, and regularization losses. Experiments show superior rendering quality and spatial-temporal consistency. Compatibility with modern graphics pipelines also gives the approach potential for game and film applications, where an animated surface representation can fit existing production workflows."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c4bf01bd114a542681c29611ab358028f78dd3faf072008f91e96d30be9e08fc",
+    "tldr": "DreamMesh4D combines meshes, surface-bound Gaussian splats, and sparse motion controls to generate visually consistent animated 3D objects from monocular video."
+  },
+  "neurips-2024-fuse-fast-unified-simulation-and-estimation-for-pdes-0fa3156211": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Physical systems governed by partial differential equations often pose two connected learning problems: predicting continuous fields and estimating the parameters underlying those fields. These have commonly been handled separately, using operator-learning surrogates for prediction and simulation-based inference for parameter estimation. FUSE investigates the benefits of learning both within one framework.",
+      "The proposed formulation jointly predicts continuous quantities and infers distributions over discrete parameters. A shared pretraining step absorbs the cost of learning both the simulation surrogate and the inverse model. This makes the connection between predicting a system's behavior and estimating its underlying conditions part of the learning problem itself. The authors argue that this joint treatment can improve accuracy and robustness.",
+      "The paper demonstrates the approach on full-body blood-flow simulations, predicting continuous and discrete biomarkers under different amounts of missing information. It also studies an atmospheric simulation of a two-dimensional dry cold bubble, inferring time series and system conditions. Comparisons with multiple baselines show significantly higher accuracy for both surrogate prediction and inverse estimation in these evaluated settings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "fc3ed4f051f5ca18039b811ded7a83fcb0a7cb033e3acfbd87498dc96f4ea7b0",
+    "tldr": "FUSE jointly learns physical-field prediction and parameter-distribution inference, improving both tasks in blood-flow and atmospheric simulation studies."
+  },
+  "neurips-2024-injecting-undetectable-backdoors-in-obfuscated-neural-networks-and-language-models-3f0a2078e5": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper studies a threat involving models supplied by a malicious external developer. A hidden backdoor lets someone who knows its secret slightly alter an input to change the model's output. The developer could then sell that knowledge. The research asks whether such manipulation can remain undetectable even when a recipient can inspect the released model's weights and architecture.",
+      "The construction concerns neural networks protected through obfuscation satisfying the cryptographic notion of indistinguishability obfuscation. Such protection is motivated by a supplier's desire to conceal sensitive information. The authors develop a general backdoor strategy for this setting and establish that access to the obfuscated model's internal structure still does not reveal the backdoor's existence.",
+      "The paper also formulates undetectable backdoors for language models and extends its attacks to that setting based on the existence of steganographic functions. These are conditional cryptographic results tied to the stated constructions. Their significance is that visibility into a released model's weights and architecture does not, within this setting, guarantee that malicious hidden behavior can be detected."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4cd4d54b4b7bebd197b9c2c393f9ece4e74bb0e9d3edd05d6ad78f4d65530b4a",
+    "tldr": "The paper constructs undetectable backdoors in cryptographically obfuscated neural networks and extends the result to language models under a steganographic-function assumption."
+  },
+  "neurips-2024-interventionally-consistent-surrogates-for-complex-simulation-models-55a4ac6d32": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Large simulations of socio-technical systems let decision-makers explore policy changes, but their computational cost can make repeated experimentation difficult. A faster surrogate can help only if it responds appropriately to the interventions being considered. Matching a simulator's behavior under those interventions is therefore central to the surrogate's usefulness for policy analysis.",
+      "The paper develops a learning framework based on causal abstractions to produce interventionally consistent surrogates. Its theoretical results show that the approach induces behavior consistent with the simulator across interventions of interest with high probability. The target is agreement with the original simulation when policies change, enabling faster exploration while preserving the simulator's relevant intervention responses.",
+      "Empirical studies show why this distinction matters. Conventionally trained surrogates can misjudge intervention effects and direct decision-makers toward suboptimal choices. Surrogates trained with the proposed consistency objective instead closely track the original simulator under the interventions studied. The findings support making intervention behavior an explicit learning goal when a surrogate will be used to compare policy options."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ba7e4e19516145597a2cd1ef97c94fe96d86753351146272d5621a9fdc5ac0cb",
+    "tldr": "A causal-abstraction framework trains faster simulation surrogates to preserve intervention responses, with high-probability guarantees and supporting empirical results."
+  },
+  "neurips-2024-is-function-similarity-over-engineered-building-a-benchmark-3d56737d99": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Recognizing a previously seen function inside a compiled program can reduce the work involved in reverse engineering, malware analysis, and vulnerability detection. Function similarity methods often rely on costly preprocessing, including disassembly, decompilation, and graph analysis. This paper questions whether current research evaluations adequately reflect the practical problems those methods are intended to solve.",
+      "The authors introduce REFuSe-Bench, a benchmark designed around more realistic binary function similarity use cases. They address duplicate data and label accuracy, include experiments with real malware, and provide what they describe as the first serious evaluation of machine-learning function similarity models on Windows data. These choices make dataset construction and evaluation coverage central parts of the contribution.",
+      "On this benchmark, a new baseline that uses only raw function bytes achieves state-of-the-art performance in multiple settings without disassembly or other preprocessing. The result challenges assumptions about how much existing methods gain from sophisticated features and complex processing. It shows that simple representations can be highly competitive under these evaluations, providing a useful reference point for assessing more elaborate methods."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "147851ed94445cade1a2e08efa284364ada409f417bd7a3368874224fa3e5a4c",
+    "tldr": "REFuSe-Bench improves binary function similarity evaluation and finds that a simple raw-byte baseline reaches state-of-the-art performance in multiple settings."
+  },
+  "neurips-2024-kaleidoscope-learnable-masks-for-heterogeneous-multi-agent-reinforcement-learning-0d983afbc7": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "In multi-agent reinforcement learning, sharing model parameters helps agents learn efficiently from experience. Full sharing can also produce overly similar policies, potentially losing benefits from agents behaving differently. Kaleidoscope addresses this tension by learning which parameters different agents use while retaining a common underlying parameter set.",
+      "Each agent has its own learnable mask over the shared parameters. The method encourages differences between these masks, promoting diversity among the resulting policy networks. This creates an adaptive form of partial sharing: agents can retain the efficiency benefits of common parameters while gaining more capacity to represent different behaviors. The scheme spans a middle ground between completely shared and fully separate networks.",
+      "The authors also extend the idea to ensembles of critics in actor-critic algorithms, where it could improve value estimates. Experiments in multi-agent particle environments, multi-agent MuJoCo, and StarCraft Multi-Agent Challenge v2 show superior performance over existing parameter-sharing approaches. These results support learning the sharing structure itself as a way to combine policy diversity with efficient use of training experience."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "785ac6ec569e3c7e3321469000930d055651dcfbc7d18bcbceeb6b848d5a1fc1",
+    "tldr": "Kaleidoscope uses agent-specific learnable masks over shared parameters to promote diverse policies while retaining the efficiency of parameter sharing."
+  },
+  "neurips-2024-multimodal-task-vectors-enable-many-shot-multimodal-in-context-learning-5149bd4cb5": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Large multimodal models can learn a task from examples included in their input context. Providing many examples is difficult because the model's context length is fixed during pretraining, and examples containing both images and text require additional tokens. The paper investigates how to retain useful information from many demonstrations without fitting all of them into the inference context.",
+      "The authors first demonstrate the existence of Multimodal Task Vectors: compact, implicit representations of example information in the model's attention heads. They then extract and use these vectors to support many-shot in-context learning across vision-and-language tasks. This compresses the task information carried by demonstrations without requiring model fine-tuning.",
+      "Experiments suggest that performance can improve as more examples are compressed into the task vectors. They also suggest transfer to similar out-of-domain tasks without additional context length at inference. The contribution is a way to separate the number of demonstrations contributing task information from the amount of input context required when applying that information, easing a central constraint on multimodal in-context learning."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7052d264f1a3fa72da719460b63c4de75076600a37da727ed4f7871433995c2f",
+    "tldr": "Multimodal Task Vectors compress demonstration information in attention heads, enabling many-shot learning without fine-tuning or additional inference context length."
+  },
+  "neurips-2024-nimbus-secure-and-efficient-two-party-inference-for-transformers-e61e5afa44": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Secure two-party computation provides a way to run Transformer inference while protecting sensitive information. Existing approaches face two major efficiency bottlenecks: large matrix multiplications in linear layers and nonlinear operations such as GELU and Softmax. Nimbus introduces a framework that addresses both sources of cost.",
+      "For matrix multiplication, the authors develop a secure computation paradigm based on an outer-product formulation. They report performance improvements of 2.9 to 12.5 times over the state-of-the-art protocol. For GELU and Softmax, they use information about input distributions to construct low-degree polynomial approximations. Those approximations improve performance by 2.9 to 4.0 times over the compared state-of-the-art polynomial approach.",
+      "The reported average accuracy loss is 0.08% relative to ordinary inference without two-party privacy protection. End-to-end BERT-base inference improves by 2.7 to 4.7 times over state-of-the-art two-party inference across different network settings. These results connect the gains in individual operations to overall execution, showing that optimizing both linear algebra and nonlinear approximations can substantially improve the practical efficiency of private Transformer inference."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7e2fda98d45cccfbe4f1f62a65b1afd64dd121e881005fa3446184be463bf02f",
+    "tldr": "Nimbus speeds up secure two-party BERT-base inference by 2.7–4.7 times through improved matrix multiplication and efficient nonlinear approximations."
+  },
+  "neurips-2024-oneactor-consistent-subject-generation-via-cluster-conditioned-guidance-c1eaf2c1ea": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Text-to-image diffusion models can produce high-quality pictures while struggling to preserve the same subject across different generations. OneActor addresses this with a prompt-driven, one-shot tuning approach. It learns semantic guidance for consistent subject generation while avoiding expensive tuning of the diffusion backbone.",
+      "The paper frames subject consistency as a clustering problem and designs a cluster-conditioned model around that objective. To reduce the overfitting associated with one-shot tuning, it adds auxiliary samples during tuning. It also introduces semantic interpolation and cluster guidance at inference. The authors report that these techniques significantly improve generation quality, supporting the use of learned semantic structure to maintain a recognizable subject.",
+      "Experiments show better performance than a variety of baselines, combining satisfactory subject consistency with superior prompt conformity and high image quality. Tuning is reported to be four times faster than tuning-based baselines, with an option to avoid additional inference time. The method also supports multiple subjects and popular diffusion extensions. The authors further describe its potential use in pretraining a consistent-subject generation network from scratch."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7754b80e3ef8ae0e56c56c3ef36120286aef672cad0b2196885d713ffd4c1cde",
+    "tldr": "OneActor learns cluster-conditioned semantic guidance for consistent subject generation, reporting strong image quality and fourfold faster tuning than tuning-based baselines."
+  },
+  "neurips-2024-pagerank-bandits-for-link-prediction-6cadf8a8ed": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Link prediction estimates which connections should exist in a graph, with applications such as recommendations and knowledge graph completion. Many existing approaches treat it as supervised learning. The paper argues that this framing makes it difficult to adapt to changing customer interests and to balance exploiting promising connections with exploring uncertain ones.",
+      "PageRank Bandits reframes the task as a sequence of decisions, with each link-prediction interaction occurring in turn. Its PRB algorithm combines contextual bandits with PageRank to coordinate exploitation and exploration. The bandit formulation explicitly places this trade-off inside the decision process, while PageRank brings graph-based information into the combined approach. The authors identify this combination as a first.",
+      "The paper also introduces a reward formulation and provides a theoretical performance guarantee for PRB. Evaluations cover both online and offline settings and compare the method with bandit-based and graph-based alternatives. The reported empirical success supports treating link prediction as an ongoing decision problem and combining the two approaches, especially when repeated interactions and changing interests are central to the task."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "315e077fc76253f6eec1ea2fa3df6f5beee659f6c2e397c746d46ed8bff9e5ff",
+    "tldr": "PageRank Bandits combines contextual bandits and PageRank to handle link prediction as sequential decisions balancing exploitation and exploration."
+  },
+  "neurips-2024-peace-a-dataset-of-pharmaceutical-care-for-cancer-pain-analgesia-evaluation-and-medicati-5a4567b45c": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Cancer pain management often involves repeated medication adjustments as a patient's condition changes. Research systems for assessing treatment effectiveness and recommending medication need records that capture this evolving process. The paper identifies gaps in existing resources, including insufficient attention to multidisciplinary assessment, patients' own perceptions, and treatment changes across follow-up visits.",
+      "PEACE is designed specifically for cancer pain medication research and contains pharmacological care records for more than 38,000 patients. Its information includes demographics, clinical examinations, treatment outcomes, medication plans, and patients' perceptions. It tracks long-term and repeated follow-ups inside and outside hospitals, including self-assessments of medication effects and their impact on daily life. These records connect treatment decisions with experiences over time.",
+      "The authors conduct a proof-of-concept study using 13 machine-learning algorithms. Treatment effectiveness assessment is formulated as classification, while medication recommendation is formulated as regression. The experiments illustrate the dataset's potential for research on personalized cancer pain management. The contribution is a richer longitudinal research resource and an initial demonstration of how it can support these two modeling tasks."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5cb95de94535f3d33b10d5e10106c951f48d23b7ef41d7a14fe44fe84d95fc2d",
+    "tldr": "PEACE provides longitudinal cancer pain care records for over 38,000 patients, supporting research on treatment assessment and medication recommendation."
+  },
+  "neurips-2024-ragchecker-a-fine-grained-framework-for-diagnosing-retrieval-augmented-generation-ad748dbacb": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Retrieval-augmented generation combines a retrieval component that supplies external knowledge with a generation component that produces a response. Evaluating this arrangement is difficult because quality depends on multiple modules, responses can be long, and the evaluation measurements must themselves be reliable. RAGChecker addresses these issues through a more detailed diagnostic framework.",
+      "The framework provides a suite of metrics covering both retrieval and generation. This gives researchers a way to examine performance across the system's components instead of relying only on an overall assessment. The paper also evaluates the evaluator: its meta-evaluation finds that RAGChecker's measurements correlate significantly better with human judgments than other evaluation metrics. That result supports the usefulness of its measurements for diagnosis.",
+      "The authors apply RAGChecker to eight RAG systems and analyze their behavior in depth. Their analysis reveals patterns and trade-offs associated with architectural design choices. The contribution therefore combines a measurement framework with an example of how those measurements can inform development. The metrics can guide efforts to improve RAG systems by making component-level performance easier to assess."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f7ba77701c636a10cd57e5b548fa79528049e5d15efbce22170238e1d6d3078f",
+    "tldr": "RAGChecker diagnoses retrieval and generation separately, with evaluation metrics that correlate better with human judgments in the reported meta-evaluation."
+  },
+  "neurips-2024-seafloorai-a-large-scale-vision-language-dataset-for-seafloor-geological-survey-f576b6fb66": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Machine learning for sonar imagery is constrained by the availability of datasets prepared for AI research. Existing public resources have limitations in scale and environmental coverage. SeafloorAI addresses this by assembling an extensive seafloor-mapping dataset across five geological layers in collaboration with marine scientists.",
+      "The collection spans 62 geographically distributed surveys covering 17,300 square kilometers. It includes 696,000 sonar images and 827,000 annotated segmentation masks. The authors extend this resource into SeafloorGenAI by adding a language component: 696,000 detailed descriptions and approximately seven million question-answer pairs. These additions support work on models that process sonar imagery together with language, alongside models focused on visual analysis.",
+      "The contribution centers on providing data and annotations at a scale intended to broaden research opportunities in marine science. Publicly available processing code is meant to help the marine science community expand the collection and encourage machine-learning researchers to develop more robust models. The proposed benefits are opportunities enabled by the resource and continued collaboration, rather than reported evidence of a particular model's performance improvement."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b3b51a13ae63d2ab9d16d28c8779d5e668482b2b7f72ae7a4bc3d7096cfdb315",
+    "tldr": "SeafloorAI and its language-augmented extension provide large-scale sonar imagery, geological annotations, descriptions, and question-answer data for marine AI research."
+  },
+  "neurips-2024-spatio-temporal-interactive-learning-for-efficient-image-reconstruction-of-spiking-camer-d3b55be950": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Spiking cameras record fast-moving scenes as asynchronous streams of binary spikes. Reconstructing conventional images from these streams requires combining information across both space and time. The paper argues that existing complex, sequential reconstruction networks do not fully exploit how these two sources of information can complement one another.",
+      "The proposed network jointly aligns features between frames and filters features within a frame. It begins with a compact hybrid representation of the spikes and extracts features at multiple scales. Motion fields and target images are then refined from coarse scales to finer ones until the network produces a full-resolution reconstruction. This design lets motion estimation and image reconstruction interact throughout refinement.",
+      "A symmetric interactive attention block and a multi-motion field estimation block further strengthen those interactions. Experiments on synthetic data and recordings from real cameras show strong reconstruction performance while maintaining low model complexity. The reported result supports coordinating spatial filtering and temporal alignment within one refinement process as an efficient way to reconstruct images from spike streams."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "caf60813c2ce4cf3e7f9bd4cfc5528350262037c37fbd345b1a9ff7003b299e1",
+    "tldr": "A coarse-to-fine network jointly aligns temporal features and filters spatial features to reconstruct spiking-camera images with low model complexity."
+  },
+  "neurips-2024-suremap-simultaneous-mean-estimation-for-single-task-and-multi-task-disaggregated-evalua-73b2dcd1cb": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Evaluating a model separately across population groups is important for understanding performance and group fairness. The challenge is that evaluation data can be scarce, especially for groups defined by intersecting attributes such as race, sex, and age. SureMap also considers a multi-task version of this problem, where several customers evaluate the same model in their own data settings.",
+      "The method reformulates these evaluations as structured simultaneous Gaussian mean estimation. It combines maximum a posteriori estimation with a chosen prior and tunes the method using Stein's unbiased risk estimate, avoiding cross-validation. It can also incorporate external data from a model developer or other clients. These ingredients allow related estimation problems and additional data to contribute to the evaluation.",
+      "SureMap supports both a single evaluation task and multiple clients' tasks, and it applies to black-box models. Across evaluation tasks in several domains, the authors observe significant accuracy gains over several strong competitors. The result concerns more accurate estimates of subgroup performance, helping address the uncertainty that arises when individual subpopulations have little evaluation data."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "24df3a44cfc42ffabbddc3240222fcad4dbde0add17deaf71c1c44bb302a9d56",
+    "tldr": "SureMap improves subgroup performance estimation by jointly modeling group means, incorporating external data, and tuning without cross-validation."
+  },
+  "neurips-2024-the-collusion-of-memory-and-nonlinearity-in-stochastic-approximation-with-constant-steps-24b2fc94f9": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Stochastic approximation repeatedly updates an estimate using noisy data. This paper studies the combination of a constant positive step size, nonlinear updates, and Markovian data, where observations have temporal dependence. Earlier analyses primarily addressed independent data or linear updates, leaving difficulties created by the simultaneous presence of memory and nonlinearity.",
+      "Using smoothness and recurrence properties of the updates, the authors analyze correlations between the evolving estimate and the data process. This yields weak convergence of their joint process. They also characterize long-run bias: its leading term is proportional to the step size and contains separate contributions from Markovian noise, nonlinearity, and a multiplicative interaction between the two. The remainder is of order alpha^(3/2).",
+      "The interaction contribution shows why analyzing memory and nonlinearity separately misses part of the asymptotic bias in this setting. The paper additionally establishes finite-time bounds on higher moments of estimation error, non-asymptotic geometric convergence rates, and a central limit theorem. Together, these results describe both transient behavior and long-run statistical behavior for the studied constant-step-size procedure."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "913d27c990a6b90d05593ab00c7ae281a23cc11a9cc5170a82f560b1b531781e",
+    "tldr": "The analysis identifies an interaction between data memory and nonlinear updates that contributes to constant-step-size stochastic approximation's long-run bias."
+  },
+  "neurips-2024-towards-the-transferability-of-rewards-recovered-via-regularized-inverse-reinforcement-l-6edf9c901b": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Inverse reinforcement learning infers a reward from expert behavior, aiming to recover a task description that remains useful when environment dynamics change. The difficulty is that several rewards can explain the same optimal policy. A learned reward may therefore reproduce observed behavior without inducing the right policy under a new transition law.",
+      "Earlier transfer guarantees assumed full access to expert policies and used a rank condition involving experts with different dynamics. This paper shows that those conditions cannot guarantee transfer when the learner sees only demonstrations. It instead uses principal angles to describe similarities and differences between transition laws more finely than a binary rank test.",
+      "The authors establish two sufficient conditions: transfer to any transition laws when learning from at least two experts with sufficiently different dynamics, and transfer to local changes when learning from a single expert. They also provide a probably approximately correct algorithm and end-to-end analysis for learning from multiple experts' demonstrations. These results clarify conditions under which limited behavioral evidence can support reward transfer beyond the original environment."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4003a4947c786468fdeac8e370282f14eb707cc2b07a2c97185c42e675b3bdd0",
+    "tldr": "The paper establishes sufficient conditions for rewards learned from demonstrations to transfer across dynamics, using principal angles to characterize transition-law differences."
+  },
+  "neurips-2024-transferring-disentangled-representations-bridging-the-gap-between-synthetic-and-real-im-d6bf5e6c04": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Disentangled representation learning aims to separate the underlying factors that generate data into meaningful parts of a learned representation. Demonstrating its usefulness on real images has been difficult because generative factors can be correlated, image resolution presents challenges, and ground-truth factor labels are limited. This paper focuses particularly on the shortage of those labels.",
+      "The authors investigate whether synthetic data can support learning general-purpose disentangled representations that subsequently transfer to real images. Their extensive empirical study examines the effect of fine-tuning and asks which disentanglement properties survive transfer. This makes preservation of the learned factor structure an explicit question, beyond whether a representation can simply be applied to another dataset.",
+      "The paper also introduces an interpretable intervention-based metric for assessing how well factors are encoded in the representation. The results indicate that some degree of disentanglement can transfer from synthetic to real data and be effective. The finding supports synthetic-data transfer as a promising route while retaining the paper's qualified conclusion: the evidence establishes partial preservation, rather than complete separation of every underlying real-image factor."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "cbcdc7a1332a10c5361ca810da8484439dea94aab3d2bfa15951ba042b75694d",
+    "tldr": "An empirical study finds that some disentanglement can transfer from synthetic to real images and introduces an intervention-based metric for factor encoding."
+  },
+  "neurips-2024-union-unsupervised-3d-object-detection-using-object-appearance-based-pseudo-classes-1a528f932c": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Unsupervised 3D object detection aims to learn from large datasets without manual training labels. Existing approaches often use moving objects as training signals but penalize detections of stationary instances of mobile objects. Recovering those stationary instances through repeated self-training adds computational cost. UNION seeks to collect both types of instance before detector training.",
+      "The method uses spatial clustering and self-supervised scene flow to produce static and dynamic object proposals from LiDAR data. It then encodes their visual appearances and selects static proposals that resemble dynamic objects. This helps separate stationary foreground objects from background structures. With static and moving mobile objects available together, an existing detector can be trained in a single training round.",
+      "UNION also uses appearance-based cluster assignments as pseudo-class labels, extending object discovery toward detection with classification. Experiments on nuScenes more than double the state-of-the-art average precision for unsupervised 3D object discovery, reaching 38.4. The findings support using appearance similarity to expand the training targets beyond moving instances while avoiding repeated rounds of detector self-training."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4a744d66b7833c8af7e385cb20fc02e92ba7cd1d264b842434d0e453470917ea",
+    "tldr": "UNION uses appearance similarity to include stationary objects in unsupervised 3D detector training, more than doubling discovery average precision on nuScenes to 38.4."
+  }
+}

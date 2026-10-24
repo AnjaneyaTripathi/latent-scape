@@ -1,0 +1,339 @@
+{
+  "neurips-2024-boundary-decomposition-for-nadir-objective-vector-estimation-ed98c513a5": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Multi-objective optimization searches for solutions that balance competing goals. The nadir objective vector helps put these goals on comparable scales and guide that search. Estimating it reliably is therefore useful beyond obtaining a descriptive statistic: the estimate can influence how an optimization method explores possible solutions.",
+      "The paper identifies shortcomings in existing approaches. The exact methods it discusses work only for discrete problems, while heuristic methods struggle when the feasible objective region has a complicated shape. Its proposed method, boundary decomposition for nadir objective vector estimation, converts the original problem into a collection of boundary subproblems.",
+      "A bilevel optimization procedure alternates between solving these subproblems and adjusting them. This progressively aligns their optimal solutions with the desired nadir vector. The authors prove identification under mild conditions, rather than claiming an unconditional guarantee. Comparisons on several black-box multi-objective problems agree with the theoretical analysis and suggest potential for practical applications involving difficult objective regions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "58fde185e8ecb78efc49656330e37ac5eb82bbf6e758752097ecf7c6217c3079",
+    "tldr": "BDNE estimates nadir objective vectors through boundary subproblems and bilevel optimization, with identification guarantees under mild conditions."
+  },
+  "neurips-2024-catastrophic-goodhart-regularizing-rlhf-with-kl-divergence-does-not-mitigate-heavy-taile-4ef5fda93b": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Reinforcement learning from human feedback optimizes a learned reward that inevitably contains some error. A common safeguard penalizes departures from a base model using KL divergence. The hope is that this penalty will keep reward optimization connected to actual utility, even when the reward model is imperfect.",
+      "The paper shows that the behavior of rare, extreme reward errors matters. With light-tailed error, optimal policies under progressively less restrictive KL penalties achieve arbitrarily high utility. With heavy-tailed error, however, some policies can achieve arbitrarily high measured reward while delivering no more utility than the base model. The authors call this separation catastrophic Goodhart.",
+      "The authors also adapt a discrete optimization method to investigate reward-model tails. Their measurements are consistent with light-tailed error, so the empirical result does not establish the catastrophic case for those models. The broader warning concerns possible future reward sources: heavy-tailed misspecification can permit severe reward hacking despite KL regularization."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0c109cbdaa4558d15c830ed0bcddeddf73e86a23e6e137867c42948da04e960a",
+    "tldr": "KL regularization can fail to prevent arbitrarily inflated reward without utility gains when reward errors are heavy-tailed."
+  },
+  "neurips-2024-data-efficient-learning-with-neural-programs-cf9e8f5ab4": {
+    "backgroundConcepts": [
+      "topic-061-neural-symbolic-regression-that-scales"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A neural program combines a deep neural network with a downstream program or a call to a language model. The learning problem becomes difficult when examples label only the final output of this whole composition. Training must work out how changes to the neural network affect results after the downstream component has acted.",
+      "Differentiable logic programs offer one route through this problem, but ordinary programs and external model calls may not expose usable gradients. The paper introduces ISED, an algorithm that learns neural programs using only input-output samples from these black-box components. This makes the learning approach applicable without requiring access to their internal computations.",
+      "The evaluation includes established neurosymbolic benchmarks and new tasks involving modern language-model calls, including GPT-4. ISED achieves performance comparable to leading neurosymbolic frameworks on the former. On the language-model benchmarks, it matches the accuracy of adapted gradient-approximation baselines while using data and samples more efficiently. The reported benefit is thus efficiency without sacrificing comparable accuracy in those evaluations."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d216242eef07290d7a128f62996e03daf53e4a0439b537a24dcda9628f9beb3f",
+    "tldr": "ISED trains neural networks inside programs with black-box components using input-output samples, achieving comparable accuracy with greater efficiency on language-model benchmarks."
+  },
+  "neurips-2024-datacomp-lm-in-search-of-the-next-generation-of-training-sets-for-language-models-c911ab1e2f": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "DataComp-LM provides a controlled setting for studying how training-data choices affect language models. It supplies a Common Crawl corpus containing 240 trillion tokens, pretraining recipes based on OpenLM, and 53 downstream evaluations. Researchers can investigate deduplication, filtering, and data mixing at model sizes from 412 million to 7 billion parameters.",
+      "The shared setup makes dataset curation the central experimental variable. In their baseline experiments, the authors find model-based filtering to be a key ingredient for constructing a high-quality training set. Their resulting DCLM-Baseline dataset supports training a 7-billion-parameter model from scratch with 2 trillion training tokens.",
+      "That model reaches 63% accuracy on MMLU in a five-shot evaluation. Compared with MAP-Neo, described in the abstract as the previous leader among open-data language models, this is a six-percentage-point improvement using half the compute. These results support the practical importance of dataset design, while the released benchmark, models, framework, and datasets give subsequent curation research a common starting point."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c2e136b5c3be878abcf9db7262d93b4834e723da1cdf68fca859d649b5eac6a3",
+    "tldr": "DataComp-LM standardizes language-model data experiments and demonstrates strong results from a training set built with model-based filtering."
+  },
+  "neurips-2024-emergence-of-heavy-tails-in-homogenized-stochastic-gradient-descent-215975d2de": {
+    "backgroundConcepts": [
+      "topic-181-s-gd-over-diagonal-linear-networks-implicit-bias"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Neural-network parameters trained with stochastic gradient descent have repeatedly been observed to follow heavy-tailed distributions. Such distributions allow unusually large parameter values more readily than a Gaussian distribution would. The paper investigates how this behavior can arise from the training dynamics themselves, even when the local noise is Gaussian.",
+      "The analysis studies homogenized stochastic gradient descent, a continuous diffusion approximation to SGD, within regularized linear regression. In this setting, the authors show that the parameter distribution becomes heavy-tailed asymptotically. The result distinguishes the distribution of local gradient noise from the distribution produced by the evolving optimization process.",
+      "The authors derive explicit upper and lower bounds on the tail index, which describes the heaviness of the resulting tails, and validate those bounds numerically. Their formulas also quantify how optimization hyperparameters interact with that index. This contributes a concrete theoretical mechanism to discussions about heavy tails, generalization, and escaping poor local minima, without establishing those broader benefits for neural networks in general."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8648bbc710544ecb74abbb782b1fb2fb415b2b613a79e7eab00ac433ec021b53",
+    "tldr": "A diffusion approximation to SGD develops heavy-tailed parameter distributions in regularized linear regression despite Gaussian local gradient noise."
+  },
+  "neurips-2024-federated-fine-tuning-of-large-language-models-under-heterogeneous-tasks-and-client-reso-38cc1a9772": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Federated fine-tuning brings together clients with different data, tasks, and computing resources. When every client must use an adaptation capacity suited to the least capable participant, better-resourced clients cannot fully contribute. FlexLoRA addresses this bottleneck for language-model fine-tuning with low-rank adaptation, or LoRA.",
+      "The method lets local LoRA ranks vary dynamically, so clients can use different adaptation capacities. During aggregation, it combines client contributions into a full-size LoRA weight. It then uses singular value decomposition to redistribute weights in forms appropriate for the clients. This provides a common aggregation process despite differences in their local ranks.",
+      "Experiments involve thousands of clients with heterogeneous NLP tasks and resource levels. Across the tested heterogeneous distributions, the global model achieves consistently better downstream task improvements than the compared state-of-the-art federated methods. The paper also provides theoretical analysis and describes compatibility with existing LoRA-based federated approaches. Together, these contributions offer a practical route toward federated tuning that makes better use of unequal client resources."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ba313d1f76590974314cd6d5c09ea8f23f93ef2a77930d5603dc9d137331eb56",
+    "tldr": "FlexLoRA aggregates and redistributes variable-rank LoRA updates so federated language-model tuning can benefit from clients with unequal resources."
+  },
+  "neurips-2024-fsp-laplace-function-space-priors-for-the-laplace-approximation-in-bayesian-deep-learnin-2c276b1e08": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Laplace approximations give neural networks estimates of uncertainty about what they have learned. Their results depend strongly on the prior, but practical implementations often use simple Gaussian priors over weights. Those priors are difficult to interpret as beliefs about predictions and can behave pathologically as network depth increases.",
+      "FSP-Laplace instead places a Gaussian-process prior over functions the network can represent. This lets prior knowledge express properties such as regularity or periodicity directly in the predicted function. Because ordinary densities are unavailable in infinite-dimensional function spaces, the authors formulate training through a weak mode of the posterior measure.",
+      "After linearizing the model, the resulting objective supports a Laplace approximation computed with scalable matrix-free linear algebra. The approach combines interpretable functional assumptions with the network's own inductive biases. The authors report improvements in settings with abundant prior knowledge, including scientific inference, while remaining competitive on black-box supervised learning. Its stated advantage is therefore especially relevant when meaningful knowledge about the desired function is available."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "728b79f3972c39d07d42efd28f8a24c385da405f1ca855e18b4201e5f84ec82d",
+    "tldr": "FSP-Laplace uses Gaussian-process priors over network functions to incorporate interpretable prior knowledge into scalable uncertainty estimation."
+  },
+  "neurips-2024-functional-bilevel-optimization-for-machine-learning-c3fb28d31d": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Bilevel optimization involves one optimization problem whose solution depends on another, inner optimization problem. In the machine-learning setting considered here, the inner problem chooses a prediction function. The paper changes the viewpoint used to solve this nested problem by treating the inner choice directly as an optimization over a function space.",
+      "Common approaches instead work with the parameters used to represent the prediction function. The methods described in the abstract rely on strong convexity of the inner objective with respect to those parameters. The proposed functional perspective does not require that particular assumption, making room for over-parameterized neural networks as inner prediction models.",
+      "The authors develop scalable, efficient algorithms around this formulation and illustrate their benefits on instrumental regression and reinforcement-learning tasks. The contribution is both conceptual and algorithmic: it changes the object being optimized and provides methods for working with that change. Its significance is the ability to address nested learning problems without relying on parameter-level strong convexity of the inner objective."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "03af24222cefefdef3c7ccb457258e7f7f3bed41680cfafc31cc2006c1b8be32",
+    "tldr": "A function-space formulation of bilevel optimization supports over-parameterized inner neural networks without requiring parameter-level strong convexity."
+  },
+  "neurips-2024-if-font-ideographic-description-sequence-following-font-generation-e759654963": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Few-shot font generation learns a font's style from a small set of reference glyphs and produces the remaining characters. Previous approaches combine content extracted from a source glyph with style extracted from references. Separating these two factors is difficult, and unwanted source styling can enter the output or create visual artifacts.",
+      "IF-Font replaces the source glyph with an Ideographic Description Sequence, or IDS, to specify the intended character content. It converts reference glyphs into discrete tokens and models target glyph tokens using both the IDS and those reference tokens. Character specification and style examples therefore enter the generation process through different forms of input.",
+      "The method produces glyphs with neat, correct strokes and can create new glyphs from supplied IDS descriptions. The authors report substantial improvements over state-of-the-art methods in both one-shot and few-shot experiments, particularly when target styles differ strongly from training fonts. The findings support using structural character descriptions to reduce the difficulties introduced by extracting content from an already styled glyph."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "39cd66359c04520fdbdf3a26382c1021d8c4f4386a31a89120275985da2f9793",
+    "tldr": "IF-Font generates font glyphs from structural character descriptions and reference-style tokens, improving one-shot and few-shot results."
+  },
+  "neurips-2024-image-copy-detection-for-diffusion-models-32323f26d1": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Diffusion-generated images can reproduce content from existing images, creating a need to assess degrees of copying. Existing image-copy detectors perform well on handcrafted replicas but do not adequately address diffusion-generated replication. The paper introduces ICDiff to study this problem with a dedicated dataset and detection method.",
+      "Its D-Rep dataset contains 40,000 image-replica pairs generated using Stable Diffusion V1.5. Human annotations assign six replication levels, from no replication to total replication. The proposed PDF-Embedding method converts each pair's level into a probability-density supervision signal, reflecting the idea that neighboring degrees of replication should have smoothly related probabilities.",
+      "PDF-Embedding outperforms protocol-driven methods and alternatives without this density-based supervision on the D-Rep test set. The authors also use it to assess well-known diffusion models against an open-source gallery, finding replication ratios between 10% and 20%. Those figures describe the reported gallery-based assessment; the broader contribution is a graded representation of replication tailored to diffusion outputs."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "89ba0a633f802476827e41ef2991e3098a3ce5a0484b63ce8bf28599b6be1d0e",
+    "tldr": "ICDiff introduces a diffusion-replication dataset and a detector trained with smooth supervision over degrees of image copying."
+  },
+  "neurips-2024-initialization-is-critical-to-whether-transformers-fit-composite-functions-by-reasoning--19a096c465": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A transformer can fit a compositional task by learning reusable component mappings or by memorizing overall input-output relationships. These solutions may behave differently on unseen compositions. The paper investigates their internal mechanisms and finds that the scale of the initial parameters plays a critical role in which solution type develops.",
+      "The authors distinguish inferential solutions, which capture compositional primitives, from symmetric solutions based on memorized mappings. Analysis of information flow and internal vector representations reveals different mechanisms behind these behaviors. Inferential solutions also show a bias toward low complexity, which the authors hypothesize helps them learn individual mappings for single anchors.",
+      "The paper validates its conclusions on several real-world datasets and proposes initialization rate gamma as a practical control. A layer with input dimension d uses parameter standard deviation 1/d raised to gamma. This exposes initialization scale as a tunable choice relevant to reasoning and memorization. The explanation involving low-complexity bias remains a hypothesis rather than an established causal conclusion."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "871ba5566b311562cb2bbcaa93e87b5e50924051701a62e5bcea8de00b7cf7dc",
+    "tldr": "Transformer initialization scale strongly influences whether compositional tasks are learned through reusable inferential mappings or memorized relationships."
+  },
+  "neurips-2024-interaction-force-transport-gradient-flows-6a14dc0377": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies optimization in which the evolving object is a distribution or a non-negative measure. Its contribution is a new geometry describing how such objects move toward lower objective values. The construction combines unbalanced optimal transport with interaction forces represented by reproducing kernels.",
+      "The authors use a precise relationship between Hellinger geometry and maximum mean discrepancy, or MMD, to define interaction-force transport gradient flows. They also introduce a spherical variant that preserves mass. The construction combines Wasserstein and spherical MMD tensors through infimal convolution, bringing transport and kernel interactions into a shared mathematical framework.",
+      "For computation, the paper develops a particle-based algorithm using JKO splitting of the spherical flow. Applied to sampling through MMD minimization, the framework comes with global exponential convergence guarantees and improved empirical simulations. The authors further prove global exponential convergence for the spherical flow with both MMD and KL energies. This extends the theoretical appeal of the geometry across two distinct objectives for comparing distributions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9aa20084a1373994f9e16331b0c1706a1752ea898706d55b260db6797c570117",
+    "tldr": "Interaction-force transport combines transport geometry and kernel interactions, yielding particle algorithms and global exponential convergence guarantees for distribution optimization."
+  },
+  "neurips-2024-language-models-as-hierarchy-encoders-37cc4c49a8": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Language contains hierarchical relationships, but representing those relationships explicitly remains challenging for language models. The paper introduces Hierarchy Transformer encoders, or HiTs, by retraining pretrained transformer encoders so their text embeddings organize entities hierarchically. The aim is to make hierarchy part of the representation itself.",
+      "HiTs place output embeddings inside a Poincaré ball, a hyperbolic space whose expansive geometry is useful for representing hierarchical structure. The curvature adapts to the embedding dimension. Retraining uses hyperbolic clustering and centripetal losses, designed together to bring related entities into groups and organize their positions according to hierarchy.",
+      "The evaluation examines simulated transitive inference, subsumption prediction, and transfer across hierarchies. These tasks test relationships that go beyond identifying general textual similarity. HiTs consistently outperform the compared pretrained models, standard fine-tuned models, and hyperbolic embedding baselines on those tasks. The results support both the effectiveness of the learned hierarchical representations and their ability to transfer knowledge between the evaluated hierarchies."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9ca414edd74a23cff9cd1797c4264dd304bedf0621dfbde60ea0b72db7d12bb5",
+    "tldr": "HiTs retrain language-model encoders in hyperbolic space to represent hierarchies explicitly and improve hierarchy-related inference and transfer."
+  },
+  "neurips-2024-learning-augmented-dynamic-submodular-maximization-c1b884daf4": {
+    "backgroundConcepts": [
+      "topic-037-a-dynamic-algorithm-for-weighted-submodular-cove"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Dynamic submodular maximization maintains a valuable selection while available elements are inserted and deleted. The challenge is to update that selection quickly without losing too much solution quality. This paper asks whether predictable patterns in those changes can reduce the work required for each update.",
+      "The algorithm can preprocess predictions about when elements will arrive and disappear. It addresses monotone submodular maximization with a cardinality constraint k, meaning the selected set has a limited size. Prediction error eta counts elements whose insertion and deletion timing does not fall within a tolerance of w steps from the predictions.",
+      "The main guarantee combines a one-half-minus-epsilon approximation with amortized update time polynomial in the logarithms of eta, w, and k. Amortized time measures cost averaged over the update sequence. Crucially, the stated bound depends on prediction error instead of stream length. The result therefore connects useful timing predictions to faster dynamic maintenance while retaining a formal approximation guarantee for the specified optimization setting."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "06f7d686b729f9af9f911a1e918db383beadc3f2b9b6561a829e61a2f93cea94",
+    "tldr": "Predicted insertion and deletion times enable dynamic submodular maximization with update costs tied to prediction error rather than stream length."
+  },
+  "neurips-2024-learning-interaction-aware-3d-gaussian-splatting-for-one-shot-hand-avatars-e4a47ac3a6": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Creating an animatable avatar of interacting hands from one image is difficult because poses vary and fingers or hands can hide one another. Methods designed for isolated subjects do not handle these conditions well. This paper introduces a two-stage framework using 3D Gaussian Splatting and priors learned across different hands.",
+      "The representation separates identity maps fitted through optimization from learned geometric features and neural texture maps. Trained networks supply prior knowledge about poses, shapes, and textures. The identity maps provide a way to fit an individual hand efficiently from a single image, including hands outside the training distribution.",
+      "An interaction-aware attention module and an adaptive Gaussian refinement module focus on regions involving interactions within a hand or between hands. These components address the places where limited visibility makes rendering especially challenging. Experiments on InterHand2.6M show significant image-quality improvements over the state of the art. The reported outcome supports combining shared hand knowledge with individual fitting and targeted refinement around interacting regions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9704647a20d0d90758f839337c2ac8b18c14fdbbe35d79cf24eb2d1807f02ab9",
+    "tldr": "A two-stage Gaussian Splatting framework combines learned hand priors, individual fitting, and interaction-focused refinement to create avatars from single images."
+  },
+  "neurips-2024-leveraging-visual-tokens-for-extended-text-contexts-in-multi-modal-learning-06afe326d6": {
+    "backgroundConcepts": [
+      "topic-012-quest-query-aware-sparsity-for-efficient-long-co"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Longer text contexts increase the memory and computation needed to train multimodal language models. This exploratory paper investigates a different representation: processing long contextual text through visual tokens. The objective is to make longer contexts affordable, and the authors explicitly frame the work as a methodological study rather than a state-of-the-art model release.",
+      "The method substantially reduces GPU memory use and floating-point operations. In one reported example, a 56-billion-parameter mixture-of-experts model expands its pretraining context from 256 to 2,048 tokens while using fewer floating-point operations. This illustrates how changing the representation can alter the computational cost of extending context.",
+      "Experiments report improved optical character recognition and better performance on common downstream benchmarks for in-context few-shot evaluation. The method also handles long-context inference with results comparable to full-text input while retaining computational efficiency. Together, these findings suggest that visual tokens can provide a useful channel for contextual text in multimodal systems, with benefits demonstrated in the evaluated training and inference settings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "087f16d2d730c6fffc252916b78b4efea7e6ca0bdee93549d0c8e837e909575a",
+    "tldr": "An exploratory method represents long contextual text with visual tokens to reduce multimodal training and inference costs."
+  },
+  "neurips-2024-optimal-parallelization-of-boosting-ead76a43e8": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Boosting turns weak learners into a stronger learner through a training process. Parallelizing that process raises a tradeoff: how many rounds must occur sequentially, and how much work must be performed in parallel during each round? Previous research established strong lower bounds and algorithms for different parts of this tradeoff.",
+      "A substantial gap nevertheless remained between what the lower bounds ruled out and what known algorithms achieved. The paper attacks both sides of that gap. It strengthens lower bounds for weak-to-strong learning and supplies a parallel boosting algorithm whose performance matches them across the full tradeoff between rounds and per-round parallel work.",
+      "The matching is up to logarithmic factors, so the result is an essentially tight characterization rather than exact equality of costs. Its stated scope is boosting algorithms that are nearly sample-optimal. Within that scope, the work settles the parallel complexity question by showing both an achievable allocation of parallel effort and corresponding limits on how much better such algorithms can do."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0bc23c7c2d5c5065f14fd961857ba51796db8dbfd4e206dc924c11da5516116b",
+    "tldr": "New lower bounds and a matching algorithm characterize nearly sample-optimal boosting's parallel tradeoff up to logarithmic factors."
+  },
+  "neurips-2024-pretrained-optimization-model-for-zero-shot-black-box-optimization-e133413e1f": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Zero-shot optimization asks an optimizer to tackle a task it did not encounter during training, with little or no adjustment. Existing optimizers can require complicated hyperparameter tuning when moved to new tasks. The paper proposes a Pretrained Optimization Model, or POM, that learns from optimizing a diverse collection of tasks.",
+      "POM transfers that accumulated optimization knowledge to a new black-box problem. It can be applied directly or adapted using a small number of samples. These two modes address different levels of available adaptation effort: immediate use and limited fine-tuning when some additional task-specific information can be collected.",
+      "On the BBOB benchmark and two robot-control tasks, POM outperforms the compared state-of-the-art black-box optimization methods, especially on high-dimensional problems. Small-sample, limited-budget fine-tuning produces further substantial improvements. The evaluation also reports robust generalization across task distributions, dimensions, population sizes, and optimization horizons. These findings support pretraining an optimizer as a way to improve transfer across the varied optimization settings examined."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d8140b58d87becaa8ffd3824a0003a9872a0e7d0d832d74c9120a954cd25c975",
+    "tldr": "POM learns optimization behavior across tasks and transfers it to unseen black-box problems directly or with limited fine-tuning."
+  },
+  "neurips-2024-progressgym-alignment-with-a-millennium-of-moral-progress-64bd997ffc": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Language models can influence how people form beliefs, potentially reinforcing prevailing values and preserving moral blind spots. The paper proposes progress alignment: learning mechanisms of human moral change so alignment can account for evolving values. Its motivation is the possibility that fixing systems to contemporary judgments could help perpetuate problematic practices.",
+      "ProgressGym turns this research agenda into an experimental framework using nine centuries of historical text and 18 historical language models. It defines three challenges: following changing values, anticipating future moral progress, and regulating feedback between shifts in human and AI values. These become the PG-Follow, PG-Predict, and PG-Coevolve benchmarks.",
+      "The authors argue that alignment methods without a temporal dimension cannot address these tasks as formulated. They introduce lifelong and extrapolative algorithms as baselines and provide an open leaderboard for additional methods and challenges. The contribution is a framework for studying alignment over time; the abstract presents it as a means to support future moral decision-making, rather than evidence that historical learning already resolves real-world moral disagreements."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "15d58c5e07edbd9432c1009f2cf5fca9d497cda0e31c5433d9361fb16fc305d9",
+    "tldr": "ProgressGym uses historical texts and language models to benchmark alignment methods that track, anticipate, and interact with changing moral values."
+  },
+  "neurips-2024-recurrent-reinforcement-learning-with-memoroids-5ceb362202": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "In partially observable reinforcement learning, an agent needs information from its history to interpret the current situation. Memory models turn trajectories into internal states intended to support decision-making. RNNs and transformers serve this purpose, but long sequences create scaling difficulties compared with emerging linear recurrent models.",
+      "The authors observe that the recurrent updates of linear recurrent models resemble a monoid, an algebraic structure for composing operations. They use that observation to reformulate existing models in a framework called memoroids. This shared structure provides a way to reconsider how sequences are organized for recurrent reinforcement-learning computation.",
+      "The paper identifies both theoretical and empirical deficiencies in traditional batching and proposes a new batching method using memoroids. The reported benefits include better sample efficiency, higher return, and simpler implementation of recurrent loss functions. The contribution connects a structural property of memory updates to practical training improvements: how experience is batched becomes an important part of using recurrent memory effectively, alongside the choice of memory model itself."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "dbccbb86644dede4dd50835907790c25968b43f503578b5d9f02993c2bffbe4a",
+    "tldr": "Memoroids express linear recurrent memory through a monoid-based framework and enable batching that improves recurrent reinforcement learning."
+  },
+  "neurips-2024-scafflsa-taming-heterogeneity-in-federated-linear-stochastic-approximation-and-td-learni-73278ae0b9": {
+    "backgroundConcepts": [
+      "topic-164-a-federated-stochastic-multi-level-compositional"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Federated linear stochastic approximation lets multiple agents perform local learning while periodically communicating. When agents have different statistical characteristics, local updates can drift apart. The paper quantifies how this heterogeneity affects both the number of samples and the communication needed by the existing FedLSA algorithm.",
+      "The analysis shows that FedLSA's communication cost grows polynomially with inverse target accuracy. To improve this dependence, the authors introduce SCAFFLSA, which uses control variates to correct client drift. For statistically heterogeneous agents, its communication complexity grows logarithmically with inverse target accuracy, matching the type of dependence established for Scaffnew.",
+      "The sample analysis adds another benefit: complexity scales inversely with the number of agents, a property called linear speed-up. The authors emphasize that proving this improvement over existing Scaffnew results requires new theoretical arguments. They also apply SCAFFLSA to federated temporal-difference learning with linear function approximation and analyze the resulting complexity gains. The contribution therefore addresses communication and sample use together in the specified linear learning settings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b7743e4474bb1a737a8e86c95fe53f1e0850c943b1895e178068724726dabfb8",
+    "tldr": "SCAFFLSA corrects federated client drift, achieving logarithmic communication dependence on inverse accuracy and linear sample speed-up across agents."
+  },
+  "neurips-2024-segmenting-watermarked-texts-from-language-models-70b280b317": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Text watermarking embeds subtle statistical signals in model-generated text so its source can later be detected. This paper considers a trusted provider generating watermarked responses for an untrusted user. Before publishing, that user may substitute words, insert material, or delete parts, complicating detection of the original signal.",
+      "The authors address two related questions: whether a published text contains the provider's generated content, and which substrings are watermarked. Their method combines randomization tests with change-point detection. The tests support statistical decisions, while change points identify boundaries between portions with and without the watermark signal.",
+      "The paper establishes control of Type I and Type II errors, corresponding to false positives and false negatives, and shows accurate localization of watermarked substrings through their boundaries. Experiments use several language models with prompts drawn from Google's C4 dataset and yield encouraging numerical results. The contribution extends watermark analysis from a whole-document decision to locating generated material within a text that may have been modified."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "db5bbe37652de6c9cabe4b845a4b8673664464743edfb53db9a775cbfd22d3e8",
+    "tldr": "Randomization tests and change-point detection identify and segment watermarked language-model text after possible user edits."
+  },
+  "neurips-2024-sequential-probability-assignment-with-contexts-minimax-regret-contextual-shtarkov-sums--da21535ba1": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Sequential probability assignment predicts outcomes over time and evaluates those predictions with logarithmic loss. The paper asks what determines the smallest achievable worst-case regret relative to a hypothesis class, including classes without a finite-dimensional parameterization. A previously studied complexity measure, sequential infinity-norm entropy, does not fully characterize this regret in general.",
+      "The authors introduce the contextual Shtarkov sum, formed by projecting a Shtarkov-style construction onto a branching context tree. They prove that its worst-case logarithm equals minimax regret. This supplies an exact characterization of prediction difficulty and leads to a minimax-optimal strategy called contextual Normalized Maximum Likelihood, or cNML.",
+      "The results cover sequential experts and outcomes with more than two labels, extending beyond settings commonly studied in earlier work. The characterization also yields a short proof of a new upper bound expressed through sequential infinity-norm entropy, unifying and sharpening previous bounds. Thus, a measure that was insufficient for exact characterization still remains useful for bounding regret within the new framework."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e41f563770c4e34fc1f4d2b458a0e4d19fe4e40616f3a1a0b0b87d0896b7dc17",
+    "tldr": "The contextual Shtarkov sum exactly characterizes minimax log-loss regret and yields a general optimal prediction strategy."
+  },
+  "neurips-2024-treevi-reparameterizable-tree-structured-variational-inference-for-instance-level-correl-1fc7398613": {
+    "backgroundConcepts": [
+      "topic-005-a-contrastive-divergence-for-combining-variation"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Variational inference approximates a posterior distribution with a more manageable distribution. Mean-field methods scale well by assuming independence, but that assumption can miss relationships between data instances. Such relationships matter when data have graph structure or when explicit constraints link the latent variables of different instances.",
+      "TreeVI represents posterior dependencies using a tree. The authors show that samples from this structured distribution can be reparameterized efficiently and in parallel, allowing training at a reported cost of two or three times that of mean-field variational inference. This makes richer dependence modeling available without the scaling difficulties associated with many existing correlation-aware approaches.",
+      "The framework extends to multiple trees for more complicated correlation patterns, and the tree structure itself can be learned automatically from training data. Experiments cover synthetic datasets, constrained clustering, user matching, and link prediction. The reported results show stronger capture of instance-level posterior correlations and improved downstream performance, supporting trees as a useful compromise between independence and more elaborate dependency models."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c51d151b29bed56cf433ce3f4a168f5f741b35750986b644eee6a4eb73176c53",
+    "tldr": "TreeVI captures posterior correlations with learnable tree structures while keeping training costs close to mean-field variational inference."
+  },
+  "neurips-2024-unconditional-stability-of-a-recurrent-neural-circuit-implementing-divisive-normalizatio-8e1b8a07ce": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Biologically plausible recurrent circuits can be difficult to train because their nonlinear dynamics create challenging stability constraints. The paper studies ORGaNICs, a cortical circuit model that dynamically implements divisive normalization. It connects this normalization mechanism to stability and to the possibility of training an interpretable recurrent model.",
+      "Using Lyapunov's indirect method, the authors prove unconditional local stability in arbitrary dimensions when the recurrent weight matrix is the identity. A connection to coupled damped harmonic oscillators then provides a circuit energy function. For general recurrent weights, stability is proved in two dimensions and supported empirically in higher dimensions; these are distinct levels of evidence.",
+      "The authors also demonstrate training by backpropagation through time without gradient clipping or scaling, attributing this to intrinsic stability and adaptive time constants that address problematic gradient behavior. On the reported benchmarks, ORGaNICs surpass alternative neurodynamical models for static image classification and perform comparably to LSTMs on sequential tasks. The findings connect a conditional mathematical stability result with practical trainability and competitive task performance."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b857055cf22425db18905626e4b1ad199d30b457759fdd6aa606240b231944ba",
+    "tldr": "ORGaNICs combines biologically plausible recurrent dynamics with proved local stability for identity recurrent weights and demonstrated practical trainability."
+  }
+}

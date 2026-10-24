@@ -1,0 +1,377 @@
+{
+  "icml-2018-a-classification-based-study-of-covariate-shift-in-gan-distributions-ba6ee2035a": {
+    "backgroundConcepts": [
+      "topic-217-a-classification-based-study-of-covariate-shift-"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A generator can produce convincing individual examples while still failing to represent the variety in its training data. This paper develops quantitative tools for examining that gap in generative adversarial networks. Its focus is distributional diversity: whether generated samples preserve important characteristics of the collection they are meant to reproduce.",
+      "The authors approach this question through classification, treating lost diversity as covariate shift between the training distribution and the generated distribution. They examine mode collapse and boundary distortion as two specific forms of this shift. This turns an elusive question about sample variety into a classification-based assessment that can be applied at scale with minimal human supervision.",
+      "Applying these tools to popular GANs reveals substantial difficulties in reproducing distributional properties of their training datasets. The finding concerns the models examined, rather than establishing that every GAN must fail. The contribution is therefore both a diagnostic method and evidence that evaluating realistic-looking samples alone provides an incomplete picture of what a generator has learned."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c9f93b787690b1ae235b3d01231af72331058c0139ddae339d0beac23abd3434",
+    "tldr": "Classification-based tools reveal diversity problems in popular GANs by measuring shifts between training and generated distributions."
+  },
+  "icml-2018-a-spectral-approach-to-gradient-estimation-for-implicit-distributions-668000ab12": {
+    "backgroundConcepts": [
+      "topic-005-a-contrastive-divergence-for-combining-variation"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Implicit distributions can be used in learning and inference even when their densities cannot be evaluated tractably. That makes obtaining useful gradient information difficult. This paper develops an estimator that reconstructs a gradient function, allowing the information learned from samples to be used at points beyond those samples.",
+      "The construction combines Stein’s identity with a spectral decomposition of kernel operators. It approximates the resulting eigenfunctions using the Nyström method. The key distinction is that the output is a function rather than a collection of estimates attached only to observed sample locations. This provides a direct, principled way to extend gradient estimation to new locations.",
+      "The authors establish an error bound and discuss how practical choices balance bias against variance. Applications to gradient-free Hamiltonian Monte Carlo and variational inference with implicit distributions demonstrate the method’s effectiveness. Connections to kernel principal component analysis also provide an interpretation of the estimator: its representation can adapt to the underlying distribution’s geometry, helping explain why the spectral construction is useful."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a1b47e7a4a77751ae91ae317e23452d4c3fa17ece7ccc2a10931f68c9716c2f0",
+    "tldr": "A spectral estimator learns gradient functions for implicit distributions and extends naturally to points outside the observed samples."
+  },
+  "icml-2018-adafactor-adaptive-learning-rates-with-sublinear-memory-cost-49b492e330": {
+    "backgroundConcepts": [
+      "topic-069-pscaling-small-models-principled-warm-starts-and"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Adaptive optimizers often maintain a running average of squared gradients for every parameter. These statistics help scale updates, but storing them requires memory proportional to the parameter count. Adafactor reduces that storage requirement for weight matrices by retaining row and column summaries instead of a separate second-moment estimate for every entry.",
+      "The optimizer reconstructs approximate per-parameter second moments from those summaries. Experiments show results similar to the baseline despite this reduced representation. The paper also identifies a separate issue: second-moment accumulators with overly slow decay can permit updates larger than desired. It proposes clipping updates and gradually increasing the decay rate to address that behavior.",
+      "Combining these changes and removing momentum yields results comparable to the published Adam training regime for a Transformer on English–German translation, with very little auxiliary optimizer storage. This is an empirical finding for the stated task. The paper additionally proposes scaling updates according to the parameters’ own scale, extending its treatment of how adaptive updates should be sized."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "cee65117cae26ba016c936d2e4d02840aff9d003f863eafb50cec6b551514e4e",
+    "tldr": "Adafactor saves optimizer memory through row and column gradient summaries while achieving comparable Transformer translation results to an Adam regime."
+  },
+  "icml-2018-an-algorithmic-framework-of-variable-metric-over-relaxed-hybrid-proximal-extra-gradient--1fd3869080": {
+    "backgroundConcepts": [
+      "topic-124-a-catalyst-framework-for-minimax-optimization"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper introduces VMOR-HPE, a framework for solving maximal monotone operator inclusions. It brings variable metrics and over-relaxed steps into a hybrid proximal extra-gradient method. The framework covers a broad class of primal and primal-dual operator splitting algorithms, providing a shared perspective on methods that might otherwise be analyzed separately.",
+      "The authors establish global convergence, iteration complexity results, and a local linear convergence rate. Their analysis also supports the role of larger over-relaxed steps in accelerating the framework. These results connect algorithm design to convergence behavior: the choice of step and metric is part of the theoretical explanation for progress.",
+      "Applying the framework to optimality equations for equality-constrained, multi-block composite convex optimization produces PADMM-EBB. This algorithm combines a nonsymmetric proximal alternating direction method with a preconditioned extra-gradient step and a blockwise line search for its metric. The paper bounds complexity through the KKT residual and reports promising synthetic and real-data results on nonnegative dual graph regularized low-rank representation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9dc63d0d9d8a0512fea00b56f6b6d6f7044753aa6aac19d3477c8bc2c63f93dc",
+    "tldr": "VMOR-HPE unifies operator splitting methods with convergence guarantees and yields a new algorithm for constrained composite convex optimization."
+  },
+  "icml-2018-black-box-variational-inference-for-stochastic-differential-equations-62857727fa": {
+    "backgroundConcepts": [
+      "topic-200-do-diffusion-models-dream-of-electric-planes-dis"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Inferring the parameters of a stochastic differential equation is difficult because observations leave the intervening diffusion path hidden. This paper learns both the parameters and those unobserved paths through variational inference. Its starting point is an Euler–Maruyama discretization, so inference operates on a discrete approximation to the diffusion process.",
+      "The method uses two different approximations for the two parts of the problem. A mean-field distribution represents uncertainty about parameters, while a recurrent neural network represents diffusion paths conditional on those parameters. The network learns Gaussian state transitions that bridge observations, behaving similarly to the diffusion process conditioned on the observed data.",
+      "This learned bridge is the central mechanism for making inference broadly reusable rather than requiring extensive tuning for each system. The authors present the resulting method as applicable to any SDE system with light tuning. Demonstrations on a Lotka–Volterra system and an epidemic model produce accurate parameter estimates within a few hours, supporting its usefulness on those examples."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "70975c74978a72002f66c94c9793c8e057e973939fa1def3d31d8034c0b3edde",
+    "tldr": "A recurrent network learns hidden diffusion paths alongside model parameters to enable broadly applicable variational inference for stochastic differential equations."
+  },
+  "icml-2018-bounding-and-counting-linear-regions-of-deep-neural-networks-1c0f9ad3f9": {
+    "backgroundConcepts": [
+      "topic-159-mathcalo-log-n-latent-dimension-suffices-for-uni"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A piecewise linear neural network divides its input space into regions, with a linear rule applying within each region. This paper studies how many such regions a network can represent. Counting these pieces gives a concrete way to investigate representational complexity and compare the effects of network structure.",
+      "The authors derive tighter upper and lower bounds for rectifier networks, with exact results when the input has one dimension. They also provide an upper bound for multilayer maxout networks. Their reasoning uses the dimension of the space defining each region. Alongside these theoretical results, they introduce exact region enumeration and counting through a mixed-integer linear formulation of the network.",
+      "The analysis also qualifies when depth can provide an advantage in region count. For a deep rectifier network to exceed every shallow counterpart with the same number of neurons, that neuron count must exceed the input dimension. This is a necessary condition for the stated advantage, not a guarantee that every network satisfying it will outperform its shallow counterparts."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8349f77e32012090129640a9c9d342432d990706c93daf22fac45f0320655a27",
+    "tldr": "New bounds and exact counting methods clarify how network architecture and input dimension constrain the number of linear regions."
+  },
+  "icml-2018-finding-influential-training-samples-for-gradient-boosted-decision-trees-74430e0103": {
+    "backgroundConcepts": [
+      "topic-215-quant-bnb-a-scalable-branch-and-bound-method-for"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "To understand a prediction, it can be useful to ask which training examples most influenced it. One direct definition considers how the prediction would change if each example were removed and the model retrained. This paper develops ways to study that leave-one-out influence for gradient-boosted decision tree ensembles more efficiently.",
+      "The authors extend an influence-analysis framework previously used for parametric models to nonparametric boosted trees. Their extension assumes that the tree structures remain fixed. That assumption defines the scope of the analysis: the method studies changes within an established tree structure rather than accounting for every structural change that unrestricted retraining might produce.",
+      "The paper also introduces a general scheme for further approximations, allowing a tradeoff between computational complexity and performance. Experiments across different setups and use cases demonstrate both the quality of the influential-sample estimates relative to baselines and computational efficiency. The contribution makes training-example influence more accessible for boosted trees while explicitly retaining the fixed-structure condition on which the approach depends."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3baff8ce6ec5272c5d929f3708092d0e6aa29926cddf2bbff5c05db1336b843f",
+    "tldr": "Efficient influence estimates identify important training examples for boosted trees under a fixed-tree-structure assumption."
+  },
+  "icml-2018-first-order-generative-adversarial-networks-eb59890279": {
+    "backgroundConcepts": [
+      "topic-217-a-classification-based-study-of-covariate-shift-"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A GAN’s generator update need not point in the direction that most steeply decreases its objective. This paper identifies that mismatch in prominent GAN formulations, including the original GAN and WGAN-GP. It asks what properties an objective and its update rule must jointly satisfy to obtain the desired direction.",
+      "The authors introduce a theoretical framework that derives requirements guaranteeing unbiased minibatch updates in the steepest descent direction. They then propose a divergence that approximates Wasserstein distance while regularizing the critic’s first-order information. Paired with its accompanying update direction, this divergence satisfies the framework’s requirements. The objective and update rule therefore form a deliberately matched construction.",
+      "The resulting First Order GAN is evaluated on image generation using CelebA, LSUN, and CIFAR-10. The authors also report a new state-of-the-art result on the One Billion Word language generation task. These experiments complement the theoretical contribution: the method connects a formal property of generator updates with demonstrated performance in both image and language generation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3d4d070d4552fcb0b15d0a0427fb17717cfdc1d14b0149a47a27e39a02402423",
+    "tldr": "First Order GAN pairs a new divergence with an update rule that satisfies guarantees for unbiased steepest descent minibatch updates."
+  },
+  "icml-2018-graph-networks-as-learnable-physics-engines-for-inference-and-control-5eec20550a": {
+    "backgroundConcepts": [
+      "topic-058-amag-additive-multiplicative-and-adaptive-graph-"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Predicting a physical scene requires representing both its components and how they interact. This paper introduces learnable physics models based on graph networks, with an explicit bias toward objects and their relations. That organization gives the model a structured way to represent complex dynamics and knowledge about the physical world.",
+      "As forward models, the networks produce accurate predictions from real and simulated data. The authors report strong, efficient generalization across eight physical systems whose parameters and structures were varied. They also find that an inference model can perform system identification, extending the framework beyond predicting motion to inferring properties of the system being observed.",
+      "The models are differentiable, allowing them to support online planning through gradient-based trajectory optimization and offline policy optimization. This connects learned physical prediction with choosing actions. Taken together, the results show how the same object-and-relation-centered framework can support prediction, inference, and control, with the reported generalization demonstrated across the physical systems examined."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7b8a66ad4bdce1afcac1cc5e8ea2bed21e13125d01ce2b2c5efcc861ef4b07a9",
+    "tldr": "Graph-based physics models use objects and relations to support accurate prediction, system identification, and differentiable planning."
+  },
+  "icml-2018-learning-equations-for-extrapolation-and-control-00dafe497f": {
+    "backgroundConcepts": [
+      "topic-206-hey-that-s-not-an-ode-faster-ode-adjoints-via-se"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Learning a concise equation from data can make a relationship understandable and support predictions outside the observed range. This paper uses a shallow neural network to identify such equations. Its aim is to recover functional structure that can generalize to unseen parts of the parameter space, rather than merely fit observed examples.",
+      "The authors extend an existing equation-learning network so that it can represent division. They also improve learning and model selection to address challenging real-world data. These changes expand the equations the network can discover and improve how it chooses among candidate descriptions. For systems governed by analytical expressions, the method can recover the underlying equation and extrapolate in many cases.",
+      "A cart-pendulum experiment connects equation discovery to control. With only two random rollouts, the method learns forward dynamics that support a successful swing-up task. This provides a concrete demonstration of learning a useful dynamical relationship from limited experience. The broader recovery and extrapolation claims remain qualified by the stated analytical setting and the observation that success occurs in many cases."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "bd4c246f61f60452eb3496df72da2240b792e1b5d83e689a8a06378d4d0c3c95",
+    "tldr": "A shallow equation-learning network adds division and improved model selection to recover interpretable dynamics that can support extrapolation and control."
+  },
+  "icml-2018-learning-in-integer-latent-variable-models-with-nested-automatic-differentiation-d0b68da3a5": {
+    "backgroundConcepts": [
+      "topic-005-a-contrastive-divergence-for-combining-variation"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Integer latent variable models contain hidden quantities that take integer values. In a class of these models, summing over the hidden possibilities can be reduced to evaluating a probability generating function. The computational challenge is that this function involves many levels of nested, high-order derivatives, making differentiation central to both inference and learning.",
+      "This paper develops automatic differentiation algorithms tailored to that nested structure. The algorithms improve speed and numerical stability for the inference calculation. The authors also introduce a method for computing exact gradients for learning, connecting the ability to evaluate the model with the ability to adjust its parameters.",
+      "The resulting learning algorithms are reported to be significantly faster and more accurate. A central theoretical contribution is polynomial running time in the number of nesting levels, which the authors identify as a first for automatic differentiation algorithms of this kind. The result addresses the growth of computational effort with nesting depth within the stated model class, making the generating-function approach more effective for exact inference and learning."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1b0c32f3cd30f6b847d427eb5cc9e3fb1f287e78990d7758cca483f966e1abef",
+    "tldr": "New nested automatic differentiation algorithms enable faster, more stable exact inference and gradient-based learning in a class of integer latent variable models."
+  },
+  "icml-2018-learning-with-abandonment-a47a711639": {
+    "backgroundConcepts": [
+      "topic-033-2d-shapley-a-framework-for-fragmented-data-valua"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Personalization becomes harder when an unsatisfactory action can cause a user to leave permanently. A platform choosing how many newsletters to send, for example, must learn preferences while facing the possibility of an unsubscribe. This paper studies learning when the interaction used to gather information can also end future interaction with that user.",
+      "The authors introduce a general thresholded learning model for this setting and examine the structure of optimal policies. They describe features that effective personalization algorithms should have and analyze how the feedback available to the platform changes the results. Feedback matters because it determines what the platform can learn while making choices that carry abandonment risk.",
+      "The paper also considers learning differences across users through interactions with a population. It investigates efficient ways to learn this heterogeneity and provides performance guarantees. The contribution links individual personalization with population-level learning, treating abandonment as part of the decision problem rather than assuming users remain available throughout the learning process."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a22e069ce34d763dcbe1faf485d9d45c020f0d90011657bda9f7ec3d0a1e9983",
+    "tldr": "A thresholded learning model studies how to personalize actions when dissatisfied users may abandon the platform permanently."
+  },
+  "icml-2018-locally-private-hypothesis-testing-4fab2078ee": {
+    "backgroundConcepts": [
+      "topic-016-optimal-algorithms-for-mean-estimation-under-loc"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Local privacy changes what a statistical test can observe: each user’s type is mapped into a signal through a privacy mechanism. This paper studies hypothesis testing using those signals, considering both symmetric randomized response and newer nonsymmetric mechanisms. It first shows that finding a maximum-likelihood distribution over the signals is feasible.",
+      "For randomized response, the authors characterize how the mechanism transforms the null and alternative hypotheses into new sets through an affine transformation. This describes the hypotheses in the space where observations are actually available. They then derive sample complexity bounds for identity testing and independence testing, connecting privacy-induced transformations to the amount of data testing requires.",
+      "The analysis also establishes feasibility of maximum-likelihood distribution estimation for the nonsymmetric mechanisms considered. Under one such mechanism, the proposed identity and independence testers have better sample complexity than the symmetric-case testers. Finally, the authors propose and empirically investigate a chi-squared identity tester. The results show that the choice of local privacy mechanism affects the statistical efficiency of testing."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0fc4e4456aa6cc1a7270b23ab10d5c371046d2df95b4b6cf6f5350adbef09e05",
+    "tldr": "The paper develops locally private hypothesis tests and shows that certain nonsymmetric privacy mechanisms improve sample complexity over randomized response."
+  },
+  "icml-2018-multi-fidelity-black-box-optimization-with-hierarchical-partitions-c4ef720dc5": {
+    "backgroundConcepts": [
+      "topic-072-pfn-fast-entropy-search-via-in-context-learning"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Black-box optimization can be expensive when every candidate requires a full simulation or training run. Multi-fidelity methods use cheaper, biased approximations to obtain partial information. For hyperparameter tuning, training for fewer iterations costs less, but the resulting validation error is only a coarse indication of the error after training finishes.",
+      "This paper incorporates that tradeoff into hierarchical partitioning, a framework that organizes the search space into progressively refined regions. The authors develop tree-search algorithms that operate in the multi-fidelity setting. Their approach brings inexpensive approximate evaluations into a structured search procedure, making evaluation fidelity part of how the optimization problem is handled.",
+      "The algorithms come with theoretical guarantees on simple regret, which concerns the quality of the solution recommended by the search. Experiments on real and synthetic datasets also demonstrate performance gains. Together, the theory and experiments support combining hierarchical search with multiple evaluation fidelities when accurate evaluations are costly and cheaper approximations are available."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "91b02a60698a6ce980bc46e45d4780975a62aab50f80918394aea016a990082f",
+    "tldr": "Tree-based multi-fidelity optimization combines cheap approximate evaluations with hierarchical search and provides simple-regret guarantees."
+  },
+  "icml-2018-not-to-cry-wolf-distantly-supervised-multitask-learning-in-critical-care-c3d1198753": {
+    "backgroundConcepts": [
+      "topic-229-discriminative-regularization-for-latent-variabl"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "ICU monitoring systems can mistake movement artifacts and technical errors for signs of deterioration, producing large numbers of false alarms. These alarms can obscure important warnings and exhaust clinical staff. This paper treats false-alarm reduction as a learning problem over multivariate time series, where data are plentiful but reliable expert annotations are expensive.",
+      "The proposed multitask network draws on distant supervision from several related auxiliary tasks. Its purpose is to reduce dependence on costly labels for the main alarm-reduction task. This makes the relationship between tasks central to training: auxiliary supervision supplies additional learning signals when direct expert annotation is difficult to obtain.",
+      "On real ICU data, the authors report significant improvements over several state-of-the-art baselines. They also examine the importance of auxiliary-task selection and network architecture in distantly supervised multitask learning. The contribution therefore includes both an alarm-reduction approach and evidence about how to design learning systems that use related tasks to make better use of limited expert labels."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2a272bf5e6d23a1c45c78b81d09bf80bb80fde3caf384bb628ead74ecb846527",
+    "tldr": "A distantly supervised multitask network improves ICU false-alarm reduction while reducing reliance on expensive expert labels."
+  },
+  "icml-2018-overcoming-catastrophic-forgetting-with-hard-attention-to-the-task-afa3343665": {
+    "backgroundConcepts": [
+      "topic-083-online-continual-learning-from-imbalanced-data"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "When a neural network learns tasks sequentially, training on a new task can erase information needed for earlier ones. This paper addresses that catastrophic forgetting through task-based hard attention. The mechanism is designed to preserve earlier information while allowing the current task to be learned.",
+      "A hard attention mask is learned alongside each task using stochastic gradient descent. Masks from previous tasks then condition subsequent learning. This gives the training process an explicit record of task-related attention that can guide how new knowledge is acquired. The approach also offers controls over the stability and compactness of the learned knowledge, together with monitoring capabilities.",
+      "The authors report reductions in forgetting rates of 45 to 80 percent and robustness across different hyperparameter choices. These results support the mechanism’s effectiveness in the evaluated settings. They additionally suggest that control over stability and compactness could make the approach useful for online learning or network compression, presenting those applications as possibilities rather than established outcomes."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ee47047caa184ebab5571b497f4ed73bd24deb4307b10c1306085cd7c3b84ec3",
+    "tldr": "Task-specific hard attention masks guide sequential learning and reduce reported catastrophic forgetting rates by 45 to 80 percent."
+  },
+  "icml-2018-probabilistic-boolean-tensor-decomposition-5829048198": {
+    "backgroundConcepts": [
+      "topic-166-canonical-tensor-decomposition-for-knowledge-bas"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Boolean tensor decomposition summarizes multiway binary relationships through a small set of interpretable binary factors combined using Boolean algebra. This paper introduces a probabilistic treatment of that decomposition. It uses the combinatorial structure of conditional distributions over factors to make sampling-based posterior inference scalable.",
+      "The authors report that maximum a posteriori estimates consistently outperform existing nonprobabilistic approaches. They partly attribute these gains to finding solutions occupying larger regions of parameter space and to implicit model averaging. The Bayesian formulation also improves model selection accuracy relative to a previously proposed minimum-description-length approach, addressing both how factors are fitted and how a model is selected.",
+      "Three real-world datasets illustrate the method. Student interaction and behavioral data reveal informative latent patterns, while a cancer gene-expression application involves a tensor exceeding ten billion entries. That larger example demonstrates scalability and offers a relational view of continuous data. In the cancer setting, this perspective exposes structure relevant to molecular heterogeneity rather than treating the measurements only as isolated numerical values."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9f49355145a5c688ed8c656f027ee5cf99031c9707c0a9e7a0c02cc527b162f7",
+    "tldr": "A Bayesian approach to Boolean tensor decomposition improves reported factor estimation and model selection while scaling to billions of entries."
+  },
+  "icml-2018-progress-compress-a-scalable-framework-for-continual-learning-912484f1b6": {
+    "backgroundConcepts": [
+      "topic-083-online-continual-learning-from-imbalanced-data"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Continual learning asks a system to acquire tasks sequentially while retaining earlier skills. Progress & Compress addresses this with a fixed-size architecture designed to preserve previous performance and accelerate later learning. Its central idea is to alternate between learning the current task and consolidating what was learned.",
+      "The network has a knowledge base for previously encountered problems and a connected active column for the current task. During progression, the active column learns the new problem. During compression, its knowledge is distilled into the knowledge base with protection for existing skills. This separates immediate task learning from the subsequent integration of that knowledge.",
+      "The cycle requires no architectural growth, no stored or accessible previous task data, and no task-specific parameters. These properties directly address resource growth as the task sequence lengthens. The authors demonstrate the framework on sequential handwritten-alphabet classification, Atari games, and three-dimensional maze navigation, showing its application across both supervised learning and reinforcement learning domains."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d76022cdf2daed812207d02fdcc2391c762ec7556450b9669063e6245f752271",
+    "tldr": "Progress & Compress alternates new-task learning with protected knowledge consolidation in a fixed-size network without storing previous task data."
+  },
+  "icml-2018-representation-tradeoffs-for-hyperbolic-embeddings-d2cc45513b": {
+    "backgroundConcepts": [
+      "topic-245-a-domain-decomposition-method-for-fast-manifold-"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Hyperbolic space can represent hierarchical data well using few dimensions. This paper investigates both how to construct such representations and what they demand from numerical precision. It gives a combinatorial procedure that embeds trees with arbitrarily low distortion without optimization, providing a direct construction rather than requiring an embedding to be learned.",
+      "On WordNet, the construction achieves mean average precision of 0.989 in two dimensions, exceeding existing work by 0.11 points. The authors also derive bounds on the tradeoff between precision and dimensionality inherent in hyperbolic embeddings. This connects compact representations with the precision needed to express them, making dimensionality only one part of the representation question.",
+      "For general metric spaces, the paper proposes hyperbolic multidimensional scaling. It establishes exact recovery of hyperbolic points from distances, analyzes perturbations, and provides a recovery result supporting dimensionality reduction. These theoretical and algorithmic lessons inform a scalable PyTorch implementation that can work with incomplete information, extending the work beyond the tree-specific construction."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ebb307417a50f713f51d392879e3aea08488996f1d3d0c7637665a15aa23155a",
+    "tldr": "Direct constructions and recovery algorithms clarify how hyperbolic embeddings trade dimensionality against numerical precision."
+  },
+  "icml-2018-solving-partial-assignment-problems-using-random-clique-complexes-ff4392736a": {
+    "backgroundConcepts": [
+      "topic-039-nearly-efficient-algorithms-for-the-graph-matchi"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Partial assignment involves finding correspondences when matching must accommodate incomplete structure. This paper reformulates the problem using random clique complexes, higher-order counterparts of random graphs. The aim is to supply structural invariants that better detect relationships involving groups of points, giving the matching procedure richer information about how points fit together.",
+      "The method constructs random clique adjacency matrices for the different skeletons of these complexes and matches those matrices. It also represents each point as an affine combination of its geometric neighborhood. These two ingredients bring higher-order connectivity and local geometric relationships into the assignment formulation.",
+      "The authors analyze runtime, storage requirements, and the asymptotic behavior of the associated quadratic assignment problem. Experiments on synthetic and real-world datasets include severe occlusions and distortions, examining accuracy, efficiency, and robustness under those conditions. The reported results outperform diverse matching algorithms by a significant margin, supporting the usefulness of the richer structural representation in the evaluated matching problems."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c764307c7e4c2e6d3f176b32042405eacd6cf8fdd24e95f9434690df79312ef7",
+    "tldr": "Random clique complexes improve partial matching by incorporating higher-order structure and local geometry."
+  },
+  "icml-2018-spurious-local-minima-are-common-in-two-layer-relu-neural-networks-2ba6902e66": {
+    "backgroundConcepts": [
+      "topic-046-the-loss-surface-of-deep-and-wide-neural-network"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper asks whether even a simple two-layer ReLU network can have misleading local optima when trained with squared loss. It studies networks that sum rectified linear responses. The setting is favorable in several respects: inputs are standard Gaussian, and targets come from a network of the same form with orthonormal parameter vectors.",
+      "A computer-assisted proof establishes that spurious local minima can nevertheless exist for network sizes from six through twenty, even in arbitrarily large input dimensions. A concentration-of-measure argument extends the implication: in high dimensions, nearly all target networks of the relevant sizes lead to such minima. Thus, favorable input and target structure do not remove the optimization difficulty in this setting.",
+      "Experiments find a substantial probability of reaching these minima, increasing with network size. Mild overparameterization appears to reduce them drastically. That final observation is empirical, while the existence result is proved. Together, the findings motivate an overparameterization assumption for positive optimization results in the setting considered."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "faaac17c1f1c33ffa3914d36b1fa713ba6e37f697017d21bc6e1d68126afcf62",
+    "tldr": "Simple two-layer ReLU networks can have common spurious local minima even under favorable assumptions, while mild overparameterization appears to help."
+  },
+  "icml-2018-tapas-tricks-to-accelerate-encrypted-prediction-as-a-service-9577af1b55": {
+    "backgroundConcepts": [
+      "topic-119-textttfhaim-fully-homomorphic-aim-for-private-ta"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Prediction services let clients use a provider’s models and computational resources, but sending input data creates a privacy problem. Fully homomorphic encryption offers a way to compute on encrypted inputs while keeping client data private from the provider. The practical obstacle addressed here is the time needed to evaluate large models on encrypted data.",
+      "TAPAS combines ideas from neural-network quantization and sparsification with algorithmic methods for accelerating and parallelizing encrypted computation. This brings model representation and computation strategy into the same design problem. The goal is to make the work required by prediction more compatible with the expense of arithmetic performed under encryption.",
+      "The paper frames efficiency in terms of both computation and communication between client and server. Its contribution is the combination of machine-learning techniques and encrypted-computation tools directed at that bottleneck. The approach matters because privacy-preserving evaluation alone does not resolve the cost of serving predictions; practical use also depends on making that evaluation efficient enough to perform."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "483aba8e0cb8c8a2ff1c92ebe7c1183cb9f39eb1d51b57241f688a85909a4a6b",
+    "tldr": "TAPAS combines quantization, sparsification, and computational techniques to accelerate neural-network prediction on encrypted client data."
+  },
+  "icml-2018-tempered-adversarial-networks-2fd16e5ea8": {
+    "backgroundConcepts": [
+      "topic-217-a-classification-based-study-of-covariate-shift-"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "GAN training places the discriminator and generator in an uneven position: the discriminator learns from real and generated examples, while the generator controls only generated examples. This paper proposes that imbalance as a possible explanation for instability. It changes the interaction by giving the generator influence over how real samples are presented.",
+      "Real data pass through a learned lens before reaching the discriminator. The lens gradually reveals more detailed features, tempering the learning process for both networks. The proposed module adjusts automatically to their current strength, making the difficulty of the interaction responsive to how learning is progressing rather than exposing the same real-data representation throughout.",
+      "The authors describe the module as generic and easy to incorporate into GAN variants. Experiments across DCGAN, LSGAN, and WGAN-GP show that it can improve sample quality, stability, or convergence speed. The results support benefits across multiple architectures, with the qualification that the improvements need not cover every one of those outcomes in every experiment."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "81999474336991a3d78c060b9f6b8d230a14f62ffd51940af2e82112b1c0327c",
+    "tldr": "An adaptive lens on real data tempers GAN training and can improve quality, stability, or convergence speed across several architectures."
+  },
+  "icml-2018-tight-regret-bounds-for-bayesian-optimization-in-one-dimension-12c726fbb3": {
+    "backgroundConcepts": [
+      "topic-021-l-1-penalized-robust-estimation-for-a-class-of-i"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies the theoretical limits of Bayesian optimization for a one-dimensional function observed with Gaussian noise under a Gaussian process prior. It measures cumulative regret, the accumulated shortfall from choosing points below the optimum. The question is how quickly this total can grow even when the optimization strategy is as effective as possible.",
+      "Under technical assumptions on the kernel, the best achievable cumulative regret has a lower bound of order square root of T and an upper bound of order square root of T log T. The bounds differ only by a square-root-logarithmic factor. The lower bound is presented as the first nontrivial one for noisy Bayesian optimization.",
+      "The assumptions cover the squared exponential kernel and Matérn kernels with smoothness parameter greater than two. For the squared exponential case, the results establish near-optimality of existing bounds. For the stated Matérn case, they show that earlier bounds are strictly suboptimal. The contribution therefore both identifies a near-tight achievable scale and clarifies where previous analyses were loose."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "49be666019f7a2d1df12d3521d7a57cca4c39b40fbd12788c54698ff54b84e01",
+    "tldr": "Nearly matching regret bounds characterize one-dimensional noisy Bayesian optimization under stated Gaussian-process kernel assumptions."
+  },
+  "icml-2018-towards-more-efficient-stochastic-decentralized-learning-faster-convergence-and-sparse-c-9f25df805a": {
+    "backgroundConcepts": [
+      "topic-111-d-2-decentralized-training-over-decentralized-da"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Decentralized learning must manage both local computation and communication. The paper identifies two obstacles in existing methods: expensive deterministic iterations with quadratic dependence on the condition number, and a need for dense communication even when data are sparse. It develops a stochastic method intended to improve both aspects of the learning process.",
+      "The authors broaden decentralized optimization into a monotone operator root-finding problem and introduce DSBA within that formulation. DSBA converges geometrically, with a rate depending linearly on the condition number, and can be implemented using sparse communication only. These properties connect improved convergence behavior with a communication pattern suited to sparse information.",
+      "The broader formulation also accommodates learning objectives such as AUC maximization that were not handled efficiently in the previous setting. Experiments on convex minimization and AUC maximization validate the method’s efficiency. The contribution combines a more general mathematical problem formulation with an algorithm that offers both convergence and communication benefits in the setting studied."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5872dd8346c35dc05c7eeed4ed55ad201de6c897ea84ea1974d026731ef48ef3",
+    "tldr": "DSBA enables stochastic decentralized learning with geometric convergence, linear condition-number dependence, and sparse communication."
+  }
+}

@@ -1,0 +1,327 @@
+{
+  "icml-2026-a-hitchhikers-guide-to-poisson-gradient-estimation-2c6f18edce": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Models of neural activity often represent hidden spike counts using Poisson random variables. Training these models is difficult because discrete random samples do not provide the smooth dependence on parameters that ordinary gradient calculations need. This paper systematically compares two approaches to that problem: Exponential Arrival Time simulation, or EAT, and Gumbel-SoftMax relaxation, or GSM.",
+      "The main contribution is a modified EAT method with a theoretical guarantee that its first moment matches the intended firing rate exactly. It also reduces bias in the second moment. These properties matter because an approximation should preserve the distribution being modeled while providing useful gradients for learning.",
+      "The authors evaluate distributional accuracy, gradient quality, Poisson-latent autoencoders, and neural-connectivity inference from spike trains. Modified EAT performs better overall and is more robust to hyperparameter choices, with gradients often comparable to exact ones. Its advantage also extends to over-dispersed Negative Binomial variables. The trade-off is distributional flexibility: among the compared approaches, only GSM extends to arbitrary non-Poisson distributions, including under-dispersed cases."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b4a8c9792fd20fc7ca3388215946aa4e62339e1b77576006d1862e06326159bd",
+    "tldr": "A modified EAT estimator improves Poisson gradient estimation and robustness, while GSM retains broader distributional flexibility."
+  },
+  "icml-2026-a-theory-of-data-acquisition-and-pricing-at-scale-60396a2bca": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Pricing training data requires some way to connect a provider’s payment to the value their data creates for a buyer. This matters both for encouraging useful data production and for compensating the people who produce it. The paper examines this market-design problem when the buyer has a limited amount of computation.",
+      "The obstacle is that exact valuation can require repeatedly retraining a model to determine how different data contributions affect the buyer’s objective. At large training scales, that process is infeasible. Consequently, the buyer cannot simply calculate every contribution precisely and make optimal acquisition decisions on that basis.",
+      "The authors introduce a framework called pricing with an attribution oracle, inspired by existing data-selection practices. They use it to theoretically analyze acquisition and pricing under computational constraints. The contribution is a model for reasoning about what a data market can do when valuation itself consumes scarce resources. It brings the feasibility of assessing data value into the pricing problem, rather than assuming that value is already available at no computational cost."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "785a5f4f7b11e4778e0acd3e7140e1cc6d7493f1f3d59b56daae4bf4533578f6",
+    "tldr": "The paper develops a theoretical framework for acquiring and pricing training data when limited computation prevents exact valuation."
+  },
+  "icml-2026-active-regression-for-single-index-models-with-unknown-link-functions-401699e517": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies regression when all input features are available but target values must be queried individually. The predictor first forms a linear combination of features and then applies an unknown link function. That function is assumed to be 1-Lipschitz, meaning its output cannot change faster than its input.",
+      "The authors address general losses that raise absolute prediction errors to a power p, for any p at least one. Previous results covered known link functions broadly, but the unknown-function setting had upper bounds only for squared error. Their algorithm selects queries non-adaptively, so its sampling does not depend on the target values revealed along the way.",
+      "The algorithm achieves a multiplicative approximation factor of 1 plus epsilon. Its query bound depends on the dimension raised to max(p/2, 1), inverse accuracy raised to max(p, 2), and a polylogarithmic factor in dataset size and accuracy. Nearly matching lower bounds for non-adaptive queries when p exceeds two show that much of this dependence is unavoidable within that query setting."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "fab23ae969bb186e94664e4bb68ef02fc0777688088470a75f224ec60ce0be28",
+    "tldr": "A non-adaptive sampling algorithm provides near-optimal query guarantees for single-index regression with an unknown Lipschitz link and general power losses."
+  },
+  "icml-2026-crispedit-low-curvature-projections-for-scalable-non-destructive-llm-editing-d5a7f328b1": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Editing a language model can successfully change a targeted behavior while damaging its broader abilities. The paper treats this as a central optimization problem: a favorable editing score can hide undesirable changes elsewhere. CrispEdit therefore makes capability preservation an explicit constraint on how model parameters may change.",
+      "The method projects proposed edits into directions where the capability loss has low curvature, meaning the loss is relatively insensitive to movement in those directions. Its constraint uses Bregman divergence, whose quadratic form gives the Gauss–Newton Hessian exactly, including when the starting model has not converged during training. This supplies the second-order structure used to guide the edits.",
+      "To make that calculation practical at language-model scale, CrispEdit combines a Kronecker-factored curvature approximation with a matrix-free projection procedure. It avoids explicitly constructing enormous projection matrices. Across the reported editing benchmarks and safety-unlearning tasks, it achieves high editing success while keeping capability degradation below 1% on average across datasets, substantially improving on previous editors. That average describes the evaluated results, rather than a universal preservation guarantee."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "dbca90efaaa5b3a9177ae427a242a02e6dd9620859415c8880852b0658ff3de8",
+    "tldr": "CrispEdit constrains model edits using low-curvature projections, achieving high edit success with under 1% average capability degradation in reported evaluations."
+  },
+  "icml-2026-dichotomy-of-feature-learning-and-unlearning-fast-slow-analysis-on-neural-networks-with--d6238d222d": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A network can acquire useful feature alignment early in training and then lose it as training continues. This paper analyzes that phenomenon in the infinite-width limit of a two-layer network trained with large-batch stochastic gradients. Its focus is a loss of alignment at the population level, rather than overfitting a finite training sample.",
+      "The analysis separates training into fast and slow processes. First-layer weights develop alignment quickly, while second-layer weights evolve more slowly. The slow process determines the direction of movement along a critical manifold, a structure governing the coupled dynamics, and thereby determines whether previously acquired alignment is lost.",
+      "Using Tensor Programs and singular perturbation theory, the authors derive equations, conditions, and scaling laws for this behavior, with numerical validation. They find that the strength of the leading nonlinear term in the data can induce feature unlearning, while the initial scale of second-layer weights can mitigate it. These results explain how continued optimization can undo earlier feature learning within the analyzed regime, and identify properties of both the data and initialization that influence the outcome."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a6da1492a5884b5faa1b640d729a82911be87c30c7b4f18a3feea3ab316d68e6",
+    "tldr": "A fast–slow analysis explains when infinite-width two-layer networks lose learned feature alignment and how initialization can mitigate that loss."
+  },
+  "icml-2026-discoformer-plug-in-density-and-score-estimation-with-transformers-eaae7f9a23": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Estimating a probability density from samples means reconstructing how probability is distributed across possible values. Its score additionally describes how the log density changes with position. Classical kernel estimators can be reused across distributions but struggle in high dimensions, while neural score estimators typically require training for each new target distribution.",
+      "DiScoFormer is an equivariant Transformer trained to take independent, identically distributed samples and produce both density values and score vectors. The aim is to reuse one trained model across distributions and sample sizes. The authors prove that self-attention can represent normalized kernel density estimation, giving the architecture a formal connection to a familiar statistical method.",
+      "Empirically, attention heads develop kernel-like behavior at multiple scales, and the model achieves faster convergence and higher density-estimation precision than kernel density estimation. The estimated scores also support score-debiased density estimation, Fisher information calculation, and Fokker–Planck-type equations. These findings position the model as a reusable statistical component whose outputs can feed other inference and scientific-computing procedures."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "263f4ac5e58379743b058375d2ca55dfd215f39c26c246fe0230b3443ac5b027",
+    "tldr": "DiScoFormer learns reusable density and score estimation from samples, connecting Transformer attention to kernel methods and supporting downstream scientific calculations."
+  },
+  "icml-2026-dype-dynamic-position-extrapolation-for-ultra-high-resolution-diffusion-0b0657e13b": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Diffusion Transformers can generate detailed images, but training at very high resolutions is expensive because attention costs grow quadratically with the number of image tokens. DyPE addresses the challenge of using an already trained model at resolutions far beyond those encountered during training, without additional training or sampling cost.",
+      "Its central observation concerns how diffusion resolves an image over time. Broad, low-frequency structures settle earlier, while fine, high-frequency details require more steps. DyPE changes positional encodings at each diffusion step so that their frequency spectrum matches the current stage of image formation. Position information therefore adapts as generation moves from coarse structure toward finer detail.",
+      "The authors report generating images with 16 million pixels using FLUX. Across multiple benchmarks, DyPE consistently improves performance and achieves state-of-the-art fidelity for ultra-high-resolution generation, with larger gains at higher resolutions. The stated result shows that adapting position representations during sampling can extend a pretrained model’s usable resolution range, without requiring the costly high-resolution training that motivates the work."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "da0a9000acb1ef11dd2a4a92c6e71f83966e39c491e05c3973c7355494e57612",
+    "tldr": "DyPE dynamically adjusts positional encodings during diffusion to improve generation far beyond training resolution without additional training or sampling cost."
+  },
+  "icml-2026-formally-exploring-visual-anomaly-detection-evaluation-metrics-38c3c1d7ce": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Evaluating visual anomaly detection requires more than counting whether unusual content was detected. Redundant detections and the locations of false positives can affect how useful a detector is. The paper argues that commonly used metrics can overlook these aspects, producing inconsistent or misleading assessments in applications such as navigation and industrial surveillance.",
+      "The authors turn evaluation requirements into explicit, verifiable properties. This creates a way to examine a metric’s behavior systematically: instead of relying only on the score it assigns to a benchmark, one can check whether it responds appropriately to the kinds of detection errors captured by those properties.",
+      "Their analysis finds that none of the examined state-of-the-art evaluation methods satisfies all the proposed properties. They introduce SAAM-ALARM, a metric that does satisfy them, and report that it provides a more nuanced assessment. The contribution is an evaluation framework and a corresponding metric, rather than a new anomaly detector. Its theoretical claim is specifically tied to the proposed requirements, making those requirements central to interpreting the resulting benchmark scores."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "fee1c50e2dabbca6b081db1b7fd92baffc5a4dd802bdf94370a689294e5de9bc",
+    "tldr": "SAAM-ALARM evaluates visual anomaly detection using explicit properties that capture errors overlooked by existing metrics."
+  },
+  "icml-2026-generative-modeling-of-discrete-latent-structures-via-dynamic-policy-gradients-c6dfd55631": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Many scientific measurements reveal only indirect evidence of the hidden structures that produced them. The goal may be to recover a real set or graph, rather than learn an arbitrary internal representation. Such problems become difficult when the number of possible hidden structures grows combinatorially, limiting classical inference methods.",
+      "GReinSS approaches this task through policy learning. It learns distributions over latent states that maximize the likelihood of the observed data, using rewards that are dynamically rescaled during learning. This connects the search over discrete structures to how well those structures explain the measurements, while targeting mechanistic latent states.",
+      "In simulations, the method accurately reconstructs hidden sets and graphs and outperforms the alternative policy-learning and generative-modeling approaches evaluated. On real short-read RNA sequencing data, its reconstructed isoforms agree better with isoforms detected through independent long-read sequencing than those produced by RSEM. The results support its usefulness for recovering interpretable combinatorial structures, with evidence spanning controlled latent-state reconstruction and a biological inference application."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6bef2a8cbeb216703f9053aa01fcd6c3c47705a269f86473849ef36bfd0c25c7",
+    "tldr": "GReinSS uses dynamically rescaled policy-learning rewards to infer discrete hidden structures that explain indirect observations."
+  },
+  "icml-2026-h1-bootstrapping-llms-to-reason-over-longer-horizons-via-reinforcement-learning-5e1c8ed413": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Reasoning performance often declines as a problem requires a longer chain of dependent steps. h1 builds training material for these longer horizons by composing existing simple problems into dependency chains of arbitrary length. This uses abundant short-horizon data to supply increasingly complex tasks without requiring a separate collection of long-horizon examples.",
+      "Models learn through reinforcement learning with rewards based only on the final outcome. An automatic curriculum increases task complexity, allowing training to continue further before saturating. The theoretical analysis shows that this curriculum approach could improve sample complexity exponentially over training directly on full-horizon tasks, with a learning signal comparable to dense supervision.",
+      "Empirically, training on composed sixth-grade mathematics problems improves accuracy on longer competition-level tasks. Improvements also transfer to other ReasoningGym domains and long-context benchmarks. Gains remain substantially above the evaluated baselines even when many answer attempts are allowed, supporting the authors’ interpretation that reinforcement learning can produce new reasoning paths. Together, the results connect progressively harder task composition with broader long-horizon reasoning gains."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7a453e8b2a6cb3d831db54817410626a5cebe1e11ece67e738b674003287528b",
+    "tldr": "h1 composes simple problems into an adaptive reinforcement-learning curriculum that improves longer-horizon reasoning using final-outcome rewards."
+  },
+  "icml-2026-high-dimensional-learning-dynamics-of-quantized-models-with-straight-through-estimator-671c833118": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Quantized models use discrete representations, making their training objective non-differentiable. The straight-through estimator enables training by substituting surrogate gradients for derivatives that cannot be used directly. This paper examines how quantization choices shape the resulting learning trajectory, extending attention beyond whether those surrogate gradients converge.",
+      "The authors show theoretically that, in a high-dimensional limit, the training dynamics converge to a deterministic ordinary differential equation. This provides a tractable description of how learning evolves. The analysis reveals a plateau in generalization error followed by a sharp decline, with the plateau’s duration depending on the quantization range.",
+      "A fixed-point analysis then measures the eventual deviation from an unquantized linear model. The paper also extends analytical tools for stochastic gradient descent to nonlinear transformations of weights and inputs. Its contribution is therefore both an explanation of delayed progress during quantized training and a framework for studying its long-term behavior. The conclusions about the trajectory arise in the stated high-dimensional theoretical setting."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9c8dcda38979bcb4db2c3e582fcaa60a5c64f64d5b0d53561827e99a84865048",
+    "tldr": "A high-dimensional theory links straight-through training of quantized models to deterministic dynamics, explaining plateaus and quantization-dependent long-term behavior."
+  },
+  "icml-2026-last-iterate-convergence-of-regularized-gradient-methods-for-stochastic-monotone-variati-f08aba46e6": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "In equilibrium learning, the current strategy may matter more than an average of all previous strategies. This paper studies guarantees for that current, or last, iterate when feedback is noisy. Its setting is smooth monotone variational inequalities, which include convex-concave saddle-point problems and equilibrium computation in monotone games.",
+      "The authors analyze regularized gradient and regularized optimistic gradient methods, each using a single feedback call per step. Their guarantees hold at any time without requiring advance knowledge of the stopping horizon. Measured by the squared gap function, regularized gradient has a rate of order t to the power −2/5, while the optimistic method combines a noise-dependent term of that order with a term of order 1/t.",
+      "For strongly monotone problems, the optimistic method obtains a noise term proportional to variance divided by the squared monotonicity strength and elapsed steps, plus a faster-decaying term. These bounds explain the benefit of optimism when noise is small: its faster component can become more influential. The result gives guarantees directly for the strategy available when learning stops."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3b6f37efed894352a913ae157a1dc46964ef97efa96f0d19d5c7415a1a33af77",
+    "tldr": "Regularized gradient methods gain anytime guarantees for their current iterate in noisy monotone problems, with optimism improving low-noise convergence."
+  },
+  "icml-2026-learning-to-correct-reinforcement-learning-for-multi-attempt-chain-of-thought-2441bb731a": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A reasoning model can use several attempts to solve a problem, receiving a pass-or-fail verifier signal after each one and building on earlier work. This paper studies how to train that behavior when the objective is success by the K-th attempt. The training problem must account for the whole sequence of attempts.",
+      "Feedback from individual attempts offers more information than a single final outcome, but using it requires care. The authors show that naively weighting attempts by whether they pass or fail produces biased gradients for the Verification@K objective. They introduce Calibrated Attempt-Level GRPO, or CAL-GRPO, with a weighting strategy designed to produce unbiased gradients while keeping variance small.",
+      "The theory explains how incorporating attempt-level rewards affects both training and eventual success within the attempt budget. Experiments on synthetic and real data support the analysis and show benefits over vanilla GRPO and naive weighting. The central contribution is a principled way to learn from intermediate verification feedback while preserving the intended multi-attempt optimization objective."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f7726f9d0b730e1231bc4a91b3cd68b2973ac72be7a5ac1a29d844de93844409",
+    "tldr": "CAL-GRPO calibrates rewards across successive reasoning attempts to obtain unbiased, low-variance gradients for success within a fixed attempt budget."
+  },
+  "icml-2026-lost-in-context-addressing-context-anxiety-in-large-language-models-8c67484bbf": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A failed reasoning attempt does not always mean a model lacks the ability to solve the problem. This paper studies cases where frontier reasoning models have the needed capabilities but stop short because of premature self-doubt, described as context anxiety. The distinction matters because it points to a different source of failure.",
+      "The authors find that context anxiety arises partly from inaccurate estimates of how many tokens a task will require. When models perceive themselves as constrained, this behavior also causes material efficiency losses. The issue therefore concerns how models assess and respond to their available reasoning space, as well as the reasoning skills they possess.",
+      "The study further shows that models can learn alternative strategies for long-horizon problems without exhibiting context anxiety. This suggests a route to better performance through more accurate self-assessment and adaptation to limitations. The claim is qualified: inaccurate token estimation explains part of the phenomenon, and the results suggest that some improvements may be achievable without scaling underlying model capabilities."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "16bfc5cbd335e789e7765d01f59003f3e5f3e746a02a2e404446151df759029b",
+    "tldr": "Some reasoning failures stem from inaccurate estimates of required context, and models can learn strategies that reduce this context anxiety."
+  },
+  "icml-2026-matchfixagent-language-agnostic-autonomous-repository-level-code-translation-validation--471acd2a34": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Translating a software repository into another programming language requires checking whether the translated code preserves behavior. Existing validation and repair approaches can be costly to adapt across languages and depend on test suites that miss important differences. Passing those tests can therefore produce an incorrect conclusion that two versions are equivalent.",
+      "MatchFixAgent uses a language-model-based multi-agent architecture to divide equivalence checking into several subtasks. The framework is designed to work across programming languages and to repair translations judged inequivalent. Its emphasis on semantic analysis addresses the difficulty of determining whether translated code means and does the same thing.",
+      "Compared with four repository-level translation techniques, MatchFixAgent returns an equivalence or inequivalence verdict for 99.2% of translation pairs. It agrees with prior work on 72.8%; among disagreements, its judgment is correct 60.7% of the time. It also repairs 50.6% of inequivalent translations, versus 18.5% for prior work. These figures distinguish verdict availability, agreement, correctness in disputed cases, and repair success, rather than treating them as a single accuracy measure."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f6f6bcec1fddbdf41f6a17f88d2bcd24311ccdcd23baea4b0d3d7bf154af07b7",
+    "tldr": "MatchFixAgent uses multiple language-model agents to validate translated repositories and repairs more inequivalent translations than the evaluated prior approaches."
+  },
+  "icml-2026-names-dont-matter-symbol-invariant-transformer-for-open-vocabulary-learning-06cf73f80d": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Some symbols must remain distinguishable even though their particular names carry no meaning. Bound variables are one example: renaming them consistently can preserve the underlying semantics. Neural models trained with fixed vocabularies can nevertheless struggle when they encounter unfamiliar symbols in an otherwise familiar structure.",
+      "This paper introduces a Transformer mechanism with a proof of invariance to renaming interchangeable tokens. It uses parallel embedding streams to separate the contribution of each such token. An aggregated attention mechanism then allows structured information sharing across those streams. The architecture is designed to preserve meaningful distinctions between symbols while removing dependence on their arbitrary names.",
+      "Experiments support the theoretical guarantees and show substantial gains on open-vocabulary tasks involving novel symbols. The result matters because the desired renaming behavior is built into the model rather than left entirely for training to discover. Its scope is interchangeable tokens: the guarantee concerns changes of names that preserve the relevant semantics, rather than arbitrary substitutions of meaningful vocabulary."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2b1437301604a24ab4bfc963b0548f03b781850729103c14f15ace6163c10716",
+    "tldr": "A symbol-invariant Transformer provably ignores semantics-preserving renaming and improves generalization to previously unseen symbols."
+  },
+  "icml-2026-non-euclidean-gradient-descent-operates-at-the-edge-of-stability-3bb4db3766": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "During ordinary gradient descent, the largest Hessian eigenvalue can rise toward the stability threshold 2 divided by the step size and then hover nearby. This edge-of-stability behavior is widely observed in deep learning, although its theoretical explanation remains incomplete. The paper asks how to describe comparable behavior for optimization methods using different geometries.",
+      "The authors interpret the phenomenon through directional smoothness and define generalized sharpness for an arbitrary norm. Their definition includes ordinary and preconditioned gradient descent while extending to methods such as infinity-norm descent, block coordinate descent, spectral gradient descent, and normalized variants. It supplies a shared framework without measuring every optimizer solely through Euclidean geometry.",
+      "Neural-network experiments show progressive sharpening followed by oscillations around or above the corresponding threshold under this generalized measure. The contribution is a geometry-aware diagnostic that makes stability behavior comparable across a broader family of methods. The empirical observations extend the phenomenon’s reach, while the framework offers an interpretation rather than claiming to settle every aspect of its theoretical foundations."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "44eb7d67047307d3ff462b759e0af4860314ecd262ed8e5334e6f2e1ae259e60",
+    "tldr": "A geometry-aware sharpness measure extends edge-of-stability analysis to non-Euclidean gradient methods, with supporting neural-network experiments."
+  },
+  "icml-2026-normalized-rewards-for-preference-optimization-7bc5282ea7": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Preference optimization can improve generated responses while decreasing the probability assigned to responses labeled preferred in the training data. This paper investigates that tension in direct alignment algorithms. It proposes regularization that maintains the combined length-normalized probabilities of chosen and rejected responses, counteracting their overall probability displacement.",
+      "The authors analyze changes at the token level and find that a small collection of outlier tokens accounts for a substantial share of the likelihood changes. This helps explain how generation quality can improve even as preferred-response likelihood falls. The proposed regularization reduces displacement both across preferred responses overall and within those outlier tokens, using low-likelihood tokens.",
+      "Applied to DPO and SimPO, the regularizer improves the observed balance between generation quality and general benchmark capability, as well as reward modeling across datasets. For Llama-3.1-8B-Instruct, the authors report relative improvements above 20% on AlpacaEval2 and above 9% on general benchmarks. These findings support preserving probability mass as a useful constraint during preference training, while identifying token-level behavior behind the original problem."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1277665b5d1a459841514f2d6b30515eb065dfcaad773938639ee98934bc3fa6",
+    "tldr": "Regularizing response probabilities improves evaluated preference-optimization trade-offs and reduces likelihood displacement concentrated in outlier tokens."
+  },
+  "icml-2026-on-the-infinite-width-and-depth-limits-of-predictive-coding-networks-d0354e18b4": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Predictive coding trains a network by first adjusting internal activities to reduce an energy function and then updating its weights. It offers a biologically plausible alternative to backpropagation, but how its behavior scales with network width and depth has been unclear. This paper investigates those limits directly.",
+      "For linear networks, the authors derive parameterizations that remain stable as width and depth increase while retaining non-lazy learning behavior. They also show that standard predictive-coding parameterizations can produce outputs that explode with width during training. Choosing an appropriate scaling is therefore central to making these networks behave well as they grow.",
+      "Under stable parameterizations, gradients at activity equilibrium converge to backpropagation gradients when depth divided by width approaches zero. Experiments additionally show strong gradient alignment in wide nonlinear models, including convolutional networks and Transformers. The theoretical conditions distinguish the proved linear-network result from the broader empirical evidence. Together, the findings constrain scalable predictive-coding designs and suggest how local updates could implement backpropagation-like learning in networks much wider than they are deep."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b8a78a55603b2026823a007d53b835671aeee6fca3f2d441807ade023d51fd01",
+    "tldr": "Stable scaling lets linear predictive-coding networks approach backpropagation gradients at equilibrium when width grows much faster than depth."
+  },
+  "icml-2026-on-the-role-of-batch-size-in-stochastic-conditional-gradient-methods-4991f21fce": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Increasing batch size changes both the noise in an optimization update and how a fixed training budget is spent. This paper studies that interaction for momentum-based stochastic conditional-gradient methods, including Frank–Wolfe-type algorithms such as Scion. Its analysis assumes a μ-Kurdyka–Łojasiewicz condition on the optimization problem.",
+      "The theory explicitly links step size, batch size, and stochastic noise. It predicts several regimes: larger batches initially improve optimization accuracy, but the improvement saturates beyond a critical threshold and can eventually reverse under a fixed token budget. Batch size therefore has to be selected together with the step size and available computation.",
+      "The analysis predicts the magnitude of an appropriate step size and yields guidelines for choosing both parameters. The authors also propose a schedule that increases batch size and sequence length during training while retaining convergence guarantees. Preliminary experiments agree with the predicted scaling regimes and observed large-scale training practices. The empirical evidence is presented as initial support for a theory-guided scheduling framework, rather than a universal rule that larger batches improve training."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "321bddf4118a8c3823b08dc6c1cdcbda45debdbba74500ce2a8bf0a57f219f1d",
+    "tldr": "A conditional-gradient analysis identifies when larger batches help, saturate, or hurt under fixed token budgets and motivates adaptive training schedules."
+  },
+  "icml-2026-platonic-transformers-a-solid-choice-for-equivariance-c761c42d0b": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Scientific and visual data often contain geometric symmetries, but standard Transformers do not automatically encode them. Equivariant models are designed so that outputs transform consistently with specified changes to inputs. The Platonic Transformer incorporates such behavior while preserving the architecture and computational cost of a standard Transformer.",
+      "The method defines attention using reference frames associated with the symmetry groups of Platonic solids. This induces a principled pattern of shared weights and provides equivariance to continuous translations together with those Platonic symmetries. The stated symmetry guarantee is specific to these transformations, rather than all possible continuous geometric transformations.",
+      "The authors also prove that the attention operation is equivalent to a dynamic group convolution, interpreting it as learning adaptive geometric filters. That connection enables a scalable convolutional variant with linear-time computation. Across image recognition, 3D point clouds, and molecular tasks involving dynamics, properties, and generation, the model achieves competitive performance. The contribution connects useful geometric constraints to a familiar architecture without adding computational cost to the standard Transformer design."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a258695cb15aa858716b2f02fe6ee89ffe3af6ae3770acb823df8c1cb559f4ef",
+    "tldr": "Platonic Transformers encode translation and Platonic-group equivariance at standard Transformer cost, with a group-convolution connection enabling a linear-time variant."
+  },
+  "icml-2026-post-hoc-merging-is-not-enough-many-shot-model-merging-with-loss-gap-balancing-6f534d994b": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Combining task-specialized language models can produce one model that handles multiple tasks. However, merging them only once after training can cause interference: information useful for one task may be weakened or erased by the combination. This paper examines whether repeatedly merging models can reduce that problem.",
+      "The authors find that an iterative, many-shot merging protocol improves multi-task performance over post-hoc merging. They build on that observation with METIS, a loss-aware method that combines task-wise loss-gap weighting with consensus-based masking. These components make the merging process responsive to task losses and agreement across the models being combined.",
+      "The reported results show a significant improvement on the worst-performing task, indicating that METIS mitigates information erasure. That outcome matters because a combined model’s usefulness depends on retaining individual task abilities as well as achieving good overall performance. The paper’s contribution is both the move to repeated merging and a specific method for managing interference within that process; it does not claim that all task conflicts disappear."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d6f07274be0311cd95a50200011728a5c4fa0fc1268588f235334787acd44a8e",
+    "tldr": "METIS uses repeated, loss-aware model merging to mitigate task interference and substantially improve the weakest task."
+  },
+  "icml-2026-provably-label-efficient-conformal-prediction-3fc521844f": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Conformal prediction wraps a predictor in sets intended to contain the true label with a specified coverage probability. Constructing those sets requires labeled calibration data. More labeling has an upfront cost, while the resulting prediction-set size affects downstream usefulness, creating a decision about when to stop collecting labels.",
+      "The paper considers independent, identically distributed unlabeled examples whose labels can be queried one at a time. It introduces an online stopping rule that balances calibration cost against expected prediction-set size while preserving the original conformal coverage guarantee. This allows the calibration-set size to be determined during collection.",
+      "Under mild regularity assumptions, the stopping rule’s expected total cost matches the best fixed calibration size chosen with hindsight. Experiments report a cost reduction of 40.6% ± 2.3% relative to standard calibration-size choices from the literature. The authors also connect a probably approximately correct labeling problem to conformal prediction, under which their rule minimizes total labeling cost. The contribution makes stopping itself part of a statistically guaranteed procedure."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "71a3fd420f77b7088b640d7e7fcecd9e15d20337d8efa0acd2a455429e716251",
+    "tldr": "An online stopping rule balances calibration-label costs and prediction-set size while retaining conformal coverage guarantees."
+  },
+  "icml-2026-revenue-guarantees-of-no-swap-regret-dynamics-in-first-price-auctions-b3465e36da": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies seller revenue in first-price auctions when bidders choose from a discrete grid of bids between zero and one. Its benchmark is the second-highest bidder valuation. The central question is how closely revenue approaches that benchmark when bidders reach only an approximate correlated equilibrium.",
+      "The authors prove a lower bound with two error terms. One scales as 1/k, reflecting bid-grid spacing, and the other as epsilon times k squared, reflecting equilibrium approximation error. Thus, making the grid finer reduces discretization error but increases the bound’s sensitivity to imperfect equilibrium behavior.",
+      "The result also gives polynomial convergence rates for time-averaged revenue when bidders use no-swap-regret learning. If their swap regret has the optimal order of the square root of k times the number of rounds, revenue reaches the second-highest valuation minus errors of orders 1/k and epsilon after order k to the fifth divided by epsilon squared rounds. This connects a static equilibrium guarantee to the revenue produced during repeated learning, under the stated regret condition."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e3b89748d920398c94bbbefe459cacf5064d83a5c69e2b0073dc03e758e99358",
+    "tldr": "The paper bounds first-price auction revenue near the second-highest valuation and derives polynomial convergence rates for no-swap-regret bidders."
+  },
+  "icml-2026-unlearning-with-asymmetric-sources-improved-unlearning-utility-trade-off-with-public-dat-cf537264e5": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Certified machine unlearning can require enough added noise to seriously damage a model’s usefulness, especially when many records must be removed. This paper studies whether public data can ease that trade-off. It introduces Asymmetric Langevin Unlearning, or ALU, which uses public data to reduce the cost associated with unlearning private data.",
+      "The authors prove that injecting public data suppresses unlearning cost by a factor of order one over the square of the public-data count, and establish a strict computational advantage over retraining. Public-data volume therefore becomes a control for reducing the need for high noise and its associated utility loss.",
+      "The analysis explicitly considers distribution mismatch between public and private sources and characterizes how those shifts affect utility. ALU supports deleting constant fractions of a dataset while retaining high utility in the analyzed setting. Evaluations using variational Rényi divergence and membership-inference attacks support its privacy and utility benefits under reasonable distribution shifts. This qualification matters because the usefulness of public data depends on how its distribution relates to the private source."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "836cdee0b7427514250580405046bfee06b246ae6bad32e251c3217f7907278b",
+    "tldr": "ALU uses public data to reduce certified-unlearning costs and preserve utility, including large deletions under reasonable distribution mismatch."
+  }
+}

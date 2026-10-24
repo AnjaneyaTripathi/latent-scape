@@ -19,13 +19,17 @@ def sha256(path: Path) -> str:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--source", type=Path, default=Path("site/public/models/Xenova/all-MiniLM-L6-v2"))
     parser.add_argument(
-        "--source", type=Path, default=Path("site/public/models/Xenova/all-MiniLM-L6-v2")
+        "--audit",
+        type=Path,
+        default=Path("pipeline/model-audits/Xenova/all-MiniLM-L6-v2/ASSET-AUDIT.json"),
+        help="Internal checksum record; it is deliberately not shipped to readers.",
     )
     parser.add_argument("--cache", type=Path, default=Path("pipeline/.cache/models"))
     args = parser.parse_args()
     source = args.source.resolve()
-    audit = json.loads((source / "ASSET-AUDIT.json").read_text())
+    audit = json.loads(args.audit.resolve().read_text())
     for relative, expected in audit["files"].items():
         actual = sha256(source / relative)
         if actual != expected:

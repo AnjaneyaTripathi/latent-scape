@@ -1,0 +1,377 @@
+{
+  "neurips-2025-attention-with-trained-embeddings-provably-selects-important-tokens-b19807211d": {
+    "backgroundConcepts": [
+      "topic-086-a-capacity-based-rationale-for-multi-head-attent"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies how training token embeddings helps attention identify words that matter for a prediction. Its theoretical setting is a single softmax attention layer with a linear output head for binary classification. This makes it possible to connect changes in the embeddings directly to the relevance of tokens to the labels.",
+      "The first result concerns just one gradient update using logistic loss. After this update, token embeddings align with the output vector in proportion to their average signed frequency, a quantity that measures their association with the labels. Training therefore builds a signal of predictive relevance into the representations that attention will subsequently use.",
+      "The authors then train the classification token's embedding through gradient flow until convergence. In this setting, attention selects label-predictive tokens, and the classification embedding maximizes the margin for that selection. Experiments on IMDB and Yelp show behavior resembling the theory. The contribution is a mathematical account of how embedding training and attention selection work together in the analyzed architecture."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "bfb1c968fa83fb884677c9ff21d2bfc970b68f833208cfadd45a4815424d825a",
+    "tldr": "In a one-layer classification model, training embeddings creates token-relevance signals that attention provably learns to select."
+  },
+  "neurips-2025-bilevel-optimization-for-adversarial-learning-problems-sharpness-generation-and-beyond-38d3650fd1": {
+    "backgroundConcepts": [
+      "topic-217-a-classification-based-study-of-covariate-shift-"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Adversarial learning often asks a model to improve against an opposing optimization process. This creates a nested problem: an inner maximization supplies a challenge, while an outer minimization updates the learner. The paper targets the computational difficulty of handling this interaction, which appears in both Sharpness-Aware Minimization and Generative Adversarial Networks.",
+      "The authors reformulate these tasks as bilevel optimization problems by using the tractable structure of the lower-level problem. They state that this reformulation adds no complexity while making tools from bilevel optimization available. They also develop a stochastic algorithm with a single loop and prove its convergence, aiming to balance learning quality with computational cost.",
+      "Experiments report improved GAN generation quality measured by FID and JS scores. For Sharpness-Aware Minimization, the method achieves higher accuracy under label noise and across multiple backbones, while encouraging flatter loss landscapes. These findings support the proposed framework as a practical way to handle the interaction between adversarial objectives, alongside its theoretical convergence result."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "70448055e15159ca6e88208373c9bb0a9f2749062d0a4c307456933f7e47a9f1",
+    "tldr": "A bilevel reformulation yields a provably convergent single-loop algorithm with reported improvements for GANs and Sharpness-Aware Minimization."
+  },
+  "neurips-2025-blurguard-a-simple-approach-for-robustifying-image-protection-against-ai-powered-editing-037cac8d0e": {
+    "backgroundConcepts": [
+      "topic-031-a-consistent-and-efficient-evaluation-strategy-f"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Protective image noise is intended to interfere with later editing by text-to-image models. Its usefulness depends on whether that interference survives processing of the published image. The paper highlights that operations as simple as JPEG compression can reverse existing protections, even when the original perturbation is difficult for people to notice.",
+      "BlurGuard addresses this weakness by changing the noise itself. It applies Gaussian blur with strength adapted to different image regions, adjusting the noise's frequency spectrum. The motivating idea is that protection should be difficult to recognize and remove as noise when the clean original is unavailable, alongside being visually unobtrusive.",
+      "Across the reported experiments, BlurGuard improves existing methods' worst-case protection for individual images against a range of reversal techniques and editing scenarios. It also reduces the visual degradation associated with protective noise according to perceptual metrics. The findings support adaptive noise smoothing as a useful addition to image protection methods; the reported robustness concerns the tested reversals rather than a guarantee of irreversible protection."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5d35ebfd0472a7ef26d5d0cfb1bd6f9cda605767b1ef8fd72625a6155cdca6ba",
+    "tldr": "BlurGuard adaptively smooths protective image noise to improve resistance to removal while reducing perceptual image degradation."
+  },
+  "neurips-2025-boldsymbol-lambda-orthogonality-regularization-for-compatible-representation-learning-dac8f5b450": {
+    "backgroundConcepts": [
+      "topic-002-boldsymbol-lambda-orthogonality-regularization-f"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Retrieval systems need representations from different models to remain compatible, especially when a newer model replaces an older one. Independently trained networks can organize their representation spaces differently. Aligning those spaces therefore involves preserving what the new model has learned while adapting it to representations already used by the system.",
+      "The paper addresses a tension between two transformation families. Affine transformations can adapt to a particular data distribution but may substantially alter the original representation. Orthogonal transformations preserve its geometry more strictly, which restricts their flexibility. The proposed lambda-Orthogonality regularization relaxes the orthogonality requirement while an affine transformation is learned, combining adaptation with a constraint on geometric distortion.",
+      "Experiments across architectures and datasets report compatibility across model updates while preserving zero-shot performance. This matters because successful alignment should retain the newer model's capabilities as well as allow its representations to communicate with older ones. The results support relaxed geometric regularization as a way to manage that balance in the evaluated settings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4875c43e680fa4a115ec89f572be63e83bb024a11d6604004d7c5bc018d66c9b",
+    "tldr": "Relaxing orthogonality during representation alignment helps maintain compatibility across model updates while preserving zero-shot performance."
+  },
+  "neurips-2025-chunkkv-semantic-preserving-kv-cache-compression-for-efficient-long-context-llm-inferenc-6775601252": {
+    "backgroundConcepts": [
+      "topic-012-quest-query-aware-sparsity-for-efficient-long-co"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Processing long texts requires substantial GPU memory, and the paper reports that the key-value cache can account for up to 70% of inference memory. Compressing this cache by scoring tokens individually can break apart related language. The resulting fragments may preserve apparently important words while losing the context that gives them meaning.",
+      "ChunkKV makes semantic chunks the units of compression. Keeping related tokens together is intended to preserve linguistic structures and contextual relationships even when much of the cache is removed. The method also reuses selected indices across layers, taking advantage of the greater similarity between layers' retained indices to reduce computational overhead.",
+      "Evaluations cover LongBench, Needle-In-A-HayStack, GSM8K, and JailbreakV. The abstract reports up to an 8.7% improvement in precision over state-of-the-art methods at the same compression ratio, together with a 26.5% throughput improvement from index reuse. These results suggest that the organization of retained information matters alongside the amount retained: compression can benefit from preserving meaningful groups and reducing repeated selection work."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a34a66ac8a4e675ca8155dcc27c3d3ed0e0a75436d9fa68fd24be7aa833bdd92",
+    "tldr": "ChunkKV compresses language-model caches using semantic chunks and reuses selections across layers to improve reported accuracy and throughput."
+  },
+  "neurips-2025-discovering-compositional-hallucinations-in-lvlms-a4d3686177": {
+    "backgroundConcepts": [
+      "topic-023-a-geometric-analysis-of-small-sized-language-mod"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A vision-language model can handle the textual and visual parts of a task individually yet still produce a false answer when it must combine them. This paper identifies that failure mode as Simple Compositional Hallucination. The distinction matters because evaluating isolated language errors or isolated visual errors can miss problems created by their interaction.",
+      "The authors' preliminary analysis identifies two patterns. Visual abstraction can fail when questions require composition, and introducing visual inputs can degrade language processing. These findings locate the difficulty in how the model brings its capabilities together, even in cases where neither component alone exhibits the relevant error.",
+      "To support systematic study, the paper introduces SCBench, a benchmark designed for this phenomenon. It also proposes VLR-distillation as an initial method for mitigating it. Experiments on public hallucination benchmarks and general-purpose benchmarks report that the method is effective. Together, the benchmark and intervention establish a way to examine compositional errors and provide evidence that training can reduce them."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "009a57e5fd07c3cc7e6447bc684c009c8c8771118d91b8d6c3f8ee985beeb1f1",
+    "tldr": "The paper identifies hallucinations caused by combining otherwise successful visual and language processing, and introduces a benchmark and mitigation method."
+  },
+  "neurips-2025-efficient-federated-learning-against-byzantine-attacks-and-data-heterogeneity-via-aggreg-0bf0244e96": {
+    "backgroundConcepts": [
+      "topic-164-a-federated-stochastic-multi-level-compositional"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Federated learning combines updates from clients whose data stay local. Training becomes harder when client data differ and some clients send faulty or adversarial updates. Existing robust aggregation methods can address these problems at substantial computational cost. This paper proposes Fed-NGA as a simpler aggregation rule with theoretical robustness guarantees.",
+      "Fed-NGA normalizes each client's gradient and then computes a weighted mean. Its aggregation cost grows linearly with both the model dimension and the number of clients. This makes the computational structure straightforward while the analysis addresses whether such a simple operation can withstand Byzantine faults and heterogeneous data.",
+      "For nonconvex losses, the authors prove convergence to a neighborhood of stationary points under general assumptions. Under additional conditions described as mild, they establish a zero optimality gap. Both results have a convergence rate of order 1/T^(1/2−δ), with δ between zero and one-half. Benchmark experiments report better time efficiency and convergence performance than existing methods, supporting the practical value of the inexpensive aggregation rule."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8003264c26d113d606fdf5079c5c49339661c0ae6c8e93fbfcd049a3eac141a6",
+    "tldr": "Fed-NGA averages normalized client gradients to provide efficient federated aggregation with conditional robustness and convergence guarantees."
+  },
+  "neurips-2025-escaping-collapse-the-strength-of-weak-data-for-large-language-model-training-24a7e4ebe2": {
+    "backgroundConcepts": [
+      "topic-236-beta-dpo-direct-preference-optimization-with-dyn"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Synthetic data can help train language models, but repeated training on poorly curated generated data can also lead to stalled or declining performance. This paper asks how much curation is needed to support continued improvement. It develops a theoretical framework for studying that question rather than treating synthetic data quality as a fixed property.",
+      "The analysis draws inspiration from boosting, which combines the efforts of a weak learner to build a much stronger classifier. Here, the useful connection is how training effort is allocated: challenging examples receive more attention as learning progresses. The framework encompasses several recently proposed approaches to training language models with synthetic data, helping explain their success.",
+      "Experiments support the theory and show improved performance when labeling resources are dynamically directed toward the hardest examples. The finding gives curation an adaptive role: its value depends on where the model still struggles. The paper therefore connects the prevention of performance collapse with targeted allocation of labeling effort, while grounding continued-improvement claims in its analyzed framework."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "89ed50c8a1d6a8bb163e0ba8ca0ecaed867cd98eb31ce93ca5eb80e8d8557055",
+    "tldr": "A boosting-inspired framework explains how adaptive curation of synthetic data can support continued learning, with experiments favoring attention to difficult examples."
+  },
+  "neurips-2025-estimation-of-stochastic-optimal-transport-maps-e628a886fd": {
+    "backgroundConcepts": [
+      "topic-197-diffusion-models-are-minimax-optimal-distributio"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Optimal transport studies geometry-sensitive transformations between probability distributions. Much of the statistical theory for estimating these transformations assumes a deterministic map, supported by conditions such as quadratic transport cost and an absolutely continuous source distribution. The paper addresses settings where those conditions fail or cannot be verified, and transport may require splitting mass among destinations.",
+      "The authors introduce a metric that evaluates the transportation quality of stochastic maps. This provides a basis for comparing an estimated transformation with the desired transport behavior even when each source location need not have a single destination. Using this metric, they construct computationally efficient estimators with near-optimal finite-sample risk bounds under minimal assumptions described as easy to verify.",
+      "The analysis also covers common forms of adversarial contamination in the samples, giving robust estimation guarantees. Experiments support the theoretical results and illustrate usefulness where existing theory does not apply. The central contribution is a broader statistical foundation for estimating transport maps, including problems whose optimal transport behavior is intrinsically stochastic."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "bdcc9a21d8adc3b1e95203f31f259455b92da80679b86b19af8c2bea3e810e91",
+    "tldr": "A new quality metric enables efficient estimation of stochastic transport maps with near-optimal error bounds and robustness to sample contamination."
+  },
+  "neurips-2025-fairimagen-post-processing-for-bias-mitigation-in-text-to-image-models-d2ceaceb61": {
+    "backgroundConcepts": [
+      "topic-059-a-cat-is-a-cat-not-a-dog-unraveling-information-"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Text-to-image models can reproduce or amplify demographic biases in their generated images. FairImagen addresses this through the prompt embeddings supplied to a diffusion model. Because the intervention operates on those embeddings, it does not require retraining or modifying the underlying image generator, making the proposed approach a post-hoc correction.",
+      "The method uses Fair Principal Component Analysis to project CLIP-based embeddings into a subspace that reduces group-specific information while preserving semantic content. It adds an empirical noise-injection step to strengthen debiasing. A unified projection also handles multiple demographic attributes together, allowing the framework to address combinations of attributes as well as individual ones.",
+      "Experiments across gender, race, and intersectional settings report improved fairness and stronger results than existing post-hoc methods. The abstract also identifies a moderate trade-off in image quality and fidelity to the prompt. That trade-off is central to interpreting the contribution: the framework reduces demographic bias through changes to the conditioning representation, while those changes can also affect how closely generated images realize the requested content."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d8dc334d14e8aee44dfc760593132e41f676fe904c8eb32d6bd8e5295b4c0c71",
+    "tldr": "FairImagen modifies prompt embeddings to reduce demographic bias without retraining the generator, with a moderate quality and prompt-fidelity trade-off."
+  },
+  "neurips-2025-guardreasoner-vl-safeguarding-vlms-via-reinforced-reasoning-dc7576a161": {
+    "backgroundConcepts": [
+      "topic-153-v-0-a-generalist-value-model-for-any-policy-at-s"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "GuardReasoner-VL is a moderation model trained to reason before deciding whether content is safe. It handles text, images, and combined text-image inputs. The paper's central approach is to develop that reasoning ability with supervised training and then improve moderation decisions through online reinforcement learning.",
+      "The authors build a training corpus containing 123,000 samples and 631,000 reasoning steps. Supervised fine-tuning provides the initial reasoning capability. During reinforcement learning, rejection sampling and safety-aware data concatenation increase the diversity and difficulty of examples. A changing clipping parameter encourages exploration early in training and greater use of learned behavior later.",
+      "The reward combines decision accuracy, output format, and token cost, so training also accounts for the expense of lengthy reasoning. In the reported experiments, GuardReasoner-VL exceeds the runner-up by an average of 19.27% in F1 score. The work connects reasoning-based moderation with explicit training mechanisms for sample difficulty and response efficiency, and releases the dataset, code, and models at two sizes."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4d078d5ac732874790a2963c6f8c2098f72697f23d7fdc8a579de22d9fddfee9",
+    "tldr": "GuardReasoner-VL combines supervised reasoning training and online reinforcement learning to improve multimodal moderation while accounting for token cost."
+  },
+  "neurips-2025-influence-guided-context-selection-for-effective-retrieval-augmented-generation-2006925a51": {
+    "backgroundConcepts": [
+      "topic-095-g-2-reader-dual-evolving-graphs-for-multimodal-d"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Retrieval-augmented generation can suffer when the retrieved material contains irrelevant or noisy information. This paper argues that selecting useful context requires considering the query, the other retrieved passages, and the generator together. A passage's value therefore depends on how it contributes to the particular answer being produced.",
+      "The proposed Contextual Influence Value measures how much performance deteriorates when a context is removed from the retrieved list. This incorporates relevance to the query, uniqueness relative to other contexts, and compatibility with the generator. Selection then retains contexts with positive values, avoiding a complicated search over selection hyperparameters.",
+      "Directly obtaining these values creates label and computation demands, so the authors train a surrogate to predict them during inference. Its hierarchical architecture captures individual query-context relationships and interactions across the context list, using oracle influence supervision and generator feedback. Experiments across eight NLP tasks and multiple language models report improvements over state-of-the-art baselines, supporting context selection based on contribution to generation rather than isolated passage quality alone."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "240327048340391b22ef9dc30b8088418470c712b4a7f83896c96f5efc9c36e3",
+    "tldr": "The method selects retrieved contexts by predicting their contribution to generation quality, accounting for the query, other contexts, and generator."
+  },
+  "neurips-2025-learning-reconfigurable-representations-for-multimodal-federated-learning-with-missing-d-01c9eb66c5": {
+    "backgroundConcepts": [
+      "topic-121-pi-tuning-transferring-multimodal-foundation-mod"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Multimodal federated learning becomes difficult when clients have different kinds of data and missing features within the kinds they possess. These differences can make locally learned representations incompatible, reducing the usefulness of combining them into a shared model. The paper considers both forms of missingness together in a single framework.",
+      "Each client learns embedding controls that encode its pattern of missing data. These controls act as signals for adapting the globally aggregated representation to the client's local circumstances. The approach aims to make shared information useful without requiring every client to observe the same inputs. Controls can also be aggregated among clients with similar missingness patterns to strengthen these adaptation signals.",
+      "Across multimodal federated benchmarks, the method reports improvements of up to 36.45% under severe data incompleteness. A theoretical analysis supplies an explicit performance bound consistent with the empirical observations. The contribution is a mechanism for making representation sharing sensitive to how data are missing, addressing misalignment at the point where global information meets each client's available inputs."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3589bd2d45227cb691e28cd82b0d55ecaf06cd8578d8a4b0b1b84f57d17c6e88",
+    "tldr": "Learned client-specific controls adapt shared multimodal representations to missing-data patterns, improving federated learning under severe incompleteness."
+  },
+  "neurips-2025-lorentz-local-canonicalization-how-to-make-any-network-lorentz-equivariant-5e2f4bf3d9": {
+    "backgroundConcepts": [
+      "topic-163-3d-steerable-cnns-learning-rotationally-equivari"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Lorentz-equivariant networks make their outputs transform consistently with changes of space-time reference frame. This property is useful in high-energy physics, but existing implementations often require specialized layers. Lorentz Local Canonicalization addresses that architectural restriction by providing a framework for making any backbone network exactly Lorentz-equivariant.",
+      "The framework uses local reference frames predicted in an equivariant way. These frames provide the basis for constructing transformer and graph-network versions of LLoCa. The authors also adapt geometric message passing to the non-compact Lorentz group, allowing space-time tensor features to propagate through the model. Within this formulation, data augmentation appears as a particular choice of reference frame.",
+      "On the evaluated particle-physics tasks, the resulting models obtain competitive or state-of-the-art accuracy. The abstract also reports fourfold speed and tenfold fewer floating-point operations. The significance is the combination of an exact symmetry property with broader architectural choice: the framework makes symmetry handling less dependent on specialized layers while delivering favorable accuracy and computational results in the reported applications."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d4f52255423682fe172cc0500d6758d59781fa6bafb81e490a668c3ad114d1e0",
+    "tldr": "LLoCa uses equivariantly predicted local frames to make arbitrary backbones exactly Lorentz-equivariant, with strong reported particle-physics results."
+  },
+  "neurips-2025-lyapunov-stable-adaptive-control-for-multimodal-concept-drift-35e11097ff": {
+    "backgroundConcepts": [
+      "topic-121-pi-tuning-transferring-multimodal-foundation-mod"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Multimodal models can lose accuracy as the distributions of their inputs change. The problem is especially difficult when different modalities drift differently, because a previously useful source of information may become unreliable. LS-OGD treats ongoing adaptation as a control problem, with stability of prediction error as a central objective.",
+      "An online controller adjusts both the model's learning rate and the weights used to combine modalities. These adjustments respond to detected drift and changing prediction errors. This connects how quickly the model learns with how much it relies on each input source, allowing adaptation to address changes within particular modalities as well as overall prediction quality.",
+      "Under bounded drift, the authors prove that prediction error eventually remains within a uniform bound. They also prove that it converges to zero if the drift stops. The adaptive fusion strategy is shown to isolate and reduce the effect of severe modality-specific drift. These conditional guarantees give the framework a theoretical basis for continuous adaptation while explicitly linking stability to the behavior of the changing data."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6cb85a957091ecd0bc7939a18db0cff3c8597153dd2b357d422243966137f0dc",
+    "tldr": "LS-OGD jointly adapts learning rates and modality weights, with bounded-error guarantees under bounded drift and zero-error convergence when drift stops."
+  },
+  "neurips-2025-memorization-in-graph-neural-networks-ee6536c5e9": {
+    "backgroundConcepts": [
+      "topic-044-a-collective-learning-framework-to-boost-gnn-exp"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper investigates when graph neural networks memorize training labels in semi-supervised node classification. It introduces NCMemo, a framework for quantifying that memorization. The study connects memorization to homophily, the tendency of connected nodes to share labels or features, finding that lower homophily is associated with substantially more memorization.",
+      "Analysis of training dynamics links this behavior to the models' tendency to use graph structure. When that structure provides less useful information, the models memorize node labels to reduce training loss. The authors also find that a node is more prone to memorization when nearby nodes in feature space have inconsistent labels.",
+      "These observations motivate graph rewiring as a mitigation strategy. In the reported results, changing graph connections reduces memorization without harming predictive performance and lowers privacy risk for previously memorized data points. The work therefore connects graph structure, training behavior, and privacy: the usefulness of relationships between nodes influences how much the model depends on memorizing particular labels."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0fc95f8a1c5125a92b50d29a85a3d88d658e421e9139d457a27cebd86f2651a2",
+    "tldr": "NCMemo links graph-network label memorization to low homophily and shows that graph rewiring can reduce memorization and associated privacy risk."
+  },
+  "neurips-2025-metakoopman-bayesian-meta-learning-of-koopman-operators-for-modeling-structured-dynamics-82cb1ded28": {
+    "backgroundConcepts": [
+      "topic-052-a-differential-and-pointwise-control-approach-to"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "MetaKoopman addresses prediction of nonlinear dynamics when operating conditions change. It represents those dynamics through a latent space with linear evolution and uses Bayesian meta-learning to support adaptation. The goal is to forecast future states while also describing uncertainty about those forecasts under distribution shifts.",
+      "The framework learns a Matrix Normal-Inverse Wishart prior over the Koopman operator. Recent trajectory segments then enable closed-form Bayesian updates. It also provides a closed-form predictive distribution over future trajectories that captures both uncertainty in the learned dynamics and variability in the process. Adaptation and uncertainty estimation are thus built into the same predictive framework.",
+      "Evaluation includes a full-scale autonomous truck and trailer in snow, ice, and mixed-friction conditions, together with simulated control tasks. The reported results show better multi-step accuracy, uncertainty calibration, and robustness to distribution shifts than prior approaches. Field experiments also demonstrate usefulness for dynamically feasible motion planning during evasive maneuvers and operation near traction limits, connecting adaptive prediction to demanding physical control tasks."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1c9b5e3f91a9490d7588004c6bcc5808f450b9cbddce7fa182f78adde18a5c6f",
+    "tldr": "MetaKoopman combines linear latent dynamics with closed-form Bayesian adaptation to improve forecasting and uncertainty estimates under changing conditions."
+  },
+  "neurips-2025-policy-gradient-methods-converge-globally-in-imperfect-information-extensive-form-games-6a8cd608f1": {
+    "backgroundConcepts": [
+      "topic-076-varepsilon-fractional-core-stability-in-hedonic-"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies whether policy-gradient learning can provably reach equilibrium in games with sequential decisions and hidden information. Such extensive-form games present difficulties for standard reinforcement-learning theory, including nonconvex optimization and the failure of value iteration. The results concern zero-sum games with imperfect information and perfect recall.",
+      "The authors identify useful mathematical structure behind the difficult policy landscape. Although optimization in behavioral policies is nonconvex, concavity in sequence-form strategies implies gradient dominance. They further show that regularized utilities satisfy a stronger proximal Polyak–Łojasiewicz condition. These properties provide a route to convergence guarantees despite the apparent optimization obstacles.",
+      "Using this structure, the paper proves that regularized alternating policy-gradient methods reach an approximate Nash equilibrium for direct policies, softmax policies, and softmax policies with natural-gradient updates. The guarantee applies to the last iterate, and iteration and trajectory-sample requirements are polynomial in inverse accuracy and game parameters. The contribution extends principled policy-gradient analysis to this specified class of hidden-information games."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d78e2dba4531199fa8269ee5e664da72d2084d2fd6d8ce0b0b6b319173e02414",
+    "tldr": "Regularized alternating policy-gradient methods provably reach approximate Nash equilibria in imperfect-information, perfect-recall, zero-sum extensive-form games."
+  },
+  "neurips-2025-pre-trained-large-language-models-learn-to-predict-hidden-markov-models-in-context-c85e7d510e": {
+    "backgroundConcepts": [
+      "topic-109-how-do-language-models-track-state"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Hidden Markov Models describe sequences generated by hidden states whose transitions follow Markovian dynamics. Fitting these models can be difficult and computationally demanding on real data. This paper investigates whether pretrained language models can predict such sequences through in-context learning, using examples supplied within their input.",
+      "Across diverse synthetic Hidden Markov Models, the authors observe prediction accuracy converging toward the theoretical optimum. They also identify scaling trends that depend on properties of the underlying model and offer theoretical conjectures to explain those empirical patterns. The distinction matters: the predictive trends are observed experimentally, while the proposed explanations remain conjectures.",
+      "The paper also provides guidance for using in-context learning as a diagnostic tool for complex scientific data. On real-world animal decision-making tasks, it achieves performance competitive with models designed by human experts. These findings suggest that pretrained language models can provide useful predictions for hidden-state processes and potentially help investigate underlying structure, while the scientific-discovery applications are presented as opportunities opened by the results."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "37fe40482938267ec7cd4010efcfdb5dddaaa57b37650e4d0deaef6e45d75d30",
+    "tldr": "Pretrained language models learn to predict Hidden Markov Model sequences from context and show competitive results on animal decision-making data."
+  },
+  "neurips-2025-spike4dgs-towards-high-speed-dynamic-scene-rendering-with-4d-gaussian-splatting-via-a-sp-005b771c41": {
+    "backgroundConcepts": [
+      "topic-140-1000-fps-4d-gaussian-splatting-for-dynamic-scene"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Spike cameras provide high temporal resolution, making them attractive for capturing fast motion. Existing approaches using a single spike camera often focus on static scenes and face limited spatial coverage. Spike4DGS combines multiple spike-camera views with 4D Gaussian Splatting to reconstruct and render dynamic scenes with greater coverage of their details.",
+      "The work includes a physical camera array and both synthetic and real-world datasets for multi-view spike reconstruction. Its initialization module extracts dense point clouds and camera poses from continuous spike streams. These estimates provide the starting scene structure and camera information needed to optimize the dynamic representation.",
+      "Training combines supervision for rendered image quality with a loss that captures the spatial and temporal behavior of spikes. This links the appearance of rendered views to the camera signals describing motion over time. On both synthetic and real-world datasets, the method reports better novel-view rendering quality than state-of-the-art methods. The contribution brings capture hardware, reconstruction data, initialization, and dynamic supervision together in one high-speed scene-rendering framework."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7c7cee8f06e8ddfb58780a5959d736304bb1df2f84b8cec85ec25a831eede4c9",
+    "tldr": "Spike4DGS combines a spike-camera array with 4D Gaussian Splatting to improve novel-view rendering of fast-moving scenes."
+  },
+  "neurips-2025-structure-aware-fusion-with-progressive-injection-for-multimodal-molecular-representatio-8523921fa8": {
+    "backgroundConcepts": [
+      "topic-075-a-3d-generative-model-for-structure-based-drug-d"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Molecular models can combine sequence information, two-dimensional topology, and three-dimensional geometry, but that combination introduces difficulties. Three-dimensional conformers can be unreliable, and naive fusion can cause modality collapse. MuMo addresses both problems by structuring how molecular information is combined and how it enters the sequence-processing component.",
+      "A Structured Fusion Pipeline first combines 2D topology and 3D geometry into a stable structural prior. Progressive Injection then introduces that prior asymmetrically into the sequence stream. The aim is to enrich sequence representations with structural information while preserving modeling specific to each modality. A state-space backbone supports long-range dependencies and information propagation.",
+      "Across 29 tasks from Therapeutics Data Commons and MoleculeNet, MuMo ranks first on 22 and reports an average 2.7% improvement over the best-performing baseline for each task. The LD50 task shows a 27% improvement. The reported results support both robustness to conformer noise and the value of the fusion design, showing how controlling information integration can strengthen multimodal molecular representations."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "03e20f55a54c95d4d5cd7412db6ac25d77fdcb16d669e9c2671cf83a3a8720dd",
+    "tldr": "MuMo stabilizes molecular structure information and progressively injects it into sequence representations, improving results across molecular benchmarks."
+  },
+  "neurips-2025-synbrain-enhancing-visual-to-fmri-synthesis-via-probabilistic-representation-learning-6d598c9b17": {
+    "backgroundConcepts": [
+      "topic-162-i-mind-insightful-multi-subject-invariant-neural"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The same visual stimulus can produce different measured brain responses across trials, contexts, and people. SynBrain models this visual-to-fMRI relationship probabilistically, addressing the difficulty of capturing both response variability and the consistent information associated with a stimulus. Its goal is to synthesize responses that reflect both aspects.",
+      "The framework has two components. BrainVAE represents neural responses as continuous probability distributions, while visual semantic constraints help preserve their functional consistency. A Semantic-to-Neural Mapper then projects visual meaning into the learned neural-response space. This separates the representation of variable brain responses from the mapping that connects them to a visual input.",
+      "Experiments report better subject-specific visual-to-fMRI encoding than state-of-the-art methods and efficient adaptation to new subjects with few examples. Synthesized fMRI signals also improve fMRI-to-image decoding when data are limited. The authors additionally report interpretable response patterns and consistency across trials and subjects. Together, these findings support probabilistic response modeling as useful for synthesis, adaptation, and augmenting data for the reverse decoding task."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9e7a40203b49c6590c70230e99a7a923221c69446de7748dcc0c3c17c8ff57bf",
+    "tldr": "SynBrain models variable brain responses probabilistically to improve visual-to-fMRI synthesis, adaptation to new subjects, and data-limited image decoding."
+  },
+  "neurips-2025-table-as-a-modality-for-large-language-models-3c1be49d64": {
+    "backgroundConcepts": [
+      "topic-095-g-2-reader-dual-evolving-graphs-for-multimodal-d"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Language models commonly receive tables as serialized text together with descriptive information. This paper argues that the conversion can lose structural information needed for table reasoning. A probing experiment on the authors' StructQA benchmark leads them to suggest that even advanced language models may struggle with tabular data under this input scheme.",
+      "TAMO addresses the problem by treating tables as a separate modality integrated with text tokens. It uses a hypergraph neural network as a global table encoder and connects that encoder to a mainstream language model. The architecture gives table structure a dedicated representation rather than relying entirely on the language model's interpretation of serialized input.",
+      "Experiments on HiTab, WikiTQ, WikiSQL, FeTaQA, and StructQA report significant generalization improvements, with an average relative gain of 42.65%. These results support the usefulness of explicitly encoding table structure. The paper's explanation of the original shortcoming remains an argued interpretation, while the benchmark findings provide empirical evidence for the proposed multimodal approach."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1caa8305f3ee990fb38e81860dc4d9890238faa724bd4e51a94bc3c76fd41bd8",
+    "tldr": "TAMO treats tables as a distinct modality, using a hypergraph encoder to preserve structure and improve table-reasoning generalization."
+  },
+  "neurips-2025-vlm-in-a-flash-i-o-efficient-sparsification-of-vision-language-model-via-neuron-chunking-acf7d3d77e": {
+    "backgroundConcepts": [
+      "topic-161-s-3-increasing-gpu-utilization-during-generative"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Large vision-language models deployed on edge devices can keep weights in flash storage and load them as needed. Activation sparsification reduces the amount of data accessed, but selecting neurons only by activation magnitude overlooks the cost of fetching scattered weights. This paper makes storage access behavior part of the selection decision.",
+      "Neuron Chunking groups neurons that occupy contiguous locations in memory. It estimates I/O latency using a lightweight model of access contiguity, then scores each chunk by neuron importance divided by estimated latency. Selection therefore favors groups that offer useful computation relative to their expected retrieval cost.",
+      "The method reports I/O-efficiency improvements of up to 4.65 times on Jetson Orin Nano and 5.76 times on Jetson AGX Orin. These are results for the evaluated hardware and concern I/O efficiency. The broader contribution is to connect sparsification with the physical organization of weights: deciding which neurons to use can account for both their importance to the model and the cost of accessing them from storage."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0f06a34282337ee10fb18c2119d4498277301c01d3ed918c61402cf30ee660e4",
+    "tldr": "Neuron Chunking selects contiguous neuron groups by importance per estimated access cost, improving flash I/O efficiency for edge vision-language models."
+  },
+  "neurips-2025-when-can-model-free-reinforcement-learning-be-enough-for-thinking-426c8e6c14": {
+    "backgroundConcepts": [
+      "topic-096-a-definition-of-continual-reinforcement-learning"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper asks when model-free reinforcement learning can produce useful thinking behavior. The puzzle is that thought actions do not directly earn rewards or change the external world into a more rewarding state. To study this, the authors introduce thought Markov decision processes, which extend ordinary MDPs with internal thought states and actions.",
+      "Within that framework, they prove that policy initialization matters for whether thinking emerges. They also show that taking a thought action is equivalent to choosing a policy-improvement step before continuing to act. This gives internal computation a formal role in reward maximization, even though it has no direct external effect.",
+      "The authors find that open-source language models satisfy conditions their theory identifies as necessary for model-free learning to produce thinking-like behavior. They separately hypothesize sufficient conditions for learning thinking outside language generation. In a toy domain, multi-task pretraining combined with designated thought actions improves reinforcement-learning data efficiency over non-thinking agents. These results distinguish theoretical necessities, proposed sufficient conditions, and empirical evidence."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "31b539500ec4e602b3a2805ff4e45b73e6c2ef9a0a939e81a9538e9b7beb3930",
+    "tldr": "Thought MDPs explain how initialization can enable model-free reinforcement learning to learn internal actions that improve subsequent decisions."
+  }
+}

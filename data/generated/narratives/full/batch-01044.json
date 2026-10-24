@@ -1,0 +1,327 @@
+{
+  "neurips-2025-adaptive-classifier-free-guidance-via-dynamic-low-confidence-masking-b8deb9a529": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Classifier-free guidance steers a generative model by combining predictions made with and without conditioning information. Standard guidance often keeps the unconditional input fixed. This paper argues that a fixed reference can be poorly suited to iterative text generation, because the model’s uncertainty changes as its emerging answer develops.",
+      "Adaptive Classifier-Free Guidance changes that reference at each generation step. In a masked diffusion language model, it identifies tokens in the current sequence that have low predictive confidence and temporarily masks them again. The resulting input supplies a localized, changing reference for guidance. This directs the corrective effect toward uncertain parts of the sequence, using the model’s current confidence to decide where guidance should concentrate.",
+      "The authors integrate the method into an existing masked diffusion language model and report improvements over standard guidance across language generation benchmarks, including a 3.9-point gain on GPQA. These results support adapting guidance to uncertainty during generation. The contribution concerns how guidance is constructed at each step, connecting the model’s evolving predictions to the intervention used to refine them."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d0b3aaa0dad7ec0d11b6a868e822293232cc10e09477bc51859d6c7a63e3c428",
+    "tldr": "A-CFG improves masked diffusion text generation by dynamically masking uncertain tokens to target guidance where it is most needed."
+  },
+  "neurips-2025-adversarial-paraphrasing-a-universal-attack-for-humanizing-ai-generated-text-00203c8844": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "AI text detectors can sometimes withstand ordinary paraphrasing, but this paper examines a stronger form of rewriting that uses detector feedback. Its Adversarial Paraphrasing framework requires no additional model training: an existing instruction-following language model rewrites generated text while a detector guides the process toward outputs that evade detection.",
+      "The experiments assess both effectiveness against detectors and transfer to other detection systems. At a fixed 1% false-positive rate, the reported reductions in true-positive detection rates reach 64.49% for RADAR and 98.96% for Fast-DetectGPT when OpenAI-RoBERTa-Large supplies guidance. Ordinary paraphrasing instead increases detection rates for those two systems in the reported comparison. Across the evaluated detector collection, the average reduction is 87.88%.",
+      "The evaluation includes neural, watermark-based, and zero-shot detectors, showing that the observed vulnerability spans several detection approaches. The authors also examine output quality and report mostly slight degradation alongside large detection reductions. These findings demonstrate broad empirical transferability and a quality-versus-evasion tradeoff; they do not establish guaranteed evasion against every detector or for every text."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "babaf76e6b60c4ab3d80662ef85e5d5d49e676f13fd0833ab7ec304a651e4f6f",
+    "tldr": "Detector-guided paraphrasing substantially reduces detection rates across several tested AI text detectors, usually with slight text-quality degradation."
+  },
+  "neurips-2025-amorlip-efficient-language-image-pretraining-via-amortization-c7708c49bf": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Language-image pretraining learns representations that support tasks such as matching text to images and classifying images without task-specific training. Standard CLIP training uses contrasting examples from each minibatch. The paper identifies very large batches as a major computational burden, while noting that existing efficiency methods can sacrifice downstream performance, training time, or scalability.",
+      "AmorLIP addresses this burden through amortization: lightweight neural networks take on expensive computations involved in contrastive learning. The framework introduces training objectives motivated by a spectral factorization of energy-based models, together with techniques intended to stabilize training. Its central idea is to change how costly contrastive computations are handled while retaining useful language-image representations.",
+      "Across 38 downstream tasks, the authors report stronger zero-shot classification and retrieval than standard CLIP baselines, with relative improvements reaching 12.24%. They also report improved training efficiency. The findings suggest that reducing the cost of contrastive pretraining need not require weaker downstream representations in the evaluated settings. The maximum relative improvement describes the strongest reported gain, rather than a uniform improvement across all tasks."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e5e0beb5a4d07ecceb7b1f0b59fd24724a9257eceb808f326123b79a87456af1",
+    "tldr": "AmorLIP uses lightweight networks to amortize costly contrastive computations, improving training efficiency and evaluated zero-shot language-image performance."
+  },
+  "neurips-2025-analyzing-the-power-of-chain-of-thought-through-memorization-capabilities-fa1d45f443": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Chain of thought can expand a language model’s ability to carry out computations, but that does not automatically establish a greater ability to memorize. This paper studies memorization as a separate aspect of expressive power, asking what fixed-precision autoregressive transformers can memorize with and without intermediate reasoning.",
+      "The authors establish necessary and sufficient conditions for memorizing a finite language and derive upper and lower bounds on the required number of parameters. Their analysis finds that the classes of languages memorized with and without chain of thought do not contain one another. Thus, the theoretical comparison does not yield a simple hierarchy in which adding reasoning steps covers every capability of the other setting.",
+      "The parameter requirements are also the same in the comparison studied, leading the authors to conclude that chain of thought does not significantly improve memorization power. They further identify certain infinite languages for which it does not help. These conclusions concern the paper’s fixed-precision transformer setting and memorization criteria; they distinguish memorization capacity from the computational and mathematical reasoning benefits that motivate chain of thought."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6dd0bc6f1a127b3f6fb9d76ac84c72f9281e5f05c1986111d7e76d951c1ced12",
+    "tldr": "For the fixed-precision transformers studied, chain of thought does not significantly increase memorization power or reduce its parameter requirements."
+  },
+  "neurips-2025-computation-and-memory-efficient-model-compression-with-gradient-reweighting-e4e5031325": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Pruning removes network weights to reduce model size and inference costs, but finding which weights to remove can itself be expensive. Optimization-based methods repeatedly estimate gradients for changing pruned networks. Exploiting their sparsity would require frequently constructing intermediate sub-models, creating an additional computational and memory burden.",
+      "This paper proposes estimating the current pruned network’s gradient by reweighting a gradient computed on an older intermediate sub-model. Reusing that earlier model reduces how often a new sub-model must be instantiated. Clipping and a preconditioning matrix help reduce estimation variance and stabilize optimization. The method therefore targets the cost of the compression process as well as the efficiency of the resulting network.",
+      "On Llama2-7B, the authors report 50% sparsity, a 1.58-fold forward-pass speedup, and 6 GB of memory usage, with better perplexity and zero-shot performance than the compared state-of-the-art methods. They also report that the approach suits distributed sparse training, achieving a twofold speedup over dense distributed baselines. These results connect gradient reuse to practical savings in both pruning and sparse training."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "787e63cc6ccaa09ab4486b19e783f5c695d59cef0abf959acd8a6cbe36590a41",
+    "tldr": "Reweighting gradients from older pruned sub-models reduces compression overhead while delivering strong sparsity, speed, and model-quality results."
+  },
+  "neurips-2025-covariate-moderated-empirical-bayes-matrix-factorization-84ec83d0eb": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Matrix factorization summarizes patterns in multivariate data through underlying factors. Many datasets also contain useful side information, such as images, text, or graphs. The paper addresses how to incorporate that information without restricting the entire method to a narrow set of input types or a fixed parametric specification.",
+      "Covariate-moderated empirical Bayes matrix factorization, or cEBMF, provides a modular framework for this purpose. It accepts side information whenever a probabilistic model or neural network can process it. Different priors encode different assumptions or constraints on the factors, and the framework adapts those priors to the observed data. This makes both the treatment of side information and the assumptions about latent structure adjustable within one framework.",
+      "The authors demonstrate benefits through simulations and analyses of spatial transcriptomics and collaborative filtering data. These applications illustrate the framework across distinct kinds of structured data. A PyTorch implementation with flexible priors accompanies the method. Its contribution is a way to combine adaptable factor assumptions with varied auxiliary inputs, while retaining matrix factorization as the central tool for recovering structure."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3193201f6a8368b29185e468e135b94933998194d92da0eaced2f910159872e9",
+    "tldr": "cEBMF incorporates varied side information into matrix factorization using flexible priors that adapt to the data."
+  },
+  "neurips-2025-embodied-web-agents-bridging-physical-digital-realms-for-integrated-agent-intelligence-9edee4a19f": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "An agent following an online recipe must connect digital instructions with actions in a physical environment. This paper studies that combination, arguing that agents focused separately on web information or embodied action leave an important capability gap. Similar coordination is needed when navigating with changing maps or interpreting landmarks using online knowledge.",
+      "The authors introduce Embodied Web Agents as a paradigm and build a simulation platform to evaluate it. The platform combines realistic indoor and outdoor 3D environments with working web interfaces. Its benchmark covers cooking, navigation, shopping, tourism, and geolocation. Each task requires coordinated reasoning across the simulated physical environment and digital information, making that connection an explicit target of evaluation.",
+      "Experiments reveal substantial gaps between state-of-the-art AI systems and human capabilities on these tasks. The contribution is therefore both an environment for studying integrated behavior and evidence that current systems struggle with it. The benchmark gives researchers a common setting for testing whether an agent can turn information obtained online into appropriate situated decisions and actions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b7d031dae3461195d065037757b301c92a3fe08f52d5e3fbf950f464a2984edd",
+    "tldr": "Embodied Web Agents provides simulations and a benchmark for tasks combining web information with physical action, revealing substantial AI–human performance gaps."
+  },
+  "neurips-2025-hifc-high-efficiency-flash-based-kv-cache-swapping-for-scaling-llm-inference-2a704835b8": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Long-context language-model inference can create key–value caches larger than GPU memory. Moving cache pages into host DRAM expands capacity, but large DRAM pools are costly. SSDs offer cheaper capacity, yet conventional routes through the CPU constrain transfer bandwidth enough to reduce inference throughput.",
+      "HiFC combines a direct storage path with a specific way of organizing SSD writes. It places cache pages in pseudo-SLC regions of commodity NVMe SSDs, which support high sequential throughput and improved write endurance. GPU Direct Storage transfers data between SSD and GPU without using host DRAM as the swapping intermediary. Fine-grained block mapping keeps writes within the faster regions to stabilize performance under load.",
+      "The authors report throughput comparable to DRAM-based swapping across long-context workloads, including NarrativeQA. They also report write-endurance improvements of up to eightfold and a 4.5-fold reduction in GPU-server memory-expansion cost over three years. The result ties storage organization and transfer-path design together: lower-cost capacity can support competitive inference throughput in the evaluated workloads when both are addressed."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "72685d844f8ae87705a046c60cf11dcc29acd38e52505141543d237bf2ddffa2",
+    "tldr": "HiFC swaps language-model caches directly between GPU and SSD, matching DRAM-based throughput in tested workloads while lowering memory-expansion costs."
+  },
+  "neurips-2025-interactive-and-hybrid-imitation-learning-provably-beating-behavior-cloning-3df58cc2c4": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Imitation learning trains an agent from expert behavior, using recorded demonstrations, interactive annotations, or both. Whether interaction is worthwhile depends partly on how expert effort is counted. This paper revisits conclusions based on charging per complete trajectory and instead measures annotation cost per state.",
+      "Under this accounting, the authors prove that interactive methods can outperform behavior cloning, which uses only offline demonstrations. Stagger, a variant of DAgger collecting one sample per round, has this advantage when recovery costs are low. The paper also introduces Warm-Stagger to combine offline and interactive data, with a guarantee that is not much worse than learning from either source alone. An example decision process demonstrates a substantial annotation-cost advantage for the hybrid approach.",
+      "Experiments on MuJoCo continuous-control tasks support the theoretical motivation: with a modest cost ratio between interactive and offline annotations, interactive and hybrid approaches consistently outperform behavior cloning. The findings make the annotation unit and cost conditions central to the comparison. They identify settings in which interaction pays off, rather than establishing that it is always preferable."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e4866ba48bc397c51b94a4cda2170c0a111fc4459bc965018bb80366525817a7",
+    "tldr": "Counting expert annotations per state reveals conditions where interactive and hybrid imitation learning provably outperform behavior cloning."
+  },
+  "neurips-2025-jet-nemotron-efficient-language-model-with-post-neural-architecture-search-27ecaab950": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Jet-Nemotron explores how to make language models faster while preserving accuracy through changes to their attention architecture. Its design pipeline, PostNAS, starts from a pretrained full-attention model and keeps the multilayer perceptron weights fixed. This allows the search to concentrate on attention components while reusing the existing model.",
+      "The search considers where full-attention layers should remain, which can be removed, and which linear-attention blocks should be used. It also includes the design of new attention blocks and a hardware-aware search over hyperparameters. Together, these steps produce hybrid architectures whose design accounts for both model accuracy and execution efficiency.",
+      "The authors report that Jet-Nemotron-2B matches or exceeds the accuracy of Qwen3, Qwen2.5, Gemma3, and Llama3.2 across their benchmark suite. Reported speedups reach 53.6-fold for generation throughput and 6.1-fold for prefilling. It also scores higher on MMLU and MMLU-Pro than the cited larger mixture-of-experts models. These results show the potential of searching attention designs after pretraining; the maximum speedups describe reported operating conditions, rather than a uniform gain for every use."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3e3cbd10557fd6ce27db5de686166d831ad558ca09e45ab3efb535c4f7a1c9b7",
+    "tldr": "Jet-Nemotron searches attention architectures after pretraining to produce hybrid language models with competitive accuracy and substantially higher reported throughput."
+  },
+  "neurips-2025-learning-to-instruct-for-visual-instruction-tuning-0a23ed39fb": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Visual instruction tuning teaches multimodal language models to respond to instructions involving images. The paper argues that common training choices can overemphasize instruction following and encourage shortcuts, leaving models overly dependent on language patterns rather than visual understanding. This can produce overfitting and weaker performance.",
+      "L2T changes the training objective by applying the loss to both instruction and response sequences. Instructions therefore contribute directly to the learning signal alongside answers. The authors describe this as expanding the effective use of existing training data and regularizing reliance on language priors. The change requires no additional training examples and adds negligible computational overhead.",
+      "On comprehensive multimodal benchmarks, the authors report relative improvements of up to 9%. They also report captioning improvements of up to 18% and reduced hallucination. These findings connect a small change in where training loss is applied with improvements in both broad multimodal performance and fundamental visual capabilities. The results support using more of each training example to encourage visual understanding, with the reported gains varying across evaluated tasks."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4ac2414892478d918212296aa5f282e4f4e061a0f6509b800876a65bfe301ed1",
+    "tldr": "L2T trains on both instructions and responses, improving evaluated visual capabilities and reducing hallucination without additional training data."
+  },
+  "neurips-2025-modem-a-morton-order-degradation-estimation-mechanism-for-adverse-weather-image-recovery-909f691f04": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Weather damage is uneven across an image: narrow rain streaks and widespread haze present different restoration problems. MODEM addresses this variation by estimating degradation and using those estimates to guide recovery. The aim is to make processing responsive to the kind and spatial extent of corruption present.",
+      "Its central scanning module combines Morton-coded spatial ordering with selective state-space models. This combination is designed to capture relationships over long distances while preserving coherence among nearby structures. A second module separately estimates global and local degradation priors. Those estimates dynamically condition the scanning modules, connecting the assessment of image damage to the processing used to repair it.",
+      "Experiments and ablation studies show state-of-the-art results across multiple benchmarks and weather types, according to the authors. The contribution combines spatial modeling with explicit estimation at two scales: broad degradation can influence restoration alongside localized artifacts. The reported findings support this adaptive treatment of complex weather corruption, rather than treating every part of an image as having the same restoration needs."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e0f8bd9d9f4f5318e5b53b5d23c62f6e0af2e4986cf1a35d4fca0e7a84408a3c",
+    "tldr": "MODEM estimates global and local weather degradation to adapt image restoration, achieving reported state-of-the-art results across multiple benchmarks."
+  },
+  "neurips-2025-nabla-r2d3-effective-and-efficient-3d-diffusion-alignment-with-2d-rewards-5cc0779d52": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Generating a 3D asset involves more than producing a plausible overall shape. The paper highlights remaining gaps in instruction following, alignment with human preferences, realistic textures, geometry, and physical attributes. It investigates whether reward-based adaptation can improve models that generate directly in 3D using feedback supplied entirely through 2D rewards.",
+      "Nabla-R2D3 is a reinforcement-learning alignment framework built on Nabla-GFlowNet, an existing method for reward finetuning. Its contribution is to enable effective adaptation of 3D-native diffusion models from that 2D feedback. This connects the space in which assets are generated with a different space in which the optimization feedback is provided.",
+      "The experiments report higher rewards and less forgetting of the model’s prior behavior within a small number of finetuning steps. In the same comparisons, naive finetuning baselines either fail to converge or overfit. These findings support the framework’s effectiveness and sample efficiency for the evaluated alignment tasks. They also emphasize preserving prior behavior during adaptation, so that improving the targeted reward involves less loss of what the model had already learned."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "94365ccdfceef12753efc0c8ae569a3a60732e51ab6724eaf0d0a7182dc1a4dc",
+    "tldr": "Nabla-R2D3 adapts 3D diffusion models using only 2D rewards, achieving higher evaluated rewards with less prior forgetting in few finetuning steps."
+  },
+  "neurips-2025-near-optimal-sample-complexity-for-online-constrained-mdps-e700f9221e": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Constrained reinforcement learning seeks strong performance while respecting formal constraints. This paper studies how much online experience is needed in episodic tabular constrained Markov decision processes. It separates relaxed feasibility, which permits small violations, from strict feasibility, which requires the returned policy to have zero violation.",
+      "The proposed model-based primal-dual algorithm combines online reinforcement learning with constrained optimization. For relaxed feasibility, it returns an epsilon-optimal policy with violations bounded by epsilon, with arbitrarily high probability. Its episode requirement scales as S A H³ divided by epsilon², up to logarithmic factors, where S and A denote state and action counts and H the horizon. This matches the unconstrained lower bound.",
+      "For strict feasibility, the corresponding requirement scales as S A H⁵ divided by epsilon² zeta², again up to logarithmic factors. The Slater constant zeta describes the size of the feasible region. This matches the cited lower bound with generative-model access. The guarantees show that online learning can attain these sample-efficiency benchmarks under the stated settings; zero violation describes the returned policy, rather than a claim that exploration never violates constraints."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "dfd48862a29b87fbb94c1ea34d03c59be7e0f76606f8736e1e02bde5664943af",
+    "tldr": "A primal-dual algorithm achieves near-optimal online sample complexity for constrained decision processes under both relaxed and strict policy-feasibility requirements."
+  },
+  "neurips-2025-on-policy-optimization-with-group-equivalent-preference-for-multi-programming-language-u-2b271f7c50": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Code-generating language models often perform unevenly across programming languages. This paper uses code translation as a training task to transfer coding proficiency across languages. Translating code makes functional relationships between implementations central to training, addressing the gap between performance in popular languages and performance elsewhere.",
+      "The proposed OORL framework combines on-policy and off-policy strategies. Its on-policy component trains code translation using rewards derived from unit tests. Group Equivalent Preference Optimization adds a finer source of feedback through groups of intermediate representations. The model learns to distinguish representations that preserve the source program’s functionality from those that do not, while also using equivalence relationships among members of each group.",
+      "This combination supplies both test-based outcome feedback and information about functional relationships between candidate representations. The authors report significant improvements on code benchmarks spanning multiple programming languages. Their findings support code translation as a means of improving cross-language understanding, with group-level equivalence providing information beyond the coarse signal of unit-test rewards. The contribution centers on learning what different implementations do and how their behavior corresponds."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ec2ed84d164fb8abb64a5c9da0ecca7bf057a92bcd011a857bec91f397ed296f",
+    "tldr": "OORL combines unit-test rewards and group-based functional-equivalence preferences to improve coding performance across programming languages through translation training."
+  },
+  "neurips-2025-psi-a-benchmark-for-human-interpretation-and-response-in-traffic-interactions-aff409a7ec": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Predicting pedestrian behavior requires interpreting how a traffic interaction develops, as well as observing movement. PSI addresses a gap in datasets that emphasize visible behavior but provide little information about the reasoning behind a driver’s interpretation and response. It focuses on pedestrian crossing intentions as understood from the driver’s perspective.",
+      "The benchmark records how those intentions evolve and adds human-written explanations of intention estimates and driving decisions. These annotations let researchers study both a model’s prediction and its account of the reasoning behind that prediction. Standardized tasks and evaluation protocols cover intention prediction, driver decision modeling, reasoning generation, trajectory forecasting, and related capabilities.",
+      "The main contribution is an evaluation resource that connects traffic predictions with human interpretations and explanations. It supports research on systems whose decisions can be assessed for predictive quality and alignment with human reasoning. The abstract presents PSI as a foundation for causal and interpretable evaluation, rather than reporting that a particular autonomous driving system has already achieved human-aligned reasoning or improved road safety."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8e3d92a918ab5e929256eeb661d864a177594c1b3777de00ef7cc6a7aa9d91ee",
+    "tldr": "PSI benchmarks evolving pedestrian intentions and driver responses using human explanations alongside standardized prediction and reasoning tasks."
+  },
+  "neurips-2025-quadricformer-scene-as-superquadrics-for-3d-semantic-occupancy-prediction-dfde4ad86d": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Semantic occupancy prediction describes which parts of a 3D scene are occupied and what those regions represent. Dense voxel grids can spend substantial representation effort on sparse driving scenes. Sparse Gaussian representations reduce that burden, but their ellipsoidal shapes can require many components to describe more varied structures accurately.",
+      "QuadricFormer represents scenes with superquadrics, geometric primitives with greater shape diversity. The authors build a probabilistic mixture model in which each primitive contributes an occupancy distribution and an associated geometry prior. Semantic information is calculated through the mixture. A pruning-and-splitting module further concentrates the primitives in occupied regions, directing representation capacity toward scene content.",
+      "Experiments on nuScenes and KITTI-360 report state-of-the-art prediction performance together with superior efficiency. The approach links geometric expressiveness to compactness: a primitive that better accommodates the structure being modeled can reduce the need for densely packed components. The reported results support superquadrics as an efficient basis for occupancy prediction in the evaluated driving datasets, combining scene geometry and semantics within the same probabilistic representation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f6f182a536aacc1f1133a693ce3be7bece5168c4516625fe7a3d7cc35eaba226",
+    "tldr": "QuadricFormer uses shape-flexible superquadrics to achieve accurate, efficient 3D semantic occupancy prediction with fewer scene primitives."
+  },
+  "neurips-2025-rao-blackwell-gradient-estimators-for-equivariant-denoising-diffusion-dfe3c23a6e": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Generative models for molecules and proteins need to respect physical symmetries. Equivariant architectures encode symmetry directly but can complicate optimization, while data augmentation offers flexibility without necessarily capturing symmetry fully. This paper develops a way to reduce training-gradient variance that can benefit both approaches.",
+      "The authors interpret augmentation as a Monte Carlo estimate of the training gradient and apply Rao–Blackwellization to obtain a provably lower-variance estimator. Their practical method, Orbit Diffusion, incorporates the corresponding loss and sampling procedure while requiring only one forward and backward pass per sample. They also prove that the loss admits equivariant minimizers, meaning symmetry-respecting solutions exist among its minima.",
+      "The paper reports more stable optimization and faster convergence, alongside state-of-the-art molecular conformation generation on GEOM-QM9. Further results include improved crystal structure prediction, text-guided crystal generation on Perov-5 and MP-20, and protein designability. These findings connect variance reduction during training with improvements across several scientific generation tasks. The guarantee about equivariant minimizers establishes their existence, without claiming that every trained solution necessarily has that property."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "392d8de1955c2906844bfd70967ca0ca23857dcffb7581977dd76360913f6711",
+    "tldr": "Orbit Diffusion uses a provably lower-variance gradient estimator to improve symmetry-aware diffusion training and several scientific generation tasks."
+  },
+  "neurips-2025-rdd-retrieval-based-demonstration-decomposer-for-planner-alignment-in-long-horizon-tasks-e78cb4fee8": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Hierarchical robot systems can use a vision-language planner to break a long manipulation task into smaller actions for a low-level controller. Training the planner typically requires demonstrations divided into subtasks. Human labeling is one way to obtain those divisions; heuristic rules are another, but their segments may poorly match the controller’s training experience.",
+      "RDD automatically decomposes demonstrations by aligning candidate subtask intervals with the training data of low-level visuomotor policies. It uses visual features to make this alignment. The resulting segmentation is therefore tied to the data underlying the controller’s capabilities, connecting how the planner describes a task with what the lower-level policy has been trained to handle.",
+      "The authors report that RDD outperforms the compared state-of-the-art decomposer in both simulation and real-world tasks, with robustness across diverse settings. The finding highlights subtask decomposition as an important interface between planning and execution. Better alignment at that interface can improve task performance by reducing the mismatch introduced when demonstration boundaries are chosen through heuristics unrelated to the controller’s experience."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4feee580a8eb483aa2e84573ac4904769f2f9875a7b7f77beac5d14787fb453c",
+    "tldr": "RDD improves hierarchical robot planning by splitting demonstrations into subtasks aligned with the low-level controller’s training data."
+  },
+  "neurips-2025-reconstruct-inpaint-test-time-finetune-dynamic-novel-view-synthesis-from-monocular-video-947089c15a": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Creating a new viewpoint of a moving scene from a single-camera video requires handling both known scene content and regions the camera never saw. This paper separates those responsibilities. It first reconstructs the dynamic 3D scene and renders that reconstruction from the desired viewpoint, providing pixels visible in both the input and target views.",
+      "Pixels hidden from the original view are then filled using a 2D video diffusion model called CogNVS. This division assigns shared visible content to geometric reconstruction and unseen content to video inpainting. CogNVS can learn through self-supervision on 2D videos, allowing the authors to train it using a large collection of videos captured in varied real-world settings.",
+      "The method also uses test-time finetuning to apply CogNVS to previously unseen videos in what the authors describe as a zero-shot setting. Thus, its application to new videos still includes adaptation at test time. Empirical comparisons show that CogNVS outperforms almost all prior approaches considered for dynamic novel-view synthesis from monocular videos, supporting the combination of reconstruction, inpainting, and adaptation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "38ea79914a094edabd951798a195b6ce0f19fe530d1633ae6a1e09a429e4c8c2",
+    "tldr": "CogNVS combines dynamic 3D reconstruction, video inpainting, and test-time finetuning to synthesize new views from single-camera videos."
+  },
+  "neurips-2025-scalable-signature-kernel-computations-via-local-neumann-series-expansions-09a7a3ad37": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Signature kernels are tools for analyzing sequential data, but computing them for long, high-dimensional time series can be demanding. This paper develops a more scalable computation method using the fact that the kernel can be characterized as the solution of a Goursat partial differential equation.",
+      "The method divides the solution domain into tiles and constructs local power-series approximations through Neumann-series expansions. It adaptively truncates these expansions, allowing computational effort and accuracy to be adjusted. Boundary information passes between dependent tiles in an order that respects those dependencies. This recursive propagation joins local calculations into a solution across the full domain while exploiting the geometry of the time series.",
+      "The reported benchmarks show substantial improvements over existing computation methods, including reduced memory requirements and adjustable, superior accuracy even for highly rough signals. The method scales to time series with a million or more data points on a single GPU. These findings make signature-kernel computation more practical for very long, volatile sequences, with applications identified in rough-path-assisted machine learning, financial modeling, and signal processing."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "88d1ea6376454d453501e61708c51957f8a7a2dc266eb43c605c44f36a1fb939",
+    "tldr": "Adaptive local series expansions make signature-kernel computation more accurate and memory-efficient for very long, rough time series."
+  },
+  "neurips-2025-show-o2-improved-native-unified-multimodal-models-43ba14ea64": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Show-o2 brings text, image, and video understanding and generation into a unified model family. Its design combines two modeling approaches within a language-model-based system: autoregressive prediction for text and flow matching for visual generation. This gives the model distinct output mechanisms suited to its language and visual tasks.",
+      "The visual representation is built in the space of a 3D causal variational autoencoder. A dual-path fusion design combines spatial and spatial-temporal information, supporting both images and videos. The language head predicts text tokens, while the flow head generates images or video. These components connect a shared multimodal system with the different structures of its outputs.",
+      "The authors also develop a two-stage training recipe intended to support effective learning and scaling to larger models. The resulting models demonstrate versatility across understanding and generation tasks involving all three modalities, and code and models are released. The stated contribution is the integrated architecture and training approach, with the reported findings emphasizing breadth of capability across text, images, and video."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3c3f6c82a2a02e3352a944bf528b2fe7ebcaa42d79f59197e654c6c048cfd156",
+    "tldr": "Show-o2 combines autoregressive text prediction and flow-based visual generation in unified models for text, image, and video tasks."
+  },
+  "neurips-2025-spik-nerf-spiking-neural-networks-for-neural-radiance-fields-221235e6dc": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Spik-NeRF applies spiking neural networks to neural rendering. The paper identifies a specific obstacle: traditional binary spike activations carry too little information for this setting, causing information loss and weaker rendering. Its approach increases the expressive capacity of the spike representation while preserving computational properties that make spiking networks attractive.",
+      "The model uses ternary spike neurons, giving activations three possible states. An inference-time re-parameterization allows these neurons to retain event-driven, multiplication-free computation. Training also uses distillation from a conventional neural radiance field, which guides the spiking model. The authors find this guidance more compatible with ternary neurons than with standard binary ones.",
+      "Evaluations on realistic and synthetic scenes show rendering quality comparable to conventional neural-network-based NeRF models. The findings support ternary spikes as a way to address the information bottleneck in spiking neural rendering. The contribution combines a richer activation representation, an inference transformation, and teacher-guided training; the stated results establish comparable rendering performance while retaining the specified computational advantages of spike-based inference."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1259d0c8912759aee0942084818e8b452646d56eaa2634cf952a8a24d97f7d7a",
+    "tldr": "Spik-NeRF uses ternary spikes and distillation to match conventional NeRF rendering quality while retaining event-driven, multiplication-free inference."
+  },
+  "neurips-2025-titan-a-trajectory-informed-technique-for-adaptive-parameter-freezing-in-large-scale-vqe-1843aa5e9b": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Variational quantum eigensolvers face growing training costs as problems and circuits become larger. More parameters require more circuit evaluations per gradient step, while barren plateaus can greatly increase measurement overhead. TITAN addresses these costs by identifying parameters that can remain fixed during optimization.",
+      "The method starts from an empirical observation that some parameters consistently have negligible influence on training dynamics. A deep learning framework predicts and freezes inactive parameters at initialization for a specified class of Hamiltonians. Its training-data construction is theoretically grounded and designed to provide informative examples resilient to barren plateaus. An adaptive neural architecture supports generalization across circuit ansätze of different sizes.",
+      "Across transverse-field Ising models, Heisenberg models, and molecular systems with up to 30 qubits, TITAN reports convergence up to three times faster and 40–60% fewer circuit evaluations than state-of-the-art baselines. Estimation accuracy matches or exceeds those comparisons. The findings support reducing optimization overhead by learning which parameters have little influence, with the demonstrated gains tied to the evaluated problem classes and circuit settings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7b9b115c56ada8c6654796812da04ad36adf4acd83cd703433637c34a3146479",
+    "tldr": "TITAN predicts which quantum-circuit parameters can be frozen, reducing evaluated VQE training costs while maintaining or improving estimation accuracy."
+  },
+  "neurips-2025-vaportok-rl-driven-adaptive-video-tokenizer-with-prior-task-awareness-592cd0711a": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Video tokenizers often produce the same number of tokens for videos at a given resolution, even when their visual complexity differs. VaporTok makes the token budget adaptive. Its goal is to devote more representation capacity to complex videos while using fewer tokens for simpler ones.",
+      "The first component, probabilistic taildrop, learns a distribution over truncation points conditioned on video complexity. The decoder reconstructs videos from variable token lengths during both training and inference. The second component treats tokenization as a sequential decision process and optimizes it with a variant of GRPO. A composite reward combines token efficiency, reconstruction fidelity, and generative quality, allowing adaptation to reflect multiple objectives.",
+      "On standard video generation benchmarks, the authors report that VaporTok matches or outperforms fixed-rate tokenizers and naive taildrop while consuming fewer tokens. These findings support allocating tokens according to content and task objectives rather than resolution alone. The method makes the efficiency-quality tradeoff part of the learned decision process, connecting the chosen representation length with the reconstruction and generation outcomes it is intended to support."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a153cb119c02b9d7990e8e60cea439c6a09fb81f88fe20982a756f540c8cfbdb",
+    "tldr": "VaporTok learns complexity-dependent video token budgets, matching or improving evaluated quality while using fewer tokens than fixed-rate and naive-taildrop baselines."
+  }
+}

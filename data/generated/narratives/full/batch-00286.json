@@ -1,0 +1,327 @@
+{
+  "neurips-2018-adversarial-risk-and-robustness-general-definitions-and-implications-for-the-uniform-dis-4a4e2fe0b4": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "What counts as a successful adversarial attack depends on how robustness is defined. This paper organizes competing definitions by their goals and emphasizes attacks that move inputs into the classifier’s error region, where predictions are actually wrong. Comparisons using algorithms for monotone conjunctions show that different definitions can produce substantially different robustness bounds.",
+      "The authors then study inputs drawn uniformly from the set of all binary strings of length n. Under the error-region definition, they establish bounds applying to any classifier with an initial error of 0.01. An attack changing on the order of the square root of n bits can raise the error probability to 0.5.",
+      "The asymptotic result sharpens this statement: a budget of c times the square root of n bits suffices, with a universal constant c below 1.17. The same budget on average can raise error to 1. These are distribution-specific mathematical results, showing how both the input distribution and the definition of attack success shape robustness claims."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "cfc50115ffae96777de01a90f8cd0e1a369396fb4663802dac55837db5a8cecc",
+    "tldr": "For uniformly distributed binary inputs, the paper clarifies adversarial robustness definitions and proves square-root-dimensional perturbation bounds."
+  },
+  "neurips-2018-analysis-of-krylov-subspace-solutions-of-regularized-non-convex-quadratic-problems-ba57c0a2df": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper analyzes how accurately two kinds of regularized, nonconvex quadratic optimization problems can be solved within a Krylov subspace. The problems use either a trust-region constraint or cubic regularization. The focus is on the quality of these restricted solutions as the subspace grows, rather than on introducing an entirely new computational method.",
+      "Such solutions can be computed efficiently using the Lanczos method, which already has a history of practical use. The analysis connects computational effort to approximation error: the subspace order t corresponds to the number of Lanczos iterations. This gives a mathematical way to describe what additional iterations achieve.",
+      "The authors prove error bounds with forms 1/t² and exp(−4t/√κ), where κ measures the problem’s conditioning. The first describes polynomial error decay, while the second makes the role of conditioning explicit in an exponential rate. They also establish lower bounds showing that the analysis is sharp. Together, these results provide theoretical support for an established approach to solving these nonconvex problems."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "423a70a02dc8ae2750429089aa08cabf95621f581841f3c4a63dbdb9e1c3bd34",
+    "tldr": "The paper proves sharp convergence bounds for Lanczos-based Krylov solutions to trust-region and cubic-regularized quadratic problems."
+  },
+  "neurips-2018-atomo-communication-efficient-learning-via-atomic-sparsification-3adba6ccdb": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Distributed training requires computers to exchange gradient updates, and that communication can slow learning. Sparsification reduces the amount sent by retaining only some components of an update. ATOMO asks a broader question: what should those components be? Individual coordinates are one option, but gradients can also be represented through singular value or Fourier decompositions.",
+      "The framework takes a gradient, a chosen decomposition, and a sparsity budget. It produces a random selection of components that preserves the original gradient in expectation while minimizing variance. Preserving the expectation means that the compression does not systematically shift the update, even though individual compressed updates differ from the original.",
+      "This perspective brings several existing methods into one formulation: the authors show that QSGD and TernGrad are special cases. They also show that sparsifying singular value decompositions of neural network gradients can produce substantially faster distributed training than coordinate sparsification. The finding makes the choice of representation an important part of gradient compression, alongside the amount of information retained."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "69e82c490ad7e9707f38ff92112a4c6a65b2e4c4bf2ae6de592134b73b94c574",
+    "tldr": "ATOMO unifies gradient sparsification across decompositions and shows that choosing components beyond individual coordinates can accelerate distributed training."
+  },
+  "neurips-2018-automatic-program-synthesis-of-long-programs-with-a-learned-garbage-collector-6e70af723e": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper studies how to generate a program from examples of its inputs and desired outputs. Its neural network predicts the next statement from the current program state and the target outputs. This makes synthesis a sequence of decisions about how to extend a partially constructed program toward the demonstrated behavior.",
+      "The network learns several related tasks together. It chooses the next high-level operation, identifies the operands that operation should use, and decides which variables can be removed from memory. That last decision supplies the learned garbage collector in the title. Managing intermediate variables becomes part of the synthesis process itself, alongside deciding what computation to perform next.",
+      "The authors report generating programs more than twice as long as those produced by existing leading approaches. They also report better success rates at comparable program lengths and a runtime reduction of two orders of magnitude. These findings connect the combined prediction and memory-management approach to improvements in program length, synthesis reliability, and speed within the reported evaluation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "608b3d905b447f60266d5aca206c69db5f964d42f7fca631d7b73b5974b217e9",
+    "tldr": "A neural program synthesizer jointly predicts statements and disposable variables, enabling longer programs with higher success rates and much shorter runtimes."
+  },
+  "neurips-2018-backpropagation-with-callbacks-foundations-for-efficient-and-expressive-differentiable-p-0954f60ce4": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Neural architectures with dynamic control flow create a demand for gradient computation that can follow flexible programs efficiently. This paper implements backpropagation through functions and callbacks. Computation proceeds forward through function calls, and the corresponding backward computation takes place as those calls return.",
+      "The central connection is to continuation-passing style, an established program representation based on explicitly describing what happens next. Standard program transformations can convert code into this form, providing a mechanical route to gradient computation. The implementation needs no auxiliary data structures beyond the function call stack, while retaining the flexibility of other reverse-mode automatic differentiation approaches.",
+      "The authors also explain how this approach can work with graph construction and native code generation through multi-stage programming. This matters because flexible execution and efficient compiled computation are both desirable in differentiable software. Their implementation combines the expressive programming style associated with define-by-run frameworks such as PyTorch with performance benefits associated with define-then-run frameworks such as TensorFlow."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "aae1040d56e33696b6cc0d41c745a4453d2414842aa42503e64996d11a10606b",
+    "tldr": "The paper expresses backpropagation through callbacks and function returns, connecting flexible automatic differentiation with efficient compilation."
+  },
+  "neurips-2018-causal-inference-and-mechanism-clustering-of-a-mixture-of-additive-noise-models-e53891dfed": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Inferring a causal relationship between two variables becomes harder when observations come from different sources governed by different mechanisms. A single causal model may then give a misleading account of the combined data. This paper addresses that heterogeneity by allowing several underlying causal mechanisms within one model.",
+      "The authors extend the additive noise model to a finite mixture of such models and provide a condition under which its causal direction is identifiable. They introduce a Gaussian Process Partially Observable Model to estimate the mixture. The estimation procedure enforces independence while learning a latent parameter associated with each observation, connecting individual observations to the model’s hidden structure.",
+      "The approach addresses two related goals: inferring the causal relationship and clustering observations according to the mechanisms that generated them. Grouping by mechanism makes the heterogeneous structure part of the analysis rather than forcing every observation into one relationship. Experiments on synthetic and real data support the approach’s effectiveness, while the identifiability claim remains tied to the condition established in the paper."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "fd62ef4d1b89c967766b86f50faf8555e073d383b6b94683285c3f1ad7ae568b",
+    "tldr": "A mixture of additive noise models supports causal inference and mechanism-based clustering when observations arise from heterogeneous sources."
+  },
+  "neurips-2018-constrained-cross-entropy-method-for-safe-reinforcement-learning-0499a3d87f": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies reinforcement learning with constraints expressed as expected costs over trajectories of finite length. The objective is to learn policies that satisfy those constraints. This formulation defines safety through an expectation over trajectories, so the stated constraint concerns aggregate cost rather than a separate guarantee for every individual trajectory.",
+      "The proposed algorithm adapts the cross-entropy method and explicitly monitors how well its policies satisfy the constraints. The authors analyze its long-run behavior through an ordinary differential equation, showing that this equation describes the algorithm asymptotically with probability one. They then give sufficient properties of the equation that guarantee algorithmic convergence.",
+      "Simulation results show that the method can learn feasible policies without requiring the initial policies to be feasible. The experiments also include objectives and constraints that are non-Markovian, meaning their evaluation can depend on trajectory history. These findings support the method’s ability to handle constrained learning beyond settings where a safe starting policy or purely current-state cost description is available."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2ee6e1baacada1bd2131e6d1be914929901cde8a9c97601f51c1cd9610f9dfaf",
+    "tldr": "A constrained cross-entropy algorithm learns policies under expected trajectory-cost constraints, with sufficient convergence conditions and supporting simulations."
+  },
+  "neurips-2018-contamination-attacks-and-mitigation-in-multi-party-machine-learning-246c1a52c3": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Combining data from several parties can help train a model on a larger collection than any participant holds alone. This paper considers an arrangement in which participants can use the jointly trained model but cannot inspect one another’s individual datasets. That separation makes the shared model the main point of interaction between parties.",
+      "The authors show that a malicious participant can contaminate its contribution and thereby taint the resulting model. Keeping datasets hidden from other participants does not by itself prevent this training-time attack. The concern is about what the model learns from contributed data, even when the collaboration does not expose the underlying datasets directly.",
+      "The proposed defense uses adversarial training to prevent the model from learning trends specific to an individual party’s data. The authors show that this can defend against contamination attacks and also guarantee party-level membership privacy. Both outcomes arise from controlling the party-specific information captured during learning, linking protection of the shared model with privacy about participation at the party level."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2b79e7958518d287f242355e2e392061ae12c0844db00a49810fe3498f833ba5",
+    "tldr": "Adversarial training can counter contamination in collaborative learning by suppressing party-specific trends while guaranteeing party-level membership privacy."
+  },
+  "neurips-2018-coordinate-descent-with-bandit-sampling-e8eb608d85": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Coordinate descent improves an objective by changing one variable at a time. Its efficiency therefore depends partly on which variable it chooses next. Ideally, each step would select the coordinate offering the largest improvement, but checking every candidate can make the selection process itself too expensive.",
+      "This paper introduces an adaptive selection method based on a multi-armed bandit algorithm. The authors first derive a lower bound on the objective decrease from updating a coordinate. Rather than evaluating that bound for every coordinate at every step, the algorithm learns which coordinates tend to offer larger decreases while simultaneously carrying out the optimization.",
+      "The approach makes coordinate selection a learning problem within the larger optimization process. Information gathered during updates guides later choices, addressing the cost of repeatedly searching all variables. The authors establish improvements in convergence through both theoretical analysis and experiments. The contribution is thus a way to make more informed coordinate choices without paying the full cost of exhaustive comparison at each step."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "043ea8dd492387cb54e8803e8338eee2da21ab5e4727523b3dff671b2d608541",
+    "tldr": "Bandit-guided coordinate descent learns which variables offer larger improvements, improving convergence without exhaustively checking every coordinate."
+  },
+  "neurips-2018-depth-limited-solving-for-imperfect-information-games-358d9b79ef": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Searching only partway through a game requires evaluating positions at the search boundary. In games with hidden information, those positions do not have a single well-defined value independent of strategic choices. This prevents the direct application of depth-limited methods used in single-agent problems and games where all information is visible.",
+      "The paper handles the boundary by allowing the opponent to choose among several strategies for the rest of the game. Each continuation strategy produces a different collection of values for the leaf positions. Solving against these alternatives forces the agent to account for multiple possible opponent behaviors when deciding how to act before the boundary.",
+      "The authors demonstrate the method in a heads-up no-limit Texas hold’em agent that reaches master-level play and defeats two previous top agents. It runs using a four-core CPU and 16 GB of memory. The result illustrates how a principled treatment of uncertain continuation values can support strong play with modest computing resources; the abstract states that comparable agent development previously required a supercomputer."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "feec4624d5709d07cb341be1b1f8133a649704a69b4a7beece52cfb59b6e785c",
+    "tldr": "Considering multiple opponent continuations enables depth-limited solving in hidden-information games and supports a strong poker agent on modest hardware."
+  },
+  "neurips-2018-dropmax-adaptive-variational-softmax-39b5f7270f": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "DropMax changes classification training by randomly removing some competing classes at each iteration. The target class stays present, while non-target classes are dropped according to probabilities that depend on the particular input. This makes the set of alternatives used for classification adaptive rather than identical for every example.",
+      "The method places binary masks over class output probabilities and learns the input-dependent masking behavior through variational inference. Different masks correspond to classifiers with different decision boundaries. The resulting stochastic regularization has the effect of combining exponentially many such classifiers, while learned dropout probabilities allow training to concentrate more on alternatives that are difficult to distinguish from the target.",
+      "Across multiple public classification datasets, the authors report significantly better accuracy than ordinary softmax and other baselines. They also inspect the learned dropout probabilities and find that confusing classes are selected more often. That analysis supports the proposed mechanism: the method’s adaptive class selection emphasizes challenging distinctions rather than simply removing competing classes without regard to the input."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6e6715671d0de7a2b65d8a8f177eaaac45791bc46f42744337ddf72f16778ffa",
+    "tldr": "DropMax learns input-specific class dropout probabilities, improving classification while emphasizing the most confusing alternatives."
+  },
+  "neurips-2018-efficient-anomaly-detection-via-matrix-sketching-641723b6f5": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Popular anomaly scores based on principal component analysis can become expensive when data has many dimensions. A direct approach computes PCA from a covariance matrix, requiring storage that grows quadratically with dimension. This paper develops streaming methods that approximate those scores using storage that grows linearly or even sublinearly.",
+      "The central result describes when a compact matrix sketch contains enough information for this purpose. Any sketch meeting a specified operator-norm guarantee can be used to approximate the anomaly scores. This makes the guarantee broadly reusable: it connects a property of the compressed matrix to the accuracy of the quantities used for detecting anomalies.",
+      "The authors instantiate the framework with Frequent Directions and random projections, obtaining practical algorithms that they evaluate on real-world datasets. Their main technical contribution is a set of matrix perturbation inequalities for the operators involved in computing the scores. These results explain why suitable compression can preserve the needed information while avoiding the storage burden of the direct covariance-based calculation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "fa5e87acd0c9a9a371a679d260d1c145656021d3aef28b25fcf8d8481df0a9ba",
+    "tldr": "Matrix sketches satisfying an operator-norm guarantee enable streaming approximations of PCA anomaly scores with substantially lower memory requirements."
+  },
+  "neurips-2018-gradient-sparsification-for-communication-efficient-distributed-optimization-0854a01c0a": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "When multiple workers train a model together, exchanging stochastic gradients can become a major communication cost. This paper treats reducing that cost as an optimization problem. It proposes a convex formulation aimed at minimizing the coding length of the gradients sent between workers.",
+      "The compression method randomly removes gradient coordinates and increases the retained values appropriately. This adjustment makes the sparse gradient unbiased: averaging over the random choices recovers the original gradient. Individual messages contain fewer coordinates, but the random compression does not systematically change the expected update. That property is central to the proposed way of communicating less information.",
+      "To make the formulation practical, the authors develop several simple, fast algorithms that approximately solve the sparsification problem. They provide a theoretical guarantee on sparseness and evaluate the approaches on regularized logistic regression, support vector machines, and convolutional neural networks. The experiments validate the methods across these different learning problems, connecting the communication-focused formulation to implementations that can be used during distributed optimization."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8175bf6fd1caf20c8917b519d0f43804fea863168d22c244f94c286f20e9b7b0",
+    "tldr": "A convex formulation compresses distributed gradients by randomly dropping coordinates while preserving their expected values."
+  },
+  "neurips-2018-graphical-model-inference-sequential-monte-carlo-meets-deterministic-approximations-5bd19edb26": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Approximate inference in graphical models often involves a tradeoff between fast deterministic calculations and computationally demanding sampling. Deterministic methods can be accurate but introduce biases that are difficult to measure. Monte Carlo methods offer asymptotic consistency, although obtaining useful results can require substantial computation.",
+      "This paper combines the two approaches through a sequential Monte Carlo algorithm that uses the output of deterministic inference. The authors explicitly develop this connection for loopy belief propagation, expectation propagation, and Laplace approximations. A deterministic approximation therefore becomes useful input to a stochastic inference procedure rather than only a final answer.",
+      "The resulting method can be understood as correcting bias left by the deterministic calculation. Numerical results show clear improvements over both the deterministic baselines and ordinary sequential Monte Carlo. These comparisons support the value of combining their strengths: an initial approximation can inform the sampling procedure, while the stochastic stage provides a way to refine inference beyond that approximation. The reported improvements are empirical results for the evaluated settings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "51fa1b6c5cb40455e8fde5dcfa60041c88dfe2305995c4c1b122fd45b2c3f190",
+    "tldr": "A sequential Monte Carlo method uses deterministic approximations to improve graphical-model inference and correct their biases."
+  },
+  "neurips-2018-improved-algorithms-for-collaborative-pac-learning-35c52c3b99": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper studies collaborative learning in which k participants have different tasks but want one classifier that works across them all. The central question is how many training examples this shared objective requires compared with learning a single task. Collaboration is measured through sample complexity rather than simply through the ability to combine datasets.",
+      "Earlier work established an overhead proportional to the square of log k when a classifier with very small error on every task exists. The authors develop algorithms for both realizable and non-realizable settings that reduce the overhead to a factor proportional to log k, relative to worst-case single-task sample complexity.",
+      "The resulting upper bounds match previously established lower bounds, showing that the improvement reaches the existing theoretical benchmark. In some parameter ranges, the algorithms even improve on previous methods allowed to return different classifiers for different tasks. This makes the result especially notable: requiring a shared classifier can still be compatible with strong sample efficiency, including comparisons with more flexible earlier approaches."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "bc96b69132932a47fc3be7ebb2bd6d3173c57d7bb00c8af783e8cd5e931aefd4",
+    "tldr": "New collaborative PAC algorithms reduce the sample overhead for learning one classifier across k tasks from squared-logarithmic to logarithmic."
+  },
+  "neurips-2018-multi-layered-gradient-boosting-decision-trees-e78c650eed": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Deep neural networks learn representations through multiple layers, while gradient boosting decision trees are widely used for discrete and tabular data. This paper explores whether layered representation learning can also be built from boosted trees. The proposed model stacks several layers of regression GBDTs into a multi-layered forest.",
+      "The goal is to learn hierarchical distributed representations, with the stacked tree layers serving as the representation-building components. Training these layers jointly poses a challenge because the model does not rely on differentiable building blocks. The authors address this using a variant of target propagation across layers, avoiding the need to derive backpropagation for the tree architecture.",
+      "Experiments support the model’s effectiveness in both predictive performance and representation learning. The contribution broadens the architectural possibilities for boosted trees: they can participate in a jointly trained hierarchy rather than only serving as a single prediction stage. The findings provide empirical support for this construction, connecting the familiar strengths of tree models with an explicit attempt to learn representations across multiple layers."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f5ce18b69f052dd248257b5121a50fc302cb067f4849de4edd5371dd9f041de6",
+    "tldr": "Stacked gradient boosting trees learn hierarchical representations through target propagation without requiring differentiable layers."
+  },
+  "neurips-2018-navigating-with-graph-representations-for-fast-and-scalable-decoding-of-neural-language--b8a4b00860": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Neural language model decoding can be expensive because a softmax layer operates over a large vocabulary. Yet many decoding tasks only need accurate probabilities for a small number of leading candidates. This paper uses that mismatch between vocabulary size and the number of useful candidates to motivate a faster approximation.",
+      "The proposed Fast Graph Decoder identifies a set of K words likely to occur in a given context. Its purpose is to focus decoding on the candidates that matter when K is much smaller than the full vocabulary. The authors also prove a theoretical guarantee for the quality of the softmax approximation, providing an analytical foundation for the approach.",
+      "Experiments on neural machine translation and language modeling show an order-of-magnitude reduction in decoding time while retaining accuracy close to the full-softmax baseline. The result demonstrates a practical speed–accuracy tradeoff in the evaluated tasks. Its significance rests on the stated observation that decoding often requires precise treatment of only a small leading subset of possible outputs."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "685bf7a6da16ffa21655835f736e84d6b9d5226a86dbc71439285296affefb09",
+    "tldr": "Fast Graph Decoder approximates softmax around likely candidates, delivering an order-of-magnitude decoding speedup with near-baseline accuracy in reported tasks."
+  },
+  "neurips-2018-pac-bayes-bounds-for-stable-algorithms-with-instance-dependent-priors-72bc52b2e0": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "PAC-Bayes analysis seeks to estimate prediction risk using a training sample. This paper combines that approach with stability, which describes how sensitive a learned hypothesis is to changes in training data. The setting covers algorithms whose outputs lie in a Hilbert space, allowing the risk analysis to incorporate properties of the learning procedure.",
+      "The authors use a Gaussian prior centered on the algorithm’s expected output. This makes the prior depend on the data-generating distribution, a distinguishing feature of the analysis. Their main result bounds the risk of a randomized algorithm in terms of hypothesis stability coefficients, connecting a measure of learning sensitivity to a prediction-risk estimate.",
+      "The paper also derives a new bound for support vector machine classifiers and compares it experimentally with existing bounds. The authors describe theirs as apparently the first bound based on uniform hypothesis stability to yield non-trivial values. That qualification matters: the stated contribution concerns making this kind of theoretical risk estimate informative, with empirical comparisons supporting its usefulness for the SVM setting."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c7bd06ede239b0040ee0866b9a8fdda23fe59024ff480560d9c3a5e39d3ce347",
+    "tldr": "Distribution-dependent Gaussian priors connect PAC-Bayes risk estimates with algorithmic stability and yield an informative SVM bound."
+  },
+  "neurips-2018-playing-hard-exploration-games-by-watching-youtube-36659e21a2": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Sparse rewards make exploration difficult because an agent may receive little feedback about useful behavior. Human demonstrations can guide it, but conventional demonstrations often require matching environment setups and recorded actions and rewards. This paper instead develops a method that learns from gameplay videos without those specially collected demonstration records.",
+      "The method has two stages. First, self-supervised objectives across time, vision, and sound map unaligned videos from multiple sources into a shared representation. Second, a single YouTube video is embedded in that representation and used to learn a reward function encouraging imitation. The single-video imitation stage therefore builds on representation learning from multiple videos.",
+      "The authors report performance exceeding human level on Montezuma’s Revenge, Pitfall!, and Private Eye, including when the agent receives no environment rewards. In that setting, the learned imitation reward still supplies guidance. The findings show that video-derived progress signals can support exploration in these difficult games, extending the usefulness of demonstrations beyond recordings captured specifically for the agent’s training setup."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "97c0d2b7b66e31c4f7cb0ad18e8c0d57a3adf4fa48ae1e8dd42fcbe7d07819cd",
+    "tldr": "A shared audiovisual representation turns a single gameplay video into an imitation reward that supports strong performance on sparse-reward games."
+  },
+  "neurips-2018-rest-katyusha-exploiting-the-solution-s-structure-via-scheduled-restart-schemes-1fcbd3681a": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Regularization can encourage a learned solution to have a simpler structure, such as sparsity or low rank. This paper asks how an optimization algorithm can use that structure to converge faster. It introduces Rest-Katyusha, a structure-adaptive version of Katyusha for regularized empirical risk minimization.",
+      "The method restarts the underlying stochastic variance-reduced gradient algorithm according to restricted strong-convexity constants. These constants determine the restart schedule and connect it to the problem’s structure. The analysis concerns low-dimensional structure enforced by a non-smooth regularizer, making the regularization relevant both to the desired solution and to the speed of reaching it.",
+      "The authors prove an improvement in convergence rate and support the approach with numerical experiments. The significance is that restarting can do more than reset an algorithm’s progress: with a schedule tied to the relevant structural constants, it can exploit properties of the solution. The stated improvement is therefore grounded in a particular relationship between regularization, solution structure, and the restart rule."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7ad4e1c84f461562d97c05823979a85802d4c565e3ee47b949776afdd2a52040",
+    "tldr": "Rest-Katyusha uses structurally informed restart schedules to achieve provably faster convergence for regularized learning problems."
+  },
+  "neurips-2018-scaling-provable-adversarial-defenses-753b080be9": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Provable adversarial defenses aim to guarantee robustness within a specified perturbation budget. This paper addresses the difficulty of training larger networks with such guarantees. It first extends existing procedures to architectures with skip connections and general nonlinearities through a modular construction that can be automated similarly to automatic differentiation.",
+      "For ReLU networks under perturbations bounded in the infinity norm, the authors introduce a nonlinear random projection used during training. Its scaling is linear in the number of hidden units, improving on the previous quadratic scaling. They also use cascade models to further reduce robust error, combining architectural flexibility, computational improvements, and stronger reported bounds.",
+      "On MNIST, the reported provable robust error bound improves from 5.8% to 3.1% at a perturbation budget of 0.1. On CIFAR, it improves from 80% to 36.4% at a budget of 2/255. These are guarantees for the specified infinity-norm settings. The results show substantial improvements in certified performance while extending the training approach toward larger and more general networks."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d90fe92f4d746e5eced56b8affa75dd5974ef5eb3707f0dc8c150987a4af2054",
+    "tldr": "Modular robustness training, random projections, and cascades scale provable defenses and improve certified error bounds on MNIST and CIFAR."
+  },
+  "neurips-2018-the-promises-and-pitfalls-of-stochastic-gradient-langevin-dynamics-3c89d2db99": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Stochastic Gradient Langevin Dynamics is used to sample Bayesian posterior distributions with large datasets. Although decreasing step sizes give weak convergence to the posterior, practical implementations often keep the step size constant. This paper examines the common choice of setting that constant inversely proportional to the number of training examples.",
+      "As the dataset grows, the authors show that this version can settle into a distribution substantially different from the desired posterior and behave like stochastic gradient descent. They attribute the discrepancy to high stochastic-gradient variance. This distinguishes successful optimization behavior from accurate posterior sampling: an algorithm can be useful in learning tasks without sampling the distribution it was intended to represent.",
+      "The paper also analyzes SGLD Fixed Point, which uses control variates to reduce gradient variance. It obtains approximate posterior samples with accuracy comparable to Langevin Monte Carlo at computational cost sublinear in dataset size. Wasserstein-distance analyses and formulas for invariant-distribution means and covariances support the comparison among these algorithms. Limited numerical experiments provide additional support for the theoretical findings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d508ebbcc35e8e214ccd8db38c743cc621a8ea58ed924ad37d7abdfec80896e8",
+    "tldr": "Common constant-step SGLD can depart substantially from the posterior, while variance reduction can recover more accurate sampling efficiently."
+  },
+  "neurips-2018-training-deep-neural-networks-with-8-bit-floating-point-numbers-e932b36b80": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Lower-precision arithmetic reduces storage needs and can improve energy efficiency, but training places demanding requirements on gradient accuracy. This paper demonstrates training deep neural networks with eight-bit floating-point data and computation while maintaining accuracy across a range of models and datasets. The challenge extends beyond representing the forward computation compactly.",
+      "The authors also reduce the precision of additions used in partial-product accumulation and weight updates from 32 bits to 16 bits. Their techniques include chunk-based accumulation and floating-point stochastic rounding. These changes address arithmetic operations that remain important even when the main data representation uses eight bits, making the precision reduction broader than a change to stored values alone.",
+      "The reported training results establish that this combination can preserve accuracy in the evaluated settings. The hardware implication is prospective: the authors describe a foundation for training platforms with the potential to improve throughput by a factor of two to four. That projected hardware benefit is distinct from the demonstrated ability to train the tested networks accurately at reduced precision."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c02e0de85b0421963a7454dba34035c22e16886237b752193ef0427fd08264ff",
+    "tldr": "Eight-bit floating-point training with specialized accumulation and rounding preserves tested model accuracy and supports potential hardware throughput gains."
+  },
+  "neurips-2018-understanding-batch-normalization-156b31943f": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Batch normalization is widely used because it often accelerates training and improves accuracy, but its mechanism has been debated. This paper investigates that mechanism experimentally. The authors find that its primary contribution is enabling larger learning rates, which in their analysis account for faster convergence and improved generalization.",
+      "Their experiments show how large updates can destabilize networks without normalization: the loss can diverge, and activations can grow uncontrollably with depth. Batch normalization repeatedly restores activations to zero mean and unit standard deviation. This correction allows larger gradient steps, providing a concrete connection between normalized activations and the learning rates training can sustain.",
+      "The paper also examines other problematic patterns in the gradients and activations of deep unnormalized networks. It compares these observations with findings from random matrix theory to reconsider classical initialization schemes. The authors suggest that larger steps may additionally help avoid sharp local minima, retaining that explanation as a possibility. The main account is empirical: normalization changes which update sizes remain workable during training."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "59d0a70e2b31717b3b4075dd09108f0ae6aca2033918dfaa42a0002afae31a11",
+    "tldr": "Experiments identify larger usable learning rates as a primary mechanism behind batch normalization’s training and generalization benefits."
+  },
+  "neurips-2018-zeroth-order-non-convex-stochastic-optimization-via-conditional-gradient-and-gradient-up-4b37e8bc6e": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies stochastic optimization when an algorithm has access to function values rather than direct gradient information. It develops and analyzes methods for both convex and nonconvex problems. The central question is how much optimization progress can be retained when updates must rely on this zeroth-order information.",
+      "The authors generalize the conditional gradient algorithm and obtain convergence rates similar to those of standard stochastic gradient methods. They then examine problems satisfying a structural sparsity assumption. In that setting, they identify an implicit regularization effect: a stochastic gradient algorithm using zeroth-order information can adapt to the problem’s sparsity simply through its choice of step size.",
+      "A further method adds truncation to stochastic gradient updates and achieves a convergence rate whose dependence on dimension is only polylogarithmic. This dimension-related result is presented within the sparsity-based development, so the structural assumption is central to its interpretation. Together, the results show how function-value-based optimization can benefit from both algorithm design and exploitable structure, even without direct access to gradients."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "abf13fd2530cb0f73d4d2dd8d7df4b287ba0a3edb88b94fced8a7cf0882ed180",
+    "tldr": "Zeroth-order optimization methods achieve gradient-like rates and, under structural sparsity, substantially reduce dependence on dimension."
+  }
+}

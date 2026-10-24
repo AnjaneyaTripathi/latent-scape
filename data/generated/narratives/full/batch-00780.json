@@ -1,0 +1,327 @@
+{
+  "neurips-2023-3d-molecule-generation-by-denoising-voxel-grids-b1d2c5547c": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "VoxMol generates three-dimensional molecules by representing atoms as density spread across a regular spatial grid. This gives the model a different object to learn from than a collection of individual atom coordinates. The paper trains a denoising neural network to connect a smoothed distribution of noisy molecular grids with the distribution of real molecules.",
+      "Generation then proceeds in two stages. First, an underdamped Langevin sampling procedure explores the smooth distribution and produces a noisy density grid. Second, the trained network removes noise in a single denoising step to recover a clean molecule. The single step refers to this final recovery stage; the preceding sampling procedure remains part of generation.",
+      "The contribution combines changes in representation, noise modeling, network architecture, and sampling rather than simply substituting grids into an existing diffusion method. In the reported experiments, VoxMol represents the distribution of drug-like molecules better than the state-of-the-art approaches considered while also generating samples faster. These findings support grid-based molecular densities as a useful alternative for this generation problem."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9017870de85ca0e33a806f9b0fd801b01a752cf96b02d9de5eb6c969592a2df3",
+    "tldr": "VoxMol generates 3D molecules by sampling noisy density grids and denoising them, with reported improvements in distribution modeling and generation speed."
+  },
+  "neurips-2023-a-regularized-conditional-gan-for-posterior-sampling-in-image-recovery-problems-c847e06aa0": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Recovering an image from incomplete or corrupted measurements can leave uncertainty about what the original image contained. This paper targets that uncertainty directly: given training pairs of images and measurements, it aims to generate samples from the posterior distribution. The goal is therefore a collection of plausible reconstructions conditioned on the measurements, rather than a single image estimate.",
+      "The proposed method uses a conditional Wasserstein generative adversarial network with additional regularization. Its training objective combines an L1 penalty with a reward for standard deviation whose weight adjusts adaptively. This introduces an explicit incentive related to variation among outputs alongside the image-recovery penalty, making the sampling behavior part of the training design.",
+      "The authors report generating dozens of high-quality posterior samples per second. Evaluations on multicoil MRI and large-scale inpainting, including conditional Fréchet inception distance, show state-of-the-art posterior sampling performance. The significance is the combination of reconstruction quality, distributional evaluation, and rapid sampling: the method is designed to provide multiple plausible answers efficiently in these recovery applications."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c6aa6986dfdebabda4a7eaf03244f3e2313e7d8c12e8b64a7411a069b640ab90",
+    "tldr": "A regularized conditional GAN rapidly generates plausible image reconstructions, with state-of-the-art posterior sampling results in MRI and inpainting."
+  },
+  "neurips-2023-accessing-higher-dimensions-for-unsupervised-word-translation-1d8278a9ac": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Unsupervised word translation seeks to connect words across languages without supervised translation examples. Successful approaches had relied on low-dimensional word vectors or pretraining, encouraging the assumption that such representations were necessary. This paper challenges that assumption by developing a method that can retain and use information in higher dimensions.",
+      "The authors argue that reducing information to low-dimensional vectors can discard useful translation signals and restrict the available denoising methods. Their approach explores those higher-dimensional signals instead. The underlying question is whether the representation choices of existing systems reflect a true requirement of unsupervised translation or merely one successful way of approaching it.",
+      "For training data from the same domain, the method exceeds 50% accuracy on English-to-Finnish, English-to-Hungarian, and English-to-Chinese translation using less than 80 MB and minutes of CPU time. It also works fully unsupervised on reported mismatched-domain pairs, including English NewsCrawl with Chinese Wikipedia. These results challenge the necessity and presumed superiority of low-dimensional vectors without establishing that higher-dimensional representations always perform better."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "20bd0a18153943471c1573c1361f6d5444093b394e2dc8d79f02a3212444c212",
+    "tldr": "Higher-dimensional signals enable efficient unsupervised word translation, challenging the assumption that low-dimensional word vectors are necessary."
+  },
+  "neurips-2023-approximate-allocation-matching-for-structural-causal-bandits-with-unobserved-confounder-6ab206c35a": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies sequential decisions when an agent knows the causal relationships among variables but does not know their probability distributions. At each round, it can intervene by fixing selected variables, or leave the system alone, and then receive a reward from a variable it cannot directly manipulate. It must learn which interventions pay off while gathering useful information.",
+      "The setting assumes variables have finitely many possible values and allows hidden confounders that influence observed variables. The authors use a canonical structural causal model to discretize the hidden-variable domains and combine samples to reduce uncertainty. Causal structure thereby provides a way to connect evidence across decisions, offering an advantage over treating every intervention as an unrelated bandit arm.",
+      "The paper establishes a logarithmic asymptotic lower bound on regret, the cumulative loss relative to optimal decisions. That bound motivates an algorithm for selecting informative and rewarding interventions. The authors prove logarithmic regret for their algorithm and report improvements over existing methods in simulations, connecting theoretical exploration requirements with practical intervention selection."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "fa5c9b089e86bf4a35d3804a9684997013069627139821de78c7af0db521ef97",
+    "tldr": "A causal bandit algorithm uses known causal structure despite hidden confounders to learn interventions with logarithmic regret."
+  },
+  "neurips-2023-aspen-breaking-operator-barriers-for-efficient-parallelization-of-deep-neural-networks-505bdd8f1a": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Deep learning frameworks commonly organize computation around tensor operators. The paper identifies a parallelism problem with this organization: synchronization barriers restrict concurrent work to the boundaries of individual operators. Useful work across different operators can consequently remain hidden, even when the underlying data dependencies would permit it to proceed.",
+      "ASPEN replaces those coarse boundaries with a dataflow graph of small computational tiles. During execution, it dynamically finds and schedules available work across operators. The authors call this opportunistic parallelism because the runtime can exploit opportunities that operator-based execution does not expose. Computing resources can also progress asynchronously through the depth of the network, supporting resource utilization and memory reuse.",
+      "The paper develops solutions to the challenges of this execution model and evaluates a proof-of-concept CPU implementation. It reports speedups of up to 3.2 times over TorchScript and 4.3 times over TVM for inference. These maximum reported gains show the potential value of changing execution granularity and scheduling, rather than treating each operator as the fixed unit of parallel work."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0fa06cd5a93fdd0a929b00b6a77f6517352d97e064b3aa07f16dfa9707fb9e06",
+    "tldr": "ASPEN exposes and dynamically schedules parallel work across neural-network operators, achieving substantial reported CPU inference speedups."
+  },
+  "neurips-2023-disdiff-unsupervised-disentanglement-of-diffusion-probabilistic-models-1aa170dccb": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "DisDiff addresses how to uncover separate, explainable factors inside a pretrained diffusion probabilistic model. The starting model already captures a distribution of observations, but the proposed task asks for more: discover the underlying factors without annotations and represent them separately so they can participate explicitly in generation.",
+      "The method connects disentangled representation learning with the gradient fields used by diffusion models. It seeks to separate the overall field into component fields, each conditioned on a representation of one discovered factor. This gives the learned factors a direct role in the diffusion process instead of leaving them only as descriptions of the input data.",
+      "The authors introduce DisDiff as an unsupervised solution to this task and report experiments on both synthetic and real-world datasets supporting its effectiveness. The contribution is the link between discovering factors, giving them explicit representations, and injecting them into conditional generation. The reported results support this approach within diffusion modeling; they do not require labeled examples of the factors being disentangled."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d3e6b97132c2944f0e0a1dec95946c765041f7b30cdab9dd598c835ffaec7cae",
+    "tldr": "DisDiff discovers unlabeled factors in pretrained diffusion models and connects their representations to separate components of the generation process."
+  },
+  "neurips-2023-double-randomized-underdamped-langevin-with-dimension-independent-convergence-guarantee-19421afb48": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper studies sampling from high-dimensional log-concave distributions whose density has the composite form exp(−g(x)−f(x)), up to normalization. The aim is to produce samples whose distribution is close to the desired target. Its contribution is a double-randomization technique incorporated into an underdamped Langevin sampling algorithm.",
+      "The authors prove an iteration bound of approximately (tr(H))^(1/3)/ε^(2/3), suppressing logarithmic factors. Here H bounds the Hessian matrices of f, so the guarantee is expressed through a curvature quantity rather than an explicit dimension term. Accuracy is measured using the Wasserstein-2 distance: the output distribution must lie within ε of the target distribution.",
+      "For posterior sampling in linear models with normalized data, the authors establish a dimension-free convergence rate that improves on previous best-known results by a factor of d^(1/3). This application makes the benefit concrete under its stated data normalization condition. The broader result shows how double randomization can yield sharper sampling guarantees for the composite log-concave setting, with the bound retaining its explicit dependence on curvature and requested accuracy."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7cadff870f4f02d350a7cfb40623d2b929cf4a1e85175481abef4af19f1b13e4",
+    "tldr": "Double randomization yields an underdamped Langevin sampler with curvature-based convergence guarantees and dimension-free rates for normalized linear-model posteriors."
+  },
+  "neurips-2023-emergent-communication-for-rules-reasoning-406b6ec4e7": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Research on communication between learning agents often asks them to describe perceptual features of images or symbols. This paper shifts the focus toward communicating abstract rules. Inspired by Raven’s Progressive Matrices, the authors introduce the Reasoning Game, an environment in which agents must reason about patterns and exchange information useful for solving reasoning problems.",
+      "They also introduce rule-RAVEN, a benchmark dataset designed to avoid overfitting, and a two-stage curriculum training method. The curriculum serves as a baseline for achieving more stable convergence when both the contexts and the meanings used in communication are changing. Together, the environment, dataset, and training procedure create a setting for studying rule-oriented communication.",
+      "Experiments show a language emerging that has stable meanings and compositional structure, allowing parts of communication to combine usefully. The learned language helps agents apply extracted rules to unseen context attributes and transfer across attributes or even tasks. These findings suggest that communication learned around reasoning can support more than descriptions of familiar visual features."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8585ab93b9b53b97d8560d599d92f558dd1e16782c923ff03407e0e3a0e60b05",
+    "tldr": "A reasoning-focused communication game produces learned languages that help agents generalize and transfer abstract rules."
+  },
+  "neurips-2023-hierarchical-decomposition-of-prompt-based-continual-learning-rethinking-obscured-sub-op-1585c829fc": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Prompt-based continual learning adapts pretrained knowledge to tasks encountered over time. The paper finds that existing strategies perform less effectively under self-supervised pretraining than their success with supervised pretraining might suggest. It attributes much of this gap to difficulties incorporating task-specific knowledge through prompts and using representations without that prompting to make decisions at test time.",
+      "The authors analyze the learning objective and separate it into three components: prediction within a task, inference of task identity, and prediction adapted to the task. Their HiDe-Prompt method explicitly optimizes these components. It combines an ensemble of task-specific prompts with statistics of representations both with and without prompt instruction, coordinated through contrastive regularization.",
+      "Experiments report superior continual-learning performance and robustness across pretraining paradigms. The stated leads reach up to 15.01% on Split CIFAR-100 and 9.61% on Split ImageNet-R. The contribution is a diagnosis and a corresponding training design: separating several responsibilities hidden inside prompt-based learning helps address the shortcomings observed with self-supervised pretraining."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "fd60d42bdc7b4533d46c6457cc3a43f320a4b856e8b3624d97feee962593e8ef",
+    "tldr": "HiDe-Prompt explicitly separates task inference and prediction objectives to improve continual learning across supervised and self-supervised pretraining."
+  },
+  "neurips-2023-human-guided-complexity-controlled-abstractions-e4fb7dbd49": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A representation useful for one task may carry too much detail, or too little, for another. This paper takes inspiration from how people choose between broad and narrow concepts, such as a general category and a specific subtype. It trains neural models to produce discrete representations across a range of abstraction levels instead of relying on a single fixed level.",
+      "The authors control representation complexity by adjusting the entropy of the distribution over representations. Complexity here roughly corresponds to how many bits are used to encode an input. This creates a tunable spectrum of representations that can be matched to a downstream task when only a small number of labeled examples are available.",
+      "In finetuning experiments, the best performance occurs when representation complexity is appropriate for the task. A human-participant study also finds that users can identify suitable complexity levels by inspecting visualizations of the discrete representations. Together, the results suggest a route toward rapid adaptation in which human judgment helps choose the abstraction level before finetuning."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7f24968ad28acc7b01b7f1b8d40ba46325637f6bdc98883dd2d0ff296cb1f0ff",
+    "tldr": "Controlling discrete representation complexity lets people help select abstractions that improve finetuning with few labeled examples."
+  },
+  "neurips-2023-information-guided-planning-an-online-approach-for-partially-observable-problems-0323ee0d6e": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "IB-POMCP addresses online planning when an agent cannot directly observe the complete state of its environment. The planner works with a belief about the world, reflecting uncertainty about what is happening. The paper focuses on improving decisions in this setting, especially when rewards are sparse and therefore provide limited guidance during planning.",
+      "The proposed approach uses estimates of the belief’s entropy to guide tree search. Entropy summarizes uncertainty, so the search can use information about the agent’s knowledge in addition to the available reward signal. A new function called I-UCB forms part of this information-guided planning process. The central design choice is to make uncertainty relevant to how the planner directs its search.",
+      "The authors report significant improvements in both reward and reasoning time over state-of-the-art baselines across several benchmark scenarios. They also provide theoretical convergence guarantees. Together, these results support information-guided search as a useful approach to partially observable planning, with empirical gains addressing both decision quality and the computation spent reaching a decision."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c2f8a007fb2b953047f223c2fb37037b1c51cb799efd488f2a22be8ab8fa7c55",
+    "tldr": "IB-POMCP guides planning with belief uncertainty, improving reported rewards and reasoning time in partially observable benchmark scenarios."
+  },
+  "neurips-2023-inverse-reinforcement-learning-with-the-average-reward-criterion-173a76e188": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Inverse reinforcement learning uses an experienced agent’s behavior to infer a policy and an underlying reward function. This paper studies that problem using only samples of states and actions, while replacing the usual discounted objective with an average-reward criterion. This removes the need to assume that the expert was trained with a known discount factor.",
+      "The proposed solution has two connected optimization methods. First, Stochastic Policy Mirror Descent solves an average-reward Markov decision process, which serves as a subproblem inside inverse learning. The method accommodates general state and action spaces and requires O(1/ε) gradient-computation steps. The authors then build Inverse Policy Mirror Descent around this solver to address the inverse problem.",
+      "For the full inverse-learning method, the paper establishes O(1/ε²) complexity. The authors identify these complexity results as new for inverse reinforcement learning under the average-reward criterion. Numerical experiments on MuJoCo and additional control tasks corroborate the analysis. The work contributes both an alternative modeling assumption for expert behavior and algorithms with explicit efficiency guarantees for that formulation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b07dfe2df21d5a71d255dce53078e4d0e6019b8f0876d5212daff7d9949098d8",
+    "tldr": "Average-reward inverse reinforcement learning recovers policies and rewards without a known expert discount factor, using algorithms with proven complexity bounds."
+  },
+  "neurips-2023-label-only-model-inversion-attacks-via-knowledge-transfer-ad1af51679": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Model inversion attacks attempt to reconstruct private training data through access to a trained model. This paper studies the restricted label-only setting: the attacker can observe predicted categories but receives neither confidence scores nor internal model information. It asks how much reconstruction capability remains when the target exposes only these minimal outputs.",
+      "The proposed LOKT approach transfers knowledge from the inaccessible target into surrogate models. A generative model called Target model-assisted ACGAN supports that transfer. Once the surrogates are available, the approach applies white-box inversion methods to them. The target remains opaque; the accessible surrogate becomes a proxy through which stronger inversion techniques can operate.",
+      "The authors provide analysis supporting the surrogates’ usefulness for inversion. Their experiments report improvements of more than 15% over the existing state-of-the-art label-only attack across all evaluated inversion benchmarks, along with favorable query-budget comparisons. The results indicate that restricting outputs to hard labels can still leave substantial privacy exposure, because information obtained through those labels can be transferred into more accessible models."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "bdd21468a9bf6555e04a1b7869ed160c6486444090cb387bda16c312726e44b3",
+    "tldr": "LOKT transfers knowledge from label-only models into accessible surrogates, enabling stronger reconstruction attacks in the reported benchmarks."
+  },
+  "neurips-2023-non-asymptotic-analysis-of-a-ucb-based-top-two-algorithm-3c1182e890": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Best-arm identification asks a learning algorithm to determine which option has the highest expected reward while controlling its probability of error. A Top Two sampling rule chooses each new observation from two candidates, a leader and a challenger. These methods are simple and perform well empirically, but their earlier guarantees concerned the limiting case where the allowed error approaches zero.",
+      "This paper derives an upper bound on expected sample complexity that applies at any error level. That makes the guarantee non-asymptotic: it addresses a selected confidence requirement directly rather than relying only on behavior in a limit. The analysis also identifies sufficient properties that allow a regret-minimization algorithm to supply the leader.",
+      "The authors show that UCB satisfies those properties and use it to construct a Top Two algorithm. The resulting method combines the new sample-complexity guarantee with competitive experimental performance. The broader value is a theoretical route from a suitable leader-selection procedure to finite-confidence guarantees; the stated properties are sufficient conditions, not a claim that every valid leader must satisfy them."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "43703af28b1b67e5fc789b3050a47dd3a5798cc28d7a73644796aaa5f2b01969",
+    "tldr": "A UCB-based Top Two algorithm gains an expected sample-complexity guarantee valid at any error level while remaining empirically competitive."
+  },
+  "neurips-2023-on-permutation-symmetries-in-bayesian-neural-network-posteriors-a-variational-perspectiv-741b169b46": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Neural-network weights can sometimes be permuted without changing the computation the network performs. Such symmetries complicate comparisons between trained solutions: two apparently separated solutions may become connected after their weights are aligned. This paper examines that issue for Bayesian neural networks, where inference concerns distributions over weights rather than only individual fitted weight settings.",
+      "The authors extend the ideas of solution interpolation and marginalized loss barriers to the Bayesian setting. They then develop a matching algorithm that aligns two independently obtained approximate Bayesian solutions using permutation matrices. The alignment is formulated as a combinatorial optimization problem, addressed through an approximation involving bilinear assignment problems.",
+      "Experiments across several architectures and datasets find nearly zero marginalized loss barriers along linear connections between aligned solutions. This means the measured loss need not rise substantially between the matched approximate Bayesian solutions in those experiments. The result helps clarify how permutation symmetry shapes the geometry relevant to Bayesian inference, while preserving the distinction between empirical near-zero barriers and a universal guarantee about every posterior."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "41484689b89776f1a1170863c7cbd01bb02c907cdea617018c2204258e23c481",
+    "tldr": "Aligning permutation symmetries reveals nearly barrier-free linear connections between approximate Bayesian neural-network solutions in reported experiments."
+  },
+  "neurips-2023-on-the-adversarial-robustness-of-out-of-distribution-generalization-models-744d195082": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Out-of-distribution generalization concerns how models perform when the data they encounter differs from their training setting. This paper examines a further question: how those models behave under adversarial attacks. The authors find that existing methods for out-of-distribution generalization remain vulnerable, making adversarial robustness a separate concern within the broader problem of generalizing beyond training data.",
+      "The study develops theoretical analyses in two complementary settings. These analyses motivate two algorithms intended to improve adversarial robustness under distribution shift. The contribution therefore connects a diagnosis of vulnerability with algorithm design: the proposed methods are informed by the theoretical investigation of the combined problem.",
+      "Experiments validate the effectiveness of the proposed algorithms. The stated finding supports improvements in out-of-distribution adversarial robustness, while the initial vulnerability result shows why favorable generalization performance alone does not settle the question of resistance to attacks. The paper brings these two concerns into a shared analysis and evaluation framework rather than treating success at distribution shift as sufficient evidence of adversarial robustness."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8d17e2751800f69b39e6883a7da848e80648d1e2075e86cd6970ccda00de98df",
+    "tldr": "The paper identifies adversarial vulnerabilities in out-of-distribution generalization methods and develops two theoretically motivated algorithms that improve robustness experimentally."
+  },
+  "neurips-2023-parallel-submodular-function-minimization-25aeca3241": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies how to minimize a submodular set function using parallel computation. It separates two costs: the number of function queries and the depth, or number of sequential rounds of work. The setting is a function on subsets of n elements whose values are integers between −M and M.",
+      "The first algorithm needs only two rounds but uses n raised to O(M) queries. This offers very low depth at a potentially large query cost. The second uses a polynomial number of queries in n and M, with depth approximately n^(1/3)M^(2/3), apart from logarithmic factors. The two methods therefore provide different choices between total query work and sequential dependence.",
+      "To obtain the second result, the authors develop a highly parallel algorithm for minimizing an infinity-norm-Lipschitz function over the hypercube. Its depth is near optimal for constant accuracy. This intermediate result is a separate contribution as well as a tool for submodular minimization, extending the available parallel techniques beyond those underlying the previously known approaches."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "399a22181337d1625b21587ef24d067ab9a04b5737f7fb6395efae4d82c1c1df",
+    "tldr": "Two algorithms establish new trade-offs between parallel depth and query cost for bounded integer-valued submodular minimization."
+  },
+  "neurips-2023-provably-more-sample-efficient-offline-rl-with-options-e39fbf5a04": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Offline reinforcement learning learns from a fixed dataset without collecting further experience. This paper studies the sample efficiency of using options within that setting, extending theoretical questions previously addressed in online learning. The distinction matters when additional interaction is risky: an offline learner must work with the information already present in its data.",
+      "The authors derive an information-theoretic lower bound that generalizes the corresponding bound for learning with actions. They then propose PEVIO, a pessimistic value-iteration algorithm for learning with options. Its analysis covers two data-collection procedures: recording state-option transitions or recording state-action transitions. For both, the paper establishes near-optimal bounds on how far the learned performance can be from optimal.",
+      "The results show faster finite-time convergence with options than with actions in the analyzed setting. Better performance is also established when options are carefully designed or offline data is limited. These conditions are part of the claimed advantage. The analysis additionally compares the benefits and drawbacks of the two collection procedures, connecting the learning guarantees to how the dataset is gathered."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "64920a16f9d9aa5a34e2740b0a187031164759e580a8acc8dcc7e7a28f356502",
+    "tldr": "PEVIO provides near-optimal offline-learning guarantees with options and establishes advantages under carefully designed options or limited data."
+  },
+  "neurips-2023-rewrite-caption-semantics-bridging-semantic-gaps-for-language-supervised-semantic-segmen-888be245a1": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Language-supervised semantic segmentation learns to associate text with image regions using image-caption pairs. The paper identifies a weakness in this supervision: captions often omit visual concepts that are present in the image. Training on these incomplete descriptions can leave textual representations poorly equipped to support detailed, zero-shot predictions across an image.",
+      "Concept Curation, or CoCu, uses CLIP to supplement the missing semantics. For each image-text pair, it maintains an archive of potentially matching concepts. Vision-driven expansion proposes concepts, and text-to-vision-guided ranking helps organize them. Cluster-guided sampling then selects relevant concepts to feed into pretraining, making the supervision better reflect what the image contains.",
+      "Across eight segmentation benchmarks, the authors report strong zero-shot transfer and large improvements over their language-supervised segmentation baseline. The results support the value of improving the semantic coverage of pretraining data. The approach addresses the gap through concept curation around existing image-text pairs, linking better coverage of visual content to better region-level predictions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5a24fdfd16e645c97df6dba6e794971690e20bcce9ef7f73e5ebc76079ce816c",
+    "tldr": "CoCu supplements captions with relevant visual concepts, improving zero-shot language-supervised segmentation across eight benchmarks."
+  },
+  "neurips-2023-scenario-diffusion-controllable-driving-scenario-generation-with-diffusion-e323213d87": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Scenario Diffusion addresses the automated creation of synthetic traffic scenarios for autonomous-vehicle safety validation. The aim is to generate varied traffic while giving the user control over the type of scenario produced. This makes generation a conditional modeling problem: the output should reflect both the road context and descriptions of the desired situation.",
+      "The architecture combines latent diffusion, object detection, and trajectory regression. It jointly generates distributions over agent poses, orientations, and trajectories, covering both how traffic participants are arranged and how they move. Conditioning on a map supplies the geographical context, while sets of descriptive tokens provide an additional way to steer the generated scenario.",
+      "The authors show that the approach can model diverse traffic patterns and generalize across geographical regions. These findings support its expressive capacity and the usefulness of conditioning for scenario creation. Its contribution to the safety-validation workflow is a method for producing controllable synthetic traffic; the reported findings concern the generated scenarios and their geographical generalization."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d23afeb8f8eca59d5423d4e88b386845a657e63f765b44291ad989ca20c1e314",
+    "tldr": "Scenario Diffusion jointly generates traffic-agent configurations and trajectories, using maps and descriptive tokens to control diverse scenarios."
+  },
+  "neurips-2023-statistical-and-computational-trade-off-in-multi-agent-multi-armed-bandits-950ce05a60": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies regret minimization when multiple agents jointly choose actions and their rewards are described by a factor graph. It derives a problem-specific lower bound on regret and characterizes how often each joint action should be explored. These results describe the exploration needed to learn effectively for a given instance.",
+      "Computing that ideal exploration process is difficult: the underlying combinatorial optimization has numbers of variables and constraints that grow exponentially with the number of agents. The authors use mean-field approximations to reduce this burden. Adjusting the approximation allows them to examine a trade-off between achievable regret and the computational effort needed to decide how to explore.",
+      "Their Efficient Sampling for MAMAB algorithm, ESM, asymptotically matches the lower bound associated with the chosen approximation. This is a guarantee relative to the approximated bound, rather than an unconditional claim of matching the original optimal one. Numerical evaluations on synthetic problems and real-world radio communications networks assess both regret and computation, making the statistical-computational trade-off central to the evaluation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "bf29e2ae1913a66cd61b0c77e675ccea5f4ee24ba3a871f515a869028b90b30e",
+    "tldr": "ESM uses mean-field approximations to trade computational cost against regret in multi-agent bandits, asymptotically matching its associated approximated bound."
+  },
+  "neurips-2023-tight-risk-bounds-for-gradient-descent-on-separable-data-67257059ca": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper asks how well unregularized gradient descent generalizes in separable linear classification. Its focus is population risk, which measures performance beyond the training sample. The analysis links that risk to the number of training examples, the number of optimization steps, the separating margin, and how quickly the loss function’s tail decays.",
+      "The upper and lower bounds have matching order: r²/(γ²T) plus r²/(γ²n). Here T is the step count, n is the sample size, γ is the margin, and r depends on the loss’s tail decay and on T. Because r also changes with T, the expression captures more than a simple inverse relationship between optimization time and risk.",
+      "The upper bound applies to virtually any convex smooth loss and improves previous bounds that covered particular losses or required additional technical assumptions. The matching lower bound establishes tightness across tail-decay rates and parameter regimes in this setting. The authors also give a simpler proof approach and extend it to analogous results for stochastic gradient descent."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6d3064f1e28aa80b95fbea977c5d67b8da4c61d38723aa9fd33034b9b1cca111",
+    "tldr": "Matching risk bounds explain how loss-tail decay, data size, margin, and optimization time govern gradient-descent generalization on separable linear data."
+  },
+  "neurips-2023-utilitarian-algorithm-configuration-16888d23aa": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Algorithm configuration selects settings for a heuristic algorithm. Existing procedures commonly aim to minimize expected runtime, but this paper instead targets the utility delivered to users. The authors argue that this objective better captures relevant preferences and also makes it easier to develop configuration procedures with meaningful theoretical performance guarantees.",
+      "The difficulty with mean runtime is its sensitivity to extremely rare, extremely long runs. Even if a configuration never produces such runs, proving that through experiments can require substantial effort. The paper works with utility that is bounded and decreases as runtime increases. Boundedness makes empirical performance bounds possible without the same sensitivity to arbitrarily large runtime contributions.",
+      "Building on this distinction, the authors develop configuration procedures with theoretical guarantees and prove runtime upper bounds similar to theoretical lower bounds. They also demonstrate the procedures empirically. The contribution shows how changing the objective can affect both what counts as a good configuration and how efficiently a reliable configuration choice can be established."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "fb4b89a5e4d612bc8b79da3ec8bb88088acd50a62daf227d8e2c9cca1d1ddbc9",
+    "tldr": "Optimizing bounded user utility enables theoretically grounded algorithm configuration without mean runtime’s extreme sensitivity to rare long executions."
+  },
+  "neurips-2023-video-prediction-models-as-rewards-for-reinforcement-learning-43ec5fe1b1": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "VIPER addresses the difficulty of specifying rewards for complex behavior. It uses expert videos to learn a reward signal without requiring action labels in those videos. The central idea is to turn a model of how expert video sequences unfold into feedback that a reinforcement-learning agent can use while learning control.",
+      "The method first trains an autoregressive transformer to predict expert videos. It then uses the likelihoods supplied by that video prediction model as rewards. This connects generative modeling directly to reward specification: the learned model supplies the training signal instead of requiring a programmatic task reward for each behavior.",
+      "The authors report expert-level control across a range of DMC, Atari, and RLBench tasks. They also show that a video model’s generalization can provide rewards in an out-of-distribution environment without expert data from that environment, enabling cross-embodiment transfer for tabletop manipulation. The findings support video prediction as a useful source of rewards, including a demonstrated case where the reward model transfers beyond its expert-data setting."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c226e1c7d0186c0b20dd2ef45920ce8388d35ba4eecb49cb3fb0069217962dcb",
+    "tldr": "VIPER turns expert-video prediction likelihoods into reinforcement-learning rewards, enabling expert-level control and demonstrated cross-embodiment transfer."
+  },
+  "neurips-2023-would-i-have-gotten-that-reward-long-term-credit-assignment-by-counterfactual-contributi-2e47434210": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Long-term credit assignment asks which earlier actions actually contributed to a later reward. COCOA approaches this through a counterfactual question: would a different action still have led to that reward? The paper introduces a family of model-based algorithms that estimate action contributions after rewarding outcomes occur, building on Hindsight Credit Assignment.",
+      "The authors identify a problem with assigning contributions through rewarding states, as Hindsight Credit Assignment does. This can produce spurious contribution estimates and, in many relevant environments, push the method toward the high variance of REINFORCE. COCOA instead measures contributions with respect to rewards or learned representations of rewarding objects, producing lower-variance gradient estimates.",
+      "Experiments use problems designed to test long-term credit assignment. Dynamic programming supplies ground-truth policy gradients, allowing the authors to examine why the methods improve performance. They attribute the gains to lower bias and variance than Hindsight Credit Assignment and common baselines. The results support modeling contributions to rewarding outcomes as a route toward more sample-efficient reinforcement learning."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "50ffe54317e3490648eb1a8ab6d946cbc1043dc1b7a7f0888de0a1ebdbb540df",
+    "tldr": "COCOA assigns credit through counterfactual contributions to rewards, reducing gradient bias and variance in long-term credit-assignment experiments."
+  }
+}

@@ -1,0 +1,327 @@
+{
+  "neurips-2021-boost-neural-networks-by-checkpoints-b1b230c6e9": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Combining several neural networks can improve predictions, but training each network separately multiplies the cost. An alternative is to combine checkpoints saved during one training run. The difficulty is making those checkpoints different enough to contribute useful information. Earlier approaches can produce only small accuracy gains or introduce a risk of training divergence through cyclical learning rates.",
+      "This paper uses a boosting scheme to build a checkpoint ensemble, aiming to accelerate convergence while increasing checkpoint diversity. The method also assigns adaptive weights to training examples. The authors prove convergence through a reduction in exponential loss, connecting the ensemble construction to a specific mathematical training objective.",
+      "Experiments report better accuracy and efficiency than single models and existing ensembles. With the same training budget, the method achieves reported error reductions of 4.16% on Cifar-100 and 6.96% on Tiny-ImageNet using ResNet-110. Adaptive sample weighting also helps with class imbalance: experiments show accuracy gains of up to 5.02% over a single EfficientNet-B0 on imbalanced datasets."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a8b63e6425cbe405eb2d1b8b08291ab0e0eec0b86412c263953bb442a590079d",
+    "tldr": "A boosting scheme turns saved neural-network checkpoints into a more diverse ensemble, improving accuracy within the same training budget in reported experiments."
+  },
+  "neurips-2021-compressive-visual-representations-e52d77efe9": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Self-supervised visual learning builds image representations without human-provided labels. This paper asks whether explicitly limiting the information retained in those representations can improve their usefulness and robustness. It studies two established approaches, SimCLR and BYOL, rather than treating compression as a separate task applied after learning.",
+      "The authors reformulate both methods to work with the Conditional Entropy Bottleneck objective. This makes representation compression something they can measure and control, allowing them to examine its effect on later tasks. They also investigate a connection with Lipschitz continuity, which concerns how sensitively an encoder responds to changes in its input. Their analysis supplies a tractable lower bound on the encoder's Lipschitz constant and offers an explanation for the observed robustness.",
+      "Experiments show improvements in linear evaluation accuracy and robustness across a range of domain shifts. Compressed BYOL reaches 76.0% Top-1 linear evaluation accuracy on ImageNet with ResNet-50 and 78.8% with ResNet-50 2x. These results support explicit information compression as a useful component of the tested representation-learning methods."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6bfa6e18f7ff3fb5f16748817cddd76766b3c6f5421269daf9e47695b46a7fa6",
+    "tldr": "Adding controlled information compression to SimCLR and BYOL improves representation accuracy and robustness across the tested domain shifts."
+  },
+  "neurips-2021-decoupling-the-depth-and-scope-of-graph-neural-networks-f248a347b4": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Making a graph neural network deeper often also expands the neighborhood it must process. On large graphs, that expansion can become extremely expensive. Repeated information mixing can additionally make representations less distinctive, a problem called oversmoothing. This paper separates these two choices: how much computation happens through network layers and how much of the graph those layers can access.",
+      "For each target node or edge, the method first extracts a localized subgraph with bounded size. It then applies a graph neural network of arbitrary depth within that scope. The intended benefit depends on extracting a useful neighborhood containing critical neighbors while excluding irrelevant ones. Information mixing can then produce a meaningful local representation without spreading across the entire graph.",
+      "The authors establish improvements in expressive power through analyses of GCN, GraphSAGE, and GIN. Experiments cover seven graphs, including one with up to 110 million nodes, and six backbone architectures. They report significant accuracy improvements alongside orders-of-magnitude reductions in computation and hardware cost, supporting bounded local scope as a practical design principle."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c6cd62ace9e3812109c8d4b4892475ed7e6e072d1e8cb08573030c18bacee325",
+    "tldr": "Running deep graph neural networks inside carefully selected, bounded subgraphs improves accuracy and sharply reduces computation in the reported experiments."
+  },
+  "neurips-2021-directed-graph-contrastive-learning-570297942e": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Graph contrastive learning trains representations using different views of a graph. Creating those views by changing graph structure can remove information that message passing needs, especially edge direction. Another concern is that manually selected views and parameters expose the model to only part of the contrastive information an augmentation method could provide.",
+      "This paper introduces Laplacian perturbation, an augmentation method for directed graphs. The authors theoretically analyze how it supplies contrastive information while preserving the directed graph structure. Their learning framework dynamically learns from the possible views generated by this method, rather than relying on a predefined selection. A multi-task curriculum organizes learning progressively from easier to harder contrastive views.",
+      "The central aim is to vary the learning signal while retaining the directional relationships that make the original graph informative. Empirically, the model preserves more structural features than the compared graph contrastive learning models. Benchmark experiments also report better performance than state-of-the-art approaches, supporting the combination of structure-preserving augmentation and progressive learning across views."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "76e8caa76d92071cd81a488ddd9b538fa85b2ef38fe68d7daf5b597bbb53057d",
+    "tldr": "Laplacian perturbation creates contrastive views that preserve directed graph structure, while curriculum learning progressively uses those views to improve representations."
+  },
+  "neurips-2021-fast-and-memory-efficient-differentially-private-sgd-via-jl-projections-15c1fbdff5": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Differentially private neural-network training can be slow and memory intensive because DP-SGD needs the gradient norm for each training example. Computing those individual quantities creates substantial overhead beyond ordinary training. This paper targets that bottleneck with an algorithmic change to the optimizer.",
+      "The proposed DP-SGD-JL and DP-Adam-JL methods use Johnson–Lindenstrauss projections to approximate per-example gradient norms quickly, avoiding their exact computation. The resulting framework brings training time and memory requirements closer to those of the corresponding non-private optimizers. Its stated scope is broad: the approach treats networks as black boxes and does not depend on restricting the architecture or applying compiler-specific techniques.",
+      "The authors illustrate the framework by training a recurrent neural network on IMDb. They report a good privacy–accuracy tradeoff, significantly faster training than DP-SGD, and memory use similar to non-private SGD. The practical contribution is therefore reducing the computational burden of private training through approximate norm estimation, with the reported demonstration showing that this can work for a recurrent architecture."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "12fc9a17a0106ccdc8a9f657107a048c9d805e200b276a9d12787587cfba7578",
+    "tldr": "Random projections approximate per-example gradient norms, making differentially private optimization faster and more memory efficient without architecture-specific modifications."
+  },
+  "neurips-2021-fast-axiomatic-attribution-for-neural-networks-cabe899390": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Feature attributions describe which inputs influence a neural network's prediction. They can also guide training: an attribution prior encourages the model to avoid unwanted features and spurious correlations. The difficulty is computational cost. Attributions satisfying desirable mathematical properties can be expensive enough that repeatedly using them during training becomes impractical.",
+      "This paper identifies a class of networks for which axiomatic attributions require only one forward and backward pass. The authors call these nonnegatively homogeneous networks X-DNNs and formally prove their efficient attributability. They also show that a wide range of ordinary neural networks can be converted into this class simply by removing the bias term from each layer.",
+      "The approach makes the network's structure part of the solution to attribution cost. Experiments show advantages when training with attribution priors, outperforming state-of-the-art generic attribution methods applied to regular networks. The result is specific to the demonstrated network class and training setting: it establishes a route to efficient, mathematically grounded attribution by constructing networks with the needed property."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ab110fc25c9bb0120075d0956bdd37f5ff8830493c3560a8d9adbc509ba3488f",
+    "tldr": "A provably attributable class of neural networks enables axiomatic feature attribution in one forward/backward pass, making attribution-guided training more efficient."
+  },
+  "neurips-2021-formalizing-generalization-and-adversarial-robustness-of-neural-networks-to-weight-pertu-b3a124ca33": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A neural network's behavior can change when its learned weights are perturbed. Understanding that sensitivity matters for model compression, assessing generalization gaps, and studying adversarial attacks. This paper brings robustness and generalization under weight changes into a shared analysis for feed-forward neural networks.",
+      "The robustness analysis focuses on pairwise class margins: the separation between the scores assigned to two classes. Such a margin provides a way to describe how weight changes affect the distinction a classifier makes between alternatives. The paper studies this alongside generalization behavior, linking sensitivity within the model's parameters to questions about performance beyond its training examples.",
+      "The authors use the theory to design a new training loss intended to encourage both generalization and robustness against weight perturbations. They also conduct experiments to validate the theoretical analysis. The contribution combines a mathematical account of parameter sensitivity with a training objective informed by that account, giving a foundation for reasoning about how changes to network weights affect prediction behavior."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "dd5e7e732af55a8ecf3424442fb0965cd57e962c5008cc90ee97e7f06e305ed8",
+    "tldr": "The paper jointly analyzes generalization and class-margin robustness under weight perturbations, then uses that theory to design a training loss."
+  },
+  "neurips-2021-grounding-inductive-biases-in-natural-images-invariance-stems-from-variations-in-data-168331bd1a": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A useful image model should respond predictably when visual properties change. This paper investigates where such invariance comes from: the training images, transformations added through augmentation, or the model architecture. It studies factors of variation in ImageNet and examines residual networks and vision transformers under changes in those factors.",
+      "The authors find that standard augmentation depends on a particular combination of translation and scale, with translation accounting for most of the performance improvement. That benefit remains despite the approximate translation invariance built into convolutional architectures. Residual networks and vision transformers also show similar scale and translation invariance, even though their architectural biases differ substantially.",
+      "In this study, the training data itself is the main source of invariance, while augmentation strengthens invariances already learned. Those learned behaviors align with the factors of variation identified in ImageNet. The authors further find that the dataset's dominant variations mostly concern appearance and differ by class. These findings emphasize examining actual data variation when explaining a model's invariance."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7e74022d35c064f794394d20ff8866cd58681422acfcae04e458254035f342da",
+    "tldr": "An ImageNet study finds that training-data variation is the main source of learned invariance, with augmentation strengthening it across different architectures."
+  },
+  "neurips-2021-how-to-transfer-algorithmic-reasoning-knowledge-to-learn-new-algorithms-a2ab3c27d9": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Learning an algorithm from examples is easier to supervise when the model can see intermediate execution steps. Many reasoning tasks provide only inputs and final outputs. This paper asks whether knowledge learned from algorithms with available execution traces can help models solve similar tasks whose intermediate steps are unavailable.",
+      "The study covers two different styles of graph algorithms: parallel algorithms such as breadth-first search and Bellman–Ford, and sequential greedy algorithms such as Prim's and Dijkstra's. The authors create a dataset containing nine algorithms and three graph types. They use it to test whether familiar transfer techniques can produce systematic generalization in algorithmic reasoning.",
+      "Their hypothesis is that transferring reasoning procedures differs fundamentally from transferring the feature extractors commonly used in vision or language. The empirical results support the concern that standard transfer techniques are insufficient in the studied setting. The paper instead demonstrates transfer through multi-task learning, showing how learning related algorithmic tasks together can convey useful reasoning knowledge when target-task traces are missing."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ba7343d0d8773dd9b91c74d2a5981f48fc92ef2210342f194211764d064ef35e",
+    "tldr": "Experiments on graph algorithms show that multi-task learning can transfer algorithmic reasoning knowledge to tasks lacking execution traces."
+  },
+  "neurips-2021-knowledge-adaptation-priors-7504d121b0": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Adapting a machine-learning model to changes can require expensive retraining on earlier data. Knowledge-adaptation priors, or K-priors, aim to preserve enough of the old learning signal to make adaptation faster while remaining accurate. The framework is intended to apply across a wide variety of tasks and models.",
+      "K-priors combine information about model weights with information about the functions those weights produce. Together, these weight-space and function-space priors reconstruct gradients associated with past learning. This perspective also recovers and generalizes several existing adaptation strategies, providing a shared explanation for methods that might otherwise appear unrelated.",
+      "The paper states that simple first-order gradient methods can often approximate the exactly retrained model to arbitrary accuracy when a sufficiently large memory of past data is available. That qualification matters: the recovery claim depends on the memory and applicable setting. Empirically, adaptation using only a handful of past examples achieves performance similar to full retraining, suggesting that useful adaptation can sometimes require much less historical data."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "60be87122c76a9273bfb2fb7d8a260458b9e3380e61dce27792795fff70ac73b",
+    "tldr": "K-priors combine weight and function information to reconstruct past gradients, enabling adaptation that empirically approaches full-retraining performance with few past examples."
+  },
+  "neurips-2021-learning-tree-interpretation-from-object-representation-for-deep-reinforcement-learning-52ca4473be": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Explanations of deep reinforcement-learning models often highlight pixels or other low-level inputs. This paper instead builds explanations around higher-level object features. Its Represent And Mimic framework, RAMi, learns a disentangled representation intended to capture independent factors of variation in objects, then uses those features to explain the model's action values.",
+      "RAMi trains a mimic tree that extracts the causal impact of latent features on those values. A central challenge is balancing fidelity to the original model with a tree simple enough to interpret. The authors derive a Minimum Description Length objective from the Information Bottleneck principle to address both goals, and introduce Monte Carlo Regression Tree Search to explore possible splits.",
+      "Experiments show strong approximation performance with significantly fewer tree nodes than the compared baselines. The paper illustrates interpretability through changes along latent features, decision rules, causal impacts, and human evaluations. Together, these results support object-based representations and compact trees as a way to connect a complex agent's value estimates to more understandable features."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "cf1ae4828f8835173f642092beb0e14e804c4e28213822f2071522b0408a4424",
+    "tldr": "RAMi explains deep reinforcement-learning action values using disentangled object features and compact mimic trees optimized for fidelity and simplicity."
+  },
+  "neurips-2021-model-selection-for-bayesian-autoencoders-50991898ff": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Bayesian autoencoders represent uncertainty in model parameters, making the choice of prior consequential. This paper develops a model-selection method that adjusts prior hyperparameters by comparing the distribution of autoencoder outputs with the observed data distribution. The comparison uses distributional sliced-Wasserstein distance, which can be estimated from samples and used in high-dimensional problems.",
+      "The formulation takes inspiration from type-II maximum likelihood and its relationship to minimizing Kullback–Leibler divergence. To estimate the posterior over autoencoder parameters, the authors use stochastic gradient Hamiltonian Monte Carlo. They additionally fit a flexible Dirichlet mixture model in latent space, turning the Bayesian autoencoder into a generative model.",
+      "These components provide an alternative to variational autoencoders for representation learning with uncertainty. The authors evaluate the approach qualitatively and quantitatively across multiple unsupervised learning tasks. They report state-of-the-art performance against several competitive baselines in small-data settings, where priors play an important role. The findings therefore particularly support the approach when limited observations make prior selection influential."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6f7185e61bfaffc6611b0b5253d06c24772360a4030848dac79341b83086ccba",
+    "tldr": "Optimizing prior hyperparameters through a sample-based distribution distance improves Bayesian autoencoders, particularly in the reported small-data experiments."
+  },
+  "neurips-2021-multi-armed-bandits-with-bounded-arm-memory-near-optimal-guarantees-for-best-arm-identif-78216061bd": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies bandit learning when available choices arrive as a stream and only a limited number can remain in memory. The learner can sample a choice only while it is stored. That restriction connects decisions about what to retain with decisions about what to explore, changing the usual learning problem.",
+      "The authors examine two objectives. Regret minimization concerns the cumulative reward lost while learning. For single-pass algorithms with room for n−1 of the n arms, they prove an expected cumulative regret lower bound of order T^(2/3). This establishes an unavoidable cost even when memory falls short of holding every arm by just one, and contributes an almost-tight guarantee for this setting.",
+      "Best-arm identification instead aims to return a sufficiently good choice with high confidence. The paper provides an (ε, δ)-PAC algorithm using O(log* n) arm memory and optimal sample complexity O((n/ε²) log(1/δ)). Thus, this identification objective can retain optimal sampling efficiency with extremely slowly growing arm storage, despite the streaming restriction."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "799384cc482e0a707fc90a23d855dc40c6ecf995399d4d378840caef8329fb2d",
+    "tldr": "The paper establishes near-optimal bandit guarantees under streaming arm-memory constraints, including optimal-sample best-arm identification with very little storage."
+  },
+  "neurips-2021-only-train-once-a-one-shot-neural-network-training-and-pruning-framework-d179a8ae69": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Structured pruning makes neural networks smaller by removing groups of parameters, but it often involves heuristics and a separate fine-tuning stage. Only-Train-Once, or OTO, combines training and compression from scratch. Its aim is to produce slimmer networks with competitive predictive performance and substantially reduced computational requirements.",
+      "OTO first divides parameters into zero-invariant groups: when a whole group is zero, removing it leaves the network's output unchanged. It then formulates training as a structured-sparsity optimization problem that encourages such zero groups. The proposed Half-Space Stochastic Projected Gradient algorithm finds group sparsity more effectively than standard proximal methods while maintaining comparable convergence.",
+      "The authors demonstrate simultaneous training and compression without subsequent fine-tuning, reporting inference speedups and fewer parameters. Results are state of the art for VGG16 and ResNet50 on CIFAR10 and BERT on SQuAD, with competitive results for ResNet50 on ImageNet. The framework connects safe removal of zero groups to an optimizer designed to create them during the original training process."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3fcb2cfcf2c79395813d2c274739cbc2c82e8a160ff964824a69575f23165e45",
+    "tldr": "OTO trains and structurally prunes networks in one process by encouraging removable zero-valued parameter groups, avoiding a separate fine-tuning stage."
+  },
+  "neurips-2021-osoa-one-shot-online-adaptation-of-deep-generative-models-for-lossless-compression-f699ceb520": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Deep generative models can support effective lossless compression by accurately modeling data distributions. However, storing a separate large model for each target dataset can consume the space that better compression saves. This paper introduces One-Shot Online Adaptation, or OSOA, to address that model-storage burden.",
+      "OSOA starts with a pretrained model and compresses successive data batches while adapting the model through a dynamical system over a single epoch. The authors formalize this setting and introduce a basic algorithm. The key idea is to incorporate adaptation into the compression process, eliminating the requirement to save a separate model for every target dataset.",
+      "Experiments show time savings compared with training bespoke models and space savings compared with using one unchanged model for all targets. Under matched adaptation steps or time, the basic method can also outperform fine-tuning followed by storing the adapted model, with an example of 47% less space. Multiple updates per batch and early stopping provide further demonstrated opportunities for space or time savings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ef7df8f7c4e09aab73c410824743b08281f28df5ddb617e22cd7f5fecfd9e1fa",
+    "tldr": "OSOA adapts a pretrained generative model while compressing data in one epoch, reducing the time and storage costs of dataset-specific compression."
+  },
+  "neurips-2021-particle-dual-averaging-optimization-of-mean-field-neural-network-with-global-convergenc-64586f7b6f": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Particle Dual Averaging extends an optimization method from ordinary convex problems to problems whose variable is a probability distribution. This matters for mean-field neural networks, where the distribution-based perspective accommodates nonlinear feature learning but makes quantitative convergence analysis challenging. The paper develops both an algorithm and guarantees on how long it takes.",
+      "The algorithm has nested loops. An inner loop uses Langevin dynamics to approximately obtain a stationary distribution, while the outer loop optimizes that distribution. The authors interpret this construction as extending the Langevin algorithm to objectives that are nonlinear functions of probability distributions.",
+      "By adapting finite-dimensional convex optimization theory to the space of measures, the authors prove global convergence for two-layer mean-field neural networks under the settings they analyze. They also provide a polynomial runtime guarantee, strengthening the result beyond an eventual-convergence statement. Numerical simulations on reasonably sized networks support the theory. The contribution connects a distribution-based training viewpoint with quantitative guarantees despite the presence of nonlinear feature learning."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d12c8ef8934a53109db212149d52c7ce71999e5c24280b758e0a7709330f0080",
+    "tldr": "Particle Dual Averaging optimizes probability distributions and provides global convergence with polynomial runtime guarantees for two-layer mean-field neural networks."
+  },
+  "neurips-2021-pipeline-combinators-for-gradual-automl-05fa178472": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Automated machine learning can explore modeling choices, but practitioners often want to keep control over some decisions. This paper addresses gradual automation: a data scientist specifies selected parts of a workflow while an automated optimizer searches the remaining choices. Existing tools can make changes to that boundary cumbersome, requiring substantial rewrites.",
+      "The proposed solution uses a small set of combinators, reusable composition mechanisms drawn from functional programming, to assemble machine-learning operators into pipelines. The combinators are orthogonal, giving distinct building blocks for expressing workflows. A translation scheme then converts the pipelines and their hyperparameter schemas into search spaces that AutoML optimizers can explore.",
+      "The authors implement these ideas in Lale, an open-source library compatible with scikit-learn, and evaluate it through a user study. The contribution is a programming foundation for mixing human judgment with automated search. By connecting compositional pipeline descriptions to optimizer search spaces, the approach supports workflows in which the practitioner can adjust which decisions remain fixed and which are automated."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "454b308a4f68c923b88fd09a79caae3ce7f3c89047a09c14f9ec516a0e552d86",
+    "tldr": "Lale uses composable pipeline building blocks to let practitioners fix selected modeling decisions while AutoML searches the rest."
+  },
+  "neurips-2021-predicting-molecular-conformation-via-dynamic-graph-score-matching-3df78157e8": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Predicting a molecule's stable three-dimensional shape from its two-dimensional graph requires more than understanding bonded neighbors. Atoms far apart in the molecular graph can sit close together in space and interact. The paper argues that overlooking these non-bonded interactions is particularly consequential for large molecules and systems containing multiple molecules.",
+      "Dynamic Graph Score Matching, or DGSM, constructs graphs according to atoms' current spatial proximity during both training and inference. This lets the model represent local interactions and interactions between atoms that are distant along bonds. Using score matching, it directly estimates gradients of the log density of atomic coordinates from those changing graphs.",
+      "The full framework can be trained efficiently end to end. Across multiple tasks, the authors report substantial improvements over state-of-the-art baselines and demonstrate conformation generation for a broader range of systems, including proteins and multi-molecular complexes. The key modeling change is to let spatial relationships shape the interaction graph as coordinates change, rather than relying only on fixed molecular connectivity."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3cc12aa049316f5236bff748bb88f911f6d491edbd53e081681297d985429394",
+    "tldr": "DGSM predicts molecular conformations using dynamically updated spatial graphs that capture both bonded and non-bonded atomic interactions."
+  },
+  "neurips-2021-provably-efficient-multi-task-reinforcement-learning-with-model-transfer-3deed7cff2": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies how several reinforcement-learning agents can learn together when their environments resemble one another without being identical. Each player interacts with its own episodic Markov decision process, and the collective goal is to improve performance through information sharing. The setting is tabular, meaning states and actions are represented explicitly.",
+      "The authors formulate this as a heterogeneous multi-player learning problem and design a model-based algorithm. The important distinction is that related tasks need not have exactly the same dynamics. The formulation therefore places task differences inside the learning problem while still allowing agents to benefit from information gathered by other players.",
+      "The theoretical analysis supplies both regret upper bounds for the algorithm and lower bounds describing inherent difficulty. It includes gap-dependent results, which account for differences in the values of competing choices, and gap-independent results, which do not rely on those separations. Together, these bounds characterize the intrinsic complexity of the stated transfer problem and give a mathematical basis for assessing collective learning across related environments."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0760edf3fd154299e041406a7fca8a7561bcc4683e9056d0f57e71f36e87dfa2",
+    "tldr": "The paper develops a model-based algorithm and regret bounds for agents sharing information across similar but nonidentical tabular episodic environments."
+  },
+  "neurips-2021-referring-transformer-a-one-step-approach-to-multi-task-visual-grounding-43e69eaaac": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Visual grounding connects language to the image region it describes. Referring expression comprehension locates that region with a bounding box, while referring expression segmentation produces a mask. This paper proposes one transformer framework for both tasks, addressing performance constraints of two-stage methods and the complexity of specialized one-stage architectures.",
+      "A visual-lingual encoder combines information from the image and the referring language. The decoder learns contextualized language queries, which are decoded to directly predict the bounding box and segmentation mask for the referred region. This makes context and joint task learning central to a single-stage prediction process.",
+      "The authors report large improvements over state-of-the-art methods on both comprehension and segmentation. They also find that a simple pretraining schedule on an external dataset improves performance further. Experiments and ablations attribute substantial benefits to contextualized information and multi-task training. The findings support using a shared, context-rich representation to connect linguistic descriptions with both coarse region localization and more detailed segmentation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e9797d029936f9ef886dc4f3d1735d0cb2d25b965e74191ac1c3e195b7f01705",
+    "tldr": "Referring Transformer combines image and language context to predict bounding boxes and segmentation masks jointly in a single-stage framework."
+  },
+  "neurips-2021-rethinking-conditional-gan-training-an-approach-using-geometrically-structured-latent-ma-f37362d3bb": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Conditional generative adversarial networks can produce outputs with too little diversity, even when their latent inputs vary. Their latent and output spaces can also become geometrically distorted relative to one another. This paper treats these problems as questions about the mapping between spaces and proposes a change to how the generator is trained.",
+      "The training mechanism systematically encourages a bi-Lipschitz mapping between the latent and output manifolds. Intuitively, this asks the mapping to limit both excessive stretching and excessive collapse of distances. The aim is to preserve meaningful variation as latent choices become generated images, improving diversity and visual quality together.",
+      "The authors apply the mechanism to Pix2Pix, a conditional GAN baseline that lacks diversity, producing Pix2Pix-Geo. Across a broad set of image-to-image translation tasks, they report more diverse and realistic outputs. These gains come from modifying the training mechanism. The results support geometric constraints on the latent-to-output relationship as a useful way to improve the tested conditional generator."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e5f8c143acba4d962d0182ea6022c887880e91dbba07f0a4f1bfc268011cded0",
+    "tldr": "Encouraging a bi-Lipschitz latent-to-output mapping during Pix2Pix training yields more diverse and realistic image translations in the reported experiments."
+  },
+  "neurips-2021-space-time-mixing-attention-for-video-transformer-c6b197a4b2": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Video transformers must model relationships across both image locations and time, which can make them computationally expensive. This paper proposes a video recognition architecture whose complexity grows linearly with the number of frames. It achieves that scaling by approximating full space-time attention in two complementary ways.",
+      "First, each attention operation considers only a local temporal window, while successive network layers provide coverage across the video sequence. Second, efficient space-time mixing lets the model attend jointly to spatial and temporal locations without additional cost over a spatial-only attention model. The authors also integrate two lightweight mechanisms for global temporal-only attention, gaining additional accuracy at a small computational cost.",
+      "The design combines local temporal processing, depth, and efficient mixing to capture video information without the overhead of unrestricted space-time attention. Experiments on popular video recognition datasets report very high recognition accuracy and substantially greater efficiency than other video transformer models. The stated computational advantage concerns how temporal information is incorporated while keeping scaling linear in video length."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9e6cbf78d030d41b680ff83db61c046ccbf39bedb03de1b7219674cf78eed8f7",
+    "tldr": "Local temporal attention and efficient space-time mixing deliver strong video recognition while keeping computational complexity linear in the number of frames."
+  },
+  "neurips-2021-stochastic-bandits-with-groups-of-similar-arms-e84801b990": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies bandit problems in which choices belong to unknown groups sharing the same mean reward. The learner knows only a lower bound, q, on group size. Such structure can arise when choices have categorical attributes but rewards depend on only some of them, making other attributes redundant.",
+      "The authors derive an asymptotic regret lower bound and an associated constrained optimization problem. These reveal that the grouping can substantially reduce achievable regret relative to an unstructured problem, potentially by a factor of q. Exploiting the bound exactly is computationally difficult because the optimization includes a combinatorial problem.",
+      "The proposed strategy uses a computationally efficient, sorting-based relaxation inspired by that lower bound. The analysis controls its distance from the optimal bound and establishes asymptotic regret q times smaller than the unstructured comparison. Numerical experiments with many arms illustrate its performance. The contribution is a way to exploit repeated reward structure without knowing group membership, while avoiding the exact combinatorial optimization."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2bb6163acbebccf5bc088b0f42bfb8c0ba1653bf991728c8c9f7fb00847ac658",
+    "tldr": "A sorting-based bandit strategy exploits unknown equal-mean groups with known minimum size q to achieve a factor-q asymptotic regret reduction."
+  },
+  "neurips-2021-three-operator-splitting-with-subgradients-stochastic-gradients-and-adaptive-learning-ra-731e7287f9": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Three Operator Splitting is a method for minimizing sums of convex functions when suitable gradients or proximal operators are available. In machine learning, those operations may be inconvenient: only stochastic gradients may be accessible, or complex penalties may be easier to handle through subgradients. This paper extends the method to accommodate those situations.",
+      "Two extensions allow subgradients and stochastic gradients, respectively. The authors prove a convergence rate of O(1/√t), where t counts iterations. These results give theoretical support for using less demanding information about the objective while retaining a quantified rate of progress.",
+      "A third extension, AdapTOS, chooses step sizes adaptively. For convex-loss optimization over an intersection of convex sets, its convergence rate adapts to the objective's unknown degree of smoothness. This reduces the need to know that smoothness beforehand when selecting the optimization behavior. The authors also compare the proposed methods with competing approaches across applications. The contribution broadens the conditions under which splitting methods can be used with convergence guarantees."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "acdce3d1bebd4b1577c17b15cc7085c04bf6dd24b9e4cc59bf08c2d06f65eca8",
+    "tldr": "Extensions of Three Operator Splitting support subgradients, stochastic gradients, and adaptive step sizes with convergence guarantees for the analyzed convex settings."
+  },
+  "neurips-2021-tracking-without-re-recognition-in-humans-and-machines-f8bbe8ea40": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Tracking becomes difficult when the target looks identical to surrounding objects, leaving motion as the useful cue to identity. This paper introduces PathTracker, a synthetic challenge built around that situation. Human observers learn the task readily and generalize across systematic design changes, while the tested spatiotemporal deep networks struggle.",
+      "The authors model biological circuit mechanisms implicated in tracking through motion cues and implement them as a recurrent network. The resulting model learns a robust strategy that rivals human performance on PathTracker. It also explains a significant proportion of human decisions on the challenge, connecting its computational behavior to the observed human responses.",
+      "The work then tests whether the mechanism helps beyond the synthetic task. Adding it to a transformer-based object tracker increases tolerance to appearance-changing visual nuisances in natural videos and establishes a new state of the art on TrackingNet. The findings support motion-based continuity as a useful complement to appearance information and show how a biologically motivated tracking mechanism can improve a practical vision architecture."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "39ffae75f038f1468839a773e4ca8f0ee1eb9bf2df54018461f491c005693d75",
+    "tldr": "A biologically inspired recurrent tracking model matches strong human performance on identical-object tracking and improves a transformer tracker on natural videos."
+  }
+}

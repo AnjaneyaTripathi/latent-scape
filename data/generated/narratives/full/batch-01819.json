@@ -1,0 +1,327 @@
+{
+  "icml-2026-automatic-construction-of-clinical-scoring-systems-with-llm-agents-2bfe605d57": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Clinical prediction tools must fit the way clinicians work. A compact checklist can be easier to remember, audit, and execute at the bedside than a more flexible predictive model. This paper treats those practical requirements as constraints on the model itself: each binary rule contributes one point, and a threshold on the total determines the prediction.",
+      "Finding a useful checklist is difficult because the number of possible rule combinations grows exponentially. AgentScore uses language models to propose candidate rules, then passes those proposals through a deterministic verification and selection process grounded in data. The language model guides the search, while the selection loop enforces statistical validity and the required score structure.",
+      "Across eight clinical prediction tasks, AgentScore outperforms existing score-generation methods and matches the AUROC of more flexible interpretable models despite its tighter constraints. On two additional externally validated tasks, it discriminates outcomes better than established guideline scores. These findings support optimizing directly for compact clinical scores, rather than treating deployability as a later adjustment."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "34bbec8f5cf9d64aff623737319520eef735151e058fe7a7b65eb7affd101a9c",
+    "tldr": "AgentScore combines LLM-proposed rules with deterministic, data-grounded selection to build compact clinical checklists with strong predictive performance."
+  },
+  "icml-2026-bioagent-bench-an-ai-agent-evaluation-suite-for-bioinformatics-c34b6729b6": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "BioAgent Bench evaluates whether AI agents can carry out complete bioinformatics workflows, rather than only answer questions about them. Its manually curated tasks cover areas including RNA sequencing, variant calling, and metagenomics. Each task includes a prompt and concrete expected output artifacts, giving the evaluation something tangible to assess.",
+      "The authors test frontier closed and open-weight models across several agent harnesses. An LLM-based grader evaluates both progress through a pipeline and the validity of its outcome. The evaluated agents can often complete multistep workflows and reliably produce requested artifacts without elaborate custom scaffolding, showing that substantial workflow execution is already possible in these settings.",
+      "Controlled disruptions reveal a different side of performance. Corrupted inputs, distracting files, and bloated prompts expose failures that successful high-level pipeline construction does not rule out. The suite therefore distinguishes completing an ordinary workflow from reasoning reliably through its individual steps under perturbation. Its release also aims to support reliable local agents, motivated by the sensitive patient information and unpublished intellectual property involved in bioinformatics."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f3315aa0a35e62b33b0072bd49a050f239542a05405c29998d3caa4d35807b06",
+    "tldr": "BioAgent Bench finds that AI agents can often complete bioinformatics pipelines, while controlled disruptions expose weaknesses in step-level reliability."
+  },
+  "icml-2026-cellbridge-learning-cellular-trajectories-via-interaction-aware-alignment-f0b3b5ef1e": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Single-cell RNA sequencing measures cells destructively, so researchers cannot directly follow the same individual cells through successive measurements. Instead, they infer trajectories by matching populations observed at different times. Several trajectories can explain those snapshots, making the choice of matching criteria central to the biological interpretation.",
+      "CellBRIDGE builds on optimal transport, which aligns populations using a cost for possible matches. Standard approaches base that cost on gene-expression differences. CellBRIDGE adds information about cell-to-cell communication through ligand-receptor activity, including the direction and type of interaction. This allows the alignment to account for relationships between cells alongside their individual expression profiles.",
+      "Across synthetic and real sequencing datasets, the added interaction information improves snapshot couplings and downstream trajectory estimates relative to feature-only baselines. The method also supports interpretable computational perturbations: in lung cancer data, silencing selected ligand-receptor pairs shifts inferred trajectories in ways that reproduce expected pathway-inhibition effects. These are in silico results, connecting the trajectory model to specific signaling mechanisms rather than merely producing a correspondence between snapshots."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7715a1be9c5f6c2a6ae6c7b59cac7cf1dae24969ce80553a10fb7725f2745c1b",
+    "tldr": "CellBRIDGE improves inferred cellular trajectories by incorporating directed ligand-receptor communication into the alignment of cell populations."
+  },
+  "icml-2026-clipping-makes-distributed-and-federated-asynchronous-sgd-robust-to-stragglers-d559b8d89a": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Asynchronous stochastic gradient descent lets parallel workers contribute updates without waiting for the slowest worker. This improves hardware utilization, but some updates arrive after the model has already changed substantially. With a constant step size, these delays can still damage convergence even though they no longer hold up every other worker.",
+      "The paper gives a theoretical explanation for the observed stabilizing effect of gradient clipping in asynchronous training. Clipping limits the magnitude of updates. In the authors' analysis, it removes dependence on the maximum update delay from oracle complexity, the measure of how many gradient evaluations are required to reach the target optimization accuracy.",
+      "The guarantees use a sub-Weibull model of gradient noise, a family broad enough to include sub-Gaussian, sub-exponential, and heavier-tailed behavior. Under this model, the authors establish convergence both in expectation and with high probability, reporting the latter as a first for asynchronous optimization. The result explains a specific form of robustness to stragglers: the worst delay no longer appears in the stated oracle-complexity dependence."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5a06da0f383c2f30639f29048389d90732c8bbd8d2c328e20a5a521031010c0e",
+    "tldr": "Under a sub-Weibull gradient-noise model, clipping removes maximum-delay dependence from asynchronous SGD's oracle complexity and enables high-probability convergence guarantees."
+  },
+  "icml-2026-curated-synthetic-data-doesnt-have-to-collapse-a-theoretical-study-of-generative-retrain-7097e42654": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "When a generative model repeatedly trains on its own curated outputs, the curation rule helps determine what survives into later generations. Selecting outputs with one fixed reward can push the model toward a narrow set of favored answers. Diversity then disappears as the retraining process repeatedly reinforces the same objective.",
+      "This paper studies whether using multiple reward functions can change that outcome. It formalizes recursive training when preferences are heterogeneous, so different reward functions favor different regions of the output space. Under certain conditions, the authors prove convergence to a stable distribution that continues to assign probability to competing high-reward regions.",
+      "The limiting distribution also satisfies a weighted Nash bargaining solution, giving the balance among preferences a formal interpretation. The result supports a conditional alternative to the claim that synthetic retraining must collapse unless real data are added. Within the analyzed setting, the way outputs are curated can preserve diversity and aggregate multiple values. It does not establish that any collection of rewards will automatically prevent collapse."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "99c082915d8fb2bd5072c2e56d9095759ffaa07252fdd83605083a90c1d4c3fc",
+    "tldr": "Under certain conditions, curating synthetic outputs with multiple reward functions yields stable, diverse retraining dynamics with a weighted Nash bargaining interpretation."
+  },
+  "icml-2026-entropy-informed-decoding-adaptive-information-driven-branching-21fd0b7a6f": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Generating several possible continuations can improve a language model's answers, but exploring the same number everywhere spends computation without regard to uncertainty. EDEN adjusts that search effort during generation. It is designed as a model-agnostic decoding framework that can be applied without changing the underlying language model.",
+      "At each step, EDEN measures the entropy of the next-token distribution. When probability is spread across alternatives, it explores more branches; when the distribution is concentrated, it follows a greedier path. This links the branching factor monotonically to uncertainty and aims to approximate a wider beam search using fewer candidate expansions.",
+      "Experiments on mathematical reasoning, code generation, and scientific questions report better output quality and more favorable accuracy-versus-expansion trade-offs than fixed-width beam search. The theory treats token selection as noisy maximization and establishes an advantage for entropy-monotone branching over fixed branching at the same total expansion budget, with explicit regret rates. That theoretical advantage concerns more probable continuations; the task experiments separately establish the reported improvements in answer quality."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2cc8c3be93bfbef775ea5b190d49ea65cbd55978347ca548adf98321e7b48673",
+    "tldr": "EDEN allocates decoding branches according to token entropy, improving tested output quality and the accuracy-expansion trade-off."
+  },
+  "icml-2026-evaluating-robustness-of-reasoning-models-on-parameterized-logical-problems-5f77754633": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A logic benchmark can become harder because its wording grows longer or because its logical structure changes. Those are different challenges, but aggregate accuracy can blur them together. This paper introduces a diagnostic benchmark based on structured 2-SAT formulas, whose satisfiability can be characterized through an implication graph.",
+      "The generators vary interpretable properties of that structure. They control contradiction cycles, the fraction of freely assignable variables, and planted backbones that affect propagation. Other cases introduce late bridge clauses linking previously separate regions, or use symmetry and duplication to test whether models recognize equivalent structure. These interventions target specific reasoning competencies rather than relying only on larger problem sizes.",
+      "The evaluation measures both correct satisfiability decisions and valid variable assignments. It also tests robustness to meaning-preserving changes such as clause reordering, filler clauses, and variable renaming. Across models, targeted structural changes produce sharp performance transitions even when surface statistics remain fixed. The findings show why a single SAT accuracy score can conceal brittleness: models may succeed overall while failing abruptly on particular logical configurations."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2957af7e98b24298b8c478aa54487538d6196a05fc3aa28ba41c3f3755f65894",
+    "tldr": "A parameterized 2-SAT benchmark reveals abrupt reasoning failures caused by logical structure that aggregate accuracy can hide."
+  },
+  "icml-2026-global-plane-waves-from-local-gaussians-periodic-charge-densities-in-a-blink-4b9522103f": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "ELECTRAFI predicts how electrical charge is distributed throughout a repeating crystal. Its central design connects a local representation to the full periodic density: the model constructs anisotropic Gaussians in real space, then uses their analytically available Fourier transforms to obtain plane-wave coefficients through the Poisson summation formula.",
+      "This shifts the handling of periodicity and non-local behavior into analytic transformations. A single inverse fast Fourier transform reconstructs the density, avoiding explicit probing of a real-space grid, summing periodic images, and spherical harmonic expansions. The whole model remains differentiable from end to end, while the reconstruction procedure keeps inference inexpensive.",
+      "On periodic benchmarks, ELECTRAFI matches or exceeds state-of-the-art accuracy and is up to 633 times faster than the strongest competing method, producing densities in a fraction of a second. Used to initialize density functional theory calculations, it reduces total compute cost by up to roughly 20 percent. Slower predictors can consume the savings they create, so the practical finding concerns combined prediction accuracy and inference cost, not accuracy alone."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "23f5703e35cc4be254c857307475e4010f71f406c105713fdfa2c01f50846b2f",
+    "tldr": "ELECTRAFI uses analytic Fourier transforms of local Gaussians to predict crystal charge densities quickly enough to reduce total DFT compute cost."
+  },
+  "icml-2026-graphpfn-a-prior-data-fitted-graph-foundation-model-d75cecb443": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "GraphPFN explores whether a graph foundation model can learn broadly useful behavior by pretraining on carefully generated synthetic graphs. It adopts the prior-data fitted network approach, in which the training distribution is explicitly designed to support later in-context prediction. The model targets tasks that require predictions for individual graph nodes.",
+      "The authors build a synthetic graph prior with both connectivity and attributes. Structure combines multi-level stochastic block models with preferential attachment, while graph-aware structured causal models generate attributes. They then extend the tabular foundation model LimiX with attention-based neighborhood aggregation and train it on millions of sampled graphs. This gives the model graph-specific pretraining and mechanisms for using neighboring nodes.",
+      "On diverse real-world node-level datasets, GraphPFN achieves state-of-the-art results in both in-context learning and finetuning. It outperforms the graph-to-table framework G2T-FM, earlier graph foundation models, and task-specific graph neural networks trained from scratch. The results support synthetic graph priors as a promising route to transferable graph models, with the design of the pretraining distribution playing a central role."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "50880046d4816c3d5d6f58e2da55b1314798046487e316023602c7e7d10922b2",
+    "tldr": "GraphPFN combines graph-specific architecture and synthetic graph pretraining to achieve strong node-level results across real-world datasets."
+  },
+  "icml-2026-keeping-a-secret-requires-a-good-memory-unconditional-streaming-lower-bounds-for-differe-ec366460bf": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Streaming algorithms process data while retaining only limited memory. This paper asks how much additional memory is fundamentally required when the output must satisfy user-level differential privacy. Its contribution is an unconditional space lower bound: a proof that privacy imposes a memory cost, rather than merely an observation that existing private algorithms use more space.",
+      "The proof technique translates the problem into a multiplayer communication game. Applied to a promise variant of counting distinct stream elements, it shows that achieving certain error rates privately requires space almost on the scale of the cube root of stream length, with logarithmic factors suppressed. The corresponding non-private task admits essentially constant space up to such factors.",
+      "This establishes the reported first exponential separation between private and non-private space complexity for a natural statistical estimation task and resolves the cited open problem. The statement is tied to the specified promise variant and error regime. Beyond distinct counting, the communication-based framework also produces lower bounds for private medians, quantiles, and max-select, making it a broader tool for understanding privacy's memory requirements."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "089095e575f4c4b399adbc17fb76af43878261ce90cbe3f9ace7720903dc4a5b",
+    "tldr": "A new communication-based proof shows unconditional memory costs for user-level private streaming, including a strong separation for a distinct-counting variant."
+  },
+  "icml-2026-learning-randomized-reductions-9e301d0f99": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A randomized self-reduction expresses a function's value at one input through its values at random, correlated inputs. Such identities support self-correcting programs, instance-hiding protocols, and applications in complexity theory and cryptography. Finding them has traditionally required expert derivation, so this paper studies how to automate that discovery process.",
+      "Bitween formalizes reduction learning and analyzes sample complexity under correlated sampling. Its Vanilla version supports linear regression, genetic programming, symbolic regression, and mixed-integer programming. Linear regression performs best among these backends, finding reductions for 43 of the 80 functions in the authors' RSR-Bench suite, including what they report as the first known reduction for sigmoid.",
+      "Agentic Bitween expands the search space by letting LLM agents propose query functions beyond a fixed collection of simple input transformations. This neuro-symbolic version discovers reductions for 64 of the 80 functions and outperforms purely neural baselines in discovery and verification accuracy. The findings suggest that learned symbolic proposals can broaden automated mathematical discovery, while the explicit reduction framework provides a concrete object to check."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "63214704c6d855d727b922f582d9627c0b087832002b1fb6db050547c942af1c",
+    "tldr": "Bitween automates randomized self-reduction discovery, with LLM-proposed query functions increasing benchmark coverage from 43 to 64 of 80 functions."
+  },
+  "icml-2026-local-policies-for-graph-structured-markov-decision-processes-fefa1630df": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "In the cooperative multi-agent systems studied here, a graph determines which agents directly affect one another. Each agent has its own state and action, and its next state depends only on its immediate neighborhood. Even with this local transition structure, the combined state-action space grows exponentially as agents are added, making global optimization intractable in the worst case.",
+      "The paper asks when an agent can make a nearly optimal decision using only states within a limited graph radius. A policy with radius m can inspect nodes up to m hops away. The analysis uses a Dobrushin-type stability matrix to control how influences propagate through the network.",
+      "Under the established conditions, local policies approximate globally optimal policies with a suboptimality gap that decreases exponentially with neighborhood radius. This gives a quantitative reason to enlarge local information gradually: each increase in reach can sharply reduce the approximation error. The guarantee is conditional on controlled influence propagation; local state transitions alone are not presented as sufficient to make every cooperative decision problem locally solvable."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "01df51890a0829527303068f85bed82ac428dc01b8d9fdee8b216a741c290e58",
+    "tldr": "Under conditions controlling influence propagation, neighborhood-based policies approximate globally optimal multi-agent decisions with error decreasing exponentially in neighborhood radius."
+  },
+  "icml-2026-rank-aware-spectral-bounds-on-attention-logits-for-stable-low-precision-training-b2e5070921": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Transformer attention scores combine pairs of token representations through the query and key weight matrices. If these scores become too large, low-precision arithmetic can overflow. This paper derives a concentration inequality that accounts for the rank of the query-key interaction matrix, rather than treating it as a generic full-rank transformation.",
+      "When that rank is much smaller than the representation dimension, the bound gives substantially tighter control of extreme scores. For modern attention architectures, the authors report concentration bounds that are 8 to 28 times tighter. They use this result to derive per-layer FP8 scale factors from the interaction matrix's spectral norm, estimated with implicit power iteration, without observing activations.",
+      "The formulation supports grouped query attention without expanding keys and remains compatible with fused attention kernels. Across models from GPT-2 XL to Llama-2-70B, the method eliminates overflows in tested transient scenarios where delayed scaling fails, while retaining comparable MMLU accuracy. The contribution connects weight geometry to principled overflow control, and the experiments demonstrate its usefulness in the reported scenarios."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "afe25c2f5ce3df829694595162afec6e035f50838f341eda875b1c93ead3c02d",
+    "tldr": "Rank-aware attention bounds enable weight-derived FP8 scaling that prevents overflows in tested transient scenarios while preserving comparable MMLU accuracy."
+  },
+  "icml-2026-robust-bayesian-optimisation-with-unbounded-corruptions-aa89185ac1": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Bayesian optimization chooses evaluations to search for a good solution, but extreme corrupted observations can disrupt that search. Existing robust guarantees commonly limit the total magnitude of corruption. A single sufficiently large outlier can exceed that budget, so those guarantees do not cover arbitrarily severe individual errors.",
+      "This paper instead limits how often corruption occurs while allowing its magnitude to be unbounded. The proposed RCGP-UCB algorithm combines an upper confidence bound strategy with a Robust Conjugate Gaussian Process. The authors develop stable and adaptive versions, each with a regret guarantee under this frequency-based adversary.",
+      "The two versions achieve sublinear regret with up to O(T^(1/4)) and O(T^(1/7)) corruptions, respectively, even when their magnitudes may be infinite. Sublinear regret means cumulative loss relative to the optimization comparator grows more slowly than the number of rounds. Without outliers, the regret bounds match standard GP-UCB. The robustness therefore changes which corruptions the theory tolerates without worsening the stated clean-data regret bounds; corruption frequency still remains constrained."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4475569abd124f2279adfc07c3422da62f651993e9190b1e16910b86ab207533",
+    "tldr": "RCGP-UCB provides sublinear-regret Bayesian optimization guarantees for a limited number of arbitrarily large corruptions."
+  },
+  "icml-2026-solving-positive-linear-programs-with-differential-privacy-473f9f7692": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Positive linear programs optimize a linear objective using nonnegative coefficients and variables. This paper develops differentially private approximation algorithms for packing, covering, and mixed packing-covering formulations. Its privacy setting protects individual constraints: neighboring problem instances may differ by an arbitrary single constraint, potentially changing the optimization problem substantially.",
+      "In this high-sensitivity setting, privacy rules out a general promise to approximately satisfy every constraint. The authors therefore seek a different guarantee: produce an approximate solution while keeping the number of violated constraints controlled. This makes the permitted relaxation explicit and aligns the algorithmic goal with what the privacy regime allows.",
+      "The solvers improve earlier guarantees that depend on the particular instance and also provide new bounds depending only on dimension. Their central technique is a dense multiplicative weights update method derived from a regularized dual viewpoint. The analysis exploits the specific structure of positive linear programs. The contribution is therefore both an improved privacy-optimization trade-off and a method for obtaining guarantees without relying exclusively on favorable properties of an individual dataset."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4f8eb9afa9be53b7e128a5e923fe2650481378f9152f48fa81a5052a320ccdac",
+    "tldr": "New private solvers approximate positive linear programs while controlling constraint violations, with improved instance-dependent and new dimension-only guarantees."
+  },
+  "icml-2026-spectrally-guided-diffusion-noise-schedules-508872f6f1": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A diffusion noise schedule determines which noise levels a model sees during training and which levels it traverses while generating an image. These choices affect generative performance. Common schedules are handcrafted and need manual adjustment across resolutions, motivating a way to connect the schedule more directly to image properties.",
+      "The paper proposes per-image schedules for pixel diffusion based on spectral properties, which describe image content in terms of frequencies. The authors derive theoretical bounds concerning the efficacy of minimum and maximum noise levels. Those bounds guide the construction of tighter schedules that remove redundant steps, making the endpoints part of a principled design rather than only a tuning choice.",
+      "At inference time, the method proposes conditional sampling of these schedules. Experiments report improved generative quality, particularly when generation uses few steps. This finding matters because, with a short sampling sequence, spending steps on redundant noise levels consumes a larger share of the available computation. The approach connects the analyzed noise range to image spectra and uses that connection to improve the tested generation process."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "10aa64f61fc6f8c861478c6cdd37af00e75c7f1806f6cdb6cbb059a5aed7231e",
+    "tldr": "Image spectral properties guide tighter pixel-diffusion noise schedules that improve reported generation quality, especially with few sampling steps."
+  },
+  "icml-2026-stochastic-linear-bandits-with-parameter-noise-0b74fc30b0": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies linear bandits where randomness enters the parameter vector itself. Each round independently draws a parameter, and an action receives its inner product with that draw as reward. The resulting reward variance depends on the action, making the noise structure different from the classic additive-noise formulation.",
+      "For a finite action set, the authors derive an upper regret bound depending on dimension, horizon, action-set size, and the largest action reward variance. They also give a lower bound that matches up to logarithmic factors when the logarithm of the number of actions is comparable to the dimension. This identifies a regime where the general guarantee is tight.",
+      "For actions in an l_p unit ball with p at most two, they characterize minimax regret through a dual-norm variance quantity bounded by four. Its dimension dependence improves on the classic additive-noise rate: roughly square-root dependence rather than linear dependence in the stated comparison. A simple explore-then-exploit algorithm attains this optimal rate up to logarithmic factors, showing that the parameter-noise structure supports both sharper guarantees and a straightforward strategy."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a953a292b6da000cc4beea416a5c257b9597ef08564fb33049ef51e3aacf1626",
+    "tldr": "Parameter-noise linear bandits admit variance-sensitive regret bounds, with a simple explore-exploit algorithm achieving near-optimal rates for specified action balls."
+  },
+  "icml-2026-the-two-hump-problem-bridging-the-difficulty-gap-in-mathematical-reinforcement-learning-05b86e26fb": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Mathematical search can be difficult for reinforcement learning because possible action sequences are numerous and successful outcomes are rare. Studying problems associated with the Andrews-Curtis conjecture, the authors identify an additional obstacle: available instances cluster into trivially solvable and effectively impossible groups, leaving few challenging but solvable examples between them.",
+      "This gap matters because intermediate problems provide opportunities for a learner to improve beyond easy behavior while still encountering success. The paper addresses it through new data-generation techniques that populate the missing difficulty range. It also introduces algorithmic changes, including supermoves and Transformer-based architectures, to improve the search process.",
+      "The resulting methods substantially improve performance over previous baselines. The authors also release AC-19, containing 125,192 AC-trivial presentations of varying difficulty and length at most 19, and AC-1M, containing 1,136,154 hard AC-trivial presentations of length at most 30. These datasets make the difficulty distribution itself a concrete research resource. The work links better learning to both the search algorithm and the availability of appropriately challenging training problems."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c2b6a129166092018ebd12fcd5ba36b4cf10cd3ce3c676e9c499f1cd11a95f97",
+    "tldr": "New intermediate-difficulty data, supermoves, and Transformer architectures improve reinforcement learning for Andrews-Curtis mathematical search."
+  },
+  "icml-2026-theory-of-minimal-weight-perturbations-in-deep-networks-and-its-applications-for-low-ran-b5dc7d1630": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "How much must a neural network's weights change to produce a specified change in its output? This paper derives exact minimum-norm perturbation formulas for changes within a single layer and studies what determines their size. The formulas expose layer-specific sensitivity through margins propagated backward through the network.",
+      "The authors compare these exact expressions with more general robustness guarantees based on multi-layer Lipschitz constants. They observe that the two approaches give guarantees of the same order, indicating similar efficacy at that level of comparison. The exact formulas additionally provide certificates for the smallest parameter update consistent with a desired output shift.",
+      "The paper applies this analysis to latent backdoors activated by precision modification. It establishes provable compression thresholds below which such attacks cannot succeed, and empirically shows that low-rank compression can reliably activate latent backdoors while preserving full-precision accuracy. Together, the theoretical and empirical results connect parameter sensitivity to a concrete transformation risk: behavior associated with a backdoor can emerge when compression changes the weights, even when full-precision accuracy is preserved."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "284ccbf3a3752233715a3ffc72ad372d415746487fdc1775ad3ababe6cb2167f",
+    "tldr": "Exact single-layer weight-perturbation formulas yield sensitivity certificates and compression thresholds for precision-activated backdoors."
+  },
+  "icml-2026-trading-complexity-for-expressivity-through-structured-generalized-linear-token-mixing-9d08cb042e": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Token mixers determine how a language model carries information between positions, including dependencies spanning long sequences. During causal generation, their design affects decoding time, memory use, and cache size. This paper develops a unified framework for reasoning about those costs together with the dependencies a mixer can express.",
+      "The framework separates direct input-to-output influence within one generation step from recurrent information propagation through past outputs. It includes attention and state-space models, while extending recurrence so that a state may depend on several earlier states rather than only its immediate predecessor. This broadens the available patterns for carrying information forward.",
+      "The authors impose structure on these generalized recurrences to construct new patterns with provable computational complexity. They also analyze expressivity, making the relationship between runtime and representational capability explicit. Experiments on synthetic tasks and language modeling provide empirical validation. The contribution is a common design toolkit for comparing and developing token mixers across architecture families, with computational costs and expressive capabilities considered together instead of choosing a recurrence pattern independently of those trade-offs."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7d51d42f1601dd7f9575ed259b18dee5d6f8cbf8c3f2c9595bcda4496a362f38",
+    "tldr": "A unified token-mixing framework uses structured multi-state recurrences to study and design principled runtime-expressivity trade-offs."
+  },
+  "icml-2026-understanding-data-temporality-impact-on-large-language-models-pre-training-4d243bf36d": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A language model can know a fact yet associate it with the wrong time period. This paper studies how pretraining order affects that distinction, focusing on the acquisition of time-sensitive factual knowledge. The central comparison is between standard shuffled training and training that follows the temporal order of the source data.",
+      "The authors introduce a benchmark with more than 7,000 temporally grounded questions and a protocol for checking whether facts are linked to the correct periods. They also pretrain 6-billion-parameter models on time-ordered Common Crawl snapshots and compare them with models trained on shuffled data. This connects the evaluation directly to a controlled choice in pretraining dynamics.",
+      "Sequential training matches the shuffled baselines on general language understanding and common knowledge while producing consistently fresher and more temporally precise knowledge. Shuffled training performs best on older data, which the authors suggest may reflect greater repetition of older facts. That explanation remains tentative. The results establish data ordering as a consequential factor in the tested models' temporal knowledge, and the released checkpoints and datasets support further continual-learning research."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "386f6758c6d26682235ab10147557916b49a6de7d602dec6bc021fcae8966071",
+    "tldr": "Temporally ordered pretraining gives tested 6B language models fresher, more time-precise knowledge while matching shuffled baselines on general capabilities."
+  },
+  "icml-2026-unfolded-laplacian-spectral-embedding-a-theoretically-grounded-approach-to-dynamic-netwo-989278f3cb": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Representing an evolving network requires more than producing useful coordinates for each snapshot. The coordinates also need consistent meaning across nodes and across time, so that comparisons reflect the network's behavior. This paper introduces Unfolded Laplacian Spectral Embedding, or ULSE, to address those stability requirements.",
+      "ULSE extends unfolded adjacency spectral embedding to normalized Laplacian operators. Under a dynamic stochastic block model, the authors prove both cross-sectional and longitudinal stability. These guarantees address consistency along the two axes relevant to dynamic node representations: comparing different nodes and comparing positions across time. The model assumption supplies the setting in which the stability statements hold.",
+      "The Laplacian formulation also yields a dynamic Cheeger-type inequality. It links spectral information from the unfolded normalized Laplacian to worst-case conductance over time, connecting the embedding mathematics to network connectivity and bottlenecks. Experiments on synthetic and real dynamic networks validate the theory. The contribution combines a representation method with both stability guarantees and a structural interpretation of the spectral quantities it uses."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "bf31fce5f391a7e2d6b0dc4f38001fc2168ef3d05ca370d11bb5459bf2ef118e",
+    "tldr": "ULSE provides stable dynamic-network embeddings under a block-model assumption and links their spectrum to connectivity over time."
+  },
+  "icml-2026-when-can-you-poison-rewards-a-tight-characterization-of-reward-poisoning-in-linear-mdps-28dd60f6f9": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Reward poisoning tries to steer a reinforcement-learning agent by altering the rewards it receives. An attacker with a limited budget wants the learner to adopt a particular policy. Demonstrating an attack can establish that manipulation is possible, but it does not by itself explain when no attack within that budget can succeed.",
+      "For linear Markov decision processes, this paper establishes both necessary and sufficient conditions for inducing a target policy under a bounded reward-poisoning budget. That characterization distinguishes vulnerable instances from ones that require high attack costs. The latter can have intrinsic protection even when the learner uses a standard algorithm without explicit robustness mechanisms.",
+      "The authors also approximate deep reinforcement-learning environments as linear MDPs and use the framework to distinguish vulnerability beyond synthetic linear examples. Those results demonstrate practical relevance for the theoretical predictions. The exact characterization belongs to the linear setting; the deep-environment demonstration uses an approximation. The key contribution is a budget-sensitive boundary between feasible and infeasible targeted manipulation, rather than only a new procedure for constructing successful attacks."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "86e1ca431f8230970414c57233be3e856d68ecfa46c0c91407dea2a10a4e1f02",
+    "tldr": "The paper gives necessary and sufficient conditions for budget-limited reward poisoning to induce a target policy in linear MDPs."
+  },
+  "icml-2026-when-softmax-fails-at-the-top-extreme-value-corrections-for-infonce-451e547963": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Contrastive learning trains representations by comparing matching examples with alternatives. InfoNCE commonly implements this comparison through softmax scores. This paper argues that the softmax form carries a statistical assumption about selection of the highest-scoring example, so its suitability depends on more than computational convenience.",
+      "Using extreme value theory, the authors show that this assumption is often mismatched to the normalized embeddings used in modern contrastive learning. They introduce WEINCE to adjust the treatment of scores near the top. For each anchor, the method uses online statistics from the current batch to blend ordinary softmax logits with an endpoint-shortfall correction. It adds no trainable parameters.",
+      "Across five vision benchmarks, WEINCE consistently improves frozen-feature evaluation, assessing the usefulness of learned representations while holding those features fixed. The findings support the idea that modeling the statistics of hard negatives more faithfully can improve a contrastive objective. The contribution is a targeted change to how competing examples are scored, motivated by the behavior of extreme similarities rather than by adding model capacity."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9e3b2d4ae67a7fe6b71885616b7a2a86509086239fb53dc9de7a0f1a288dd95d",
+    "tldr": "WEINCE adds a parameter-free extreme-value correction to InfoNCE and improves frozen-feature evaluation across five vision benchmarks."
+  },
+  "icml-2026-width-independent-bounds-for-the-local-lipschitz-constant-of-deep-neural-networks-at-ran-f92ebe2937": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A network's local Lipschitz constant describes how strongly nearby input changes can affect its output. This sensitivity is connected to generalization and robustness, making it relevant to understanding wide networks that fit training data well. Empirical observations suggest that increasing width need not increase the Lipschitz constant, but earlier theoretical bounds still grew logarithmically with width.",
+      "This paper establishes width-independent upper bounds for deep networks with smooth activation functions. The guarantees apply both at random initialization and throughout lazy training. They are non-asymptotic, meaning they describe finite-width networks rather than relying only on a limit in which the number of units becomes infinite.",
+      "Numerical experiments corroborate the theoretical findings. The result closes the stated gap between empirical width behavior and prior bounds within the smooth-activation setting studied here. It also extends the analysis beyond initialization into lazy training. The scope matters: the paper controls a local sensitivity measure under those conditions, providing a sharper account of how width enters the guarantee without asserting unrestricted robustness for every network or training regime."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "18b5fefe567a5ced1c352b421c2ab6d51cdaccd9dbfe8df4537a50825c4a1c7d",
+    "tldr": "For smooth-activation networks, finite-width local Lipschitz bounds remain independent of width at initialization and throughout lazy training."
+  }
+}

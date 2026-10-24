@@ -1,0 +1,377 @@
+{
+  "neurips-2025-accelerating-optimization-via-differentiable-stopping-time-c738099939": {
+    "backgroundConcepts": [
+      "topic-176-how-to-escape-saddle-points-efficiently"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Tuning an optimization algorithm often means asking how low its loss can get within a fixed amount of time. This paper studies the complementary question: how quickly can it reach a specified loss? That objective more directly expresses a target completion time, but the moment an algorithm crosses a threshold is traditionally treated as non-differentiable.",
+      "The authors introduce a differentiable version of discrete stopping time. They justify the construction theoretically through its relationship to continuous differential equations, then develop an efficient algorithm for computing its sensitivities. These sensitivities describe how the stopping-time objective responds to changes in the algorithm's settings, making it possible to adjust those settings using differentiation.",
+      "The resulting framework supports both online hyperparameter tuning and learning to optimize. Across the problems evaluated, the proposed methods outperform the compared approaches. The contribution is a way to optimize speed toward a chosen target directly, extending differentiable algorithm design beyond improving the loss achieved at a predetermined endpoint."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "eaca95ab1465259ae76a13442af8b895886b73af3d6bc0294870e3e4342ae277",
+    "tldr": "A differentiable stopping-time objective lets optimization algorithms be tuned directly for how quickly they reach a target loss."
+  },
+  "neurips-2025-cliptta-robust-contrastive-vision-language-test-time-adaptation-ee0722d5b7": {
+    "backgroundConcepts": [
+      "topic-029-delta-mathrm-energy-optimizing-energy-change-dur"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Vision-language models can recognize categories without task-specific training, yet their performance can deteriorate when incoming images differ from their training distribution. Test-time adaptation updates a model using these unlabeled inputs. A common objective makes predictions more confident, but the paper argues that this objective clashes with the image-text contrastive training used by models such as CLIP.",
+      "CLIPTTA instead adapts the model with a soft contrastive loss aligned with its original training objective. Its design considers a batch of examples together, and the authors analyze its gradients to explain how this reduces the risk of predictions collapsing onto a narrow set of classes. An additional Outlier Contrastive Exposure loss extends the approach to inputs containing both familiar and out-of-distribution samples.",
+      "Across 75 datasets covering varied distribution shifts, CLIPTTA consistently beats entropy-based objectives. It also competes strongly with leading adaptation methods, surpassing them on many datasets and showing more stable performance across shifts. These findings support matching adaptation to the model's training structure while explicitly handling unfamiliar inputs."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4f824eb491be6e3baf7282bb9c088b333e92d034d6e05055b8fc077dfb630d72",
+    "tldr": "CLIPTTA adapts vision-language models to shifted data using a contrastive objective that improves robustness and reduces collapse risk."
+  },
+  "neurips-2025-convex-approximation-of-two-layer-relu-networks-for-hidden-state-differential-privacy-000498bc15": {
+    "backgroundConcepts": [
+      "topic-178-texttt-pfl-research-simulation-framework-for-acc"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Hidden-state differential privacy assumes an adversary sees only the final trained model, without observing intermediate training states. Existing privacy analyses for this setting apply to convex optimization, which restricts their use for multilayer neural networks. The paper investigates whether a convex training problem can nevertheless deliver privacy and predictive utility comparable to a two-layer ReLU network.",
+      "The authors construct a stochastic approximation of a dual formulation of the ReLU training problem. This produces a strongly convex optimization problem to which existing hidden-state privacy analyses can apply. The formulation also allows accurate privacy bounds for noisy cyclic mini-batch gradient descent, called NoisyCGD, when it uses fixed, disjoint mini-batches.",
+      "On benchmark classification tasks, NoisyCGD achieves privacy-utility trade-offs comparable to those of two-layer ReLU networks trained with differentially private stochastic gradient descent. The result expands the practical possibilities of convex hidden-state privacy analysis beyond its established logistic-regression applications. Its privacy interpretation depends on the stated access restriction: intermediate training states remain hidden from the adversary."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "dca75d8b0c9e911b76ba44dcdadcf02eb13c5c3b649e7f5452cbc4ef8bee61e3",
+    "tldr": "A strongly convex approximation enables hidden-state privacy analysis while empirically matching the privacy-utility trade-offs of private two-layer ReLU training."
+  },
+  "neurips-2025-detoxifying-large-language-models-via-autoregressive-reward-guided-representation-editin-ba48097a20": {
+    "backgroundConcepts": [
+      "topic-109-how-do-language-models-track-state"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Editing a language model's internal representations during generation can reduce toxic outputs, but choosing an effective intervention requires knowing how those representations relate to toxicity. The paper argues that existing approaches insufficiently explore the transitions between toxic and non-toxic outputs. ARGRE learns from those transitions to provide more precise guidance for test-time editing.",
+      "The framework first identifies semantic directions associated with non-toxic outputs and interpolates between toxic and non-toxic representations. These intermediate trajectories turn sparse toxicity annotations into denser training signals for an autoregressive reward model. During inference, editing proceeds in two stages: expected reward differences guide an initial directional shift, followed by lightweight gradient-based refinement.",
+      "Experiments across eight language models report a 62.21% reduction in toxicity and a 47.58% reduction in inference time relative to leading baselines, with minimal degradation of the models' core capabilities. The findings suggest that modeling the transition between output behaviors can improve both the effectiveness and efficiency of representation editing, rather than relying only on a coarse direction of intervention."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0e9982e271ee8ca99ddb906ea9ec68775e424bc89d18811038ae7cf1119ac368",
+    "tldr": "ARGRE learns toxicity transitions in internal representations to guide faster, more effective test-time detoxification across eight evaluated language models."
+  },
+  "neurips-2025-dicoflex-model-agnostic-diverse-counterfactuals-with-flexible-control-ed793b4e56": {
+    "backgroundConcepts": [
+      "topic-078-mathcal-m-4-a-unified-xai-benchmark-for-faithful"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Counterfactual explanations describe alternative inputs that would lead to a different model decision. Their usefulness depends on offering changes a person can understand and potentially act on. Many existing generators repeatedly query the predictive model, solve a costly optimization problem for each case, or require retraining when users introduce new constraints.",
+      "DiCoFlex uses a conditional generative model to produce several diverse alternatives in one forward pass. Its conditional normalizing flows are trained solely on labeled data, supporting a model-agnostic approach. Users can adjust constraints during inference, including sparsity, which concerns how many features change, and actionability, which concerns whether the proposed changes are usable.",
+      "On standard benchmark datasets, the method outperforms existing approaches in validity, diversity, proximity, and adherence to constraints. Together, these criteria assess whether alternatives achieve the desired decision, differ from one another, stay close to the original case, and respect user requirements. The contribution combines efficient generation with flexible control, making counterfactual explanations more adaptable to individual decision-making needs."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c152a37de04a11f756cdf11581d568a8219f831d53eae583af5f9eba7954f6da",
+    "tldr": "DiCoFlex generates diverse counterfactual explanations in one pass while letting users change constraints at inference time without retraining."
+  },
+  "neurips-2025-equivariance-by-contrast-identifiable-equivariant-embeddings-from-unlabeled-finite-group-b63cb8a43d": {
+    "backgroundConcepts": [
+      "topic-163-3d-steerable-cnns-learning-rotationally-equivari"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "An equivariant representation changes predictably when its input undergoes a transformation. Equivariance by Contrast learns such representations from pairs containing an observation and a transformed version. The proposed setup uses actions from a finite group and avoids building group-specific structural assumptions into the encoder.",
+      "The method jointly learns an embedding space and a representation of transformations as invertible linear maps. This means transformations of the data can be reproduced through corresponding operations on embeddings. The authors also provide an identifiability proof, giving theoretical support for recovering the intended structure from observations.",
+      "Experiments on infinite dSprites combine discrete rotations with periodic translations and produce embeddings that reproduce group operations with high fidelity. Synthetic experiments additionally examine the orthogonal and general linear groups, including non-commuting transformations. The authors present these results as a first demonstration of general-purpose, encoder-only equivariant learning from group-action observations alone. They explicitly leave broad evaluation across diverse groups on real-world data for future work, so the empirical evidence is centered on the reported structured and synthetic settings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f894230d74883fb55039534d1b6b6d0cd45d9fecae733edf294d86605f4d84aa",
+    "tldr": "Equivariance by Contrast jointly learns embeddings and linear transformation rules from observation pairs, with identifiability theory and structured-data validation."
+  },
+  "neurips-2025-fast-inference-for-augmented-large-language-models-52d54a11f6": {
+    "backgroundConcepts": [
+      "topic-161-s-3-increasing-gpu-utilization-during-generative"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Language models that call external APIs create a scheduling problem beyond ordinary text generation. A request with few tokens may still take substantial time because it needs external information. Token count therefore becomes a weaker guide to execution time, reducing the effectiveness of scheduling strategies that prioritize apparently short requests.",
+      "MARS addresses this by treating API behavior, memory constraints, and request priority as parts of the same scheduling problem. Its predictive, memory-aware scheduler incorporates both system-level and application-level considerations. This matters because requests can need different handling while an API call is underway, and those differences affect how efficiently the overall workload completes.",
+      "Implemented on top of vLLM, MARS is evaluated against existing inference systems. Relative to the existing augmented-LLM system, it improves end-to-end latency by 27%–85% and reduces time to first token by 4%–96%, with larger gains over vLLM. The reported results show that scheduling around the full augmented workflow can substantially improve both initial responsiveness and total completion time."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b585631276a98c92dd27f6255feb677a893888241f2191df904179b2d308479d",
+    "tldr": "MARS reduces augmented language-model latency by scheduling requests around predicted execution, memory needs, and external API handling."
+  },
+  "neurips-2025-frechet-geodesic-boosting-88df3a3ca5": {
+    "backgroundConcepts": [
+      "topic-050-a-geometric-take-on-metric-learning"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Gradient boosting combines base learners into a progressively improved predictor, but its standard formulation relies on arithmetic operations on outputs. Those operations become problematic when predictions are distributions, networks, or points on curved spaces. Such objects need not support the addition, subtraction, and scaling required to define ordinary residuals and combine predictions.",
+      "Fréchet geodesic boosting adapts boosting to outputs in geodesic metric spaces. It uses geodesics, paths defined by the geometry of the output space, as substitutes for residuals. The ensemble is then constructed in a way that respects that geometry, allowing the learning procedure to work with structured outputs without requiring ordinary vector arithmetic.",
+      "The paper supports the approach through theoretical analysis, extensive simulations, and real-world applications, reporting strong performance and adaptability. Its significance is the extension of boosting to a broader class of prediction targets. The relevant structure is a space with geodesics: the method uses those paths to express how predictions should be adjusted toward their targets."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6072bdd45966c51e89f74064625423a54a95520333a3298f08283cbb976bc91a",
+    "tldr": "Fréchet geodesic boosting replaces ordinary residuals with geometry-respecting paths to predict structured, non-Euclidean outputs."
+  },
+  "neurips-2025-gaussian-regression-driven-tensorized-incomplete-multi-view-clustering-with-dual-manifol-bbac13f643": {
+    "backgroundConcepts": [
+      "topic-245-a-domain-decomposition-method-for-fast-manifold-"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Incomplete multi-view clustering groups examples described through several information sources, some of which may be missing. Tensor representations help capture relationships across these views. The paper identifies two weaknesses in existing methods: restrictive noise models and an emphasis on global structure that can overlook local relationships within and between views.",
+      "GUITAR combines Gaussian regression for more flexible noise modeling with dual manifold regularization. The latter preserves local structure both inside each view and in the shared representation across views, encouraging consistency at both levels. A further tensor-rank constraint applies different penalties to singular values, aiming to preserve useful low-rank structure while improving robustness.",
+      "These components produce a non-convex optimization problem, for which the authors develop an efficient algorithm with a convergence proof. Experiments on six datasets show better performance than the compared state-of-the-art methods. The approach matters because it addresses noise, local geometry, and shared structure together, rather than depending solely on a global tensor representation to capture the relationships needed for clustering."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "388aacdfd97eb87f08228d48779450a6611e50145a4c65cf5fed87878b20d75a",
+    "tldr": "GUITAR improves incomplete multi-view clustering by combining flexible noise modeling, local-structure preservation, and a differentiated low-rank constraint."
+  },
+  "neurips-2025-hephaestus-mixture-generative-modeling-with-energy-guidance-for-large-scale-qos-degradat-c97a0e61af": {
+    "backgroundConcepts": [
+      "topic-015-texttt-strcmp-integrating-graph-structural-prior"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Quality of Service Degradation studies how changes to network edge weights can impair performance. This captures a distinction relevant to infrastructure and distributed machine learning: a network can remain connected while its communication quality becomes inadequate. The paper addresses nonlinear edge-weight functions, extending beyond the restricted linear, small-network settings handled by earlier machine-learning approaches.",
+      "Hephaestus builds solutions through three stages. Forge uses graph learning and approximation to produce feasible solutions with a performance guarantee. Morph trains a mixture of conditional variational autoencoders under guidance from an energy-based model, learning the distribution of solution features. Refine then uses reinforcement learning and a differentiable reward to explore that learned space and progressively improve solutions.",
+      "Experiments on synthetic and real-world networks show consistent gains over classical and machine-learning baselines, particularly with nonlinear cost functions. The framework's contribution is to connect guaranteed feasible construction with learned generation and subsequent refinement. This gives it a way to search complex solution spaces where the evaluated traditional methods do not generalize well."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a3f7d90a1ae30a629172e4b7b5a49ee4dc9870fb585ab5a3b0a06e45b67941fe",
+    "tldr": "Hephaestus combines feasible construction, generative modeling, and reinforcement learning to solve network degradation problems with nonlinear edge costs."
+  },
+  "neurips-2025-mixtures-of-subspaces-for-bandwidth-efficient-context-parallel-training-f0a3a30012": {
+    "backgroundConcepts": [
+      "topic-012-quest-query-aware-sparsity-for-efficient-long-co"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Training language models on long contexts often requires splitting a sequence across devices and computing attention in blocks. Exchanging the necessary information creates substantial communication overhead. High-speed clusters can support this traffic, but decentralized machines connected through slower networks face a much stronger bandwidth constraint.",
+      "The paper proposes compressing communication by exploiting low-rank structure in activation outputs. Efficient reparameterizations dynamically constrain these outputs to learned mixtures of subspaces. The central idea is to organize activations into compact learned representations so that context-parallel training needs to transmit much less information. The reported compression exceeds 95%, with negligible overhead and no loss in convergence.",
+      "The authors demonstrate billion-parameter decentralized models trained with contexts longer than 100,000 tokens on connections as slow as 300 Mbps. In the reported setting, their wall-clock convergence speed matches that of centralized models using 100 Gbps interconnects. These findings show how learning a compact activation structure can make extended-context training practical under communication conditions that would otherwise be prohibitive."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5030bcf4ef28e2ed7e4a9c8bfe720824aeeb74c09d1246053c21ad6960d72e3f",
+    "tldr": "Learned mixtures of subspaces compress context-parallel communication by over 95%, enabling demonstrated long-context training over low-bandwidth networks."
+  },
+  "neurips-2025-msf-cnn-patch-based-multi-stage-fusion-with-convolutional-neural-networks-for-tinyml-a355faf32f": {
+    "backgroundConcepts": [
+      "topic-007-high-performance-zero-memory-overhead-direct-con"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Running neural networks on microcontrollers requires fitting inference into extremely small memory budgets, sometimes around 128 kB of RAM. At the same time, applications may require results quickly enough for real-time operation. The paper focuses on patch-based fusion, which optimizes how data moves through convolutional-network layers to address these competing demands.",
+      "msf-CNN represents possible fusion configurations as a directed acyclic graph and searches that space for optimal settings. Its formulation exposes a wider range of solutions than previous microcontroller CNN-fusion methods. This expands the choices available when deciding how to organize inference around a particular device's memory constraints and timing requirements.",
+      "The authors provide an implementation for ARM Cortex-M, RISC-V, and ESP32 microcontrollers. They show that msf-CNN can perform inference using 50% less RAM than MCUNetV2 and StreamNet. The stated benefit is additional design flexibility: a broader fusion search can uncover useful execution arrangements that make better use of scarce memory while keeping inference latency an explicit concern."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2cbd4d11a9afb7d2b4e2c4cdf3eb2e50eea346ead4ba50ff6ad2440117ca3d33",
+    "tldr": "msf-CNN searches a broader space of layer-fusion settings and demonstrates microcontroller inference using 50% less RAM than prior approaches."
+  },
+  "neurips-2025-probabilistic-stability-guarantees-for-feature-attributions-f41c586d7f": {
+    "backgroundConcepts": [
+      "topic-078-mathcal-m-4-a-unified-xai-benchmark-for-faithful"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Feature-attribution methods explain predictions by assigning importance to parts of an input. Stability asks whether those explanations remain robust under changes, and certification seeks guarantees rather than relying only on observed examples. Existing certification approaches often require heavy classifier smoothing and can produce conservative guarantees, making the relationship between predictive accuracy and explanation stability difficult to manage.",
+      "The paper introduces soft stability and a stability certification algorithm called SCA. The algorithm is model-agnostic, sample-efficient, and designed to provide interpretable, non-trivial guarantees for any attribution method. The authors also show that mild smoothing can offer a more favorable balance between accuracy and stability than the aggressive smoothing used in earlier certification methods.",
+      "To explain this behavior, the paper develops a characterization of stability under smoothing using Boolean function analysis. Evaluations on vision and language tasks demonstrate the usefulness of soft stability for measuring explanation robustness. The contribution combines a certification procedure with theory explaining why stronger smoothing need not be the most useful practical choice."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "bb078f463cacbfbe99fefdfb9efff1b878ef2d7ca1c8068565c358bee3eded89",
+    "tldr": "Soft stability and a model-agnostic certification algorithm provide interpretable attribution guarantees while supporting a better accuracy-stability trade-off with mild smoothing."
+  },
+  "neurips-2025-provable-ordering-and-continuity-in-vision-language-pretraining-for-generalizable-embodi-23084c1f26": {
+    "backgroundConcepts": [
+      "topic-131-textit-himacon-discovering-hierarchical-manipula"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Human action videos can supply useful representations for robot learning, potentially reducing dependence on expert demonstrations. Some existing methods increasingly align an instruction with later video frames, treating the ending as the goal. This can create incorrect associations when an action finishes early or the final moments contain irrelevant activity.",
+      "Action Temporal Coherence Learning, or AcTOL, treats the video as a continuous trajectory without imposing that rigid goal-based rule. It contrasts semantic differences between frames to capture their natural ordering. A local Brownian bridge constraint additionally encourages smooth changes across intermediate frames. Together, these components aim to preserve both temporal order and continuity in the learned vision-language representation.",
+      "Imitation-learning experiments with simulated and real robots show that AcTOL's pretrained features significantly improve downstream manipulation tasks. The resulting agents also demonstrate strong robustness to different linguistic styles of instructions. The findings support learning the temporal structure of an action more faithfully as a useful route toward robot representations that transfer across instructions and manipulation settings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6e85b3b099b6440fc18a0bebbbbdecef24d8b04a2b9ac0b0f12e3e02dda145f5",
+    "tldr": "AcTOL learns ordered, smoothly changing video-language representations that improve robot manipulation and robustness to instruction phrasing."
+  },
+  "neurips-2025-proxyspex-inference-efficient-interpretability-via-sparse-feature-interactions-in-llms-4c6d132465": {
+    "backgroundConcepts": [
+      "topic-236-beta-dpo-direct-preference-optimization-with-dyn"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Understanding a language model can require identifying combinations of features whose joint influence matters. Enumerating combinations scales poorly, while the sparse-interaction method SPEX still needs tens of thousands of model calls. ProxySPEX builds on the observation that interactions are often hierarchical: a higher-order interaction tends to appear alongside interactions among its smaller subsets.",
+      "The algorithm fits gradient-boosted trees to outputs obtained from masked model inputs, then extracts important interactions from that proxy. This provides a less inference-intensive route to discovering joint effects. Accounting for those effects also supports identifying influential features and constructing a scalable approximation of their Shapley values.",
+      "Across four high-dimensional datasets, ProxySPEX improves output reconstruction faithfulness by 20% over marginal attribution approaches while using ten times fewer inferences than SPEX. The authors also examine interactions among CIFAR-10 training examples and between attention heads within and across layers on a question-answering task. These applications show how the same approach can study both data contributions and interacting model components."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "06003a3ea12a9d7cb06864c85e2b5002716ccd8a6ab93ee57ebce4384a918cdf",
+    "tldr": "ProxySPEX uses a tree-based proxy to discover hierarchical feature interactions with ten times fewer model inferences than SPEX."
+  },
+  "neurips-2025-puppeteer-rig-and-animate-your-3d-models-a2e00c3515": {
+    "backgroundConcepts": [
+      "topic-195-text-di-2-text-pose-discrete-diffusion-model-for"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Creating a static 3D object does not automatically make it ready for animation. The object needs a skeleton, a mapping from that skeleton to its surface, and a procedure for generating motion. Puppeteer addresses these stages together, targeting a content-creation bottleneck that still depends heavily on specialist work.",
+      "An autoregressive transformer first predicts a plausible skeleton using a compact representation of joints. Its hierarchical ordering includes stochastic perturbations to improve bidirectional learning. An attention-based network then estimates skinning weights, which connect surface movement to the skeleton. This network explicitly represents relationships between joints using distances in the skeletal graph.",
+      "A differentiable optimization pipeline completes the system by generating stable animations more efficiently than the compared approaches. Across multiple benchmarks, Puppeteer significantly improves skeletal prediction accuracy and skinning quality over state-of-the-art techniques. It handles both professionally created game assets and AI-generated shapes, producing temporally coherent animation and eliminating the jitter reported for existing methods in the evaluation. The contribution links structural prediction and motion generation in one framework."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "387c9100df9d895fabcd84530d2adef24b3164c88105cafcbddc904837519c52",
+    "tldr": "Puppeteer automatically predicts skeletons and skinning weights, then generates efficient, temporally coherent animations for diverse 3D objects."
+  },
+  "neurips-2025-retrospective-in-context-learning-for-temporal-credit-assignment-with-large-language-mod-1dcfb9a136": {
+    "backgroundConcepts": [
+      "topic-153-v-0-a-generalist-value-model-for-any-policy-at-s"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "An agent receiving only occasional rewards must determine which earlier decisions contributed to an outcome. This temporal credit-assignment problem makes learning from the agent's own experience difficult. Traditional approaches often rely on domain-specific value functions, which the paper identifies as having limited sample efficiency and generalization.",
+      "Retrospective in-context learning, or RICL, uses pretrained language-model knowledge to convert sparse rewards into denser advantage estimates. These estimates provide training signals about the usefulness of decisions along an experience. The accompanying RICOL framework repeatedly uses RICL's credit assignments to refine the policy during online learning.",
+      "Experiments show that RICL can estimate advantages accurately from limited samples and identify states that matter for assigning credit. On BabyAI, RICOL significantly improves sample efficiency over traditional online reinforcement-learning algorithms while reaching performance comparable to imitation learning from expert demonstrations. The findings support pretrained language models as a useful source of credit-assignment knowledge, with broader generalizability presented as a promising direction rather than an established result across domains."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "385d298fc5c530d6507a9cdd1f3d4b7b00be5aef0896026d81a789482e3a8daf",
+    "tldr": "RICL uses language-model knowledge to turn sparse rewards into advantage estimates, improving online learning sample efficiency in BabyAI through RICOL."
+  },
+  "neurips-2025-revisiting-residual-connections-orthogonal-updates-for-stable-and-efficient-deep-network-b0b04361f7": {
+    "backgroundConcepts": [
+      "topic-110-a-comparative-analysis-and-study-of-multiview-cn"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Residual connections help deep networks train by adding a module's output to the representation already flowing through the network. The paper points out that this addition can mainly reinforce or modify the existing representation's direction. In that case, some of the module's capacity may be spent on what is already present rather than on introducing different representational directions.",
+      "Orthogonal Residual Update decomposes the module's output relative to the incoming representation. It retains only the component perpendicular to that representation for the residual addition. This gives the update an explicit geometric constraint intended to encourage new directions of representation and support richer feature learning.",
+      "Experiments across ResNetV2 and Vision Transformer architectures, using CIFAR datasets, TinyImageNet, and ImageNet-1k, show improved generalization accuracy and training stability. One reported result is a 3.78 percentage-point increase in top-1 accuracy for ViT-B on ImageNet-1k. The empirical findings support this targeted change to the residual update, while the interpretation of orthogonal directions as encouraging novel features remains the design motivation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d8c79faf659d5594bda71cd8630145a48faea7d774955e117b549ee10cdd41c8",
+    "tldr": "Adding only the orthogonal component of residual outputs improves accuracy and training stability across the evaluated convolutional and transformer networks."
+  },
+  "neurips-2025-seg4diff-unveiling-open-vocabulary-semantic-segmentation-in-text-to-image-diffusion-tran-d4a7431509": {
+    "backgroundConcepts": [
+      "topic-059-a-cat-is-a-cat-not-a-dog-unraveling-information-"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Text-to-image models must connect words with visual content to generate an image matching a prompt. Multimodal diffusion transformers support this through joint attention over image and text tokens. Seg4Diff investigates where that connection becomes spatially meaningful inside the model, focusing on how particular layers pass semantic information from language into image regions.",
+      "The analysis identifies a specific transformer block that consistently associates text tokens with coherent parts of an image. Its attention structure naturally yields high-quality semantic segmentation masks, revealing a useful perception capability within a model built for generation. The authors describe this block as a semantic grounding expert layer.",
+      "Lightweight fine-tuning with mask-annotated images further improves the relevant layers' ability to group image regions semantically. The reported benefits include both stronger segmentation and higher generated-image fidelity. These findings suggest that semantic grouping emerges within diffusion transformers and can be selectively strengthened. The broader significance is a possible connection between perception and generation through shared internal representations."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "bf4f35d3d70346c8b76a95998a98f5224fe8469afbf538f5218deeb69a630095",
+    "tldr": "Seg4Diff identifies a diffusion-transformer layer that produces semantic masks and shows that targeted fine-tuning improves both segmentation and image generation."
+  },
+  "neurips-2025-shift-before-you-learn-enabling-low-rank-representations-in-reinforcement-learning-1a9aeb73bd": {
+    "backgroundConcepts": [
+      "topic-082-more-efficient-reinforcement-learning-via-poster"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Many reinforcement-learning methods assume that a successor measure, which represents future system behavior, has a compact low-rank structure. This paper challenges that assumption for the measure itself. It shows that a low-rank structure instead emerges after shifting the measure to bypass a few initial transitions, changing what should be represented compactly.",
+      "The authors provide finite-sample guarantees for estimating entries of a low-rank approximation from sampled entries. Both approximation and estimation errors are governed mainly by a quantity they introduce as spectral recoverability. New Type II Poincaré inequalities for Markov chains help bound this quantity and determine how much shifting is needed.",
+      "The required shift depends on the decay of higher-order singular values and is described as typically small in practice. A further connection to local mixing properties provides a natural basis for choosing it. Experiments support the theory and show improved goal-conditioned reinforcement-learning performance. The contribution is therefore both a correction to a common representation assumption and a principled way to obtain a more suitable target."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2c5c605e0da138f3ba9987002fc1d78cc82561af0bdc3f92b1c8cba1e4304f7c",
+    "tldr": "Bypassing initial transitions reveals a low-rank successor representation with estimation guarantees and demonstrated benefits for goal-conditioned reinforcement learning."
+  },
+  "neurips-2025-target-speaker-extraction-through-comparing-noisy-positive-and-negative-audio-enrollment-d02f0a14a7": {
+    "backgroundConcepts": [
+      "topic-077-voice-benchmarking-full-duplex-voice-agents-on-r"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Extracting one person's speech from overlapping voices usually requires a sample identifying the desired speaker. Clean reference recordings are convenient for this purpose, but may be unavailable in the noisy environment where extraction is needed. This paper instead learns the target's characteristics from noisy examples that can themselves contain interfering speech.",
+      "The enrollment strategy compares two kinds of segments: positive enrollments, where the target speaker is talking, and negative enrollments, where the target is silent. Their contrast supplies information about which voice belongs to the target. The approach therefore uses the distinction between presence and absence to identify the speaker within noisy references.",
+      "For single-channel mixtures of two speakers, the model improves scale-invariant signal-to-noise ratio improvement by more than 2.1 dB over prior work. A two-stage training strategy also reduces the optimization steps needed to reach 3 dB SNR by 60%. The authors report state-of-the-art results for single-channel target-speaker extraction conditioned on noisy enrollments, supporting this comparison-based strategy when clean examples are impractical."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "268a4348a211de07461ce8c384960cc8822563f2390fe4fc7527e9269fd6cc3a",
+    "tldr": "Comparing noisy references with and without the target speaker improves single-channel speech extraction and accelerates training."
+  },
+  "neurips-2025-value-guided-decision-transformer-a-unified-reinforcement-learning-framework-for-online--e5b0757353": {
+    "backgroundConcepts": [
+      "topic-147-textdt-text2-decision-targeted-digital-twins"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Decision Transformers approach reinforcement learning through conditional sequence modeling, using trajectories to learn behavior. Much prior work treats offline learning from existing data and online learning through interaction separately. The paper also highlights a weakness of deterministic trajectory modeling: it can overlook randomness in transitions and the variety of possible futures.",
+      "Value-Guided Decision Transformer introduces value functions into this sequence-modeling framework. During offline training, advantage weighting and behavior regularization guide the policy toward the paper's upper-bound optimal decisions. During online tuning, value-based policy improvement is combined with behavior cloning using limited interaction and data collection. Predictions of future returns also inform sampling.",
+      "The method achieves competitive results across standard reinforcement-learning benchmarks and improves performance within a small number of online timesteps. Its contribution is a common architecture for learning from stored trajectories and subsequently improving through experience. Value estimates provide guidance across training and sampling, connecting the transformer's ability to model behavior distributions with reinforcement learning's estimates of future reward."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7789601de1c9abfa12e1cb076eacb399b8cf1c7ff04f74717163f13adcc59576",
+    "tldr": "VDT integrates value-based guidance into Decision Transformers to support offline training, efficient online improvement, and return-informed sampling."
+  },
+  "neurips-2025-watermarking-autoregressive-image-generation-dac69d0bd3": {
+    "backgroundConcepts": [
+      "topic-031-a-consistent-and-efficient-evaluation-strategy-f"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Watermarks can help identify content produced by a generative model. This paper develops a token-level watermark for autoregressive image generation by adapting techniques used for language models. The central obstacle is that an image does not necessarily preserve its original token sequence when it is converted back into tokens for detection.",
+      "The authors call this problem a lack of reverse cycle-consistency: decoding image tokens and then re-tokenizing the resulting image can substantially change the sequence, erasing the watermark signal. They address it by fine-tuning the tokenizer and detokenizer to improve consistency. A complementary synchronization layer helps make the watermark robust to image transformations, neural compression, and removal attacks.",
+      "Experiments demonstrate reliable, robust watermark detection, with theoretically grounded p-values supporting the detection results. The contribution is to adapt watermarking to the complete image-generation and detection pathway, including the conversion between tokens and pixels. This makes token preservation and synchronization central parts of provenance detection for autoregressively generated images."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "fbb0a2e373655749aec8c90a6fe8655f9668875c8d796946c7e4ebeb59c8a531",
+    "tldr": "Improved token reconstruction and watermark synchronization enable robust token-level watermark detection for autoregressively generated images."
+  },
+  "neurips-2025-webgen-bench-evaluating-llms-on-generating-interactive-and-functional-websites-from-scra-1b50b1088f": {
+    "backgroundConcepts": [
+      "topic-238-r-3-dao-reactive-recovery-and-reconstruction-for"
+    ],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "WebGen-Bench evaluates whether language-model agents can create working, multi-file websites from instructions. Its focus is functional behavior: whether a user operation produces the expected result. Human annotators and GPT-4o jointly create website requests spanning three broad categories and thirteen narrower categories.",
+      "The benchmark contains 647 functionality tests that are manually filtered and refined. A web-navigation agent performs the specified operations and checks the observed outcomes, supporting automated and reproducible assessment. Evaluations combine Bolt.diy, OpenHands, and Aider with proprietary and open-source language models. The strongest evaluated combination, Bolt.diy with DeepSeek-R1, passes 27.8% of the test cases.",
+      "The authors also introduce WebGen-Instruct, containing 6,667 website-generation instructions. Training Qwen2.5-Coder-32B-Instruct on Bolt.diy trajectories from a subset raises test accuracy to 38.2%, exceeding the best proprietary model evaluated. The results establish both the difficulty of generating functional websites and the value of targeted training on agent trajectories. Success here concerns tested interactions, providing a concrete measure of whether generated applications fulfill their requested functionality."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "299cb5cfc737f2ad9830e4a97abc362278941eef53c8ace2f225f19e257cf430",
+    "tldr": "WebGen-Bench tests generated websites through 647 functional checks, revealing low initial success rates and gains from targeted agent-trajectory training."
+  },
+  "neurips-2025-why-1-1-1-in-visual-token-pruning-beyond-naive-integration-via-multi-objective-balanced--e0db5e54db": {
+    "backgroundConcepts": [
+      "topic-029-delta-mathrm-energy-optimizing-energy-change-dur"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Visual token pruning reduces the image information a multimodal model processes. Two objectives matter: retaining information relevant to the prompt and preserving the image's broader visual content. Their relative importance changes across tasks, so a fixed strategy for combining them can produce inconsistent results.",
+      "The paper derives a closed-form error bound using Hausdorff distance to describe both objectives within one framework. Covering theory exposes their trade-off under a fixed token budget. Multi-Objective Balanced Covering, or MoB, turns this into a two-objective covering problem and allocates budget through greedy radius trading. The method has a provable performance bound and scales linearly with the input token count.",
+      "In experiments, MoB retains 96.4% of LLaVA-1.5-7B's performance using 11.1% of its visual tokens. It also accelerates LLaVA-Next-7B by 1.3–1.5 times with negligible performance loss. Evaluations on Qwen2-VL and Video-LLaVA further support its applicability across models and tasks. The results show the value of explicitly managing the tension between prompt relevance and visual coverage."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "621d67f646f72dce7cef802385395f72e1fb341f46aeaaccd6458d82792b08f9",
+    "tldr": "MoB balances prompt relevance and visual coverage under a token budget, delivering substantial visual-token reductions with strong retained performance."
+  }
+}

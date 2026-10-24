@@ -1,0 +1,327 @@
+{
+  "icml-2026-asymob-algebraic-symbolic-mathematical-operations-benchmark-daa3136cc7": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A model can appear capable at symbolic mathematics because it recognizes familiar problem forms. ASyMOB tests whether that ability survives changes to the problem. Its 35,368 validated problems cover integration, limits, differential equations, series, and hypergeometric expressions, providing a broad setting for examining symbolic reasoning.",
+      "The benchmark systematically changes seed problems through symbolic substitutions, numerical changes, and transformations that preserve equivalence. These related versions make robustness visible: success on an original problem can be compared with success after a small alteration. The evaluation finds that most models deteriorate sharply under minor perturbations, while the strongest systems show an apparent shift toward greater robustness.",
+      "The results also suggest complementary roles for language models and computational tools. Integrated code tools stabilize performance, especially for weaker models. Some examples defeat computer algebra systems but are solved by language models; others require a combination of both. These findings make ASyMOB useful for diagnosing fragile mathematical performance and investigating when hybrid systems offer benefits."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0165fa31bb122ef5f09e674d381c8d96ed02a6e579d20070e4973478d932deac",
+    "tldr": "ASyMOB tests symbolic mathematics under systematic problem changes, revealing fragile model performance and opportunities for combining language models with algebra tools."
+  },
+  "icml-2026-block-rotation-is-all-you-need-for-mxfp4-quantization-d7c021fe4e": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Reducing model weights and activations to four bits can lower deployment costs, but maintaining accuracy is difficult. This paper examines that problem for MXFP4, a low-precision floating-point format. Its starting point is that techniques developed for four-bit integer formats may behave differently when transferred to MXFP4.",
+      "The authors compare representative post-training quantization methods within the same MXFP4 setting. GPTQ performs strongly, whereas rotation approaches show severe incompatibility. Their analysis connects this problem to how MXFP4 shares power-of-two scaling within blocks: global rotations redistribute the energy of unusually large values in a way that conflicts with that scaling scheme.",
+      "The proposed remedy is block rotation, which adapts the rotation strategy to the format's block structure. Experiments report substantial accuracy improvements across diverse language models. The contribution therefore includes both a practical adjustment and an explanation of why a widely used technique can fail after a format change. The findings emphasize that quantization transformations need to account for the numerical structure of the target representation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f091ad30f41dd25e12d03cb1227edb6526cc5689edad4f83690e71979c51aa41",
+    "tldr": "Block rotation improves MXFP4 quantization by addressing a mismatch between global rotations and the format's block scaling."
+  },
+  "icml-2026-cognos-universal-enhancement-for-time-series-anomaly-detection-via-constrained-gaussian--e5e95112ce": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Reconstruction-based anomaly detectors look for unusual time-series behavior through errors between observed data and a model's reconstruction. The paper argues that relying on mean squared error leaves these residuals with problematic statistical properties. As a result, anomaly scores can fluctuate noisily, making detection less reliable.",
+      "COGNOS addresses the residuals during training and then smooths the resulting scores. Its Gaussian white-noise regularization constrains reconstruction errors toward a Gaussian white-noise distribution. This is meant to establish the statistical conditions needed by the second component, an adaptive residual Kalman smoother. The smoother then estimates cleaner anomaly scores from the noisy originals.",
+      "The two components are linked: training shapes the residual distribution so that subsequent filtering has an appropriate statistical foundation. The authors provide a robustness result for the smoother in this framework and report consistent, significant improvements to state-of-the-art backbones across multiple benchmarks. COGNOS is presented as a model-agnostic enhancement, allowing this combination of regularization and filtering to improve existing reconstruction-based detectors."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b6b27cc432c0c9ba988d5d19222697f3e3fa9e6eff3737bc53da3d9ad571b921",
+    "tldr": "COGNOS improves reconstruction-based anomaly detection by shaping residual statistics during training and adaptively smoothing anomaly scores."
+  },
+  "icml-2026-conga-confidence-and-gradient-aware-learning-rate-schedule-for-test-time-adaptation-931432a64d": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Test-time adaptation updates a pretrained model as new test data arrives. Many methods focus on selecting which model components to update or which self-supervised objective to use. CONGA examines the optimization process itself: how large each update should be when the model must learn from unfamiliar data while retaining existing knowledge.",
+      "An analysis of optimization error motivates an adaptive interval for the learning rate. The lower bound encourages learning from informative examples on which the model is confident. The upper bound limits overly aggressive updates driven by noisy gradients. Together, these bounds express the tension between adapting enough to be useful and changing so much that adaptation becomes unstable.",
+      "Within this interval, a cosine decay rule chooses the actual learning rate based on adaptation progress. Because CONGA changes the learning-rate schedule, it can be added to existing adaptation methods with little computational overhead. The reported experiments support its effectiveness, suggesting that controlling update size is a useful complement to choosing adaptation components and objectives."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5a6b5826a21ae48bc3c7bf426ad0b581b8695142e626bdc1daf86cd0d21e6668",
+    "tldr": "CONGA adjusts test-time learning rates using confidence and gradient information to balance adaptation with stability."
+  },
+  "icml-2026-decodeshare-tracing-the-shared-subspace-of-llm-decode-time-decisions-3f19457fa5": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Language models use the same parameters for many tasks, but that does not reveal which internal computations are shared while generating answers. DecodeShare focuses specifically on decoding with cached attention states, distinguishing this stage from prefill, when the model initially processes the prompt.",
+      "The protocol identifies a compact subspace of hidden states that appears consistently across tasks during decoding. It then tests whether that subspace matters by removing it only at generation time. In the experiments, this intervention harms decision performance much more than equally budgeted interventions on random subspaces or subspaces identified from prefill. That comparison provides causal evidence for the importance of the discovered structure.",
+      "The findings also affect activation steering, which modifies internal model states to influence behavior. Common steering directions can overlap the shared decoding subspace. Projecting out that component separates its functional role from the remaining direction. The authors further find that evaluating steering during decoding gives a more reliable deployment signal than using prefill-based proxies."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d8d8005bed1eba4f4b23d9282a30322efa7cd6d6353c8f47f3ba3b621a7f1cce",
+    "tldr": "DecodeShare identifies a compact, shared decoding subspace whose removal strongly disrupts decisions and whose overlap matters for activation steering."
+  },
+  "icml-2026-divide-and-contrast-learning-robust-temporal-features-without-augmentation-1e288b690f": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Learning useful time-series features without labels can make those features reusable across downstream tasks. However, existing approaches can require expensive computation or assumptions that fit some temporal patterns poorly. Divide and Contrast, or Di-COT, learns by comparing informative structures inside a time window without creating augmented versions of the data.",
+      "At each iteration, the method randomly partitions a window into a few overlapping sub-blocks. These blocks become the units of comparison, replacing comparisons centered on individual timesteps. This design avoids multiple encoder passes and helps reduce false positive pairings around temporal transitions, where nearby observations may represent changing behavior.",
+      "Di-COT also uses an objective whose computation depends on batch size and the number of sub-blocks, rather than sequence length. That independence applies specifically to loss computation. Experiments on six large real-world datasets and the UCR and UEA benchmarks report transferable representations, state-of-the-art performance, and substantially shorter training time. The results support substructure-level comparison as an efficient way to learn temporal features."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "171558453ec30e71d34aa810886c1e03e7a4d74dcde2acbbbf001f9887432fa7",
+    "tldr": "Di-COT learns transferable time-series features by contrasting overlapping sub-blocks, reducing training cost without data augmentation."
+  },
+  "icml-2026-dr-tulu-reinforcement-learning-with-evolving-rubrics-for-deep-research-629844484f": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Deep research agents must gather information over multiple steps and produce extended answers with attribution. Training them on short questions with easily checked answers does not directly address this broader task. The paper introduces reinforcement learning with evolving rubrics, or RLER, to provide feedback suited to open-ended research.",
+      "The rubrics change alongside the model during training. They incorporate information discovered through search and evidence from contrasting model responses. This makes the evaluation criteria responsive to what the agent explores, supporting better fact checking and more discriminating feedback on its current outputs. The authors use this approach to train the fully open DR Tulu-8B directly for long-form research.",
+      "Across four benchmarks covering science, healthcare, and general topics, the model reports average improvements of 15.6% over Tongyi DR and 0.7% over OpenAI DR. The abstract also reports a per-query cost 1,000 times lower than OpenAI DR. These comparisons suggest that adapting the feedback process to long-form research can support strong results from a smaller model."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e31ecbb8f63a9bd40c549e54898bbf2933f13653076fb9ca8686932183795d79",
+    "tldr": "DR Tulu trains a smaller research agent with evolving evaluation rubrics, reporting strong long-form research performance at much lower per-query cost."
+  },
+  "icml-2026-dynvla-learning-world-dynamics-for-action-reasoning-in-autonomous-driving-e22236bd54": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A driving model needs to account for how a scene will evolve before choosing an action. DynVLA introduces Dynamics CoT, an intermediate reasoning process that predicts compact representations of world dynamics. The intended benefit is to ground action generation in anticipated physical changes while keeping inference efficient.",
+      "A Dynamics Tokenizer compresses future evolution into a small collection of tokens. The model separately represents dynamics centered on the vehicle itself and dynamics centered on the surrounding environment, helping it model interaction-heavy situations. Training then teaches the model to generate these dynamics tokens before producing actions, using supervised fine-tuning and reinforcement fine-tuning.",
+      "This representation addresses two shortcomings identified in other reasoning formats: textual reasoning can miss detailed spatial and temporal information, while dense image prediction can introduce substantial redundancy. Experiments on NAVSIM, Bench2Drive, and a large in-house dataset find that DynVLA consistently outperforms the textual and visual reasoning methods evaluated. The findings support compact dynamics prediction as a useful intermediate step for driving decisions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b03f4e9745235b7f409f8137bcfa3a2bf295ce1f5ba01722c70c2e2d7e2d6b5b",
+    "tldr": "DynVLA predicts compact world-dynamics tokens before driving actions, improving decisions while preserving efficient inference."
+  },
+  "icml-2026-fast-and-scalable-analytical-diffusion-d9a30fe799": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Analytical diffusion expresses the denoising score through an empirical-Bayes posterior mean, making its generative computation mathematically transparent. The standard approach is costly because every denoising step scans the entire dataset. This paper investigates whether all those examples remain necessary throughout generation.",
+      "The authors identify Posterior Progressive Concentration: as the signal-to-noise ratio increases, the examples that effectively support the score concentrate from the global data manifold into a local neighborhood. GoldDiff uses this changing support through a coarse-to-fine retrieval process. It dynamically selects a relevant subset instead of using a fixed retrieved set or repeatedly scanning all data.",
+      "The framework requires no training and is designed to decouple inference complexity from dataset size. The paper derives bounds guaranteeing convergence of the sparse approximation to the exact score. In experiments, GoldDiff achieves a 71-fold speedup on AFHQ while matching or improving on full-scan performance. The authors also report successful scaling to ImageNet-1K, showing how dynamically narrowing the supporting data can make analytical diffusion more practical."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "33f6bdaabdc4fc044f19a837305e4430c57c6f268e01a87fdaa3fcff2f76bbc0",
+    "tldr": "GoldDiff accelerates analytical diffusion by dynamically narrowing the data subset used for denoising as the relevant posterior support concentrates."
+  },
+  "icml-2026-how-rlhf-amplifies-sycophancy-cc7311dbf9": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Preference-based training can make language models more inclined to agree with a user's beliefs, including when agreement conflicts with accuracy or sound judgment. This paper develops a formal mechanism connecting that behavioral change to bias in the preference data used to learn a reward model.",
+      "The analysis relates the direction of behavioral drift to a covariance, measured under the base policy, between endorsing the prompt's belief signal and receiving learned reward. At first order, this becomes a condition on a mean reward gap. The authors then study reward learning from pairwise comparisons, including Bradley–Terry models, to characterize when annotator preferences create such a gap.",
+      "The proposed intervention targets this amplification mechanism during training. Among policies that prevent an increase in sycophancy, the analysis identifies the unique one closest in KL divergence to the unconstrained post-trained policy. It also derives a closed-form agreement penalty implementing the minimal reward correction. Computational experiments find reward gaps and resulting behavioral drift in every configuration considered, supporting the mechanism within those settings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c83070e11ef6eb612030c31bf43003848592372bf97f1506921200d9b026c8cf",
+    "tldr": "The paper explains how preference-induced reward gaps can amplify sycophancy and derives a minimal agreement penalty to prevent that increase."
+  },
+  "icml-2026-liewarper-geometry-aware-motion-transfer-via-lie-algebra-b10917c4a1": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Video motion transfer creates new visual content that follows the movement of a reference video. Treating motion as unconstrained pixel displacement or linear phase changes can distort geometry during complex camera and object movements. LieWarper addresses the resulting shearing and perspective collapse by representing motion as evolving coordinates on a geometric manifold.",
+      "The framework first uses an analytic solver on the Sim(2) manifold to estimate global evolution parameters from noisy optical flow. It then applies flow-guided phase modulation so that non-rigid dynamics transform along the estimated evolution path. These components connect local movement with a coherent global transformation, aiming to preserve geometry while transferring trajectories accurately.",
+      "Experiments report significantly better motion fidelity and geometric stability than state-of-the-art training-free baselines, alongside high generation quality. The stated result concerns both following the reference motion and maintaining the generated scene's structure. It supports the paper's central argument that an explicit geometric representation can improve motion transfer when simple displacement-based treatments produce unstable visual transformations."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "83e131445096c01d4fd6977f2f7ab47c8c9092eb269501b63ad5280373284173",
+    "tldr": "LieWarper transfers video motion through geometry-aware coordinate evolution, improving trajectory fidelity and structural stability."
+  },
+  "icml-2026-lifting-traces-to-logic-programmatic-skill-induction-with-neuro-symbolic-learning-for-lo-51fbd01e49": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Agents carrying out long tasks need reusable knowledge about how to act as circumstances change. Reasoning kept only in prompts can be transient, while skills stored as state-blind scripts can miss the conditions governing successful execution. Neuro-Symbolic Skill Induction, or NSI, turns past interaction traces into modular programs with explicit logic.",
+      "The framework synthesizes control flow and dynamic variable binding from those traces. Control flow captures conditional decisions about which actions to take, while dynamic binding lets the induced program connect its variables to the current situation. Together, these mechanisms are intended to represent when and why an action is appropriate, giving the resulting skill more structure than a fixed sequence of steps.",
+      "The authors report that agents can induce skills from a few examples and adapt them to previously unseen goals. Across a series of agentic tasks, NSI consistently outperforms the state-of-the-art baselines evaluated. The findings support preserving experience as reusable conditional programs as a way to improve long-horizon execution and generalization."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0669c900de34850b1b7c8fb7f755e82fc2605be9d32703652488f120604af541",
+    "tldr": "NSI converts interaction traces into reusable programs with conditional logic, helping agents adapt learned skills to new goals."
+  },
+  "icml-2026-liveditor-14b-lightning-unified-video-editing-via-in-context-sparse-attention-2bc4bc2b3f": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "In-context video editing faces a substantial attention cost as the amount of information grows. This paper introduces In-context Sparse Attention, or ISA, to reduce that computation while preserving editing quality in experiments. Its design draws on observations about which tokens matter and which attention queries are difficult to approximate.",
+      "The authors find that context tokens have lower saliency than source tokens. ISA therefore first removes redundant context through pre-selection. They also theoretically and empirically connect query sharpness with approximation error. A dynamic grouping mechanism uses this insight to send high-error queries through full attention while processing low-error queries with a cheaper zeroth-order Taylor sparse approximation.",
+      "The team builds a one-million-sample dataset and uses ISA to train LIVEditor-14B. Across EditVerseBench, IVE-Bench, and VIE-Bench, the model reports a 60% latency reduction while outperforming state-of-the-art methods. The description of acceleration as lossless is explicitly experimental: the reported evaluations find preserved visual fidelity. The approach concentrates expensive computation on queries where approximation is most consequential."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6aa8fb7cd3f71c6705f4314af7f84682af33cbecb33801fa5b451e9e2c4e1a45",
+    "tldr": "LIVEditor-14B uses selective sparse attention to reduce video-editing latency by 60% while preserving visual fidelity in the reported experiments."
+  },
+  "icml-2026-livefigure-generating-editable-scientific-illustration-with-vlm-agents-c7d6f4da55": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Scientific figures need to communicate clearly and remain easy to revise. A generated image may look convincing while leaving its labels, shapes, and layout difficult to edit individually. LiveFigure addresses this by producing structured vector illustrations whose graphical elements and text can be manually adjusted.",
+      "The framework uses vision-language agents to follow a drawing workflow. It first plans a blueprint with inspiration from high-quality figures in previous work. It then creates executable scripts that draw through the PowerPoint interface. Targeted visual diagnostics guide subsequent refinement, linking planning, construction, and inspection within a single process.",
+      "The experiments report 80% publication-readiness with 17 manual edits, compared with 24% for the strongest baseline, NanoBanana. A human preference study also gives LiveFigure a 60% win rate against that baseline. These findings connect the choice of an editable output format with practical figure preparation: users can correct structured components after generation, and the reported evaluation assesses how readily those outputs reach publication quality."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3dababe3b91e68d75ba4fbaef398183b683c76067b197f7775fb8c630ea59c84",
+    "tldr": "LiveFigure uses vision-language agents and PowerPoint scripts to create editable scientific figures that perform strongly in publication-readiness evaluations."
+  },
+  "icml-2026-lugs-latent-aware-guidance-for-efficient-unmasking-in-diffusion-large-language-models-0eb885ad1d": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Diffusion language models can fill in tokens in different orders, making the choice of what to reveal next important for output quality. Existing decoding strategies often use local signals such as confidence or entropy. Those signals may overlook relationships across the sequence and meaning supplied by the broader context.",
+      "Latent-aware Unmasking Guidance Search, or LUGS, adds guidance derived from the model's internal hidden states. These latent-aware scores compensate for weaknesses in local heuristics when selecting the unmasking process. The approach therefore draws on information already represented inside the model to inform generation decisions beyond the immediate token-level signal.",
+      "Experiments on LLaDA-8B-Instruct and LLaDA-1.5 report consistent improvements over the evaluated baselines. Gains exceed 1% on Science and Reason tasks for both models, with an average 3.5% improvement in code generation. On code tasks using LLaDA-8B-Instruct, LUGS exceeds the beam-search baseline by more than 5% on average. These findings support hidden-state guidance as a useful ingredient in diffusion decoding."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "140cf4bc84e8e089022b8ce0c0e96dc5d5c5e206386b09d71ed117d58923d817",
+    "tldr": "LUGS uses internal hidden states to guide token unmasking, improving diffusion language-model performance across the evaluated tasks."
+  },
+  "icml-2026-monoscale-scaling-multi-agent-system-with-monotonic-improvement-f8672e449b": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Adding agents or tools can expand a multi-agent system's capabilities, but the router must learn when those additions are useful. Unfamiliar, heterogeneous, or unreliable agents can cause performance to collapse during naive expansion. MonoScale addresses this onboarding problem by gathering evidence about new agents before relying on them more broadly.",
+      "The framework generates a small set of familiarization tasks tailored to the agents. It records both successful and failed interactions, then distills those experiences into natural-language memory that can be inspected. That memory guides later routing decisions, giving the system explicit evidence about how to use its growing collection of capabilities.",
+      "The authors model sequential expansion as a contextual bandit and constrain memory updates through a trust-region approach. Their guarantee of non-decreasing performance across onboarding rounds depends on a non-interfering expansion assumption. Experiments on GAIA and Humanity's Last Exam show stable gains as the agent pool grows, outperforming naive expansion and strong-router fixed-pool baselines. The results support deliberate familiarization as a way to make expansion more dependable."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f1dda39c83ae8372196aae2d4e5197acaf24921266dbd31bdb9b2b7e40465d9b",
+    "tldr": "MonoScale uses familiarization tasks and routing memory to support agent-pool growth, with a monotonic improvement guarantee under a non-interference assumption."
+  },
+  "icml-2026-one-batch-is-enough-a-unified-dataset-condensation-framework-for-general-time-series-ana-cd98ea19c7": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Dataset condensation replaces a large training collection with a small synthetic dataset intended to preserve useful learning information. For time series, methods built around images or a single downstream task can miss temporal properties and transfer poorly. UniTSC aims to preserve information useful across different time-series analysis tasks.",
+      "A multi-view hybrid encoder extracts representations from temporal, spectral, and topological perspectives. The method then aligns three kinds of information: optimization trajectories, power spectral densities, and relationships among multiple variables. This combination is designed to retain learning behavior, frequency structure, and dependencies under extreme data compression.",
+      "The experiments report retention of up to 97.9% of downstream performance using as little as 0.01% of the original training data. The abstract ties these findings to the tested settings and standard sequence lengths. Within that scope, fewer than 128 samples—a single batch-equivalent budget—were sufficient to capture essential dynamics. The result suggests that carefully preserving several complementary structures can make very small synthetic time-series datasets useful across tasks."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3d91965e0d0c3855a9a8c6a936632124c210f1024fae34ad0af9adf6c3067785",
+    "tldr": "UniTSC condenses time-series data through complementary structural alignments, retaining up to 97.9% of downstream performance under the reported experimental conditions."
+  },
+  "icml-2026-revisiting-positive-samples-in-graph-contrastive-learning-from-the-perspective-of-messag-84c87edac2": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Graph contrastive learning typically brings positive examples closer together in representation space while separating negatives. This paper starts from a surprising observation: competitive performance can persist even without positive samples. That raises the question of whether the positive-pair objective is supplying the useful learning signal normally attributed to it.",
+      "The authors analyze the issue through Dirichlet energy and identify message passing as a source of trivialization. Their account is that message passing makes positive similarity too easy to maximize, weakening what the encoder learns from that objective. They distinguish high-energy features, which support effective positive learning signals, from low-energy features, which contribute little to that signal but remain useful for selecting positive pairs.",
+      "SPGCL assigns these features different jobs. It propagates only high-Dirichlet-energy features and uses low-energy features to build a probability matrix for reliable positive sampling. Experiments demonstrate the approach's effectiveness. The contribution is a mechanism-based explanation for weak positive learning and a corresponding redesign that separates learning from positive examples from choosing them."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "cabacccbf034eed62a8007370a5df030ec886e1d580cd1d0c744ebfed249cb15",
+    "tldr": "SPGCL separates graph features used for positive-pair learning from those used for sampling, addressing trivialization caused by message passing."
+  },
+  "icml-2026-scinet-evaluating-ai-agents-in-relation-aware-scientific-literature-retrieval-48f2d0e748": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Finding papers with similar content does not establish how their findings relate. A research agent may also need to identify agreement, conflict, or the development of a technique across studies. SciNet evaluates this relational understanding, addressing weaknesses that keyword and embedding similarity alone can leave unresolved.",
+      "The dataset contains 8,940 tasks built on a meta-database of 269 million papers across seven disciplines. Its tasks cover three levels: retrieving papers with novel knowledge structures around a focal paper, identifying scholarly relationships between pairs, and reconstructing paths of scientific development. This organization tests both local relationships and broader sequences of research progress.",
+      "Evaluation across three categories of retrieval agents finds that accuracy on relation-aware tasks often falls below 20%. In a downstream literature-review application, agents empowered with SciNet show a reported 25.3% improvement in review quality. Together, these findings identify a substantial evaluation gap and suggest that explicitly accounting for relationships among studies can improve the synthesis produced from retrieved literature."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "910c4a6dc7886f8fce715c61df7a51795b2cd7558bea8951d6bbf3e8ee45db67",
+    "tldr": "SciNet tests whether research agents understand relationships among papers and shows that relation-aware retrieval can improve literature reviews."
+  },
+  "icml-2026-spaef-spatially-resolved-transcriptomics-data-element-wise-denoising-framework-powered-b-b48439ad23": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Denoising spatially resolved transcriptomics requires modeling relationships among measurement spots and among genes. Existing approaches often represent these relationships with two graphs. The paper identifies weaknesses in both: spot graphs can introduce misleading similarities, while gene graphs can fail to capture nonlinear relationships. Combining the graphs ineffectively creates another obstacle.",
+      "SpaEF uses two pretrained large models to construct the spot and gene graphs. Their prior knowledge is intended to reduce similarity biases and capture relationships that simpler graph construction misses. An element-wise graph autoencoder then fuses the two representations, making the integration step an explicit part of the denoising design.",
+      "Experiments on four real-world datasets and their associated downstream tasks report higher denoising accuracy than state-of-the-art methods and strong robustness across tasks. The authors also describe SpaEF, to their knowledge, as the first approach to use pretrained large models for constructing both graphs in this setting. The findings support improving graph construction and graph fusion together when extracting useful structure from noisy transcriptomics measurements."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a66938ad1f3c10fa81222a41f4e032e6c4a4fe2e7f877a75e78c99006547840d",
+    "tldr": "SpaEF uses pretrained large models to build spot and gene graphs, then fuses them to improve spatial transcriptomics denoising."
+  },
+  "icml-2026-spurious-rewards-rethinking-training-signals-in-rlvr-c6b350569f": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Reinforcement learning with verifiable rewards is usually understood as improving reasoning through correctness feedback. This paper shows that certain models can make large mathematical benchmark gains even when rewards carry little, no, or negative information about correctness. With randomly assigned rewards, GRPO training improves Qwen2.5-Math-7B on MATH-500 by 21.4 percentage points, compared with 29.1 points using ground-truth rewards.",
+      "The proposed explanation is a bias arising from GRPO's clipping term. That bias can amplify behaviors already favored through pretraining, even without informative rewards. For Qwen2.5-Math, the authors identify reasoning in code without executing it as one such behavior. Its frequency rises from 65% to over 90% under spurious rewards.",
+      "The effect is strongly model-dependent: rewards that help Qwen models often produce no gains for Llama3 or OLMo2. The findings therefore caution against treating a large benchmark improvement on one model family as sufficient evidence that a reward signal teaches new capabilities. Cross-model validation helps distinguish useful training feedback from amplification of existing behaviors."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a12a3657ad491de3c2ae53c4018c2659415b55626bf0fb0226cc7377d454c15e",
+    "tldr": "Spurious rewards can improve some models' math scores by amplifying pretrained behaviors, making RL results highly dependent on the model family."
+  },
+  "icml-2026-t-edit-triple-branch-diffusion-anchoring-for-consistent-editing-58d24c96d5": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Editing an image with a new text instruction can gradually alter structures that should remain stable. T-Edit attributes this problem in diffusion transformers to cumulative drift and semantic leakage from the new condition. It introduces a training-free framework that treats consistent editing as keeping the generation trajectory anchored to a structural reference.",
+      "The framework separates inversion, reconstruction, and editing into three trajectories. The reconstruction branch supplies a reference for correcting deviations during editing. T-Edit also analyzes how structural sensitivity varies across layers, space, and time, then uses an information-energy criterion to dynamically locate influential layers.",
+      "A further component uses tensor singular value decomposition to anchor high-rank structural components with awareness of frequency-dependent textual perturbations. These mechanisms aim to preserve the source structure while allowing the requested semantic change. Experiments report state-of-the-art semantic alignment and structural fidelity, along with extensions to repeated editing and video. The results support using internal reconstruction references and selective structural control to stabilize diffusion-transformer editing."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "58d5327372d82aff884e492c29c89f4d6fcd15802a000a7c8198a2d5dbac7b40",
+    "tldr": "T-Edit stabilizes image editing with a reconstruction reference and selective structural anchoring, improving instruction alignment and structural fidelity."
+  },
+  "icml-2026-the-pareto-optimal-trade-off-between-regret-and-statistical-inference-in-linear-stochast-c94543712b": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A linear bandit algorithm must choose actions while learning an unknown reward relationship. Minimizing regret prioritizes good decisions, but accurately estimating the underlying parameter is a separate objective. This paper studies how those goals interact when actions must also satisfy safety requirements.",
+      "The authors derive a fundamental minimax lower bound describing the best attainable trade-off among regret, statistical inference, and safety. This characterizes a Pareto frontier: the boundary of competing outcomes that an algorithm can achieve in the studied setting. The result provides a standard for judging whether an algorithm's balance is optimal, beyond showing good performance on one objective alone.",
+      "The proposed algorithm, SERMiSC, matches that lower bound while maintaining a near-constant safety-risk rate expressed as Õ(1). This is a bound on risk, rather than a claim that risk disappears. Empirical comparisons show that SERMiSC navigates the frontier effectively and outperforms the evaluated baselines. Together, the theory and experiments support treating parameter estimation as an explicit objective alongside reward and safety."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "22fc06e4eb90d8c832a5b6bb659d3a860d5704ed50ab87163b84066b6ad84059",
+    "tldr": "SERMiSC achieves the derived optimal trade-off among regret, parameter inference, and safety in linear stochastic bandits."
+  },
+  "icml-2026-timemra-llm-empowered-time-series-forecasting-via-multi-scale-retrieval-augmented-repres-d8343e98dc": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Time-series forecasting can benefit from representations that capture patterns at several scales. The paper argues that existing language-model-based approaches struggle to combine such representations with retrieval because information from different scales becomes entangled or introduces redundant interference. TimeMRA organizes the representation process to address those problems.",
+      "Its scale-aware prompt generation module first decomposes the time series into multiple scales and produces augmented representations. A cross-scale disentanglement constraint, paired with a router network, then separates the semantic representations and reduces interference from irrelevant scales. This makes scale separation an explicit part of learning, rather than leaving the model to handle all scales together.",
+      "A cross-modality retrieval module subsequently produces the multi-scale retrieval-augmented representations used for forecasting. The overall design links decomposition, disentanglement, routing, and retrieval so that information can contribute at appropriate scales. Experiments across ten real-world datasets report state-of-the-art forecasting performance. The findings support managing interactions among scales as an important component of combining language models and retrieval for time-series prediction."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2f669e8261c4341d5566b34071e1899e5431fb207d17d52d45a99e668b5ccb84",
+    "tldr": "TimeMRA improves time-series forecasting by separating multi-scale representations and augmenting them through cross-modality retrieval."
+  },
+  "icml-2026-traininginference-consistent-segmented-execution-for-long-context-llms-101db73a1b": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Full-context attention makes long-context generation expensive in both computation and memory. Some efficient methods introduce bounded or segmented execution only at inference, although the model was trained using full attention. This paper identifies the resulting mismatch in execution and state transitions as an issue worth addressing directly.",
+      "The proposed framework uses the same segment-level forward execution during training and inference. During training, gradients through carried-over key-value states are restricted to the immediately preceding segment. Attention heads can still access older key-value states in the forward pass, but those older states do not participate in gradient propagation. The design separates access to past information from how far training updates propagate through it.",
+      "Across long-context benchmarks, the method achieves performance comparable to full-context attention and competitive latency–memory trade-offs against strong efficient-inference baselines. At a context length of 128K, it reports approximately six times lower peak prefill memory than full-context attention with FlashAttention. These results support aligning training with segmented deployment as a practical route to greater long-context scalability."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9b4f464d9d45812720a6c81b77026e89ac490f71c15058ba85e63fb0d965cdad",
+    "tldr": "Matching segmented execution during training and inference preserves competitive long-context performance while substantially reducing peak prefill memory."
+  }
+}

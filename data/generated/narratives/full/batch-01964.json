@@ -1,0 +1,377 @@
+{
+  "icml-2026-adagc-enhancing-llm-pretraining-stability-via-adaptive-gradient-clipping-947abdda60": {
+    "backgroundConcepts": [
+      "topic-094-textit-trans-lora-towards-data-free-transferable"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Sudden jumps in training loss can destabilize language model pretraining. The authors observe that these spikes often involve several interacting causes, including unusual data, computational faults, numerical precision, and training settings. Their approach targets a shared consequence: abnormal gradients can corrupt the optimizer’s running estimates of both gradients and their squared magnitudes, making subsequent updates unstable.",
+      "AdaGC limits gradients separately for each parameter tensor. Its limit follows an exponential moving average of that tensor’s previously clipped gradient norms, so clipping adapts to historical behavior rather than applying one global bound. This makes the intervention sensitive to differences between tensors. The method works across optimizers, adds negligible memory overhead, and reduces communication relative to GlobalGC, especially in hybrid-parallel training.",
+      "Experiments on Llama-2 7B, Mixtral 8×1B, and ERNIE 10B-A1.4B report zero spike scores and downstream accuracy improvements over GlobalGC of 1.32%, 1.27%, and 2.48%, respectively. Tests with Muon and Lion also report higher average accuracy and zero spike scores. These findings support addressing instability through adaptive gradient control across the evaluated training configurations."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f1cf62e5255d3260949c580ebe04efbcaeefb4b9abda770636c6836f0d53bbd7",
+    "tldr": "AdaGC adapts gradient clipping separately for each tensor, eliminating measured loss spikes and improving downstream accuracy in the reported pretraining experiments."
+  },
+  "icml-2026-anchored-policy-optimization-mitigating-exploration-collapse-via-support-constrained-rec-57fc7bbb85": {
+    "backgroundConcepts": [
+      "topic-043-exploration-a-study-of-count-based-exploration-f"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Reinforcement learning with verifiable rewards can make a model increasingly selective about which answers it generates. This paper identifies a failure mode in which reinforcing successful choices and suppressing unsuccessful ones jointly drive valid alternatives toward vanishing sampling probability. The authors call this Recursive Space Contraction. Ordinary KL regularization can resist the collapse, but matching a reference model’s entire probability distribution can conflict with concentrating probability on correct answers.",
+      "Anchored Policy Optimization changes what the reference model protects. Instead of requiring close agreement everywhere, it uses the reference model’s high-confidence support to define a safe region of possibilities. The policy can sharpen its preferences while a restorative mechanism selectively acts during error correction, helping valid branches regain probability.",
+      "The authors theoretically characterize this mechanism as aligned with the gradient direction for maximizing support coverage. On mathematical benchmarks, APO improves Pass@1 while recovering the diversity reflected in Pass@K that standard policy gradient methods typically lose. The stated result is therefore both better single-attempt success and improved access to successful alternatives across multiple attempts in those evaluations."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "494faa15daf7a40badaa37841203dae411c28c6e40ba6ee9bde95f715e4cc6bb",
+    "tldr": "APO protects reference-supported alternatives during reinforcement learning, improving mathematical answer accuracy while recovering diversity in the reported evaluations."
+  },
+  "icml-2026-asymmetric-multi-view-clustering-with-hyperbolic-uncertainty-modeling-6ce17e0f05": {
+    "backgroundConcepts": [
+      "topic-002-boldsymbol-lambda-orthogonality-regularization-f"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Multi-view clustering groups examples using several sources of information without labeled training targets. A central difficulty is that these sources can differ in reliability. If a method forces all views into agreement symmetrically, a clear representation may be pulled toward a corrupted one. HAMC addresses this by representing confidence explicitly and using it to determine the direction of alignment.",
+      "The framework places each view’s features in a hyperbolic space called the Poincaré ball. Distance from its center acts as a confidence proxy: confident representations are encouraged outward, while ambiguous or noisy examples can remain closer to the center. This geometry gives the method a way to distinguish representations by reliability alongside their clustering information.",
+      "HAMC then lets reliable views guide unreliable ones in one direction, reducing the influence of noise on stronger representations. It also screens information by confidence to construct global pseudo-labels that refine the clusters. Experiments against 13 baselines report state-of-the-art performance. The contribution combines a confidence-sensitive representation with alignment and cluster learning rules that use that confidence."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "58e9f3c5176e3e189a3718c3215828a155f13f8347a50321682c6710c5adc72a",
+    "tldr": "HAMC uses hyperbolic geometry to represent confidence and lets reliable views guide noisy ones, improving unsupervised multi-view clustering."
+  },
+  "icml-2026-beyond-single-view-indexing-structure-aware-multi-view-retrieval-for-knowledge-based-vqa-c7c6add709": {
+    "backgroundConcepts": [
+      "topic-196-hyperbolic-image-text-representations"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Answering a question about an image sometimes requires facts from an external knowledge base. Retrieval determines which facts the answering system can use, so systematic omissions at this stage can limit the final answer. This paper finds that different retrieval views strongly complement one another: relevant information missed by one view can be covered by another.",
+      "SCAR uses this complementarity during inference without additional training. Within each view, it propagates similarity in a way that accounts for that view’s structure. Across views, it explicitly regulates redundancy. These two operations aim to make combined retrieval cover useful information more effectively than single-view indexing or a simple fusion of several views.",
+      "Across multiple knowledge-based visual question answering benchmarks, SCAR substantially improves retrieval recall and approaches the retrieval coverage upper bounds considered in the study. It also consistently improves the complete question-answering system with negligible inference overhead. These results connect a change in how evidence is retrieved to better final answers, showing that retrieval organization itself can be a productive improvement point."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "065b055f9e7e3fa064b231cd33376f1a06766bbecb11ab3d485b5951542aea1e",
+    "tldr": "SCAR combines complementary retrieval views using structural similarity and redundancy control, improving knowledge-based visual question answering without additional training."
+  },
+  "icml-2026-cat-q-cost-efficient-and-accurate-ternary-quantization-for-llms-52b1783827": {
+    "backgroundConcepts": [
+      "topic-194-1-bit-wonder-improving-qat-performance-in-the-lo"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Ternary quantization compresses language model weights into three values, but such aggressive compression can severely reduce performance. CAT-Q tackles this through post-training quantization, adapting an already pretrained model rather than relying on costly quantization-aware training. Its aim is to make ternary conversion practical across different architectures and model sizes.",
+      "The method couples two optimization components. Learnable modulation adjusts the distribution of high-precision weights and the threshold used to ternarize them, making conversion less disruptive. Softened ternarization introduces a differentiable transition that guides optimization toward stable convergence. Together, they make the transition to ternary weights something the procedure can optimize rather than impose abruptly.",
+      "For models with 1.7B–8B parameters, the authors report conversion using 512 calibration samples and better performance than the compared BitNet v1 and v2 families trained with 100B tokens. The reported roughly 100,000-fold token reduction concerns this conversion comparison, not the cost of original pretraining. They also report quantizing 14B–235B models in 8–60 hours on eight A100-80GB GPUs, extending the demonstrated scale substantially."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3506aaa9afbf882d59caaa8c84892d49869bd3f0d642a4cb883454177272804b",
+    "tldr": "CAT-Q converts pretrained language models to ternary weights using learnable modulation and softened optimization, with low calibration requirements and demonstrated scaling to 235B parameters."
+  },
+  "icml-2026-codechemist-test-time-scaling-for-low-resource-code-generation-via-functional-knowledge--11a2463fdd": {
+    "backgroundConcepts": [
+      "topic-104-a-2-dept-large-language-model-driven-automated-a"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Code models often perform unevenly across programming languages because training data is much scarcer for some languages. CodeChemist addresses this at generation time, using a model’s stronger functional knowledge in well-supported languages to help choose solutions in less-supported ones. It requires neither retraining nor an external model.",
+      "The framework first samples candidate solutions in the target language at multiple temperatures and synthesizes test inputs. It then estimates uncertainty to decide how to select a candidate. When uncertainty is low, it uses majority voting within the target language. When uncertainty is higher, it executes reference programs written in a high-resource language to construct input-output test oracles.",
+      "Those cross-language oracles let CodeChemist compare candidates by their behavior on shared inputs and select the one with the highest pass rate. Experiments report significant improvements over existing test-time scaling methods, including for Lua and for complex-syntax languages such as C++ and Java. The findings support transferring functional knowledge through executable tests, with uncertainty determining when that additional cross-language evidence is used."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3f8b167833971a3f0932a31b5687f705bc62a8252a0e191f6cb75db628abbc64",
+    "tldr": "CodeChemist uses uncertainty-guided voting and tests derived from high-resource reference programs to improve code generation without retraining."
+  },
+  "icml-2026-consmsa-semantic-distribution-consistency-learning-for-multimodal-sentiment-analysis-c4c56478e1": {
+    "backgroundConcepts": [
+      "topic-121-pi-tuning-transferring-multimodal-foundation-mod"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Multimodal sentiment analysis combines information such as speech, video, and text to predict sentiment. More input is not always more useful: individual sequences can contain repetition, and different modalities can provide conflicting signals. ConsMSA addresses both issues by measuring how consistently token features express sentiment within each modality and across modalities.",
+      "The method projects token features into a shared sentiment space and computes an intra- and inter-modality consistency score. It combines this score with predictive relevance to estimate importance. That importance has three uses: aligning latent distributions during training, adaptively reweighting tokens, and identifying redundant or conflicting tokens that can be removed.",
+      "Experiments on CMU-MOSI, CMU-MOSEI, and CH-SIMS report state-of-the-art performance. The method also retains comparable accuracy when keeping only 10% of tokens in the reported compression experiments. This connects the consistency measure to both prediction quality and computational efficiency: the same signal helps organize learning and decide which parts of the input deserve continued processing. The findings support consistency as a useful basis for selective multimodal computation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5636055a3ef622f68b4250190baeb2b8fbc0a0e0a6d092c4263b27446d01291c",
+    "tldr": "ConsMSA uses sentiment consistency and predictive relevance to align, reweight, and prune multimodal tokens, retaining comparable accuracy with only 10% of tokens in reported experiments."
+  },
+  "icml-2026-decomposing-the-basic-abilities-of-large-language-models-mitigating-cross-task-interfere-128a2da75e": {
+    "backgroundConcepts": [
+      "topic-094-textit-trans-lora-towards-data-free-transferable"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Training a language model on many instruction-following tasks can produce conflicting updates to shared parameters. Methods that allocate some parameters to particular tasks can still leave enough sharing for this interference to persist. This paper empirically identifies that remaining interference and investigates whether the model can instead be organized around reusable basic abilities.",
+      "The authors observe groups of parameters that consistently activate together. They use this observation to motivate an analogy: tasks could be expressed as combinations of distinct underlying abilities. BADIT implements that idea with orthogonal LoRA experts built around high-singular-value components. During training, spherical clustering of rank-one components dynamically maintains the separation between these experts.",
+      "The proposed organization therefore shares ability components across tasks while trying to keep those components from interfering with one another. The ability decomposition is a modeling motivation drawn from co-activation, rather than a demonstrated universal description of all tasks. Experiments on SuperNI using six language models show that BADIT can outperform state-of-the-art methods and reduce cross-task interference, supporting the practical value of this parameter organization."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "73bd694d8453932d4526f6e843fbc1ad30a82e0a4aba1767345e5b560cefbf99",
+    "tldr": "BADIT organizes instruction-tuning updates into orthogonal LoRA experts motivated by reusable abilities, reducing cross-task interference in experiments with six language models."
+  },
+  "icml-2026-deepha-scaling-action-chains-elicits-deep-hierarchical-agents-861b9699f2": {
+    "backgroundConcepts": [
+      "topic-004-3d-vla-a-3d-vision-language-action-generative-wo"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "An autonomous agent can act through broad semantic skills or detailed motor controls. Restricting it to one predefined action space can limit the tasks it handles, while separating planning from execution can introduce accumulating errors. DeepHA brings heterogeneous action spaces into one architecture so that a single agent can generate actions at different levels of abstraction.",
+      "Its Chain-of-Action framework uses higher-level actions as structured reasoning steps that guide more detailed actions. This creates a progression from abstract intent toward executable behavior within the unified model. To manage the context required for long tasks, the system dynamically compresses its history and uses key-value caching. The authors report roughly a 75% reduction in context length without sacrificing performance.",
+      "Evaluation uses a new Minecraft benchmark containing more than 800 diverse tasks. DeepHA significantly outperforms prior methods and achieves state-of-the-art results, with particularly strong generalization on complex tasks requiring multiple planning steps. The reported findings connect hierarchical action generation with both broader task capability and a more manageable context cost for sustained reasoning."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "376e8cffa44af44cb5534a77fe2f31ec80bf8df693f2b750ff32ca2a269f771c",
+    "tldr": "DeepHA chains abstract skills into detailed actions within one agent, improving Minecraft task performance while reducing historical context length by about 75%."
+  },
+  "icml-2026-discovering-differences-in-strategic-behavior-between-humans-and-llms-c961a6bb91": {
+    "backgroundConcepts": [
+      "topic-017-texttt-multi-2-hierarchical-multi-agent-decision"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Understanding an agent’s strategic behavior requires more than observing whether it wins. The paper asks how the structures underlying human choices differ from those underlying language model choices. Existing behavioral game theory models provide a starting point, but the authors argue that they do not fully capture the distinctive behavior of either humans or black-box non-human agents.",
+      "The researchers use AlphaEvolve, a program discovery tool, to discover interpretable behavioral models directly from data. This approach allows the search to explore structural explanations beyond those already built into a fixed behavioral model. Interpretability matters because the goal is to identify factors that explain differences in behavior, rather than only to predict the next action.",
+      "Their analysis focuses on iterated rock-paper-scissors. In that setting, the discovered models indicate that frontier language models can exhibit deeper strategic behavior than humans. This is a capability finding in the studied interaction, not a claim that language models always reason more deeply than people. The work provides a foundation for examining structural differences in strategic decision-making through models learned from observed behavior."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "97336e321e4cc59a07634a90b762b282ce16fdc08d065153d16270960e557c6a",
+    "tldr": "Using AlphaEvolve to discover interpretable behavioral models, the authors find that frontier LLMs can display deeper strategy than humans in iterated rock-paper-scissors."
+  },
+  "icml-2026-eco-moe-embodiment-conditioned-mixture-of-experts-increases-the-evolvability-of-robots-1a40a7385e": {
+    "backgroundConcepts": [
+      "topic-144-a-connectionist-learning-control-architecture-fo"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Robot co-design optimizes both a body and the controller that makes it useful. Training a separate controller for every design is inefficient, while one universal controller can encourage overly conservative bodies and behaviors. ECo-MoE takes an intermediate approach: it jointly optimizes a distribution of latent robot designs and a modular collection of control experts.",
+      "Each decoded body uses its latent design coordinates to determine which experts contribute to control. Different body plans can therefore activate different combinations of learned sensorimotor modules. This arrangement preserves shared knowledge while allowing part of the controller to change for newly emerging designs without disrupting knowledge stored in other experts.",
+      "The framework also allows pretrained expert policies to be inserted directly into the mixture. These policies can steer evolution toward previously unexplored design regions with desired morphological traits. The authors call this process evo by demo and explore its potential to guide freeform evolution toward structures represented by the pretrained model. The contribution is a mechanism for combining inherited control knowledge, modular adaptation, and directed exploration of robot designs."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2bf11d880e5f7a10957fdaa9f7aae8288f097ac74f1c81a980de1cdf1aee894f",
+    "tldr": "ECo-MoE jointly evolves robot designs and modular controllers, using body-dependent expert selection to preserve knowledge and potentially steer evolution with pretrained policies."
+  },
+  "icml-2026-elastic-diffusion-transformer-ecb7b8c9a5": {
+    "backgroundConcepts": [
+      "topic-080-text-s-2-q-vdit-accurate-quantized-video-diffusi"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Diffusion Transformers generate high-quality outputs but require substantial computation. E-DiT builds on the observation that some of this computation can be omitted with little effect on quality, and that the amount that can be skipped differs across samples. A fixed reduction in model capacity cannot adapt to this variation.",
+      "E-DiT adds a lightweight router to each transformer block. From the input latent representation, the router first decides whether the block can be skipped. If the block is needed, it predicts how much to reduce the width of the block’s multilayer perceptron. This gives the framework two ways to adjust computation to the current sample rather than imposing one uniform reduction.",
+      "At inference, a further block-level caching mechanism uses router predictions to avoid redundant feature computation without additional training for that caching mechanism. Experiments cover image generation with Qwen-Image and FLUX and 3D asset generation with Hunyuan3D-3.0. The reported speedup reaches approximately twofold with negligible quality loss. These results support adapting computational effort at multiple levels to the needs of individual generated samples."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9fe177d07c2f4888149751f8ac6d8f7ce1fb99f17487d33d21ef3e74dfa68859",
+    "tldr": "E-DiT dynamically skips blocks, reduces MLP widths, and caches features, achieving up to roughly twice the generation speed with negligible quality loss."
+  },
+  "icml-2026-from-coarse-to-fine-deep-prototype-refinement-network-for-few-shot-point-cloud-semantic--a44064def5": {
+    "backgroundConcepts": [
+      "topic-091-why-is-there-a-tumor-tell-me-the-reason-show-me-"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Few-shot point cloud segmentation assigns semantic categories to 3D points using only a small number of labeled examples for new categories. Prototype-based methods summarize those examples into class representations, but a prototype fitted to the labeled support set may not match the query data. DPR-Net addresses this mismatch through a sequence of refinements.",
+      "Its Dynamic Prototype Refinement module separates features into common and distinctive subspaces based on channel activation. It can then adjust features that are sensitive to the support-query shift while preserving class-shared information. Stacking these modules creates a progression from support-biased prototypes toward query-adapted ones, aiming to avoid both insufficient adjustment and excessive adaptation.",
+      "The method also retains information from several stages through a Mixture of Prototype Experts. Each stage’s prototypes produce predictions, and confidence-based weighting combines them. This means prediction can draw on the full refinement trajectory instead of relying only on its endpoint. Experiments report state-of-the-art performance with high efficiency, supporting progressive adaptation and confidence-weighted combination as complementary ways to improve few-shot segmentation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "77b0820735b8412b388159f61f2719a28015178aaa22794a46fbe42c4e7b98c9",
+    "tldr": "DPR-Net progressively adapts class prototypes to query point clouds and combines predictions across refinement stages, improving few-shot semantic segmentation."
+  },
+  "icml-2026-infrarl-a-benchmark-for-constrained-resource-allocation-in-large-scale-infrastructure-as-d209670bd6": {
+    "backgroundConcepts": [
+      "topic-147-textdt-text2-decision-targeted-digital-twins"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Infrastructure maintenance requires a sequence of decisions whose effects accumulate over time, all within limited budgets. Learning by trying potentially dangerous actions on real assets is unsuitable for this setting. InfraRL therefore focuses on offline constrained reinforcement learning: policies must learn from fixed historical data while respecting hard spending limits.",
+      "The benchmark uses bridge maintenance as a testbed for broader infrastructure asset management and is constructed from the U.S. National Bridge Inventory. Its task combines budget constraints with distributional shift, a pairing the authors identify as insufficiently represented in existing benchmarks. This creates a setting for examining whether learned maintenance strategies remain useful under both challenges together.",
+      "The evaluation includes industry heuristics alongside single-agent, multi-agent, planning-based, and constrained offline reinforcement learning methods. It measures structural utility, adherence to constraints, and behavioral fidelity, revealing trade-offs between safety and long-term efficiency. The contribution is a benchmark and evaluation protocol for exposing those trade-offs, rather than a claim that one maintenance policy resolves them. It provides a common basis for comparing methods on competing practical requirements."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "797bf79899d64e484b5e44af3f42d959cae4ebd59ec39db027c0a9468bd799cd",
+    "tldr": "InfraRL benchmarks offline bridge-maintenance decisions under hard budgets, exposing trade-offs between structural utility, constraint adherence, and long-term efficiency."
+  },
+  "icml-2026-lightweight-federated-incremental-learning-via-decoupled-replay-008162395d": {
+    "backgroundConcepts": [
+      "topic-168-fl-2-overcoming-few-labels-in-federated-semi-sup"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Federated incremental learning asks distributed clients to learn new tasks without forgetting previous ones. Replaying old examples can help, but storing and communicating historical samples creates resource costs and privacy risks. Li-FIL replaces sample replay with dense feature replay generated on a server, aiming to make continued learning more practical on constrained devices.",
+      "Clients extract high-confidence features from new tasks, enrich those features through mixup, and privatize them before upload. A server-side generator learns the clients’ feature distributions and synthesizes global features for replay. This arrangement reduces storage and communication overhead while supplying representations that carry information useful for retaining earlier knowledge.",
+      "Local training separates classifier stabilization from encoder regularization. The split allows learning from replayed features and aligning old and new feature representations to be handled separately. Experiments report accuracy improvements of up to 10.14% over other state-of-the-art methods across old and new tasks, along with better resource efficiency. The findings support combining feature-level replay with decoupled training to address forgetting and device resource demands together."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c00baafe5cef7fde727e81c0739e47e47cdbde0efb1f025c15167a3632ed1851",
+    "tldr": "Li-FIL combines server-generated feature replay with separated classifier and encoder training, improving federated incremental learning accuracy and resource efficiency."
+  },
+  "icml-2026-negative-sampling-from-the-ground-up-a-redesign-for-recommendations-370cb9e0d7": {
+    "backgroundConcepts": [
+      "topic-172-a-dataset-for-analyzing-streaming-media-performa"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Recommendation systems can represent users and items as two sets of nodes connected by observed interactions. Learning useful representations from this graph depends partly on how negative examples are sampled. The paper questions the usual practice of choosing a sampling distribution through heuristics or manually specified principles.",
+      "The authors instead investigate whether an underlying true negative distribution can be approximated and used, even when its exact mathematical form is unknown. Their starting point is the possibility of accessing that distribution through an oracle. They analyze two observation settings: one in which the graph is an unbiased sample, and another in which observations are biased and positive edges are only partially visible.",
+      "From this analysis, they derive a sampling strategy as a numerical approximation to an established learning objective. This ties the sampling rule to the objective and observation assumptions rather than treating it as a separate design choice. Empirical results validate the theoretical findings and report state-of-the-art performance on real-world datasets. The work offers a principled route from assumptions about observed interactions to the construction of negative samples."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2f701a48135e1a02a43defd336f6f80c66e78ba2ca307d896dc0ce6c1c3e3ca7",
+    "tldr": "The paper derives recommendation negative-sampling strategies from an underlying distribution and learning objective, analyzing both unbiased and partially observed biased graphs."
+  },
+  "icml-2026-noisesdf2noisesdf-learning-clean-neural-fields-from-noisy-supervision-7aa179d1af": {
+    "backgroundConcepts": [
+      "topic-134-textttprism-a-3d-probabilistic-neural-representa"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Reconstructing a 3D surface from scanned points becomes difficult when the points contain substantial noise. A learned surface can inherit that noise and produce an inaccurate shape. NoiseSDF2NoiseSDF addresses this problem by learning a cleaner implicit surface representation while using noisy supervision, drawing inspiration from the Noise2Noise approach for images.",
+      "The method works with neural signed distance fields, or SDFs, as its surface representation. Its learning objective minimizes mean squared error between noisy SDF representations. The proposed transfer from image denoising to 3D neural fields places the training comparison in the surface representation itself, allowing the network to implicitly remove noise and refine its surface estimates.",
+      "The authors evaluate the approach on ShapeNet, ABC, Famous, and Real datasets and report significant improvements in reconstruction quality from noisy inputs. The central result is that noisy supervision can support cleaner learned surfaces in these evaluations. This matters for reconstruction from low-quality scanning devices, where noise in the captured point cloud is part of the original problem the method is designed to address."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5062e19998825ac4712e426f64468070156c184d8bb431c5801fe165b6e4c544",
+    "tldr": "NoiseSDF2NoiseSDF learns cleaner neural surface representations by minimizing error between noisy SDFs, improving reconstruction from noisy point clouds."
+  },
+  "icml-2026-one-coin-has-two-sides-single-positive-multi-label-learning-from-salient-annotations-f8e69c3c32": {
+    "backgroundConcepts": [
+      "topic-170-leveraged-weighted-loss-for-partial-label-learni"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "An example may belong to several categories even when only one is annotated. Many methods for this setting assume that the observed positive label is chosen randomly. This paper instead studies annotations biased toward the most noticeable category, calling the setting Salient Single-Positive Multi-Label Learning. Such bias leaves less obvious, harder-to-recognize categories disproportionately unannotated.",
+      "The authors identify a useful counterpart to that difficulty: salient labels tend to provide representative and informative examples. PiSA uses them to construct reliable prototypes for each class. These prototypes guide representation learning so that the model can better recognize non-salient categories whose labels are missing.",
+      "The theoretical analysis shows that salient annotation makes the problem harder than random annotation because of irreducible bias. It also shows that more accurate prototypes help identify false-negative labels in this setting. Across multiple benchmarks and two newly constructed real-world datasets, PiSA consistently outperforms existing methods, with an average mAP improvement of 3.16%. The method therefore uses information carried by annotation bias to help address the recognition difficulty that the bias creates."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3a462cdf776dcccc271981080a7344c4097ac09c8837a388a9b0e8bdc0315514",
+    "tldr": "PiSA uses representative salient labels to build class prototypes that help recover less obvious missing labels, improving results under biased single-positive annotation."
+  },
+  "icml-2026-openha-a-series-of-open-source-hierarchical-agentic-models-in-minecraft-a7c0a7cfbc": {
+    "backgroundConcepts": [
+      "topic-190-a-causal-world-model-underlying-next-token-predi"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "An agent’s action space determines how it can interact with its environment, from abstract language skills to detailed control signals. A large-scale Minecraft study finds that the most effective action space depends strongly on the task. This complicates the design of a generalist agent, because choosing one space can leave it poorly suited to other tasks.",
+      "OpenHA introduces Chain-of-Action to combine abstract actions and low-level controls within one model. An abstract goal becomes an intermediate reasoning step that helps generate the detailed actions needed for execution. The authors train an All-in-One agent on a diverse mixture of action spaces using this framework.",
+      "The resulting agent learns a more generalizable policy and achieves state-of-the-art performance, outperforming strong specialized baselines in the study. This supports mixed action-space training as a way to build a generalist without committing to a single level of control. The OpenHA release includes a benchmark of more than 800 tasks, curated datasets, source code, and model checkpoints, providing resources for studying the approach and comparing future hierarchical agents."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "514ed2605aae0f4cb35f8202656de3596bb1385ca00d38440c47413b89e6a3f2",
+    "tldr": "OpenHA combines abstract and low-level actions through Chain-of-Action, producing a Minecraft generalist that outperforms specialized baselines in the reported study."
+  },
+  "icml-2026-reflect-then-correct-rebalancing-task-optimization-for-generalizable-meta-reinforcement--66b2cd2775": {
+    "backgroundConcepts": [
+      "topic-053-textttmetadistill-unlocking-the-performance-ceil"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Meta-reinforcement learning must learn across tasks whose reward scales can differ greatly. In the non-parametric settings studied here, these differences cause severe interference between gradient updates. Existing categorical approaches attempt to normalize the scales, but fixed discretization introduces quantization errors. Reflect-then-Correct instead models value distributions with adaptive particles.",
+      "RTC uses Sinkhorn divergence to align those distributions in a way that accounts for their geometry. The particles can move rather than remain tied to rigid categories, helping align distinct task structures and harmonize gradients. However, the authors identify a cost of these updates: estimating them through samples introduces statistical bias.",
+      "The framework responds with a second stage. A recursive error model tracks how Bellman inconsistencies accumulate over time, and adaptive importance weights give greater influence to transitions judged more accurate for meta-value estimation. The authors provide theoretical guarantees for this reweighting and report better performance than existing baselines on Meta-World ML-10 and ML-45. The contribution joins flexible distribution alignment with an explicit correction for estimation error introduced by that alignment."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9e4e18d590bc0554aca028efdb184cf0d5a78ea0c3dc8643d659bc63a52fd292",
+    "tldr": "RTC aligns task value distributions with Sinkhorn divergence and corrects sampling-related error through adaptive weighting, improving results on two Meta-World benchmarks."
+  },
+  "icml-2026-slip-rs-structured-attribute-language-image-pre-training-for-remote-sensing-object-detec-2817948991": {
+    "backgroundConcepts": [
+      "topic-224-alpha-iou-a-family-of-power-intersection-over-un"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Remote sensing object detection needs to distinguish fine-grained categories despite limited data. The authors argue that learning each category as a monolithic label creates an expensive dependency on enumerating open-ended categories. SLIP-RS replaces that emphasis with a finite set of physically meaningful attributes, aiming to express distinctions through explicit structural information.",
+      "Its first component is structured-attribute contrastive learning. Combinatorial attribute augmentation encourages the model to learn separated aspects of visual structure rather than treating every category as an indivisible target. Its second component uses conformal prediction theory to extract reliable attribute supervision from noisy sources. This reliability mechanism supports construction of RS-Attribute-15M, a dataset containing more than 15 million attribute annotations.",
+      "Experiments report leading performance in fine-grained detection and generalization across domains. The findings support the paper’s central proposal that structured attributes can provide a scalable foundation for remote sensing models. The approach connects representation design with supervision quality: attributes organize what the model learns, while the reliability engine helps determine which noisy annotations are suitable for teaching those attributes."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "79c4d7089613a2377a40b15c2592faf96718faa7ef9013677b35b57ff541b3b4",
+    "tldr": "SLIP-RS learns remote sensing objects through structured physical attributes and reliability-filtered supervision, improving fine-grained detection and cross-domain generalization."
+  },
+  "icml-2026-test-time-debiasing-with-probabilistic-prompts-via-wasserstein-distance-in-vision-langua-ba99ea770b": {
+    "backgroundConcepts": [
+      "topic-029-delta-mathrm-energy-optimizing-energy-change-dur"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Vision-language models can inherit social biases that produce uneven performance across sensitive groups. Lightweight corrections at test time seek to reduce these disparities without expensive retraining. The paper argues that correcting each query toward one supposedly fair embedding is unstable, especially in multi-class settings where a single point cannot adequately represent group structure.",
+      "W4D instead treats debiasing as alignment between distributions. It compares a query embedding distribution with group reference distributions using Wasserstein distance, which accounts for geometry beyond shifts in the mean. Probabilistic prompts generate controlled changes in the query representation, making this distributional perspective usable during inference.",
+      "The method optimizes a Wasserstein-based objective to reduce cross-group disparity while retaining information relevant to the task. Across diverse downstream vision-language evaluations, the authors report more robust multi-class debiasing and a stronger fairness–utility trade-off. These findings support distributions as a richer target for correction than individual embedding points. The reported benefit is improved balance between disparities and task performance, rather than a claim that all social bias is removed."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c6e245c1b37a7ee709ea267e409a1dee70e54e153aedfceadf1b603012d683db",
+    "tldr": "W4D uses probabilistic prompts and Wasserstein distribution alignment to improve the fairness–utility trade-off of vision-language models at test time."
+  },
+  "icml-2026-test-time-guidance-for-flow-based-generative-models-via-parallel-tempering-on-source-dis-aef6bddfbd": {
+    "backgroundConcepts": [
+      "topic-066-f-trajectory-balance-a-loss-family-for-tuning-gf"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Diffusion and flow-based models generate data by transporting samples from a simple source distribution into a complex data distribution. Test-time guidance aims to steer that process toward outputs with high user-defined rewards. Existing methods can struggle when rewards are non-differentiable or when the reward landscape contains difficult barriers between promising regions.",
+      "Source Parallel Tempering conducts the search entirely in source space, using its simpler geometry instead of exploring directly on the complex data manifold. It combines a local exploration kernel with parallel tempering to help cross barriers and discover high-reward modes. Because the procedure is gradient-free, its guidance does not depend on differentiating the reward.",
+      "The authors also derive an error bound connecting the model’s training-time approximation error to its test-time guidance performance. This makes the connection between model quality and guided generation part of the analysis. Experiments on conditional image synthesis and dynamical system trajectory sampling report significant improvements over state-of-the-art methods. Together, the results support source-space exploration as a practical guidance strategy with an accompanying theoretical account of error."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5bd29bcd8a12290993277fe74f90886eb45e2ba0fbe7061fb6bfad48a515c95b",
+    "tldr": "Source Parallel Tempering guides pretrained generators through gradient-free exploration of source space, improving benchmark results and providing an error bound for guidance performance."
+  },
+  "icml-2026-universal-skeleton-understanding-via-differentiable-rendering-and-mllms-5efea901d6": {
+    "backgroundConcepts": [
+      "topic-081-a-benchmark-for-compositional-visual-reasoning"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Human skeleton sequences describe motion in a structured format that multimodal language models cannot directly process through their native visual inputs. Existing conversions can lose motion information or generalize poorly between skeleton formats. SkeletonLLM addresses this by turning skeleton sequences into images that the model can interpret.",
+      "The central component, DrAction, is a differentiable renderer designed to work across skeleton formats. It converts skeletal motion into compact image sequences. Because gradients can pass through the renderer, training signals from the multimodal model can shape the visual representation itself, encouraging images that retain information useful for the task.",
+      "Two training components strengthen the resulting system. Causal Reasoning Distillation transfers structured reasoning from a teacher model, while Discriminative Finetuning helps distinguish easily confused actions. The authors report strong generalization across recognition, captioning, reasoning, and transfer between skeleton formats. These results suggest that a learnable visual translation can help multimodal models handle structured inputs outside their original modalities, with skeleton understanding providing the demonstrated application of that broader possibility."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9054a7f9fe7381a6920e2f0689b69b21fe9e3d796eeecc01a2e80d78c7d113b9",
+    "tldr": "SkeletonLLM learns to render skeleton motion into task-informative images, enabling multimodal language models to recognize, describe, and reason about motion across formats."
+  },
+  "icml-2026-westworld-a-knowledge-encoded-scalable-trajectory-world-model-for-diverse-robotic-system-17745ad337": {
+    "backgroundConcepts": [
+      "topic-131-textit-himacon-discovering-hierarchical-manipula"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A trajectory world model predicts how a robot’s state evolves, supporting dynamics learning, planning, and control. Sharing such a model across many robots is difficult because different bodies have different dynamics. WestWorld addresses both the challenge of scaling across systems and the need to incorporate knowledge of their physical structures.",
+      "Its system-aware mixture of experts uses a learned system embedding to route and combine specialized modules for different robots. A separate structural embedding aligns trajectory representations with morphological information. The first mechanism provides adaptable specialization, while the second brings physical structure into the representation to improve zero-shot generalization.",
+      "After pretraining on 89 complex environments spanning simulated and real-world settings, WestWorld significantly improves zero- and few-shot trajectory prediction over competitive baselines. The authors also report strong scalability across robotic environments and better downstream model-based control for different robots. Deployment on a real Unitree Go1 demonstrates stable locomotion. These findings connect the shared model’s predictive capabilities with control performance, including a physical robot demonstration rather than prediction results alone."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c518b21a78f26d24c7f652b550262f9eacf4c1ddf484b595139463d6cece141d",
+    "tldr": "WestWorld combines system-routed experts with robot structure embeddings to improve trajectory prediction and control across diverse robotic systems."
+  }
+}

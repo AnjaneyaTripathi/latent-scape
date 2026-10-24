@@ -1,0 +1,327 @@
+{
+  "neurips-2024-a-fedpd-aligning-dual-drift-is-all-federated-primal-dual-learning-needs-05d3dc38e8": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Federated learning coordinates training across clients whose datasets can differ substantially. Primal-dual methods split that training problem into local subproblems while using additional variables to coordinate agreement with the shared model. This paper identifies a problem with these methods when training is non-convex and only some clients participate in each round.",
+      "The authors call the problem dual drift. Clients that remain inactive for a long time retain outdated dual variables, while the shared training process continues moving. A-FedPD addresses this mismatch by constructing virtual dual updates for those inactive clients. These updates aim to align their local coordination variables with the evolving global consensus, directly targeting the consequences of prolonged nonparticipation.",
+      "The paper analyzes both optimization and generalization efficiency for smooth non-convex objectives and reports experiments across several classical federated learning settings. The stated results support the method’s effectiveness and practicality within that scope. The contribution is a specific explanation of how partial participation disrupts primal-dual coordination, together with an update mechanism designed to correct that disruption."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "74fe98154fbc40f568b2d02e560ccd234b2025aaad5d669ccb98f6890787cba9",
+    "tldr": "A-FedPD uses virtual updates to reduce the dual-variable drift caused by inactive clients during federated training."
+  },
+  "neurips-2024-bayesian-optimisation-with-unknown-hyperparameters-regret-bounds-logarithmically-closer--d1140d9d29": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Bayesian optimization uses a surrogate model to decide where to evaluate an unknown function. Its length scale controls how smooth that function is expected to be. Choosing this setting from observed data can be misleading when unexplored regions are less smooth. An earlier method with theoretical guarantees, A-GP-UCB, progressively shortens the length scale, but can keep expanding exploration without a stopping mechanism.",
+      "The proposed Length scale Balancing method maintains multiple surrogate models with different length scales. It occasionally introduces smaller scales while retaining larger ones. This gives the optimizer access to more flexible models without forcing it to abandon smoother explanations, creating a way to balance exploration of unresolved structure with exploitation of existing information.",
+      "The authors compare cumulative regret with an oracle optimizer that knows the optimal length scale. Where the earlier bound differs from the oracle by a factor g(T), their bound differs by only log g(T). This is a statement about theoretical regret bounds. Experiments on synthetic and real-world benchmarks also report improvements over A-GP-UCB and maximum-likelihood length-scale selection."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d799c5759e695874454e34fb8b3171f7c3a197d6ea45aca9ba125aa2c92f5ab7",
+    "tldr": "Length scale Balancing combines surrogate models to improve Bayesian optimization when the objective’s smoothness is unknown."
+  },
+  "neurips-2024-brain-jepa-brain-dynamics-foundation-model-with-gradient-positioning-and-spatiotemporal--b072dbba7c": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Brain-JEPA is a foundation model for brain dynamics built around a Joint-Embedding Predictive Architecture. The paper studies whether its learned representations can support several downstream uses, including demographic prediction, disease diagnosis and prognosis, and trait prediction. It evaluates both adaptation through fine-tuning and use of the representations through approaches such as linear probing.",
+      "Two design choices address the structure of brain activity data. Brain Gradient Positioning provides a functional coordinate system for brain regions, improving how the model represents the positions of different regions of interest. Spatiotemporal Masking is designed around fMRI data and the differences among its time-series patches. Together, these choices adapt positional information and masking to the characteristics of the signals.",
+      "The authors report state-of-the-art performance on the stated fine-tuning tasks, strong performance in evaluations without full model adaptation, and better generalization across ethnic groups than the previous large brain-activity model. These findings support the value of representations tailored to brain dynamics. The broader proposal is that functional coordinates and suitable masking can provide a useful foundation for downstream brain activity analysis."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9629417655fa81852ba6c3475caad3dd79a2c02a87190eef277f94e9ecaca8b4",
+    "tldr": "Brain-JEPA combines functional brain coordinates and fMRI-specific masking to learn representations that perform strongly across brain prediction tasks."
+  },
+  "neurips-2024-cascade-speculative-drafting-for-even-faster-llm-inference-c404c1f574": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Speculative decoding speeds up language model inference by letting a smaller model propose text for a larger target model to review. Accepted drafts reduce how often the target model must run. However, generating the draft can itself become a bottleneck: the smaller model generates autoregressively, and the process spends equal time on tokens despite differences in their importance.",
+      "Cascade Speculative Drafting addresses these two sources of inefficiency with complementary mechanisms. Its Vertical Cascade removes autoregressive generation from neural models in the drafting process. Its Horizontal Cascade changes how drafting time is allocated. The combined design therefore targets both the cost of producing draft tokens and the distribution of effort across those tokens.",
+      "In the reported experiments, combining the cascades produces greater speedups than the evaluated baselines while preserving the target model’s output distribution. Preserving that distribution means the acceleration retains the target’s probabilistic output behavior. The paper’s contribution is to improve the drafting stage itself, showing that further inference gains can come from reorganizing the work performed before target-model verification."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c838436a9d21607f9ffbe47599d41e60c8ede45187c4f3d715040e4c455e6223",
+    "tldr": "Cascade Speculative Drafting accelerates draft generation and reallocates drafting effort while preserving the target model’s output distribution."
+  },
+  "neurips-2024-conceptmix-a-compositional-image-generation-benchmark-with-controllable-difficulty-3feaa84503": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "ConceptMix evaluates whether text-to-image models can combine multiple requested concepts in one picture. Existing evaluations often depend on handwritten prompts or fixed templates, which restrict the variety and complexity of the tests. This benchmark makes difficulty adjustable by changing how many visual concepts an image must satisfy at once.",
+      "The process has two stages. First, it samples an object and a collection of concepts, such as colors, shapes, or spatial relationships, then uses GPT-4o to turn them into a prompt. After an image model responds, ConceptMix creates a question for each concept and uses a strong vision-language model to check whether it appears. This produces an assessment tied to the individual requirements.",
+      "Across proprietary and open models, increasing the concept count distinguishes performance more effectively than earlier benchmarks. Several models, particularly open ones, deteriorate sharply as the requests become more complex. The authors also investigate limited prompt diversity in widely used training datasets and conduct human studies to validate the benchmark design and compare automatic grading with human judgments."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "08ebf32be89383c5254fd8086f3f1b4c499dbff81ce2856f6ad1033e60b49fb6",
+    "tldr": "ConceptMix tests image generators with adjustable numbers of visual requirements, revealing sharp performance drops as compositional difficulty increases."
+  },
+  "neurips-2024-dofit-domain-aware-federated-instruction-tuning-with-alleviated-catastrophic-forgetting-be7c62b115": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Federated instruction tuning lets clients collaborate using decentralized data. Existing approaches account for differences between clients, but the paper argues that differences between subject domains need separate treatment. When a domain has little data and draws support from related fields, cross-domain training can erase useful domain information and weaken performance within that domain.",
+      "DoFIT tackles this forgetting through two changes to how model weights are combined and initialized. On the server coordinating domains, it selectively aggregates overlapping weights to reduce interference from other domains. Within a domain, it incorporates shared information into a parameter space with less conflict when initializing weights. The two changes aim to make outside information useful while retaining more domain-specific knowledge.",
+      "Experiments across diverse datasets report consistent benefits for cross-domain collaborative training and significant improvements over conventional federated instruction-tuning methods in alleviating forgetting. The results support treating domain differences as a distinct source of training interference. DoFIT’s contribution is a framework for controlling where cross-domain sharing occurs, so that collaboration can better support the individual domains involved."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5f78273a7c8780da32150b232173e8211a2d45cc8f870b94655c91379fc2cc27",
+    "tldr": "DoFIT changes cross-domain weight sharing and initialization to reduce catastrophic forgetting during federated instruction tuning."
+  },
+  "neurips-2024-enhancing-robustness-in-deep-reinforcement-learning-a-lyapunov-exponent-approach-36b036c8bc": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies how a single small change in state affects a reinforcement learning policy in deterministic continuous-control tasks. The authors show that learned policies can produce chaotic dynamics: initially similar states can develop very different future states and rewards. Deterministic behavior therefore does not necessarily mean predictable behavior under small disturbances.",
+      "The analysis separates two consequences of this sensitivity. A disturbance can lower rewards substantially, making sensor errors or adversarial interference costly. It can also make behavior unpredictable even when rewards remain robust. That distinction matters because evaluating performance through reward alone may leave instability in the resulting state trajectories unnoticed.",
+      "The proposed modification to Dreamer V3 uses Maximal Lyapunov Exponent regularization to reduce chaotic state dynamics. The authors report that this produces policies more resilient to sensor noise or adversarial attacks. The stated contribution connects a measure of dynamical instability with reinforcement learning training, addressing robustness at the level of how trajectories evolve. Its investigation specifically concerns small state perturbations in deterministic continuous control."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4f71def567f6b11f6a658295fa1a9a172162d576df23af4436770c5b1ab2f7cd",
+    "tldr": "Regularizing Dreamer V3 with a Lyapunov-based measure reduces chaotic dynamics and improves resilience to disturbances."
+  },
+  "neurips-2024-exploiting-the-replay-memory-before-exploring-the-environment-enhancing-reinforcement-le-dd57b488d7": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Reinforcement learning agents often reuse stored experience to estimate how valuable different actions are. This paper builds on findings that Bellman optimization becomes more stable when its updates focus on actions present in the data, particularly when value functions are approximated. Empirical MDP Iteration, or EMIT, turns that principle into a framework for online learning.",
+      "As the replay memory grows, EMIT constructs a sequence of empirical decision processes from its contents. It learns an estimated Q-function for each one while restricting bootstrapping to in-sample actions. The authors state that each empirical process converges to a unique optimal estimated Q-function and that progressively expanding toward the original process induces monotonic policy improvement.",
+      "EMIT is designed to integrate with existing algorithms as a regularizer for Q-learning. The paper implements it with DQN and TD3, then evaluates those versions on Atari and MuJoCo benchmarks. The reported results show significantly smaller estimation errors and substantially better performance for both algorithms. These findings support organizing learning around the accumulated experience before expanding the decision process further."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "33c3b762c69116de14c03a29a521400f082bf0dfefb76904bc301c4ee4cf0b81",
+    "tldr": "EMIT learns from expanding empirical decision processes built from replay memory, improving DQN and TD3 in the reported benchmarks."
+  },
+  "neurips-2024-in-context-learning-with-representations-contextual-generalization-of-trained-transforme-5da3517dbc": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "In-context learning allows a model to infer a task from examples supplied in its prompt. This paper asks how training can equip a transformer to use those examples for predictions on unfamiliar inputs and tasks. It studies nonlinear regression problems whose task-specific template functions all belong to a linear space with a fixed set of basis functions.",
+      "The analysis follows gradient-descent training of a one-layer, multi-head transformer. Prompts contain some labeled examples, with Gaussian noise in the labels, alongside inputs requiring predictions. Each prompt has too few examples to determine its template completely. Under the stated mild assumptions, the authors prove that training loss converges linearly to a global minimum.",
+      "They also show that the trained transformer effectively performs ridge regression over the basis functions. This identifies a concrete mechanism through which a small prompt can support contextual generalization despite noisy, incomplete information. The result is a provable account of learning task templates within this structured regression setting, including generalization to unseen examples and tasks."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6d13c46c1a72766504150a3cc740e6d4a7e438e5f51f5616b234ed3191e68b28",
+    "tldr": "Under structured regression assumptions, a trained one-layer transformer learns to perform ridge regression in context and generalize to new tasks."
+  },
+  "neurips-2024-iwbvt-instance-weighting-based-bias-variance-trade-off-for-crowdsourcing-b784f5a15d": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Crowdsourced datasets often need methods that combine conflicting labels or correct noisy ones. Improving those labels does not always produce a comparable improvement in the model trained on them. This paper attributes part of that gap to intractable instances whose difficulty continues to affect learning even after label processing.",
+      "IWBVT addresses the quality of the trained model through instance weighting and a bias-variance trade-off. Its weighting method uses a complementary set and entropy to reduce the influence of difficult instances. The intended effect is to bring estimates of model bias and variance closer to their unknown true values. It then performs probabilistic loss regressions based on the bias-variance decomposition to reduce generalization error.",
+      "The experiments indicate that IWBVT can serve as a broadly applicable post-processing step for existing state-of-the-art label-integration and noise-correction algorithms, significantly improving model quality. The contribution shifts attention from label accuracy alone to how individual training instances affect downstream learning. Its two stages connect the treatment of difficult examples with the balance between bias and variance."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "19f1c1d94c9152fd0c70b715730722d127ac0a537403b0815b3a3c679bb2eeab",
+    "tldr": "IWBVT reweights difficult crowdsourced examples and balances bias and variance to improve models after label integration or correction."
+  },
+  "neurips-2024-large-language-models-must-be-taught-to-know-what-they-dont-know-588d1b94eb": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Useful uncertainty estimates should help users distinguish answers they can trust from answers likely to be wrong. This paper argues that prompting alone is insufficient for good calibration and examines a training-based alternative. The approach fine-tunes on a small collection of answers marked correct or incorrect, aiming for estimates that generalize with little computational overhead.",
+      "The authors show that a thousand graded examples are sufficient to outperform the evaluated baselines. They also find that training through a model’s features is necessary for good performance in their investigation, and that LoRA makes this tractable for large open-source models. The central result is that explicit correctness supervision can support uncertainty estimation without requiring expensive sampling procedures.",
+      "The paper further investigates where this ability comes from and finds that many models can estimate uncertainty for other models as well as themselves. A user study shows that the resulting estimates inform how people use language models in collaborative settings. Together, these findings connect calibration training with both transferable uncertainty estimation and its role in human decisions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "fdd314bf257a1b94a3837c4804e85bc1bf82e06a945d59345c225fc4d0187f0a",
+    "tldr": "Fine-tuning on a thousand graded answers produces useful, transferable uncertainty estimates that outperform the evaluated baselines."
+  },
+  "neurips-2024-learning-infinitesimal-generators-of-continuous-symmetries-from-data-5d704c4c28": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Symmetries describe transformations that preserve what matters for a learning task. Knowing them can improve sample efficiency and generalization, but the relevant transformations are often unclear from real data. Existing methods for learning symmetries can require predefined groups, commonly restricting the search to linear or affine transformations.",
+      "This paper learns continuously parameterized transformations through vector fields called infinitesimal generators. A generator specifies the direction of an infinitesimal change, and following that field produces a family of transformations. The approach uses minimal inductive biases and accommodates nonlinear generators, expanding the types of symmetry it can represent beyond the commonly used predefined transformations.",
+      "To guide learning, the authors introduce a validity score that checks whether transformed data remains valid for the task. Because the score is differentiable and easy to compute, it supports an effective search for transformations consistent with the data. Applications to image data and partial differential equations demonstrate advantages. The contribution combines a flexible representation of continuous transformations with a task-based criterion for discovering which transformations preserve validity."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f042bc0cf42ade163bc37592d557054806de496c3b39bb84c24ed8a45e5651e7",
+    "tldr": "The method learns continuous symmetries, including nonlinear ones, by searching for transformations that preserve task validity."
+  },
+  "neurips-2024-leveraging-contrastive-learning-for-enhanced-node-representations-in-tokenized-graph-tra-863b914ce9": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Tokenized graph transformers represent a node using a sequence assembled from graph information. Existing approaches often select only a small set of highly similar nodes. The paper argues that this selection discards useful information elsewhere in the graph, limiting the representations available for predicting node labels.",
+      "GCFormer broadens the information entering the model with a hybrid token generator. It constructs both positive and negative token sequences, which a tailored transformer backbone uses to learn node representations. A contrastive learning component draws information from both kinds of sequence. This makes the distinction between the sequences part of learning, giving the model a way to benefit from graph information beyond the most similar nodes.",
+      "Experiments cover both homophily and heterophily graphs, settings where connected nodes tend to share or differ in labels. The authors report better node-classification performance than representative graph neural networks and graph transformers on the evaluated datasets. These findings support the value of combining more diverse token construction with contrastive learning, across graphs with differing patterns of node similarity."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "036c0b1ddcbe1264ead7225f07419780268865f02d40ccc651467957ea32d6c5",
+    "tldr": "GCFormer combines positive and negative graph-token sequences with contrastive learning to improve node classification."
+  },
+  "neurips-2024-local-to-global-learning-dynamics-and-effect-of-initialization-for-transformers-c785abca76": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies how single-layer transformers learn to predict the next token in sequences generated by first-order Markov chains. In these processes, the next token depends on the current token rather than the full sequence history. This setting lets the authors characterize learning dynamics within a specific class of sequence-prediction problems.",
+      "The central theoretical result connects where training converges to both the initial parameter values and the properties of the Markov data. The authors prove that convergence can lead to either a global minimum or a local minimum, and they characterize the conditions separating these outcomes. A global minimum achieves the lowest loss overall; a local minimum need only be lowest within a surrounding region. The result therefore makes initialization part of the explanation for the training outcome.",
+      "The authors also report empirical evidence supporting their theoretical findings. They use the analysis to develop initialization guidelines for single-layer transformers and demonstrate their effectiveness. These findings offer guidance within the studied setting while showing how starting parameters and sequence structure jointly influence learning."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4ff690a6eafe7b864a62f8ce0b17762475e982f783b74723ae2b25c1ea1cc61a",
+    "tldr": "For single-layer transformers learning first-order Markov sequences, initialization and data properties determine whether training converges to a global or local minimum."
+  },
+  "neurips-2024-localized-zeroth-order-prompt-optimization-04e6542b01": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Optimizing prompts for a black-box language model requires finding useful inputs without direct access to its gradients. This paper questions whether pursuing a global optimum is always a productive strategy. Its empirical study finds that good local optima are often plentiful, while global optima are rare, making local search potentially worthwhile for efficient prompt improvement.",
+      "A second finding concerns the search domain: both how prompts are generated and how they are represented affect which useful local optima can be found. These observations motivate Localized Zeroth-Order Prompt Optimization, or ZOPO. The algorithm combines standard gradient-free optimization with a Gaussian process derived using a Neural Tangent Kernel to guide the search toward well-performing local solutions.",
+      "Extensive experiments report improvements over existing baselines in both optimization performance and query efficiency. The results support the paper’s strategy of directing limited model queries toward promising local regions. Its contribution links an empirical observation about the prompt landscape with a search method designed around the accessibility of good local optima."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "10d063e9602f675a194d540910078142712f01e6213d3bbc10f9b01ff919a5db",
+    "tldr": "ZOPO targets promising local prompt optima and improves both performance and query efficiency in the reported experiments."
+  },
+  "neurips-2024-multi-winner-reconfiguration-1a20770f34": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Multi-winner selection chooses a subset of alternatives, called a committee. This paper studies the process of moving between committees through a sequence of small changes. It introduces a reconfiguration model in which those intermediate modifications form a path, making the transition between selections an object of computational study in its own right.",
+      "The authors examine four approval-based voting rules: Chamberlin-Courant, Proportional Approval Voting, Approval Voting, and Satisfaction Approval Voting. The complexity differs sharply by rule. Reconfiguration is computationally intractable for the first two, while the latter two admit polynomial-time solutions. Thus, the choice of voting rule affects the difficulty of computing a transition as well as defining how committees are evaluated.",
+      "For the two difficult rules, the paper provides a multivariate complexity analysis that examines how different problem parameters affect tractability. Many scenarios remain challenging, but some admit efficient parameterized algorithms. This refines the broad hardness result by identifying cases where additional structure makes computation manageable, helping distinguish general difficulty from more favorable settings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "bbdc9aa5c4b086329a1f989c2604c2273a1a7177fd1863a2c7b0ab7e19ccebea",
+    "tldr": "The difficulty of transitioning between committees through small changes depends strongly on the approval-based voting rule."
+  },
+  "neurips-2024-neural-model-checking-c0ca0e8d18": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Model checking asks whether every execution of a system satisfies a temporal logic specification. In hardware verification, this supplies a formal guarantee about behavior across executions. The paper introduces an approach that combines neural learning with symbolic reasoning, using neural networks to represent proof certificates for linear temporal logic.",
+      "The method trains candidate certificates from randomly generated system executions without supervised labels. It then checks their validity symbolically using satisfiability solving. An affirmative result establishes that the system satisfies the specification. The formal guarantee comes from this validation step: sampled executions help discover a certificate, while symbolic checking establishes that the certificate is valid.",
+      "This division of work uses neural networks’ representational capacity alongside the observation that checking a certificate is easier than finding one. The authors describe the resulting procedure as unsupervised and formally sound. Experiments on standard hardware designs written in SystemVerilog show it outperforming the evaluated state-of-the-art academic and commercial model checkers, demonstrating practical benefits for the tested verification problems."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4b16355d97498a4030618b3e225ad97fdf25ef86c86d3b5face219fbb70fb857",
+    "tldr": "Neural model checking learns candidate proof certificates and validates them symbolically to establish formal hardware guarantees."
+  },
+  "neurips-2024-on-feature-learning-in-structured-state-space-models-4442277c80": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper examines how state-space models and structured variants such as Mamba should scale as network width grows. Its central question is whether their internal features continue to evolve meaningfully during training in the infinite-width limit. Answering this requires scaling rules suited to the architecture’s particular signal propagation.",
+      "The authors find that established rules, including Maximal Update Parameterization, fail to support feature learning for these models. They connect this failure to the models’ inability to fit the Tensor Programs framework. They also show that spectral scaling conditions useful for other architectures do not carry the same implications here. Familiar scaling criteria therefore need fresh analysis in the state-space setting.",
+      "By studying both forward signal propagation and backward training signals, the paper identifies scaling that supports nontrivial feature evolution at infinite width. The proposed scaling exhibits improved stability, better generalization, and transfer of optimal hyperparameters from smaller to larger state-space models. These findings connect an architecture-specific theoretical analysis with behaviors that matter when scaling model training."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "26fdb8957f6aa0d84719203ae941cd3fcde27ae3bcc75ea55e3413f1b039d110",
+    "tldr": "An analysis of state-space model signals yields scaling rules that preserve feature learning where established parameterizations fail."
+  },
+  "neurips-2024-on-the-necessity-of-collaboration-for-online-model-selection-with-decentralized-data-a7c23089c7": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper asks when clients with decentralized data actually need to collaborate for online model selection. Proposing a federated algorithm does not by itself establish that communication is necessary. The authors examine necessity through clients’ computational limits, studying regret bounds that characterize the performance achievable in this setting.",
+      "Their results draw a conditional distinction. Without computational constraints on clients, collaboration is unnecessary. When each client’s computational cost is limited to o(K), where K is the number of candidate hypothesis spaces, collaboration becomes necessary. The conclusion ties the need for federation to the amount of work each client can perform relative to the available model classes.",
+      "The authors also propose a federated algorithm with an analyzed upper bound, improving regret bounds while reducing computational and communication costs for distributed online multi-kernel learning. Its ingredients include a stronger martingale Bernstein inequality, federated online mirror descent, and separate treatment of model selection and prediction. Together, the lower and upper bounds explain both when collaboration is needed and how to make it efficient."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d139754eca07ed1eab2326aa6831e328c3e73793a556071b15dfe7def529fc88",
+    "tldr": "Collaboration becomes necessary for decentralized online model selection when each client’s computation is restricted to o(K)."
+  },
+  "neurips-2024-socraticlm-exploring-socratic-personalized-teaching-with-large-language-models-ac586f1791": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "SocraticLM aims to make language models engage students in the reasoning needed to solve a problem. The paper argues that current personalized teaching applications largely provide answers and explanations, leaving students relatively passive. Its proposed teaching style uses sustained dialogue to provoke thought and guide the problem-solving process.",
+      "The authors construct SocraTeach using a Dean-Teacher-Student multi-agent pipeline. The dataset contains 35,000 multi-round teaching dialogues, equivalent to 208,000 single-round exchanges, grounded in fundamental mathematics problems. It includes six types of simulated students with differing cognitive states and targets four teaching abilities. SocraticLM is fine-tuned on these dialogues using three strategies intended to balance teaching and reasoning capabilities.",
+      "The paper also introduces an evaluation system covering five pedagogical dimensions. Experiments report significant gains in teaching performance and an improvement of more than 12% over GPT4 in the reported evaluation. The contribution brings together simulated teaching interactions, targeted fine-tuning, and pedagogical assessment. Its stated results concern the evaluated teaching behavior of the model, with the training dialogues built around simulated students."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5acfc2ffacf68c9cd9799d195b3ffb1333b7fb87aa9896cf7fcaf92274544a29",
+    "tldr": "SocraticLM learns from simulated teaching dialogues to guide student reasoning and improves teaching performance in the reported evaluation."
+  },
+  "neurips-2024-speechforensics-audio-visual-speech-representation-learning-for-face-forgery-detection-1adb92875b": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Face-forgery detection becomes especially difficult when a detector encounters unfamiliar datasets or common perturbations. SpeechForensics approaches this problem through the relationship between spoken audio and visible facial movement. Its motivation is that speech-rich audio provides precise information about the movements a face makes during speech.",
+      "The method first learns audio-visual speech representations from real videos through a self-supervised masked prediction task. This training encodes both local and global semantic information, giving the representation access to speech structure at different scales. The resulting model is then transferred directly to forgery detection. No fake videos participate in model training.",
+      "Extensive experiments report stronger cross-dataset generalization and robustness than the evaluated state-of-the-art methods. These findings support learning the relationship between authentic speech and facial movement as a useful basis for detecting forged faces. The contribution is both the audio-visual representation strategy and the demonstrated transfer from real-video training to forgery detection, addressing the challenge of performance beyond the datasets a detector initially encounters."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "33da8c642a800177d3a5fea93ebb1c9d3d0319fb64d61ba42db336aea63ab5a7",
+    "tldr": "SpeechForensics learns audio-visual speech representations from real videos and transfers them to robust face-forgery detection."
+  },
+  "neurips-2024-streamingdialogue-prolonged-dialogue-learning-via-long-context-compression-with-minimal--1660ced6af": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Long conversations create efficiency and consistency problems for language models. StreamingDialogue builds on the observation that dialogue has a useful structure: each utterance ends with a special token that can aggregate information. The authors call these tokens conversational attention sinks and use them to compress the preceding dialogue history.",
+      "Representing utterances through their end tokens reduces the amount of history the model must handle. To minimize information lost when reconstructing compressed content, the method uses two learning strategies: short-memory reconstruction and long-memory reactivation. The design connects dialogue compression with training intended to preserve access to information across both shorter and longer conversational spans.",
+      "The method outperforms strong baselines on dialogue tasks and achieves a fourfold speedup with an eighteenfold reduction in memory use relative to dense attention recomputation. The authors also suggest that compressing each utterance into an end token could let models with very large context windows handle more than 200,000 utterances. That scale is presented as potential enabled by the compression, while the reported speed and memory gains are experimental results."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d6ab116cbd961f9982c5562280bd2d7cd6b6c32a14b5a4cbb6c67456fce3be53",
+    "tldr": "StreamingDialogue compresses conversation history into end-of-utterance tokens, reporting faster dialogue processing with substantially lower memory use."
+  },
+  "neurips-2024-sub-optimal-experts-mitigate-ambiguity-in-inverse-reinforcement-learning-5d748f3106": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Inverse reinforcement learning tries to infer the reward function behind an expert’s behavior. Different rewards can explain the same optimal behavior, leaving ambiguity about the underlying task. This paper studies the feasible reward set: the collection of reward functions compatible with the observed expert information.",
+      "The authors add demonstrations from multiple sub-optimal experts to those from an optimal expert. Their theoretical analysis shows that these additional behaviors can substantially shrink the compatible reward set. Observations of differing performance levels can therefore provide useful constraints on the hidden reward. The result gives a reason to include less-skilled demonstrators when an optimal demonstrator is already available.",
+      "The paper also analyzes the statistical difficulty of estimating this set when a generative model is available. It studies a uniform sampling algorithm and shows that it is minimax optimal when the sub-optimal experts perform sufficiently close to the optimal expert. That condition matters: the optimality guarantee is tied to those performance levels. Together, the results address both ambiguity in reward recovery and the sampling effort needed to estimate compatible rewards."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2f7ab2fd60fe4fa53b35d7863d38e7305d258e74e30cc95c752ccb96d7dd4d68",
+    "tldr": "Adding sub-optimal experts can narrow the reward functions compatible with optimal demonstrations and improve identifiability in inverse reinforcement learning."
+  },
+  "neurips-2024-toward-conditional-distribution-calibration-in-survival-prediction-38b54578d2": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Survival prediction estimates when an event will occur, often using data in which some event times are censored. A model can distinguish higher-risk from lower-risk cases while still assigning unreliable probabilities. This paper emphasizes conditional calibration, which concerns probability reliability given individual information, alongside calibration measured across the population as a whole.",
+      "The proposed method uses conformal prediction and draws on each model-predicted individual survival probability at that instance’s observed time. This connects the calibration procedure to the predicted time-to-event distribution for each case. The authors report improvements in both marginal and conditional calibration without compromising discrimination, the model’s ability to distinguish outcomes or risk levels.",
+      "The paper provides asymptotic theoretical guarantees for both forms of calibration and evaluates the method on 15 diverse real-world datasets. These results support its practical effectiveness across the tested settings. The theoretical claim concerns asymptotic behavior, while the experiments assess practical performance. The contribution is to make individual-level probability reliability a central objective of survival prediction alongside the ranking of risks."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "79c8f178d94ee903ca09928b4debc481a9dd8f3ad9c7f83438c03499b031db11",
+    "tldr": "A conformal method improves marginal and conditional calibration of survival predictions while preserving discrimination in the reported evaluations."
+  },
+  "neurips-2024-who-evaluates-the-evaluations-objectively-scoring-text-to-image-prompt-coherence-metrics-9086241ae0": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Text-to-image faithfulness metrics judge whether a generated image follows its prompt. This paper asks how to evaluate those metrics themselves. The authors argue that agreement with human rating scales on easily distinguishable examples provides an insufficient comparison, particularly when newer metrics are assessed against apparently weak alternatives.",
+      "T2IScoreScore, or TS2, organizes prompts and images into semantic error graphs. Images contain increasing numbers of errors, creating expected orderings that a useful metric should recover. The benchmark checks both whether a metric orders images correctly by error count and whether it significantly distinguishes different error nodes. Its evaluation scores draw on established statistical tests.",
+      "The tested vision-language-model metrics, including TIFA, DSG, LLMScore, and VIEScore, do not significantly outperform simpler feature-based metrics such as CLIPScore. This is especially apparent on a difficult subset of naturally occurring image-generation errors. The finding challenges the assumed advantage of these tested metrics. TS2 provides a more structured basis for developing and comparing faithfulness measures through explicit expectations about ordering and separation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4bd8ddc2f2c9fa76565223533732974d7217145b72931c76fd1d620425cbc220",
+    "tldr": "TS2 evaluates image-faithfulness metrics using structured semantic errors and finds no significant advantage for the tested VLM-based metrics."
+  }
+}

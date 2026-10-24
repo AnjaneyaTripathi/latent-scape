@@ -1,0 +1,377 @@
+{
+  "icml-2024-adapt-and-diffuse-sample-adaptive-reconstruction-via-latent-diffusion-models-8313883866": {
+    "backgroundConcepts": [
+      "topic-225-a-conditional-normalizing-flow-for-accelerated-m"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Recovering a clean signal from corrupted observations can require very different amounts of work for different samples. Difficulty depends on both the original signal and the degradation it underwent. The paper argues that reconstruction methods often fail to account for this variation, spending computation inefficiently and producing weaker results than an adaptive approach could.",
+      "The authors introduce severity encoding, which estimates corruption severity in an autoencoder’s latent representation. Their estimates correlate strongly with the actual corruption level, providing a useful indication of reconstruction difficulty. Flash-Diffusion then uses these estimates to adjust the reverse diffusion trajectory, allowing inference time to vary across samples instead of following one fixed computational schedule.",
+      "The framework wraps existing latent diffusion solvers to add this adaptive behavior. Experiments cover both linear and nonlinear inverse problems and report improved reconstruction performance alongside up to tenfold acceleration in average sampling speed. The central contribution is a way to connect an estimated property of each observation to the amount of computation used to reconstruct it."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5627e551761a710497a3adbb3660f033ca4bcb1f284ce4084db7d93e983901b4",
+    "tldr": "Flash-Diffusion adapts reconstruction effort to estimated corruption severity, improving tested solvers and achieving up to tenfold faster average sampling."
+  },
+  "icml-2024-approximate-nearest-neighbor-search-with-window-filters-9fb39c27f4": {
+    "backgroundConcepts": [
+      "topic-093-mathbbr-2k-is-theoretically-large-enough-for-emb"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Similarity search often needs to respect a numeric filter as well as find relevant items. An image query might restrict results to a time interval, while a product query might impose a price range. This paper formalizes that combined task: find approximately nearest points among those whose numeric labels fall inside a requested window.",
+      "The proposed solution is a modular framework built around a tree. It transforms an index for ordinary approximate nearest-neighbor search into a structure that supports arbitrary label ranges. This matters because the filtering requirement becomes part of the search structure, and the framework can build on an existing approximate-search component. The authors also analyze the construction theoretically.",
+      "Evaluation includes standard search datasets with random labels, deliberately challenging embeddings, and image embeddings with real timestamps. The reported speedup reaches 75 times that of existing solutions at equal recall. That qualification matters: the comparison holds retrieval quality at the same level, so the stated advantage concerns search speed rather than accepting fewer relevant results."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9fb876fa481f1fe92453edadeda97c168279c8a61e0155a99cf9900ec39f18c9",
+    "tldr": "A modular tree framework adds numeric-range filters to approximate nearest-neighbor indexes, with reported speedups up to 75 times at equal recall."
+  },
+  "icml-2024-bayesian-knowledge-distillation-a-bayesian-perspective-of-distillation-with-uncertainty--19d0792c20": {
+    "backgroundConcepts": [
+      "topic-242-a-bayes-sard-cubature-method"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Knowledge distillation trains a student model using guidance from a teacher, supporting model compression and faster deployment. This paper addresses two questions about that process: how to interpret the teacher’s contribution statistically, and how to quantify uncertainty in the resulting student. It develops Bayesian Knowledge Distillation as a common framework for both.",
+      "The key move is to express the teacher’s regularizing influence as a prior over the student’s parameters. Under this formulation, minimizing the distillation objective is equivalent to finding the mode of the student’s posterior distribution. This connects a familiar training procedure to a Bayesian interpretation: the teacher shapes the parameter beliefs used in learning.",
+      "The authors then develop efficient inference algorithms based on stochastic gradient Langevin Monte Carlo. These provide tools for examining uncertainty beyond a single fitted parameter setting. Experiments investigate ranking predictions by uncertainty and constructing credible intervals for predicted class probabilities. The contribution therefore combines an explanation of the distillation objective with methods for expressing uncertainty in the distilled model’s outputs."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1476defdc933e959832bde63316732b5d4af33e7db8845a685042421d9d8a4db",
+    "tldr": "Bayesian Knowledge Distillation interprets teacher guidance as a prior and adds Bayesian tools for quantifying student uncertainty."
+  },
+  "icml-2024-bayotide-bayesian-online-multivariate-time-series-imputation-with-functional-decompositi-90e7137fbb": {
+    "backgroundConcepts": [
+      "topic-098-a-distributed-variational-inference-framework-fo"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Filling missing values in time series becomes difficult when observations arrive continuously and at irregular times. Methods trained on fixed-length segments can overlook patterns spanning longer periods, including broad trends and recurring cycles. BayOTIDE addresses these issues through an online model designed for multiple related time series.",
+      "The method represents the observed series as weighted combinations of a smaller collection of temporal factors with different patterns. Gaussian processes with distinct kernels provide functional priors for those factors. This gives the model a way to represent different kinds of temporal behavior while treating time as something richer than a sequence of equally spaced observation slots.",
+      "To make inference computationally practical, the authors convert the Gaussian processes into state-space priors through equivalent stochastic differential equations. They then develop a scalable online inference algorithm. The resulting method supports imputation at arbitrary timestamps, quantifies uncertainty, and offers interpretable temporal components. Evaluation uses synthetic and real-world datasets, connecting the functional representation to the practical demands of incomplete streaming observations."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0fedd13659c5cb9e3d96cbb6da7aa5dd915435072bd7d2aebd9a26c63db6fb2c",
+    "tldr": "BayOTIDE fills gaps in irregular streaming time series using interpretable temporal factors and efficient Bayesian online inference."
+  },
+  "icml-2024-compositional-curvature-bounds-for-deep-neural-networks-e563b224fa": {
+    "backgroundConcepts": [
+      "topic-160-a-closer-look-at-accuracy-vs-robustness"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A neural classifier’s response to an input perturbation depends on more than its gradient at one point. Curvature describes how that gradient can change nearby. This paper studies that second-order behavior for continuously differentiable networks, with the aim of understanding and improving resistance to adversarial perturbations.",
+      "The authors analyze robustness and attack certificates using local gradients together with upper bounds on curvature. They introduce an algorithm that computes provable bounds by passing curvature information through the network layer by layer. Exploiting the model’s compositional structure makes the procedure modular and scalable, connecting a property of the entire network to calculations over its constituent layers.",
+      "The bound also serves as a differentiable training regularizer, allowing curvature to be controlled while the network learns. This links certification-oriented analysis with a mechanism intended to improve robustness during training. Experiments on MNIST and CIFAR-10 demonstrate the method’s effectiveness for classification. The theoretical claims concern the stated differentiable-network setting and provable upper bounds, while the practical evidence comes from those classification evaluations."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ce8824ef94b7747ec93ec934def2d6ce971ee0d83e84e9788ed068281965bdea",
+    "tldr": "Layer-by-layer curvature bounds support adversarial certificates and provide a differentiable regularizer for improving neural-network robustness."
+  },
+  "icml-2024-diracdiffusion-denoising-and-incremental-reconstruction-with-assured-data-consistency-2673c98332": {
+    "backgroundConcepts": [
+      "topic-225-a-conditional-normalizing-flow-for-accelerated-m"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A reconstructed image can look convincing while matching the measurements less faithfully. This tension is especially relevant for diffusion-based restoration, where attractive outputs may come with worse distortion scores. DiracDiffusion addresses both perceptual quality and measurement consistency within the reconstruction process itself.",
+      "The framework assumes that the observation results from a stochastic process that progressively degrades the clean image and adds noise. It learns to reverse that process, recovering the image incrementally while maintaining consistency with the original measurement throughout. The assumed degradation process therefore defines both how corruption occurs and how reconstruction should proceed.",
+      "The reverse trajectory also offers a way to choose among perceptual quality, distortion performance, and computational cost. Early stopping can improve distortion metrics and reduce sampling time while adjusting the perceptual trade-off. Experiments across high-resolution datasets and inverse problems report improvements over other leading diffusion methods on both perceptual and distortion measures. The contribution is a reconstruction framework that keeps faithfulness to observations central while retaining flexibility over output quality and speed."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "87390ab16ce27283fe2871227b9f67f73618777ec706be8bb29b53218881c12a",
+    "tldr": "DiracDiffusion reverses a gradual degradation process while preserving measurement consistency and allowing quality–speed trade-offs through early stopping."
+  },
+  "icml-2024-disentangled-3d-scene-generation-with-layout-learning-77675bf15e": {
+    "backgroundConcepts": [
+      "topic-185-textit-bifr-ost-3d-aware-image-compositing-with-"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Generating a three-dimensional scene as distinct objects makes its internal structure available for content creation. This paper develops an unsupervised method for obtaining that decomposition using the knowledge of a pretrained text-to-image model. Its central idea is that meaningful objects should remain parts of plausible scenes when their spatial arrangement changes.",
+      "The method jointly optimizes several neural radiance fields, or NeRFs, with each field representing an individual object. It also optimizes a collection of layouts that combine these objects into complete scenes. The composed scenes are encouraged to remain within the kinds of images supported by the pretrained generator, providing guidance for both object discovery and arrangement.",
+      "Learning across multiple arrangements is important because the proposed signal for identifying objects comes from their ability to participate in valid configurations of the same scene. The authors demonstrate scenes that separate into individual objects despite the absence of supervised disentanglement. The result supports text-to-3D creation in which component objects and their layouts are represented explicitly as part of the generated scene."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "684890ec6fd70ac46c6ab259dc24ce19b709f52626bde972ffddbd8128ceb2ac",
+    "tldr": "Jointly learning object NeRFs and multiple plausible layouts enables unsupervised generation of 3D scenes with separate component objects."
+  },
+  "icml-2024-doge-domain-reweighting-with-generalization-estimation-1d4dbc3d70": {
+    "backgroundConcepts": [
+      "topic-236-beta-dpo-direct-preference-optimization-with-dyn"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A language model’s pretraining mixture determines how often it sees data from different domains. Choosing these proportions by trial and error can miss combinations that better support the intended tasks. DoGE treats domain sampling probabilities as quantities to optimize using estimates of generalization.",
+      "The method works in two stages. First, a proxy model learns domain weights through a bi-level optimization procedure. A larger base model is then trained by sampling domains according to those learned weights. This separates the search for a useful data mixture from the larger training run, while making the mixture responsive to the target data distribution.",
+      "Experiments report improved generalization across target mixtures. On SlimPajama, the base model achieves better perplexity and few-shot reasoning accuracy across six tasks than the evaluated baselines. The authors also study targets from domains absent from the pretraining corpus, reporting that DoGE identifies dependencies between domains and consistently improves target-domain test perplexity. These findings support optimizing how domains contribute to training as a practical means of improving generalization."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "75a6f84f462548c52a066374feabff809d60132be82ec63bb8eb7039151f666c",
+    "tldr": "DoGE learns pretraining domain weights with a proxy model, improving the larger model’s generalization in the reported experiments."
+  },
+  "icml-2024-dsdm-model-aware-dataset-selection-with-datamodels-88d6163c89": {
+    "backgroundConcepts": [
+      "topic-236-beta-dpo-direct-preference-optimization-with-dyn"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Training examples that appear high quality to people do not necessarily produce a better model. The authors find that filtering by similarity to supposedly high-quality sources can fail to improve performance and can even underperform random selection. This motivates evaluating data through its contribution to learning.",
+      "DsDm frames dataset selection as an optimization problem defined by candidate examples, a learning algorithm, and target tasks. It explicitly models how training points affect predictions on those tasks, then uses that relationship to select data for model performance. The important shift is that an example’s usefulness depends on how the learning process uses it in a particular setting.",
+      "The resulting datasets improve language-model performance on both tasks specified during selection and previously unseen tasks. With representative language-model targets and diverse held-out benchmarks, the authors report a twofold compute multiplier relative to baseline methods. The findings indicate that selecting data around modeled learning outcomes can deliver substantial training value, including benefits that extend beyond the tasks used to guide selection."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "663bf357a25fc4cf9cff9bca418a722b4c85af48e1c71f3b0c3f952cad3907c1",
+    "tldr": "DsDm selects training data by its modeled effect on target performance, yielding a reported twofold compute multiplier over baseline selection methods."
+  },
+  "icml-2024-exploring-correlations-of-self-supervised-tasks-for-graphs-1fc95f3eca": {
+    "backgroundConcepts": [
+      "topic-044-a-collective-learning-framework-to-boost-gnn-exp"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Graph self-supervised learning trains representations without labeled examples, but different training tasks can encourage different capabilities. This paper studies how those tasks relate to one another. Its starting point is to test whether representations learned for one task also perform well on other self-supervised tasks.",
+      "The authors turn these cross-task evaluations into correlation values. These values reveal relationships between tasks and provide a measure of representation capabilities that are closely associated with downstream performance. Examining them across datasets shows that the relationships are complex, helping explain limitations of existing approaches that combine multiple training tasks.",
+      "The proposed Graph Task Correlation Modeling method, GraphTCM, explicitly models these relationships and uses them to improve self-supervised training. Experiments report substantial gains over existing methods across multiple downstream tasks. The contribution connects an investigative tool with a training method: measuring how capabilities transfer between tasks provides information that can guide the learning of more useful graph representations, rather than treating task combinations as interchangeable."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0937b2aef69cc2f2785432017de7b382e340fa33aa8ff576cfbc72bb16ad718c",
+    "tldr": "GraphTCM models how graph self-supervised tasks relate and uses those relationships to improve learned representations."
+  },
+  "icml-2024-fast-timing-conditioned-latent-audio-diffusion-b0394df145": {
+    "backgroundConcepts": [
+      "topic-077-voice-benchmarking-full-duplex-voice-agents-on-r"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Text-guided audio generation must handle both content and duration: a sound effect and a musical passage naturally occupy different amounts of time. Producing long stereo signals at 44.1 kHz also creates a substantial computational burden. This paper addresses these requirements together with a timing-conditioned latent diffusion model.",
+      "A fully convolutional variational autoencoder defines the latent representation in which diffusion operates. The generator receives both a text prompt and timing embeddings, allowing control over what it produces and how long the output lasts. Duration is therefore an explicit conditioning input alongside the requested musical or acoustic content.",
+      "The model can generate up to 95 seconds of 44.1 kHz stereo audio in eight seconds on an A100 GPU. The authors also report that it ranks among the best models on two public text-to-music and text-to-audio benchmarks. Its demonstrated capabilities include structured music and stereo sounds. These results connect efficient generation with useful control over length and content, rather than measuring speed alone."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "47e408f3feeea664fbfa6a0196f45c98da75b57fb2b921ac99d8f120aff1aaa8",
+    "tldr": "Timing-conditioned latent diffusion generates controllable stereo audio, rendering up to 95 seconds in eight seconds on an A100 GPU."
+  },
+  "icml-2024-high-dimensional-geometric-streaming-for-nearly-low-rank-data-15ac0de268": {
+    "backgroundConcepts": [
+      "topic-116-a-comprehensively-tight-analysis-of-gradient-des"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper studies how to summarize high-dimensional points arriving in an insertion-only stream using a low-dimensional subspace. The objective measures how far the points lie from that subspace. Different choices of the parameter p emphasize different combinations of distances; the infinity case focuses on the single largest distance.",
+      "For that worst-distance objective, the authors construct a deterministic strong coreset, a compact representation used to approximate the geometric problem. It yields an approximation factor polynomial in the chosen subspace dimension and the logarithm of the number of points. They also show that its distortion is nearly tight among algorithms using sublinear space.",
+      "The construction extends to other p values by appropriately scaling the points before applying the same coreset machinery. The authors describe the algorithms as easy to implement and fast on large datasets. They also apply the coreset to improve streaming results for width, convex hull, and volume estimation. The contribution therefore combines approximation guarantees with a reusable summary for several geometric tasks."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "aec96a20774ec19481bece76b0573c444ea364e73866587c29df2f003dcf3804",
+    "tldr": "A deterministic streaming coreset provides provable low-dimensional subspace approximations and improves several related geometric estimation problems."
+  },
+  "icml-2024-invit-a-generalizable-routing-problem-solver-with-invariant-nested-view-transformer-abf7fca4f8": {
+    "backgroundConcepts": [
+      "topic-015-texttt-strcmp-integrating-graph-structural-prior"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Learned routing heuristics can solve problems quickly, yet their performance often struggles when test instances differ from the training distribution or contain a different number of locations. This paper focuses on that transfer problem. It proposes an architecture intended to make a learned solver more reliable across distributions and problem sizes.",
+      "The Invariant Nested View Transformer, or INViT, combines a nested design with invariant views inside its encoders. These architectural choices are designed to promote generalization in how the solver represents routing instances. Training uses a modified policy-gradient algorithm enhanced with data augmentation, pairing the representation design with a reinforcement-learning procedure.",
+      "The authors evaluate the method on the traveling salesperson problem and the capacitated vehicle routing problem, covering varied distributions and scales. They report strong comparative generalization performance across those settings. The significance lies in treating transfer as an architectural and training objective: the solver is developed specifically for situations in which future routing instances need not resemble the examples used during learning."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7dec8dd36f8d4f7bbb3b49ee02aa2d33f4e554e8217750ce652763d5c5171aad",
+    "tldr": "INViT combines invariant nested representations with augmented reinforcement learning to improve routing generalization across distributions and problem sizes."
+  },
+  "icml-2024-is-in-context-learning-in-large-language-models-bayesian-a-martingale-perspective-10e7ae16f6": {
+    "backgroundConcepts": [
+      "topic-109-how-do-language-models-track-state"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "In-context learning lets a pretrained language model use examples in its prompt to predict new cases without updating its parameters. One proposed explanation is that this behavior approximates Bayesian inference. This paper tests that hypothesis through a mathematical requirement rather than relying only on similarities in predictive performance.",
+      "The authors examine the martingale property, which a Bayesian learning system must satisfy for exchangeable data. They show that this property is necessary for unambiguous predictions in the setting studied and supports a principled decomposition of uncertainty. They derive practical checks, supporting theory, and test statistics that assess whether the property holds.",
+      "The study also asks whether uncertainty decreases with additional observed data in the way Bayesian learning predicts. Three experiments find violations of the martingale property and departures from Bayesian uncertainty scaling. These results falsify the Bayesian interpretation in the tested settings. Their significance is that a proposed account of in-context learning must explain how predictions and uncertainty evolve as evidence accumulates, beyond matching isolated predictions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "967eff496ae265ab2c8cc41b07958298bec4aaaf670b4491855b921ba38c75c1",
+    "tldr": "Martingale-based tests find violations of requirements for Bayesian learning in three experiments on language-model in-context learning."
+  },
+  "icml-2024-locally-estimated-global-perturbations-are-better-than-local-perturbations-for-federated-dc3caa8d30": {
+    "backgroundConcepts": [
+      "topic-164-a-federated-stochastic-multi-level-compositional"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Federated learning combines updates from clients whose data can differ substantially. Sharpness-aware minimization seeks parameters with favorable behavior under nearby perturbations, but a client’s local loss landscape may poorly represent the global landscape. Consequently, perturbations computed from local data can guide training in directions that inadequately reflect the shared model’s objective.",
+      "FedLESAM estimates the global perturbation direction locally using the difference between two global models: the one received during the client’s previous active round and the one received in the current round. This uses information already conveyed through the evolving global model. The method also requires only one backpropagation per iteration, improving the efficiency of federated sharpness-aware training.",
+      "The theoretical analysis gives a slightly tighter bound than the original FedSAM through consistent perturbation. Experiments span four federated benchmark datasets and three data-partition strategies, reporting better performance and efficiency. The findings support using changes in the global model as a practical signal for perturbations when local client data alone poorly captures the overall training landscape."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9c2e24e01754ec3719a9928086dff4ad63816331421b248a15b81199c6784ece",
+    "tldr": "FedLESAM estimates global perturbations from successive received models, improving tested federated training while requiring one backpropagation per iteration."
+  },
+  "icml-2024-model-alignment-as-prospect-theoretic-optimization-5260e2af45": {
+    "backgroundConcepts": [
+      "topic-033-2d-shapley-a-framework-for-fragmented-data-valua"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Human judgments reflect systematic biases, including loss aversion. This paper connects such patterns, described by prospect theory, to objectives used for aligning language models with human feedback. The authors argue that part of the success of methods such as DPO comes from their membership in a family they call human-aware losses.",
+      "They also identify a mismatch between the utility functions implied by existing alignment methods and those used in prospect theory. Their proposed Kahneman-Tversky Optimization method, KTO, directly maximizes a model of the utility of generated responses. It learns from binary feedback indicating whether an output is desirable, without requiring preference comparisons between outputs.",
+      "Across model sizes from one to thirty billion parameters, KTO matches or exceeds the performance of preference-based methods in the reported evaluations. The broader conclusion is conditional: the authors suggest that no single human-aware loss is best everywhere. Choosing an objective involves choosing assumptions about human judgments, and the most useful assumptions can depend on the alignment setting."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ad4cd9e75761eea4d439ecfa0685227df8875dbbac3c3f989bc7526a25616d85",
+    "tldr": "KTO uses a prospect-theory utility objective to align language models from binary desirability feedback, matching or exceeding tested preference-based methods."
+  },
+  "icml-2024-on-the-convergence-of-projected-bures-wasserstein-gradient-descent-under-euclidean-stron-7abcd1be28": {
+    "backgroundConcepts": [
+      "topic-197-diffusion-models-are-minimax-optimal-distributio"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Bures-Wasserstein gradient descent uses a geometry suited to normal distributions and appears in problems involving Gaussian barycenters, matrix recovery, and variational inference. Existing convergence analyses often depend on particular loss functions. This paper seeks a more general guarantee, while also addressing optimization problems that impose constraints.",
+      "The authors establish a convergence-rate guarantee under stated Euclidean strong-convexity assumptions on the loss and constraints. The result connects assumptions expressed in Euclidean terms with the behavior of an algorithm operating in Bures-Wasserstein geometry. Its scope therefore depends on those assumptions, rather than covering every objective for which the method might be used.",
+      "For practical implementation, the paper derives a closed-form projection onto sets defined by Bures-Wasserstein distance constraints. This enables fast projected updates in constrained barycenter and distributionally robust optimization problems. Experiments report substantial gains in computational efficiency and convergence speed. Together, the analysis and projection formula address two complementary needs: understanding when the method converges and making its constrained version efficient to execute."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "74c7d9265eb61d992537a627066c0c5da5422a5241f39eec2e28539ad3c56ef6",
+    "tldr": "The paper gives conditional convergence guarantees and a closed-form projection for efficient constrained Bures-Wasserstein gradient descent."
+  },
+  "icml-2024-on-the-recoverability-of-causal-relations-from-temporally-aggregated-i-i-d-data-298659c369": {
+    "backgroundConcepts": [
+      "topic-090-a-causal-framework-for-decomposing-spurious-vari"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Causal effects may unfold faster than the intervals at which observations are recorded. Aggregating measurements over those intervals can hide time delays and create apparently instantaneous dependencies. This paper asks when causal discovery applied to the resulting data still reflects the underlying causal relationships.",
+      "The authors formalize two forms of consistency. Functional consistency concerns methods based on functional causal models, while conditional-independence consistency concerns methods that infer structure from conditional independence relationships. They provide conditions under which these connections survive aggregation, giving distinct criteria for assessing the two families of discovery methods.",
+      "Theory and experiments show that aggregation can seriously distort causal conclusions, particularly in fully nonlinear settings. The authors also identify circumstances in which recovery remains possible, including partial linearity or suitable prior knowledge. The findings make the measurement interval part of the causal interpretation problem: an apparent instantaneous relationship may reflect aggregated faster dynamics, and whether it remains informative depends on structural conditions. Aggregation can therefore change the meaning of the dependencies a discovery method observes."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c85486b0656e685a294972a4a4d9b522969d6a7249421df5f3eba0782fb740a2",
+    "tldr": "Temporal aggregation can distort causal discovery, but the paper identifies conditions under which causal relationships remain recoverable."
+  },
+  "icml-2024-out-of-the-ordinary-spectrally-adapting-regression-for-covariate-shift-f392028d3a": {
+    "backgroundConcepts": [
+      "topic-216-who-experiences-large-model-decay-and-why-a-hier"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Regression models predict continuous quantities, and their performance can deteriorate when inputs come from a different distribution than the training data. This paper studies that problem by returning to ordinary least squares, whose explicit solution makes it possible to analyze sensitivity to covariate shift.",
+      "The authors characterize prediction risk on the new distribution through the eigenspectrum decompositions of the source and target data. This spectral perspective describes how the geometry of the two distributions relates to the behavior of the fitted regression model. It provides the analytical basis for deciding how a model’s regression weights should adapt.",
+      "Their Spectral Adapted Regressor, SpAR, applies this insight to the final layer of a pretrained neural regression model. The adaptation is lightweight because it targets that layer’s weights. Experiments on synthetic and real-world datasets show that the procedure can improve performance on shifted inputs. The contribution links an interpretable analysis of linear regression with a practical adjustment for neural models facing a different input distribution."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "06b61d58980d70413c7557713e98b24f594e39277a1f0ab909b8457db044fdc3",
+    "tldr": "SpAR uses a spectral analysis of distribution shift to adapt a neural regressor’s final layer and improve tested out-of-distribution performance."
+  },
+  "icml-2024-pac-bayesian-error-bound-via-renyi-divergence-for-a-class-of-linear-time-invariant-state-014e0f36fe": {
+    "backgroundConcepts": [
+      "topic-113-a-call-to-lagrangian-action-learning-population-"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper studies learning for stochastic linear time-invariant state-space systems with inputs. These are dynamical models whose state evolves through linear relationships that remain fixed over time, while incorporating randomness and external inputs. The model class matters in control engineering and econometrics and also forms a special case of recurrent neural networks.",
+      "The authors first formalize the learning problem for this class of systems. They then derive a PAC-Bayesian error bound using Rényi divergence. The contribution is a theoretical result about learning error for the specified dynamical setting, connecting the system model to a framework for reasoning about the reliability of learned predictions.",
+      "The paper also discusses consequences of the bound. Its stated scope is a particular class of stochastic systems with inputs, so the connection to recurrent networks applies through that special case. The significance is the combination of a formal learning setup and an error guarantee for models used to describe evolving processes, providing a basis for analyzing learning within that class."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "aa45b49f612e58fe4574c219c88924e9e82e67c134a68386a9b6a941a38c253a",
+    "tldr": "The paper formalizes learning for stochastic LTI state-space systems with inputs and derives a PAC-Bayesian error bound using Rényi divergence."
+  },
+  "icml-2024-path-guided-particle-based-sampling-64b32e578a": {
+    "backgroundConcepts": [
+      "topic-193-a-continuous-mapping-for-augmentation-design"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Particle-based Bayesian inference represents a target distribution through a collection of samples. Reaching the important regions of that distribution can be difficult, especially when it has multiple modes. This paper proposes guiding the particles along an explicitly designed sequence of distributions from an initial distribution to the target.",
+      "The proposed Log-weighted Shrinkage path defines that sequence. A neural network learns a vector field motivated by the path’s Fokker-Planck equation, and particles move according to the ordinary differential equation associated with the learned field. The authors report that this path supports efficient discovery of target modes in situations where canonical methods fail.",
+      "The theoretical analysis examines Wasserstein distance between the generated sample distribution and the target, accounting for approximation and discretization errors. Experiments on synthetic and real-world Bayesian learning tasks report better inference accuracy and calibration than baselines including Stein variational gradient descent and Langevin dynamics. The method’s central contribution is to make the route between distributions an explicit part of the sampling design."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "bb4f58e2c6a137d8da7cf191293aa97c8f5d58f867a1887b65009bc71f7a2626",
+    "tldr": "Path-guided sampling moves particles along a designed density path, improving mode discovery and tested Bayesian inference accuracy and calibration."
+  },
+  "icml-2024-revisit-the-essence-of-distilling-knowledge-through-calibration-edeb10e9b8": {
+    "backgroundConcepts": [
+      "topic-145-a-kernel-perspective-on-distillation-based-colla"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A stronger teacher does not always produce a stronger student through knowledge distillation. This phenomenon, called capacity mismatch, challenges the assumption that teacher performance alone determines how useful its guidance will be. The paper develops an analytical account centered on calibration, or how well a model’s confidence reflects its predictive reliability.",
+      "Across extensive analytical experiments, the authors observe that better teacher calibration correlates with better outcomes under conventional distillation methods. They attribute this relationship to the sensitivity of commonly used comparison measures, including KL divergence, to calibration. The way the student is asked to match the teacher therefore helps determine which aspects of the teacher’s predictions influence learning.",
+      "The proposed response is to use a ranking-based loss that is insensitive to calibration. Experiments show that this loss can replace KL divergence effectively and help poorly calibrated large teachers teach better. The findings suggest that addressing capacity mismatch can involve changing the distillation objective, with attention to how it uses confidence information rather than relying only on teacher strength."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4e17f77b5dc7fecc8e42f2f18fd23e786b1c2434be683c0e20df5baf5e0f692b",
+    "tldr": "The paper links distillation performance to teacher calibration and shows that ranking-based losses can help poorly calibrated teachers train better students."
+  },
+  "icml-2024-revisiting-scalable-hessian-diagonal-approximations-for-applications-in-reinforcement-le-f5265cd83e": {
+    "backgroundConcepts": [
+      "topic-101-characterizing-the-gap-between-actor-critic-and-"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Second-order information describes how the slope of a training objective changes, helping guide optimization beyond what a gradient alone provides. Computing it is expensive, and even approximating only the Hessian diagonal can add substantial cost. This paper revisits an older approximation whose computational expense is similar to obtaining gradients.",
+      "The authors introduce HesScale, an improvement to that earlier scheme with negligible additional computation. On small networks, it gives higher-quality approximations than the evaluated alternatives, including methods with guarantees such as unbiasedness, while costing much less. The finding highlights a practical distinction: a theoretical property of an estimator does not by itself determine its approximation quality in these experiments.",
+      "The paper applies HesScale to reinforcement-learning problems using small networks, both for second-order optimization and for scaling step sizes. Experiments show faster optimization than existing methods and improved stability from step-size scaling. These results establish evidence in the small-network setting; the authors present their relevance to larger models as a promising direction for future scaling."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c644eb80e4af1a26e921d2d37470fb62e1e1b5592c76b0bac7a73822a39eef7d",
+    "tldr": "HesScale cheaply improves Hessian-diagonal estimates on small networks, accelerating tested reinforcement-learning optimization and stabilizing step sizes."
+  },
+  "icml-2024-scaling-exponents-across-parameterizations-and-optimizers-d237055621": {
+    "backgroundConcepts": [
+      "topic-069-pscaling-small-models-principled-warm-starts-and"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Increasing a model’s width requires coordinated choices about parameterization, learning rates, and optimization. This paper revisits assumptions about alignment between parameters and data that underlie earlier scaling prescriptions. It derives theoretical results using weaker assumptions and covering a broader range of optimizers.",
+      "The empirical study trains tens of thousands of models across three optimizers, four parameterizations, multiple alignment assumptions, more than twelve learning rates, and fourteen sizes reaching 27 billion parameters. The best learning-rate scaling rules often fall outside what earlier assumptions would permit. All studied parameterizations can support hyperparameter transfer, and the proposed per-layer learning rates for standard parameterization outperform maximal update parameterization in the reported study.",
+      "The authors also identify Adam’s epsilon parameter as an important part of scaling: it must be adjusted correctly to avoid gradient underflow. They introduce Adam-atan2, a numerically stable, scale-invariant variant that removes epsilon entirely. Together, the findings broaden the available routes to successful scaling and show that optimizer details can materially affect whether a parameterization works well."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c6ff7cb39d21b3a82897b0b3618d89be6937a72baca2de122070a85c05bb32a8",
+    "tldr": "Weaker scaling assumptions reveal effective learning-rate rules across parameterizations, while Adam-atan2 removes a numerically consequential epsilon setting."
+  },
+  "icml-2024-scaling-rectified-flow-transformers-for-high-resolution-image-synthesis-640f639c73": {
+    "backgroundConcepts": [
+      "topic-059-a-cat-is-a-cat-not-a-dog-unraveling-information-"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Rectified flow learns a generative connection between noise and data along straight paths. This paper investigates how to make that formulation effective for high-resolution text-to-image generation. One contribution changes training noise sampling to emphasize perceptually relevant scales, with a large-scale study showing better performance than established diffusion formulations.",
+      "The authors also introduce a transformer architecture with separate weights for text and image processing, while allowing information to flow in both directions between their tokens. This design improves text comprehension, typography, and human preference ratings. It addresses how the two modalities interact within the generator alongside the changes to the training formulation.",
+      "The architecture exhibits predictable scaling trends, and lower validation loss correlates with stronger image-generation results across metrics and human evaluations. The largest models outperform the leading models in the reported comparisons. These findings connect training choices, multimodal architecture, and model scale to output quality, while identifying validation loss as an empirically useful indicator of synthesis performance in the study."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "19065962acdbb060a753579309c21781d2aa82352c371c2bbb54395f0af1f31c",
+    "tldr": "Improved rectified-flow training and a bidirectional text–image transformer deliver strong high-resolution image generation with predictable scaling trends."
+  }
+}

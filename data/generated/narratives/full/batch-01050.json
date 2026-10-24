@@ -1,0 +1,331 @@
+{
+  "neurips-2025-accelerating-visual-policy-learning-through-parallel-differentiable-simulation-b38749e1e7": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper develops a faster way to train control policies that act from visual observations. Its method uses differentiable simulation and analytical policy gradients, allowing information about how simulated actions affect outcomes to guide learning. The central design choice concerns how image rendering participates in that training process.",
+      "The authors separate rendering from the computation graph used to calculate gradients. This lets their algorithm work with existing differentiable simulators without requiring specialized differentiable rendering software. They report that the separation reduces computation and memory demands while also reducing the policy gradient norm, producing smoother and more stable optimization.",
+      "On standard visual control benchmarks with GPU-accelerated simulation, the method reduces elapsed training time and achieves higher final returns than every tested baseline. The abstract highlights a fourfold improvement in final return on complex tasks such as humanoid locomotion, and a humanoid running policy learned within four hours on one GPU. These findings connect a specific computational simplification to both faster training and stronger control performance in the evaluated settings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "889815ca799a8ac62e57d563611621ec1546f24ddf898da2db8c0e237abed5d4",
+    "tldr": "Separating rendering from gradient computation makes visual policy training faster and more stable while improving returns on the tested control tasks."
+  },
+  "neurips-2025-adaptive-defense-against-harmful-fine-tuning-for-large-language-models-via-bayesian-data-90d83d4f9d": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Harmful fine-tuning can undermine a language model’s safety behavior after its initial alignment. Existing defenses often prepare by simulating attacks, but those simulations cover bounded threats and may not capture unfamiliar attack settings. This paper introduces Bayesian Data Scheduler, a defense that adapts during fine-tuning without requiring attack simulation.",
+      "The method treats each training example’s safety as something uncertain that must be inferred. It learns a posterior distribution over that safety attribute using both the fine-tuning dataset and alignment data. Training examples receive weights based on safety attributes sampled from these distributions, reducing the influence of harmful data during the tuning process.",
+      "Because the inference incorporates the actual fine-tuning dataset, the defense can respond to that dataset’s characteristics. A neural scheduler trained through amortized Bayesian learning supports efficient transfer to new data without retraining. Across diverse evaluated attack and defense settings, the authors report state-of-the-art performance. The contribution is an adaptive way to constrain training using inferred data safety, with effectiveness demonstrated across the studied settings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ce24050f8941e7231fad2be1e64ae3c1e7e1487a7422279e0624254dd4ceafbe",
+    "tldr": "Bayesian Data Scheduler adapts fine-tuning defenses by inferring each example’s safety and weighting its training influence without simulated attacks."
+  },
+  "neurips-2025-attribution-driven-adaptive-token-pruning-for-transformers-d2ea77374d": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Token pruning reduces Transformer computation by removing parts of an input sequence. This paper argues that effective pruning needs to account for differences in sequence length and complexity. Its analysis also finds that accumulated attention values do not accurately represent how much individual tokens contribute to understanding text.",
+      "AD-TP uses Integrated Gradients to assess token importance and adds a lightweight module that chooses a pruning configuration for each input. This allows the amount and pattern of retained information to vary with the sequence. Teacher supervision and self-supervised objectives further support the model’s training efficiency, accuracy, and robustness.",
+      "Experiments on GLUE, SQuAD, and 20News show better accuracy and computational efficiency than the token pruning and model compression methods used for comparison. On GLUE, the authors report an average 7.8-fold reduction in FLOPs alongside a 0.6% performance improvement. The findings support combining contribution-based token assessment with input-specific pruning: compression can preserve useful information more effectively when it responds to the particular sequence being processed."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "91647909739800377779aa3731ebd857a83ac46972f3267a73a74708fcc1b639",
+    "tldr": "AD-TP combines token attribution with input-specific pruning to reduce Transformer computation while improving accuracy on the evaluated text benchmarks."
+  },
+  "neurips-2025-balanced-active-inference-682f46ee23": {
+    "backgroundConcepts": [
+      "topic-237-active-statistical-inference"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "When labels are expensive, researchers must choose which observations to label while still drawing reliable statistical conclusions. Earlier active inference methods improve on uniform sampling, but independent selections can leave available information underused. This paper proposes balanced active inference to make a limited labeling budget more statistically effective.",
+      "The algorithm uses model uncertainty to construct balance constraints and applies the cube method to select observations for labeling. The selection therefore accounts for requirements on the chosen collection, rather than relying only on independent choices. These constraints provide a way to incorporate additional available information into the sampling process.",
+      "Under regularity conditions, the authors establish the algorithm’s asymptotic properties and prove higher statistical efficiency than its alternatives. Experiments cover regression and classification with synthetic and real data, where the method outperforms the alternatives while maintaining nominal coverage. That coverage result concerns whether uncertainty intervals meet their intended coverage level. Together, the theory and experiments support more efficient label selection without sacrificing the reported reliability of statistical uncertainty."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "fe75d167e75cd9568b51585cb2996f449f524b53996733648e7d338609bb61bc",
+    "tldr": "Balanced active inference uses uncertainty-based sampling constraints to improve statistical efficiency, with conditional theoretical guarantees and experiments maintaining nominal coverage."
+  },
+  "neurips-2025-beyond-value-functions-single-loop-bilevel-optimization-under-flatness-conditions-ec8e1ee9a2": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Bilevel optimization organizes learning into an upper problem whose outcome depends on a lower optimization problem. This nested structure can be expensive: existing methods commonly require Hessian-vector calculations or repeated inner optimization loops. The paper targets those costs, particularly in applications such as fine-tuning large language models.",
+      "The proposed algorithm, PBGD-Free, builds on a penalty-based approach that uses only first-order information. It removes the loop devoted to solving the lower-level problem and permits fully single-loop updates. Its value-function-free design therefore changes how the hierarchy is handled computationally, addressing a major source of repeated work in bilevel methods.",
+      "To establish convergence, the authors introduce a relaxed flatness condition on the upper-level function, motivated by analysis of representation-learning-based language-model fine-tuning. The convergence result relies on this condition; it is not stated for arbitrary bilevel problems. Experiments across several applications show greater computational efficiency than state-of-the-art bilevel methods. The paper thus pairs a simpler update structure with a theoretical explanation of when that structure converges."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "956f87d5ff136be9e7ceb355271130c86d05d7066320fb664fcc321772a678c8",
+    "tldr": "PBGD-Free enables fully single-loop, first-order bilevel optimization, with convergence proved under a relaxed upper-level flatness condition."
+  },
+  "neurips-2025-blurdm-a-blur-diffusion-model-for-image-deblurring-4050ea5515": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "BlurDM aims to improve image deblurring by making the diffusion process reflect how motion blur forms. The paper starts from the observation that motion blur results from continuous exposure. It argues that existing diffusion approaches do not fully use this structure, leaving useful information about the degradation process underexploited.",
+      "The proposed forward process introduces both noise and blur into a sharp image. The authors then derive a reverse process that removes both together. Generation begins from Gaussian noise, with the observed blurred image supplying conditioning information. This connects the model’s restoration procedure to the paired degradations introduced during its forward process.",
+      "For efficient integration with deblurring networks, BlurDM operates in latent space and serves as a flexible prior generation network. Experiments on four benchmark datasets show significant, consistent improvements when it is incorporated into existing deblurring methods. The stated contribution is therefore both a formulation that explicitly incorporates blur formation and a practical component for strengthening restoration networks, with benefits demonstrated across the evaluated datasets."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5ff743a01cd43f956a6a871026ce652f43d1a8563980ce5b442951d7964213b2",
+    "tldr": "BlurDM incorporates blur formation into diffusion and jointly removes blur and noise, improving existing deblurring methods on four benchmark datasets."
+  },
+  "neurips-2025-connectomebench-can-llms-proofread-the-connectome-854ce75562": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Mapping neural connections requires extensive human checking of imaging data and machine-assisted segmentation. ConnectomeBench asks whether multimodal language models can perform parts of this proofreading work. Its three tasks test segment identification, correction of split errors, and detection of merge errors, separating capabilities that contribute to the overall checking process.",
+      "The benchmark uses expert annotations from two open datasets: a cubic millimeter of mouse visual cortex and a complete fruit fly brain. Evaluated proprietary and open models achieve 52–82% balanced accuracy on segment identification, against 20–25% chance levels. For binary or multiple-choice split correction, reported accuracy reaches 75–85%, compared with 50% chance.",
+      "Performance is uneven across tasks: models generally struggle to identify merge errors, and even the best remain below expert performance. These results establish useful capabilities without showing that autonomous proofreading is already solved. The benchmark identifies both promising entry points for assistance and a harder error category, supporting the authors’ view that such systems could eventually augment, and potentially replace, human proofreading."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "00f012713653b382c6bc20d3f9102724fa8dfa37a8bd6bb78d889cfbd4873420",
+    "tldr": "ConnectomeBench finds promising model performance on segment identification and split correction, but merge detection remains difficult and experts still perform better."
+  },
+  "neurips-2025-detecting-data-deviations-in-electronic-health-records-ed0a8ffc1c": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Electronic health records can contain entries that diverge from a patient’s actual physiological state. Such discrepancies may arise from documentation errors, variability before analysis, or unvalidated sources. This paper develops a way to assess record fidelity and flag potential deviations, supporting the identification of unreliable data before it affects downstream workflows.",
+      "The method transfers knowledge through two levels. First, an expensive, task-specific data Shapley oracle teaches a neural oracle for each individual task. Those task-level neural oracles then inform a unified predictor of EHR data fidelity. This structure combines evidence from multiple tasks into a task-agnostic assessment of record reliability.",
+      "Potential deviations are detected by tracking the learned predictor’s outputs. Experiments use both hospital records from Singapore’s National University Hospital and the public MIMIC-III dataset, with consistent evidence of effectiveness in detecting deviations. Case studies also identify clinically meaningful discrepancies. The contribution is a shared reliability predictor that brings together task-specific insights, allowing the detection process to draw on a broader view of a patient’s recorded data."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7b6d36ec9ef6fd996b2aa03d1fe18d3dff9d510ca836f13d6a384638473eafa9",
+    "tldr": "Two-stage knowledge distillation combines task-specific data assessments into a unified predictor that detects potential deviations in electronic health records."
+  },
+  "neurips-2025-fedmgp-personalized-federated-learning-with-multi-group-text-visual-prompts-93ceeb2178": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "FedMGP addresses personalized federated learning for vision-language models when clients have different data distributions. The paper identifies a weakness in using one text-only prompt representation: it can overfit individual clients and make aggregation unstable. Its alternative gives each client several groups of paired textual and visual prompts.",
+      "A diversity loss encourages the groups to learn complementary semantic aspects and cover different local characteristics. During communication, each client compares its groups with the previous global prompts using cosine similarity. It then samples groups through a softmax-weighted distribution, favoring shared semantic content while leaving room for underrepresented patterns to participate.",
+      "The method divides a fixed prompt capacity among groups, preserving parameter efficiency. The authors report state-of-the-art performance with 5.1k communication parameters, described as the lowest among federated prompt learning methods. Their analysis supports aggregation that reinforces shared semantics and suppresses client-specific noise. Experiments show consistent improvements in personalization and domain generalization across the evaluated benchmarks, suggesting that diverse local prompts and selective sharing can work together effectively."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c50ac24bb2fa38f8dc6bb27aab933e8773aeba2ffd50b3207ee058c4a5210320",
+    "tldr": "FedMGP combines diverse text-visual prompt groups with similarity-guided sharing to improve personalized federated learning while keeping communication parameters low."
+  },
+  "neurips-2025-generalizable-real-time-neural-decoding-with-hybrid-state-space-models-33cf7de27b": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Real-time neural decoding must turn brain activity into predictions quickly enough for closed-loop experiments or brain-computer interfaces. Lightweight recurrent models can be fast but generalize poorly, while pretrained Transformers often require more computation. POSSM is designed to combine efficient online prediction with transfer across sessions, individuals, and tasks.",
+      "Its architecture uses cross-attention to tokenize individual neural spikes and a recurrent state-space model to process them. Multi-dataset pretraining supports generalization, while the recurrent backbone enables fast, causal predictions. The authors evaluate monkey motor-task decoding and extend testing to human handwriting and speech, connecting architectural efficiency to several neural decoding applications.",
+      "Across these tasks, POSSM achieves accuracy comparable to state-of-the-art Transformers at lower inference cost, with GPU speedups reaching ninefold. Pretraining on monkey motor-cortical recordings also improves human handwriting decoding, providing evidence of cross-species transfer in that setting. The results suggest that hybrid state-space architectures can help reconcile accuracy, generalization, and latency requirements for real-time neural decoders."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "eff5b42fe0d76563fb3831cc5b036a45fa962d3e8c1f593cf0239169943ff5a0",
+    "tldr": "POSSM matches Transformer-level neural decoding accuracy in the evaluated tasks while reducing inference cost and demonstrating transfer from monkey recordings to human handwriting."
+  },
+  "neurips-2025-grids-often-outperform-implicit-neural-representation-at-compressing-dense-signals-21c4d4af46": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper examines how effectively implicit neural representations use their parameters to represent dense signals. It compares diverse neural representations with grid representations across real and synthetic two- and three-dimensional signals. The study varies signal bandwidth and model size, making representation capacity a central part of the comparison.",
+      "The evaluation includes both direct signal fitting and generalization tasks, covering tomography, super-resolution, and denoising. Organizing results by signal type, bandwidth, and parameter count helps reveal where each representation spends its capacity effectively. This matters because a representation’s usefulness can depend on the structure of the signal as well as the amount of storage it receives.",
+      "For most tested tasks and signals, a simple regularized grid with interpolation trains faster and reaches higher quality than any evaluated implicit neural representation with the same parameter count. The authors also identify limited settings where neural representations win, particularly fitting binary signals such as shape contours. The findings favor grids broadly within the study while identifying specific applications where implicit neural representations remain advantageous."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "67694e7e55da76a202113fa531fa3c8434d2fb908f2476a8c8a570d1933bfaab",
+    "tldr": "At matched parameter counts, regularized grids outperform tested implicit neural representations on most studied signals, with exceptions such as binary shape contours."
+  },
+  "neurips-2025-hyprl-reinforcement-learning-of-control-policies-for-hyperproperties-5fac46cd35": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Some control objectives concern relationships among several possible executions or among agents, making reward design difficult. HYPRL addresses this using hyperproperties expressed in HyperLTL. These formal specifications describe objectives and constraints over sets of execution traces, providing a structured way to state what the learned policies should collectively achieve.",
+      "The framework applies Skolemization to manage alternations between quantifiers in the specification. It then defines quantitative robustness functions that turn trace-level satisfaction into a reward signal. A suitable reinforcement learning algorithm learns policies for a Markov decision process whose transitions are unknown, using these rewards to guide behavior toward the formal objective.",
+      "The goal is to maximize expected reward and thereby increase the probability of satisfying the HyperLTL formula. The abstract does not claim that every learned policy satisfies the specification with certainty. Evaluations span safety-aware planning, Deep Sea Treasure, and the Post Correspondence Problem, with comparisons against specification-driven baselines demonstrating effectiveness and efficiency. The contribution connects expressive multi-execution requirements to a usable reward-shaping procedure."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9c1e9ebbbbe1c7f3a07a69314a8384899896c533508bc4129026fe63adbb236f",
+    "tldr": "HYPRL converts formal requirements over multiple execution traces into rewards that guide policies toward a higher probability of satisfying those requirements."
+  },
+  "neurips-2025-incentivizing-truthful-language-models-via-peer-elicitation-games-0216a8e68b": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Peer Elicitation Games addresses language-model inconsistencies and hallucinations through interaction among models. The framework uses a generator and several discriminators instantiated from distinct base models. It requires neither ground-truth labels nor fine-tuning, instead designing a peer evaluation game whose incentives encourage participants to report truthfully.",
+      "Discriminator utilities are calculated with a determinant-based mutual information score. The authors prove that this mechanism incentivizes truthful reporting and that agents using online learning achieve sublinear regret relative to the best fixed truthful strategy in hindsight. This means the cumulative performance gap grows more slowly than the number of interactions.",
+      "The paper also proves convergence of the agents’ actual policies to a truthful Nash equilibrium, going beyond a guarantee about cumulative performance alone. Across multiple benchmarks, empirical evaluations show significant improvements in factual accuracy. These results combine formal guarantees about behavior within the proposed game with measured gains in model outputs, supporting peer elicitation as a practical route to better factual responses without supervised retraining."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "49b3916a1a008cfdc82d975b8b395d8f96dd05d9a338f3b395f535ed29c3c754",
+    "tldr": "Peer Elicitation Games uses theoretically grounded incentives among models to encourage truthful reporting and improve factual accuracy without labels or fine-tuning."
+  },
+  "neurips-2025-incomplete-multi-view-clustering-via-hierarchical-semantic-alignment-and-cooperative-com-de74e3ded9": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Multi-view clustering groups samples using several sources of information, but some samples may lack an entire view. HSACC addresses this incompleteness while avoiding the weaknesses the authors associate with static fusion and separate completion-and-clustering stages. Its design combines hierarchical alignment, adaptive fusion, and joint learning of completion and clustering.",
+      "At a lower semantic level, the method maximizes mutual information across views to encourage consistency. At a higher level, it compares each view’s distribution with an initial fused representation and assigns adaptive weights before combining the views. Missing views are implicitly recovered by projecting aligned latent representations into higher-dimensional semantic spaces.",
+      "Reconstruction and clustering objectives are optimized together, allowing completion and grouping to inform each other during learning. On five benchmark datasets, HSACC significantly outperforms state-of-the-art comparison methods. Ablations support the contributions of hierarchical alignment and dynamic weighting, while parameter analysis finds robustness to hyperparameter changes. These results support the coordinated design: aligning views, adjusting their influence, and learning completion jointly all contribute to the reported clustering improvements."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "907db24046b9f149889e2d6bcaab9ef75e4239fe54256e762d2dbfa62afbd306",
+    "tldr": "HSACC jointly aligns, weights, and completes incomplete views to improve clustering, outperforming comparison methods on five benchmark datasets."
+  },
+  "neurips-2025-integration-matters-for-learning-pdes-with-backward-sdes-49f6f80d82": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Neural solvers based on backward stochastic differential equations offer a way to solve high-dimensional partial differential equations. They can be appealing when a PDE is tied to an underlying dynamical system, yet published comparisons have found them weaker than physics-informed neural networks. This paper investigates a numerical source of that gap.",
+      "The authors identify discretization bias from Euler–Maruyama integration in one-step self-consistency losses. This bias moves the optimization landscape away from the intended target. They find that smaller time steps or multi-step self-consistency losses do not satisfactorily resolve it, so they reformulate the BSDE using Stratonovich calculus and implement it with stochastic Heun integration.",
+      "The proposed approach eliminates the identified bias issues associated with Euler–Maruyama integration. Across multiple high-dimensional benchmarks, the Heun-based method consistently outperforms Euler–Maruyama variants and performs competitively with physics-informed neural networks. The findings show that the integration scheme can alter what the learning objective effectively asks the model to solve, making numerical integration a central design decision for these neural PDE solvers."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a0d03f3e6b31ab6a36ee392129ced07816376086758233c747fcf8fd9938c50b",
+    "tldr": "A Stratonovich formulation with stochastic Heun integration removes identified training-loss bias and makes BSDE-based PDE solvers competitive with PINNs on tested benchmarks."
+  },
+  "neurips-2025-jarvisart-liberating-human-artistic-creativity-via-an-intelligent-photo-retouching-agent-c98e7aa6e8": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "JarvisArt is a photo-retouching agent intended to connect user requests with the detailed controls of professional editing software. Driven by a multimodal language model, it interprets intent and coordinates more than 200 Lightroom tools. The aim is to combine accessible interaction with fine-grained global and local adjustments.",
+      "Training proceeds in two stages. Chain-of-Thought supervised fine-tuning first establishes reasoning and tool-use skills, followed by Group Relative Policy Optimization for Retouching to improve decisions and tool proficiency. An Agent-to-Lightroom Protocol provides integration with the editing software, connecting the model’s decisions to the available retouching operations.",
+      "The authors introduce MMArt-Bench, built from real user edits, to evaluate the agent. They report strong generalization, detailed editing control, and user-friendly interaction. Compared with GPT-4o, JarvisArt improves average pixel-level content-fidelity metrics by 60% while maintaining comparable instruction-following ability. That result concerns fidelity under the benchmark’s metrics, showing that specialized training and coordinated tool use can improve the preservation of image content during requested edits."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d04183f6b54e5ec4fa60c8d20c0f4a4a4884fa854ca6a0774fc1dfa8516152f8",
+    "tldr": "JarvisArt coordinates Lightroom tools through a specially trained multimodal agent, improving benchmark content fidelity while maintaining comparable instruction following to GPT-4o."
+  },
+  "neurips-2025-muslr-multimodal-symbolic-logical-reasoning-ce5812ca23": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "MuSLR evaluates whether vision-language models can derive new facts from multimodal inputs using formal logic. The benchmark contains 1,093 instances across seven domains, covering atomic symbolic logic and combinations of logical rules. Reasoning depths range from two to nine, allowing evaluation across different levels of inferential complexity.",
+      "Testing seven state-of-the-art models reveals substantial difficulty: the strongest evaluated model, GPT-4.1, achieves 46.8%. The authors introduce LogiCAM, a modular framework that applies formal logical rules to multimodal inputs. It improves GPT-4.1’s Chain-of-Thought performance by a reported 14.13%, with larger gains on complex logical forms such as first-order logic.",
+      "An error analysis attributes roughly 70% of failures to logical misalignment between modalities. This finding points to the difficulty of making information from different input types agree within a shared logical interpretation. The benchmark and framework together make that problem measurable and show that explicit rule application can improve performance, while the reported scores indicate that multimodal symbolic reasoning remains challenging for the tested systems."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e65915dc6cbc9a238fe485b0ecd97ad55fa86a958f2a273f27ae93ce142259e7",
+    "tldr": "MuSLR exposes weaknesses in multimodal logical reasoning, while LogiCAM improves performance by applying formal rules to multimodal inputs."
+  },
+  "neurips-2025-panorama-a-dataset-and-benchmarks-capturing-decision-trails-and-rationales-in-patent-exa-33b52a5ca9": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Patent examination requires assessing claims against prior art and judging novelty and non-obviousness. The paper argues that predicting final outcomes or using similarity scores misses the reasoning steps examiners actually follow. PANORAMA preserves those decision trails so that language models can be assessed at individual stages of patent review.",
+      "The dataset contains 8,143 U.S. examination records, including original applications, cited references, non-final rejections, and notices of allowance. Its sequential benchmarks follow the review process and retain the rationales found in examination documents. This structure makes it possible to distinguish finding relevant evidence from making the substantive judgments that evidence must support.",
+      "The evaluations show that language models are relatively effective at retrieving prior art and locating pertinent paragraphs, but struggle with novelty and non-obviousness assessments. This separates useful document-search capabilities from the harder examination decisions. The authors argue that progress requires a deeper understanding of actual patent-review practice, and the openly available dataset provides a basis for studying those steps and their associated reasoning."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "98c7fec7a888ca4b0fb1386c9b67ef90e889b5565b8bc6b00f2167f9c6021c75",
+    "tldr": "PANORAMA preserves patent examination trails and shows that language models handle evidence retrieval better than novelty and non-obviousness judgments."
+  },
+  "neurips-2025-rethinking-pca-through-duality-4fd8e1d582": {
+    "backgroundConcepts": [
+      "topic-205-a-dc-programming-approach-for-sparse-eigenvalue-"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Motivated by connections between self-attention and principal component analysis, this paper revisits PCA through optimization and duality. It uses the difference-of-convex framework, which expresses an objective through a difference of convex components. This perspective yields several new formulations and theoretical insights into PCA and related problems.",
+      "The authors establish that a family of PCA-like problems can be kernelized and applied to previously unseen samples. They also show that simultaneous iteration, a method connected to the classical QR algorithm, is an instance of the difference-of-convex algorithm. This provides an optimization interpretation of an established iterative procedure.",
+      "Building on these formulations, the paper introduces new PCA algorithms and compares them empirically with state-of-the-art methods. It also develops a kernelizable dual formulation for a robust PCA variant based on minimizing absolute reconstruction deviations. The contributions connect classical algorithms, kernel methods, and robust reconstruction objectives through a shared mathematical viewpoint, broadening the ways these problems can be formulated and analyzed."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "755dd3c10e93f7372bebe256cce8ac426dbb389f065e88fd13d705d50b40a5df",
+    "tldr": "A difference-of-convex perspective yields new PCA formulations, explains simultaneous iteration, and supports kernelizable methods including a robust reconstruction variant."
+  },
+  "neurips-2025-scatterad-temporal-topological-scattering-mechanism-for-time-series-anomaly-detection-eefe0d38c8": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Industrial time series contain coupled relationships across variables and over time. ScatterAD begins with an empirical observation: both normal and anomalous representations disperse in high-dimensional space, but anomalous ones tend to spread more. The authors quantify this scattering through mean pairwise distances and use it to guide anomaly detection.",
+      "The architecture combines a topological encoder for graph-structured scattering with a temporal encoder that limits excessive scattering by minimizing squared differences between neighboring time steps. A contrastive fusion mechanism encourages the two representations to complement each other. The design therefore uses relationships among variables alongside changes through time when constructing representations.",
+      "The paper also provides theoretical support for maximizing conditional mutual information between the temporal and topological views, linking this objective to stronger cross-view consistency and more discriminative representations. Experiments on multiple public benchmarks report state-of-the-art multivariate anomaly detection performance. The findings support treating representation dispersion as a useful learning signal and coordinating its temporal and structural aspects within a single detection method."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e59537432ea2efabf7dedabfd3f468de0cb7fe180bc04e02352ffd6f51bc39f4",
+    "tldr": "ScatterAD combines temporal and graph-based representation scattering to improve multivariate time-series anomaly detection on public benchmarks."
+  },
+  "neurips-2025-silentstriker-toward-stealthy-bit-flip-attacks-on-large-language-models-48ce0031ef": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "SilentStriker studies attacks that corrupt language-model parameters through hardware vulnerabilities. The paper focuses on a particular security concern: a model can become worse at its task while continuing to produce natural-looking text. Earlier bit-flip methods struggle to balance degradation with this form of stealth, making their effects easier to notice.",
+      "The authors identify loss design as a central challenge because language models have variable-length outputs and a large output space. Their approach targets suppression of key output tokens, replacing attack objectives based on output perplexity that can damage text naturalness. An iterative, progressive search strategy further strengthens the attack’s effectiveness.",
+      "Experiments show that SilentStriker significantly outperforms the tested baselines and achieves successful attacks while preserving the naturalness of generated text. The result highlights a distinction between fluent output and reliable task performance: visible linguistic quality can remain intact even when parameter corruption harms the model’s behavior. The paper’s contribution is to demonstrate and evaluate that stealthier failure mode for bit-flip attacks on language models."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "18172ceb657be47027e54bb6bbbb559f27659c6558dae1a0bf33edd99b1030a7",
+    "tldr": "SilentStriker demonstrates bit-flip attacks that degrade language-model task performance while preserving natural-looking outputs."
+  },
+  "neurips-2025-simworld-robotics-synthesizing-photorealistic-and-dynamic-urban-environments-for-multimo-a2b92bb7f2": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "SimWorld-Robotics expands robot evaluation into large urban environments containing pedestrians and traffic. Built on Unreal Engine 5, the platform procedurally generates photorealistic scenes and supports control and communication among multiple robots. It addresses the concentration of existing generalist robotics work on indoor household settings by supplying more complex outdoor scenarios.",
+      "The authors introduce two benchmarks. In the first, a robot follows combined visual and language navigation instructions to a destination while operating around people and traffic. In the second, two robots communicate to find and meet each other. These tasks bring together instruction grounding, three-dimensional spatial reasoning, long-range navigation, collaboration, and communication tied to the environment.",
+      "Experiments show that evaluated state-of-the-art models, including vision-language models, struggle with the tasks. The reported weaknesses involve perception, reasoning, and planning needed in urban settings. The platform’s contribution is both a scalable source of dynamic simulated environments and a pair of benchmarks that expose difficulties in combining these capabilities during extended navigation and cooperative search."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4ee3d4caac8f78501761c8eb455a9112893638ddec9e3e89019b64b5df002582",
+    "tldr": "SimWorld-Robotics provides dynamic urban simulations and benchmarks that reveal weaknesses in current models’ navigation, reasoning, and robot collaboration."
+  },
+  "neurips-2025-spectral-learning-for-infinite-horizon-average-reward-pomdps-740c761d8e": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies learning in partially observable environments where the objective is long-run average reward. Spectral estimation methods have traditionally used data from fixed sampling policies, with later work allowing restricted adaptive policies. A persistent difficulty is that requiring samples from one policy prevents effective reuse of data collected under changing behavior.",
+      "Mixed Spectral Estimation supports a broader class of belief-based policies and combines samples gathered from multiple policies. The authors provide finite-sample guarantees under standard observability and ergodicity assumptions. These assumptions bound the theoretical claim, while the ability to combine policy sources addresses the stated data-efficiency problem.",
+      "The estimation procedure supports a learning algorithm called Mixed Spectral UCRL. Its regret relative to the optimal policy scales as the square root of the interaction horizon, up to logarithmic factors, without requiring full knowledge of either transition or observation models. Numerical simulations validate the analyses of both components. The contribution links more flexible data reuse to a strong long-horizon learning guarantee under partial observability."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b0a83abdea5d6d90f86f9ca6d18cb7ae942033de16da6687e82bef17e66a0919",
+    "tldr": "Mixed Spectral Estimation combines data from multiple belief-based policies and enables a POMDP learner with near-square-root regret under stated assumptions."
+  },
+  "neurips-2025-unbalanced-optimal-total-variation-transport-a-theoretical-approach-to-spatial-resource--cfaf5c7fe7": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper develops an optimal transport framework for allocating resources across space when supply and demand need not balance. Its objectives combine transportation costs with total variation penalties for mismatch. That formulation directly represents operational choices about how much movement is worthwhile when exact supply-demand matching is not required.",
+      "The authors establish the existence of optimal solutions and a dual formulation in the general setting. They then study the case where one distribution is discrete and the other is continuous, as when facilities serve demand spread across an area. A tessellation structure, dividing space into service regions, leads to explicit conditions characterizing optimal allocations.",
+      "The framework also addresses choosing both facility locations and their associated weights using demand-side information. This quantization problem connects allocation decisions with facility placement, including the proposed applications of warehouses and battery swap stations. The dual and tessellation structure yields explicit gradients for finite-dimensional numerical optimization. The contribution is a mathematical foundation that connects unequal supply and demand, service-area partitioning, and facility design within one framework."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a3270ab6766919168fa94fa710f0ff5b8be6028041a3170406b2e7910a2145e5",
+    "tldr": "A new unbalanced transport framework formalizes spatial allocation trade-offs and derives optimality conditions and gradients for service regions and facility placement."
+  },
+  "neurips-2025-writingbench-a-comprehensive-benchmark-for-generative-writing-2bc91efe19": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "WritingBench addresses the difficulty of evaluating writing across tasks with different requirements. The benchmark spans six main writing domains and 100 subdomains, extending beyond generic generation tests or narrowly defined writing tasks. Its central premise is that an assessment should respond to what a particular writing request actually demands.",
+      "The evaluation framework uses language models to generate criteria for each individual query. A fine-tuned critic then scores responses against those criteria, allowing evaluation to account for style, format, and length. This connects the scoring process to the request instead of applying an identical set of expectations across all writing situations.",
+      "The authors also use the framework for data curation and report that it enables a seven-billion-parameter model to outperform GPT-4o in their writing evaluation. This result supports the usefulness of the assessment framework for selecting training data as well as measuring outputs. The benchmark, evaluation tools, and modular components are released openly, providing resources for studying writing quality through task-dependent criteria."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7fbd9230e0a8dfa8fffbef1355b04338605ae4427435b7ddbbcf63ff2074f9df",
+    "tldr": "WritingBench evaluates diverse writing tasks using query-specific criteria and a trained critic, with data-curation results supporting the framework’s usefulness."
+  }
+}

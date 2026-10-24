@@ -1,0 +1,327 @@
+{
+  "icml-2026-a-semantically-consistent-dataset-for-data-efficient-query-based-universal-sound-separat-e1485dd063": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Query-based sound separation aims to extract a requested sound from an audio mixture. The paper argues that training data can undermine this task: recordings with weak labels and several simultaneous events encourage models to associate a target category with its background. A model can consequently retain unwanted sounds instead of learning the acoustic features that distinguish the requested source.",
+      "The authors introduce an automated pipeline that mines high-purity segments containing single events from recordings collected in the wild. A semantically consistent synthesis procedure uses these segments to construct Hive, a synthetic dataset comprising 2,400 hours of raw audio. The central intervention is cleaner supervision, reducing the ambiguity about which sound corresponds to a target.",
+      "Certain open-source models trained on Hive achieve separation accuracy and perceptual quality competitive with SAM-Audio, despite that model having used approximately 500 times more training data. They also show strong zero-shot generalization on out-of-distribution benchmarks. These results support the paper’s claim that purifying training signals can substantially improve data efficiency for sound separation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b2707d1346650798165d6001743f5c18cbda6ff72e1fc3d9acf709de2d22d130",
+    "tldr": "Hive improves sound-separation data efficiency by building synthetic training data from high-purity, single-event audio segments."
+  },
+  "icml-2026-attention-illuminates-llm-reasoning-the-uncovered-preplan-and-anchor-rhythm-enables-fine-bc5c8417a0": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Reinforcement learning often distributes credit uniformly across a language model’s generated answer, even though some tokens may matter much more for subsequent reasoning. This paper investigates attention patterns as a way to identify those influential moments and make training rewards more sensitive to the internal organization of a response.",
+      "The authors distinguish heads that process nearby information from heads that draw on broader context. Locally focused heads exhibit a sawtooth pattern associated with phrase-sized chunks, while globally focused heads reveal tokens receiving attention from many later tokens. Two metrics capture backward attention within a clipped window and attention received from subsequent tokens. Together, they expose a recurring pattern: a long-range contextual reference produces an introductory token, followed by or coinciding with a semantic anchor.",
+      "The paper uses this observed regularity to design three reinforcement-learning strategies. They target credit toward preplan tokens, anchor tokens, or their temporal coupling. Consistent gains across reasoning tasks suggest that attention-derived distinctions between pivotal and routine tokens can guide more effective policy optimization."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5e6f08d8d15e07de94914d9f184c150308b401e47b6e36729a2bb47f97182d39",
+    "tldr": "Attention patterns reveal recurring planning and anchor tokens that help target reinforcement-learning credit and improve reasoning performance."
+  },
+  "icml-2026-beyond-temperature-hyperfitting-as-a-late-stage-geometric-expansion-9088bc5683": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Hyperfitting describes a surprising observation: fine-tuning a language model until its loss on a small training set is nearly zero can improve open-ended generation and reduce repetition during greedy decoding. Because the resulting output distributions are highly concentrated, this paper investigates whether the effect is simply equivalent to changing the sampling temperature.",
+      "Experiments that match output entropy show that temperature scaling does not reproduce hyperfitting’s diversity gains. Ablations also reject an explanation based on fixed changes to vocabulary preferences. Instead, the reported mechanism changes token rankings according to context. Layer-wise analysis locates this behavior in the final transformer block, where an expansion of the feature representation, measured at approximately 80.8 additional dimensions, helps promote tokens from deep in the probability tail.",
+      "The authors translate this analysis into Late-Stage LoRA, which updates only the final five layers. They report robust generation with few parameter updates. The findings connect hyperfitting’s benefits to context-dependent changes in late model representations, providing a basis for concentrating adaptation near the output."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0d5b69cbc4c8949324953091dd81f6779f8f40ed1b467774f9ea4644e3e70cfa",
+    "tldr": "Hyperfitting improves generation through context-dependent token reordering associated with late-layer geometric expansion, rather than temperature-like sharpening."
+  },
+  "icml-2026-convergence-rate-analysis-of-the-adamw-style-shampoo-unifying-one-sided-and-two-sided-pr-d2081e2332": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper provides a convergence analysis for AdamW-style Shampoo, an optimizer whose practical effectiveness includes winning the external tuning track of AlgoPerf. Its analysis treats one-sided and two-sided preconditioning within a unified framework. These variants transform matrix-valued gradient updates from one side or both sides, respectively.",
+      "The main result bounds the average expected nuclear norm of the gradient after K iterations by O(√(m+n) C/K^(1/4)). Here, m and n are the dimensions of the parameter matrix, and C matches the constant appearing in the optimal SGD rate. The nuclear norm measures gradient size differently from the Frobenius norm used in the stated SGD comparison, so the dimension factors require careful interpretation.",
+      "The authors relate the two norms and identify an ideal case where the Shampoo bound is analogous to SGD’s optimal rate. This comparison requires balanced matrix dimensions and a nuclear norm proportional to √min(m,n) times the Frobenius norm. The result therefore supplies a conditional theoretical comparison, rather than a universal equivalence between the optimizers."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "cc3ad001f19daeba5e1cad95a5b265b77fee06d182fc00cd7334ba984d3104c7",
+    "tldr": "A unified convergence analysis relates one-sided and two-sided AdamW-style Shampoo to SGD’s optimal rate under specified ideal conditions."
+  },
+  "icml-2026-data-provenance-auditing-of-fine-tuned-large-language-models-with-a-text-preserving-tech-30368df23d": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper addresses how a text owner can detect whether marked documents were used to fine-tune a language model when only black-box access is available. Its approach inserts digital marks made from invisible Unicode characters, preserving the visible text while creating associations that an audit can later probe.",
+      "Each mark contains a cue and a corresponding reply. During auditing, the investigator submits prompts containing cue fragments and checks whether the model reproduces the associated replies. To distinguish evidence of document use from accidental matches, the method compares responses against held-out counterfactual marks. A ranking test provides a verifiable bound on the false-positive rate, giving the audit a statistical basis.",
+      "The reported experiments achieve a 96.7% true-positive rate with an observed 0% false-positive rate. With 40 marked documents, representing 4% of the fine-tuning corpus, reply reproduction exceeds 28% per document. The authors also report robustness to standard processing pipelines and scalability across sources. These findings support detection even when marked material forms a small share of training data."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3cf07a13e85d3130e4fe1e5eabc92eed7d7e6d1c66f80b2fc6d4b41d86b704e6",
+    "tldr": "Invisible cue–reply marks enable statistically controlled black-box audits of whether documents were used to fine-tune a language model."
+  },
+  "icml-2026-de-linearizing-agent-traces-bayesian-inference-of-latent-partial-orders-for-efficient-ex-81c37d7200": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "An agent’s recorded workflow usually lists actions in sequence, but that sequence does not necessarily reveal which actions truly depend on earlier ones. Independent steps can appear ordered simply because of how a trace was produced. This can hide opportunities for concurrency and encourage repeated reasoning about the entire workflow.",
+      "BPOP infers an underlying dependency graph from noisy sequential traces using Bayesian inference. It models each trace as a stochastic ordering consistent with a latent partial order: some steps must precede others, while independent steps need no fixed order. A tractable frontier-softmax likelihood enables efficient Markov chain Monte Carlo inference without the computationally difficult marginalization over possible linear extensions.",
+      "The authors evaluate dependency recovery on Cloud-IaC-6, their open-source cloud-provisioning suite, and WFCommons scientific workflows. BPOP recovers structure more accurately than trace-only and process-mining baselines. Its inferred graphs also support a compiled executor that removes irrelevant context, substantially reducing token use and execution time. The graphs thus provide both a workflow representation and a practical execution aid."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0695960d73bed9ce3821fe6e0c4c3b42634846c7a90f7ea211c841a2eccc7ef2",
+    "tldr": "BPOP infers workflow dependencies from noisy sequential traces, enabling more accurate structure recovery and cheaper agent execution."
+  },
+  "icml-2026-ego3s-select-strengthen-and-synchronize-for-efficient-egocentric-reasoning-f411b1d018": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "First-person visual reasoning depends heavily on immediate, localized evidence. Unlike relatively stable third-person scenes, egocentric views can change rapidly and contain unusual cues that determine what is happening. The paper identifies a tendency for large vision-language models to rely too heavily on language expectations and broad context, weakening their sensitivity to those cues.",
+      "Ego3S addresses this through three coordinated training components. Before training, counterfactual-based selection identifies examples that activate multimodal reasoning. During reinforcement learning, an interaction-focused reward encourages attention to localized evidence. A variance-aware schedule then monitors reward distributions and adjusts data selection as the model’s competence changes, connecting the examples it receives to its evolving learning needs.",
+      "Across five datasets, the authors report consistently superior performance while using only 26.5% of the training data and reducing computational costs by more than 46%. These findings suggest that carefully selecting examples and rewarding interaction evidence can improve both reasoning and efficiency. The contribution ties data selection, learning feedback, and training progression to the same grounding objective."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7d6951734492c3d3c0b8e9b64069ce47a19044d5df182df6ac17a16ee23d904f",
+    "tldr": "Ego3S improves first-person visual reasoning by coordinating sample selection, interaction-focused rewards, and adaptive training schedules."
+  },
+  "icml-2026-fedqueue-queue-aware-federated-learning-for-cross-facility-hpc-training-96aaa996af": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Federated learning across high-performance computing facilities must contend with batch queues before training jobs can run. These unpredictable admission delays can dominate elapsed training time. Synchronous approaches wait for slow facilities, while asynchronous approaches risk incorporating updates that have become stale during long queue waits.",
+      "FedQueue makes queue behavior part of the training protocol. It predicts each facility’s delay online to determine how much local work to assign. Cutoff-based admission buffers late arrivals to control staleness, and aggregation accounts for update age while accommodating different local workloads. Together, these mechanisms connect scheduling decisions with how model updates are produced and combined.",
+      "For nonconvex objectives, the paper proves an O(1/√R) convergence rate under bounded staleness. It also shows that its admission controls bound staleness with high probability under queue-prediction error. A real deployment reports a 20.5% improvement over baseline algorithms. Controlled simulations show up to 60% less time to reach target accuracy when queue variance is high and data partitions are non-IID."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b2cb46f6fc8895585aaa8c6a30e93a3483c88735750f795b9e26bd6403f2e305",
+    "tldr": "FedQueue incorporates HPC queue predictions and update staleness into federated training to improve convergence efficiency and elapsed training time."
+  },
+  "icml-2026-from-basis-to-basis-gaussian-particle-representation-for-interpretable-pde-operators-fe9d34fdaf": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Models that learn fluid dynamics can achieve useful predictions while keeping their internal representations difficult to interpret. Attention over individual spatial samples can also become expensive at high resolution. The Gaussian Particle Operator addresses both issues by representing fields using learned Gaussian components with explicit centers, directional scales, and weights.",
+      "GPO processes these components in modal space. Learned Gaussian windows take Petrov–Galerkin measurements, a specialized attention module connects the resulting modes globally, and the model maps them back into the spatial domain. This produces a compact representation that can be visualized and does not depend on a particular mesh. For a fixed modal budget, computation scales approximately linearly with the number of samples.",
+      "The authors evaluate representation reconstruction separately from operator prediction across PDE benchmarks and real reanalysis datasets. GPO ranks best on most tasks and remains close to the best on the others. Its learned particles and interactions offer insight into the representation, but the paper explicitly does not treat them as a one-to-one decomposition of physical structures."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c7ea2eb2be515b6e2fbda41c68f0dcfe3cf570066c9a32a83dc31fa1ef737e91",
+    "tldr": "GPO learns fluid operators through compact, visualizable Gaussian representations, combining competitive accuracy with near-linear sample scaling at a fixed modal budget."
+  },
+  "icml-2026-hoi-page-zero-shot-human-object-interaction-generation-with-part-affordance-guidance-1069c15ab4": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Generating a believable human–object interaction requires more than arranging whole bodies and objects along plausible paths. The interacting parts must make suitable contact and move consistently with the intended action. HOI-PAGE makes these part-level relationships central to generating time-varying 3D interactions from text in a zero-shot setting.",
+      "The method uses a language model to reason about part affordances: how particular parts can participate in an interaction. It records this reasoning in a structured part affordance graph. That graph guides three stages: dividing input 3D objects into meaningful parts, generating reference interaction videos and extracting part-based motion constraints, and optimizing the final motion sequences.",
+      "The final optimization aims to follow the reference dynamics while satisfying contact constraints between relevant parts. Experiments show that the approach can generate complex sequences involving multiple objects or multiple people, with significantly improved realism and alignment with the text. The results support structured part-level reasoning as useful guidance for coordinating detailed contact with the overall motion requested by a prompt."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e5c2c2d1dc5b9790bc0f4a70a8b18ea747e7799b478f72bcd6bd77f1db5ec99e",
+    "tldr": "HOI-PAGE uses structured reasoning about interacting body and object parts to improve zero-shot generation of realistic 4D interactions."
+  },
+  "icml-2026-incentivized-exploration-with-stochastic-covariates-a-two-stage-mechanism-design-for-rec-2cc16b138c": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A recommender needs to explore unfamiliar products to learn their value, but users have their own preferences and may not want to follow exploratory recommendations. This paper studies that tension when user characteristics arrive randomly over time. Its goal is to learn effectively while maintaining incentive constraints that make the recommendations compatible with users’ interests.",
+      "The proposed two-stage framework uses a linear reward structure. First, it conducts incentive-compatible exploration to collect informative samples. Second, it combines an efficient plug-in offline learner with inverse proportional gap sampling, which uses estimated reward gaps to guide sampling. This design links the initial incentive-aware data collection to continued learning and recommendation.",
+      "The authors prove that their RCB algorithm achieves O(√KdT) regret while satisfying incentive constraints, and analyze a tradeoff between incentive budget and regret. Sublinear regret means cumulative learning costs grow more slowly than the decision horizon. Experiments involving simulations and personalized warfarin dosing report strong incentive gains, sublinear regret, and robustness, supporting the framework’s ability to balance learning with user incentives."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "85a18f133f41143850ad0dc47f5343dc9ec0bdc91da549aaf35a7fd955257ebe",
+    "tldr": "RCB combines incentive-compatible exploration with offline learning to achieve sublinear regret when user characteristics arrive stochastically."
+  },
+  "icml-2026-inertialar-autoregressive-3d-molecule-generation-with-inertial-frames-16c557f11d": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Applying autoregressive Transformers to molecules requires a sequence representation that respects three-dimensional structure. A molecule should not become a different sequence merely because it is translated, rotated, or assigned different atom indices. Its tokens must also combine discrete atom identities with continuous coordinates, which creates a second modeling challenge.",
+      "InertialAR first aligns each molecule to a canonical inertial frame and reorders its atoms. This produces a canonical token sequence invariant to the specified geometric transformations and index permutations. Geometric positional encoding then gives attention access to 3D relationships. Generation proceeds hierarchically: the model predicts the next atom’s type, followed by its coordinates using Diffusion Loss.",
+      "For unconditional generation across QM9, GEOM-Drugs, and B3LYP, InertialAR reports state-of-the-art performance on eight of ten evaluation metrics. In controllable generation targeting chemical functionality, it significantly outperforms baselines and leads on all five metrics. The results support the combination of canonical representation and geometry-aware autoregressive modeling for both unconstrained molecule generation and generation directed toward specified functionality."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b8af311a8ca851c32eb74844cbcb298fae325e835ed29a210ad02fe64cc2fea7",
+    "tldr": "InertialAR combines canonical molecular coordinates with geometry-aware autoregressive generation to improve unconditional and targeted 3D molecule generation."
+  },
+  "icml-2026-knapsack-rl-compute-efficient-reinforcement-learning-via-heterogeneous-rollout-allocatio-87e9cc6f3b": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Reinforcement-learning fine-tuning spends substantial compute generating multiple responses for each prompt. Assigning every prompt the same number of responses can waste this budget: already-solved prompts receive unnecessary samples, while difficult prompts receive too little exploration. In methods such as GRPO, both situations often produce gradients that contribute little to learning.",
+      "Knapsack RL treats response generation as a constrained resource-allocation problem. Each possible prompt-and-budget combination has an expected learning value and a rollout cost. Knapsack optimization selects different budgets for different prompts within the available compute, directing extra sampling toward prompts expected to benefit from it. This makes the amount of exploration responsive to the task rather than uniform.",
+      "Applied to GRPO, the framework increases the effective-gradient ratio by up to 40% and improves mathematical reasoning by two to four points on average, with peak gains of nine points. Uniform allocation requires approximately twice the compute to achieve similar performance. The results show that allocating rollouts more selectively can improve the learning obtained from a fixed generation budget."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8b14eb5c5bf7e17fdf07c2701b81c65113add5c7ffc4e2b7f32904b9aaff7f54",
+    "tldr": "Knapsack RL assigns prompt-specific rollout budgets to obtain stronger reasoning improvements from limited reinforcement-learning compute."
+  },
+  "icml-2026-large-scale-manifold-balanced-clustering-f3eb877947": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Manifold clustering seeks groups that reflect complex structure in data, but combining manifold learning with K-means does not automatically keep the learned structure consistent with cluster assignments. Large datasets also make these methods computationally demanding. LMBC addresses structural consistency, computational cost, and cluster balance within one clustering method.",
+      "The method uses label information to guide construction of the manifold structure, connecting the representation to the clustering assignments. To scale this process, it introduces an anchor-induced distance representation. This models the manifold in a compact space of anchors, reducing computational complexity while retaining essential structural information. The anchors provide a smaller representation through which the method handles the larger dataset.",
+      "LMBC also maximizes the Schatten-p norm of its label representation to encourage class balance, with theoretical analysis supporting this component. Experiments on several benchmark datasets demonstrate effectiveness and scalability. The contribution is the coordination of three objectives: preserving meaningful data structure, making that structure agree with clustering labels, and maintaining balanced groups without incurring the full cost of a large manifold representation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "60f47319323d008adf41520fb142d8452a50720cc4765a2ff19f6268f28f4847",
+    "tldr": "LMBC combines label-guided manifold construction, compact anchor distances, and a balance objective for scalable clustering."
+  },
+  "icml-2026-mlubench-a-benchmark-for-lifelong-unlearning-evaluation-in-mllms-c0da2d3b4f": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Requests to remove learned content can arrive repeatedly over a model’s lifetime. For a multimodal language model, evaluating a single removal request therefore misses the accumulated effects of ongoing unlearning. MLUBench introduces a benchmark designed around this sequential setting, covering 127 entities across nine classes.",
+      "Experiments on the benchmark reveal severe cumulative degradation in existing unlearning methods. The paper identifies preservation of multimodal alignment as a distinctive challenge: the model must retain the relationships between its modalities while removing requested content. Repeatedly unlearning information from one modality can consequently degrade the model as a whole, making the effects broader than the targeted content.",
+      "To address this problem, the authors propose LUMoE and report that it significantly mitigates the degradation experienced by baseline methods. The benchmark and method together make continuing model quality a central part of unlearning evaluation. The findings show why successful removal over time requires attention to the model’s cross-modal coordination as well as to the individual requests being processed."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ddf8c2c16885acf96183df56302adf109e641d20543c6de2676f860fbfabb67a",
+    "tldr": "MLUBench exposes cumulative multimodal degradation from repeated unlearning requests, while LUMoE significantly mitigates that degradation."
+  },
+  "icml-2026-mossp-a-momentum-based-single-loop-stochastic-penalty-method-for-nonconvex-constrained-d-f0ce3173cf": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "MoSSP studies stochastic optimization problems with constraints and difference-of-convex regularization. Such a regularizer combines a convex component with a subtracted convex component. The setting permits a nonconvex feasible region and a nonsmooth concave contribution, making it difficult to respect constraints while keeping the number of required optimization queries manageable.",
+      "The proposed method uses a single-loop stochastic penalty approach with momentum. Each iteration takes one stochastic proximal-gradient step on a Moreau-envelope representation of the penalty and the convex regularizer component. It computes the proximal mapping associated with the concave component in parallel. This organizes the constrained problem into updates that retain the efficiency motivation of single-loop methods.",
+      "The paper establishes two complexity guarantees for reaching stochastic ε-KKT points, which express approximate constrained optimality conditions. A Polyak-momentum variant requires O(ε^-4) oracle calls, while recursive momentum improves this to O(ε^-3). Experiments demonstrate the algorithms’ effectiveness. The theoretical improvement concerns the query cost of attaining these approximate conditions within the structured problem class, rather than a guarantee of finding a global optimum."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "560b3798d7ac1465ad3717a56b161d79ad897801f8778287655545be00dc2be3",
+    "tldr": "MoSSP offers single-loop momentum methods with provable oracle complexity for constrained stochastic optimization with difference-of-convex regularization."
+  },
+  "icml-2026-occlusionformer-arranging-z-order-for-layout-grounded-image-generation-b0fff3dd7b": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Bounding boxes can specify where objects belong in an image without specifying which object should appear in front when boxes overlap. This ambiguity can cause layout-guided generators to mix textures or create inconsistent layering. The paper addresses the missing depth-order information directly, treating occlusion relationships as part of the generation task.",
+      "The authors first construct SA-Z, a large-scale dataset containing explicit occlusion orders and pixel-level annotations. They then introduce OcclusionFormer, a diffusion Transformer that separates individual instances and combines them through volume rendering. This composition explicitly models Z-order priority, providing a mechanism for deciding how overlapping instances contribute to the final image.",
+      "A queried alignment loss adds supervision for individual instances to improve spatial precision and semantic consistency. The reported results show substantial accuracy gains across diverse scenes, along with reduced ambiguity in overlap regions and better structural integrity. The contribution connects annotated occlusion relationships, instance-level generation, and explicit composition so that object placement and layering can be handled together."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7852ac6ac706f9f5102a01e2d13a9a0a7fd6d812a7998d9cef8f922bc9393b3f",
+    "tldr": "OcclusionFormer improves layout-guided image generation by explicitly learning object depth order and composing separately modeled instances."
+  },
+  "icml-2026-osaq-outlier-self-absorption-for-accurate-low-bit-llm-quantization-7bbd5b36b1": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Weight-only quantization reduces the storage needed for a language model and can accelerate generation by easing memory bottlenecks. However, unusually large weights make accurate low-bit representations difficult. OSAQ addresses these outliers through an additive weight transformation performed after training.",
+      "The method builds on the observation that the Hessian, which describes local loss curvature, exhibits consistent low-rank structure across inputs. Some directions persistently have little strength. OSAQ constructs a transformation using the Hessian’s null space to suppress weight outliers without affecting task loss in the proposed construction. This uses second-order information to identify changes that reduce problematic weight magnitudes.",
+      "The transformation has a closed-form solution and can be absorbed into the weights offline. It therefore requires neither resource-intensive iterative training nor additional transformations between layers at inference. Experiments across multiple model scales and tasks show improved outlier suppression and low-bit quantization performance. The practical appeal is that the corrective work happens during preparation, leaving no additional inference overhead from the transformation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "52b00d4f525556168c06baad9f7316bc44ac9391f2c8cee5404b3b6d4fb9565c",
+    "tldr": "OSAQ uses a closed-form, Hessian-based weight adjustment to suppress outliers and improve low-bit quantization without added inference overhead."
+  },
+  "icml-2026-perceptual-flow-network-for-visually-grounded-reasoning-f0b4607497": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Vision-language models can produce language-driven answers that are poorly grounded in the image. The paper argues that standard training objectives do not adequately constrain how models use visual evidence. Supervising them with geometric guidance from visual experts helps address grounding, but the authors find that geometric precision alone offers limited support for reasoning.",
+      "PFlowNet separates perception from reasoning and connects them through a self-conditioned generation process. It combines rewards along multiple dimensions with vicinal geometric shaping using variational reinforcement learning. This approach gives geometric guidance a role in maintaining visual reliability while allowing perceptual behavior to adapt to what benefits reasoning, rather than requiring rigid agreement with expert priors.",
+      "The paper provides a provable performance guarantee and reports competitive empirical results, including new state-of-the-art scores of 90.6% on V* Bench and 67.0% on MME-RealWorld-lite. These findings support training perception around its usefulness to reasoning while retaining interpretable visual grounding. The central contribution is an optimization approach that connects reliable visual behavior to the quality of the resulting reasoning."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7cb1711a9eec56c0698a30e104d72b29df5ecae50770a20791d1cb01fe53f4ba",
+    "tldr": "PFlowNet trains perception for reasoning utility while retaining geometric guidance, improving visually grounded reasoning on challenging benchmarks."
+  },
+  "icml-2026-qimeng-libbench-benchmarking-llm-agents-for-library-scale-cross-architecture-migration-d58a90ae2a": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Moving a high-performance library to another processor architecture requires understanding dependencies across the library and replacing hardware-specific operations without losing performance. Evaluations restricted to isolated functions or scalar code do not capture this combination of integration and optimization work. QM-LibBench measures agent performance at that broader scope.",
+      "The benchmark contains 85 critical kernels from libraries including OpenCV, libjpeg, and NCNN. It evaluates whether migrated code compiles, behaves correctly, and performs well across ARM-to-RISC-V, x86-to-ARM, and ARM-to-LoongArch transitions. These separate measures expose the difference between producing executable code and delivering a successful high-performance migration.",
+      "Testing 12 agent–language-model combinations reveals weaknesses in library navigation and hardware-aware optimization. For libjpeg, the reported results reach only 20.88% correctness and a 0.83 speedup. The authors then introduce FSCM, a multi-agent framework combining hardware-aware global reconfiguration with performance optimization, raising OpenCV correctness to 71%. The findings show the importance of evaluating migration within its library and hardware context."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6d15ee4c7314bbb780e3491199e796dd889e271195210da2af95fac253dbff6b",
+    "tldr": "QM-LibBench exposes agent weaknesses in library-scale hardware migration, and FSCM improves results through hardware-aware coordination and optimization."
+  },
+  "icml-2026-rabitqcache-rotated-binary-quantization-for-kvcache-in-long-context-llm-inference-152fc77337": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Long-context inference places heavy demands on the key–value cache that stores information used by attention. Sparse attention can reduce the amount accessed, but choosing a fixed number of tokens may not match how concentrated attention actually is. Alternative selection scores can themselves be expensive or biased.",
+      "RaBitQCache estimates attention weights using randomized rotated binary quantization and high-throughput binary-INT4 arithmetic. Its proxy score is an unbiased estimator with a proven error bound. This supports adaptive Top-p retrieval, which changes the number of retrieved tokens according to attention sparsity instead of enforcing a fixed token budget for every retrieval.",
+      "The framework also includes a hardware-aware implementation with asynchronous pipelining and lazy updates to mask overhead. Evaluations report significantly faster inference and reduced memory input/output while preserving generation quality relative to state-of-the-art baselines. The contribution combines a statistically grounded selection estimate with an implementation designed to make selection inexpensive enough to deliver practical savings during long-context inference."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "dd5ef37549758bbd7a904abf6934f62a48d2f234b20b13353177a1feecf47814",
+    "tldr": "RaBitQCache uses inexpensive, unbiased attention estimates to adapt token retrieval and accelerate long-context inference while preserving generation quality."
+  },
+  "icml-2026-step-warm-started-visuomotor-policies-with-spatiotemporal-consistency-prediction-a590a441eb": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Diffusion policies can represent multiple plausible robot action sequences, but generating actions through repeated denoising adds latency. That delay limits how frequently a robot can react to new observations. STEP seeks to shorten refinement by predicting a strong initial action sequence that is close to the target distribution and consistent over time.",
+      "Its spatiotemporal consistency mechanism supplies this warm start while preserving the original policy’s generative capability. A second mechanism adds velocity-aware perturbations, adjusting actuation excitation according to temporal changes in actions to help prevent execution stalls. The theoretical analysis shows that the proposed prediction induces a locally contractive mapping, supporting convergence of action errors during refinement within that local setting.",
+      "Evaluations cover nine simulated benchmarks and two real-world tasks. With two refinement steps, STEP reports average success-rate improvements of 21.6% and 27.5% in comparisons involving BRIDGER and DDIM on RoboMimic and real-world tasks. The findings support improving the starting point of diffusion refinement as a way to retain action quality with few inference steps."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "dbee38f1c02435b97bfc1216e7c326c57d22bce0039181b547b088a67e8849c1",
+    "tldr": "STEP predicts temporally consistent warm-start actions so diffusion-based robot policies can achieve strong success rates with only two refinement steps."
+  },
+  "icml-2026-transnormal-dense-visual-semantics-for-diffusion-based-transparent-object-normal-estimat-f4b7d9a8aa": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Estimating surface normals means determining the direction a surface faces at each location. Transparent laboratory objects make this difficult because refraction, reflection, and weak surface texture interfere with visual and sensor cues. TransNormal addresses normal estimation from a single image, a capability relevant to laboratory automation.",
+      "The framework adapts pretrained diffusion priors into a single-step normal regression model. It incorporates dense visual semantics from DINOv3 through cross-attention to provide geometric cues where texture is scarce. A multi-task objective and wavelet-based regularization help preserve fine structural detail. The authors also introduce TransNormal-Synthetic, a physics-based dataset with high-fidelity normal maps for transparent labware.",
+      "On ClearGrasp, TransNormal reduces mean error by 25.5% and improves accuracy at the 11.25-degree threshold by 24.7% over the best prior result. On ClearPose, it reduces mean error by 17.7%. These results support combining pretrained visual and diffusion representations with detail-preserving training for transparent-object geometry, where conventional depth and normal sensing can fail."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8689975e7a7a2a3e889f89a4fd183f538b752c4a92c0941d5f0c929f6d5f16e6",
+    "tldr": "TransNormal combines diffusion priors and dense visual semantics to improve single-image surface-normal estimation for transparent objects."
+  },
+  "icml-2026-treepo-enhancing-policy-efficacy-and-inference-efficiency-with-tree-modeling-8aba763cfa": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Reinforcement-learning post-training requires expensive generations from the current policy, yet independently sampled responses may explore reasoning inefficiently. TreePO treats generation as a branching search process so that responses can share computation along common prefixes and spend additional effort where local uncertainty warrants exploration.",
+      "The rollout algorithm combines dynamic tree sampling with fixed-length segment decoding. It can create branches and stop low-value paths early, while contiguous segments ease the key–value cache burden. A tree-based advantage estimator assigns learning signals at the segment level and considers both global and local proximal policy optimization. The paper also analyzes probability- and quality-driven branching and fallback behavior.",
+      "Experiments show improved performance on reasoning benchmarks alongside GPU-hour savings ranging from 22% to 43% for the trained models’ sampling design. For existing models, reported sampling-compute reductions reach 40% at the trajectory level and 35% at the token level. These results support shared-prefix search and selective branching as ways to reduce rollout costs while preserving or improving exploration diversity."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "699229f168d0a04e104b49a1cffa287e874899bad94af827e4f1aa52e9240810",
+    "tldr": "TreePO shares computation across branching reasoning paths and prunes weak continuations to improve reinforcement-learning efficiency and reasoning performance."
+  },
+  "icml-2026-understanding-generalization-and-forgetting-in-in-context-continual-learning-c78e3aee7a": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "In-context learning lets a language model adapt through its prompt without changing its parameters. A prompt containing several successive tasks raises a further question: how does information from earlier tasks affect performance on later ones? This paper develops a theoretical framework for studying that form of continual learning during inference.",
+      "The analysis models a pretrained Transformer processing sequential tasks through shared attention, focusing on linear and masked linear self-attention. It derives prediction-error expressions and separates error into bias, variance, and interference between tasks. Within this setting, uniform or causal aggregation of historical context induces inter-task interference and systematic bias.",
+      "The decomposition characterizes when earlier in-context information produces positive transfer and when it yields provable negative transfer. This explains how retaining more task history can either help prediction or degrade it, depending on the relationships captured by the analysis. The results provide theoretical accounts of task-order sensitivity and deterioration in long prompts, with the stated conclusions grounded in the attention mechanisms studied."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "360f6f6c83c6464dbdaeb950fcf95346c05e3f9d3b38d386accd9a9a3edb21b2",
+    "tldr": "A theory of sequential tasks in a single prompt explains how shared attention can produce positive transfer, interference, and forgetting."
+  }
+}

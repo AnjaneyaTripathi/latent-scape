@@ -1,0 +1,327 @@
+{
+  "neurips-2020-a-new-convergent-variant-of-q-learning-with-linear-function-approximation-274cbc4c43": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Q-learning with linear function approximation can diverge, so representing action values with a linear model does not by itself ensure stable learning. This paper introduces a variant that separates learning into two time scales and identifies conditions under which it converges with probability one.",
+      "The faster update resembles the update used in DQN. It reduces the influence of bootstrapping by using a separate Q-value estimate analogous to a target network. Bootstrapping means that a current update depends on another estimated value, so controlling how that estimate changes is central to the design. The slower update modifies the target-like estimate on a different time scale.",
+      "The authors establish convergence for their algorithm, provide an error bound, and relate the result to existing theory for reinforcement learning with function approximation. They also illustrate convergence in domains where standard Q-learning has been shown to diverge. The guarantee applies under the identified conditions; it is a result about this particular two-time-scale method, rather than a general guarantee for target networks."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c81f03cbe9fc339a23ac3f1f1a6de76c199efeefaddb06c1c07851721c8711f3",
+    "tldr": "A two-time-scale variant of linear Q-learning has almost-sure convergence guarantees under identified conditions and converges in examples where standard Q-learning diverges."
+  },
+  "neurips-2020-an-efficient-framework-for-clustered-federated-learning-1179625e48": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Federated learning can involve groups of users with different learning objectives. Users within the same group could benefit from pooling their learning efforts, but doing so requires identifying which users belong together. This paper addresses that coupled problem of discovering groups and training a model for each group.",
+      "The Iterative Federated Clustering Algorithm, or IFCA, alternates between estimating users’ cluster assignments and updating the corresponding model parameters through gradient descent. The two steps inform one another: assignments determine which users contribute to each model, while the evolving models support subsequent assignment estimates. When the grouping is ambiguous, the authors propose combining IFCA with weight sharing from multi-task learning.",
+      "For linear models with squared loss and for strongly convex, smooth losses, the authors prove exponential convergence with good initialization and discuss statistical error optimality. Experiments show success with random initialization and multiple restarts, as well as efficiency for non-convex neural networks and benefits over benchmark baselines. These experimental findings extend beyond the settings covered by the stated convergence analysis."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "38fd93338df578d07ec62bbae392c2a9115b847f34ce35c293b8bfd0eefd79af",
+    "tldr": "IFCA alternates user clustering with model training, with conditional convergence guarantees and experimental benefits for federated learning with different user objectives."
+  },
+  "neurips-2020-asymptotically-optimal-exact-minibatch-metropolis-hastings-c97302baca": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Metropolis-Hastings can become expensive when its computations require the entire dataset. Minibatch methods reduce that workload by using subsets, but many existing approaches also change the distribution being sampled. The paper shows that this loss of exactness can produce arbitrarily large inference errors, making the computational shortcut potentially consequential.",
+      "The proposed method, TunaMH, preserves the target distribution while using minibatches. It exposes a tunable tradeoff between batch size and a theoretically guaranteed convergence rate. This makes the amount of data processed and the speed of convergence explicit parts of the same design, rather than treating smaller batches as an unconditional improvement.",
+      "The authors also prove a lower bound on the batch size required to combine exactness with guaranteed fast convergence. TunaMH meets this requirement asymptotically, establishing its batch-size optimality in that sense. Experiments on robust linear regression, truncated Gaussian mixtures, and logistic regression show that it outperforms other exact minibatch methods. Exactness here concerns preserving the target distribution; convergence rate remains a separate quantity controlled by the tradeoff."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "81bf5a8eb023422ce0b33c8848ecd950baf3c3f424fc89128f52d5b14efd5234",
+    "tldr": "TunaMH preserves the target distribution while trading minibatch size against convergence rate, and achieves asymptotically optimal batch size under the stated requirements."
+  },
+  "neurips-2020-autoencoders-that-don-t-overfit-towards-the-identity-533d852e39": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "An autoencoder learns to reconstruct its input, which creates an easy but potentially unhelpful solution: copying each feature directly to its output. For prediction with noisy data, that behavior can undermine the purpose of learning relationships between features. The paper examines whether denoising training actually prevents this form of overfitting.",
+      "The authors study linear autoencoders because these allow analytic solutions. They show that ordinary denoising or dropout limits copying only through the L2 regularization it induces. The intuition that removing some inputs must eliminate identity-like behavior therefore overstates what ordinary denoising achieves. Their main theorem shows that an emphasized denoising autoencoder can completely eliminate this particular problem in the analyzed setting.",
+      "The derivations also produce a closed-form solution for the full-rank model and a new near-orthogonality constraint for the low-rank model. Although this constraint differs conceptually from recently proposed regularizers, its effects on learned embeddings are empirically similar. Experiments on three datasets support the theoretical insights. The central contribution is a precise account of identity overfitting and how to remove it in linear autoencoders."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "93b8677dfea9df92db6824b96df1ff67d67ddd571e53be0c0a644fe23ede164e",
+    "tldr": "For linear autoencoders, ordinary denoising only regularizes identity copying, while emphasized denoising can eliminate that form of overfitting."
+  },
+  "neurips-2020-dual-free-stochastic-decentralized-optimization-with-variance-reduction-9b77bdfb67": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Training across decentralized data raises a computational question: can each node obtain the benefits of fast stochastic optimization using only its own data? For objectives expressed as finite sums, single-machine methods combine stochastic updates with variance reduction. Existing decentralized methods either miss some of the available speedup or require operations more expensive than ordinary gradients.",
+      "The paper introduces DVR, a decentralized algorithm that uses stochastic gradients of local functions. Its computational speed matches that of a standard stochastic variance-reduced algorithm operating on one nth of the dataset, where n is the number of nodes. This comparison expresses the intended benefit of dividing the data across participating machines.",
+      "The derivation uses Bregman coordinate descent on a carefully chosen dual problem. A particular Bregman divergence then produces an algorithm that is dual-free, despite the dual perspective used to derive it. The authors also develop an accelerated version through the Catalyst framework and demonstrate effectiveness in simulations using real data. The result connects a theoretical optimization construction to a decentralized procedure requiring ordinary local stochastic gradients."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "92bc9111f270237c7a7daf00c3b1c3601446861cfdfb94d966d400dce8ef46e2",
+    "tldr": "DVR brings variance-reduced stochastic optimization to decentralized data using ordinary local gradients, with computation matching a solver on a node-sized data fraction."
+  },
+  "neurips-2020-effective-dimension-adaptive-sketching-methods-for-faster-regularized-least-squares-opti-8cb38a3852": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Randomized sketching speeds up least-squares optimization by replacing a large problem with a smaller random embedding. Existing solvers prescribe an embedding dimension larger than the data dimension. This paper shows that L2-regularized least-squares problems can instead use their effective dimension while retaining convergence guarantees that hold with high probability.",
+      "The analysis covers Gaussian embeddings and the Subsampled Randomized Hadamard Transform. The authors derive sharp bounds on how these embeddings distort matrices over ellipsoids. For Gaussian embeddings, they improve a constant in a classical concentration bound; for the Hadamard transform, they introduce a new technical approach. These bounds provide the foundation for reducing the sketch size safely within the analysis.",
+      "The practical algorithm does not need the effective dimension as an input. It begins with embedding dimension one and increases that dimension during optimization, at most up to the effective dimension. The authors establish improved computational complexity and report numerical advantages over conjugate gradient and its preconditioned version on several machine learning datasets. Adaptation matters because it makes the theoretical reduction usable without knowing its target size beforehand."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "cff0d3902ca7db70530736ea88fbb87931c7114b66122bf2fb42d7cec7b0bcaa",
+    "tldr": "An adaptive sketching solver uses effective dimension to reduce regularized least-squares computation while preserving high-probability convergence guarantees."
+  },
+  "neurips-2020-exponential-ergodicity-of-mirror-langevin-diffusions-2723183b3e": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper studies sampling from ill-conditioned log-concave distributions through mirror-Langevin diffusions. Its focus is a non-asymptotic convergence analysis: a quantitative account of how the sampling process approaches stationarity, rather than only a statement that convergence eventually occurs. This addresses the difficulty that motivates the work while connecting sampling to ideas from optimization.",
+      "Within the mirror-Langevin framework, the authors introduce Newton-Langevin diffusions. They prove exponential convergence to stationarity with a rate independent of both dimension and the target distribution. That independence is the striking theoretical finding: the stated rate avoids two sources of dependence that could otherwise make a convergence result less favorable as the sampling problem changes.",
+      "The authors apply the result to uniform sampling from a convex body using a strategy inspired by interior-point methods. Their broader analysis emphasizes chi-squared divergence as a way to study convergence and also yields new Wasserstein-distance results for ordinary Langevin diffusion. The claims concern convergence of the diffusions analyzed in the paper, giving a mathematical foundation for understanding these sampling processes."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3a4243760ad00a9a69db0427d50711fad32798e650168879288f47faa74c29d1",
+    "tldr": "The paper proves exponential convergence for Newton-Langevin diffusions at a rate independent of dimension and target distribution."
+  },
+  "neurips-2020-feature-shift-detection-localizing-which-features-have-shifted-via-conditional-distribut-49f791cd77": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Detecting that a dataset has changed does not necessarily reveal which features are responsible. That distinction matters when a response requires locating a specific problem, such as identifying potentially compromised sensors. This paper turns feature-level localization into a statistical problem, rather than stopping at a single alarm for the entire dataset.",
+      "The authors formulate localization through multiple hypothesis tests on conditional distributions. These tests examine features in relation to the other observed variables. They propose both parametric and non-parametric approaches, then introduce an efficient statistic based on a density model’s score function: its gradient with respect to the input. Statistics for every dimension can be computed in one forward and backward pass.",
+      "The framework permits different density models, including normalizing flows and autoregressive models, making the choice of statistical representation flexible. The authors also develop methods for identifying both when and where changes occur in multivariate time series. Results cover realistic attack scenarios using simulated and real-world data. The contribution is a route from detecting an overall distribution change to localizing the features and times associated with it."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4526b025f2bcf1dca0e27b65ed28684b964a122c4b81368014e8c2e31aafff27",
+    "tldr": "Conditional distribution tests localize shifted features, with density-model gradients enabling efficient statistics across all dimensions."
+  },
+  "neurips-2020-learning-search-space-partition-for-black-box-optimization-using-monte-carlo-tree-search-ffd1b329ee": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "High-dimensional black-box optimization must find good inputs using observed function values. A global model can struggle with dimensionality, while greedy search can settle for inferior solutions. This paper develops LA-MCTS, extending the search-space partitioning approach of LaNAS beyond neural architecture search to more general optimization problems.",
+      "LA-MCTS learns partitions online from sampled inputs and their values, recursively separating regions associated with higher and lower function values. It uses nonlinear boundaries rather than the linear partitions of LaNAS. Within each region, a learned local model selects promising candidates instead of sampling uniformly. The method therefore learns both where to search and how to search within a region.",
+      "The anticipated sample savings are conditional: substantially fewer samples may suffice when the partition function and local model fit the underlying black-box function well. LA-MCTS acts as a meta-algorithm that can incorporate existing optimizers, including Bayesian optimization and TuRBO, as local models. The authors report strong results on general black-box optimization and reinforcement learning benchmarks, especially in high dimensions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2410aefc155f285c7880d83425771aee1a453f440c0e4ffd276b09b2773313d7",
+    "tldr": "LA-MCTS learns nonlinear search regions and uses local optimizers to find promising candidates, with strong reported performance on high-dimensional problems."
+  },
+  "neurips-2020-model-rubiks-cube-twisting-resolution-depth-and-width-for-tinynets-cf76f851f5": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A neural network can be resized by changing image resolution, network depth, and network width. EfficientNet coordinates these dimensions when enlarging models. This paper asks how they should instead be adjusted to build very small networks with low computational costs, and finds that simply reversing the enlargement rule is unsuitable.",
+      "The authors observe that resolution and depth matter more than width for tiny networks. They use a series of smaller architectures derived from EfficientNet-B0 to develop a downsizing formula under a floating-point-operation constraint. The resulting TinyNets reflect a different allocation of limited computation across the three dimensions, guided by the behavior of small models.",
+      "On ImageNet, TinyNets outperform smaller EfficientNets obtained by reversing the original scaling formula. TinyNet-E reaches 59.9% top-1 accuracy using 24 million FLOPs, about 1.9 percentage points above the reported previous best MobileNetV3 at similar computational cost. The finding supports treating downsizing as its own architecture-design problem: scaling rules effective for larger networks need not preserve the best balance when the computational budget becomes very small."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b90c6535ce8089c7dd6315809be66abef3b64a1f4b07d98f9d0e53d463b5d890",
+    "tldr": "TinyNet uses a downsizing rule that prioritizes resolution and depth over width, improving ImageNet accuracy at small computational budgets."
+  },
+  "neurips-2020-multi-task-temporal-shift-attention-networks-for-on-device-contactless-vitals-measuremen-1a67fb1a95": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Remote health monitoring needs objective measurements even when a patient cannot be examined through direct contact. This paper presents a video-based approach for measuring cardiovascular and respiratory vital signs on a mobile device. The aim is to combine contactless measurement with computation fast enough for real-time use.",
+      "The system uses a multi-task temporal shift convolutional attention network, called MTTS-CAN. Its architecture brings temporal processing and attention into a model serving both cardiovascular and respiratory measurement tasks. Running the approach on the device is central to the contribution, so the evaluation considers processing speed alongside measurement accuracy.",
+      "On an ARM CPU, the authors report state-of-the-art accuracy and processing above 150 frames per second, supporting real-time applications in the evaluated setting. Experiments on large benchmark datasets show error reductions of 20%–50% and good generalization across datasets. Together, these findings indicate that the proposed architecture can combine efficient execution with improved measurement performance, addressing two requirements for making video-based vital-sign measurement useful on mobile platforms."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7bdb60b9132f8c860872cd1a5e115c094ebab768e1227538edffec263ed4cd8c",
+    "tldr": "MTTS-CAN measures cardiovascular and respiratory signals from video on mobile hardware, reporting over 150 frames per second and substantial benchmark error reductions."
+  },
+  "neurips-2020-near-optimal-comparison-based-clustering-7006ae17c4": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Clustering usually starts with numerical similarities between objects. In some settings, the available information is weaker: one object is judged more similar to a second than to a third. These ordinal comparisons reveal an ordering without supplying a numerical similarity scale. The paper studies how to recover meaningful groups from that information.",
+      "The proposed approach has two stages. First, it estimates a matrix of pairwise similarities from the comparisons. It then passes that matrix to a clustering method based on semidefinite programming. This separates the task of converting relative judgments into a usable similarity representation from the task of selecting a partition.",
+      "The theoretical result shows exact recovery of a planted clustering using a near-optimal number of passive comparisons. Exact recovery is established for that planted-clustering setting, rather than asserted for arbitrary collections of judgments. Experiments support the theoretical findings and show good behavior on real data. The result demonstrates that relative comparisons can contain enough information for precise clustering without beginning with an explicitly supplied numerical similarity measure."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5347c39ca050928ac24928e925ca755c4f97513ed977e11ca6ceb1e43c886390",
+    "tldr": "Estimating similarities from ordinal comparisons and then applying semidefinite clustering enables exact planted-cluster recovery with a near-optimal comparison count."
+  },
+  "neurips-2020-neural-networks-with-small-weights-and-depth-separation-barriers-b3b4a5ccad": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Depth-separation research asks whether some functions require sufficiently deep networks when network size is bounded. For constant depths, existing results discussed in the paper concern depths two and three. This work investigates why extending such results to greater depths is difficult for feedforward ReLU networks.",
+      "The authors establish barriers to proving depth-separation results beyond depth four by relating the task to open problems and natural-proof barriers in circuit complexity. This is a statement about obstacles to obtaining proofs, rather than a claim that deeper networks cannot have stronger approximation capabilities. It connects the neural-network question to established difficulties in another area of theoretical computation.",
+      "The argument uses a constructive result about weight size. For polynomially bounded functions, any approximation by a polynomial-size, constant-depth k network with arbitrarily large weights can also be achieved by a polynomial-size network of depth 3k+3 with polynomially bounded weights. Thus, in this setting, additional constant depth can replace the need for extremely large weights. That tradeoff is both an independent expressiveness result and a tool for establishing the proof barriers."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a5c7ddc024c18c42f2617803094612fa5e61e43ecfc16c1d2ac6b5042aa87861",
+    "tldr": "The paper links higher-depth separation proofs to circuit-complexity barriers and shows how extra constant depth can replace arbitrarily large weights."
+  },
+  "neurips-2020-no-subclass-left-behind-fine-grained-robustness-in-coarse-grained-classification-problem-21cdab01fd": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A classification label can conceal several different subclasses, and a model may perform well on some while struggling on others. When only the broad labels are available, these disparities can remain hidden. The paper addresses this hidden stratification, which is especially consequential when models are used in safety-critical settings such as medicine.",
+      "GEORGE uses the observation that subclasses are often distinguishable in a deep network’s feature representation. It clusters training examples in that representation to estimate subclass membership. These estimated labels then serve as noisy supervision for distributionally robust optimization, giving training a way to address group-level weaknesses even without supplied subclass annotations.",
+      "The authors theoretically characterize GEORGE through worst-case generalization error across subclasses. On a mixture of real-world and benchmark image datasets, they report improvements of up to 22 percentage points in worst-case subclass accuracy over standard training. No prior subclass information is required. The approach matters because it turns structure already present in learned features into a means of measuring and mitigating performance disparities that coarse labels alone can obscure."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7f4f2e4002709c9bcfb4432ad9e92dc3c5b19c4f2aa4d91e49073557cc7fe099",
+    "tldr": "GEORGE estimates hidden subclasses through feature clustering and uses robust optimization to improve worst-case subclass accuracy without subclass annotations."
+  },
+  "neurips-2020-online-learning-in-contextual-bandits-using-gated-linear-networks-141e853afc": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper introduces Gated Linear Contextual Bandits, or GLCB, as a fully online contextual bandit algorithm. It builds on Gated Linear Networks, a deep learning architecture whose properties suit online learning. The central design question is how to combine this architecture with an uncertainty estimate useful for the bandit setting.",
+      "GLCB uses the network’s data-dependent gating structure to estimate prediction uncertainty. The authors report that this adds effectively zero algorithmic overhead. This matters because the uncertainty mechanism draws on the architecture’s existing structure, allowing the algorithm to remain online without introducing a substantial additional computational procedure for uncertainty estimation.",
+      "The evaluation compares GLCB with nine state-of-the-art algorithms using deep neural networks on a standard suite of discrete and continuous contextual bandit problems. GLCB achieves first place on average while being the only online method in that comparison. An additional theoretical study examines its convergence properties. The evidence combines competitive benchmark performance with convergence analysis; the average ranking should be understood as an aggregate result across the evaluated problems."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "18a7ed817a9836d818b6d42067ca95aab48ba903e6774a790bc58b97951b0906",
+    "tldr": "GLCB uses Gated Linear Networks for fully online contextual bandits, obtaining inexpensive uncertainty estimates and first-place average benchmark ranking."
+  },
+  "neurips-2020-parameterized-explainer-for-graph-neural-network-1ce0d7e644": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Explaining a graph neural network one prediction at a time can produce explanations that are heavily customized to individual examples. Such explanations may identify relevant subgraphs or features, yet offer limited understanding across many instances. They also make it difficult to extend the explanation process naturally to previously unseen examples.",
+      "PGExplainer addresses this by learning a parameterized process for producing explanations. A deep neural network represents that process, allowing explanation generation to be shared across instances. This supports multi-instance explanations, including sets of graphs belonging to a class, and makes the method usable in an inductive setting.",
+      "The authors report better generalization than the existing approach and highly competitive results on synthetic and real-world datasets. For explanations of graph classification, the reported improvement reaches 24.7% relative AUC over the leading baseline. The contribution is therefore broader than improving an isolated explanation: it makes explanation generation itself a learned, reusable component, supporting analysis across multiple predictions while retaining an empirical measure of explanation performance."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b025172788159cfa69edc0c97c33372c1fbdd0e0f170e0f1d9cb8a2eeee29a02",
+    "tldr": "PGExplainer learns a reusable neural explanation generator for graph networks, supporting multiple instances and improved generalization to unseen examples."
+  },
+  "neurips-2020-polynomial-time-computation-of-optimal-correlated-equilibria-in-two-player-extensive-for-9e55e4fea3": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Sequential games allow patterns of information and incentives that do not arise in a single simultaneous choice. This makes computing correlated equilibria more complicated. The prior complexity boundary described in the paper distinguishes two-player games without chance moves, where optimal solutions are tractable, from games with chance moves, where the general problem is intractable.",
+      "The authors refine that boundary by identifying a condition under which an optimal correlated equilibrium can still be computed in polynomial time. They show that the condition holds when every chance move is public, meaning both players observe its outcome. Public chance therefore supplies a concrete class of games for which random events need not destroy computational tractability.",
+      "The result covers extensive-form correlated equilibrium, extensive-form coarse correlated equilibrium, and normal-form coarse correlated equilibrium. For two-player games with public chance moves, an optimal solution of each type can be computed in time polynomial in game size. The contribution replaces a broad distinction based on the presence of chance with a more precise sufficient condition that accounts for what players observe."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "affba4112d0c49ebd0b1dd073bf970923d9e233ba3fc38168f9a6a8a9cf2b664",
+    "tldr": "Optimal correlated equilibria of three types are polynomial-time computable in two-player sequential games with public chance moves."
+  },
+  "neurips-2020-quantized-variational-inference-82f9aeb196": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Quantized Variational Inference tackles optimization of the Evidence Lower Bound through a different treatment of gradient estimation. The paper’s central tradeoff is explicit: eliminate gradient variance while accepting bias that decays asymptotically. This separates randomness in the optimization signal from systematic approximation error, rather than treating them as the same obstacle.",
+      "The proposed construction uses optimal Voronoi tessellation to obtain the variance-free gradients. The authors then introduce a method resembling Richardson extrapolation to improve the bound associated with the approximation. These components work together: quantization changes the gradient estimator’s error profile, while the extrapolation-style step improves the resulting bound.",
+      "The authors show fast convergence within this framework for both score-function and reparameterized gradient estimators at comparable computational cost. This makes the approach relevant to two different routes for obtaining gradients in variational inference. They also propose experiments to assess performance and limitations. The stated contribution is a framework for managing a specific bias–variance tradeoff, with the decay of bias central to interpreting the variance-free claim."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9244cc5c54660817c2184f8d91b4cabf87c12ad04a2be54103f4d6d82bad5da9",
+    "tldr": "Quantized Variational Inference produces variance-free gradients with asymptotically decaying bias and supports fast convergence at comparable computational cost."
+  },
+  "neurips-2020-self-adaptive-training-beyond-empirical-risk-minimization-9eda1bc505": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Training data can contain random corruption or adversarial noise, and ordinary empirical risk minimization may overfit that corruption. This paper proposes self-adaptive training, which uses the model’s own predictions to adjust the training process dynamically. The authors state that this adjustment adds no extra computational cost.",
+      "The approach treats predictions as information that can improve learning from potentially corrupted data. The reported results show substantially reduced overfitting and better generalization than empirical risk minimization under both random and adversarial noise. The key idea is that training need not follow the supplied data rigidly throughout learning when the evolving model can help calibrate the process.",
+      "The paper also reports a single-descent error-versus-capacity curve, contrasting with the double-descent behavior observed for empirical risk minimization. This suggests that fitting noise might contribute to double descent; it does not establish that explanation universally. Experiments on CIFAR and ImageNet demonstrate effectiveness for classification with noisy labels and selective classification. Together, the findings connect a practical training change with an observation about how model capacity and noise interact."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d5fd88d58a203f326b9cb8485184f3703ff257d031d2d33a1b10939583e0c9e3",
+    "tldr": "Self-adaptive training uses model predictions to adjust learning, reducing noise overfitting and improving generalization without reported extra computational cost."
+  },
+  "neurips-2020-space-time-correspondence-as-a-contrastive-random-walk-450dead5b8": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Visual correspondence involves connecting image regions across video frames. This paper learns a representation for that task directly from raw video without supervision. It represents video as a space-time graph whose nodes are sampled image patches and whose directed edges connect patches in neighboring frames.",
+      "Similarity between patch representations defines the transition probabilities of a random walk. Following a walk through multiple frames therefore provides a way to predict longer-range correspondence. Training uses a sequence of frames arranged forward and then backward, like a palindrome, and rewards walks that return to their starting node. One constraint on the complete path thus supplies learning signals for the intermediate comparisons.",
+      "Used directly as a similarity metric, the learned representation outperforms the reported self-supervised state of the art on label propagation involving objects, semantic parts, and pose. Edge dropout and self-supervised test-time adaptation further improve transfer for object-centered correspondence. The approach matters because temporal consistency supplies supervision for chains of matches without requiring manually labeled correspondences at every step."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "476de30bfb7ba6d49f7e433c4ee39999372416860678df43cc99a2694500e0b9",
+    "tldr": "A random walk through video patches learns correspondence by rewarding return paths through forward-and-backward frame sequences."
+  },
+  "neurips-2020-taylorgan-neighbor-augmented-policy-update-towards-sample-efficient-natural-language-gen-1fbf4c33a8": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Generating text requires sampling discrete choices, which prevents ordinary differentiation through the sampling operation. Score-function methods such as REINFORCE can work with those choices, but commonly suffer from inefficient sampling and unstable training. The paper attributes much of this difficulty to treating the discriminator as a black box and ignoring its gradient information.",
+      "TaylorGAN augments gradient estimation using off-policy updates and a first-order Taylor expansion. The purpose is to make better use of available information when updating the generation policy, improving sample efficiency and reducing the variance associated with REINFORCE. The Taylor expansion supplies a local approximation that contributes to the augmented update.",
+      "The authors report that this approach enables natural language generation models to be trained from scratch with smaller batches, without maximum-likelihood pretraining. They also report improvements over existing GAN-based methods on multiple measures of both quality and diversity. These findings connect the gradient-estimation change to practical training behavior: more informative policy updates support a training route that does not depend on the stated pretraining stage."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "90a0815d80a51a7f14570aba540c8ed3944f4a01ab40fb6e227655bb8247c37e",
+    "tldr": "TaylorGAN combines off-policy updates with Taylor-based gradient estimation to improve text-generation training efficiency and enable training without maximum-likelihood pretraining."
+  },
+  "neurips-2020-the-flajolet-martin-sketch-itself-preserves-differential-privacy-private-counting-with-m-e82679cce2": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Counting distinct elements in a stream requires balancing memory use, approximation error, and privacy. This paper builds a differentially private counting algorithm on the Flajolet-Martin sketch. A central result is that the sketch itself satisfies differential privacy once the number of distinct elements exceeds a threshold determined by the privacy and accuracy parameters.",
+      "The algorithm provides a multiplicative approximation together with additive error proportional to the square root of log(1/delta), divided by epsilon. The authors establish improvements over prior work ranging from quadratic to exponential in space and additive error, with near-optimality guarantees up to stated factors. A supporting structural result compares maxima of k and k+1 independent, identically distributed samples.",
+      "The initial analysis assumes an ideal uniform random hash function and excludes its storage cost. The authors later replace that assumption with pseudorandom functions and a computational privacy notion, SIM-CDP. Experiments with thousands of distinct elements show error within an order of magnitude of non-private counterparts, even for epsilon at most one. The privacy result therefore depends on explicit counting and hashing conditions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1ef9bb608146b0e4283ff57362180d896bf61ccddd80b1bd37b73fea9eebaf98",
+    "tldr": "Under stated hashing and distinct-count conditions, the Flajolet-Martin sketch itself provides differential privacy and supports space-efficient private counting."
+  },
+  "neurips-2020-throughput-optimal-topology-design-for-cross-silo-federated-learning-4fa226c182": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Cross-silo federated learning often routes model updates through a central orchestrator. That arrangement can waste communication opportunities when nearby silos exchange data faster with each other, and the orchestrator can become a bottleneck. This paper studies how the communication topology should be designed to increase training throughput.",
+      "The authors define throughput as the number of communication rounds completed per unit of time and use max-plus linear systems to compute it. Given measurable network characteristics, their practical algorithms select a topology that either maximizes throughput or comes with provable throughput guarantees. The choice of communication structure is therefore tied directly to the network’s measured capabilities.",
+      "On realistic Internet networks with 10 Gbps silo access links, the algorithms speed up training by a factor of nine over the central master-slave architecture and by 1.5 over MATCHA. The reported gains are larger with slower access links. These results show that communication topology can materially affect training time, with the gains demonstrated for the evaluated network settings and dependent on knowledge of network characteristics."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ffb99da26601a40a8bb04bfd19dec1fe68f9982d4a56db7bf17c50bb34388e9d",
+    "tldr": "Network-aware topology design increases cross-silo federated-learning throughput, with optimality or throughput guarantees and substantial reported training speedups."
+  },
+  "neurips-2020-unifying-activation-and-timing-based-learning-rules-for-spiking-neural-networks-91b71b643f": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Training spiking neural networks requires deciding how changes in spikes should influence the learning signal over time. Two approaches have been studied separately: activation-based methods differentiate with respect to changes in spike activation, while timing-based methods differentiate with respect to changes in when spikes occur. Each emphasizes a different way to modify network activity.",
+      "The paper compares these approaches and proposes a supervised learning method that combines them. It can shift the timing of individual spikes, as timing-based learning does, while also generating and removing spikes, as activation-based learning does. A spike can therefore contribute to learning through both its timing and its presence.",
+      "The authors report better accuracy and efficiency than previous approaches in their experiments. The significance lies in combining complementary kinds of adjustment within one training method, allowing individual spikes to be used more effectively. The findings support the combined approach in the evaluated settings, while the conceptual contribution is the unification of two previously separate ways to compute temporal learning signals."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "378f5776c2a164625a491d55eb13f9ddb8496dd945b2da6114ed9455467c777c",
+    "tldr": "A combined spiking-network learning rule adjusts both spike timing and spike presence, improving accuracy and efficiency in the reported experiments."
+  },
+  "neurips-2020-untangling-tradeoffs-between-recurrence-and-self-attention-in-artificial-neural-networks-ddb484df27": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Self-attention is widely used for sequential learning, but its memory and computation requirements can make scaling difficult. This paper studies its role within recurrent networks through gradient propagation. The central question is how attention helps a network learn dependencies across long spans of a sequence.",
+      "The authors establish concrete bounds on gradient norms and prove that self-attention mitigates vanishing gradients in this setting. These gradients carry the learning signal, so preventing them from shrinking away helps preserve information needed to learn long-term dependencies. The analysis gives a mathematical account of an optimization benefit of attention.",
+      "Building on the theory, the paper proposes a relevancy screening mechanism inspired by memory consolidation. It supports sparse self-attention combined with recurrence while retaining guarantees against vanishing gradients. Simple numerical experiments illustrate the tradeoff between performance and computational resources when the two mechanisms are balanced. The contribution combines gradient analysis with a proposed route toward more scalable attentive networks, rather than relying solely on architectural heuristics."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9c8aa5ad6dc0ad750e6edbf815f0d0592248ec8e0da6a805b5eb68d44b314b8a",
+    "tldr": "Gradient bounds explain how self-attention mitigates vanishing gradients, motivating sparse attention with recurrence to balance performance and computational cost."
+  }
+}

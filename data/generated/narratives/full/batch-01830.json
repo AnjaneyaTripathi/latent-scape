@@ -1,0 +1,377 @@
+{
+  "icml-2026-adasplash-2-faster-differentiable-sparse-attention-e935379098": {
+    "backgroundConcepts": [
+      "topic-086-a-capacity-based-rationale-for-multi-head-attent"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Sparse attention can reduce the work involved in processing long sequences by assigning exactly zero weight to some connections. The differentiable α-entmax approach makes this sparsity depend on the input, but calculating its normalization threshold has been expensive. AdaSplash-2 targets that overhead, which has prevented this sparse alternative from competing effectively with softmax attention.",
+      "The method builds a coarse histogram of attention scores during computation and stores it in fast on-chip memory. That histogram supplies a better starting estimate for the threshold, typically reducing the calculation to one or two iterations. A GPU implementation then skips blocks containing zero attention weights with little additional overhead, supporting efficient forward and backward computation.",
+      "At moderate-to-high block sparsity, such as above 60%, AdaSplash-2 matches or improves training-step time relative to FlashAttention-2. The abstract says these sparsity levels often arise with long contexts. Models trained this way also match softmax baselines on short-context downstream tasks and show substantial gains on long-context tasks. The speed result therefore depends on enough block sparsity being available."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7a5e70a8d0d72189fc2c7857ec67f3c671482ebcef27ece2cbe75109921a151d",
+    "tldr": "AdaSplash-2 makes differentiable sparse attention competitive in training speed when block sparsity is sufficiently high, while improving reported long-context performance."
+  },
+  "icml-2026-black-box-combinatorial-optimization-with-order-invariant-reinforcement-learning-a9998aff56": {
+    "backgroundConcepts": [
+      "topic-052-a-differential-and-pointwise-control-approach-to"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies black-box combinatorial optimization: searching for good combinations of discrete choices using evaluations of their quality. Classical estimation-of-distribution methods guide that search by learning how variables depend on one another. Explicitly constructing these dependency graphs can be costly, and the resulting graphs may struggle to represent complex interactions efficiently.",
+      "The proposed framework instead learns an autoregressive generator that builds candidate solutions through successive variable choices. During training, it randomizes the order in which variables are generated. This encourages the model to become less dependent on any particular ordering, diversify its search, and concentrate on useful variable relationships. The authors describe this randomization as a form of dropout that preserves information.",
+      "The training procedure adapts Group Relative Policy Optimization, using scale-invariant advantages to support stable policy-gradient updates. Across benchmark instances with different sizes, the method frequently obtains the best performance and consistently avoids catastrophic failures in the reported experiments. These findings support random generation order as a useful way to improve search and sample efficiency, without claiming that the method wins on every instance."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "938d7f7e944fbfb3ae374ccd43cc51633653d75a5a9969e472cfadf13d58c8b8",
+    "tldr": "Randomizing variable-generation order helps a reinforcement-learning optimizer search diverse discrete solutions and perform reliably across the reported benchmarks."
+  },
+  "icml-2026-byte-pair-encoding-for-efficient-time-series-forecasting-63b21cf9cb": {
+    "backgroundConcepts": [
+      "topic-026-k-2-vae-a-koopman-kalman-enhanced-variational-au"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Many time-series models turn fixed numbers of measurements into tokens. This can waste computation when a long stretch contains a simple, repeated pattern, because the representation remains lengthy despite the underlying simplicity. This paper proposes tokenizing around recurring patterns instead, drawing inspiration from byte pair encoding.",
+      "The method learns a discrete vocabulary of frequent motifs and merges samples into tokens according to those patterns. Compression therefore adapts to the series rather than following a fixed sample count. The authors also introduce conditional decoding, which uses the finite motif vocabulary and the continuous properties of time series to refine decoding afterward. It requires no gradient computation and is reported to add no computational overhead.",
+      "On recent time-series foundation models, the authors report an average 40% improvement in forecasting performance and a 2314% efficiency increase. Conditional decoding further reduces mean squared error by up to 48%. Their analysis also finds adaptation to diverse temporal patterns, generalization to unseen data, and tokens that capture properties such as statistical moments and trends. Together, these results suggest that pattern-aware compression can improve both representation quality and computational efficiency."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d53add6cfc2470c7cef9c40bc52b662decca9cef10cf7cdf25eccb26d7b56189",
+    "tldr": "A motif-based tokenizer adaptively compresses time series, improving reported forecasting quality and efficiency while supporting lightweight conditional decoding."
+  },
+  "icml-2026-categorical-reparameterization-with-denoising-diffusion-models-9614f32ff9": {
+    "backgroundConcepts": [
+      "topic-200-do-diffusion-models-dream-of-electric-planes-dis"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Models that make categorical choices face a difficulty during gradient-based training: sampling a discrete category is not differentiable. When an objective averages over those choices, ordinary gradient propagation cannot simply pass through the sampling operation. A common approach replaces the discrete distribution with a smooth approximation, allowing gradients to be estimated through a continuous sampling process.",
+      "ReDGE develops this approach using denoising diffusion models to construct a soft reparameterization of categorical distributions. The contribution is a flexible family of gradient estimators rather than a single fixed rule. That family includes the Straight-Through estimator as a special case, connecting a familiar estimation strategy to the broader diffusion-based formulation.",
+      "The authors evaluate ReDGE in latent-variable models and in reward-guided inference for discrete diffusion models. These settings test its usefulness both for learning representations involving discrete variables and for guiding generation toward a reward. Across the reported experiments, ReDGE consistently matches or outperforms existing gradient-based methods. The findings support diffusion-based relaxation as an effective way to optimize through categorical choices in those settings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "baa8aaad65f2b4da6bbf9fd0f0862b15034a06e551bc7276715d2ded25534b06",
+    "tldr": "ReDGE uses diffusion-based soft reparameterization to estimate gradients through categorical choices, matching or improving on existing methods in the reported experiments."
+  },
+  "icml-2026-certifying-graph-neural-networks-against-label-and-structure-poisoning-298d082c0f": {
+    "backgroundConcepts": [
+      "topic-221-a-cognac-shot-to-forget-bad-memories-corrective-"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Poisoning attacks alter training data, so defending against them requires considering how corrupted examples affect the learned model. This paper focuses on guarantees for graph neural networks when attackers modify node labels or graph structure. It identifies a problem with transferring partition-and-aggregate certification methods from images: common graphs have sparse labels and connections, leaving individual partitions difficult to learn from.",
+      "The proposed framework, deep Self-Training Graph Partition Aggregation, enriches those partitions through semi-supervised learning. It adds informative pseudo-labels and synthetic edges so that the partition-based approach can work under sparse conditions. These additions address the shortage of supervision and structural information that otherwise undermines graph partitioning.",
+      "The framework can work across model architectures and scale to large numbers of partitions. Across multiple benchmarks, it consistently and significantly improves certified robustness against both label poisoning and structural poisoning while retaining strong accuracy on clean data. The contribution is therefore stronger formal robustness guarantees in the tested graph settings, alongside useful predictive performance, rather than only empirical resistance to a selected collection of attacks."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3ab11e777d224316dd4125de517a14b6f744225d7ec58adc8427c5657e0e1928",
+    "tldr": "ST-GPA strengthens graph-poisoning certificates by enriching sparse graph partitions with pseudo-labels and synthetic edges."
+  },
+  "icml-2026-curriculum-reinforcement-learning-for-black-box-prompt-tuning-via-large-language-models-67f5478497": {
+    "backgroundConcepts": [
+      "topic-199-a-benchmark-for-systematic-generalization-in-gro"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Black-box prompt tuning seeks better prompts for a model whose internal parameters and gradients cannot be accessed. That makes the number of model queries an important resource. The paper addresses the combined challenge of using those queries efficiently and producing prompts that people can read and understand.",
+      "CRL-BPT uses a large language model as a reinforcement-learning agent that writes prompts. Its curriculum changes the weights of two auxiliary objectives: imitation, which encourages learning from reference prompts, and innovation, which encourages discovering new patterns. This shifting balance guides learning from an initial emphasis on copying useful examples toward more exploratory prompt generation.",
+      "The framework also normalizes losses using historical information and calibrates relative rewards to stabilize training. In extensive experiments under a strict API-call budget, the authors report state-of-the-art performance together with highly interpretable prompts. The result connects search quality, training stability, and readability: the curriculum gives exploration a structured starting point, while the stabilization mechanisms help the reinforcement-learning process use its limited feedback effectively."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f138729e848c8db8d517c6b56ebbb45f9ae8acc8c8d87e695bfec55592e2f180",
+    "tldr": "CRL-BPT trains an LLM to move from imitating reference prompts to inventing effective readable prompts under a strict API-call budget."
+  },
+  "icml-2026-d-judge-disrupting-multi-turn-jailbreaks-using-semantics-preserving-output-rewriting-f9b1f5862d": {
+    "backgroundConcepts": [
+      "topic-049-a-coin-flip-for-safety-llm-judges-fail-to-reliab"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Some multi-turn jailbreak attacks use an auxiliary judge to score a model’s responses and guide the next attack prompt. Even when defenses block unsafe content at individual turns, intermediate responses may still provide useful feedback for this iterative search. D-Judge targets that feedback process directly.",
+      "The defense rewrites the protected model’s responses before the attacker’s judge evaluates them. Its goal is to preserve the response’s meaning while changing how the judge assesses harmfulness. The attacker then refines subsequent prompts using a distorted indication of progress. This approach relies on the distinction between what a response means and the score a judge assigns to its particular wording.",
+      "To train the rewriter, the authors construct pairs of semantically equivalent responses that receive different harmfulness scores. They apply supervised fine-tuning followed by direct preference optimization. On HarmBench, D-Judge reduces the success rate of state-of-the-art multi-turn jailbreaks while preserving performance on benign benchmarks. The findings show that interfering with judge-driven adaptation can provide an additional defense against the evaluated attacks."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c70be87e7d443fc520d318df2db2c4be5c9cb6a62446d377bdad236abd2f0a8d",
+    "tldr": "D-Judge preserves response meaning while rewriting wording to disrupt the feedback that guides multi-turn jailbreak attacks."
+  },
+  "icml-2026-decoupling-the-what-and-where-with-polar-coordinate-positional-embedding-387db686c0": {
+    "backgroundConcepts": [
+      "topic-086-a-capacity-based-rationale-for-multi-head-attent"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Transformer attention uses both a token’s content and its position when matching queries with keys. This paper analyzes rotary position embeddings, or RoPE, and finds that these two sources of information become entangled. Such entanglement can hurt decisions that need to match content and position independently.",
+      "The authors propose Polar Coordinate Position Embedding, called PoPE, to remove this content-position confound. A diagnostic task tests whether models can select information using position alone or content alone. PoPE performs much better on that task, providing direct evidence for the value of separating the two factors in the attention mechanism.",
+      "The evaluation also covers autoregressive modeling of music, genomic sequences, and natural language. PoPE improves evaluation loss and downstream performance over RoPE baselines, with language-model gains persisting from 124 million to 774 million parameters. It also shows strong zero-shot extrapolation to longer sequences compared with RoPE and YaRN, an extrapolation method that requires additional fine-tuning and frequency interpolation. These findings connect the diagnostic improvement to broader sequence-modeling benefits."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "98922c840fe9968b1fdf57582763620070240149a0ee23ceb7fbb98ea4d8fdd8",
+    "tldr": "PoPE separates content and position in attention, improving reported sequence modeling and zero-shot length extrapolation."
+  },
+  "icml-2026-direct-3d-aware-object-insertion-via-decomposed-visual-proxies-379b7e3c00": {
+    "backgroundConcepts": [
+      "topic-195-text-di-2-text-pose-discrete-diffusion-model-for"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Object insertion places a reference object into a chosen region of another image. Diffusion-based approaches can produce convincing images, but treating the operation as ordinary two-dimensional inpainting gives users no explicit control over the object’s three-dimensional pose. DIRECT combines interactive pose manipulation with image synthesis to make that control available.",
+      "The framework separates its conditioning information into three streams. Appearance guidance carries visual details from the reference object, geometry guidance comes from a user-adjusted three-dimensional proxy, and context guidance describes the destination background. Each enters through a separate pathway, avoiding entanglement between the signals that describe identity, pose, and scene integration.",
+      "This decomposition lets DIRECT preserve the reference appearance, follow the requested pose, and adapt the inserted object to the surrounding scene. The authors also build an automated pipeline to increase the quality and diversity of training data. Experiments report better geometric controllability and visual quality than previous methods. The practical contribution is an insertion workflow in which pose becomes an explicit user-controlled input while the system still produces a high-fidelity two-dimensional image."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "fb36681df21e030ba4efa09e7d863ebf78b38b41802926741a9c7335a56fac98",
+    "tldr": "DIRECT separates appearance, geometry, and scene guidance to insert reference objects with explicit user control over their three-dimensional pose."
+  },
+  "icml-2026-echoingpixels-aliasing-resistant-joint-token-reduction-for-audio-visual-llms-085546bd34": {
+    "backgroundConcepts": [
+      "topic-077-voice-benchmarking-full-duplex-voice-agents-on-r"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Audio-visual language models process large numbers of redundant tokens, making computation expensive. Compressing sound and images separately misses how the two streams influence each other’s information value. This paper also identifies a positional problem: aggressive token removal can make standard position encodings violate the sampling limit associated with the remaining token spacing.",
+      "The resulting positional aliasing creates phase collisions that disrupt temporal ordering. EchoingPixels addresses selection and positioning together. Its Cross-Modal Semantic Sieve chooses tokens according to their joint audio-visual importance, dynamically distributing the token budget instead of assigning a fixed share to each modality.",
+      "The second component, Sync-RoPE, filters the frequency content of rotary position embeddings. It adjusts their bandwidth to the sparse sampling rate so that temporal relationships remain monotonic after compression. Experiments report performance comparable to full models while retaining only 5–20% of the original tokens. The result shows why selecting informative content and maintaining a suitable positional representation are complementary requirements: reducing the token count changes both what information remains and how its timing must be encoded."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "746266b1646f727f952caa02b4b7b535ef0d73f5d35c472105f1c6fd91b656ce",
+    "tldr": "EchoingPixels combines joint audio-visual token selection with sampling-aware positional encoding to retain comparable performance using 5–20% of tokens."
+  },
+  "icml-2026-flashoptim-optimizers-for-memory-efficient-training-4f356dcece": {
+    "backgroundConcepts": [
+      "topic-194-1-bit-wonder-improving-qat-performance-in-the-lo"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Training memory includes more than model weights: gradients and optimizer state also consume accelerator capacity. In standard mixed-precision training, these stored values can make even a seven-billion-parameter model impractical below 100 GiB of accelerator memory. FlashOptim reduces this per-parameter storage while preserving the existing programming interface.",
+      "The method combines two improvements. First, it derives and exploits a tight quantization-error bound to improve master weight splitting. Second, it designs companding functions that reduce the error caused by storing optimizer states with eight bits. Together with 16-bit gradients, these techniques shrink the memory used by AdamW from 16 to 7 bytes per parameter, or 5 bytes when gradient release is used.",
+      "FlashOptim also reduces checkpoint sizes by more than half. Experiments cover SGD, AdamW, and Lion on standard vision and language benchmarks, including Llama-3.1-8B fine-tuning. The authors find no measurable quality degradation in that collection of evaluations. These results show that carefully controlling representation error can substantially reduce training storage without a detected loss in model quality in the tested settings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ee075b56a84b53165e0a9ff312f0aa10002b5cc8301482670286047642c754b4",
+    "tldr": "FlashOptim more than halves per-parameter training memory through improved weight and optimizer-state compression, with no measurable quality loss in reported evaluations."
+  },
+  "icml-2026-flowstate-sampling-rate-equivariant-time-series-forecasting-a264e479b6": {
+    "backgroundConcepts": [
+      "topic-026-k-2-vae-a-koopman-kalman-enhanced-variational-au"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Time-series foundation models often struggle when measurements arrive at different sampling rates or when input and forecast lengths change. FlowState addresses these issues through an architecture designed to adjust its time scale. Its central aim is sampling-rate-equivariant forecasting: predictions should adapt coherently to changes in temporal resolution.",
+      "The architecture pairs a state space model encoder with a functional basis decoder. This combination supports continuous-time modeling and dynamic adjustment of the time scale. The authors describe it as enabling generalization across all temporal resolutions and changes to the forecast horizon without retraining. They also introduce an efficient pretraining strategy that improves robustness and accelerates training.",
+      "Despite being among the smallest time-series foundation models, FlowState achieves state-of-the-art results on GIFT-Eval and demonstrates superior adaptation to sampling rates unseen during training. Component analyses support the contributions of its design. The findings connect a structural approach to representing time with both forecasting performance and flexibility, particularly when the spacing of incoming measurements differs from the model’s previous experience."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9c455bfec648d311e98d49d9367ef0252211bcbe2dee0513496f30f95c426794",
+    "tldr": "FlowState combines a state space encoder and functional decoder to adjust forecasting across sampling rates and horizons without retraining."
+  },
+  "icml-2026-latmix-learnable-affine-transformations-for-microscaling-quantization-of-llms-73d246e29a": {
+    "backgroundConcepts": [
+      "topic-194-1-bit-wonder-improving-qat-performance-in-the-lo"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Post-training quantization reduces the memory and computation needed by large language models by representing values with fewer bits. Transforming activations before quantization can reduce extreme values and improve robustness. However, much existing work uses rotations or Hadamard-based transformations and concentrates on traditional formats, while newer hardware increasingly supports microscaling formats.",
+      "The paper examines why transformations that seem useful elsewhere can perform poorly with microscaling quantization. Its theoretical analysis derives a quantization-error bound that accounts for both the activation distribution and the structure of the quantization format. This makes the transformation choice a joint problem involving the values being represented and the representation they must fit.",
+      "LATMiX uses that analysis to learn invertible affine transformations with standard deep-learning tools, expanding the options beyond the transformations commonly used previously. Across multiple model sizes and a wide range of zero-shot benchmarks, it consistently improves average accuracy over strong baselines for low-bit microscaling quantization. The findings support designing outlier-reduction transformations around the target numerical format rather than treating outlier reduction alone as sufficient."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c318edf01cc8b7eb01e74badfb683e9251406015654c85f29a283037840c55f2",
+    "tldr": "LATMiX learns invertible affine transformations tailored to microscaling quantization, improving reported average accuracy for low-bit language models."
+  },
+  "icml-2026-light-up-your-face-a-physically-consistent-dataset-and-diffusion-model-for-face-fill-lig-ba027b581c": {
+    "backgroundConcepts": [
+      "topic-214-a-hypertoroidal-covering-for-perfect-color-equiv"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Face fill-light enhancement brightens an underexposed face by adding virtual light while aiming to retain the existing scene illumination and background. General face-relighting methods can instead reshape the overall lighting, creating inconsistencies between the face and its surroundings. This paper develops a dataset and model specifically for the fill-light task.",
+      "LightYourFace-160K contains 160,000 paired images generated with a physically consistent renderer. A disk-shaped area light is controlled through six disentangled factors. The authors first train a physics-aware lighting prompt that converts these parameters into conditioning tokens, supported by an auxiliary objective for reconstructing planar light.",
+      "Those lighting codes then condition FiLitDiff, a one-step fill-light model built on a pretrained diffusion backbone. The design enables controllable enhancement with low computational cost. On held-out paired data, the model produces strong perceptual quality and competitive full-reference metrics while better preserving background illumination. The contribution links explicit physical lighting controls, scalable paired training data, and efficient image generation around the specific goal of adding light to faces without unnecessarily changing the scene."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e33eb7c6faf0f6c3fba66c76558a39ba9ca191da61c775ecece8b769134be2c2",
+    "tldr": "A physically rendered paired dataset and one-step diffusion model enable controllable face brightening while better preserving background illumination."
+  },
+  "icml-2026-llm-guided-loop-bound-generation-for-program-termination-verification-43dd0c7260": {
+    "backgroundConcepts": [
+      "topic-104-a-2-dept-large-language-model-driven-automated-a"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Termination verification asks whether a program will eventually finish running. It is a fundamental software property, but the general problem is undecidable. LIFT approaches this challenge by combining language-model-generated candidates with formal checking, using the model to propose loop bounds that could support a termination proof.",
+      "The workflow separates proposing a bound from establishing that it is valid. An LLM generates a candidate, and a sound validation procedure checks it. When a proposed bound is invalid, violation analysis refutes it. When the framework reports termination, the formal procedure guarantees that report. The reliability of the conclusion therefore comes from validation rather than from accepting the generated proposal on trust.",
+      "Experiments on publicly accessible termination benchmarks show that LIFT significantly outperforms existing termination-verification tools. This supports the usefulness of language models as candidate generators within a rigorously checked workflow. The guarantee applies to the terminations LIFT reports; it does not remove the underlying undecidability of proving termination for arbitrary programs."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8b1dd7062c59c127f1986e152a5b03796dd27f371ed23d1615e7ea123b51deec",
+    "tldr": "LIFT uses LLMs to propose loop bounds and sound formal validation to guarantee every termination result it reports."
+  },
+  "icml-2026-qedbench-quantifying-the-alignment-gap-in-automated-evaluation-of-university-level-mathe-95d427ded8": {
+    "backgroundConcepts": [
+      "topic-186-3d-prover-diversity-driven-theorem-proving-with-"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Evaluating a mathematical proof requires assessing whether its reasoning is rigorous, making automated grading a separate challenge from producing an answer. QEDBench examines how well language-model judges agree with human experts on mathematics at the upper-undergraduate to early-graduate level. It compares course-specific grading rubrics with criteria based on expert common knowledge.",
+      "The evaluation combines seven judges and five solvers with more than 1,000 hours of human assessment. It finds a systematic alignment gap between automated evaluation and expert judgment. Some frontier evaluators assign overly generous scores: Claude 4.5 Opus shows mean score inflation of up to 0.28, treating flawed proofs as more rigorous than the human assessments support.",
+      "The results also reveal substantial differences across models and mathematical domains. Gemini 3.0 Pro achieves a reported raw score of 0.91, while o3-deep-research reaches only 42.1% accuracy in Graph Theory. These findings show why a strong overall model reputation cannot substitute for direct evaluation of proof judging. QEDBench provides a public benchmark for measuring and improving that agreement with experts."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "040d41e0e45cb10299b58a7fb64e297e4f3ffd73187a11e116daf2a3a61c7c9b",
+    "tldr": "QEDBench finds systematic gaps between LLM proof grading and expert assessment, including inflated scores and strong domain-dependent weaknesses."
+  },
+  "icml-2026-safety-efficacy-trade-off-robustness-against-data-poisoning-a3df200b35": {
+    "backgroundConcepts": [
+      "topic-102-chameleon-adapting-to-peer-images-for-planting-d"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper investigates how poisoning attacks can succeed while escaping defenses that look for spectral or optimization signals. Using kernel ridge regression as an exact model of wide neural networks, the authors connect attack behavior to input-space curvature. They prove that clustered dirty-label poisons create a rank-one spike in the input Hessian whose magnitude grows quadratically with attack efficacy.",
+      "For nonlinear kernels, however, they identify a near-clone regime in which attack efficacy remains order-one while the induced curvature vanishes. Under those conditions, the attack becomes provably undetectable through the spectral signal studied. This explains how substantial attack effects can coexist with little visible curvature evidence.",
+      "The analysis also shows that input-gradient regularization contracts poison-aligned Fisher and Hessian modes, but reduces data-fitting capacity, creating an unavoidable safety–efficacy trade-off within the framework. For exponential kernels, the defense has an anisotropic high-pass-filter interpretation. Experiments on linear models and deep convolutional networks using MNIST and CIFAR-10/100 support the theory, including delayed spectral visibility and joint poisoning suppression from regularization and data augmentation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7c7f537c283b7f08d620c18f0ab2fcb8ab2a45fc31e0e6c1d33c0b6a4dfcd78f",
+    "tldr": "A curvature-based analysis identifies conditions where effective poisons evade spectral detection and explains the data-fitting cost of a regularization defense."
+  },
+  "icml-2026-scaling-transformers-for-end-to-end-discrete-audio-tokenization-51edc64e7e": {
+    "backgroundConcepts": [
+      "topic-077-voice-benchmarking-full-duplex-voice-agents-on-r"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Discrete audio tokenizers turn audio into tokens that language models can process and generate. Existing designs often combine pretrained encoders, semantic distillation, or heterogeneous convolutional components. This paper argues that these choices impose fixed biases that constrain reconstruction quality and scaling, and proposes learning the entire tokenizer together from scratch.",
+      "TAC uses a homogeneous architecture of causal Transformer blocks. Its encoder, quantizer, and decoder are jointly optimized to reconstruct general audio faithfully. Across speech, environmental sound, and music, the authors report consistent improvements over prior codecs across a broad range of bitrates, with predictable quality gains as the model scales.",
+      "The tokens also support downstream audio tasks. The authors build what they report as the first purely autoregressive text-to-speech model to surpass prior non-autoregressive and cascaded systems. TAC additionally enables competitive speech recognition without auxiliary encoders. These results make the contribution broader than audio compression: the same learned discrete interface supports reconstruction, speech generation, and recognition, providing evidence for its usefulness in native audio foundation models."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "53df94639e584dd2e9716356b0338e62820b069a8e7f663c5a9c6dd58989cbac",
+    "tldr": "TAC learns a scalable Transformer audio tokenizer end to end, improving reconstruction and supporting strong speech generation and recognition."
+  },
+  "icml-2026-tabpack-efficient-hyperparameter-ensembles-for-tabular-deep-learning-88c81d7485": {
+    "backgroundConcepts": [
+      "topic-182-indirectly-parameterized-concrete-autoencoders"
+    ],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Ensembles of multilayer perceptrons have become useful models for tabular data, but existing efficient versions generally give all members the same hyperparameters. Finding good shared settings can require substantial tuning. TabPack moves variation in those settings inside the ensemble training process, aiming for strong performance with less preparatory search.",
+      "In one run, TabPack samples many MLPs with different hyperparameters and trains them efficiently in parallel. It also selects ensemble members during training. Users specify ranges of possible settings rather than choosing precise values for every setting. This reduces how accurately the configuration must be chosen in advance to obtain good results.",
+      "On medium-to-large public datasets, default TabPack performs on par with prior methods that receive extensive tuning. The reported benefit is therefore competitive accuracy with less tuning effort and computation. In one comparison, running the default configuration on a modern MacBook took less time than tuning some baselines on an industry-grade GPU. That comparison illustrates the potential savings from including hyperparameter diversity within a single training run."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f9ee3eb060f66df4b38be7a29c1917555eb0b777d9a504b2efd66a82519a2843",
+    "tldr": "TabPack trains and selects MLPs with varied hyperparameters in one run, matching extensively tuned tabular methods with default settings."
+  },
+  "icml-2026-the-cost-of-information-phase-transitions-in-contextual-bandits-with-paid-observations-c223ba168b": {
+    "backgroundConcepts": [
+      "topic-174-parametric-graph-for-unimodal-ranking-bandit"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "In contextual bandits with paid observations, a learner chooses both actions and which action outcomes to observe, paying for information as it learns. The objective includes losses from imperfect decisions and expenditure on observations. This paper develops a near-optimal algorithm for adversarial environments and shows that even small observation prices increase the minimax regret order.",
+      "A central result concerns access to a budget of free observations. Below a critical threshold, those observations reduce total cost without improving the regret rate. Above that threshold, asymptotic improvements become possible. This distinguishes saving money at a given scale from changing how performance grows with the problem horizon.",
+      "The authors design a meta-controller that switches adaptively between strategies to achieve near-optimal performance across budget regimes. They also provide an oracle-efficient method using function approximation for large or infinite policy spaces, retaining rigorous guarantees while addressing computation. Numerical experiments support the theoretical results. The analysis additionally connects paid information to switching costs, budget constraints, model misspecification, and knapsack bandits, showing how observation expenditure interacts with several other decision-making constraints."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d80cff90548bd670c8a4010c10a07c2474acca0a94fb56160893c37feb8a5823",
+    "tldr": "Paid-observation bandits exhibit a threshold where free information begins improving regret rates, motivating adaptive near-optimal learning strategies."
+  },
+  "icml-2026-the-differences-between-direct-alignment-algorithms-are-a-blur-e1630eb436": {
+    "backgroundConcepts": [
+      "topic-157-textits-sppo-semantic-calibrated-self-play-prefe"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Direct alignment algorithms train language-model policies from preferences without a separate reward-modeling and reinforcement-learning pipeline. They differ in their training stages, scalar scores, and ranking objectives, making it difficult to identify which differences drive performance. This paper systematically compares those choices, emphasizing the previously underexplored distinction between pairwise and pointwise ranking.",
+      "To make the comparison more controlled, the authors give one-stage methods ORPO and ASFT an explicit supervised fine-tuning stage. They also introduce a beta parameter that places the methods in a shared hyperparameter space and improves the odds-ratio approaches. This unified setup helps separate the effect of the ranking objective from other training differences.",
+      "Under that setup, ranking objective is the main determinant of alignment quality, while the choice between policy–reference and odds-based scores is secondary. Instruction-following and mathematical-reasoning experiments across model scales support the finding. Controlled experiments and real-data observations suggest that interactions with prompt-specific biases help explain it. The conclusion is conditional on the studied framework and motivates more careful comparisons before declaring one alignment algorithm superior."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ccd2f13946f98e4671a7876bf6ea5ddab38a66dc03e64e78e00ae6e9ac21c2f0",
+    "tldr": "In a unified comparison of direct alignment methods, ranking objectives matter more for quality than the particular scalar scores being optimized."
+  },
+  "icml-2026-the-illusion-of-generalization-in-tabular-language-models-06d88b3a8a": {
+    "backgroundConcepts": [
+      "topic-236-beta-dpo-direct-preference-optimization-with-dyn"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper re-evaluates claims that tabular language models generalize well to prediction tasks, studying Tabula-8B on 165 UniPredict datasets. It separates task types and examines contamination to understand what drives aggregate scores. That distinction matters because a strong combined result can conceal weak performance on major categories of tasks.",
+      "For binary and categorical classification, median improvement over majority-class baselines is near zero. Strong aggregate results come entirely from quartile classification tasks. The best-performing datasets also show pervasive contamination, including complete overlap between training and test data and task-level leakage that ordinary deduplication does not catch.",
+      "Additional experiments find that instruction-tuning without tabular exposure recovers 92.2% of standard classification performance. On quartile classification, familiarity with the format closes 71.3% of the gap, with the remaining difference attributed to contaminated datasets. Taken together, these findings suggest that the claimed generalization in this evaluation likely reflects artifacts rather than learned tabular reasoning. The study uses a representative model, so its evidence supports scrutiny of broader claims without establishing that every tabular language model behaves identically."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9baf57476ba267206be43f6aec2ab6a1dd25c6386a7ae238cc1317359d2733e0",
+    "tldr": "A re-evaluation of Tabula-8B suggests its apparent tabular generalization largely reflects task mix, format familiarity, and contaminated evaluation data."
+  },
+  "icml-2026-towards-spectroscopy-susceptibility-clusters-in-language-models-7f3a6bf879": {
+    "backgroundConcepts": [
+      "topic-028-textit-neuropath-a-neural-pathway-transformer-fo"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Spectroscopy studies internal structure by observing how a system responds to perturbations. This paper applies that idea to language models by increasing the weight of a particular token in a particular context and measuring the response. The resulting susceptibilities describe how component-level observables covary with that perturbation.",
+      "The measurements are computed over a localized Gibbs posterior using stochastic gradient Langevin dynamics. The authors theoretically show that susceptibilities decompose into a sum over modes of the data distribution. This explains why context-token pairs supported by similar underlying reasons can cluster together according to their response patterns, providing a route from controlled perturbations to interpretable structure.",
+      "Applied to Pythia-14M, the method uses a conductance-based clustering algorithm to identify 510 interpretable clusters. These cover grammatical patterns, code structure, and mathematical notation. Half of the clusters match features from sparse autoencoders, supporting the claim that the two approaches recover some similar structure. The result offers a response-based perspective on interpretation, with empirical evidence from the particular language model studied."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ca9d24d0d46837a2eb203417a2b4479863d4c099012c81b347d022fc9eec34f3",
+    "tldr": "Measuring language-model responses to data perturbations reveals interpretable token-context clusters, half of which match sparse-autoencoder features in Pythia-14M."
+  },
+  "icml-2026-twins-learn-to-predict-unified-representations-with-focal-loss-f1cb985fe9": {
+    "backgroundConcepts": [
+      "topic-118-a-closer-look-at-self-supervised-lightweight-vis"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Unified multimodal models need visual representations that support both understanding and image generation. Continuous approaches often use semantic ViT features for understanding and lower-level VAE latents for synthesis, leaving two mismatched spaces. Twins joins these features along their channels on the same token grid, preserving sequence length and avoiding an increase in attention cost.",
+      "Combining the features exposes a training imbalance: a Diffusion Transformer learns the ViT component well but struggles to reproduce the VAE distribution. The authors trace this to differences in frequency bias, intrinsic dimensionality, and whether uncertainty aligns with the conditioning information. They adapt focal regression for flow matching so that VAE dimensions with large errors receive greater weight.",
+      "On ImageNet, this objective improves gFID by up to 10.57 over naive mean squared error without classifier-free guidance. Twins also achieves competitive multimodal-understanding results and improves reconstruction fidelity. The findings show that placing semantic and synthesis features in one representation is only part of the challenge; balancing their optimization is important for making the shared representation useful to both tasks."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8fdfc4d4c6d6738f047f88b994a73a892da83292832b33cef79249140bf397ee",
+    "tldr": "Twins combines semantic and image-synthesis features in one token space and uses focal regression to balance their learning."
+  },
+  "icml-2026-venusbench-mobile-a-challenging-and-user-centric-benchmark-for-mobile-gui-agents-with-ca-00196364d8": {
+    "backgroundConcepts": [
+      "topic-238-r-3-dao-reactive-recovery-and-reconstruction-for"
+    ],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Mobile GUI agents must operate interfaces in conditions that vary with users’ intentions and changes in the environment. Existing online benchmarks often organize evaluation around individual apps and similar kinds of tasks. VenusBench-Mobile instead builds tasks around user intent to better reflect the diversity and instability of real mobile use.",
+      "The benchmark also changes how behavior is analyzed. Alongside its task design, it introduces capability-oriented annotations that support a more detailed diagnosis of agent failures. This allows evaluation to identify which abilities are breaking down, rather than compressing all behavior into a coarse success score.",
+      "Evaluations of state-of-the-art agents show large performance gaps relative to previous benchmarks. The diagnostic analysis finds that perception and memory deficiencies dominate failures, problems that coarse evaluations largely obscure. Even the strongest agents achieve near-zero success under the tested environmental variations. These findings indicate substantial brittleness and a gap from reliable real-world deployment. The benchmark’s contribution is both a more demanding evaluation setting and a way to connect poor outcomes to specific capabilities that need improvement."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8790de644f655f4e2a27fa300e9e9e07de1071fa5b50bf3e7a0945c9989eacfc",
+    "tldr": "VenusBench-Mobile tests mobile agents on user-centered tasks and exposes major perception, memory, and environmental-robustness failures."
+  }
+}

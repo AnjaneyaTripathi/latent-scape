@@ -1,0 +1,340 @@
+{
+  "icml-2025-a-general-framework-for-inference-time-scaling-and-steering-of-diffusion-models-09cfb0d96e": {
+    "backgroundConcepts": [
+      "topic-064-psi-sampler-initial-particle-sampling-for-smc-ba"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "FK steering guides diffusion generation toward desired properties using reward functions at inference time. The framework applies Feynman-Kac interacting particle systems: it runs several generation trajectories, called particles, and resamples them during generation. This makes intermediate progress part of the selection process, rather than relying only on the quality of completed samples.",
+      "The central design choice is a potential function that scores intermediate states. These scores use reward information and are chosen so that a promising intermediate state receives a high score. Resampling then favors trajectories expected to produce rewarding outputs. The paper explores different potentials, rewards, and samplers, making this a framework for steering rather than a single fixed generation procedure.",
+      "In text-to-image experiments using human preference rewards, steering with two particles outperforms fine-tuned models. A steered 0.8B-parameter model also surpasses a 2.6B model on prompt fidelity. Text experiments report lower perplexity and gradient-free control of attributes, including toxicity. These results demonstrate that additional inference computation can improve both quality and controllability without necessarily requiring further training."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2977c484087d7b3985fc2f35114ab58f7af5f536fc162d63c87e653442f42549",
+    "tldr": "FK steering resamples competing diffusion trajectories during generation to improve reward-driven quality and control without requiring retraining."
+  },
+  "icml-2025-avoiding-spurious-sharpness-minimization-broadens-applicability-of-sam-cd1d2f82bb": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Sharpness Aware Minimization, or SAM, has improved generalization in vision, but the paper finds that it can degrade performance in language tasks even with twice the computation. The authors investigate this discrepancy by examining what SAM actually regularizes. In their NLP setting, changes to logit statistics dominate its behavior, rather than improvements to the geometry of the function represented by the network.",
+      "They introduce Functional SAM to target curvature through the statistics of the overall network function and avoid apparent sharpness improvements obtained through logit manipulation. They also argue that preconditioning SAM's perturbation prevents this unwanted behavior. Combining preconditioning with Functional SAM produces further improvements, suggesting that both the regularization target and the perturbation construction matter.",
+      "The proposed algorithms outperform AdamW and standard SAM in experiments matched for training steps. These comparisons cover fixed-length and Chinchilla-style training, including billion-parameter models. The findings support more precise definitions of sharpness for language-model training: reducing a sharpness measure is useful only insofar as the measure captures the relevant functional behavior."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9a8a7194f28409e3394af3f0f0fa9360abea41080c9fde78b6959d198e58bc20",
+    "tldr": "Functional SAM improves language-model training by avoiding sharpness reductions driven by logit manipulation."
+  },
+  "icml-2025-beyond-log-concavity-and-score-regularity-improved-convergence-bounds-for-score-based-ge-3e872ad826": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Score-based generative models learn from noise-perturbed data and use learned score functions to generate samples. This paper studies how close their generated distribution gets to the target in Wasserstein-2 distance. Its contribution is an analysis framework that relaxes strong assumptions about the target distribution and the regularity of score functions that earlier convergence bounds require.",
+      "The analysis uses the smoothing properties of the Ornstein-Uhlenbeck process. Under weak log-concavity of the data distribution, the authors show that its evolution eventually becomes log-concave. They quantify that transition through a partial differential equation for the evolving log-density. They also show that the reversed process has both contractive and non-contractive regimes, connecting sampling dynamics to changes in concavity.",
+      "Accounting for these changing regimes allows the framework to work with milder assumptions on scores and their estimators. Explicit calculations for Gaussian mixture models illustrate its applicability. The result broadens the theoretical settings in which convergence can be analyzed; its suggested relevance to wider distribution classes remains a potential extension rather than an unrestricted guarantee."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "787f1aa4843ba73582e8aba2b1352c59db1ade8b74c755ba4323747529b2c20c",
+    "tldr": "A new convergence analysis uses noise-induced regularization to weaken assumptions required for score-based generative models."
+  },
+  "icml-2025-byzantine-resilient-federated-alternating-gradient-descent-and-minimization-for-partly-d-c809b1c5b1": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper develops federated algorithms for recovering a low-rank matrix from a small fraction of its entries. Its main contribution combines alternating gradient descent and minimization with provable Byzantine resilience. The resulting methods address robustness to faulty or adversarial participating nodes while also targeting efficiency in the amount of observed data and communication required.",
+      "The setting distributes different column portions of the matrix across nodes, each of which observes only limited information about its portion. Data across nodes are heterogeneous rather than identically distributed. This matters because the guarantees must accommodate participants with systematically different information. For matrix completion, exchanging rows and columns makes horizontal federation equivalent, but that symmetry does not extend to all the problems considered.",
+      "The authors extend their ideas to low-rank column-wise sensing, also known as multi-task linear representation learning, and explain an extension to low-rank phase retrieval. These connections show how a shared alternating optimization approach can support several partly decoupled matrix-learning problems. The stated contribution is principally a set of robust algorithms and theoretical guarantees for these federated structures."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f5bfa4e44a810bdd59d2d80c0b11715ff23c950e20d130fb978a93ad630bb267",
+    "tldr": "The paper develops provably Byzantine-resilient, communication-efficient federated algorithms for low-rank matrix completion and related learning problems."
+  },
+  "icml-2025-cache-me-if-you-must-adaptive-key-value-quantization-for-large-language-models-aae72c0b01": {
+    "backgroundConcepts": [
+      "topic-012-quest-query-aware-sparsity-for-efficient-long-co"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Language models cache key and value vectors to avoid repeating computation while processing long contexts and generating outputs. Those caches can occupy tens of gigabytes because they retain information for each token and layer. AQUA-KV addresses the resulting memory burden by compressing cached representations while aiming to preserve the quality that aggressive compression often damages.",
+      "The method exploits dependencies among keys and values across layers. Compact adapters use those relationships to predict information already represented elsewhere, allowing compression to focus on information that cannot be predicted. This makes the approach adaptive to structure within the cache, rather than treating every cached vector as an independent object with equally novel content.",
+      "On Llama 3.2 models, the authors report near-lossless inference using 2–2.5 bits per value, with less than 1% relative error in perplexity and LongBench scores. Calibration takes 1–6 hours on one GPU, including for 70B models. These findings show a practical route to substantially smaller caches while retaining accuracy in the evaluated settings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "06700577d317cf322a2751d534b08f8ffd3eb5b112a6610c76bb4638e728809a",
+    "tldr": "AQUA-KV compresses language-model caches by predicting shared information across layers and quantizing what remains."
+  },
+  "icml-2025-cmos-rethinking-time-series-prediction-through-the-lens-of-chunk-wise-spatial-correlatio-813e1c1c71": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "CMoS approaches time-series forecasting by directly learning correlations between chunks of a time series. Its starting point is that successful lightweight forecasting models suggest these tasks may admit relatively simple solutions. Instead of learning embeddings that represent the shapes of chunks, CMoS places relationships among chunks at the center of its forecasting model.",
+      "The authors introduce Correlation Mixing to capture varied spatial correlations with few parameters. They also offer an optional Periodicity Injection technique to accelerate convergence. These components support the same design goal: making useful temporal structure accessible to a small model without requiring a large representation-learning system. Periodicity Injection is an optional aid, rather than a required element of every use.",
+      "Across multiple datasets, the reported experiments outperform existing state-of-the-art models while using parameter counts as low as 1% of DLinear's. The learned weights are also reported to be interpretable, providing insight into temporal structure in particular applications. Together, the findings suggest that directly modeling chunk relationships can deliver both forecasting accuracy and understandable model behavior with very few parameters."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "cc1c9ccd8461c6dd7c0ff6f329b63bdb4ec7c40e713c791619fdac1089ea00bf",
+    "tldr": "CMoS forecasts time series through direct chunk correlations, achieving strong reported results with very few interpretable parameters."
+  },
+  "icml-2025-diversified-flow-matching-with-translation-identifiability-74e96bec5c": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Diversified distribution matching seeks one translation function that maps multiple conditional source distributions to their corresponding targets. It was developed to address content misalignment in unpaired translation while achieving translation identifiability. Previous implementations used GANs, which can be unstable to train and do not provide the transport trajectories useful for applications such as cell evolution analysis or robot route planning.",
+      "Diversified flow matching brings this distribution-matching principle into an ordinary differential equation framework. The main obstacle is that flow matching learns velocities along a trajectory, whereas the requirement concerns the final translation function shared across distributions. The authors address that mismatch using a custom bilevel optimization loss, a nonlinear interpolant, and a reformulation of the framework's structure.",
+      "The resulting method offers an implementable connection between identifiable translation and trajectory-based generation. The authors describe it as, to their knowledge, the first ODE-based approach guaranteeing translation identifiability. Experiments on synthetic and real-world datasets validate the method. Its significance lies in combining the translation constraint with a framework that also represents how transport unfolds."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "bc8e361a146940697f2b5e3d1ad47af5a7603cdd117a70c3837509d3362e1702",
+    "tldr": "Diversified flow matching brings identifiable distribution translation into an ODE framework that also represents transport trajectories."
+  },
+  "icml-2025-efficiently-serving-large-multimodal-models-using-epd-disaggregation-859cc19d4e": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Serving models that accept images, audio, and video adds an encoding step that consumes computation and memory. This extra work can affect both how quickly a response begins and the time between output tokens. The paper addresses these serving costs by changing how the stages receive computing resources.",
+      "Its Encode-Prefill-Decode framework assigns encoding, prefill, and decoding to dedicated resources. The key change is separating encoding from prefill, which the systems described in the abstract keep together. That separation opens opportunities to manage the encoding workload independently.",
+      "The framework combines multimedia-token caching for efficient transfer, parallel encoding work within an individual request, a resource-allocation module, and a method for switching resource roles as workloads change. These mechanisms make separation useful operationally: the system can distribute work within a request and adapt resource roles to changing demand.",
+      "Experiments with popular multimodal models report up to 15 times lower peak memory use and up to 22 times larger batches, alongside 10 times more images per request and 2.2 times larger KV caches. Compared with systems without disaggregation, the evaluations also report up to 90–100% improvement in service-level objective attainment and up to 71% lower time to first token. These reported gains indicate that separating stages can improve both serving capacity and responsiveness; the stated maxima are experimental results rather than guarantees for every workload."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "47b643e28f1a793cdea5d2de3dc54eee66a127b5bf3c22f0935a53df83242213",
+    "tldr": "EPD separates multimodal encoding, prefill, and decoding onto dedicated resources, with experiments reporting substantial improvements in memory use, serving capacity, and response latency."
+  },
+  "icml-2025-evopress-accurate-dynamic-model-compression-via-evolutionary-search-5b9ac12657": {
+    "backgroundConcepts": [
+      "topic-138-lossless-compression-of-deep-neural-networks-a-h"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Dynamic model compression assigns different compression levels to different layers or blocks while meeting an overall compression target. Many existing approaches estimate each layer's importance separately. EvoPress starts from evidence that these contributions can interact: in some cases, pruning an already compressed model further can substantially recover performance rather than causing additional damage.",
+      "The authors formulate compression allocation as a general optimization problem and use evolutionary search to find effective profiles. A profile specifies how compression is distributed throughout the model. Searching these allocations addresses combinations of decisions, which matters when the effect of compressing one layer depends on what has happened elsewhere. The framework is designed to apply across models and compression techniques.",
+      "Reported experiments achieve state-of-the-art dynamic compression performance for Llama, Mistral, and Phi models. They cover dropping blocks or layers, introducing unstructured sparsity, and assigning different quantization bitwidths. These results support treating compression as a coordinated model-wide problem. They also explain why a layer ranking alone may miss allocations that preserve more accuracy at the same overall compression target."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "017f119da407a568ff6fe754c6908f173ced83aaa95e4fac7278c13fe8626533",
+    "tldr": "EvoPress uses evolutionary search to allocate compression across interacting layers while meeting a global compression target."
+  },
+  "icml-2025-ferret-federated-full-parameter-tuning-at-scale-for-large-language-models-3d0993c5a6": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Ferret addresses the communication cost of updating all parameters of a language model across decentralized data sources. Federated approaches often reduce this burden through parameter-efficient tuning, which the authors note can sacrifice accuracy. Ferret instead retains full-parameter tuning and changes how participating clients communicate their local updates to support aggregation.",
+      "Clients use first-order optimization methods for local training, then project their updates into a low-dimensional space. Shared randomness allows updates to be reconstructed from those compact representations for full-parameter global aggregation. The important distinction is between the dimensionality of the communicated representation and the scope of the model update: a small message can still contribute to updating the full model.",
+      "The authors present theoretical analyses and extensive experiments supporting computational efficiency, lower communication overhead, fast convergence, and competitive final accuracy. They describe Ferret as the first first-order method using shared randomness for this purpose. Its contribution is a way to scale federated full-parameter training by compressing update communication while retaining an effective global training process."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b602709c27918ff996c32f684d6f0b65e61002bbc86689028dd11be489ac2444",
+    "tldr": "Ferret enables scalable federated full-parameter tuning by communicating compact projections of updates and reconstructing them with shared randomness."
+  },
+  "icml-2025-hide-seek-transformer-symmetries-obscure-sharpness-riemannian-geometry-finds-it-e3fe4cbba4": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Sharpness measures how loss changes around a model's parameters and has helped predict generalization in some neural architectures. For transformers, earlier work found weak correlations. This paper argues that attention mechanisms introduce rich symmetries: parameters can change along certain directions while the network or its loss remains identical. Such directions make ordinary parameter-space measurements ambiguous.",
+      "The authors define sharpness on a quotient manifold that removes those symmetry-related ambiguities. Using Riemannian geometry, they measure neighborhoods through geodesic balls in that corrected space. This reframes the question around meaningful changes after accounting for equivalent parameter configurations. Computing the required geodesics is difficult in practice, so the method relies on approximations.",
+      "First-order approximations recover existing adaptive sharpness measures, while the authors show that higher-order terms are crucial for recovering correlations with generalization. Experiments include diagonal networks on synthetic data and transformers on text and image classification. The reported strong correlations support the idea that transformer sharpness can be informative when its geometry accounts sufficiently for model symmetries."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "62aa03815eb9b8c9f99b9fa5e5d49fc22ee8228be38ac7e525d23d2e0a6598e3",
+    "tldr": "Accounting for transformer symmetries with geometric sharpness measures restores strong empirical correlations with generalization."
+  },
+  "icml-2025-improved-coresets-for-vertical-federated-learning-regularized-linear-and-logistic-regres-0d02b51010": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A coreset summarizes training data so that learning can use less data processing and storage. In vertical federated learning, clients hold different features of the data, so smaller summaries also reduce communication. This paper develops coreset constructions for regularized logistic regression in both centralized and vertically federated settings, and improves coreset sizes for regularized linear regression under vertical federation.",
+      "The key idea is to make the construction reflect the reduction in model complexity caused by regularization. The algorithms and their analysis exploit that reduced complexity to obtain smaller summaries. The authors also remove a coreset-size dependence on a data property introduced by the vertically federated setting, strengthening the resulting size guarantees.",
+      "Extensive experiments are reported to support the theoretical claims. The evaluation also compares models trained on complete datasets with models trained on the coresets, connecting the summary-size results to actual learning performance. The contribution matters because the value of a smaller coreset extends beyond storage: when features are distributed across clients, it can directly reduce the information that training needs to communicate."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6173e5827be9ed562b8ad1f74722bae60b0e360ad79fad03760f9accfc7492a0",
+    "tldr": "New coreset constructions exploit regularization to shrink data summaries and reduce communication in vertically federated regression."
+  },
+  "icml-2025-llm-srbench-a-new-benchmark-for-scientific-equation-discovery-with-large-language-models-b48dd1220e": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "LLM-SRBench evaluates whether language-model systems can discover scientific equations rather than simply reproduce familiar ones. The authors identify a problem with benchmarks built around common equations: a model may have memorized them, making apparent discovery performance misleading. Their benchmark contains 239 challenging problems across four scientific domains and is designed to prevent trivial memorization.",
+      "The benchmark uses two complementary categories. LSR-Transform expresses familiar physical models in less common mathematical forms, testing whether a system can reason beyond the representation it may already know. LSR-Synth supplies synthetic problems designed around discovery from data. Together, these categories probe both the ability to move beyond familiar equations and the ability to infer mathematical structure from observations.",
+      "The evaluation covers several state-of-the-art methods using both open and closed language models. The strongest evaluated system achieves 31.5% symbolic accuracy. That result shows substantial remaining difficulty on these tasks and supports the benchmark's role in distinguishing stronger discovery capabilities from performance inflated by familiar test equations."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4e7239208430c85d28efbda9011418da89d7861b8f611dad23f71725929f7203",
+    "tldr": "LLM-SRBench tests equation discovery beyond trivial memorization, with the best evaluated system reaching 31.5% symbolic accuracy."
+  },
+  "icml-2025-poly2vec-polymorphic-fourier-based-encoding-of-geospatial-objects-for-geoai-applications-75dc780a1a": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Geospatial learning needs representations that retain where objects are and how they relate to their surroundings. Converting objects to images or text can lose important spatial information, while encoders specialized for one geometry may not handle others. Poly2Vec provides a unified representation for points, polylines, and polygons, aiming to preserve essential spatial properties across these different object types.",
+      "The method uses Fourier-based encoding and a learned fusion module that combines the transform's magnitude and phase. That combination adapts to the task and geometry. The shared encoding approach matters for applications involving mixed geospatial objects, because it avoids restricting the representation method to just one type of shape.",
+      "The authors evaluate five tasks in two groups. Tests of topology, direction, and distance show consistently better preservation of these relationships than object-specific baselines. Integrating Poly2Vec into an existing state-of-the-art GeoAI workflow also improves population prediction and land-use inference. The findings connect a more general spatial representation to both relationship preservation and improvements in applied prediction tasks."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "886c6f387771b81895e2bc1d4affadfc4b35bcb445e298b3365149db1a63f75a",
+    "tldr": "Poly2Vec encodes points, lines, and polygons in a shared Fourier-based representation that improves spatial reasoning and GeoAI predictions."
+  },
+  "icml-2025-predictive-data-selection-the-data-that-predicts-is-the-data-that-teaches-6c17eefd21": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "PreSelect selects language-model pretraining data using a hypothesis about what makes text useful for learning. Its starting observation is that model losses on text can correlate with downstream performance when the text domain aligns with the benchmarks. The authors hypothesize that text whose losses predict downstream abilities will also make effective training material.",
+      "They turn that hypothesis into a lightweight selection method requiring only a fastText-based scorer to be trained and deployed. This connects data evaluation to data selection: evidence that a text sample distinguishes stronger models becomes a signal for whether to include it in training. The approach aims to estimate useful contributions without making selection itself an expensive modeling task.",
+      "In experiments with 1B- and 3B-parameter models, training on 30B selected tokens surpasses a vanilla baseline trained on 300B tokens, with a reported tenfold compute reduction. At 3B parameters and 100B training tokens, PreSelect also outperforms DCLM and FineWeb-Edu selection baselines. These results empirically support the hypothesis in the tested settings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5aabaa3ea50e68e0eac4439490f0be754e5f63145e17591d3175a674cc332736",
+    "tldr": "PreSelect uses a lightweight scorer to select training text, outperforming a baseline using ten times as many tokens in reported experiments."
+  },
+  "icml-2025-probabilistic-factorial-experimental-design-for-combinatorial-interventions-0921d9fd8d": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Testing every combination of multiple treatments becomes infeasible as the number of treatments grows. This paper formalizes an alternative in which the experimenter selects treatment dosages and each experimental unit receives a randomly sampled combination. The sampling follows a product Bernoulli distribution, so the dosages determine independent probabilities of receiving the individual treatments.",
+      "The authors study how to choose those probabilities under a model with bounded-degree treatment interactions. For a passive experiment, they derive a closed-form near-optimal design. Assigning each treatment probability one-half is optimal within the stated approximation factor for estimating any k-way interaction model, regardless of k. They also derive an observation requirement that depends on the number of treatments and interaction degree.",
+      "For experiments conducted over several rounds, the framework allows the design to adapt as observations accumulate. The authors provide a near-optimal acquisition function that can be optimized numerically, explore extensions, and validate the theory through simulations. The contribution gives principled guidance for randomized combination experiments while explicitly accounting for interactions among treatments."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6f7b8b89d58b407e16776b2a9a1ba3bf483f88e1d7d62154b93f529d2156f476",
+    "tldr": "The paper derives near-optimal randomized treatment designs for learning bounded-degree interactions without exhaustively testing every combination."
+  },
+  "icml-2025-refining-adaptive-zeroth-order-optimization-at-ease-6516c4911e": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Zeroth-order optimization is useful when gradients are inaccessible or too costly, including black-box systems and memory-constrained training. R-AdaZO improves adaptive optimization in this setting by making better use of moment estimates. The authors argue that existing methods such as ZO-AdaMM underuse this information, limiting convergence.",
+      "The method first exploits a variance-reduction effect in the first-moment estimate to obtain more accurate and stable gradient estimates. It then builds the second-moment estimate from those improved estimates. This matters because the second moment controls how updates are scaled: reducing noise before calculating it helps it better approximate the variance-free quantity and reflect the optimization landscape.",
+      "The paper supplies an analysis of first-moment variance reduction, improved second-moment estimation, and a variance-aware convergence framework. It establishes faster convergence than baselines such as ZO-AdaMM and reports supporting experiments on synthetic tasks, black-box adversarial attacks, and memory-efficient language-model fine-tuning. The combined theoretical and empirical contribution shows how revising adaptive statistics can improve optimization without requiring direct gradient access."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "10dff98db239ad3c42ab1db706789b3fb4632d719b458d10e67b25d3ed3dcf6e",
+    "tldr": "R-AdaZO improves gradient-free optimization by reducing gradient-estimation variance before computing adaptive update scales."
+  },
+  "icml-2025-self-organizing-visual-prototypes-for-non-parametric-representation-learning-d6f0a3cbaf": {
+    "backgroundConcepts": [
+      "topic-125-alpha-req-assessing-representation-quality-in-se"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Self-Organizing Visual Prototypes changes how unsupervised visual learning represents groups of related examples. Existing prototypical approaches can rely on one prototype to summarize all relevant features of a hidden cluster. SOP instead represents a prototype through multiple semantically similar support embeddings, each contributing complementary features to describe the same region of representation space.",
+      "The authors implement this strategy through non-parametric adaptations of two loss functions. They also introduce SOP Masked Image Modeling, where masked representations are reconstructed using multiple local support embeddings. The shared idea is that several related representations can provide a richer learning target than one summary representation, allowing different feature contributions to remain available during training.",
+      "Evaluation covers retrieval, linear evaluation, fine-tuning, and object detection. The pretrained encoders achieve state-of-the-art performance on many retrieval benchmarks, and the reported performance gains increase with more complex encoders. These findings support the feasibility of non-parametric self-supervised learning and show that a more distributed prototype representation can benefit the visual features learned by an encoder."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f7e18b3bde09c91c8b1505451dbbcd0920a806b05a3c17291f6f0f69165223e2",
+    "tldr": "SOP learns visual features using multiple complementary support embeddings per prototype, improving results on many retrieval benchmarks."
+  },
+  "icml-2025-statistical-test-for-feature-selection-pipelines-by-selective-inference-64232113ce": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Feature selection often happens after several other data-dependent operations, such as filling missing values and detecting outliers. This paper develops statistical tests for feature selection pipelines assembled from predefined components. It uses selective inference, a framework for testing hypotheses that arise from examining the data, to account for the pipeline's role in producing the selected features.",
+      "The proof of concept focuses on linear models and includes three missing-value imputation algorithms, three outlier-detection algorithms, and three feature-selection algorithms. The aim is systematic composition: users can test different configurations of these components through a shared implementation framework. This reduces the need to develop a separate testing procedure each time a supported pipeline configuration changes.",
+      "The authors prove that their test can control the probability of false positive feature selection at any desired level. Experiments on synthetic and real data demonstrate validity and effectiveness. The contribution connects flexible pipeline construction with statistically valid assessment, so that significance testing reflects the data-dependent analysis process rather than treating its selected features as predetermined."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "357aed1c7312b6fd13ccf88946263b0c0a9ad6b96e8499e89477e341bd532cec",
+    "tldr": "A selective-inference framework controls false positive feature selection across pipelines assembled from predefined analysis components."
+  },
+  "icml-2025-strategy-coopetition-explains-the-emergence-and-transience-of-in-context-learning-57f6cff938": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "In-context learning lets a transformer learn from its context without updating its weights, but this ability can sometimes disappear during extended training. The paper investigates the mechanisms behind that transience. It identifies a later dominant strategy called context-constrained in-weights learning, a hybrid that combines information stored in the weights with constraints supplied by the context.",
+      "This hybrid strategy competes with in-context learning and eventually replaces it in the studied setting. Yet the strategies also share sub-circuits, creating cooperation during their development. In the authors' setup, in-context learning cannot emerge quickly by itself; it depends on the simultaneous slower development of the hybrid strategy. The same strategy therefore helps enable in-context learning before displacing it.",
+      "The authors call this relationship strategy coopetition and construct a minimal mathematical model reproducing the main interactions and training dynamics. Guided by that model, they identify a setup where in-context learning emerges and persists. The findings explain transience through interactions among learned strategies, while demonstrating that disappearance is not inevitable in every setup."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f2b8086a05e5f9c7f937c625299e4bc7495481b032f89467a478df80c360a7aa",
+    "tldr": "Shared circuitry lets a competing learning strategy first enable and later displace in-context learning in the studied setting."
+  },
+  "icml-2025-test-time-canonicalization-by-foundation-models-for-robust-perception-185b07456e": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "FoCal improves visual robustness by transforming an input into a more typical view at inference time. Inspired by mental rotation in human vision, it treats the viewing condition as something that can be adjusted before perception. This addresses a different point in the workflow from approaches that rely on specialized architectures or predefined training augmentations.",
+      "The framework explores a set of transformed images and uses foundation-model priors to choose the candidate with the highest likelihood. That selection is a test-time optimization over possible views of the input. It requires no retraining or architectural changes, making the transformation procedure the central mechanism for improving robustness in an existing perception model.",
+      "Applied to models including CLIP and SAM, FoCal significantly improves robustness across tested changes such as two- and three-dimensional rotations, contrast, lighting, and day-night shifts. The authors also explore possible active-vision applications. The reported results support using foundation-model knowledge to select favorable input views, showing that robustness can be improved through inference-time input adaptation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4820a23565183075d7b1d4bbe88be32175c27032977eac7c67c4555b97fc25f4",
+    "tldr": "FoCal uses foundation-model priors to select a more typical input view at inference time, improving robustness without retraining."
+  },
+  "icml-2025-tokenized-bandit-for-llm-decoding-and-alignment-e90b628e48": {
+    "backgroundConcepts": [
+      "topic-171-a-bandit-learning-algorithm-and-applications-to-"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper models language-model decoding and alignment as tokenized bandit problems. For each user query, a decision maker builds a sequence one irreversible token choice at a time. Feedback arrives only after the sequence is complete, as a random user utility whose expected value depends on both the sequence and the query.",
+      "The authors first show that learning is impossible when the sequence utility has no structure. They introduce an assumption called diminishing distance with more commons, or DDMC, and derive regret bounds for tokenized linear and multi-armed bandit algorithms under that assumption. DDMC also yields an almost-optimality result for greedy decoding, providing a conditional explanation for why simple token-by-token choices can work well.",
+      "The framework additionally applies to decoding-time alignment when the misaligned utility can be expressed through a frozen model's utility and a linearly realizable latent function. Synthetic and real-world experiments evaluate algorithm performance and examine the assumptions. The central contribution is to connect sequential token decisions with learnable reward structure, while making explicit the conditions behind the guarantees."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "897d417521639a59da458b7a7e06cc8efd2ee40e55fbbbec2473ff0ed3a34c6a",
+    "tldr": "Tokenized bandit models provide learning guarantees and an almost-optimality result for greedy decoding under the DDMC structural assumption."
+  },
+  "icml-2025-variational-phylogenetic-inference-with-products-over-bipartitions-13a22c11d3": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Bayesian phylogenetics represents uncertainty about evolutionary trees through a posterior distribution, rather than committing to one tree. Approximating that distribution accurately and efficiently is challenging. This paper develops a variational Bayesian method for ultrametric phylogenetic trees, introducing a new family of distributions that can be optimized to approximate the posterior.",
+      "The variational family is constructed from the coalescent times of single-linkage clustering. The authors derive a closed-form density for the resulting distribution over trees, and the family is differentiable. Their approach can perform inference across the full ultrametric tree space without Markov chain Monte Carlo subroutines. These properties provide a direct optimization route while avoiding restrictions to only part of the relevant tree space.",
+      "Experiments use benchmark genomic datasets and an application involving SARS-CoV-2 viral RNA. The method achieves competitive accuracy with significantly fewer gradient evaluations than existing state-of-the-art techniques. The findings support this distribution family as an efficient basis for evolutionary uncertainty estimation, with the reported computational benefit specifically measured through gradient evaluations."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "37c706d2b89dd77c02d5389b9ba072d6df5878b1b353dfa972c8a2c16567bd07",
+    "tldr": "A differentiable variational distribution enables full-space ultrametric tree inference with competitive accuracy and fewer gradient evaluations."
+  },
+  "icml-2025-vct-training-consistency-models-with-variational-noise-coupling-f09057aad0": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Consistency training offers an alternative to diffusion models for image generation, but training without distillation can suffer from high variance and instability. Variational Consistency Training addresses this through the relationship between noise and data during training. Its central change is to learn noise-to-data pairings instead of using the fixed, unsorted pairings of classical consistency training.",
+      "Inspired by variational autoencoders, VCT introduces a data-dependent encoder that models noise emission. This allows the pairing scheme to adapt to the data and reduces training variance relative to the classical setup. The framework supports different forward kernels, including those used in flow matching, so the learned coupling idea is not tied to only one forward-process choice.",
+      "Experiments on multiple image datasets report improvements over baselines. VCT achieves state-of-the-art FID among non-distillation consistency-training approaches on CIFAR-10 and matches state-of-the-art performance on ImageNet at 64-by-64 resolution using two sampling steps. These findings show that changing how training examples are coupled with noise can improve generation quality while retaining very short sampling procedures."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "feac81673ef46c012df26608dc3e813ccf6bf109f8ac0d584d79979056f5e25c",
+    "tldr": "VCT learns data-dependent noise pairings to reduce consistency-training variance and improve image generation with few sampling steps."
+  },
+  "icml-2025-who-experiences-large-model-decay-and-why-a-hierarchical-framework-for-diagnosing-hetero-9259ee9f16": {
+    "backgroundConcepts": [
+      "topic-216-who-experiences-large-model-decay-and-why-a-hier"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A deployed model can lose accuracy unevenly when its operating context changes. Some subgroups may experience substantial degradation while others remain relatively unaffected. SHIFT addresses the need to identify both the affected groups and the distribution shifts associated with their decline, providing more detailed guidance than an explanation of average performance alone.",
+      "The framework organizes diagnosis hierarchically. It first scans for subgroups with unacceptably large performance decay attributable to covariate or outcome shifts. When it finds such a subgroup, it examines whether shifts involving more specific variables or variable subsets explain the decay. This links the question of where performance deteriorated to a more detailed account of how the deterioration arose.",
+      "In real-world experiments, SHIFT identifies interpretable affected subgroups and suggests targeted actions that effectively mitigate their performance decline. The purpose of the diagnosis is to support corrections aimed at the most affected groups while minimizing unintended effects elsewhere. The findings demonstrate the value of connecting subgroup detection with explanations detailed enough to inform corrective action."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "defb13dd77f4a35c4d9354f550b872beb30e549c9b3b364c4659776746373c44",
+    "tldr": "SHIFT identifies subgroups experiencing performance decay and traces relevant distribution shifts to inform targeted corrective actions."
+  }
+}

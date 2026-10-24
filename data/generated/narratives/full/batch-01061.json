@@ -1,0 +1,327 @@
+{
+  "neurips-2025-autoregressive-motion-generation-with-gaussian-mixture-guided-latent-sampling-7f4e74312d": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "GMMotion generates motion from text while addressing two difficulties in existing approaches. Transformers that use discrete motion representations can introduce errors during discretization, while diffusion models working with continuous representations can be slow to sample. The paper combines continuous motion representations with autoregressive generation, aiming to retain the advantages of both choices.",
+      "The method obtains its motion representations from the latent space of a variational autoencoder. A causal transformer then learns conditional distributions over these continuous representations as generation proceeds. Instead of selecting entries from a discrete codebook, it uses a learnable Gaussian mixture model to describe the distribution from which motion representations are sampled.",
+      "This design gives an autoregressive model a way to generate continuous motion without residual vector quantization. The authors report that this choice simplifies training and inference, and that extensive experiments outperform existing state-of-the-art motion synthesis models. The stated contribution is therefore both a representation choice and a sampling mechanism that make continuous autoregressive text-to-motion generation effective."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d44029b9c5d082bb20718bb3c6b8604322fd5455b9617564d44c077ee2c75ff9",
+    "tldr": "GMMotion generates continuous motion autoregressively using a learned Gaussian mixture distribution, avoiding motion discretization."
+  },
+  "neurips-2025-chain-of-retrieval-augmented-generation-d8309b4e7b": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "CoRAG makes information retrieval part of an evolving reasoning process. Conventional retrieval-augmented generation usually retrieves information once before producing an answer. If those results are incomplete, complex questions become difficult to resolve. CoRAG instead lets the model revise its query as its understanding develops, retrieving and reasoning through several steps before answering.",
+      "Training such behavior requires examples of intermediate retrieval decisions. The authors use rejection sampling to construct retrieval chains automatically from existing datasets that supply only final answers. At inference time, different decoding strategies control the length of these chains and how many chains are sampled, providing ways to allocate additional computation to answering a question.",
+      "The reported gains are particularly strong for questions requiring several linked pieces of information: exact-match scores improve by more than 10 points over strong baselines. CoRAG also achieves state-of-the-art results across knowledge-intensive tasks on KILT. These findings support treating retrieval as an adaptive sequence of decisions, with chain length and sampling providing explicit controls over test-time computation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1a184378c6fe6c093027daa36a8308a59c6a1754d01c05bf4f46235014eb0ab2",
+    "tldr": "CoRAG trains models to retrieve and reason in successive steps, improving answers to questions that require combining multiple pieces of information."
+  },
+  "neurips-2025-compress-large-language-models-via-collaboration-between-learning-and-matrix-approximati-2deec48c3e": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper compresses language models by combining sparse and low-rank approximations of their weight matrices. Different layers contain different amounts and kinds of redundancy, so a uniform allocation can miss useful compression opportunities. Choosing sparsity and rank jointly across an entire model is difficult, especially with resources much smaller than those used for training.",
+      "The proposed framework separates the problem into two cooperating optimization loops. The outer loop learns how much sparsity to assign to each layer and how much rank to retain in each matrix. The inner loop constructs the corresponding compressed matrices. A probabilistic parameterization based on a truncated Gaussian prior and a policy gradient estimator avoids expensive backpropagation, while an adapted QR-based approximation accelerates the inner computations.",
+      "Experiments on Phi-3 and the Llama-2/3 family demonstrate the framework's effectiveness. The abstract reports maintaining over 95% zero-shot accuracy at 50% sparsity and obtaining up to twice the inference speed. The main methodological contribution is allowing learned resource allocation and numerical matrix approximation to inform one another."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c675e5af28d0c80060832b75582bcd9757087b890b474150b423cd722463d7d2",
+    "tldr": "A two-loop compression framework learns sparsity and rank allocations while efficiently constructing the corresponding compressed language-model weights."
+  },
+  "neurips-2025-consistent-paths-lead-to-truth-self-rewarding-reinforcement-learning-for-llm-reasoning-ed377c7ec8": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "CoVo explores how a language model can improve its reasoning through reinforcement learning without external supervision. Its starting observation concerns the behavior of intermediate reasoning states: paths leading to correct responses often increasingly support their own final answer while showing little movement toward competing answers. The paper uses that tendency as a source of training feedback.",
+      "The reward combines two signals measured through model likelihoods. Consistency captures how strongly intermediate states converge toward the trajectory's eventual answer, while volatility captures deviations toward other candidates. A robust aggregation strategy combines these signals in a vector space. A separate curiosity bonus encourages exploration so that rewarding consistency also leaves room for diverse reasoning paths.",
+      "Experiments across multiple reasoning benchmarks show performance comparable to, or better than, supervised reinforcement learning. These results support the usefulness of reasoning-path behavior as an intrinsic reward. The observation remains a tendency associated with correct responses: the abstract does not claim that consistent reasoning necessarily produces a true answer."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "189b1eff7993598a8c1add091e5aef411abc9fc4a2a67e896a29b7b1f3c40453",
+    "tldr": "CoVo rewards consistent, low-volatility reasoning paths to improve language-model reasoning without external supervision."
+  },
+  "neurips-2025-constrained-sampling-for-language-models-should-be-easy-an-mcmc-perspective-3e841a0b47": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Generating valid outputs and preserving a language model's probability distribution are separate challenges. Existing constrained decoding methods can guarantee that outputs obey rules while changing which valid outputs are likely to appear. This matters for program fuzzing, where the goal includes generating varied valid inputs that can exercise software during testing.",
+      "The paper introduces a sampling framework based on Markov Chain Monte Carlo. It first constructs a proposal distribution over outputs that satisfy the constraint. It then uses a Metropolis-Hastings acceptance rule based on the language model's likelihood to guide movement through that valid output space. The acceptance step connects constraint enforcement with sampling from the desired conditional distribution.",
+      "The framework is presented as satisfying three objectives: every sample is valid, the sampling process converges monotonically to the true conditional distribution, and high-quality samples emerge within few steps. Experiments on synthetic benchmarks and real program fuzzing tasks outperform existing methods. Convergence describes the sampling process; it should not be confused with claiming that every early sample already comes from the exact target distribution."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b5c926e5fb538617329ee5fd386179859fd3d5df23f99c62f3d4b07d52abe12f",
+    "tldr": "An MCMC sampler keeps language-model outputs valid while converging toward the model's true distribution conditioned on the constraint."
+  },
+  "neurips-2025-dataset-distillation-for-pre-trained-self-supervised-vision-models-149335ab34": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Dataset distillation seeks a small collection of synthetic images that can substitute effectively for a much larger training dataset. This paper adapts that goal to pretrained self-supervised vision models. Instead of creating images for training a randomly initialized network, it creates images for training a linear classifier on top of an existing feature extractor.",
+      "The proposed Linear Gradient Matching method optimizes synthetic images according to the training signals they produce. After the images pass through the pretrained extractor, their gradients in the linear classifier should resemble the gradients induced by real data. This focuses the synthetic dataset on the particular learning problem faced by the classifier.",
+      "The resulting synthetic datasets outperform all evaluated real-image baselines and transfer across pretrained models. For example, data distilled using DINO can competitively train a linear probe on CLIP. The authors also use distilled datasets to investigate representation similarity and sensitivity to spurious correlations. Thus, the synthetic images serve both as compact training material and as tools for examining what pretrained representations capture."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ef04fb0c796561547056756fbcbc6425861426392acecbe240b7525f4a579ac1",
+    "tldr": "Linear Gradient Matching creates compact synthetic datasets for training classifiers on pretrained vision models, with transfer and interpretability benefits."
+  },
+  "neurips-2025-finding-low-rank-matrix-weights-in-dnns-via-riemannian-optimization-radagrad-and-radamw-5c54f37eff": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Low-rank weight matrices can reduce the memory and computation required by large neural networks. Many methods optimize a factorization of each matrix, but multiple factorizations can represent the same weights. The paper identifies this redundancy and the conditioning of the factorization as contributors to slow convergence, particularly for ill-conditioned target matrices.",
+      "The proposed approach updates the low-rank matrix directly using Riemannian gradient descent on the space of fixed-rank matrices. Avoiding factorization removes the adverse contribution of its Jacobian condition number. Choosing a suitable geometric metric also mitigates the effect of the loss Hessian's condition number. RAdaGrad and RAdamW implement this approach using metrics adapted from AdaGrad and AdamW.",
+      "The optimizers are designed to integrate with existing neural network architectures without architectural changes. Fine-tuning experiments on language models and diffusion models consistently outperform the compared state-of-the-art methods. The approach also applies to network compression. Its central contribution is changing the geometry of low-rank optimization so that updates avoid a source of difficulty introduced by factorized coordinates."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b7a6b217c35e3b87ee4b3e4483e053615356172e606ff9f3e7428e82fab13700",
+    "tldr": "RAdaGrad and RAdamW optimize fixed-rank weight matrices directly, avoiding factorization-related conditioning problems."
+  },
+  "neurips-2025-genesis-multimodal-driving-scene-generation-with-spatio-temporal-and-cross-modal-consist-b015d19d6f": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Genesis generates driving scenes in two forms together: videos from multiple viewpoints and sequences of LiDAR measurements. The objective is consistency across space, time, and sensor modalities. A generated scene therefore needs coherent visual and geometric evolution, so that the video and LiDAR describe compatible aspects of the same changing environment.",
+      "The system uses a two-stage architecture. Its video component combines a diffusion transformer with a three-dimensional variational autoencoder. Its LiDAR component uses a bird's-eye-view representation, neural radiance field rendering, and adaptive sampling. Shared conditioning directly connects the two modalities. A vision-language captioning module called DataCrafter supplies descriptions at both the scene and individual-instance levels to guide generation.",
+      "On nuScenes, the authors report state-of-the-art results across video and LiDAR metrics, including FVD of 16.95, FID of 4.24, and Chamfer of 0.611. They also find benefits for segmentation and three-dimensional detection. These downstream results support the practical value of the synthetic scenes alongside the reported improvements in generation quality."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "34610dc4b2ebfac28c691542d2277bcd62bc8adebbe55cfceeb3f9f7b3586535",
+    "tldr": "Genesis jointly generates driving videos and LiDAR sequences using shared conditioning to maintain spatial, temporal, and cross-modal consistency."
+  },
+  "neurips-2025-hierarchical-frequency-tagging-probe-hftp-a-unified-approach-to-investigate-syntactic-st-c32ee94bd7": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "HFTP investigates where language models and the human brain represent grammatical structure. Strong language performance alone does not reveal which computational units support syntax or whether model mechanisms resemble human ones. The paper introduces a shared probing approach that uses frequency-domain analysis to examine representations at different syntactic levels.",
+      "For language models, the probe identifies components as fine-grained as individual multilayer perceptron neurons. For the brain, it analyzes cortical activity measured through intracranial recordings. Across the studied model families, syntax appears in analogous layers, while different syntactic levels involve distinct cortical regions in humans. Representational similarity analysis finds stronger alignment with the brain's left hemisphere.",
+      "Model upgrades do not show a uniform relationship with brain similarity. Gemma 2 aligns more closely with brain representations than Gemma, whereas Llama 3.1 aligns less closely than Llama 2. These contrasting results raise questions about how improved model behavior relates to human-like processing. HFTP provides a way to investigate that relationship without treating behavioral capability as evidence of identical underlying mechanisms."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a73cba5bdb534423cd6b2355c18b70c6a82613576c8206a17c0ea9cb49c253a0",
+    "tldr": "HFTP probes syntactic representations in language models and the brain, finding that model upgrades do not uniformly increase brain similarity."
+  },
+  "neurips-2025-janus-pro-r1-advancing-collaborative-visual-comprehension-and-generation-via-reinforceme-83ac0afede": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Janus-Pro-R1 aims to make visual understanding and image generation reinforce one another within a multimodal language model. The paper argues that housing both capabilities in one model does not by itself create useful collaboration. Its goal is an iterative generation process in which visual comprehension and reasoning contribute to producing images.",
+      "The authors introduce two training stages. Supervised fine-tuning first teaches the model to produce chain-of-thought reasoning for visual generation. Reinforcement learning then develops this capability through a balance between exploring possible behaviors and using those that work well. Together, the stages are intended to turn image generation into a process involving iterative introspection.",
+      "Experiments report strong results in text-to-image generation and image editing, along with improved visual comprehension and image semantic evaluation. These findings matter because they span both creating visual content and judging its meaning. The contribution is therefore a training approach for collaboration between capabilities, with the reported results supporting its usefulness across several visual tasks rather than generation alone."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6663d996f889a18eba9e28fe778efbfb3f6b356a62a5aaa68c85f05140a8b7fa",
+    "tldr": "Janus-Pro-R1 combines supervised fine-tuning and reinforcement learning to develop collaborative visual reasoning, image generation, and editing."
+  },
+  "neurips-2025-learning-from-interval-targets-487bb3da83": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies regression when training labels specify a range rather than an exact value. Such intervals arise when precise measurements are expensive or inherently unavailable. Because the learner only knows lower and upper bounds, it needs an objective that can use this partial information without relying on a single observed target.",
+      "The authors first analyze losses designed for interval targets. They establish finite-sample generalization bounds using smoothness properties of the hypothesis class, substantially relaxing earlier assumptions about realizability and limited target ambiguity. They also propose a min-max formulation: train the predictor against the most adverse selection of target values allowed by the supplied intervals.",
+      "The inner maximization in this second formulation is non-convex, but the authors show that incorporating smoothness constraints can still yield good performance. Experiments on real datasets report state-of-the-art results. Together, the two approaches provide theoretical and practical ways to learn from bounded labels, with smoothness playing a central role in controlling uncertainty and supporting effective prediction."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "481ed5cf4be7aeeb0e7ef357eaf82947383148d0a1170f846c5449f685170e2a",
+    "tldr": "The paper develops generalization bounds and a worst-case training formulation for regression with interval-valued labels."
+  },
+  "neurips-2025-mitigating-hallucination-in-videollms-via-temporal-aware-activation-engineering-514b2963f9": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Video language models can produce convincing statements that do not match the video. This paper studies activation engineering as a way to reduce those hallucinations by manipulating internal model activity. Although that approach has been useful for text and image models, the authors investigate its effectiveness and mechanisms specifically in video models.",
+      "Their analysis identifies temporal variation as the relevant factor governing hallucination sensitivity, rather than task type. They also find that the choice of internal modules and the dataset used for activation engineering materially affects the outcome. These observations motivate a framework that adaptively identifies hallucination-sensitive modules using the video's temporal variation characteristics.",
+      "The framework intervenes in those modules without additional language-model fine-tuning. Experiments across multiple models and benchmarks show substantial reductions in hallucination, supporting the robustness of the findings across the tested settings. The practical contribution is a way to make activation interventions responsive to how video content varies over time, guided by an investigation of where those interventions are most effective."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "88162ed7bd5f392da146588df9e7435190d15a80606cddbae524ffd143099dea",
+    "tldr": "A temporally aware activation framework reduces video-model hallucinations by adaptively modifying sensitive internal modules without additional fine-tuning."
+  },
+  "neurips-2025-monotone-and-separable-set-functions-characterizations-and-neural-models-c63d8184c4": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper asks whether sets can be represented as vectors that preserve containment exactly. The desired rule works in both directions: one set is contained in another precisely when its representation is no larger in every coordinate. The authors call representations with this property monotone and separating, or MAS.",
+      "They establish bounds on the vector dimension required, depending on multiset size and the underlying collection of possible elements. For an infinite underlying set, they show that MAS functions do not exist. They therefore introduce a neural model with a relaxed property called weakly MAS and prove stability through Hölder continuity.",
+      "The work also shows how MAS functions can construct universal models that preserve monotonicity by design while approximating all monotone set functions. Experiments on containment tasks demonstrate benefits over standard set models without a containment-based inductive bias. The theoretical results clarify both the representational requirements of exact containment and why a principled relaxation is needed in the infinite-ground-set case."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "72b6a9cce315f1a79d65148c70890ff12a756e4851823b0f0b338651ab457444",
+    "tldr": "The paper characterizes vector representations that preserve set containment and develops a stable relaxation for settings where exact preservation is impossible."
+  },
+  "neurips-2025-multi-token-prediction-needs-registers-100fed980c": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Predicting several future tokens can improve language-model pretraining, but those benefits have not transferred consistently to fine-tuning. MuToR addresses this mismatch through a change to the input sequence. It interleaves learnable register tokens, assigning each register the task of predicting a future target so that the sequence supports multiple prediction objectives.",
+      "The approach adds only a negligible number of parameters and requires no architectural changes. This makes it compatible with existing pretrained language models. Its design also remains aligned with next-token pretraining, which the authors identify as particularly useful for supervised fine-tuning. The prediction horizon can be scaled within the same general approach.",
+      "The authors demonstrate MuToR in supervised fine-tuning, parameter-efficient fine-tuning, and pretraining, using challenging generative tasks in language and vision. These experiments support its versatility across training settings and domains. The central contribution is a simple way to give future predictions dedicated learnable positions while retaining compatibility with models originally trained for next-token prediction."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "085d6f9d86378e54075db80d6739335ab408289ce1bf75cff64e0a59ee8f74b1",
+    "tldr": "MuToR inserts learnable register tokens to support multi-token prediction without changing pretrained model architectures."
+  },
+  "neurips-2025-neurorenderedfake-a-challenging-benchmark-to-detect-fake-images-generated-by-advanced-ne-f9c9b05751": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "NeuroRenderedFake expands fake-image detection evaluation to images produced through neural rendering, including neural radiance fields and three-dimensional Gaussian splatting. These techniques can create realistic images and avatars, yet the authors identify a shortage of large datasets representing them. The benchmark addresses that gap with a substantial collection of neural-rendered fake images.",
+      "Its evaluation protocol examines how detection transfers between conventional generative images and neural-rendered images. The authors train representative spatial, spectral, and multimodal detectors and evaluate them on 15 groups of images. These groups cover neural rendering, generative models, and combined methods whose outputs can contain artifacts associated with both domains.",
+      "The paper also analyzes spectral energy to investigate how frequency characteristics affect detection performance. Additional experiments examine degraded fake images and the role of spectral features. The contribution is a dataset and evaluation framework for studying a broader range of image synthesis methods, together with analyses of the image characteristics that influence whether detectors transfer successfully between them."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9adf627758dd915567611f8231154d1485d4701603f0871c09a4f0a9ec22cfce",
+    "tldr": "NeuroRenderedFake benchmarks fake-image detectors across neural rendering and conventional generation, including cross-domain and spectral analyses."
+  },
+  "neurips-2025-olinear-a-linear-model-for-time-series-forecasting-in-orthogonally-transformed-domain-1f617d57ea": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "OLinear forecasts multivariate time series in a transformed representation. The paper argues that intertwined dependencies between time steps can hinder models operating directly in the time domain. Existing transformed-domain methods often use fixed bases, such as Fourier components, whereas OLinear learns a transformation adapted to the data.",
+      "Its OrthoTrans component uses an orthogonal matrix that diagonalizes the temporal Pearson correlation matrix. This creates a decorrelated feature domain for encoding and decoding the series. A second component, NormLin, uses a normalized weight matrix to capture dependencies among variables. OrthoTrans can enhance existing forecasters, and NormLin can replace self-attention within Transformer-based forecasting models.",
+      "Experiments covering 24 benchmarks and 140 forecasting tasks report state-of-the-art performance with high efficiency. NormLin empirically outperforms multi-head self-attention while using nearly half the floating-point operations, and its replacement of attention consistently improves the tested Transformer forecasters. The findings support the value of data-adaptive coordinates and a customized linear layer for the evaluated forecasting problems."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "45938df2d5fc9767e0aefc8a9ad7e43ac28d79467a9b461c47e2576e4d4bc212",
+    "tldr": "OLinear combines a data-adaptive orthogonal transformation with a normalized linear layer for accurate, efficient time-series forecasting."
+  },
+  "neurips-2025-optimal-rates-in-continual-linear-regression-via-increasing-regularization-1fe529e8d0": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies continual linear regression in a realizable setting with randomly ordered tasks. In this setting, the worst-case expected loss after k learning iterations has a lower bound proportional to 1/k. Previous analysis of an unregularized approach established only an upper bound proportional to 1/k^(1/4), leaving a substantial theoretical gap.",
+      "The authors examine two ways to regularize learning: an explicit isotropic squared-weight penalty and an implicit restriction on the number of optimization steps. They show that both approaches can be understood as stochastic gradient descent on specially constructed surrogate losses. With a suitable fixed regularization strength, the loss bound improves to order log(k)/k.",
+      "Analyzing a generalized form of stochastic gradient descent for changing functions then yields an increasing regularization schedule with the optimal order 1/k rate. The result suggests increasing the regularization coefficient or reducing the number of steps spent on each task. That recommendation is supported by a worst-case analysis within the stated realizable, random-task-order setting."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "dbca258042fbb56be96e71f4e0941a13d6a180f79927021940fc986504d1501e",
+    "tldr": "Increasing regularization achieves an optimal worst-case learning rate for realizable continual linear regression under random task orderings."
+  },
+  "neurips-2025-optimization-inspired-few-shot-adaptation-for-large-language-models-7901cffe17": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "OFA addresses adaptation to new tasks when only a few demonstrations are available. The paper identifies two difficulties with established approaches: in-context learning adds inference computation while providing limited gains, and parameter-efficient fine-tuning can overfit the small demonstration set. It develops an alternative by interpreting a language model's forward pass as an optimization process.",
+      "Under this interpretation, the model successively refines its internal representations through preconditioned gradient descent steps. OFA learns the preconditioners using a parameterization that introduces no additional trainable parameters. Its training objective draws on a convergence bound to improve optimization efficiency and also steers the optimization path toward a flat local minimum.",
+      "The authors report superior performance over existing methods across a variety of few-shot adaptation tasks. The significance of the approach lies in connecting adaptation to the way internal representations are progressively refined. This connection supplies both the quantities to learn and an optimization-based objective, with the experiments supporting its effectiveness for adaptation from limited examples."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2b601d42ff43bf58ecda6640d321cfdc3eb2e4fec42807db3c2dbf2afde326a4",
+    "tldr": "OFA adapts language models from few examples by learning preconditioners under an optimization-based interpretation of the forward pass."
+  },
+  "neurips-2025-polypose-deformable-2d-3d-registration-via-polyrigid-transformations-eecf98738a": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "PolyPose aligns a patient's preoperative three-dimensional scan with a small number of X-rays acquired during a procedure. The challenge is that the patient can move between acquisitions, including movement at joints. With only a few two-dimensional views, estimating an unrestricted three-dimensional deformation is underdetermined.",
+      "The method builds anatomical structure into its deformation model. It represents complex motion as a composition of rigid transformations, using the constraint that individual bones do not bend during typical movement. This allows the overall pose to change while respecting the piecewise-rigid character of the skeleton. The formulation removes the need for expensive deformation regularizers with patient- and procedure-specific tuning.",
+      "Experiments on orthopedic surgery and radiotherapy datasets show successful alignment using as few as two X-rays. The authors report success in sparse-view and limited-angle settings where current registration methods fail. These findings demonstrate how a strong anatomical prior can make limited imaging information more useful for recovering three-dimensional alignment and supporting guidance during procedures."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8ef0fd60d44abb3754a7b4381604018857f3243b13999de4badc988510a58475",
+    "tldr": "PolyPose uses the piecewise-rigid nature of skeletal motion to align preoperative 3D scans with as few as two X-rays in experiments."
+  },
+  "neurips-2025-rendering-aware-reinforcement-learning-for-vector-graphics-generation-7e1f2c152b": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper improves the generation of Scalable Vector Graphics by training on how generated code actually looks when rendered. Vision-language models can translate an input image into SVG code, but existing approaches can struggle with visual fidelity and efficiency when training never exposes them to the resulting rendered image.",
+      "The proposed method generates SVG candidates, renders them, and compares the resulting images with the original input. Those comparisons provide rewards for reinforcement learning. This creates an evaluative training signal even though differentiable rendering for autoregressive SVG code generation is unavailable. The model can therefore learn from the visual consequences of its code.",
+      "The authors report significant improvements over supervised fine-tuning, including more accurate, efficient, and semantically coherent SVGs. They also report addressing common failure modes and obtaining strong structural understanding and generalization. The central contribution is closing the training loop between code generation and visible output, so the optimization process can reward how faithfully the SVG represents the input image."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "dbbeb7553b8639721db58792aaaccb4670790c3c2fdb14177381f3adb8b5c0ad",
+    "tldr": "Reinforcement learning from rendered SVG images improves the visual fidelity and efficiency of vector graphics generated by vision-language models."
+  },
+  "neurips-2025-rethinking-hebbian-principle-low-dimensional-structural-projection-for-unsupervised-lear-7c50d06fc4": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "SPHeRe revisits Hebbian learning, in which repeated activity shapes connections between neurons. The paper identifies two obstacles when applying this principle to machine learning: unconstrained connection updates and insufficient feedback mediation. These problems make it difficult to scale Hebbian approaches to complex architectures and tasks.",
+      "The proposed method combines orthogonality constraints with preservation of structural information through a local auxiliary nonlinear block. A structural preservation loss backpropagates to the input through a lightweight projection, providing a form of feedback mediation. Orthogonality constraints control the magnitude of updates. The design therefore retains a local, biologically inspired learning approach while introducing mechanisms to regulate and inform its updates.",
+      "Experiments report state-of-the-art results among unsupervised synaptic plasticity methods on CIFAR-10, CIFAR-100, and Tiny-ImageNet. Further results cover continual learning, transfer learning, and image reconstruction, supporting the usefulness of the learned features. The work demonstrates the potential of Hebbian learning within modern deep learning, with reduced dependence on strict backpropagation rather than a complete absence of backpropagated signals."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b6b3a31c9bebcd1e93f28f9c600dc07dac181f9d285bf4fd6360a5acbc65e637",
+    "tldr": "SPHeRe strengthens unsupervised Hebbian learning with controlled updates and local structural feedback, improving learned visual representations."
+  },
+  "neurips-2025-rgnmr-a-gauss-newton-method-for-robust-matrix-completion-with-theoretical-guarantees-26544d9b12": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Robust matrix completion reconstructs a low-rank matrix from observed entries when some observations are corrupted. The paper targets three difficulties for existing methods: needing many observations, failing when the assumed rank is too large, and struggling with ill-conditioned matrices. RGNMR combines matrix fitting with the removal of suspected corruptions.",
+      "The algorithm works iteratively with a factorized matrix representation. At each stage, it combines a Gauss-Newton linearization with rejection of entries suspected to be outliers. The authors prove exact recovery under suitable assumptions, improving on the best theoretical results previously available for factorization-based methods. The recovery guarantee is explicitly conditional on those assumptions.",
+      "Simulations demonstrate advantages with few observed entries, overestimated rank, and ill-conditioned matrices. The paper also introduces a procedure for estimating how many entries are corrupted. That procedure may be useful beyond RGNMR, since other robust completion methods require the corruption count as an input. Together, the contributions address both reconstruction itself and a practical parameter needed by related algorithms."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "357f7670d277ca57ea4dd9e7aeffc374a6ae8bba76b413bc72fa9e11dc783235",
+    "tldr": "RGNMR combines Gauss-Newton updates with outlier removal for robust matrix completion, with conditional exact-recovery guarantees."
+  },
+  "neurips-2025-robust-and-scalable-autonomous-reinforcement-learning-in-irreversible-environments-30765da451": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Autonomous reinforcement learning aims to reduce human involvement in resetting an environment between learning attempts. It jointly trains policies for performing the task and resetting afterward. This paper addresses settings with diverse starting and goal states, including irreversible situations that an agent should avoid entering.",
+      "RSA builds a training curriculum by identifying states that are informative given the agent's learning progress. The authors hypothesize that these states should be neither trivially easy nor excessively difficult. To recognize irreversible situations without task-specific knowledge, the method represents the behaviors exhibited in those situations rather than relying on representations of the states themselves.",
+      "Experiments show that RSA outperforms existing autonomous reinforcement learning methods while requiring fewer manual resets in both reversible and irreversible environments. The curriculum and behavior-based detection address complementary needs: choosing useful training experiences and avoiding situations that interfere with autonomous continuation. The reported findings support their combined effectiveness across the tested environments while preserving the hypothesis-based status of the proposed criterion for informative states."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "144fa2a916bb91e7d5ad5a24637e98513b16a8ad3672b113ab8459f46b84e3ee",
+    "tldr": "RSA combines progress-based curricula and behavior-based detection of irreversible situations to improve autonomous reinforcement learning with fewer manual resets."
+  },
+  "neurips-2025-space-noise-contrastive-estimation-stabilizes-self-play-fine-tuning-for-large-language-m-9914b194d8": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "SPACE studies self-play fine-tuning, where a language model repeatedly learns from real examples and examples it generates itself. Existing approaches often optimize the reward gap between those two groups. The authors' theoretical analysis finds that such objectives can degenerate, leading to unstable model evolution as training proceeds.",
+      "The proposed method uses noise contrastive estimation. It treats synthetic samples as auxiliary data and distinguishes them from real samples through binary classification. This allows the absolute reward values for real and synthetic data to be optimized independently. The resulting objective is designed to remain meaningful throughout self-play rather than depending only on the difference between rewards.",
+      "The theoretical analysis shows that the objective's optimum matches the underlying real-data distribution and establishes stable convergence to that optimum. Experiments report improvements across tasks, including outperforming supervised fine-tuning that uses substantially more real examples. SPACE also shows stronger performance and more stable evolution than gap-based self-play methods, connecting its objective design to both theoretical stability and observed training behavior."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "946682f9653f38559a4c693a267085c7aad2d4a226da9d7d5168bfb14763a5fd",
+    "tldr": "SPACE uses noise contrastive estimation to stabilize self-play fine-tuning and improve learning from limited real data."
+  },
+  "neurips-2025-uniform-wrappers-bridging-concave-to-quadratizable-functions-in-online-optimization-90cd23f43c": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper develops a framework for reusing online optimization algorithms across different classes of objective functions. Its central objects, called uniform wrappers, are meta-algorithms that transform an existing optimization algorithm. The intended benefit is to extend methods developed for familiar convex or concave settings to more challenging quadratizable problems.",
+      "The framework also addresses the accompanying proof work. Given a concave optimization algorithm and a suitable wrapper, the authors provide guidance for translating a proof of the original regret bound into a proof for the wrapped algorithm. This makes the conversion concern both the computational procedure and the mathematical guarantee attached to it.",
+      "Using this framework, the paper obtains improved regret guarantees for several classes of diminishing-returns submodular functions under zeroth-order feedback. It further extends zeroth-order online algorithms to bandit feedback and offline settings, improving regret or sample complexity relative to existing approaches. The contribution is a reusable route for transferring algorithms and analyses, with concrete improvements demonstrated across the stated optimization settings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "576af115f92ac752a1af8d9ed6cb8f4a2752b8abe209b08a6254072f9dfa56b6",
+    "tldr": "Uniform wrappers transfer optimization algorithms and regret proofs to quadratizable settings, yielding improved guarantees for several feedback regimes."
+  }
+}

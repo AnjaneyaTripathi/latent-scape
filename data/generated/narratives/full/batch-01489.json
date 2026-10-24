@@ -1,0 +1,327 @@
+{
+  "icml-2023-adaptive-annealed-importance-sampling-with-constant-rate-progress-ca0b066a52": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Annealed Importance Sampling generates weighted samples from a difficult distribution by passing through intermediate distributions that connect it to an easier starting point. Its effectiveness depends on both the path through these distributions and the spacing of steps along that path. This paper investigates how to choose these elements more systematically.",
+      "The authors give a conditional justification for the commonly used geometric path: it minimizes KL divergence from the current particle distribution to the target when the allowable change in the particle distribution is constrained. This does not establish that geometric annealing is universally optimal. It explains its role under a particular restriction on movement.",
+      "Using this interpretation, the authors derive a schedule intended to maintain a constant rate of progress, adapting steps to how difficult it is to move samples toward the target. They extend the analysis to other divergence measures and develop CR-AIS, including an efficient implementation for alpha-divergences. Experiments on several benchmark distributions show good performance while avoiding the expensive tuning loop used by existing adaptive AIS."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "cc3ad80623d72f0d727a91d266fee7734caf64585c71aa1d1e961733ecdbf3b1",
+    "tldr": "CR-AIS adapts annealing steps to maintain constant progress toward a target distribution while avoiding an expensive tuning loop."
+  },
+  "icml-2023-adversarial-robustness-of-amortized-bayesian-inference-43d2447d80": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Amortized Bayesian inference moves much of the cost of inference into an initial training stage. A network learns from simulated observations and then quickly estimates posterior distributions for new observations. These distributions describe uncertainty about underlying parameters. The paper asks whether this speed comes with vulnerability to deliberately chosen changes in the observations.",
+      "The authors study simulation-based estimation of posterior distributions involving multiple parameters. Across benchmark tasks and a neuroscience example, they find that targeted changes that are barely recognizable can dramatically alter the estimated posterior. Samples generated using the resulting posterior can also become highly unrealistic. The demonstrated problem therefore affects both uncertainty estimates and the observations those estimates imply.",
+      "To reduce this sensitivity, the paper introduces a computationally efficient regularizer that penalizes the conditional density estimator's Fisher information. This adds a robustness-oriented constraint to learning the posterior estimator. The reported results show improved resistance to adversarial perturbations, supporting regularization as a practical way to strengthen these fast inference systems without claiming complete protection."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7a4ef080866b69d53945bf941398d074178170bdc2bc09f9b88cd7e60792f97c",
+    "tldr": "Tiny targeted changes can destabilize amortized Bayesian inference, and a Fisher-information penalty improves its adversarial robustness."
+  },
+  "icml-2023-aligning-language-models-with-preferences-through-f-divergence-minimization-c463baa0c5": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper views language-model alignment as matching a distribution of outputs that represents desired behavior. Existing methods differ in how they define that target and how they measure the gap between the model and the target. Under this view, RLHF uses reverse KL divergence from an implicit target, while Generative Distributional Control uses forward KL with an explicit target.",
+      "The proposed f-DPG framework allows any f-divergence to be used with any target distribution that can be evaluated. It brings these alignment approaches and their optimization methods into a shared framework. That makes the choice of discrepancy measure an explicit part of designing alignment, rather than something fixed by the chosen method.",
+      "The experiments show that different divergences produce different trade-offs between preference alignment and output diversity. No objective is universally best. Jensen-Shannon divergence often gives a favorable balance and frequently improves substantially over forward KL. These differences persist as model size increases, suggesting that scaling the model does not remove the importance of choosing an appropriate alignment objective."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "fb9a94820419853f01a2ffa8935fd15ea46d2e65867f8fd90280469010b60fed",
+    "tldr": "f-DPG unifies distribution-based alignment methods and shows that divergence choice shapes the trade-off between alignment and diversity."
+  },
+  "icml-2023-analyzing-privacy-leakage-in-machine-learning-via-multiple-hypothesis-testing-a-lesson-f-ce29c525ce": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Differential privacy supplies a mathematical way to limit privacy leakage, but interpreting its privacy parameter for a concrete attack remains difficult. This paper focuses on reconstruction attacks against discrete data: attempts to recover private information from the output of a learning procedure. Its aim is to connect a formal privacy guarantee to the strength of this particular threat.",
+      "The authors formulate reconstruction as a multiple-hypothesis testing problem, where an attacker must distinguish among possible underlying data values. For algorithms satisfying Renyi differential privacy with parameters alpha and epsilon, they apply variants of Fano's inequality to derive upper bounds on the attacker's advantage. This turns an information-theoretic tool into an attack-specific privacy analysis.",
+      "The resulting bound can be evaluated numerically, allowing epsilon to be related to a desired degree of protection in the analyzed setting. The findings complement empirical evidence that differential privacy can resist reconstruction even at relatively large epsilon values. Their meaning remains tied to the stated privacy definition and reconstruction problem, rather than establishing protection against every privacy risk."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e23972357870dc949d1297768b7547b609fbc92c9c9da15e74be7e845cfbab79",
+    "tldr": "The paper uses hypothesis testing and Fano's inequality to translate Renyi differential privacy guarantees into computable bounds on reconstruction attacks."
+  },
+  "icml-2023-conformalization-of-sparse-generalized-linear-models-113682e874": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Conformal prediction constructs a set of plausible values for a future response. Its finite-sample validity requires the joint data distribution to remain unchanged when observations are permuted. In regression, however, computing the set can require fitting a model for infinitely many candidate response values, making a direct implementation impractical.",
+      "This paper exploits sparsity: the predictive model uses only a subset of available variables. Small changes in the input data leave that selected subset unchanged. The authors use numerical continuation to follow how the fitted solution changes as the candidate response varies, focusing explicit refitting on points where the active set of features changes.",
+      "Between those points, a Predictor-Corrector procedure smoothly approximates the remaining solution path. This replaces an unmanageable collection of separate fits with a structured path-following calculation. Synthetic and real-data examples show that the algorithm accurately approximates conformal prediction sets. The contribution is a computational route to these sets for sparse models; the reported result concerns approximation accuracy, alongside the underlying conformal framework's permutation-invariance assumption."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b83d769a1389fe239728efbe8a3a2eb8520187765738ae21751b625c14c28628",
+    "tldr": "A path-following algorithm efficiently approximates conformal prediction sets by exploiting stability in a sparse model's selected features."
+  },
+  "icml-2023-convergence-of-proximal-point-and-extragradient-based-methods-beyond-monotonicity-the-ca-b0e26341b8": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Algorithms for min-max problems and variational inequalities often rely on monotonicity assumptions to establish convergence. Motivated by machine-learning problems that do not satisfy those assumptions, this paper studies a weaker condition called negative comonotonicity. It asks what convergence guarantees remain available for Proximal Point, Extragradient, and Optimistic Gradient methods.",
+      "For Proximal Point, the authors derive the first non-asymptotic convergence rates under negative comonotonicity and its star variant. These rates describe progress after a finite number of iterations, rather than only eventual behavior. They also construct worst-case examples showing that the rates are tight within the analyzed setting.",
+      "For Extragradient and Optimistic Gradient, the paper weakens assumptions needed to guarantee convergence of the final iterate. Separately, counterexamples establish the tightness of existing guarantees for the best iterate encountered during optimization. This distinction matters because the final output and the best point in a sequence are different objects. Together, the results sharpen both the reach and the boundaries of these methods beyond monotonicity."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ffe7eb08d20b2c7bcdc020d4e402a13ba3666166df14a124c1d760f6fafd007f",
+    "tldr": "The paper establishes tight convergence guarantees for three optimization methods under weaker conditions than monotonicity."
+  },
+  "icml-2023-decompdiff-diffusion-models-with-decomposed-priors-for-structure-based-drug-design-b7ee1802fa": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Structure-based drug design includes generating three-dimensional ligand molecules inside a target binding site. The paper argues that treating every ligand atom alike overlooks the different roles of molecular parts and can make exploration of possible molecules less efficient. DecompDiff incorporates that distinction directly into the generative model.",
+      "The method divides a ligand into arms and a scaffold, following a decomposition inspired by pharmaceutical practice. Its diffusion model uses separate priors for these parts, giving generation a more structured starting point. The authors also include bond diffusion and add validity guidance during sampling to support the decomposed generation process and improve molecular properties.",
+      "Experiments on CrossDocked2020 report state-of-the-art results for generating high-affinity molecules while maintaining appropriate molecular properties and conformational stability. The stated results include an average Vina docking score reaching -8.39 and a success rate of 24.5%. These findings support the value of modeling molecular parts differently in the evaluated design task. The evidence presented concerns generated molecules and the reported evaluation measures."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1721248d1170d22b193518c3088e960b64a01dae8a987933b4a3cb1bef1730d3",
+    "tldr": "DecompDiff generates ligands using separate arm and scaffold priors, improving reported docking and molecular-quality results."
+  },
+  "icml-2023-ef21-p-and-friends-improved-theoretical-communication-complexity-for-distributed-optimiz-52e57a7e48": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Distributed optimization divides work between a server and multiple workers, but exchanging information can consume substantial time. Compression reduces what must be sent while introducing error into the optimization process. This paper develops methods that support compression in both directions and analyzes the resulting communication requirements for convex and nonconvex problems.",
+      "The central theoretical improvement separates the effects of worker-to-server and server-to-worker compression. Earlier bounds combined these error or variance contributions multiplicatively; the new bounds combine them additively. This changes how the two communication bottlenecks interact in the analysis and yields improved theoretical communication complexity.",
+      "In the convex setting, the authors obtain bounds matching the theoretical communication complexity of gradient descent. Their algorithms can use biased gradient estimators even in this regime, requiring new proof techniques to establish the guarantees. Experiments corroborate the theoretical results. The contribution therefore includes both communication-efficient algorithms and an analysis showing how bidirectional compression can be controlled without the previously multiplicative dependence between its two sources of error."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ceffddeed3ac87060a8a024d87f1821776820d76b95c83c9a13fe4cbac1b0b38",
+    "tldr": "New distributed optimization methods improve communication bounds by separating the errors introduced by compression in each direction."
+  },
+  "icml-2023-efficient-rl-via-disentangled-environment-and-agent-representations-cd72cd6380": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "An agent learning from images sees both its own body and the surrounding environment in the same visual input. This paper proposes making that distinction part of the representation learned for reinforcement learning. The motivation is that knowledge of what belongs to the agent can help organize visual information in a way that supports learning behavior.",
+      "The method, called SEAR, uses visual information about the agent, such as its shape or a mask identifying it in an image. The authors describe this information as often inexpensive to obtain. A simple auxiliary loss incorporates it into the reinforcement-learning objective, encouraging representations with explicit structure around the separation between agent and environment.",
+      "The evaluation spans 18 challenging visual simulation environments involving five different robots. SEAR outperforms the state-of-the-art model-free approaches considered in those experiments. These findings support using readily available knowledge about the agent's appearance as an additional learning signal. The reported breadth concerns several robots and simulated environments, with the central contribution being a structured representation objective."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ed98e0b7c33d53f3b5e2c730a39d500370679da9dbea0501696b0db3f76c24fa",
+    "tldr": "SEAR improves visual reinforcement learning by using knowledge of the agent's appearance to structure its learned representations."
+  },
+  "icml-2023-fedbr-improving-federated-learning-on-heterogeneous-data-via-local-learning-bias-reducti-5775922860": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Federated learning trains models while keeping each client's data local. Performing several local optimization steps can reduce communication, but differences between clients' data can make convergence slow and unstable. This paper identifies three underexplored forms of biased local learning that may help explain these difficulties in supervised federated learning.",
+      "The proposed FedBR algorithm addresses bias in both classifiers and learned features. One component balances model outputs to reduce bias in local classifiers. The other encourages local features to resemble global features while remaining different from features learned from other data sources. The two components target different parts of the local learning process within a unified method.",
+      "Across the reported experiments, FedBR consistently outperforms the state-of-the-art federated methods used for comparison. Each component also produces gains when assessed individually, providing evidence that both contribute to the result. The paper's explanation of the original convergence problem remains qualified: the identified phenomena may explain the challenges. Its empirical findings support reducing these biases as a useful response to heterogeneous client data."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "64746f1a7411ab5c12a7dcbb4cbb91710da43e8ba64e83a6da8886cf14bd3b66",
+    "tldr": "FedBR improves federated learning on heterogeneous data by reducing bias in local classifiers and feature representations."
+  },
+  "icml-2023-fedxl-provable-federated-learning-for-deep-x-risk-optimization-0534796320": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "FeDXL addresses federated objectives that compare pairs of examples drawn from data spread across machines. These X-risk objectives include AUROC and partial AUROC maximization. Because the pairwise loss depends on predictions for both examples, the objective does not separate neatly into independent local problems, creating dependencies between machines.",
+      "The authors split gradient calculations into active and passive components. Active components use local data and the current local model. Passive components depend on other machines and are communicated or computed using historical models and samples. This decomposition provides a way to organize local training despite the cross-machine dependencies.",
+      "The framework yields two algorithms, covering linear and nonlinear outer functions in the objective. The analysis handles delayed passive information and dependencies between local parameters and the data used in gradient estimates. It establishes iteration and communication complexity bounds, showing that historical information does not degrade those complexities in the analyzed setting. Experiments on deep AUROC and partial AUROC optimization demonstrate performance relative to several baselines."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "19320e383adb4c0ca033b37a067e526f36341a22750777cffe43bb43180ce5fe",
+    "tldr": "FeDXL enables federated optimization of pairwise and compositional risks by separating local gradient work from cross-machine dependencies."
+  },
+  "icml-2023-formalizing-preferences-over-runtime-distributions-e579b8f204": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Two algorithms can both return correct answers yet differ substantially in how long they take across runs. Choosing solely by average runtime makes the decision sensitive to extremely slow cases. This paper argues that such a criterion can poorly reflect situations where users stop sufficiently long runs before completion.",
+      "The authors develop a utility-based account of preferences over runtime distributions. Their scoring functions depend on how the value of obtaining a solution declines with time and on the distribution of stopping deadlines, called captimes. This makes the intended use of the algorithm part of the comparison: a runtime distribution is judged through the value of completion under those timing preferences.",
+      "The paper gives examples of realistic utility functions and uses a maximum-entropy approach to model captime distributions when available information does not fully specify them. It also shows how to estimate expected utility efficiently from runtime samples. Together, these contributions provide a principled way to compare algorithms when practical stopping behavior and time-dependent value matter to the decision."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "041c3805d99baa168c155a2ab348c6588a5d86cc1c8800d774320abebd535939",
+    "tldr": "A utility-based framework compares algorithms using both their runtime distributions and the value of finishing before practical stopping deadlines."
+  },
+  "icml-2023-graph-neural-networks-with-learnable-and-optimal-polynomial-bases-a08aa4bb5c": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Polynomial graph neural networks typically choose a polynomial basis in advance and learn how to combine its elements. Yet model effectiveness can depend strongly on that initial basis. This paper asks whether the basis itself can be learned from data and whether an optimal basis can be computed for a particular graph and its node features.",
+      "The authors introduce two spectral graph neural networks. FavardGNN, inspired by Favard's theorem, learns a polynomial basis within the space of possible orthonormal bases. This lets training adjust the building blocks of the filter instead of restricting learning to their coefficients. OptBasisGNN takes a complementary approach by computing a basis from the graph structure and graph signal.",
+      "For OptBasisGNN, optimality refers to the particular definition of an optimal polynomial basis examined in the paper. The authors show that this previously considered difficult construction admits a simple model. Extensive experiments demonstrate the effectiveness of both proposed approaches. The overall contribution is to make basis selection an explicit, adaptable part of polynomial graph learning."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "26fbdc3fd9922bca1d05310b873b7e6807518a7aa0c2593831b0dbc7cc5d7795",
+    "tldr": "FavardGNN learns polynomial bases, while OptBasisGNN computes an optimal basis under the studied definition for a given graph and signal."
+  },
+  "icml-2023-hidden-symmetries-of-relu-networks-17eb0463cc": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A neural network's parameters do not uniquely identify the function it computes. Different settings can represent the same function, including familiar changes such as permuting neurons or applying suitable positive rescalings. This paper studies additional, hidden symmetries in feedforward ReLU networks and asks how much redundancy the parameter space contains.",
+      "The theoretical result is an existence statement: for every architecture whose layers are all at least as wide as the input, some parameter settings have no hidden symmetries. It does not say that every setting in those architectures has this property. The authors also describe mechanisms that can create hidden symmetries, explaining why redundancy varies within the parameter space.",
+      "The experiments estimate functional dimension at initialization, examining how many parameter variations correspond to changes in the represented function. They indicate that the probability of having no hidden symmetries approaches zero as depth increases, and approaches one as width and input dimension increase. These are empirical trends, complementing the theorem by describing how architecture relates to observed redundancy."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0cf8027f9308a9db83785d250666df710359a56fd675115f263d052469d55626",
+    "tldr": "The paper characterizes hidden parameter redundancies in ReLU networks and studies how their occurrence varies with architecture."
+  },
+  "icml-2023-hierarchical-grammar-induced-geometry-for-data-efficient-molecular-property-prediction-110caebc75": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Predicting molecular properties is valuable for materials and drug discovery, but labeled examples can be expensive to obtain through experiments or literature extraction. This paper develops a predictor designed to use limited labels effectively. Its central idea is to organize molecules using a learned grammar that describes how molecular structures can be generated.",
+      "The hierarchical grammar produces molecules through production rules. Those rules induce an explicit geometry over molecular graphs, providing prior information about which structures are similar. Property prediction then uses graph neural diffusion over that geometry. In this design, the grammar supplies structure to the space in which prediction takes place.",
+      "Evaluations on both small and large datasets show improvements over a broad collection of baselines, including supervised and pretrained graph neural networks. Ablation studies and additional analyses also support the method's effectiveness when labeled data are extremely scarce. The findings suggest that a learned account of molecular construction can provide useful structural guidance for prediction, particularly when labels alone offer limited information."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9ebf7118e0663233c177b0f8962341fe2c7f1b6032ea025f8d76204dcc478749",
+    "tldr": "A learned molecular grammar organizes structural similarity to improve property prediction, including when labeled data are extremely limited."
+  },
+  "icml-2023-learning-distributions-over-quantum-measurement-outcomes-d7d0e25652": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Shadow tomography aims to predict quantum measurement outcomes using relatively few copies of a quantum state. Existing guarantees become poor when measurements have more than two possible outcomes. This paper studies learning the full outcome distribution for each of M measurements on an unknown d-dimensional state, with K possible outcomes per measurement.",
+      "The authors propose an online procedure that estimates these distributions within total variation error epsilon with high success probability. Its copy requirement scales as K times squared log M times log d, divided by epsilon to the fourth power, up to factors suppressed by the stated asymptotic notation. Thus, dependence on the number of measurements and the state dimension is only logarithmic.",
+      "They also prove a lower bound: any solution with high success probability needs at least an order of min{d squared, K + log M} divided by epsilon squared copies. The paper identifies its dependence on K as sample-optimal. This optimality claim concerns the number of outcomes specifically, rather than claiming that every factor in the upper bound matches the lower bound."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c719f85ef09ed3af6d1f8d140cabf734a32804a86c4c2e314397a38aa3b372a6",
+    "tldr": "An online shadow-tomography method learns multi-outcome measurement distributions with logarithmic dependence on measurement count and quantum-state dimension."
+  },
+  "icml-2023-linkless-link-prediction-via-relational-distillation-d666d0208e": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Graph neural networks are effective at predicting links, but their dependence on neighborhood information can make inference slow. Multilayer perceptrons are efficient, yet typically lack the relational knowledge that gives graph models their advantage. This paper investigates how to transfer that knowledge into a faster student model.",
+      "The authors first examine direct distillation through matching predicted link logits or node representations and find that these approaches perform poorly for link prediction. Their proposed LLP framework instead transfers relational knowledge organized around each anchor node. It combines rank-based and distribution-based matching, which provide complementary ways to teach the student how relationships are structured.",
+      "Experiments show substantial improvements in the student perceptrons' link-prediction performance. LLP even exceeds its teacher graph neural networks on seven of eight benchmarks and reports a 70.68-fold inference speedup over graph neural networks on the large-scale OGB dataset. These results support distilling relationships around nodes as a way to retain predictive effectiveness while gaining the inference efficiency of the student architecture."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5af19c49c6ce81a6a754d17ff69715bd071bd3e9ada684230ae15e79d0ea8ef8",
+    "tldr": "LLP transfers relational knowledge from graph networks into fast perceptrons, improving link prediction and reporting a substantial inference speedup."
+  },
+  "icml-2023-nerfdiff-single-image-view-synthesis-with-nerf-guided-distillation-from-3d-aware-diffusi-fca9fc2619": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Generating new views from one image requires filling in regions that the image does not show while remaining consistent with its visible content. Existing image-conditioned neural radiance fields project three-dimensional points onto the input image to obtain features. Under severe occlusion, those features cannot resolve the missing information, leading to blurry, low-detail renderings.",
+      "NerfDiff uses a three-dimensionally aware conditional diffusion model to supply knowledge about possible unseen views. At test time, it synthesizes and refines a collection of virtual views, then distills their information into a neural radiance field. This makes the generated views part of the process for adapting the scene representation.",
+      "The proposed distillation algorithm couples the two processes: NeRF guidance helps produce virtual views that are consistent in three dimensions, and the improved views are used to fine-tune the NeRF. The paper reports significant improvements over existing NeRF-based and geometry-free methods on ShapeNet, ABO, and Clevr3D. The findings support coordinating view generation and scene refinement to address uncertainty caused by occlusion."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4fb6ebb3f615a383970313f239550e3ed209e574ddddb5a6f2d8ab0d634ec2c6",
+    "tldr": "NerfDiff improves single-image view synthesis by jointly refining diffusion-generated virtual views and a neural radiance field."
+  },
+  "icml-2023-on-excess-mass-behavior-in-gaussian-mixture-models-with-orlicz-wasserstein-distances-118f74a107": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Gaussian Dirichlet process mixture models are widely useful, but theoretical guarantees for estimating their underlying parameters can converge only at a logarithmic rate. This paper examines whether that slow overall guarantee hides more favorable behavior in particular regions of parameter space. The focus is on how the posterior concentrates around parameter values as information accumulates.",
+      "The authors investigate this behavior using Orlicz-Wasserstein distance, a metric they reintroduce into the analysis of Bayesian parameter contraction. They show that posterior contraction in outlier regions can occur at almost polynomial rates, despite the slow guarantee covering all parameters together. The result therefore distinguishes regional behavior from the aggregate convergence picture.",
+      "This distinction provides insight into parameter estimation in hierarchical Bayesian nonparametric models: a weak global rate need not describe every part of the parameter space equally well. The paper also develops an algorithm for computing the metric using Sinkhorn divergences and validates its findings in simulations. Its contribution combines a more revealing theoretical measurement of convergence with a way to calculate that measurement."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "56e6cb4a31722bbe4af890431b8ea19c1e71a88d1755b52bca0777675d410d64",
+    "tldr": "Orlicz-Wasserstein analysis reveals almost polynomial posterior contraction in outlier regions despite slow overall parameter-convergence guarantees."
+  },
+  "icml-2023-on-sampling-with-approximate-transport-maps-9a01991a02": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Transport maps can make difficult probability distributions easier to sample by transforming their geometry. Normalizing flows learn such maps with neural networks. Flow-assisted Monte Carlo methods use them in two main ways: generating proposed samples directly, or changing the coordinates in which sampling takes place. Both depend on the quality of the learned map.",
+      "This paper compares the strengths and weaknesses of those approaches. Its study finds that flow-based proposals can reliably handle targets with multiple modes up to moderately high dimensions. Methods based on reparameterization struggle with multimodality, but otherwise show greater robustness in high-dimensional settings and when the flow has been poorly trained.",
+      "These findings make the choice of how to use a flow depend on the target distribution and training quality. The authors also derive a quantitative mixing-time bound for Independent Metropolis-Hastings, connecting sampling behavior to how well the proposal matches the target. Together, the comparison and bound clarify why an approximate learned transport can help differently depending on its role in the sampler."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "57e5a0d0373aa80cd6f28ec60b8ec68b51a7c90d140b587ab89616cd3c2c7871",
+    "tldr": "Flow-based proposals and flow-based reparameterizations offer different sampling advantages depending on multimodality, dimension, and training quality."
+  },
+  "icml-2023-out-of-distribution-generalization-of-federated-learning-via-implicit-invariant-relation-55718e1aca": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A federated model may perform poorly for clients that did not participate in training and whose data follow different distributions. One strategy is to learn input-output relationships that remain useful across clients. This paper addresses the difficulty of doing so while respecting federated learning's privacy-preserving operation and limited communication.",
+      "FedIIR seeks these invariant relationships implicitly through model parameters. It uses prediction disagreement to quantify invariance and reduces that disagreement through alignment of gradients across clients. The approach moves the learning signal into the optimization process, allowing relationships shared across clients to influence training without explicitly learning them through the data, representation, or distribution mechanisms discussed in the paper.",
+      "The theoretical analysis characterizes a range of nonparticipating clients to which FedIIR is expected to generalize. It also establishes convergence results for a massively distributed setting with limited communication. Extensive experiments show significant improvements over relevant baselines in out-of-distribution generalization. The guarantee is therefore scoped to the analyzed client range, while the experiments provide additional evidence for the proposed gradient-alignment strategy."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "afe30d676c4ffaedae7d57b7b39f056ccbf1f5b72e0d4148932c8a222e9fdc60",
+    "tldr": "FedIIR aligns client gradients to learn invariant relationships implicitly and improve generalization to nonparticipating clients."
+  },
+  "icml-2023-privacy-aware-compression-for-federated-learning-through-numerical-mechanism-design-04fa7091bd": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Private federated learning combines updates from many clients while protecting those updates through differential privacy. Designing the communication mechanism requires balancing three objectives: privacy, predictive accuracy, and the number of transmitted bits. A mechanism that handles privacy and compression together can address these competing demands within a single design.",
+      "This paper builds on the minimum variance unbiased, or MVU, mechanism, whose parameters are found by numerically solving an optimization problem. The new method introduces interpolation into that numerical design process. Its central benefit is a much more efficient privacy analysis, addressing a computational obstacle in designing the mechanism.",
+      "The resulting Interpolated MVU mechanism is reported to scale better and offer an improved privacy-utility trade-off. Across a variety of datasets, it achieves state-of-the-art results for communication-efficient private federated learning. The contribution shows how changing the numerical design procedure can improve both the practicality of privacy analysis and the quality of the resulting training mechanism, while keeping communication cost part of the optimization problem."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3c634164c9c4fe20205115c081435aac50d8510f4d727521d1058cb752a6b55d",
+    "tldr": "Interpolated MVU makes privacy-aware compression more scalable and improves the reported privacy-utility trade-off in federated learning."
+  },
+  "icml-2023-provably-efficient-representation-learning-with-tractable-planning-in-low-rank-pomdp-1eec25911d": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "In a partially observable decision process, an agent must act using observations that do not directly reveal the full state. This paper studies learning a decoder that converts a sequence of high-dimensional observations into a compact representation. Such representations are intended to make exploration and planning more efficient.",
+      "The work focuses on decodable and gamma-observable subclasses of these processes. Earlier results had established that learning in these classes could be statistically tractable, but had not supplied a computationally efficient algorithm. The distinction matters: needing a manageable amount of data does not by itself make the required calculations manageable.",
+      "For the decodable setting, the authors combine maximum likelihood estimation with optimism in the face of uncertainty. Their algorithm achieves efficient sample complexity while relying only on supervised-learning computational oracles. They then adapt it to the broader gamma-observable class. The contribution connects representation learning, exploration, and tractable planning under these structural conditions, with the computational result explicitly expressed through access to the stated supervised-learning oracles."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "de4098946adf7db01ae8e1ce01cd1858bb98268b331befbc872514eda540d02a",
+    "tldr": "The paper develops sample-efficient representation learning and tractable planning for structured POMDP classes using supervised-learning oracles."
+  },
+  "icml-2023-robust-consensus-in-ranking-data-analysis-definitions-properties-and-computational-issue-f6cf525712": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Consensus ranking seeks a single ordering that summarizes a distribution of rankings, often through a median ranking. If some observed preferences are contaminated, that summary may become unreliable. This paper develops concepts and methods for studying robustness in this setting, motivated by the widespread use of ranking data in search and recommendation.",
+      "Rankings are permutations rather than ordinary numerical vectors, so familiar robustness ideas do not transfer directly. The authors extend the concept of a breakdown point specifically to consensus ranking. This gives a way to describe how contamination can undermine a ranking summary while respecting the structure of the space of possible orderings.",
+      "The paper pairs these definitions with dedicated statistical methods and examines the computational problems they create. An experimental study supports the relevance of the approach alongside its theoretical contributions. The central advance is a framework for defining and analyzing robust ranking summaries, making robustness a property that can be studied explicitly even when the data lack the vector-space structure assumed by many standard statistical tools."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ea724181fd7926bccf095aa9976ea824b7421a3d7a86da8d631467ebc7582017",
+    "tldr": "The paper adapts breakdown-point concepts and statistical methods to make consensus rankings robust to contaminated preference data."
+  },
+  "icml-2023-topological-point-cloud-clustering-79d03a3206": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Topological Point Cloud Clustering groups points according to their contributions to global topological features. The method combines ideas from spectral clustering and topological data analysis. Its aim is to characterize a point through the broader shape of the dataset, using richer structural information than the single graph matrix considered by classical spectral clustering.",
+      "TPCC builds an associated simplicial complex and examines a collection of Hodge-Laplacian operators. This expands the spectral description beyond one graph-based matrix, allowing a wider range of topological features to influence how points are characterized. The computation relies on sparse eigenvectors, which the authors describe as making the method similarly interpretable and straightforward to implement as spectral clustering.",
+      "The approach also draws on the relative robustness of topological techniques to noise. The paper evaluates TPCC on synthetic and real-world data and compares it with classical spectral clustering. The stated contribution is a clustering method that brings richer global topology into spectral analysis; the abstract reports the evaluation without asserting a universal performance advantage over the comparison method."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "70d33208b220851f7b3b9f5f9cf97301fc34709504f6dae2151fd5d1cb2ca122",
+    "tldr": "TPCC clusters points using spectral information from multiple topological operators to capture richer global structure."
+  }
+}

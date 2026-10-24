@@ -1,0 +1,327 @@
+{
+  "icml-2026-a3-an-analytical-low-rank-approximation-framework-for-attention-457084ed19": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A3 compresses language models by reducing dimensions inside meaningful Transformer components. Existing low-rank approaches often optimize individual linear layers and replace each large matrix with two smaller matrices. That can overlook how layers work together and introduce extra computation-management and memory operations. A3 instead organizes compression around the functions performed within a Transformer layer.",
+      "The framework separates a layer into QK, OV, and MLP components and derives analytical solutions that reduce their internal hidden dimensions while minimizing changes to each component’s function. This directly reduces model size, the memory used by the key-value cache, and arithmetic operations. The abstract reports that these reductions avoid the runtime overhead associated with decomposed small matrices.",
+      "In the reported LLaMA 3.1-70B comparison, A3 achieves WikiText-2 perplexity of 4.69 versus 7.87 for the previous leading method under equal computation and memory reduction budgets. The paper also demonstrates applications to cache compression, quantization, fine-tuning, and assigning different ranks across components, making the approach useful across several compression workflows."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9426bbf1c5ebf9139e0b1a794d531a91ee9818b78b3e8663e88be379eee1b946",
+    "tldr": "A3 compresses Transformer components analytically, reducing model and cache sizes while preserving stronger performance in the reported comparisons."
+  },
+  "icml-2026-agent-jit-compilation-for-latency-optimizing-web-agent-planning-and-scheduling-f6765c630c": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Web agents often alternate between inspecting a screenshot, asking a language model what to do, and executing a browser action. Repeating this loop creates delays and opportunities for incorrect tool use. This paper proposes compiling a natural-language task into executable code that can contain browser operations, language-model calls, and parallel execution.",
+      "The system divides the problem into planning, scheduling, and tool correctness. JIT-Planner generates several code plans, checks them against tool specifications, and selects the lowest-cost candidate. JIT-Scheduler evaluates possible parallelization strategies using Monte Carlo estimates built from learned latency distributions. A tool protocol adds requirements that must hold before and after operations, helping reduce incorrect tool use.",
+      "Across five applications, the authors report a 10.4-fold speedup and 28% higher accuracy for JIT-Planner relative to Browser-Use. JIT-Scheduler achieves a 2.4-fold speedup and 9% higher accuracy relative to OpenAI CUA. These results support treating agent execution as a program-planning and scheduling problem, with speed and correctness improved together in the evaluated applications."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4a09354e569e536d0eaad1e941817c0c0df6ad1951f7ba4895776d6ad803c287",
+    "tldr": "Agent JIT compilation turns web tasks into validated, scheduled code, improving speed and accuracy across five evaluated applications."
+  },
+  "icml-2026-dave-distribution-aware-attribution-via-vit-gradient-decomposition-d58e33db62": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "An attribution map highlights image regions that matter to a model’s prediction. For Vision Transformers, producing detailed and stable maps is difficult because patch embeddings and attention routing can introduce structured artifacts. An explanation can therefore reflect aspects of the architecture alongside the visual features relevant to the decision, motivating the frequent use of coarser patch-level explanations.",
+      "DAVE addresses this problem by decomposing the input gradient, which describes how the output changes with changes to the image. Its decomposition uses properties of the Transformer architecture to isolate stable, locally equivariant components of the effective input-output mapping. It suppresses components associated with architectural artifacts and instability, aiming to preserve useful visual detail in the resulting attribution.",
+      "The authors report precise, robust maps that remain consistent with the explained class. Across supervised, self-supervised, and inherently interpretable Vision Transformers, DAVE outperforms earlier methods on localization, faithfulness, and user studies. These findings support using architectural structure to improve both the spatial detail of explanations and how closely they reflect model behavior."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0be9300c8d0beed78ec0d6de52e82e8c163ca70be2aed3a2156bf251d40a8938",
+    "tldr": "DAVE decomposes Vision Transformer gradients to produce more stable and detailed attribution maps with stronger reported explanation quality."
+  },
+  "icml-2026-diffusion-models-are-statistically-optimal-for-learning-low-dimensional-multi-modal-dist-e76800d392": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Data can have many recorded coordinates while varying along relatively few underlying directions. It can also occupy several distinct regions, creating multiple modes. This paper studies whether diffusion models can learn such distributions with a number of samples governed by their underlying dimension. The mathematical setting places data on a union of low-dimensional subspaces.",
+      "Assuming the distribution within each subspace is subgaussian, the authors establish a sample requirement of roughly epsilon raised to minus the larger of k and two, ignoring logarithmic factors. Here k is the intrinsic dimension, and epsilon measures sampling error in 1-Wasserstein distance. The resulting convergence rate is near-optimal and depends on intrinsic dimension, improving theoretical guarantees that suffer from high ambient dimensionality.",
+      "The analysis does not require smoothness, bounded densities, or log-concavity, assumptions that can exclude important forms of structured data. Its significance is a statistical explanation for diffusion models’ ability to accommodate multiple modes and low-dimensional structure. The guarantee applies under the stated subspace and subgaussian assumptions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e4a1edfe509e83202162869b883924747e38f252040ca6737bbd3fa575364101",
+    "tldr": "Under subspace and subgaussian assumptions, diffusion models achieve near-optimal sample complexity governed by intrinsic dimension."
+  },
+  "icml-2026-dual-stream-diffusion-for-world-model-augmented-vision-language-action-model-3e91e8c67d": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A robot policy can benefit from predicting both what action to take and how the world will change. Combining these predictions is difficult because visual states and actions are different kinds of information. DUST addresses this gap with a multimodal diffusion transformer that keeps vision and action in separate streams while allowing information to pass between them.",
+      "The training procedure applies independent noise perturbations and uses a decoupled flow-matching loss to learn causal relationships across modalities. At inference, an asynchronous sampling method handles action and vision tokens on different schedules. This provides a way to improve performance through additional inference-time computation while retaining the separation between the two streams.",
+      "On RoboCasa and GR-1 simulations, the authors report gains of up to 6% over leading vision-language-action and world-modeling baselines, with inference-time scaling adding 2–5%. On Franka Research 3 tasks, they report a 10% success-rate improvement over baselines. DUST also supports transfer through action-free video pretraining and joint training on heterogeneous robot and human datasets."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5427af07c5217160d58754f49a2fe6e58f4cbe07b0f8916fec466198cba0c35e",
+    "tldr": "DUST separates but connects visual and action diffusion streams, improving robotic performance and supporting transfer from varied video and interaction data."
+  },
+  "icml-2026-efficient-diffusion-models-via-time-step-optimization-with-consistent-training-and-infer-c8250b6ce9": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Faster diffusion sampling requires choosing a small set of denoising timesteps carefully. Hand-designed schedules can be suboptimal, and a model trained with a long forward diffusion process may be poorly matched to a much shorter reverse process. This paper tackles both timestep selection and the mismatch between training and inference.",
+      "The method represents timestep choices through probabilistic masks. Because selecting steps is discrete, it uses policy gradients to optimize the selection distribution without backpropagating through those choices. A bilevel extension then couples schedule optimization with lightweight additional model training. The inner loop trains at timesteps specified by the outer mask, while the outer loop updates the timestep distribution according to generation quality.",
+      "The authors analyze convergence under mild assumptions and report improvements in sampling efficiency and generation quality across datasets and samplers. The framework remains compatible with different diffusion architectures and advanced ordinary differential equation solvers. Its contribution is a coordinated optimization of where sampling effort is spent and how the model is trained for that sampling schedule."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f5cf10743104a3186342eb155adcb17b17fe15548802eff02581ae85de995870",
+    "tldr": "Probabilistic timestep selection and lightweight retraining jointly improve diffusion sampling efficiency and generation quality in the reported evaluations."
+  },
+  "icml-2026-exactly-computing-do-shapley-values-1d13b8d780": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Do-Shapley values allocate influence among variables in a structural causal model by averaging effects across interventions. Direct computation generally involves exponentially many terms. This paper reformulates the calculation around the model’s irreducible sets, making the causal graph’s structure central to the amount of computation required.",
+      "The exact algorithm runs in time linear in the number of irreducible sets, called r. Depending on graph structure, r can range from the number of variables to an exponential in that number, so the speedup is structure-dependent. Because r is initially unknown, the authors also provide estimators that accept any query budget. As the budget approaches r, these can outperform previous estimators by several orders of magnitude in accuracy; at r, they recover values to machine precision.",
+      "The paper also reduces what must be identified from causal information. It proves that identifying interventional effects for singleton coalitions is sufficient for nonparametric identification of do-Shapley values. Together, the results reduce both computation and the intervention-identification burden by exploiting causal structure."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b7fb546a1f0b0428914fca0036944bcf1cec50cb2b42a82ddff7617874bf6959",
+    "tldr": "A reformulation using irreducible causal sets enables structure-dependent exact do-Shapley computation and reduces the required identification of intervention effects."
+  },
+  "icml-2026-from-seeing-to-thinking-decoupling-perception-and-reasoning-improves-post-training-of-vi-05d10f2417": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Longer reasoning traces do not necessarily resolve failures on visual tasks. In the vision-language models studied here, the authors find that weak visual perception is the main bottleneck. They investigate post-training by separating three capabilities: visual perception, visual reasoning, and textual reasoning, with specialized training data for each.",
+      "Their approach strengthens perception before refining visual reasoning. The experiments indicate that perception needs targeted optimization and is learned more effectively through reinforcement learning than caption-based supervised fine-tuning. Across multiple models, this staged approach consistently improves perception and reasoning compared with merging the training. It organizes the learning process around which capability is being developed.",
+      "The authors report 1.5% higher reasoning accuracy alongside 20.8% shorter reasoning traces, suggesting that better perception can reduce excessive reasoning. They also report gains over the base model of 5.2% on WeMath and 3.7% on RealWorldQA. Capability-based staging complements conventional curricula ordered by difficulty, and combining the two produces additional gains in their experiments."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e1b90b55377d3b025f79251b091259cd6f904b456544f6900ba5d55e4acd0b24",
+    "tldr": "Staging vision-language post-training around perception and reasoning improves reported accuracy while shortening reasoning traces."
+  },
+  "icml-2026-gcib-graph-contrastive-information-bottleneck-for-multi-behavior-recommendation-01388fca3d": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A recommender may have little data about the behavior it ultimately wants to predict, while observing more auxiliary user behaviors. Those extra interactions can help, but some are irrelevant or noisy. GCIB aims to extract the useful parts of auxiliary behavior graphs and use them to strengthen sparse representations of the target behavior.",
+      "At the structural level, an information-bottleneck objective encourages the denoised auxiliary graph to retain information about the target graph while reducing information retained from the original auxiliary graph. This combination favors task-relevant patterns and suppresses spurious interactions. At the feature level, a contrastive learning scheme connects denoised auxiliary features with target-behavior features for both users and items.",
+      "These two mechanisms address different parts of the problem: which relationships to retain and how to transfer useful information into representations. Across multiple real-world datasets, the authors report better performance than leading baselines. The findings support combining structural denoising with cross-behavior representation learning when direct supervision for the target behavior is scarce."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3be298a27da46cd3be44b09f914943881b79edb058555d7bf8d786e27411fa9b",
+    "tldr": "GCIB filters auxiliary interaction graphs and contrasts behavior-specific features to improve recommendation when target-behavior data is sparse."
+  },
+  "icml-2026-humanlm-simulating-users-with-state-alignment-beats-response-imitation-42f5518a80": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "User simulators aim to predict how particular people would respond in a given context. HumanLM addresses the concern that imitating writing style and surface response patterns can miss underlying beliefs or emotions. Its training framework generates natural-language latent states intended to capture dimensions that help explain a user’s response.",
+      "Reinforcement learning aligns these generated states with ground-truth responses. The model then synthesizes the aligned states into its own responses, making state generation an explicit part of simulation. For evaluation, the authors introduce Humanual, a benchmark assembled from public data with 26,000 users and 216,000 responses across six datasets. Its tasks cover daily-life issues, political blogs, and conversations with language-model assistants.",
+      "Across those datasets, HumanLM improves an LLM judge’s alignment score by an average relative 16.3% over the best alternatives. A real-time study with 37 participants also gives it the highest scores for response similarity and human-likeness. These findings support the usefulness of response-aligned latent states for the evaluated user-simulation tasks."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4253a5aec69ef780823fec71cc86a6efc56b2eb9aef44b95466a724dd65bc502",
+    "tldr": "HumanLM generates response-aligned latent user states and achieves stronger user-simulation scores in benchmark and participant evaluations."
+  },
+  "icml-2026-improved-scaling-laws-via-weak-to-strong-generalization-in-random-feature-ridge-regressi-70fa01a8fd": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A stronger model can sometimes learn from a weaker model’s imperfect labels and still outperform its teacher. This paper examines how large that advantage can become as sample size grows. It studies teachers and students trained with random-feature ridge regression, providing a mathematical setting for analyzing weak-to-strong generalization.",
+      "The main technical contribution is a deterministic equivalent for the student’s excess test error when its training labels come from the teacher. This expression allows the authors to identify regimes in which the student’s error follows a better scaling law. The improvement can occur when error is dominated by bias and when it is dominated by variance, broadening the settings in which the benefit appears.",
+      "In some regimes, the student may achieve the minimax-optimal rate even when the teacher’s test error does not decrease with sample size. This is a conditional result within the regression framework. It shows that imperfect supervision can support improvements in the rate of learning itself, beyond a fixed reduction in error."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "599a68e4fc7cb0900d605580950206f23106bb90f4f89e1de92895fa6fe3796d",
+    "tldr": "In identified random-feature ridge-regression regimes, a student trained on weak labels can achieve a better error scaling law than its teacher."
+  },
+  "icml-2026-is-the-last-layer-sufficient-for-uncertainty-quantification-3e0b555fd1": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Epistemic uncertainty concerns uncertainty in what a model has learned. Some methods estimate it by linearizing a neural network and building a Bayesian generalized linear model around that approximation. Applying the approximation to the whole network is computationally demanding, so a common shortcut uses only the final connected layer.",
+      "This paper asks whether the extra expense of full-network linearization produces better uncertainty estimates. The authors compare full-network and last-layer versions through theory and experiments. Their theoretical analysis uses random matrix theory and finds no meaningful improvement in uncertainty-quantification capability from full linearization within that analysis. This challenges the expectation that restricting uncertainty modeling to the last layer necessarily causes a substantial performance loss.",
+      "A large-scale empirical evaluation across modern machine-learning tasks supports the same practical conclusion: the last-layer approximation delivers comparable uncertainty performance with substantially better computational efficiency. The finding concerns the Bayesian linearization approaches compared in the paper and supports the last-layer approximation as an efficient choice for those uncertainty-estimation workflows."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0a4a020bd81361dbceba119edfce9856d545cb8219dae9bfe3430f0057efc8d2",
+    "tldr": "Theory and experiments find comparable uncertainty estimation from last-layer and full-network linearization, with substantially lower cost for the last-layer approach."
+  },
+  "icml-2026-learning-compressed-shape-aware-molecular-representations-for-virtual-screening-66f880bf1e": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Searching enormous molecular libraries for similar three-dimensional shapes is expensive when each comparison requires conformational sampling and alignment. SAND learns a compact molecular representation that supports shape-based retrieval from a molecule’s two-dimensional graph alone. This makes learned representation similarity a practical route to searching for molecules with similar spatial shapes.",
+      "Its first contribution is a contrastive training objective that preserves rankings using differentiable Spearman correlation. The resulting representation similarities correlate strongly with three-dimensional shape overlap, with a reported correlation of 0.86. Its second contribution trains the encoder jointly with a two-level IVF-PQ discretization scheme, incorporating compression into learning. This achieves about four times better compression than quantizing afterward at equivalent retrieval quality.",
+      "The authors demonstrate searches across ten billion molecules in under a second on one GPU node, reporting a speedup greater than one hundred million times over traditional methods. These findings connect shape-sensitive learning with storage-efficient retrieval, addressing both comparison cost and the representation size needed for very large molecular libraries."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3c300a04b8e80a6388885cee1f3a0ba71ccf3d49eb7dff1e92ec5db1e90a83d1",
+    "tldr": "SAND learns compressed molecular descriptors from two-dimensional graphs, enabling reported subsecond shape-similarity searches over ten billion molecules."
+  },
+  "icml-2026-learning-syntax-without-semantics-disentangled-tiny-language-models-fa7d4f4714": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Language-model training usually mixes learning grammar with learning meaning and facts about the world. This paper investigates whether small models can acquire syntax when semantic plausibility and world-knowledge cues are suppressed. The authors train on grammatical nonsense created through SAMBAL, a constrained word-replacement procedure that preserves syntactic structure while ablating semantic content.",
+      "The resulting models perform comparably to standard pretraining on BLiMP and SyntaxGym, while scoring at chance on EWoK world-knowledge probes. When targeted tests put grammaticality in conflict with plausibility, these models favor grammaticality where standard models favor plausible content. Their internal representations also align more strongly with syntax relative to lexical information, supporting the intended separation.",
+      "The approach brings efficiency gains in the studied low-resource regimes: a five-million-parameter model matches a thirty-million-parameter baseline using the same data budget. The models also adapt rapidly to a new domain with limited exposure. This suggests the possibility of learning a compact grammatical foundation and subsequently specializing its knowledge, while leaving that broader modular-training prospect as a suggested direction."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "961974a276241fdc05d0477412fec079eb4128eeef190c60264d0f0ec4789296",
+    "tldr": "Tiny models trained on grammatical nonsense retain strong syntax performance while showing efficiency gains and reduced reliance on semantic plausibility."
+  },
+  "icml-2026-lsgquant-layer-sensitivity-guided-quantization-for-one-step-diffusion-real-world-video-s-e8d1de85a6": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "One-step diffusion can make video super-resolution fast, but the underlying diffusion Transformer can still be large and computationally expensive. Reducing numerical precision offers compression, yet video latent inputs span a wide dynamic range and different layers respond differently to quantization. LSGQuant is designed around these two obstacles.",
+      "A Dynamic Range Adaptive Quantizer fits the activations of video tokens. The method also estimates layer sensitivity from statistics gathered during calibration and uses a Variance-Oriented Layer Training Strategy to account for layer-specific behavior. Finally, Quantization-Aware Optimization jointly refines the quantized branch and a retained high-precision branch. The method therefore combines adaptation to activation ranges, layer sensitivity, and joint optimization.",
+      "The authors report performance close to the original full-precision model and substantially better than existing quantization techniques in extensive experiments. The stated result supports tailoring quantization to one-step diffusion video super-resolution, where the behavior of both inputs and individual layers matters. It also shows that retaining and optimizing a high-precision branch is part of the proposed compression approach."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b715978474c6c6dfade42c05f73c6898d9a48cd25e7dee30c8ec792ebb056457",
+    "tldr": "LSGQuant adapts quantization to activation ranges and layer sensitivity, retaining near-full-precision performance in reported video super-resolution experiments."
+  },
+  "icml-2026-multi-scale-explainer-for-graph-neural-networks-884f4d3d61": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Graph-neural-network explanations often identify a small subgraph that strongly influences a prediction. A single scale can miss relationships visible at other levels of detail, and the search for that subgraph can be sensitive to initialization or noise. MSExplainer seeks more stable explanations by learning related subgraphs at multiple scales.",
+      "The method combines consistency guidance across scales with adaptive subgraph learning at each scale, sharing parameters across this process. It extracts both key subgraphs and complementary subgraphs, producing a hierarchical decomposition of the input graph. This lets an explanation represent influential structures at different granularities while using agreement across scales to stabilize extraction.",
+      "On six benchmark datasets, MSExplainer generally improves explanation accuracy and fidelity over earlier methods. The authors also prove an advantage in an upper bound for representation consistency. Under the parameter-sharing mechanism, they derive the same order of computational complexity as single-scale approaches. Together, these results support obtaining richer and more stable graph explanations without increasing the asymptotic complexity order."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6850971692c4b952558835a0935dbf6f51f0558ad7b49447c72893627801f492",
+    "tldr": "MSExplainer learns consistent graph explanations at multiple scales, generally improving fidelity while preserving the complexity order of single-scale methods."
+  },
+  "icml-2026-optimal-stopping-in-latent-diffusion-models-19e7c88aab": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Completing every denoising step can sometimes make a latent diffusion model’s samples worse. This paper attributes that phenomenon to the dimensionality reduction used by latent models. It analyzes how the size of the latent representation interacts with the point at which generation stops, providing a reason for early stopping beyond numerical stability.",
+      "The theoretical analysis assumes Gaussian distributions and linear autoencoders. Within this framework, the authors characterize conditions where stopping early minimizes the distance between generated and target distributions. Lower-dimensional representations benefit from earlier termination, whereas higher-dimensional latent spaces call for later stopping. The analysis also connects latent dimension with other settings, including constraints on score-matching parameters.",
+      "The framework suggests that autoencoder reconstruction quality alone can serve as a proxy for the potential performance of the complete latent diffusion model. Experiments on synthetic and real datasets illustrate the analyzed properties and show that early stopping can improve generation quality. The main implication is to treat stopping time and latent dimension as interacting design choices."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2e486a0c90a29dd42b3a3335a824cf9ba7c11c4b03cba0359211c48bbe41a2f5",
+    "tldr": "A Gaussian linear-autoencoder analysis explains how latent dimensionality can make early stopping beneficial for diffusion sample quality."
+  },
+  "icml-2026-query-circuits-explaining-how-language-models-answer-user-prompts-98f5e5dc5e": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Explaining a language model’s general abilities does not by itself explain its answer to one particular prompt. This paper introduces query circuits: pathways inside the model that trace information from a specific input to its output. The circuits are identified directly within the model, grounding the explanation in its own connections.",
+      "To assess these explanations, the authors introduce Normalized Deviation Faithfulness, a metric for how well a discovered circuit recovers the model’s decision on an individual input. They also develop sampling-based discovery methods that seek sparse circuits while preserving faithful behavior. These contributions address both the cost of finding a circuit and the need to evaluate whether it explains the relevant decision.",
+      "Experiments on indirect object identification, arithmetic, MMLU, and ARC find sparse circuits that recover much of the model’s single-query performance. On MMLU, circuits covering an average of 1.3% of connections recover about 60% of performance on a question. The result supports compact input-specific explanations while showing that recovered performance remains partial."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e56e464747c1c7452c2f35014818d23df9c541003725f6e65f0d93f3331fd54c",
+    "tldr": "Query circuits trace individual answers through sparse model connections, recovering substantial single-query performance in the reported benchmarks."
+  },
+  "icml-2026-riemannian-meanflow-0f0c182e57": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Generative modeling on manifolds handles objects whose possible configurations follow geometric constraints. Diffusion and flow methods have worked well in scientific settings such as protein and DNA design, but often require many neural-network evaluations per sample. Riemannian MeanFlow learns flow maps directly on these geometric spaces, enabling generation with as few as one forward pass.",
+      "The paper derives three equivalent descriptions of manifold average velocity through Eulerian, Lagrangian, and semigroup identities. It also studies parameterizations and stabilization methods for training on high-dimensional manifolds. These mathematical and training contributions support learning maps that move generation forward with fewer repeated model evaluations.",
+      "For promoter DNA design and protein backbone generation, the authors report sample quality comparable to earlier methods with up to ten times fewer function evaluations. They also demonstrate reward look-ahead: predicting a terminal state from an intermediate step at little additional cost. This makes the learned few-step maps useful for reward-guided design as well as for reducing the cost of ordinary sampling."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "be09913814bf122f813dba801a67bc57530bdd248ca1e2e91465cc940bb3fba1",
+    "tldr": "Riemannian MeanFlow learns direct manifold flow maps, reducing generation evaluations and enabling inexpensive reward look-ahead."
+  },
+  "icml-2026-single-rollout-hidden-state-dynamics-for-training-free-rlvr-data-selection-b6465269c8": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Reinforcement learning with verifiable rewards can improve reasoning with very few examples, making the choice of examples consequential. SHIFT tackles selection before any reinforcement-learning training, without requiring labels or reward evaluation across the candidate pool. It uses internal model behavior during inference to judge which instances may be useful.",
+      "For each candidate, SHIFT generates one deterministic reasoning rollout and measures the change between the starting and ending hidden states. The magnitude of this reasoning-induced representation shift serves as a proxy for utility. A quality-weighted farthest-first selection procedure then promotes coverage in a feature space augmented with these shifts, balancing useful candidates with a compact subset that covers varied instances.",
+      "On mathematical reasoning and medical question-answering benchmarks with extremely small training budgets, SHIFT consistently beats the tested training-free diversity and difficulty or uncertainty baselines. Improvements include in-domain accuracy and transfer to harder evaluations. Ablations find complementary benefits from coverage and quality weighting, while further analysis indicates that simple input or output length does not explain the representation-shift signal."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "56daf14ada07d5cd918f2c425267451554873369b179d09b2b58f508932c8d3a",
+    "tldr": "SHIFT selects compact RLVR training sets using hidden-state changes from one rollout per candidate, improving reported accuracy and transfer without pool-wide labels."
+  },
+  "icml-2026-timeseed-effective-time-series-forecasting-with-sparse-endogenous-variables-c6dce48b33": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Forecasting often assumes a dense history of the variable being predicted. In practice, observations of that target variable can be sparse even when external time-varying inputs are available. This paper formalizes sparse endogenous forecasting, where those external sequences must be combined with only limited observations of the target itself.",
+      "TimeSeed approaches the problem by reconstructing historical context. It jointly uses the stability of exogenous sequences and the information carried by sparse endogenous observations to build robust historical representations. Forecasting then operates on those reconstructed representations as a sequence-prediction problem. The architecture is entirely linear and contains 0.19 million parameters, making the reconstruction strategy central to its approach.",
+      "Across seven real-world benchmarks, TimeSeed consistently outperforms the compared state-of-the-art deep models, with average improvements of 13.01% in mean squared error and 7.54% in mean absolute error. These findings support context reconstruction as an effective way to use external sequences when target histories are scarce, and show that a small linear architecture can perform strongly in this setting."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8cb5fc96d2f7ae022113df5a55d65de26b6d55c8ec7ff9ff0bca13dc229304d0",
+    "tldr": "TimeSeed reconstructs forecasting context from external sequences and sparse target observations, outperforming compared deep models with a small linear architecture."
+  },
+  "icml-2026-toward-calibrated-mixture-of-experts-under-distribution-shift-afb7997a92": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Calibration asks whether a model’s reported probabilities agree with how often outcomes actually occur. In a mixture-of-experts model, predictions depend on both the experts and the mechanism that routes inputs among them. This paper studies whether calibrating individual experts is enough to calibrate the combined model when the data distribution changes.",
+      "The answer depends on routing. For hard-routed models, expert calibration is sufficient to ensure overall calibration under a broad class of distribution shifts. For soft-routed models, where expert predictions are combined, that condition is insufficient. The distinction shows why improving individual predictors does not automatically settle the reliability of probabilities produced by every mixture architecture.",
+      "To address the aggregate model directly, the authors propose adversarial reweighting that penalizes calibration errors in the routed combination under distribution shift. Experiments across model classes, prediction tasks, and shifts show a better tradeoff between accuracy and calibration, both on average and on difficult subsets. The findings connect probability reliability to how expert outputs are routed and combined."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b69f915d680f1013c466df77a3fe80953185432e7a44a74a0f0cf4b83f81c458",
+    "tldr": "Expert calibration suffices for hard-routed mixtures under a broad class of shifts, while soft routing motivates calibration of the aggregate prediction."
+  },
+  "icml-2026-unhype-clip-guided-hypernetworks-for-dynamic-lora-unlearning-45664f94c3": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Selective unlearning aims to remove specified concepts from an image generator while preserving its broader capabilities. Low-Rank Adaptation offers an efficient way to modify a model, but existing approaches can struggle with semantic relationships and with removing multiple concepts. UnHype introduces a hypernetwork to make those low-rank modifications adapt to context.",
+      "A hypernetwork produces the weights used by another part of the system. In UnHype, it generates adaptive LoRA weights at inference time from a CLIP embedding. The framework incorporates this mechanism into training for both single-concept and multi-concept removal. The generated adjustments can therefore depend on semantic information supplied through the embedding, supporting more context-aware concept control.",
+      "The architecture integrates with Stable Diffusion and modern flow-based text-to-image models, where the authors report stable training and effective control. Evaluations cover object erasure, celebrity erasure, and explicit-content removal. These results support the framework’s versatility across the tested concepts and model families, with dynamic weight generation providing the proposed route to more adaptable and scalable unlearning."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6df745eac50f0cd5f63b8073f6abb98cc425fc0fe5084e0023c990c1d9c7f1d0",
+    "tldr": "UnHype generates LoRA weights from CLIP embeddings to support adaptive single- and multi-concept removal in image generators."
+  },
+  "icml-2026-universal-algorithm-implicit-learning-26d59a21e1": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Meta-learning methods often work within fixed feature and label spaces, making it difficult to reuse them across very different tasks. This paper introduces a framework that defines practical universality and distinguishes algorithm-explicit from algorithm-implicit learning. It uses that framework to develop TAIL, a Transformer-based meta-learner designed for changing domains, modalities, and label configurations.",
+      "TAIL combines three mechanisms. Random projections encode features across modalities, random-injection label embeddings support extrapolation to larger label spaces, and inline query processing improves computational efficiency. Together, these components address variation in what the inputs represent, how many classes a task contains, and the cost of producing predictions.",
+      "The authors report leading performance on standard few-shot benchmarks and generalization to unseen domains. Despite training only on images, TAIL also handles text and audio classification, and it supports tasks with up to twenty times as many classes as encountered during training. Reported computational savings span orders of magnitude over earlier Transformer-based approaches. These results substantiate broad transfer across the evaluated task changes."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9342e16cf0a4c8898d5ebfad18a95225152d748b7ca3e03a14c45dcd3604c1b2",
+    "tldr": "TAIL combines a formal meta-learning framework with a Transformer that transfers across tested domains, unseen modalities, and much larger label spaces."
+  },
+  "icml-2026-which-algorithms-can-graph-neural-networks-learn-7c1072d2d2": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Learning to execute an algorithm involves more than representing its behavior on training examples. A central question is whether a graph neural network trained on small instances will work on larger ones. This paper develops a theoretical framework giving sufficient conditions for message-passing graph neural networks to approximate algorithmic behavior on inputs of arbitrary size with worst-case guarantees.",
+      "The framework covers a broad class of algorithms, including single-source shortest paths, minimum spanning trees, and dynamic programming problems such as zero-one knapsack. It also establishes impossibility results for many tasks that standard message-passing networks cannot learn. The authors derive more expressive related architectures that overcome those identified limitations.",
+      "A refined analysis of Bellman–Ford reduces the required training-set size and permits a differentiable regularization loss. Empirical findings largely support the theory. The contribution is a conditional account of algorithm learning that links training on small examples to larger-input guarantees, while also identifying architectural barriers. The sufficient conditions specify when the positive guarantees apply."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1d42a76bac2532431762e35a2484474bca75378c8fbec2424d5273d1dc8cc8a1",
+    "tldr": "The paper gives sufficient conditions for graph networks to learn algorithms that generalize to arbitrary input sizes, alongside impossibility results and architectural remedies."
+  }
+}

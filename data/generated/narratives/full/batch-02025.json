@@ -1,0 +1,327 @@
+{
+  "icml-2026-alethia-a-foundational-encoder-for-voice-deepfakes-1327a6802f": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Voice deepfake detection depends on finding traces of synthetic audio, while localization also requires identifying where those traces occur. Existing systems often reuse representations from general speech foundation models. This paper argues that further fine-tuning of those representations is yielding diminishing returns and instead changes how the underlying audio encoder is pretrained.",
+      "Alethia combines two learning tasks: predicting masked continuous embeddings through a bottleneck and reconstructing spectrograms using flow matching. These tasks train the encoder to recover missing representations and generate an audio-related signal representation. The paper connects this combination to learning features that capture deepfake artifacts, emphasizing continuous embedding prediction and generative pretraining.",
+      "The authors evaluate Alethia on five tasks across 56 benchmark datasets and report significant improvements over state-of-the-art speech foundation models. They also report stronger robustness to real-world perturbations and zero-shot generalization to unseen domains, including singing deepfakes. Their analysis identifies limitations of discrete prediction targets, supporting the importance of the pretraining objective for learning useful forensic audio representations."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "dcb7f733223e90ae7ec471f4cbfa3dd13dddeb442379d7eb0eb009b6e6529b47",
+    "tldr": "Alethia uses continuous prediction and generative audio pretraining to improve voice deepfake detection, localization, and generalization."
+  },
+  "icml-2026-autoqra-joint-optimization-of-mixed-precision-quantization-and-low-rank-adapters-for-eff-f487bc75b8": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Compressing a language model and then adapting it with low-rank adapters creates two linked choices: how precisely each layer stores its weights and how much adapter capacity that layer receives. The paper shows why choosing them separately is inadequate. Low quantization error does not always predict strong fine-tuning, and configurations using the same memory can produce substantially different outcomes.",
+      "AutoQRA searches jointly over each layer’s quantization bit-width and adapter rank. Its first stage explores configurations broadly using an evolutionary search with different evaluation fidelities. Layer-importance information helps initialize the search, while specialized operators and a performance model screen candidates. A second stage uses trust-region Bayesian optimization to refine promising parts of the configuration space.",
+      "This joint allocation lets training compensate for quantization noise in particular layers while respecting a memory budget. Experiments report performance close to full-precision fine-tuning with memory usage comparable to uniform four-bit methods. The result supports treating compression and adaptation capacity as a coordinated allocation problem, rather than assuming that the best initial compression will also produce the best adapted model."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4b50d427b9dd0d77d93f5247528dcd58a5b625c58c49c50b7e974eb3c94175d6",
+    "tldr": "AutoQRA jointly selects layer precision and adapter rank to approach full-precision fine-tuning performance within a four-bit-like memory footprint."
+  },
+  "icml-2026-bas-bridging-adam-and-signsgd-for-memory-efficient-llm-training-ea71d4b391": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Training large language models requires memory for the optimizer’s running statistics as well as model weights. Block Adaptive Signum, or BAS, reduces this overhead by combining sign-based updates with scaling shared across blocks of parameters. It discards the element-wise second-moment statistics used by Adam-style optimizers while retaining update behavior intended to resemble Adam closely.",
+      "That similarity matters because changing optimizers can otherwise require substantial hyperparameter retuning. In the tested settings, BAS directly inherits Adam’s hyperparameters and matches AdamW’s performance. This makes the method particularly relevant for adapting models already pretrained with Adam. The authors also exploit the robustness of sign updates to store the first-moment statistics in FP8 without observed performance degradation.",
+      "Together, these changes reduce optimizer-state memory to 12.5% of AdamW’s footprint. Evaluations include pretraining a 1.5-billion-parameter model on 100 billion tokens and supervised fine-tuning of models up to 32 billion parameters, with performance on par with AdamW. The paper additionally proves convergence under standard assumptions and introduces a communication-efficient variant based on sign updates."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "05f9d093a99ae3b7db861d1a3bda2f67752ec921557da440fa87803c8940d598",
+    "tldr": "BAS matches AdamW in tested training settings while reusing Adam hyperparameters and reducing optimizer-state memory to 12.5%."
+  },
+  "icml-2026-calibrating-decision-robustness-via-inverse-conformal-risk-control-488808b6f8": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Robust optimization chooses decisions that remain protected against unfavorable uncertainty. Its usefulness depends on how much protection is requested: too little can leave decisions exposed, while too much can make them unnecessarily costly. Even methods that learn uncertainty sets with conformal prediction usually require a coverage target chosen in advance, leaving this practical choice unresolved.",
+      "The proposed framework evaluates robustness levels through both miscoverage and regret. Miscoverage concerns uncertainty falling outside the protected set, while regret concerns decision quality. The method constructs valid estimators that map the trade-off between these quantities across a family of robust predict-then-optimize policies. This produces a Pareto frontier of alternatives for decision-makers with different cost and risk preferences.",
+      "The authors provide distribution-free guarantees that apply with finite samples to both quantities, and report sharper finite-sample performance. The framework applies across classical optimization formulations. Its contribution is to make robustness selection itself data-driven: practitioners can assess the protection–cost trade-off rather than first selecting a coverage target and only then examining the resulting decisions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "23ec101a1779490cac6aa024b38a90c86f84652e8d218d9cdc3c6cb11d87bc1d",
+    "tldr": "This framework calibrates robust decisions by estimating the miscoverage–regret trade-off with distribution-free, finite-sample guarantees."
+  },
+  "icml-2026-decoupling-skeleton-and-flesh-efficient-multimodal-table-reasoning-with-disentangled-ali-aab34f7502": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Understanding a table image requires connecting its layout with the meaning of its contents. These two kinds of information are tightly coupled, making complex tables difficult for large vision-language models. The paper investigates how to adapt these models with minimal annotation and no external tools, avoiding the expensive training or tool dependencies of existing approaches.",
+      "Its first component, DiSCo, separates structural abstraction from semantic grounding during multimodal alignment. In plain language, learning the organization of a table is treated separately from connecting its visible contents to meaning. The second component, Table-GLS, uses that structural understanding to guide reasoning from the overall table toward local evidence through structured exploration and evidence-grounded inference.",
+      "Experiments across diverse benchmarks report more efficient improvements in table understanding and reasoning, with particular gains in generalization to previously unseen table structures. The two components address complementary needs: adapting the model’s representation of tables and guiding how it uses that representation to answer questions. The findings support explicitly handling layout and content as distinct parts of multimodal table reasoning."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ee37ae81e8d36f250142fa834183f4b58ee279f3654ebb795ce144af0a622305",
+    "tldr": "DiSCo and Table-GLS separate table structure from content and guide evidence-based reasoning with minimal annotation and no external tools."
+  },
+  "icml-2026-demystifying-mergeability-interpretable-properties-to-predict-model-merging-success-ceb5beee6a": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Model merging combines separately fine-tuned models, but success is difficult to anticipate. This paper challenges the idea that mergeability belongs to a model in isolation. Instead, it shows that the merging method and the tasks represented by the partner models both matter when assessing whether a combination is likely to work.",
+      "The authors build an architecture-agnostic diagnostic framework using interpretable measurements between pairs of models, including gradient L2 distance. They apply L1-regularized linear optimization to identify measurements associated with normalized accuracy after merging. Across five merging methods, the strongest associations vary with architecture and method. Agreement is moderate: the average overlap among the top five metrics is 64.0%, with 79.3% agreement on association signs.",
+      "Despite that variation, gradient alignment consistently emerges as a central signal of mergeability. This means the relationship between models’ gradient behavior is informative across the examined settings, even though other useful diagnostics change. The findings provide a basis for diagnosing prospective merges and motivate future training strategies that account for merging, rather than establishing one universal score of model compatibility."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6f90b93d58c00d0ff406bf8ba1d22b6148eaf28d4b68e358b167573c742738a5",
+    "tldr": "Model-merging success depends on the method and partner tasks, with gradient alignment emerging as a consistently informative diagnostic."
+  },
+  "icml-2026-engiagent-fully-connected-coordination-of-llm-agents-for-solving-open-ended-engineering--060cc885e4": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Engineering problems require more than solving a supplied equation. A system must interpret the situation, construct a mathematical formulation, and produce a solution compatible with available data and physical constraints. Language models can reason and write code, yet failures to satisfy those constraints can make their proposed engineering solutions unusable.",
+      "EngiAgent organizes specialized agents around problem analysis, modeling, verification, solving, and solution evaluation. A fully connected coordinator routes feedback flexibly among these roles. This supports iterative correction throughout the workflow instead of restricting reflection to a fixed sequence. The design targets several distinct failure sources, including incorrectly extracted data, inconsistent constraints, and unsuccessful solver runs.",
+      "Across four representative domains, the authors report substantial improvements in solution feasibility compared with prior approaches. The central contribution is coordination organized around whether a proposed solution can actually work under the problem’s constraints. Flexible feedback matters because different failures originate at different stages, and improving the final answer may require revisiting the formulation or underlying data rather than only repeating the solving step."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a9a41bf23c31d546bbd18667dc230bb8cc884d59705695bbabb8c2a5371c80dd",
+    "tldr": "EngiAgent uses flexible coordination among specialized agents to improve the feasibility of solutions to open-ended engineering problems."
+  },
+  "icml-2026-forensicconcept-transferable-forensic-concepts-for-aigi-detection-9f3c7c8055": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Detectors of AI-generated images can perform well on familiar generators yet struggle with unseen ones. Understanding that failure is harder when a detector does not reveal its evidence. ForensicConcept addresses both interpretability and transfer by extracting explicit forensic concepts and moving those concepts between different model backbones.",
+      "The framework first uses Transformer attribution to locate image patches important to a detector’s decision. It clusters those patches into a compact concept codebook and projects representations into concept-aligned evidence readouts. It also builds a generation-trace reference from CleanDIFT diffusion features. A neighborhood-consistency measure, CKNNA, evaluates how closely a backbone’s representation structure aligns with that reference.",
+      "Concept codebook injection then transfers diffusion-derived concepts into target backbones. Experiments on GenImage, GAN-family, and Chameleon benchmarks report consistent improvements over prior methods. The authors also find that CKNNA alignment predicts transfer effectiveness. Together, these results connect interpretable evidence with transfer behavior: the organization of a backbone’s features helps explain which forensic concepts can carry over effectively."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f3be7563cefc4817f04f0ee775e3b8a95171184487d62ddb8bf219cc2ae9d8f9",
+    "tldr": "ForensicConcept extracts auditable image-forensics concepts and transfers them between backbones, with representation alignment predicting transfer effectiveness."
+  },
+  "icml-2026-from-guessing-to-placeholding-a-cost-theoretic-framework-for-uncertainty-aware-code-comp-29c0471ba6": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Code-completion models usually supply fully concrete code even when context is insufficient. An analysis of three million real-world interactions finds that 61% of suggestions were edited after acceptance or rejected despite more than 80% similarity to the user’s subsequent code. This suggests that localized wrong guesses can undermine suggestions that are otherwise close to useful.",
+      "Adaptive Placeholder Completion allows the model to leave explicit placeholders at highly uncertain positions, which users fill through IDE navigation. The paper models completion as minimizing expected user effort. Under the premise that filling a placeholder costs less than correcting an error, it proves that an entropy threshold exists above which placeholders have strictly lower expected cost than concrete guesses.",
+      "The authors build training data from filtered edit logs and use a cost-based reinforcement-learning reward. Evaluations on models from 1.5 billion to 14 billion parameters report expected editing-cost reductions of 19%–50% while preserving standard hard-completion performance. The result supports learning selective abstention as part of code generation, with its value grounded in the relative costs of filling and correcting."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b45305a5c3bb6dd467d410068eaa6486e552c5f0c1e23a676597adf5feaf7c20",
+    "tldr": "Adaptive Placeholder Completion learns when to leave uncertain code unfinished, reducing expected editing costs in the reported evaluations."
+  },
+  "icml-2026-g-2-tam-geometry-grounded-track-anything-model-242e38ae7c": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Tracking an object across images becomes difficult when viewpoints change substantially or the object disappears behind an obstruction. Existing video segmentation models often rely on stored appearance information. G²TAM instead uses the spatial consistency available from feed-forward 3D reconstruction, treating aligned geometry as an implicit memory for object identity and location.",
+      "The framework accepts unordered RGB images or video and supports prompts that specify the instance to track. Its cross-modal spatial encoder brings visual and textual prompts into a shared geometric space. This links spatial reconstruction with instance-consistent mask prediction in an end-to-end system, allowing the same geometric representation to support both locating an object and identifying its image regions.",
+      "The authors also introduce InsTrack, a large-scale dataset with a dedicated validation split for training and benchmarking. Experiments report strong cross-view consistency, promptable spatial tracking, video object segmentation, and reconstruction. The contribution is a unified approach that connects object semantics to geometry across views and time, providing a foundation for interactive spatial reasoning grounded in reconstructed scene structure."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "eea7960b6c8b7cf3b1aa5cb01813f3732b0978cd99a0a7eb89daa86091a50ab0",
+    "tldr": "G²TAM uses shared 3D geometry as implicit memory to track prompted objects consistently across images, viewpoints, and video."
+  },
+  "icml-2026-graph-grpo-training-graph-flow-models-with-reinforcement-learning-eb9f138af0": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Graph flow models generate structures such as molecular graphs through discrete flow matching. Although they offer strong generation performance and flexible sampling, aligning their outputs with task-specific objectives remains challenging. Graph-GRPO introduces online reinforcement learning for these models when rewards can be verified, connecting graph generation directly to measurable goals.",
+      "The method derives an analytical expression for transition probabilities, replacing Monte Carlo estimation and enabling fully differentiable rollouts for reinforcement-learning training. It also adds localized refinement: selected nodes and edges are randomly perturbed and then regenerated. This gives the model a way to explore changes to parts of a graph and improve generation quality through repeated refinement.",
+      "Experiments cover synthetic and real datasets. With 50 denoising steps, Graph-GRPO achieves Valid-Unique-Novelty scores of 95.0% on planar graphs and 97.5% on trees. It also reports state-of-the-art molecular optimization performance, outperforming graph-based and fragment-based reinforcement-learning methods and classic genetic algorithms. These findings support combining tractable transition calculations with local structural exploration to optimize graph generators under verifiable rewards."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "89cc183a8fbfd77e41c069c8afe77b1391fb7aa7b397ce28ffc02f4e1261bb49",
+    "tldr": "Graph-GRPO combines analytical transition probabilities and local graph refinement to train graph flow models with verifiable rewards."
+  },
+  "icml-2026-how-language-models-process-negation-af20dd9790": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A language model can answer a question involving negation incorrectly even when some of its internal components process the negation correctly. This paper investigates that mismatch. It finds that attention behavior in late layers promotes simple shortcuts, and removing the relevant attention modules greatly improves accuracy on negation-related questions.",
+      "The authors examine two possible internal mechanisms. One attends to the phrase being negated and suppresses related concepts. The other constructs a representation of the negative phrase as a whole. For example, a representation of “not gas” can promote liquids and solids rather than merely weakening the concept of gas. These mechanisms offer different accounts of how negation changes a model’s internal representation.",
+      "Using observational and causal interpretability techniques on Mistral-7B and Llama-3.1-8B, the researchers find evidence for both mechanisms, with the constructive mechanism more prominent. The results show that successful internal computation can coexist with competing processes that derail the final answer. They therefore explain both how the studied models represent negation and why possessing that machinery does not always yield correct behavior."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "08a4c815854b4f3935dc366f344411f4992dba8bdc27dcb95ba533f8ab3cdc90",
+    "tldr": "The studied models internally process negation through suppression and constructive representations, but late-layer shortcuts can override that capability."
+  },
+  "icml-2026-learning-to-refine-spectral-decoupled-iterative-refinement-framework-for-precipitation-n-de62f3520b": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Short-term precipitation forecasting must preserve both broad weather patterns and fine convective detail. The paper identifies a trade-off: regression models blur small-scale structure, while diffusion models can generate realistic-looking details that lack physical grounding. Spectral-Decoupled Iterative Refinement, or SDIR, approaches forecasting as deterministic refinement across different spatial-frequency scales.",
+      "SDIR first extracts a stable low-frequency representation of the large-scale weather structure. It then iteratively refines high-frequency detail under physical constraints. A global-structure path uses scale-adaptive Transformers, while a residual-refinement path uses scale-conditioned Fourier neural operators. A power-spectral-density loss with dynamic masking encourages the distribution of detail across frequencies to remain consistent with turbulence.",
+      "On three benchmarks, the authors report significantly better spatial accuracy than state-of-the-art methods and spectral fidelity competitive with diffusion-based approaches. This combination matters because a prediction should put precipitation in the right places while also preserving plausible structure across scales. The findings support separating large-scale organization from fine-detail refinement as an approach to reliable, high-resolution nowcasting."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c5faa2f1cd6aeca3737133cab38f61ced8dbe64c3e9a635a6ab126f196a0fdf1",
+    "tldr": "SDIR refines precipitation forecasts across spatial frequencies, improving spatial accuracy while maintaining competitive spectral realism on three benchmarks."
+  },
+  "icml-2026-learning-transferable-interaction-primitives-from-game-videos-for-humanoid-locomotion-ae614d380c": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Video offers a potential source of humanoid-control knowledge when high-fidelity robot data is scarce. However, the paper argues that existing approaches often use curated videos mainly as examples of body motion. That misses how movement depends on the surrounding environment, which is central to navigating complex physical terrain.",
+      "TRIP learns from unlabeled game videos by extracting a discrete library of interaction-based action primitives. These primitives explicitly connect motion dynamics with environmental context. To transfer that information, the framework introduces a shared latent representation of context. It aligns implicit features from the video domain with functional observations in the target domain, allowing strategies mined from video to inform reinforcement-learning policies.",
+      "Experiments on complex terrain navigation report significant improvements in task performance, sample efficiency, and robustness. The key contribution is treating video as evidence about environment-dependent interaction rather than only a source of poses or trajectories. The shared context representation provides the bridge between what the game footage depicts and what the target controller can observe and use when learning locomotion."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d2282989905689dfcd0fe8e3b7885dc087d4c21de93204466ca82e8a30dbc794",
+    "tldr": "TRIP extracts environment-dependent action primitives from game videos and transfers them to humanoid locomotion policies through shared context representations."
+  },
+  "icml-2026-metis-learning-to-jailbreak-llms-via-self-evolving-metacognitive-policy-optimization-94d76d3103": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Automated red teaming tests whether a language model’s safety defenses can be bypassed. The paper argues that static heuristics and stochastic search can become brittle against stronger alignment. Metis instead treats the process as policy optimization at inference time, using an adversarial partially observable decision model to represent uncertainty about the target’s defenses.",
+      "Its central mechanism is a feedback loop that diagnoses the target’s defense behavior and updates its policy. Structured feedback acts as a semantic optimization signal, while reasoning traces make the adaptation process more interpretable. The intended advantage is more directed exploration: information from previous interactions informs subsequent decisions instead of repeatedly searching without that structure.",
+      "Across ten models, Metis reports the strongest average attack success rate among compared methods, at 89.2%, including 76.0% on O1 and 78.0% on GPT-5-chat. Reported token costs fall by an average factor of 8.2, reaching 11.4 in some cases. The findings identify vulnerability to adaptive, closed-loop reasoning in the tested settings and motivate defenses that reason dynamically about safety during inference."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e9c01ed254691d9b999ee44ed418b121d40195178660e4c467d68fca1ca298c2",
+    "tldr": "Metis uses feedback-driven policy optimization for red teaming, reporting high attack success and lower token costs across ten tested models."
+  },
+  "icml-2026-mitigating-the-modality-gap-in-visionlanguage-models-with-fractal-spectral-geometry-a91b62cb56": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Vision-language models place image and text representations in a shared space, but those representations can still cluster by modality. An image’s nearest neighbors may therefore be other images rather than matching text. The paper argues that approaches focused mainly on global alignment can distort local geometry, limiting improvements in ranking and zero-shot accuracy.",
+      "Fractal Spectral Alignment, or FSAlign, aims to match image and text geometry across scales, from small neighborhoods to the overall representation space. It imposes Ahlfors-regularity and sub-Gaussian heat-kernel bounds to construct a shared multiscale structure. A fractal spectral zeta score derived from multiscale heat kernels then measures discrepancies between paired image and text neighborhoods, providing an alignment objective.",
+      "The theoretical result shows that FSAlign can guarantee alignment of local spectral measures and global fractional Dirichlet energies under its geometric construction. These are complementary descriptions of local and global structure. The contribution is a mathematical framework for coordinating both scales of cross-modal geometry, addressing the concern that bringing whole feature clouds together can still leave their internal neighborhoods mismatched."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "42a1029f0c465bb6ff6cbc7427fdf936835994b3397f21c3ffa5def3efd41247",
+    "tldr": "FSAlign matches image and text representations across geometric scales, with theoretical guarantees linking local and global alignment."
+  },
+  "icml-2026-modeling-attributional-style-at-scale-a-dataset-and-analysis-for-psychological-attributi-846e4cf786": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Attributional style concerns how people explain events. The paper draws on a theory connecting repeated uncontrollable negative experiences with explanatory styles that can increase susceptibility to depression and remain targets for cognitive therapy. Its computational focus is the shortage of large datasets and evaluation protocols for assessing and reframing these explanations.",
+      "The Attributional Style Transfer Dataset contains 42,000 real-world events paired with psychologically grounded attributions across seven styles. It is constructed through a Prevent–Filter–Validate pipeline combining language-model generation with specialist validation. The authors use it to study style assessment through supervised classifiers and zero- or few-shot language models, alongside the task of rewriting attributions into different explanatory styles.",
+      "The paper also introduces automatic metrics for psychological validity and uses them to build preference data for Direct Preference Optimization. Fine-tuning with that data produces substantial reported gains in reframing quality. The contribution joins a dataset, assessment methods, and a training signal for reframing, providing computational tools with potential implications for scalable mental health interventions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8040e0c27e4749589818add093de279ff809c2c79d28c489988eb67d08ca54ca",
+    "tldr": "ASTD supplies specialist-validated attribution data and evaluation methods that support improved language-model assessment and reframing of explanatory styles."
+  },
+  "icml-2026-prior-diffusiveness-and-regret-in-the-linear-gaussian-bandit-a535490617": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "In a linear-Gaussian bandit, an agent chooses actions while learning unknown coefficients from noisy observations. Thompson sampling uses uncertainty about those coefficients to guide its choices. This paper studies how the spread of a Gaussian prior affects Bayesian regret, the performance loss accumulated while learning and selecting actions.",
+      "The authors prove a regret upper bound that, up to logarithmic factors, adds two terms: sigma times d times the square root of T, and d times r times the square root of trace(Sigma_0). Here d is the dimension, T the time horizon, r the maximum action norm, sigma the noise standard deviation, and Sigma_0 the prior covariance. The second term captures prior-dependent burn-in.",
+      "The important distinction is additive separation: prior diffusiveness contributes a burn-in term alongside the long-run minimax term, whereas previous bounds coupled them multiplicatively. The proof introduces a new elliptical-potential lemma. A lower bound also indicates that the burn-in contribution is unavoidable, clarifying both the benefit of the sharper analysis and the remaining intrinsic cost of prior uncertainty."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a15b2d22a3d04d00e1067a887815159303d4be2f915ebafcda2dc6519a04a5a1",
+    "tldr": "A new Thompson-sampling regret bound separates prior-dependent burn-in additively from long-run regret, up to logarithmic factors."
+  },
+  "icml-2026-pull-requests-as-a-training-signal-for-repo-level-code-editing-2f160ab731": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Editing an entire repository requires understanding dependencies and making precise changes across files. Recent benchmark gains have often depended on elaborate agent workflows. This paper asks how much editing capability can instead be learned directly into a model’s weights through suitable training data, allowing a simpler process when the model is used.",
+      "Clean-PR converts real GitHub pull requests into a training signal. Its reconstruction and validation pipeline transforms noisy diffs into Search/Replace edit blocks, producing a public corpus of two million pull requests across 12 programming languages. Training combines a mid-training stage on this signal with supervised fine-tuning aligned to an agentless protocol and data augmentation driven by errors.",
+      "On SWE-bench, the resulting model improves over the instruction-tuned baseline by 13.6 percentage points on Lite and 12.3 percentage points on Verified. These results demonstrate that substantial repository-level editing capability can be internalized under the evaluated simplified protocol. The contribution links realistic multi-file changes to a scalable training pipeline, showing how training quality can reduce reliance on heavy inference-time scaffolding."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8775cd91626322debda53b4f6f57dda138dd8bb555dc0383f68ec642b5e5f4a3",
+    "tldr": "Clean-PR turns two million pull requests into training data that improves repository editing under a simplified, agentless protocol."
+  },
+  "icml-2026-recognize-your-orchestrator-an-entropy-dynamics-perspective-for-llm-multi-agent-systems-c171729cd3": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A multi-agent system depends on an orchestrator to coordinate work, making centralized coordination a potential source of failure. This paper models orchestration through two competing processes: resolving parts of the task and accumulating context. Its Mean-Field Entropy Dynamics framework aims to explain how that balance affects stability and eventual performance collapse.",
+      "To examine the process in detail, the authors introduce Inverse Workflow Generation. This multi-agent pipeline creates complex benchmarks whose intermediate steps can be checked, with dense checkpoints throughout the workflow. Those checkpoints support analysis of evolving system behavior rather than relying solely on whether the final output succeeds. The proposed dynamics model fits the observed empirical trajectories.",
+      "The analysis identifies a Reasoning Trap: models that perform well on isolated reasoning tasks frequently fail as orchestrators because of context squeezing. Interpretable parameters in the framework quantify stability and collapse, connecting this behavior to cumulative context loading. The findings suggest that isolated task-solving strength is insufficient for assessing orchestration suitability and offer a framework for studying the design of coordinated multi-agent systems."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "31121c3657093679869a39a8e4edcd8fb18195eb2ab65360f91e3d8efb82b910",
+    "tldr": "An entropy-dynamics model links orchestration failures to accumulating context and explains why strong reasoners can struggle as multi-agent coordinators."
+  },
+  "icml-2026-simple-denoising-diffusion-language-models-f29dac175e": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Uniform-state diffusion language models begin from a uniform prior and refine text through denoising. Their ability to correct earlier choices offers the prospect of fast generation compared with masked diffusion models. However, existing training objectives can be complex and computationally costly, creating an obstacle to scaling these models.",
+      "This paper studies a simpler denoising loss that optimizes only tokens replaced by noise. Concentrating the objective on those positions stabilizes training while matching the performance of earlier, more elaborate objectives. The authors also introduce an efficient regularization term to discourage corruption toward uniform output distributions. This addition further improves performance within the proposed training approach.",
+      "Pretraining experiments on commonly used text datasets demonstrate the effectiveness and efficiency of both the simplified objective and its regularized version. The conclusions also extend to larger models, supporting the approach’s potential for large-scale training. The contribution is a simpler way to train uniform-state diffusion models while retaining their performance, together with a targeted correction for an undesirable output-distribution behavior."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a81d2257902a9b66945fa85529cf4e248144a126c97f2dcfad9bb486142c238e",
+    "tldr": "A loss focused on noise-replaced tokens simplifies diffusion-language-model training, while an efficient regularizer further improves performance."
+  },
+  "icml-2026-stratified-grpo-handling-structural-heterogeneity-in-reinforcement-learning-of-llm-searc-02f641a611": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Search-agent training compares trajectories that may differ in how often tools are called, where calls occur, and what they return. These structural differences produce different reward distributions. The paper argues that a single global baseline can therefore make misleading comparisons, distorting which behavior receives credit and making exploration harder.",
+      "Stratified GRPO groups trajectories by structural properties and normalizes advantages within each group. Its Stratified Advantage Normalization component compares structurally similar trajectories, rather than treating all rollouts as equivalent peers. The authors show that it removes cross-stratum bias, produces conditionally unbiased estimates with unit variance within strata, and preserves the global unbiasedness and unit-variance properties of standard normalization.",
+      "For greater robustness with finite samples, the method linearly blends the stratified estimator with the global estimator. Experiments on factual question answering and deep-research agent benchmarks report consistent improvements over GRPO, reaching 12.6 points, alongside higher training rewards and improved stability. The findings support accounting for tool-use structure when constructing learning signals, so differences between rollout types do not obscure the quality of behavior within them."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "920ebecaf2877237e5632d8fcdd8a9bb3b7d20bf8675c74c6ea2cd739764860e",
+    "tldr": "Stratified GRPO improves search-agent learning by normalizing rewards among structurally similar trajectories and blending that signal with global estimates."
+  },
+  "icml-2026-structured-multi-step-jailbreaking-under-a-hamiltonian-generative-formulation-c576dd7e25": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies structured, multi-step attacks on safety-aligned language models. It argues that incoherent or disfluent jailbreak prompts can limit attack success and make attacks easier to detect. Its proposed SJA framework instead examines how a sequence of individually harmless sub-questions can retain the meaning of an underlying harmful request when their responses are combined.",
+      "The framework models sub-question generation using Hamiltonian dynamics in hyperbolic space. This mathematical formulation is designed to capture both structural relationships and temporal dependencies across the sequence. The authors analyze how sub-questions evolve along the resulting trajectory and argue that the system captures the underlying semantic organization of the original request.",
+      "A further narrative-fusion mechanism uses fractional embedding and Möbius fusion to incorporate coherent narratives while preserving geometric consistency. The theoretical analysis supports preservation of the original contextual semantics when the generated sub-questions are combined under that narrative. The contribution is a formal account of how harmful intent can persist across seemingly harmless components, emphasizing sequence-level meaning in the study of safety vulnerabilities."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c93515e11089ef7c20dc65f92a7cc57cb5d885c917dd8a43b36469b106aea196",
+    "tldr": "SJA uses a hyperbolic Hamiltonian formulation to study structured multi-step jailbreaks that preserve harmful meaning across individually harmless sub-questions."
+  },
+  "icml-2026-tailoring-the-training-difficulty-aware-learning-strategy-allocation-for-large-language--3bd8b04e25": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Reinforcement learning often trains a language model on its own generated outputs, which can limit acquisition of reasoning skills beyond its initial knowledge. DALSA addresses this by choosing how to learn from each sample according to difficulty. Its organizing idea is that different relationships between a sample and the model’s current abilities call for different training strategies.",
+      "Samples beyond the model’s knowledge are assigned to supervised fine-tuning, while samples within reach but not yet mastered are assigned to reinforcement learning. Well-learned samples are discarded to avoid redundant updates. A learnable allocator makes these decisions from difficulty-related training characteristics, and the allocator and language model are optimized alternately as learning progresses.",
+      "The framework also includes anti-curriculum weighting and adversarial label smoothing, supported by theoretical analyses, to address limitations of the two training methods. Experiments on ten models spanning 1.5 billion to 70 billion parameters report consistent improvements over baselines across tasks in both full and parameter-efficient fine-tuning. The findings support adapting the learning strategy to the model’s changing needs at the sample level."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6114b57ac4871e4528d89e22d747f98b9a9ecec2a4f95da1993baef526d404ff",
+    "tldr": "DALSA dynamically assigns samples to supervised learning, reinforcement learning, or skipping based on their difficulty relative to the model."
+  },
+  "icml-2026-when-do-graph-foundation-models-transfer-a-data-centric-theory-fff381f40c": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Graph foundation models aim to reuse one backbone across graph domains, but transfer can be uneven or harmful. This paper asks which properties of the data explain changes in a fixed model’s outputs. It shifts attention toward the relationship between source and target graph structure, rather than changing the model architecture or adaptation procedure.",
+      "Using a graphon-based continuous limit for dense graphs, the authors decompose cross-domain output shift into finite-sample approximation terms and an intrinsic domain discrepancy. The discrepancy captures structural mismatch independently of node relabeling. The result applies to Lipschitz backbones under both set-based and message-passing tokenizations, making the model’s regularity and the dense-graph setting explicit parts of the theoretical framework.",
+      "Positional-encoding stability is central to the analysis. The paper establishes stability guarantees for spectral encodings and identifies contrasting behavior between eigenvector-based and subspace-based constructions. Experiments on synthetic and real graphs validate the theory and connect the decomposition to data-curation guidance. The contribution separates effects associated with finite graph sampling from those associated with underlying domain structure when studying transfer."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6082492c3a09cffa1a27a3686f946df5986ec5abf6626363f677157cbcf8bf0b",
+    "tldr": "A dense-graph theory separates cross-domain output shifts into finite-sample effects and structural mismatch, offering guidance for graph-model transfer."
+  }
+}

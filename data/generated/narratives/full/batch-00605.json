@@ -1,0 +1,327 @@
+{
+  "neurips-2022-automs-automatic-model-selection-for-novelty-detection-with-error-rate-control-3ca555e647": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Novelty detection looks for unusual examples using a detector trained on clean data. Choosing a detector is difficult when the new dataset has no labels: there is no direct way to compare which algorithm or hyperparameter setting identifies the right outliers. AutoMS treats this selection problem and statistical error control as a single task.",
+      "The procedure aims to find as many outliers as possible while controlling the false discovery rate. This rate concerns the expected proportion of flagged examples that are actually false alarms. Jackknife prediction supports the procedure, allowing model selection to pursue more discoveries while accounting for the reliability of those discoveries.",
+      "The paper establishes finite-sample bounds on false discovery proportions and proves valid false discovery rate control under stated mild conditions. Experiments on synthetic and real datasets support the theoretical results and the method's effectiveness. The contribution is a way to automate detector selection with an error-control objective, rather than treating the detector with the most alerts as automatically best."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "27cfd9800bb7c21272b45778cc78ba67edeba3d6d782b5170dd799146a467353",
+    "tldr": "AutoMS selects novelty detectors by seeking more outlier discoveries while providing false discovery rate control under mild conditions."
+  },
+  "neurips-2022-bridging-the-gap-from-asymmetry-tricks-to-decorrelation-principles-in-non-contrastive-se-3435d7a016": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Non-contrastive self-supervised learning can learn representations without negative examples, but it needs a way to avoid producing the same uninformative representation for every input. Two successful approaches appear different: BYOL and SimSiam introduce asymmetry into their networks, while Barlow Twins and VICReg explicitly encourage decorrelation among learned features.",
+      "The paper offers an interpretation connecting these approaches. Focusing on the predictor and stop-gradient operation used by BYOL and SimSiam, the authors argue that these mechanisms implicitly impose a constraint encouraging feature decorrelation. This links architectural choices whose effectiveness was less understood to a principle with existing information-theoretic support.",
+      "The authors also turn the interpretation into a learning method by replacing stop-gradient with the derived constraint. On the standard ImageNet benchmark, the resulting method performs comparably to the leading methods discussed in the paper. This empirical result supports the proposed connection: apparently different ways of preventing collapse can encourage similar representation properties. The finding provides both an explanation of existing methods and a concrete alternative built from that explanation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8bbdd05f1f60ebb4cd98d529af1d76c25c3de434a8aa45baf079731ad347a67e",
+    "tldr": "The paper interprets BYOL and SimSiam's asymmetric mechanisms as implicit feature decorrelation and builds a comparably performing method from that connection."
+  },
+  "neurips-2022-communication-efficient-distributed-learning-for-kernelized-contextual-bandits-dab0189ca3": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Distributed contextual bandits involve several agents learning which actions produce good rewards from contextual information. Communication lets agents benefit from one another's experience, but sharing that experience can become expensive. This paper studies that challenge when the relationship between features and expected rewards is nonlinear, extending beyond the simpler models handled by existing communication-efficient approaches.",
+      "The agents collaboratively learn within a reproducing kernel Hilbert space, a mathematical setting for representing nonlinear reward relationships. A difficulty is that distributed kernel learning requires transferring raw observations, making communication cost grow linearly with the number of decision rounds. The proposed algorithm instead gives all agents a common Nyström embedding through which they communicate.",
+      "This shared representation is updated adaptively as observations accumulate. The authors prove that their algorithm achieves sublinear growth in both regret and communication cost. Thus, the cumulative cost of imperfect decisions and the amount of communication each grow more slowly than the time horizon. The result connects the flexibility of kernel reward models with a provably more economical form of collaboration."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "204d0bea4bde106689b75350654c134af1385ee20d0703f5c2f2b529b8bfeeec",
+    "tldr": "An adaptive shared Nyström embedding enables distributed kernel bandit learning with provably sublinear regret and communication cost."
+  },
+  "neurips-2022-effective-adaptation-in-multi-task-co-training-for-unified-autonomous-driving-a05dbca7d2": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Features learned through self-supervised pretraining do not necessarily transfer well when one model must handle several driving tasks together. The authors examine semantic segmentation, drivable-area segmentation, and traffic-object detection on BDD100K. They find that several pretrained approaches perform poorly in this setting, sometimes substantially below a single-task baseline. Differences in objectives and architecture are suggested as possible causes.",
+      "The proposed solution inserts an adaptation stage between pretraining and fine-tuning. Learnable adapters operating at multiple scales adjust how pretrained weights serve the joint tasks while preserving the pretrained knowledge. This lets existing pretrained models be adapted without redesigning their expensive pretraining stage; the authors also report that it avoids increasing training overhead.",
+      "The paper further introduces LV-Adapter, which brings language information from CLIP into the model through task-specific prompts and alignment of visual and textual features. Experiments show significant overall improvements from adaptation across the pretrained models examined. They also indicate that the contextual features produced by LV-Adapter benefit the downstream tasks, supporting adaptation as a useful bridge between pretraining and joint task learning."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b8c8a6a64eba32ec346087d24c70b32f0be0d153737a9f8849206a329599ebc3",
+    "tldr": "An intermediate adaptation stage improves pretrained models for joint driving tasks, with a CLIP-based adapter adding useful language-informed features."
+  },
+  "neurips-2022-efficient-frameworks-for-generalized-low-rank-matrix-bandit-problems-9cf986fde8": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Matrix bandits describe sequential decisions whose rewards depend on an unknown matrix and an action's feature matrix. When the unknown matrix has low rank, it contains structure that could make learning easier than estimating all its entries independently. This paper studies a generalized version using a generalized linear model and seeks algorithms that are both computationally practical and theoretically strong.",
+      "The first framework, G-ESTT, uses Stein's method to estimate relevant subspaces and then incorporates those estimates through regularization. The second, G-ESTS, replaces that regularization approach with an exclusion mechanism on the estimated subspace. The authors report that this change substantially improves computational efficiency while retaining the desired learning guarantee.",
+      "Under mild conditions, both frameworks achieve the stated optimal regret rate, up to logarithmic factors: (d1 + d2)r√T, where r is the unknown matrix's rank. This improves the previously stated dependence on matrix dimensions and rank. Simulations also show computational tractability and consistent gains over the compared matrix-bandit methods, particularly for G-ESTS. Together, the results show how estimated low-rank structure can support both efficient computation and stronger sequential-learning guarantees."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "93416ee01a4c801e42d56f6c049b4ffc136a24cd2a1ae25d323cc0dce137ce03",
+    "tldr": "G-ESTT and G-ESTS exploit estimated low-rank subspaces to achieve improved regret guarantees and practical computation for generalized matrix bandits."
+  },
+  "neurips-2022-elias-end-to-end-learning-to-index-and-search-in-large-output-spaces-69905c361e": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Extreme multi-label classification requires selecting relevant labels from an enormous collection of possibilities. A common strategy organizes labels into a shallow tree and searches only promising branches. However, existing approaches fix the tree after an initial clustering step, so later model training cannot repair poor decisions about where labels were placed.",
+      "ELIAS makes the index itself learnable. It replaces the fixed tree structure with a specialized weighted graph and represents cluster-to-label assignments as soft parameters. These parameters are trained jointly with the prediction model using the final task objective. Consequently, the organization used to search for labels can adapt alongside the system that performs the search.",
+      "The paper reports state-of-the-art performance on several benchmarks containing millions of labels. Improvements reach up to 2.5% for precision at one prediction and up to 4% for recall among one hundred predictions. These are reported maximum gains, rather than improvements promised for every dataset. The central finding is that learning the search structure together with the predictor can improve performance in very large output spaces."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9125c7bc0c884dbcaec610a32c2a04892d8a033b1fcbf7bcba2b606059bd608b",
+    "tldr": "ELIAS jointly learns a weighted label index and prediction model, improving extreme classification on benchmarks with millions of labels."
+  },
+  "neurips-2022-faster-deep-reinforcement-learning-with-slower-online-network-227fd3daf6": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Many deep reinforcement learning methods optimize value estimates using two networks. The online network learns from updates, while a target network follows it with a delay. This separation helps manage bootstrapping, in which learning uses estimates produced by the system itself. Even with this arrangement, noisy updates can disrupt the online network's learning.",
+      "The paper changes the updates so that the online network is encouraged to stay close to the target network. The slower-moving target therefore influences not only what the agent learns toward, but also how far the online network moves during learning. The authors apply this idea to DQN and Rainbow, producing the variants DQN Pro and Rainbow Pro.",
+      "The resulting agents show significantly better performance than their original counterparts on the Atari benchmark. The authors connect the improvement to greater robustness in the presence of noisy updates. The contribution is a simple modification to the relationship between two networks already used in these algorithms: restraining changes in the online network can support more effective learning, despite making that network move more cautiously."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ec7b3b2778ab4c78a1f239acb790aa8119620b774f4fc6628d36f530b9fc9498",
+    "tldr": "Encouraging DQN and Rainbow's online networks to remain near their target networks improves robustness to noisy updates and Atari performance."
+  },
+  "neurips-2022-galois-boosting-deep-reinforcement-learning-via-generalizable-logic-synthesis-886c01f8c8": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Deep reinforcement learning can struggle to reuse logical knowledge across complex decision-making tasks. One approach is to synthesize an explicit program that serves as a policy. The paper identifies complementary weaknesses in existing synthesis approaches: imperative methods neglect cause-and-effect logic during synthesis, while strictly proof-based declarative methods struggle with complex hierarchical logic.",
+      "GALOIS combines these programming paradigms to synthesize policies with both hierarchical organization and explicit cause-and-effect logic. It uses a program sketch to guide the search and introduces a hybrid programming language built around that sketch. A corresponding synthesis method automatically generates programs whose decision logic is interpretable and intended to transfer across tasks.",
+      "Evaluations on decision-making tasks involving complex logic show stronger eventual performance, generalization, and knowledge reuse across environments than the mainstream baselines tested. These findings support combining logical constraints with program structure when learning reusable policies. The contribution encompasses both a representation for such policies and a method for constructing them, connecting interpretable program generation to improvements in the evaluated reinforcement learning settings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d4d2ab9e0564ba3ff0e0a6930a0f60b81d716a6bf64c83fc5c9e12a403ef6239",
+    "tldr": "GALOIS combines imperative and declarative program synthesis to learn interpretable hierarchical policies with improved generalization and knowledge reuse in evaluated tasks."
+  },
+  "neurips-2022-generative-neural-articulated-radiance-fields-1d31d7a7cb": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Learning three-dimensional generative models from collections of single-view photographs had made progress, but generating human bodies and editing generated radiance fields remained challenges. This paper develops a generative adversarial framework that addresses both. It represents bodies or faces in a standard pose and gives the model an explicit mechanism for changing their configuration.",
+      "The model first generates a radiance field in that canonical pose. An explicit deformation field then warps it into a requested body pose or facial expression. This separates the standard configuration from the transformation used to produce a particular pose, making deformation an integrated part of the generative framework and its training.",
+      "The authors report the first high-quality human-body radiance field generation results within the setting they describe. They also compare against a 3D GAN trained without explicit deformations and find significantly better generated body and face quality during pose or expression editing. The findings show that accounting for deformation during training improves the quality of edited outputs, while extending this form of 3D generation to human bodies."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "96ab0fd542eaf9344ad2758667e11917f04ebb6f492dba1141cb19a48c80730e",
+    "tldr": "A 3D GAN generates bodies and faces in a canonical pose, then explicitly deforms them to improve pose and expression editing."
+  },
+  "neurips-2022-graph-neural-networks-with-adaptive-readouts-5870c3f92f": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Graph neural networks often need to combine representations of individual nodes into one representation of the whole graph. Standard readouts such as sum, mean, and maximum are simple and insensitive to node ordering. However, prior work suggests that these readouts can require node representations that are difficult for ordinary neighborhood aggregation to learn.",
+      "The paper investigates learned neural readouts that do not necessarily enforce invariance to every node permutation. The authors argue that relaxing this constraint may be useful in settings where inputs already have a canonical form, such as molecules used for binding-affinity prediction. A learned readout can then take on more of the work of constructing an effective graph representation.",
+      "Experiments across more than forty datasets show that neural readouts are effective across varied domains and graph properties. The authors observe consistent improvements over standard readouts across different convolution operators and numbers of neighborhood aggregation steps. The results support reconsidering the readout as a trainable modeling component, with the permissibility of relaxing permutation invariance depending on how graphs are presented in the application."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "25a8e38620efe6090053315a1ab437ff3b573dd1d3e0e96fc4c5a0c37d61192a",
+    "tldr": "Learned neural readouts improve graph prediction across many datasets, with canonical graph representations motivating relaxation of strict permutation invariance."
+  },
+  "neurips-2022-gstarx-explaining-graph-neural-networks-with-structure-aware-cooperative-games-f3fb58d294": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Explaining a graph neural network involves identifying which nodes and subgraphs matter to its prediction. The Shapley value offers a game-theoretic way to assign importance, but the authors argue that its definition does not account for graph structure. This matters because a node's contribution can depend on its connections and its role among neighboring nodes.",
+      "GStarX instead builds its scoring function from the Hamiache–Navarro value, a structure-aware concept from cooperative game theory. It distributes the extra value arising from cooperation between neighboring nodes. This process resembles message passing in graph neural networks, allowing importance scores to reflect both node features and the structural relationships through which nodes contribute together.",
+      "The authors evaluate the method on chemical graph property prediction and sentiment classification using text graphs. They report explanations that are qualitatively more intuitive and quantitatively more faithful to model predictions than strong baselines. The contribution is an explanation mechanism that incorporates the graph's organization directly into attribution, rather than evaluating node information without an explicit account of structural cooperation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d9b71cd88234b5d785c348bc03f47789d07b972da3fc03f901abc2e37cbb549a",
+    "tldr": "GStarX uses structure-aware cooperative-game values to explain GNN predictions through node features and graph roles, improving evaluated explanation fidelity."
+  },
+  "neurips-2022-improving-barely-supervised-learning-by-discriminating-unlabeled-samples-with-super-clas-b2056e3db4": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Semi-supervised learning commonly uses unlabeled examples to encourage consistent predictions and labeled examples to learn distinctions between classes. With only one or two labeled examples per class, those distinctions can become difficult to learn. This paper asks how unlabeled data can also supply useful information for separating classes in this barely supervised setting.",
+      "The proposed module groups classes into broader super-classes and changes those groupings dynamically according to improvements in model performance. A distribution-based loss uses relationships between samples and super-classes, encouraging each unlabeled sample to be closer to its associated super-class distribution than to others. This provides a softer training constraint than assigning a specific pseudo-label, which can be highly noisy with so few labels.",
+      "Experiments compare the method with leading semi-supervised and barely supervised approaches on standard benchmarks. The reported results include average accuracy of 76.76% on CIFAR-10 with one labeled example per class. The findings support using broader, adaptive group distinctions to extract discriminative information from unlabeled samples when fine-grained supervision is extremely scarce."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8a32e697f725d745636d1d70d81876c218fa9cfd2d97f3ec037cce23844efcf5",
+    "tldr": "Adaptive super-classes help unlabeled examples teach class separation when only one or two labeled examples per class are available."
+  },
+  "neurips-2022-isometric-3d-adversarial-examples-in-the-physical-world-0e3381b34b": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Adversarial changes to three-dimensional objects need to do more than fool a recognition model digitally: they should also look natural and remain effective under physical transformations. The paper argues that simple Euclidean measures poorly capture acceptable changes to highly structured 3D shapes. It introduces an attack that explicitly considers object geometry and transformation robustness.",
+      "For naturalness, the method constrains the original and modified shapes to be approximately isometric, using Gaussian curvature as a surrogate metric supported by theoretical analysis. This makes geometric properties part of the constraint on adversarial changes. For robustness, its MaxOT component actively searches for particularly difficult transformations instead of relying on randomly selected ones.",
+      "Experiments on typical point-cloud recognition models show improvements in attack success and the naturalness of generated examples compared with the state-of-the-art attacks evaluated. The findings support treating shape preservation and robustness to transformations as joint design concerns. The result is a method aimed at adversarial objects whose changes remain less conspicuous and whose attacks better survive the conditions encountered in the physical world."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b826f7ee0e3a4f944baa3565ae7266b9c79801b1c955182290c4b8a504c501f1",
+    "tldr": "Geometry-aware shape constraints and difficult-transformation search improve the naturalness and physical robustness of evaluated 3D adversarial examples."
+  },
+  "neurips-2022-learn-to-match-with-no-regret-reinforcement-learning-in-markov-matching-markets-3f7725cfaf": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A matching market can evolve over time, with current decisions affecting the conditions under which future matches occur. This paper studies a planner and strategic agents on two sides of such a market. At each step, the current context determines agents' utilities, while the planner controls how contexts transition to maximize cumulative social welfare.",
+      "The agents seek a stable matching based on the current situation, giving them a shorter-term objective than the planner. The proposed reinforcement learning framework combines optimistic value iteration with maximum-weight matching. It brings sequential planning and matching into one algorithm so that learning about future consequences can coexist with the requirement for stability at each step.",
+      "The analysis addresses exploration, matching stability, and function approximation together, and proves that the algorithm achieves sublinear regret. This means its cumulative regret grows more slowly than the interaction horizon. The framework captures settings such as ridesharing platforms, where matching decisions occur repeatedly within changing conditions. Its contribution is a formal approach to learning long-term planning behavior while accounting for agents' immediate matching incentives."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "976361e073eeeecfa2d8e0f9a0d75bfc5d5fe7310f8d8320bd7fcf64a84ca1e9",
+    "tldr": "A reinforcement learning framework combines long-term welfare planning with stable matching in dynamic markets and achieves provably sublinear regret."
+  },
+  "neurips-2022-lipschitz-bandits-with-batched-feedback-7943d5713b": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "In a Lipschitz bandit problem, expected rewards vary smoothly enough that nearby choices have related rewards. This paper studies what happens when observations arrive in batches rather than after every choice. The learner must make decisions between feedback deliveries, creating a tradeoff between learning effectively and limiting the number of communication rounds.",
+      "The proposed Batched Lipschitz Narrowing algorithm, BLiN, takes the reward landscape into account. For a horizon of T steps and zooming dimension dz, the authors prove regret of order T raised to (dz + 1)/(dz + 2), up to logarithmic factors. They show that this rate is theoretically optimal and requires only order log log T feedback batches.",
+      "A matching lower-bound argument shows that any algorithm needs at least order log log T batches to attain optimal regret. This makes the communication claim especially strong: BLiN achieves both the optimal regret rate, within logarithmic factors, and the necessary order of batch count. The result identifies how infrequently feedback can be delivered without sacrificing the target learning rate in this problem."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "11608502b319ebacb638ec1f34e65bfb9217032e6df6fa541ab0e5c3a88816fb",
+    "tldr": "BLiN achieves optimal Lipschitz-bandit regret up to logarithmic factors using the minimum asymptotic number of feedback batches."
+  },
+  "neurips-2022-low-rank-modular-reinforcement-learning-via-muscle-synergy-498f8d7fd6": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Modular reinforcement learning distributes robot control across actuators, allowing a shared actuator policy to operate on different body structures. As robots gain more degrees of freedom, however, learning a controller that generalizes across those structures becomes much harder. This paper uses the coordinated control of human muscles as motivation for reducing that difficulty.",
+      "The proposed SOLAR framework groups actuators into synergies through unsupervised learning. It then learns actions at the synergy level, with each action coordinating multiple actuators. This exploits redundancy in the robot's degrees of freedom and produces low-rank control: behavior is organized through a smaller collection of coordinated action patterns.",
+      "Evaluations across varied robot morphologies show better efficiency and generalizability, with particularly strong results on robots with many degrees of freedom, including Humanoids++ and UNIMALs. The findings support learning coordinated actuator groups as a useful structure for modular control. Rather than requiring every actuator to be handled as an independent control choice, the framework learns shared patterns that can make high-dimensional robot control more manageable."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c47f72a8dd743f8b6d9edbb7bcfbcc5585b3b3e32aecd1a42165dd0173336167",
+    "tldr": "SOLAR learns groups of coordinated actuators to improve modular reinforcement learning efficiency and generalization, especially for robots with many degrees of freedom."
+  },
+  "neurips-2022-mean-estimation-in-high-dimensional-binary-markov-gaussian-mixture-models-684f9d402a": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper studies estimation from noisy observations of a high-dimensional vector whose sign changes over time. Each observation contains the vector multiplied by a hidden positive or negative sign, plus standard isotropic Gaussian noise. The signs follow a stationary Markov chain, so the probability of flipping controls how much memory the data contains.",
+      "When the flip probability is zero, the model becomes a Gaussian location model; at one half, it becomes a Gaussian mixture model. Assuming the flip probability is known, the authors establish an estimation error rate that is nearly minimax optimal, up to logarithmic factors. The rate accounts jointly for signal strength, flip probability, dimension, and sample size.",
+      "The authors then study estimating the flip probability when the vector is known only approximately. Their bound is tight when that vector is an accurately known constant. Finally, they combine these results into an algorithm that estimates the vector without knowing the flip probability in advance, with theoretical error guarantees. The analysis clarifies how temporal dependence interacts with the other quantities governing statistical estimation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "53d357e6a529344c15b43580193498355413ade62950d5c1c8ada3eb7c0e6286",
+    "tldr": "The paper derives near-optimal mean-estimation rates with known Markov sign-flip probability and develops guarantees when that probability is unknown."
+  },
+  "neurips-2022-neural-temporal-walks-motif-aware-representation-learning-on-continuous-time-dynamic-gra-3c9dd14136": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Continuous-time dynamic graphs represent systems whose interactions happen at irregular times, such as social and transactional networks. Learning from these graphs requires attention to both connectivity and timing. The paper introduces Neural Temporal Walks, or NeurTWs, to model these properties explicitly when constructing representations of nodes and their changing interaction patterns.",
+      "The method uses biased random walks that consider temporal constraints alongside structural and tree-traversal properties. These walks retrieve representative motifs, or interaction patterns, for characterizing temporal nodes. A neural ordinary differential equation component then embeds the extracted information across different interaction intervals, accounting explicitly for observations that are unevenly spaced in time.",
+      "The authors also introduce a harder contrastive pretext task to enrich the supervision used during training. Across six real-world datasets, they report substantial superiority in both transductive and inductive settings. The contribution combines how relevant graph patterns are collected, how their temporal evolution is represented, and how the model is trained. Together, these components aim to capture dynamic behavior that depends jointly on graph structure and interaction timing."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0d04c494b81689494cb30c2f093cc85484bbe5beb8d64949d3bb92762a8d25a6",
+    "tldr": "NeurTWs combines structure- and time-aware walks, neural differential equations, and contrastive training to improve dynamic-graph representations."
+  },
+  "neurips-2022-online-frank-wolfe-with-arbitrary-delays-e55c91ccdd": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Online Frank–Wolfe is useful for sequential convex optimization because it avoids projection operations. Existing guarantees assumed that each requested gradient arrived immediately. This paper removes that timing requirement by allowing gradients to arrive after arbitrary numbers of rounds, addressing a setting where decisions must continue while some feedback remains unavailable.",
+      "The proposed algorithm performs a Frank–Wolfe-style update whenever a delayed gradient arrives and uses its latest decision in each round. Its regret bound is O(T^(3/4) + dT^(1/4)) for convex losses and O(T^(2/3) + d log T) for strongly convex losses, where T is the horizon and d is the maximum delay.",
+      "These bounds make the cost of delay explicit. For convex losses, delays of order √T still preserve the original regret order. For strongly convex losses, the corresponding threshold is order T^(2/3)/log T. The result shows that relatively substantial delays can be tolerated without changing the asymptotic regret rate, provided they stay within the stated ranges. A simple update rule therefore retains meaningful guarantees under delayed feedback."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ef05e933e8df26c78476d4cf554bfc91ecf6357f5f94225302548df1be6132c7",
+    "tldr": "A delayed Online Frank–Wolfe variant preserves the original regret order for substantial, explicitly bounded feedback delays."
+  },
+  "neurips-2022-rate-distortion-theoretic-bounds-on-generalization-error-for-distributed-learning-0b83155180": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "In distributed learning, a central server combines models chosen by multiple clients. This paper studies how well that combined model generalizes using rate-distortion theory, which connects compression with allowable changes. The analysis considers how compressible each client's learning algorithm is while leaving the other clients' algorithms uncompressed.",
+      "The key observation is that a small change in one local model changes the aggregated model by only a factor of 1/K, where K is the number of clients. Incorporating this reduced influence into the analysis yields smaller rate-distortion terms and tighter upper bounds on generalization error. Aggregation thus becomes part of the explanation for the resulting statistical guarantee.",
+      "Applied to distributed support vector machines, the bounds suggest faster generalization-error decay than in the centralized setting, with a factor of order √(log(K)/K). Experiments also support this finding. The authors obtain a similar conclusion for multiple-round federated learning when clients use stochastic gradient Langevin dynamics. These applications illustrate how the framework can expose generalization benefits in the particular distributed settings analyzed."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "31232d0b266570d0c0e60a09960caf9da03eeb75341c8fe444d0fe588ede6314",
+    "tldr": "Rate-distortion analysis yields tighter distributed-learning generalization bounds by accounting for each client's reduced influence on the aggregate."
+  },
+  "neurips-2022-redundant-representations-help-generalization-in-wide-neural-networks-f746d53744": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Neural networks can fit their training data exactly and still generalize better as more parameters are added. This behavior, often called benign overfitting, challenges the usual expectation that additional flexibility necessarily harms performance beyond the training set. The paper investigates a possible representational mechanism by examining the last hidden layers of several leading convolutional networks.",
+      "When those layers are sufficiently wide, the authors find that neurons tend to form groups carrying identical information. Members of a group differ only through statistically independent noise. The observation distinguishes the shared information represented by a group from the noise associated with its individual neurons, revealing organization within an apparently redundant layer.",
+      "Above a critical width, the number of these groups increases linearly with layer width. The authors also report that redundant neurons appear only when training is regularized and training error reaches zero. These conditions are part of the reported finding, rather than a claim that every wide network develops the same structure. The study identifies a concrete pattern relevant to understanding generalization in networks that interpolate their training data."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5660d4f4fb201da697b3c9a592502d3e8d0b334b07717dc7c3efe5fe2f4ca403",
+    "tldr": "The studied wide convolutional networks develop groups of informationally redundant neurons, with this structure appearing only under regularization and zero training error."
+  },
+  "neurips-2022-robust-imitation-of-a-few-demonstrations-with-a-backwards-model-949ad0ffef": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Behavior cloning learns actions from expert demonstrations, but a policy may struggle when it reaches states absent from those examples. Small departures can lead to further mistakes and increasing drift. This paper addresses that problem by teaching the agent how to return to demonstrated trajectories, expanding the region from which it can recover.",
+      "The method trains a generative backwards dynamics model and uses demonstration states to generate short imagined trajectories. The policy then imitates both the original demonstrations and these model-generated rollouts. This adds training examples relevant to returning to demonstrated behavior, rather than teaching only the actions taken along the expert's original paths.",
+      "With optimal or near-optimal demonstrations, the paper states that the resulting policy is optimal and robust to deviations, with a wider region of attraction. Continuous-control evaluations test starting states that were absent from the demonstrations. Both this method and comparison imitation-learning methods solve tasks from training-distribution starts, but the proposed method is considerably more robust to different initial states. The finding directly addresses recovery beyond the states covered by the demonstrations."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ece5a2294d94f45046406b96693ae48068d215b6ca40576a9b28a31e5052ee5a",
+    "tldr": "Training on demonstrations and backwards-model rollouts teaches recovery behavior and improves robustness to unseen initial states in continuous-control tests."
+  },
+  "neurips-2022-tight-lower-bounds-on-worst-case-guarantees-for-zero-shot-learning-with-attributes-c5dd81f273": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Attribute-based zero-shot learning assigns examples to classes for which no training examples are available. It relies on attribute detectors and a matrix describing how attributes correlate with classes. This paper asks how much error is unavoidable given that information, even if the attribute detectors themselves work perfectly.",
+      "The authors derive a nontrivial lower bound on the worst-case error of the best mapping from attributes to classes. The bound can be computed from the class-attribute matrix, turning that matrix into a way to assess the intrinsic difficulty of the task. Perfectly identifying attributes therefore does not, by itself, settle how reliably those attributes distinguish the target classes.",
+      "The lower bound is tight: the authors show that a randomized mapping always exists whose expected error is no larger than the bound. This connects an impossibility result with an achievable guarantee. They also show that the analysis can predict practical behavior of standard zero-shot methods, including likely class confusions. The contribution helps separate difficulty inherent in the available attribute information from the behavior of a particular prediction method."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "fb004df7db092f86d0836a9d4ef04764b3e513adf66cecdfe22113f2cd3a3013",
+    "tldr": "A computable, tight worst-case error bound reveals the intrinsic difficulty of attribute-based zero-shot classification, even with perfect attribute detectors."
+  },
+  "neurips-2022-trust-region-policy-optimization-with-optimal-transport-discrepancies-duality-and-algori-4296d05c82": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Trust-region policy optimization stabilizes reinforcement learning by limiting how much a policy changes in one update. These limits commonly use KL divergence. This paper instead considers optimal transport discrepancies, including Wasserstein distance, and develops a method that applies to continuous state and action spaces.",
+      "The central challenge is an infinite-dimensional policy optimization problem. The authors derive a one-dimensional dual reformulation and establish strong duality, connecting its solution to that of the original problem. Once the dual problem is solved, they analytically derive the optimal policy update. This supplies a concrete computational route for the proposed Optimal Transport Trust Region Policy Optimization algorithm, OT-TRPO.",
+      "The formulation avoids explicitly computing optimal transport costs or maps; those are characterized implicitly through the dual solution. Experimental evaluations across several control tasks show that optimal transport discrepancies can provide an advantage over the state-of-the-art approaches compared. The contribution combines a mathematical reformulation with an algorithm for continuous control, making this alternative way of constraining policy changes more directly usable in the setting studied."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3534e18695ec8661bd26dfdb12bc11243cc0a631b207f4c840772838f8d36d55",
+    "tldr": "OT-TRPO uses a one-dimensional dual problem to implement optimal-transport trust regions for continuous-control policy updates."
+  },
+  "neurips-2022-understanding-benign-overfitting-in-gradient-based-meta-learning-7b76cc65e1": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Meta-learning aims to support learning new tasks from limited supervision, and its models are often overparameterized. Such models can still perform well despite having enough flexibility to overfit. This paper investigates that benign-overfitting phenomenon in gradient-based meta-learning, where learning across tasks and adaptation within a task create a coupled, bilevel problem.",
+      "The authors analyze generalization using an overparameterized meta linear regression model. The linear setting provides a tractable way to examine how variation among task data interacts with model adaptation. Keeping the bilevel structure in the analysis matters because the learned meta model is evaluated through its ability to adapt, making adaptation part of the generalization question.",
+      "The resulting theory contributes to understanding the relationship among data heterogeneity, adaptation, and benign overfitting. Numerical simulations corroborate the theoretical claims. The scope is specifically a linear model, so the contribution is an analytical account within that setting rather than a general characterization of all nonlinear meta-learning systems. It supplies a basis for explaining why excess model capacity and useful performance can coexist in gradient-based meta-learning."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "fe470cbe63234c879f12049cd08aecec8e84fa4255bf980b84233d934fbad735",
+    "tldr": "An overparameterized linear-model analysis connects benign overfitting in gradient-based meta-learning to task heterogeneity and adaptation."
+  }
+}

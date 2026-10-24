@@ -1,0 +1,327 @@
+{
+  "icml-2021-a-sharp-analysis-of-model-based-reinforcement-learning-with-self-play-eacf77eb77": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies how efficiently agents can learn competitive behavior by building an estimated model of a game and playing against themselves. Although model-based learning already had strong guarantees for single-agent problems, its established guarantees for multi-agent games were substantially weaker. The authors develop a sharper analysis and an algorithm called Optimistic Nash Value Iteration, or Nash-VI.",
+      "For two-player zero-sum Markov games, Nash-VI finds an approximately Nash policy using a number of episodes scaling as H³SAB/ε², up to logarithmic factors. Here H is the horizon, S the number of states, A and B the players’ action counts, and ε the desired accuracy. This improves the previous model-based bound and approaches the information-theoretic lower bound, with a remaining factor involving the smaller action count.",
+      "The output is a single Markov policy, making it simpler to store and execute than the nested policy mixtures discussed in the abstract. Its sample guarantee compares favorably with model-free alternatives under a stated condition on action counts and horizon. The analysis also supports task-agnostic zero-sum learning and sample-efficient algorithms for multiplayer general-sum games."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5913bb36d1e275ef019a3c161d25b381e4930e1dbca9f46aa2c45d2bb3a0c21d",
+    "tldr": "Nash-VI substantially tightens model-based self-play guarantees while producing a single Markov policy."
+  },
+  "icml-2021-a-value-function-based-interior-point-method-for-non-convex-bi-level-optimization-14a40ebeba": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Bi-level optimization describes problems in which one optimization task depends on the solution of another. This nesting makes gradient-based solution methods attractive but can also make their computations expensive. The paper introduces BVFIM, a method that reformulates how the lower-level problem enters the upper-level objective.",
+      "The approach uses a regularized value function to represent the lower-level problem and incorporates it into the upper-level objective through a log-barrier construction. It then solves a sequence of differentiable, unconstrained approximation problems. This turns the nested formulation into a sequential programming procedure whose individual approximation problems can be handled with gradient methods.",
+      "A central computational benefit is that solving these approximations avoids expensive Hessian-vector and Jacobian-vector products. The authors also prove convergence without assuming that either level’s objective is convex, extending the theoretical reach of the approach to non-convex settings. Experiments demonstrate efficiency on non-convex bi-level problems. Together, these contributions connect a barrier-based reformulation with both a convergence result and a practical reduction in the derivative computations required."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "794c4d504ab7c550b7883c66f3db338b1f135440d9ac5daa8e2d12dba64616bf",
+    "tldr": "BVFIM solves non-convex bi-level problems through barrier-based approximations that avoid expensive derivative-vector products."
+  },
+  "icml-2021-binary-classification-from-multiple-unlabeled-datasets-via-surrogate-set-classification-89b62f93b9": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper addresses binary classification when individual examples have no class labels, but class proportions provide weak supervision. Existing risk-consistent approaches discussed in the abstract can use only two unlabeled datasets. The authors develop a method that can incorporate any number of such datasets starting from two, broadening the available source of training information.",
+      "The central move is to first predict dataset membership. Each example’s source dataset supplies a label for an auxiliary multiclass task called surrogate set classification. A standard classifier can learn this task even though the desired binary labels remain unavailable. The resulting solution is then converted into a binary classifier using a linear-fractional transformation.",
+      "The authors place this construction inside an efficient, end-to-end deep learning framework and prove classifier consistency. That theoretical result concerns recovering the desired classifier through the surrogate task, rather than merely succeeding at identifying datasets. Experiments report better performance than the compared state-of-the-art methods. The contribution is a way to turn known dataset membership and class-prior supervision into a usable route for binary learning across multiple unlabeled sets."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c60e5e57a93d8b830e2e4803d15ec0f41ff1d7ba4317bd9977adea6cb8564455",
+    "tldr": "Predicting which unlabeled dataset an example comes from provides a route to binary classification using class-prior supervision."
+  },
+  "icml-2021-dance-enhancing-saliency-maps-using-decoys-608ff8dcc8": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Saliency maps identify input features that contribute strongly to a neural network’s prediction. Their usefulness can deteriorate when gradients saturate, when inputs contain adversarial perturbations, or when predictions depend on interactions between features. DANCE addresses these issues by constructing and combining explanations across carefully perturbed versions of the same input.",
+      "Its first step generates decoy samples through subtle input changes that preserve intermediate representations. The construction also keeps the perturbed samples distributed similarly to the original inputs. Its second step computes saliency maps for these decoys and combines them using a new aggregation method. This design offsets the influence of gradient saturation on the resulting explanation.",
+      "The theoretical analysis shows that the aggregated map captures dependence between features and is robust to the previously described adversarial perturbation methods considered by the paper. Empirical results suggest improvements over existing methods both visually and quantitatively across several application domains. The significance is that explanation quality can improve through structured input variation and aggregation, while preserving the model representations used to construct the decoys."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e2fc4c757f00953579baac4fe26381bd210aba5f1ce04b837292d4df198f361d",
+    "tldr": "DANCE aggregates saliency maps from carefully constructed decoy inputs to improve explanation robustness and capture feature interactions."
+  },
+  "icml-2021-decoupling-exploration-and-exploitation-for-meta-reinforcement-learning-without-sacrific-da5d3af8f5": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Meta-reinforcement learning aims to use experience with related tasks to learn a new task quickly. Doing so requires both gathering useful information and acting on it. Jointly training these behaviors creates a circular dependency: exploration looks useful only when exploitation can use its discoveries, while exploitation cannot improve without informative exploration.",
+      "DREAM separates the objectives for these two behaviors while keeping them connected through task relevance. Its exploitation objective identifies the information needed to solve the task. Its exploration objective then seeks only that information. This addresses a weakness of earlier separated objectives, which could reward gathering information that did not actually help task performance.",
+      "The paper presents this construction as avoiding the local-optimum problem associated with end-to-end training without sacrificing optimal exploration. Empirically, DREAM substantially outperforms existing approaches on complex meta-learning problems, including sparse-reward navigation in three-dimensional visual environments. The key contribution is an objective design that gives exploration a useful learning target before successful task execution is already established, while tying that target to what exploitation needs."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5655acf0a07a699e5f2b98018c999a22792e57d40d4b4c6aa804dac875e670f6",
+    "tldr": "DREAM separates exploration and exploitation objectives while directing exploration toward information needed to solve the task."
+  },
+  "icml-2021-do-we-actually-need-dense-over-parameterization-in-time-over-parameterization-in-sparse--2ada8d7ab2": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper asks whether a network needs many parameters active simultaneously to obtain the benefits associated with dense training. It proposes In-Time Over-Parameterization, or ITOP: start with a random sparse network and change its connectivity during training, allowing the training process to explore a much larger collection of possible parameters over time.",
+      "The authors use this perspective to explain dynamic sparse training. Their proposed mechanism is that changing connectivity searches for a strong sparse structure while considering parameters beyond those active at any single moment. They argue that, when enough parameters have been explored reliably, dynamic sparse training can outperform a dense network by a large margin. Experiments support this conjecture about why the approach works.",
+      "The reported results include state-of-the-art sparse training with ResNet-50 on ImageNet and particularly strong performance at extreme sparsity. With ResNet-34 on CIFAR-100, ITOP matches dense-model performance at 98% sparsity. These findings support the possibility of obtaining substantial expressive benefits through connectivity exploration across training, without maintaining the full dense parameter set throughout the process."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "183859cb6a6dd34c9e5da53e56659214b429eb157022578b75b81702f0a0ad58",
+    "tldr": "ITOP attributes strong sparse training to reliably exploring many possible connections over time."
+  },
+  "icml-2021-group-fisher-pruning-for-practical-network-compression-aa9c7469a2": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Removing channels can reduce a neural network’s inference cost, but complicated architectures create dependencies between channels in different layers. Residual connections, grouped or depth-wise convolutions, and feature pyramids can require several channels to be pruned together. Group Fisher Pruning addresses this coordination problem as part of the pruning procedure.",
+      "A layer-grouping algorithm automatically identifies coupled channels. The method then uses a unified Fisher-information-based importance measure for both individual channels and coupled groups. This gives the pruning process a common way to assess removals even when the architecture prevents channels from being treated independently.",
+      "The authors also find that GPU inference speedups correlate more closely with memory reduction than with reductions in floating-point operations. They therefore normalize importance by the memory reduction associated with each channel. Experiments span several backbone families and both image classification and object detection. The reported results show faster inference without sacrificing accuracy in the evaluated settings. The practical contribution combines architecture-aware grouping with a pruning criterion informed by the resource reduction most closely associated with observed GPU speed."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8d817cc81bc42050edabeefa8ed4a5096dbc9c2dad3f57f3c6ff9957e49ac520",
+    "tldr": "Group Fisher Pruning coordinates dependent channel removals and uses memory-aware importance scores to accelerate inference."
+  },
+  "icml-2021-hemet-a-homomorphic-encryption-friendly-privacy-preserving-mobile-neural-network-archite-28839a983e": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Homomorphic encryption allows neural networks to perform inference directly on encrypted data without decrypting it. Designing a fast network for this setting requires attention to the costs of encrypted computation. This paper examines why using an ordinary mobile architecture does not necessarily produce a low-latency privacy-preserving network.",
+      "The authors identify a mismatch between parameter count and encrypted inference time. A mobile network may contain fewer parameters while introducing more layers. Those layers can increase multiplicative depth under homomorphic encryption, which in turn prolongs inference. Consequently, reducing model size alone does not reliably address the computational burden that matters in this setting.",
+      "HEMET is a mobile neural network architecture designed to be friendly to homomorphic encryption. In the reported experiments, it reduces inference latency by 59.3%–61.2% and improves inference accuracy by 0.4%–0.5% relative to the state-of-the-art privacy-preserving networks compared. The results show the practical value of matching architecture design to encrypted execution costs. They also explain why a network chosen for efficiency in ordinary computation may need a different design when its inputs remain encrypted."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c20d17f8b981cc98d21fe917595698350c6272f94b9cc56c8822d42a147f1abc",
+    "tldr": "HEMET designs mobile networks around homomorphic-encryption costs, substantially reducing encrypted inference latency in reported experiments."
+  },
+  "icml-2021-how-do-adam-and-training-strategies-help-bnns-optimization-0489254acc": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Binary neural networks often obtain their strongest results with Adam and multistage training, but the reasons for those choices have received less attention. This paper investigates the trajectories of gradients and weights during training to explain how the optimizer and related training decisions affect binary-network optimization.",
+      "The authors identify Adam’s second-order momentum as crucial for reviving weights that become inactive because of activation saturation. They also find that its adaptive learning rates help it navigate the rugged loss surface of binary networks, reaching a better optimum with stronger generalization. Their analysis examines the role of real-valued weights within binary networks and how weight decay affects both stability and sluggish optimization.",
+      "These observations lead to a simple training scheme built on existing Adam-based optimization. Using the same architecture as ReActNet, the scheme reaches 70.5% top-1 accuracy on ImageNet, reported as 1.1% higher accuracy. The contribution therefore links an analysis of training dynamics to a concrete improvement: optimizer behavior and weight handling can materially affect the performance achieved by a fixed binary-network architecture."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "431c056cde94514c2fc8e1537b5731d92bd64e2fdff898191d79229e5c688431",
+    "tldr": "Analyzing Adam’s effects on binary-network training leads to a simple scheme that improves accuracy with the ReActNet architecture."
+  },
+  "icml-2021-infinite-dimensional-optimization-for-zero-sum-games-via-variational-transport-46d4acc8e7": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies zero-sum games in which the players optimize probability distributions over continuous choices. Such distributional decisions are motivated by mixed strategies, but they create an infinite-dimensional optimization problem. The authors ask whether the familiar gradient descent-ascent approach can remain provably efficient in this broader setting.",
+      "Their algorithm represents the distributions through two sets of particles and moves those particles in the underlying variable space. These movements implement multiple steps of functional gradient descent-ascent in Wasserstein space. The analysis accounts for errors in estimating gradients through variational maximization and for differences in the objective landscapes faced by the two players.",
+      "For a class of games satisfying the Polyak–Łojasiewicz condition, the authors prove efficient convergence to a Nash equilibrium or to the game’s value. The guarantee is therefore tied to a stated property of the game objectives. They also provide statistical analysis of learning variationally defined objective functionals with universal approximators such as neural networks. Together, these results support a particle-based route from distributional game formulations to algorithms with statistical and convergence guarantees."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "fc32a346e7bedd95b3325906490e9bce211296b1e2b9a69b91895564b676a6c2",
+    "tldr": "A particle-based descent-ascent method efficiently solves a class of distributional zero-sum games under a Polyak–Łojasiewicz condition."
+  },
+  "icml-2021-joint-online-learning-and-decision-making-via-dual-mirror-descent-db2040d114": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper considers an agent making revenue-seeking decisions over a finite sequence of periods while respecting lower and upper cost bounds. Each period brings a context sampled independently from an unknown distribution. Revenue and cost also depend on a fixed parameter vector, which may itself need to be learned as decisions are made.",
+      "The proposed algorithm combines online dual mirror descent with a generic parameter-learning procedure. This creates a framework in which learning the unknown parameters and managing constrained decisions occur together. The authors also introduce an offline benchmark against which the online procedure’s revenue performance can be assessed.",
+      "When the parameter vector is known, both regret and possible constraint violations are bounded by terms of order √T, where T is the time horizon. When parameters must be learned, each bound adds a term directly related to the learning procedure’s convergence. This makes the effect of imperfect knowledge explicit: the decision algorithm retains a baseline guarantee, while additional performance and feasibility costs depend on how well the learning component progresses."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f2e54b99293586b78f5ba664ba8ba008630ba0ccb1c108e5178c7d481eac0239",
+    "tldr": "Dual mirror descent combines constrained online decisions with parameter learning, yielding bounds that explicitly reflect learning progress."
+  },
+  "icml-2021-learning-deep-neural-networks-under-agnostic-corrupted-supervision-c1288d489b": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Corrupted supervision can steer a deep network toward poor generalization. Many approaches respond by scoring individual examples, often using their loss values, and removing those judged unreliable. This paper develops a robust training algorithm that instead focuses on the collective influence of examples on the average gradient used for learning.",
+      "The distinction matters because identifying every corrupted example is difficult. The proposed method controls how much data points can affect the overall update, so a corrupted point that remains in training still has limited influence on the overall loss. The abstract contrasts this behavior with state-of-the-art filtering methods based on individual loss values.",
+      "The authors provide strong guarantees without imposing assumptions on the type of corruption and use one framework for both classification and regression. Experiments across multiple benchmark datasets demonstrate robustness under different corruption types. The contribution is therefore both conceptual and practical: robust learning can be organized around limiting the aggregate effect of unreliable supervision, without making successful exclusion of every bad example the central requirement of the approach."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4b4526a7657266218db8b1490df0fba6c2b1b4f944c0deab38b15f210791a05a",
+    "tldr": "The proposed robust trainer limits corrupted examples’ collective gradient influence across classification and regression."
+  },
+  "icml-2021-leveraging-public-data-for-practical-private-query-release-db54e5e5a9": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Private query release aims to publish statistics about a private dataset while maintaining differential privacy. The paper asks how public data can help this process. Related public datasets, such as earlier census releases, can provide prior information, yet the abstract identifies their use in private query release as underexplored.",
+      "The authors introduce PMW^Pub, which incorporates public data drawn from a related distribution. That relationship is central to the setup: the public dataset serves as information about the statistical problem involving the private data. The method brings this source of prior knowledge into the query-release procedure and is accompanied by a theoretical analysis.",
+      "Empirical evaluations on the American Community Survey and ADULT datasets show better performance than the state-of-the-art methods compared. The authors also report that PMW^Pub scales to high-dimensional domains where many existing approaches would be computationally infeasible. Its significance therefore involves both statistical performance and computational practicality: available public information can help make private statistical release more effective in settings whose dimensionality poses difficulties for existing methods."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f59a0c86d2180f3c2c5dc1e2c91e807ea4844ef65c844b94bacf5e74ebf16c17",
+    "tldr": "PMW^Pub uses related public data as prior information to improve the performance and scalability of private query release."
+  },
+  "icml-2021-lottery-ticket-preserves-weight-correlation-is-it-desirable-or-not-39d2bdcbfd": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The lottery ticket hypothesis suggests that a suitably pruned subnetwork, paired with its original initialization, can train to competitive performance relative to the dense network. This paper investigates why that winning behavior is difficult to observe in some settings, including when a larger learning rate benefits the original dense model.",
+      "The authors attribute much of the behavior to correlation between initial weights and final trained weights when the learning rate is not sufficiently large. They find that the winning property is associated with insufficient pretraining and is unlikely to appear for a well-trained dense network. This is a qualified account of when the phenomenon occurs, rather than a claim that winning tickets never exist.",
+      "To address the identified limitation, the paper proposes pruning followed by fine-tuning. Across the reported experiments, this approach consistently outperforms lottery-ticket sparse training when both use the same pruning algorithm and total number of training epochs. Evaluations include VGG, ResNet, and MobileNet-v2 on different datasets. The findings connect the value of preserving initialization to the dense model’s training dynamics and motivate retaining trained weights through fine-tuning."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c0acd6edba6c7d73d56f72ccd46aae4bc3c4e34acf8646958a34fb3b8ef6bfaa",
+    "tldr": "The paper links lottery-ticket success to initialization–trained-weight correlation and reports stronger results from pruning followed by fine-tuning."
+  },
+  "icml-2021-multi-layered-network-exploration-via-random-walks-from-offline-optimization-to-online-l-1c12b9c222": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies how to divide a limited exploration budget across several network layers. A random walk explores each layer, and every node has an importance weight. The objective is to maximize the combined weight of distinct nodes visited, so repeated visits do not contribute additional value to the objective.",
+      "When network structures and node weights are known, the authors develop algorithms according to whether the layers overlap. For overlapping networks, greedy-based methods provide constant-ratio approximation guarantees. For non-overlapping networks, greedy or dynamic-programming approaches provide optimal solutions. These results distinguish settings where the proposed methods approximate the best allocation from those where they attain it.",
+      "The paper also considers repeated exploration when neither network structure nor node weights are initially known. Using a combinatorial multi-armed bandit framework, the algorithms learn random-walk parameters and node weights while allocating the budget. The authors prove logarithmic regret bounds and evaluate their methods on a real-world social network dataset. The overall contribution joins budget allocation with learning, covering both full-information planning and decisions made while the relevant network information is still being discovered."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2d49572201780db305ce393ba0b59c72caadd2c5f544b11d99f242a2ad48d3c0",
+    "tldr": "The paper develops guaranteed methods for allocating random-walk budgets across network layers with known or initially unknown information."
+  },
+  "icml-2021-noise-and-fluctuation-of-finite-learning-rate-stochastic-gradient-descent-f7ff7f19f9": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Many theoretical descriptions of stochastic gradient descent focus on learning rates that approach zero. This paper instead examines what happens when the learning rate remains finite. Its goal is to obtain exactly solvable results that expose properties of the discrete training dynamics and clarify their consequences.",
+      "The main result derives the stationary distribution of discrete-time SGD on a quadratic loss, both with and without momentum. This distribution describes the fluctuations that persist in the analyzed dynamics. One implication is that discrete updates can produce fluctuations with a distorted shape and a much greater size than a continuous-time theory would predict.",
+      "The paper discusses applications to approximation errors in SGD variants, minibatch noise, optimal Bayesian inference, and escape rates from sharp minima. It also considers stationary covariance for methods including damped Newton updates, natural gradient descent, and Adam. The quadratic-loss setting is central to the exact stationary-distribution result. Within that setting, the analysis demonstrates why retaining finite-step effects can materially change conclusions about optimization noise, rather than treating those effects as negligible details."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "263af247f0d81dec777e86253d5cf94f10210ef969e784c482c95ebe9fe36475",
+    "tldr": "Exact quadratic-loss analysis shows that finite-step SGD fluctuations can be much larger and differently shaped than continuous-time predictions."
+  },
+  "icml-2021-on-robust-mean-estimation-under-coordinate-level-corruption-d063b630f8": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Robust mean estimation seeks an accurate average despite corrupted observations. This paper focuses on corruption affecting individual coordinates and introduces a distribution-shift measure based on Hamming distance. The measure supports adversary models that the authors argue capture more realistic corruption patterns than models used in earlier work.",
+      "The information-theoretic analysis asks how accurately the mean can be estimated under these models. For structured distributions, the authors show that using the distribution’s structure permits more accurate estimation. This makes structural information a substantive part of robustness: achievable accuracy depends on whether the estimator takes advantage of it.",
+      "The practical component studies a two-stage strategy that first repairs corrupted input data and then applies robust mean estimation. The authors investigate when this cleaning-inspired procedure can match their information-theoretic bounds. Experiments show that the two-stage approach outperforms structure-agnostic robust estimation and remains accurate with high-magnitude corruption. The results connect a coordinate-level corruption model, theoretical accuracy limits, and a practical procedure that uses structure before estimating the mean."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6518d67a78444d226eb41eae8566f2d2cb0c043368d45196c80b2e62ca89c340",
+    "tldr": "Using distribution structure and repairing corrupted coordinates can improve robust mean estimation under the paper’s corruption models."
+  },
+  "icml-2021-optimal-complexity-in-decentralized-training-db2411cfb5": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Decentralized training offers a way to scale parallel machine learning, but its efficiency depends on how quickly the distributed process can converge. This paper studies the iteration complexity of decentralized methods in a stochastic, non-convex setting. It first establishes a lower bound that characterizes a fundamental requirement within that setting.",
+      "The bound reveals a gap in the known convergence rates of many existing algorithms, including D-PSGD. The authors then give a construction showing that the bound is achievable, establishing its tightness. This supplies a theoretical target against which decentralized training algorithms and their convergence guarantees can be assessed.",
+      "Guided by that analysis, the authors propose DeTAG, a practical gossip-style algorithm whose guarantee approaches the lower bound within a logarithmic gap. Image-classification experiments show faster convergence than the compared decentralized methods, especially with unshuffled data and sparse communication networks. The contribution combines an optimal-complexity characterization with a practical algorithm approaching it. The empirical results further indicate that the gains are particularly pronounced in the stated data and network conditions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c7fc6b8aba8e0c4a65b25987ade27c917d275c0137f87bc8073de9d38419dc47",
+    "tldr": "A tight complexity bound motivates DeTAG, a decentralized training method that approaches the bound within a logarithmic gap."
+  },
+  "icml-2021-relative-positional-encoding-for-transformers-with-linear-complexity-4ed91fa041": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Relative positional encoding lets a Transformer use distances between sequence positions. Existing versions require explicitly computing the attention matrix, creating a conflict with linear-complexity Transformers, whose efficiency depends on avoiding that matrix. This paper introduces Stochastic Positional Encoding to bring relative-position behavior into those efficient models.",
+      "The method generates positional encodings that can replace the usual additive sinusoidal encodings. Its theoretical basis connects positional encoding to the cross-covariance of correlated Gaussian processes. Through that connection, the authors prove that the proposed construction behaves like relative positional encoding while fitting the intended linear-complexity Transformer setting.",
+      "The paper illustrates performance on the Long-Range Arena benchmark and on music generation. These evaluations demonstrate the approach in both benchmark sequence tasks and a generative application, without the abstract claiming a particular numerical improvement. The central contribution is the compatibility it establishes: relative-position information can be supplied through a stochastic encoding construction that avoids requiring the explicit attention matrix responsible for the original obstacle. This expands the positional modeling options available to linear Transformer variants."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ee02e2f2744f4d41c76df13739be9bc131ceb58c4f0da9823b54ca2a205e14ed",
+    "tldr": "Stochastic Positional Encoding gives linear-complexity Transformers provable relative-position behavior without explicitly forming the attention matrix."
+  },
+  "icml-2021-saganet-a-small-sample-gated-network-for-pediatric-cancer-diagnosis-2c1202fa4d": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "SagaNet addresses classification of small round blue cell tumors in pathological images. The motivating difficulty is a combination of scarce samples, expensive annotation, and substantial variation in pediatric tumor data. With few examples available, noise and diversity make it harder for a deep model to identify useful diagnostic image features.",
+      "The proposed model uses a masking mechanism to constrain attention to valid regions of the pathological image. It also introduces a length-aware loss intended to make learning more tolerant of feature diversity. These two components address the stated difficulties at different points: the mask guides which image areas receive attention, while the loss changes how diverse features are handled during learning.",
+      "The authors evaluate the framework on a small-sample tumor dataset whose classification is challenging even for professional pathologists. SagaNet performs best among the compared state-of-the-art deep models and shows generalization on another pathology dataset. These results support the potential of tailored deep learning methods for difficult medical classification with limited examples. The reported evidence concerns dataset performance and cross-dataset generalization."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "773a490c1460e714d630b2837b3613ca6fd2f40ceac397475c9c3706bce8ca90",
+    "tldr": "SagaNet combines image masking and a diversity-tolerant loss to improve small-sample pediatric tumor classification."
+  },
+  "icml-2021-selfish-sparse-rnn-training-e539f4df1a": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Sparse networks reduce the number of active parameters, but obtaining them by pruning a pretrained dense model still requires dense training. Dynamic sparse training instead trains a sparse model directly. This paper tackles the difficulty that previous direct sparse-training methods had not matched dense-to-sparse performance for recurrent neural networks.",
+      "The proposed approach trains an intrinsically sparse RNN in a single run while keeping the parameter count fixed. During training, parameters can be redistributed non-uniformly across cell gates, which the authors use for better regularization. The paper also introduces SNT-ASGD, a variant of averaged stochastic gradient optimization designed to improve sparse RNN training.",
+      "The authors report that SNT-ASGD significantly improves all sparse RNN training methods considered. Combining the strategies produces state-of-the-art sparse training results across multiple RNN types on Penn TreeBank and Wikitext-2, surpassing dense-to-sparse methods in those evaluations. The contribution is a route to strong recurrent models that remain sparse throughout training, supported by both adaptable allocation across gates and an optimizer suited to the sparse training setting."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7474e71065ab38191dafb4745d14e591d650e523a08ba38b088a7fae56167b18",
+    "tldr": "Redistributing sparse RNN parameters across gates and using SNT-ASGD yields strong single-run training without dense pretraining."
+  },
+  "icml-2021-symmetric-spaces-for-graph-embeddings-a-finsler-riemannian-approach-5c68f09017": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Graph embeddings represent vertices as points in a geometric space, making graph information available to downstream learning tasks. This paper proposes systematically using symmetric spaces as the embedding target. That class includes many spaces used previously, giving the approach a broader geometric framework for representing different graph structures.",
+      "Within this framework, the authors combine Finsler metrics with a Riemannian optimization scheme. The stated benefit is better adaptation to dissimilar structures within a graph. They also develop a tool for analyzing the learned embeddings and inferring structural properties of the underlying datasets. For implementation, they choose Siegel spaces, a versatile family within the symmetric-space class.",
+      "Experiments show better graph reconstruction than competitive baselines on both synthetic and real-world datasets. The paper additionally demonstrates applications to recommender systems and node classification. These results connect the geometric proposal to both faithful graph representation and downstream uses. The contribution therefore extends beyond choosing a new embedding space: it combines a distance framework, an optimization approach, and a way to inspect what the learned representations reveal about graph structure."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8ec6df9b7a9d5ae572e2e23a950fc386cce9c6634e26097c97df96a578177842",
+    "tldr": "Symmetric-space embeddings combine Finsler metrics and Riemannian optimization to better represent varied graph structures."
+  },
+  "icml-2021-temporal-difference-learning-as-gradient-splitting-c8ebe031d0": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Temporal difference learning estimates a policy’s value function, and linear function approximation represents that function with a lower-dimensional model. This paper interprets the method as a splitting of the gradient of a suitably chosen function. The interpretation creates a direct connection between temporal difference updates and familiar gradient-descent analysis.",
+      "That connection allows convergence proofs for gradient descent to transfer almost unchanged to temporal difference learning. Beyond explaining why the updates work, it leads to improved convergence-time bounds. The authors study a step size of 1/√T, where T is the time parameter used in the bound, and examine how the discount factor γ affects the guarantee.",
+      "Earlier comparable finite-time bounds carried a multiplicative factor of 1/(1−γ) across the bound. The proposed minor variation estimates the mean of the value function separately, leaving that factor attached only to an asymptotically negligible term. This reduces the factor’s role in the long-run guarantee without claiming it disappears entirely. The result shows how a new interpretation can motivate a small algorithmic adjustment with a sharper theoretical analysis."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7825b2a583fa5cb6fda88765339b11d74468ac02f39db7d2ed621e0a2eb5c9bb",
+    "tldr": "Viewing temporal difference learning as gradient splitting yields transferable convergence proofs and a sharper discount-factor dependence."
+  },
+  "icml-2021-variance-reduced-training-with-stratified-sampling-for-forecasting-models-062077aea5": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Large forecasting datasets can contain time series with different temporal patterns, even as those patterns drift over time. This paper shows theoretically that such heterogeneity can cause large variance in stochastic gradient estimates and potentially prolong training. The problem concerns how training samples represent the varied series in the dataset.",
+      "The proposed remedy is stratification: organize time series into groups and let the optimizer sample from those groups. The authors then introduce SCott, an SGD-style optimizer that combines stratified sampling with a control variate. This combination aims to reduce gradient variance while managing the extra computation needed to obtain that reduction.",
+      "The paper provides a convergence guarantee for SCott on smooth, non-convex objectives. Experiments on synthetic and real-world forecasting problems show faster convergence than the compared optimizers in both iteration count and elapsed time. The distinction matters because reducing the number of updates alone would not establish a practical speed benefit. Here, the reported results support stratification as a way to turn dataset heterogeneity into useful sampling structure for more efficient forecasting-model training."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6c4eed3cf9e7240fc0251f9a0f550307d46f637afaabbda8e53e52873f354bde",
+    "tldr": "SCott combines stratified sampling and control variates to reduce gradient variance and accelerate forecasting-model training."
+  },
+  "icml-2021-watermarking-deep-neural-networks-with-greedy-residuals-8a0e4d8338": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Training a deep neural network requires substantial resources, motivating methods that can establish model ownership. This paper proposes embedding a watermark through residuals of important model parameters. Its verification process does not explicitly rely on external ownership indicators, which other watermarking approaches use as evidence of ownership.",
+      "The method greedily selects a small number of important parameters for embedding. The authors argue that this choice reduces the impairment caused by changing parameters while improving robustness against attacks, because the selected parameters preserve model information well. Parameter selection therefore serves both the model’s predictive behavior and the persistence of its ownership signal.",
+      "Avoiding external verification data also addresses counterfeit-watermark attacks: the authors argue that an adversary has less opportunity to undermine verification by forging such evidence. Extensive experiments across five tasks show better performance than previous state-of-the-art methods. The contribution combines selective embedding with a verification design intended to strengthen ownership protection. The robustness claim concerns resistance to the attacks studied and does not establish that watermark forgery or removal is impossible."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "798aafee7fae7dfae92e5ee0e4c5bac6cad16b2c134379260879ea32560b30ca",
+    "tldr": "Greedily embedding watermarks in important parameter residuals improves ownership protection without explicitly using external verification indicators."
+  }
+}

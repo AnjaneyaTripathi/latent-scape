@@ -1,0 +1,327 @@
+{
+  "icml-2026-bottleneck-communication-delay-minimization-for-communication-efficient-decentralized-le-bb58fae196": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Decentralized learning depends on computers exchanging information over a network. A communication pattern that works well when every connection has the same delay can become inefficient when delays differ. This paper studies how assigning computers to positions in a network can reduce its bottleneck communication delay, the slowest communication that constrains the pattern.",
+      "The proposed method, BTSP-MSR, targets circulant directed graphs, including exponential and 1-peer exponential graphs. Its starting point is that these networks can be represented as combinations of directed rings. The authors derive an upper bound on bottleneck delay consisting of a ring-related term and a deviation term. Their solver minimizes these terms sequentially, providing an approximate approach to the assignment problem.",
+      "Numerical experiments report consistent bottleneck-delay reductions across several circulant networks with many nodes. Incorporating exponential or 1-peer exponential graphs also supports communication-efficient decentralized learning when delays are heterogeneous. The contribution connects network topology with actual communication conditions: choosing a useful graph structure and assigning nodes within it are both relevant to efficiency."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d1c2e5c8ea337a6cc751ef5ff1bfdd8b13a7b35e8d5d8c9762d4552e092ca2bb",
+    "tldr": "BTSP-MSR approximately optimizes node assignments to reduce bottleneck communication delays in decentralized learning networks with unequal connection delays."
+  },
+  "icml-2026-compress-then-merge-from-multiple-loras-into-one-low-rank-adapter-0f466e1e48": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "LoRA adapters specialize a foundation model through compact parameter updates, but maintaining many task-specific adapters complicates deployment and reuse. This paper asks how to combine multiple adapters into one while retaining a chosen low rank. Existing approaches first merge full parameter updates and then compress the result, potentially losing structure that the final compact adapter needs.",
+      "Compress-then-Merge reverses that order. It uses the adapter weights to identify shared subspaces of the desired dimension, then projects each adapter into those subspaces. Standard merging rules operate on the resulting small coordinate matrices. The output satisfies the rank constraint by construction, so there is no subsequent truncation step that might discard parts of an already merged update.",
+      "The method also supports efficient computation within a space built from the concatenated LoRA factors. Across the reported models and tasks, it consistently outperforms other methods that produce a single LoRA and narrows the performance gap to full-parameter merging. The findings support treating the compact representation as part of the merging problem from the beginning."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d1c0c62d9311ce62f111b1b69615110415eb8273456c422c29eb3378c1879eef",
+    "tldr": "Compress-then-Merge combines LoRA adapters inside shared low-dimensional subspaces, preserving the rank constraint and improving reported single-adapter performance."
+  },
+  "icml-2026-density-aware-translation-of-spurious-correlations-in-zero-shot-vlms-8f3a575c61": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Vision-language models can classify images by comparing image and text representations, yet contextual patterns can outweigh the content that actually identifies a class. This paper connects that vulnerability to the geometry of CLIP embeddings. Image and text representations are separated by a modality gap, and their uneven shell-like arrangement places common patterns near the mean while pushing rare patterns outward.",
+      "Density-Aware Translation adjusts image-text similarity scores using local geometric density estimated from group reference sets. It applies a relative rescaling intended to suppress overly confident scores in diffuse regions while preserving matches in dense, semantically consistent regions. The adjustment addresses uneven alignment in representation space, where misleading correlations can be amplified and meaningful rare cues marginalized.",
+      "Benchmark experiments report consistent improvements in both average accuracy and accuracy for the worst-performing group. Those two outcomes matter together because overall gains can otherwise conceal groups that remain poorly served. The stated results support density-based score calibration as a simple mechanism for improving the reliability of zero-shot multimodal classification."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "44544465541729167ceac8f61cecf6709411dd3eb1b319b9b308f897578da9ab",
+    "tldr": "Density-Aware Translation recalibrates image-text similarities using local embedding density, improving average and worst-group accuracy in reported zero-shot classification experiments."
+  },
+  "icml-2026-dr-2-seg-decomposed-two-stage-rollouts-for-efficient-reasoning-segmentation-in-multimoda-7fc9124560": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Reasoning segmentation requires a model to interpret a complex textual request and identify the exact image region it describes. Long reasoning chains can interfere with this goal by dispersing attention and making object localization harder. DR²Seg addresses this overthinking problem through a self-rewarding framework that does not require additional supervision for the model's thinking.",
+      "The method divides each rollout into two stages. First, the model reasons over the image and query to produce a self-contained description of the target object. Second, that description replaces the original complex query for referring segmentation. This substitution checks whether the description contains enough information on its own. Two self-rewards built around this design discourage overthinking and its associated attention dispersion.",
+      "Experiments cover the 3B and 7B versions of Qwen2.5-VL and both SAM2 and SAM3. The authors report consistent improvements in reasoning efficiency and overall segmentation accuracy. These findings support making the intermediate reasoning product explicit and usable for localization, so that interpreting the request leads directly to identifying the intended object."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e195fff3cf532f5690b5d2375bc90ed8b76d68e4628b6252ff4795d1cd928887",
+    "tldr": "DR²Seg turns complex queries into self-contained object descriptions, using two-stage self-rewards to improve reasoning efficiency and segmentation accuracy."
+  },
+  "icml-2026-effective-distillation-to-hybrid-xlstm-architectures-359afb1e1b": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Distilling a large language model into an architecture with lower computational scaling is attractive, but the smaller-cost student often loses downstream capability. This paper studies xLSTM-based students as replacements for models built around quadratic attention. It frames the desired outcome as lossless distillation, measured through tolerance-corrected rates of wins and ties between student and teacher across task sets.",
+      "The proposed pipeline adds a merging stage to distillation. Individually linearized experts are combined into a single model, making their combination an explicit part of constructing the student. The authors apply the pipeline to both base and instruction-tuned models from the Llama, Qwen, and Olmo families, testing its usefulness across several sources of teacher capabilities.",
+      "In many evaluated settings, the resulting students recover most of their teachers' performance and surpass them on some downstream tasks. This is progress toward the stated lossless goal, rather than a claim that every student matches every teacher on every task. The results point toward more cost-effective and energy-efficient alternatives while retaining substantial language-model capability."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "76eb151d7e5c0b0d64aa92071fe35f6645e294a9511b1d40713b85616de6de06",
+    "tldr": "A distillation pipeline that merges linearized experts produces xLSTM-based students that recover most teacher performance in many tested settings."
+  },
+  "icml-2026-exact-and-approximate-algorithms-for-polytree-learning-d9e602cd85": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Polytrees describe conditional relationships among variables using a restricted form of Bayesian network whose underlying structure is a forest. Their appeal is more efficient inference and improved interpretability, but finding the highest-scoring polytree is NP-hard. This paper investigates how restrictions on parent counts and scoring functions change the computational difficulty, and what can be achieved through approximation.",
+      "For any constant maximum in-degree k, the authors give an exact algorithm with running time O((2+ε)^n), for arbitrarily small positive ε. This improves the previous O(3^n) bound. The algorithm remains exponential in the number of variables, but lowers the exponential base while still finding an optimal structure under the stated in-degree restriction.",
+      "The paper also gives polynomial-time approximation algorithms. Their scores are within a factor of k of optimal for arbitrary scoring functions and within a factor of two for additive scores. Many results come with tight or nearly tight lower bounds on runtime or approximation quality. Together, these findings distinguish settings where exact search can be accelerated from those where bounded-quality approximations offer a tractable alternative."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b93613d49393f69afca1dc7ecbce0e8a04d046a503b2e5ec3d2319dca749a781",
+    "tldr": "The paper improves exact polytree learning under constant in-degree bounds and provides polynomial-time approximations with provable quality guarantees."
+  },
+  "icml-2026-flash-grpo-efficient-alignment-for-video-diffusion-via-one-step-policy-optimization-38e6a6aaf7": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Aligning video diffusion models with human preferences through Group Relative Policy Optimization can require substantial computation. Existing approaches save work by sampling training timesteps within sliding windows, but the paper reports instability and weaker optimization than full-trajectory training. Flash-GRPO introduces a single-step training framework designed to make this alignment process more efficient while maintaining stable updates.",
+      "Its first component, iso-temporal grouping, keeps timesteps consistent within each prompt's comparison group. This separates differences in policy performance from differences caused by timestep difficulty. Its second component, temporal gradient rectification, removes a time-dependent scaling factor responsible for large variations in gradient magnitude. The two mechanisms address distinct sources of inconsistency when learning from selected diffusion steps.",
+      "Experiments on models ranging from 1.3B to 14B parameters report substantial training acceleration, consistent stability, and state-of-the-art alignment quality. Under low computational budgets, Flash-GRPO outperforms full-trajectory training in alignment quality. That budget condition is central to the comparison: the finding concerns how effectively the methods use limited training resources."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e95ce7dd87fbd0026113f4065403a62457c4f06d274e6fc3c1597c533d27921f",
+    "tldr": "Flash-GRPO stabilizes single-step video diffusion alignment and outperforms full-trajectory training in alignment quality under low computational budgets."
+  },
+  "icml-2026-flow-sampling-learning-to-sample-from-unnormalized-densities-via-denoising-conditional-p-a77a5c6a67": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Sometimes a target distribution is specified by an energy function rather than a collection of example samples. Learning to sample from it is difficult when evaluating that function is expensive. Flow Sampling adapts diffusion models and flow matching to this data-free setting, with an emphasis on reducing the energy evaluations needed during training.",
+      "The training objective conditions on a noise sample and learns a denoising drift constructed from the energy function. This reverses the conditioning perspective described for conventional diffusion training, which conditions on data and targets a noising drift. An interpolating process helps limit energy-function evaluations, connecting the framework's mathematical formulation to its computational efficiency.",
+      "The formulation also extends to curved spaces described as Riemannian manifolds. The authors derive a closed-form conditional drift for constant-curvature settings, including hyperspheres and hyperbolic spaces. Evaluations span synthetic energy functions, small peptides, large-scale molecular conformer generation, and spherical distributions, with strong reported empirical performance. The contribution therefore covers both efficient energy-based sampling and sampling in geometries beyond ordinary Euclidean space."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b80acf7fec8ca71d8e7e6ca336daf7abf91eee8c675be49547750e43448b53e1",
+    "tldr": "Flow Sampling learns samplers directly from energy functions while reducing training evaluations and extending diffusion-based sampling to curved spaces."
+  },
+  "icml-2026-from-feasible-to-practical-pareto-optimal-synthesis-planning-dcf2737657": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Finding a feasible route to synthesize a molecule leaves important practical choices unresolved. Chemists may need to balance cost, toxicity, sustainability, and yield, so a shortest route need not be the most useful one. This paper formulates synthesis planning as a search over multiple objectives and introduces MORetro* to expose the resulting trade-offs.",
+      "The algorithm seeks a Pareto front: routes for which improving one objective requires worsening another. It combines weighted scalarization, which combines criteria using weights, with sampling informed by solutions already found. These mechanisms guide exploration toward promising compromises in a combinatorial search space, allowing the output to present several useful alternatives under user-defined criteria.",
+      "Building on multi-objective A* search, the authors prove recovery of the true Pareto front for a fixed single-step model under admissibility. The guarantee therefore depends on those stated conditions. Across retrosynthesis benchmarks, MORetro* produces diverse, high-quality fronts and finds solutions missed by single-objective methods. Its practical contribution is to make competing preferences visible within the planning output."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "cd12af6fa6cbfc356df60068e7f134ed25cee75254283ad6a8c7521f283a982a",
+    "tldr": "MORetro* searches for synthesis routes that express competing practical objectives, with conditional guarantees of recovering the true Pareto front."
+  },
+  "icml-2026-geodesic-calculus-on-implicitly-defined-latent-manifolds-b4eaf5d222": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Autoencoders represent data in lower-dimensional latent spaces, where the geometry of the represented data can be studied. This paper describes the latent manifold implicitly inside a larger ambient latent space. That representation provides the foundation for discrete geometric tools approximating classical Riemannian operators, while accommodating inaccuracies that can arise in practical manifold representations.",
+      "To obtain the representation, the authors train an approximate projection onto the latent manifold using a denoising objective. The projection provides a way to describe the manifold without tying the framework to a particular autoencoder. The approach also supports different choices of Riemannian geometry, allowing geometric calculations to depend on the selected notion of distance and direction.",
+      "The framework computes geodesic paths between specified endpoints and can launch geodesics through Riemannian exponential maps. These capabilities support studying routes through the latent manifold according to its geometry. Evaluations use multiple autoencoders trained on synthetic and real data. The stated contribution is a flexible geometric calculus designed to remain robust when the learned implicit representation is only approximate."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6513501cbc72e56382ab4a8bbeaed7450fbff689bc34b4c8113b50d874700e7e",
+    "tldr": "A learned denoising projection enables robust geometric calculations and geodesic construction on implicitly represented autoencoder latent manifolds."
+  },
+  "icml-2026-minibatch-optimal-transport-and-perplexity-bound-estimation-in-discrete-flow-matching-fafc282f13": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Discrete flow matching generates categorical data through stochastic sequences of state changes. That randomness prevents direct use of the rectification strategy available in continuous flow matching and also complicates exact probability estimation. This paper tackles both issues: reducing the number of transitions needed for generation and providing principled ways to assess model probabilities.",
+      "The authors derive a transport-style objective and its Kantorovich formulation for discrete flows with convex interpolants. Its cost depends only on dissimilarities between states, allowing optimization with minibatches. In the reported experiments, these methods reduce transitions by up to 32 times, from 1024 to 32, while reaching the same generative perplexity without sacrificing diversity.",
+      "For probability evaluation, the paper supplies two upper bounds on perplexity because nondeterministic paths prevent the continuous-flow change-of-variables approach from carrying over directly. These bounds support training, evaluation, and comparisons. The authors also introduce Multimask Flows, which achieve better generative perplexity than masked flows without reducing diversity, particularly when paired with minibatch optimal transport."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b7392338312029b0709d94a9947afbac3b60c65bff9d3c5e2d62f80cc70216e0",
+    "tldr": "Minibatch transport reduces discrete-flow generation steps, while new perplexity bounds and Multimask Flows improve evaluation and reported generation quality."
+  },
+  "icml-2026-no-data-no-problem-robust-vision-tabular-learning-with-missing-values-839c2ff411": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Models trained on richly documented medical biobanks may encounter far fewer clinical or demographic attributes when deployed. RoVTL addresses this mismatch for systems combining images with tabular information. It is designed to operate across the full range of tabular availability, including cases where all tabular attributes are missing but the image remains available.",
+      "The framework introduces missing tabular attributes as an augmentation during contrastive pretraining, exposing the model to incomplete information early. During downstream tuning, it combines further missingness with a Tabular More vs. Fewer loss that ranks performance according to the amount of available tabular data. A gated cross-attention module fuses the visual and tabular inputs within this training approach.",
+      "Experiments on UK Biobank cardiac MRI report greater robustness to missing tabular values than prior methods. The model also generalizes to an external cardiac MRI dataset for multimodal disease classification and extends to a car advertisements dataset. These findings support training explicitly across availability levels so that useful multimodal behavior persists as the amount of tabular information changes."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0748d28c457cf96c449153fd9edca861748bc2f700985ddf1c62b5cc6279b644",
+    "tldr": "RoVTL trains image-and-table models across missing-data levels, improving reported robustness from complete tabular information to none."
+  },
+  "icml-2026-on-the-optimization-trajectory-of-deepwalk-embeddings-1905cbad4b": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "DeepWalk learns vector representations of graph nodes, and negative sampling makes it practical on very large graphs. Yet understanding the objective's best solutions does not explain what optimization actually reaches from random initialization. This paper examines that trajectory, focusing on the Skip-gram with negative sampling implementation, where stochastic updates have particularly large variance.",
+      "The main result establishes a conditional geometric pattern in the learned representations. With small-norm initialization and a spectral gap assumption on the graph, the embeddings align with the column space of a fixed low-rank matrix. This describes a structured destination for the optimization dynamics rather than only a property of ideal objective minimizers.",
+      "For graphs generated by Stochastic Block Models, additional separation conditions make that alignment imply recovery of cluster structure. The result therefore links training behavior to meaningful communities for a specified family of graphs. The authors describe their work as the first trajectory analysis of DeepWalk with negative sampling on non-trivial graph classes, while the guarantees retain their initialization and graph assumptions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "dbf74a68d9f2ade85e493a18e848f03c9a5e7eaaeccd7a651ec73f228d3a5755",
+    "tldr": "Under small-norm initialization and graph assumptions, DeepWalk's optimization trajectory aligns embeddings with a low-rank space that can recover cluster structure."
+  },
+  "icml-2026-opic-enhancing-language-model-merging-via-optimizing-in-context-capability-00321fc378": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Task-vector merging combines specialized language models at low cost, but their capabilities can interfere and degrade the merged model. Existing mitigation often depends on expensive tuning against validation data. OPIC approaches the problem through in-context learning: the ability to use information supplied in the prompt. Preliminary experiments identify deterioration of this capability as a primary driver of task conflict.",
+      "The framework turns model merging into an evolutionary optimization problem whose objective is preserving in-context capability. It introduces hierarchical refinement operators and uses self-generated data to guide optimization. This removes dependence on external validation sets, connecting the search criterion to a capability the authors found important for successful merging.",
+      "Experiments report average performance retention of 80.73%, results above state-of-the-art methods, and improvements of up to 11.1% over recent validation-free approaches. OPIC is also compatible with existing merging pipelines. These findings support in-context preservation as a useful optimization target in the evaluated settings, with the practical advantage of performing the search without an external validation dataset."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "72d348eb5222bb340541b5026c2c9993339a0562eebf5e483b6ebd9b3ce790b7",
+    "tldr": "OPIC uses evolutionary optimization and self-generated data to preserve in-context learning capability during language-model merging without external validation sets."
+  },
+  "icml-2026-pgs-effective-llm-code-refinement-via-property-oriented-and-structurally-minimal-feedbac-8d354f71c8": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Execution feedback can help language models repair generated code, but its usefulness depends on what the feedback reveals. A large collection of noisy tests may provide little guidance about the underlying defect. The Property-Generated Solver, or PGS, focuses on producing feedback that explains the relevant program requirement and presents a simple failure exposing its violation.",
+      "PGS checks high-level properties of a program, such as whether a sorting function returns a non-decreasing sequence. When a property fails, it supplies the simplest failing counterexample to the language model. Property validation adds semantic guidance beyond a mismatch between expected and observed outputs, while structural minimality reduces distracting detail and helps isolate the cause.",
+      "Across the reported benchmarks, PGS achieves bug-fix rates 1.4 to 1.6 times those of the strongest debugging-based approaches and establishes a new state of the art in automated code refinement. The findings support improving the information content of feedback as a route to more effective repair and more generalizable solutions, rather than relying solely on generating additional test cases."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e9f19a03812e26fd4fb8898ac3f0398a12d5d927d42348c1a3609d9df4d3ebe9",
+    "tldr": "PGS improves language-model code repair by pairing violated program properties with the simplest failing counterexamples."
+  },
+  "icml-2026-reasoning-to-edit-hypothetical-instruction-based-image-editing-with-visual-reasoning-f30f5d4fa4": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Some image-editing requests describe hypothetical situations whose visual consequences must be inferred. Executing them requires more than recognizing an explicit instruction to add or move an object. This paper addresses both the shortage of suitable training and evaluation data and the need for model components that extract detailed evidence for such reasoning.",
+      "Reason50K contains over 50,000 examples covering physical, temporal, causal, and story reasoning. The accompanying ReasonBrain framework uses a multimodal large language model to generate editing guidance and a diffusion model to synthesize the image. Its Fine-grained Reasoning Cue Extraction module captures detailed visual and textual semantics. A Cross-Modal Enhancer promotes interaction between those cues and the language model's features to reduce semantic loss.",
+      "Experiments report consistent improvements over state-of-the-art baselines on reasoning scenarios, alongside strong zero-shot generalization to conventional instruction-based editing tasks. The combined contribution is a dataset and an editing architecture organized around inferred visual changes. Its findings suggest that extracting and preserving fine-grained cues helps connect hypothetical instructions to the images they imply."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "cb1ca4f4d875fa0e63c6e34a10c7eba0cbe3e65448765444b0a6e00e4e0d6bb5",
+    "tldr": "Reason50K and ReasonBrain support image editing from hypothetical instructions by combining visual reasoning, detailed cue extraction, and diffusion synthesis."
+  },
+  "icml-2026-sampling-from-your-language-model-one-byte-at-a-time-2393c3f25e": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Language models usually generate tokens containing multiple characters or bytes. This can distort generation when a prompt ends inside a unit that the tokenizer would otherwise group together. The paper studies this Prompt Boundary Problem, which appears in familiar advice about trailing spaces and also affects code and languages such as Chinese, where token and syntactic boundaries may differ.",
+      "The authors introduce an inference-time method that converts any autoregressive language model using a BPE tokenizer into a character-level or byte-level model. The method efficiently resolves the boundary problem at generation time. Its scope is explicitly models with BPE tokenizers, allowing finer-grained generation while working with those models' existing token-based representations.",
+      "A shared character or byte vocabulary also creates a common interface between models whose original tokenizers differ. The paper identifies two uses: combining such models in an inference-time ensemble and transferring post-training behavior through proxy-tuning. The contribution therefore connects a generation-boundary fix with interoperability, enabling models to coordinate through a representation that does not depend on matching token inventories."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a9cefc7250dacf10c346882259db8a912cc96dc687b5ec0a35dd4f2f0c8a76e5",
+    "tldr": "An inference-time conversion enables byte- or character-level sampling from BPE language models, resolving prompt-boundary distortion and supporting cross-tokenizer combinations."
+  },
+  "icml-2026-self-prophetic-decoding-to-unlock-visual-search-in-lvlms-df9aa08294": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Visual search asks a vision-language model to carry out reasoning grounded in images over multiple steps. The paper identifies two obstacles: post-training can make intrinsic capabilities less compatible, and long reasoning contexts can interfere with their use. SeProD addresses these problems by coordinating the single-step strengths of a pre-training model with a post-training model's multi-step reasoning.",
+      "The pre-training model proposes tokens through probability-based prophetic sampling. The post-training model selectively accepts those proposals according to its own output distribution, providing a probabilistic way to incorporate guidance while maintaining coherent reasoning. This self-regulation is implemented during decoding, making SeProD training-free and usable as a plug-in framework.",
+      "Experiments show consistent improvements across multiple visual-search models on all 12 splits of four visual-search benchmarks, as well as on general visual question answering benchmarks. The authors report no additional computational overhead, attributing this to parallel prophetic acceptance. The results support using complementary capabilities from pre- and post-training models during generation to reduce interference in extended visual reasoning."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "973e28d620c5ce9e0cc3c37455cb2bb89691bc651259a95b03b485c0c6426a6f",
+    "tldr": "SeProD coordinates pre- and post-training models during decoding to improve visual search without further training or reported computational overhead."
+  },
+  "icml-2026-skip-it-theoretical-conditions-for-layer-skipping-in-visionlanguage-models-d09430cfd8": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Vision-language models can contain redundant computation, making layer skipping a possible route to cheaper inference. Deciding what to skip, however, often relies on heuristics or repeated parameter searches. This paper introduces a unified framework for characterizing redundancy conditions under which pruning can improve efficiency without sacrificing performance.",
+      "The framework centers on interpretable notions of redundancy that can be checked experimentally without using downstream task performance as the measurement itself. This gives the decision criteria a meaning beyond whether a particular pruning trial happens to score well. The theoretical contribution also brings together ideas underlying several modern layer-skipping approaches.",
+      "Applying the framework, the authors corroborate previous findings that vision tokens show redundancy in both early and late parts of models. They further validate the proposed conditions by showing that they align with actual performance degradation. This supports their usefulness as indicators for pruning decisions. The claim remains conditional: the paper characterizes when redundancy permits skipping, rather than asserting that arbitrary layers can be removed without a cost."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3b757b96151c28f03cbfaae04be78ab66d29041dac7b75a283551ae1c6d37ab2",
+    "tldr": "The paper develops interpretable redundancy conditions for layer skipping in vision-language models and validates their relationship to performance degradation."
+  },
+  "icml-2026-spectral-flow-matching-stabilizing-stochastic-gflownets-via-frequency-domain-regularizat-3f49b7ec6c": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Generative Flow Networks aim to produce diverse samples, but stochastic environments and sparse rewards can make their training unstable. High variance can obscure useful learning signals and hinder convergence. Spectral Time-Dependent GFlowNets reformulates the training objective in the frequency domain, using Fourier analysis to promote smoothness and stability in the learned policies.",
+      "The theoretical analysis establishes that the proposed spectral loss is equivalent to regularized value iteration. In that formulation, it acts as a low-pass filter that separates signal from noise. To address exploration when useful rewards are scarce, the framework also introduces an autocorrelated intrinsic reward derived from the Wiener-Khinchin theorem. This supplies a separate mechanism for encouraging exploration in sparse landscapes.",
+      "Experiments cover adversarial games, noisy sequence generation, and high-dimensional modeling of single-cell perturbations. The authors report significant improvements over existing baselines in robustness, sample efficiency, and discovery of modes. Together, the theoretical and empirical results support frequency-domain regularization as a principled way to stabilize learning while retaining the diverse-sampling purpose of GFlowNets."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d5d81e61d4d34515c278f9d87597978eca68f023bcae7813e4c5d1f876acb436",
+    "tldr": "Spectral Time-Dependent GFlowNets use frequency-domain regularization and intrinsic rewards to improve stability, sample efficiency, and mode discovery."
+  },
+  "icml-2026-strategic-candidacy-in-generative-ai-arenas-b356cc23b6": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "AI arenas rank models from users' pairwise preferences, which contain statistical noise. A producer may benefit by submitting many nearly identical models and allowing the luckiest variant to rise in the ranking. This paper establishes conditions for that advantage through theory and simulations calibrated to Arena data, showing how submission strategy can undermine ranking quality.",
+      "The proposed You-Rank-We-Rank mechanism asks producers to rank their own models. It uses those submitted orderings to correct statistical estimates of model quality. The authors prove approximate clone robustness: producers cannot improve their rank much through strategies beyond submitting each distinct model once. The guarantee limits the benefit of duplication rather than claiming to eliminate every possible ranking gain.",
+      "Ranking accuracy also improves to the extent that producers correctly order their own models. Further simulations examine approximate clone robustness and quantify accuracy improvements even when producers mis-rank models. The contribution connects incentive design with statistical estimation, using information from model producers to reduce the influence of repeated submissions and improve the usefulness of preference-based rankings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "bf9fb70a36f4a1c8c283f44bd5f09c9c8467bef7d6bfd8a66c6ac8517ffd0a22",
+    "tldr": "You-Rank-We-Rank uses producers' internal model rankings to limit gains from clone submissions and improve preference-based ranking accuracy."
+  },
+  "icml-2026-task-driven-subspace-decomposition-for-knowledge-sharing-and-isolation-in-lora-based-con-a9221c0779": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Continual learning requires adapting to new tasks while retaining previous knowledge. LoRA-based methods often separate update spaces to reduce interference, using estimated null spaces of older tasks. This paper argues that such separation can overlook shared knowledge and select directions that remain nearly inactive for a new task, particularly when tasks are correlated.",
+      "Low-rank Decomposition and Adaptation, or LoDA, uses projection energy to construct two kinds of subspace: one for general, shared knowledge and another for genuinely task-specific updates. It solves separate energy-based objectives to distinguish sharing from isolation. LoRA down-projections are fixed on these subspaces, while up-projections are learned through Gradient-Aligned Optimization.",
+      "After each task, LoDA recalibrates the general update with a closed-form expression before incorporating the adapter updates into the backbone. This approximates a feature-level joint optimum along the shared direction. Experiments indicate better performance than existing continual-learning methods. The contribution makes useful transfer and interference control separate design objectives, rather than assuming that avoiding old-task directions alone produces effective new-task learning."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ddd331539ef09d911d7d4b2de652eea596a4752ac29b5bd4a7d239ac59b8704f",
+    "tldr": "LoDA separates shared and task-specific LoRA directions to support knowledge transfer while controlling interference during continual learning."
+  },
+  "icml-2026-the-heterogeneous-safety-impacts-of-benign-multilingual-fine-tuning-6d704193b2": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Fine-tuning on benign data can still make a language model more willing to answer unsafe adversarial requests. This study examines how that effect varies across languages. The authors fine-tune Llama-3.2, Qwen3, and Gemma-3 models using benign data translated into nine languages, then investigate the relationship between training language and evaluation language.",
+      "Safety outcomes depend strongly on both language choices, with adversarial compliance increasing fourfold in some settings. Changes in safety are decoupled from general capability metrics and differ across models and languages. Fine-tuning in non-English languages often produces smaller internal representational shifts than English fine-tuning, yet those shifts can lead to exaggerated compliance or refusal.",
+      "The findings mean that apparently modest internal change or acceptable general capability does not, by itself, capture multilingual safety behavior. They also show why evaluating fine-tuning only in English provides inadequate assurance for deployment across languages. The released Multilingual-Benign-Tune dataset and SORRY-Bench-Multilingual evaluation suite provide resources for studying these cross-language effects and the blind spots they reveal."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "08d5a31ce4181f2e74c6be0e5769187a1900409e79758cda17e62b2d035b6412",
+    "tldr": "Benign fine-tuning changes safety unevenly across languages and models, with fourfold increases in adversarial compliance in some tested settings."
+  },
+  "icml-2026-unsupervised-hierarchical-skill-discovery-cf6e6a3ad3": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "An agent's experience contains recurring behaviors that could become reusable skills, but identifying them often requires action labels, rewards, or handcrafted annotations. This paper studies how to discover skills and their organization from unlabelled trajectories. Its goal includes both locating behavioral segments and understanding how simpler behaviors compose into more complex ones.",
+      "The proposed method uses a grammar-based approach to segment trajectories and induce a hierarchy over the resulting skills. The hierarchy represents low-level behaviors together with their combinations into higher-level skills. Discovering both levels makes the output a structured account of behavior, rather than just a set of independently recurring trajectory fragments.",
+      "Evaluations use high-dimensional environments observed through pixels, including Craftax and full, unmodified Minecraft. Metrics for segmentation, reuse, and hierarchy quality show consistently more structured and semantically meaningful hierarchies than existing baselines. A further proof of concept shows faster and more stable learning on downstream reinforcement-learning tasks. This demonstrates potential practical value for the discovered structure while preserving the limited, proof-of-concept scope of that downstream result."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9e75070a5757c20aaaab642db8ea1bd76f05e3f9236cf2294303bee49e8f2562",
+    "tldr": "A grammar-based method discovers reusable skill hierarchies from unlabelled trajectories and shows proof-of-concept benefits for downstream reinforcement learning."
+  },
+  "icml-2026-vidlada-bidirectional-diffusion-large-language-models-for-efficient-video-understanding-0cbd574bff": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Video language models typically encode frames and pass them to an autoregressive language model. This paper identifies two efficiency constraints in that design: one-way attention limits global aggregation of spatial and temporal information, and serial decoding restricts output generation speed. VidLaDA replaces the autoregressive language component with a diffusion language model.",
+      "Bidirectional attention allows information to be combined across the video context, while parallel token decoding addresses the generation bottleneck. Because diffusion decoding introduces computational overhead of its own, the authors add MARS-Cache. This acceleration method combines asynchronous refreshing of cached visual information with frame-wise chunk attention to reduce redundant computation.",
+      "Experiments report performance rivaling state-of-the-art autoregressive baselines, including Qwen2.5-VL and LLaVA-Video, and exceeding diffusion-language-model baselines. MARS-Cache delivers more than a twelvefold speedup without compromising accuracy in the reported evaluation. The contribution pairs a different attention and generation architecture with a targeted acceleration strategy, showing that efficient video understanding depends on managing both information aggregation and decoding cost."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e297cb5227603ffc7c5c5826b54824fc41eff16e6d24d143abe4f2d0d9ec88f3",
+    "tldr": "VidLaDA combines bidirectional diffusion language modeling with MARS-Cache, reporting competitive video understanding and over twelvefold acceleration without accuracy loss."
+  }
+}

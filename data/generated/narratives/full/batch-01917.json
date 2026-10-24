@@ -1,0 +1,379 @@
+{
+  "icml-2026-a-diffusive-classification-loss-for-learning-energy-based-generative-models-6be3404b9d": {
+    "backgroundConcepts": [
+      "topic-128-f-divergence-based-classification-beyond-the-use"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Energy-based generative models describe data through an energy function, with its negative input gradient supplying the score used for generation. This representation also supports model composition and Monte Carlo sampling applications. Training it is difficult: direct maximum likelihood requires expensive nested sampling, while efficient score matching can suffer from mode blindness, failing to adequately capture distinct parts of a distribution.",
+      "The paper introduces Diffusive Classification, or DiffCLF, which turns energy learning into supervised classification across noise levels. The objective is designed to avoid mode blindness while keeping computation manageable. It can also be combined with standard score-based training objectives, allowing classification and score learning to contribute to the same model.",
+      "The authors evaluate learned energies against known answers for analytical Gaussian mixtures and test applications involving model composition and Boltzmann Generator sampling. They report higher-fidelity energy models and broader applicability than existing approaches. The contribution therefore concerns both generating samples and learning energies that remain useful when subsequent tasks depend on the distribution those energies describe."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0188df105be24cbe21ab4c68afe0e5c6fb17fead20a1b3f580e4f40e7d8c952d",
+    "tldr": "DiffCLF trains energy-based generative models through classification across noise levels, improving energy fidelity while avoiding mode blindness efficiently."
+  },
+  "icml-2026-accuracy-and-normalized-accuracy-under-length-bias-analysis-guidelines-and-a-bayesian-al-e950d453c1": {
+    "backgroundConcepts": [
+      "topic-242-a-bayes-sard-cubature-method"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Multiple-choice evaluations sometimes choose an answer by comparing the probabilities a language model assigns to candidate completions. Because log-probabilities accumulate across tokens, longer candidates tend to receive worse scores. Dividing by answer length is a common adjustment, but the authors find that this frequently goes too far and favors longer answers instead.",
+      "The paper analyzes when ordinary and length-normalized scoring are appropriate, connecting their biases to the distribution of candidate lengths. It then introduces Bayesian accuracy, which calculates a posterior probability for each candidate using an explicit prior over answer length. This makes the treatment of length part of the scoring model and removes linear length effects.",
+      "Bayesian accuracy can replace likelihood-based multiple-choice scoring without additional model forward passes. Across the evaluated benchmarks and few-shot settings, it consistently shows less empirical length bias than either conventional scoring rule. The findings matter because an evaluation can otherwise reward answer length alongside answer quality; making length assumptions explicit provides a more controlled way to compare candidate answers."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "dec6856c364c64b0f825ebf6ad9ed4b88e62d4508035d048d70a33ed30cc463e",
+    "tldr": "Bayesian accuracy uses an explicit answer-length prior to reduce multiple-choice evaluation bias without extra model forward passes."
+  },
+  "icml-2026-adaptive-sharpness-aware-minimization-with-a-polyak-type-step-size-a-theory-grounded-sch-e5ffcc7c74": {
+    "backgroundConcepts": [
+      "topic-181-s-gd-over-diagonal-linear-networks-implicit-bias"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Sharpness-Aware Minimization, or SAM, trains models by explicitly accounting for the sharpness of the loss landscape. It often improves generalization, but its performance depends on choosing a suitable learning rate. That choice commonly requires repeated tuning or a predefined schedule, adding work around an otherwise effective optimizer.",
+      "The authors derive adaptive Polyak-type learning-rate schedulers specifically for SAM-style updates. They develop versions for both deterministic optimization and stochastic training. Tailoring the scheduler to SAM matters because its update rule differs from ordinary stochastic gradient descent, where stochastic Polyak step sizes have already shown promise.",
+      "For smooth objectives, the deterministic analysis proves linear convergence under strong convexity and an O(1/T) rate under convexity, where T counts iterations. The stochastic results provide analogous guarantees only up to a neighborhood of the optimum. Experiments find performance comparable to or better than carefully tuned SAM baselines while substantially reducing learning-rate tuning. Together, these results support adaptive scheduling through both conditional mathematical guarantees and observed training performance."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "fd8770cbdcc78a3272bc588085bbea3363c2f63039c58f501b9145fc27aed4b6",
+    "tldr": "SAM-specific Polyak schedulers reduce learning-rate tuning while providing conditional convergence guarantees and competitive empirical performance."
+  },
+  "icml-2026-amortizing-maximum-inner-product-search-with-learned-support-functions-f956fbdd7c": {
+    "backgroundConcepts": [
+      "topic-069-pscaling-small-models-principled-warm-starts-and"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Maximum inner product search finds the database vector most strongly aligned with a query. This paper studies whether repeated searches can be replaced by a learned predictor when queries come from a known distribution. Training pays an upfront computational cost that can then be shared across many future queries.",
+      "The approach exploits the convexity of the best attainable inner-product score as a function of the query. Its gradient provides the connection to the optimal database vector. One architecture learns this convex score function and retrieves matches through gradient computation. A second, VectorICNN, directly predicts the maximizing vector, avoiding gradient computation during inference.",
+      "The training objectives combine score and gradient information or enforce consistency between predicted vectors and scores. Additional wrappers impose positive degree-one homogeneity, strengthening the theoretical relationship between function values and gradients. Retrieval experiments show high match rates and support convexity as a useful architectural bias. The direct prediction route permits a single inference forward pass, making the central tradeoff learned search accuracy in exchange for less repeated search computation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0137955d9e5a46b2de347def3ae3b5aadc04429fb7dfe3b8e1c12b0561cf63cb",
+    "tldr": "Learning convex search functions and direct match predictors amortizes maximum inner product search across queries from a known distribution."
+  },
+  "icml-2026-computational-arbitrage-in-ai-model-markets-2440fc4620": {
+    "backgroundConcepts": [
+      "topic-155-dynamic-knapsack-optimization-towards-efficient-"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper considers a market where customers pay for verifiable solutions and competing model providers charge different amounts for different capabilities. An intermediary can allocate inference spending across providers and sell solutions below prevailing prices. This creates a possible business opportunity without requiring the intermediary to develop its own underlying model.",
+      "The authors investigate this computational arbitrage through a detailed SWE-bench issue-resolution study using GPT-5 mini and DeepSeek v3.2. In that verifiable setting, simple strategies achieve net profit margins of up to 40%. They also report profitable strategies that generalize across domains and identify distillation as another source of arbitrage, potentially reducing the teacher model's revenue.",
+      "The economic effects extend beyond intermediary profits. Multiple arbitrageurs push consumer prices down and reduce providers' marginal revenue. At the same time, arbitrage reduces market segmentation and can help smaller providers earn revenue earlier. The findings suggest that how inference is purchased and combined can influence competition and deployment, alongside the capabilities of individual models."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1958a74379a6e8c674238a9cbe162471f918e3cf16f769a348ef6eb9091c9994",
+    "tldr": "Allocating inference across competing providers can generate arbitrage profits while lowering customer prices and changing model-market competition."
+  },
+  "icml-2026-delayed-momentum-aggregation-communication-efficient-byzantine-robust-federated-learning-ba2cff052c": {
+    "backgroundConcepts": [
+      "topic-164-a-federated-stochastic-multi-level-compositional"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Federated learning saves communication by involving only some clients in each training round. This creates a difficulty for defenses against Byzantine clients, whose updates can be unreliable or adversarial: even when such clients are a minority overall, they may dominate the sampled group. Existing robust methods typically assume full participation and can fail in this situation.",
+      "The proposed principle, delayed momentum aggregation, combines fresh momentum from participating clients with cached momentum from clients that were not sampled. The server therefore aggregates information from a broader client population than the current round alone. This keeps Byzantine clients a minority from the server's perspective even when they dominate that round's participants.",
+      "The authors implement this principle in DeMoA and analyze its convergence and robustness under partial participation. In experiments with 20% Byzantine clients and a 10% participation rate, DeMoA achieves the best accuracy while existing methods fail empirically. The result connects communication savings with robustness by changing which client histories remain represented in each server update."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f21f9bd652e255c98d7896efb837a381401235a8b483f6f156cdcb48b469f135",
+    "tldr": "DeMoA combines cached and fresh client momentum to maintain Byzantine robustness when only a subset of clients participates."
+  },
+  "icml-2026-distortion-of-ai-alignment-revisited-rlhf-is-a-decent-utilitarian-aligner-7a45f38d76": {
+    "backgroundConcepts": [
+      "topic-157-textits-sppo-semantic-calibrated-self-play-prefe"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "When users disagree about what makes an answer good, aligning a model involves combining different preferences. This paper examines how well reinforcement learning from human feedback, or RLHF, maximizes average user utility. It measures the shortfall using distortion: a multiplicative gap relative to the best achievable average utility.",
+      "The authors analyze RLHF with reward clipping and establish tight upper and lower distortion bounds across several strengths of KL regularization, which constrains departure from a reference policy. Their analysis identifies a key source of previously reported exponential degradation: a mismatch between the distribution producing preference data and that reference policy.",
+      "Under the Bradley–Terry preference model, in a representative regularization regime, distortion scales as beta times the mismatch bound plus beta, up to logarithmic factors. When the two distributions match, RLHF achieves an optimal distortion bound proportional to beta, up to a constant.",
+      "These results suggest a practical way to improve average utility: collect preference data from the current policy, or first fine-tune on data close to the preference-data distribution. The guarantee concerns average utility under the analyzed conditions; it does not establish that every user's preferences are satisfied."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "569655b588bf7e3ec80398600d91b9c5ba29f5d3e4fd8601955e5758f2941e50",
+    "tldr": "An analysis of RLHF with reward clipping links severe average-utility distortion to distribution mismatch and shows optimal distortion proportional to beta when the distributions match."
+  },
+  "icml-2026-emergence-of-biased-consensus-in-multi-agent-llm-debates-1626664954": {
+    "backgroundConcepts": [
+      "topic-017-texttt-multi-2-hierarchical-multi-agent-decision"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Debating language-model agents can perform well on reasoning and decision tasks, yet agreement among them can amplify individual biases. This paper examines how collective norms emerge through interaction. It identifies debate noise, including randomness controlled by sampling temperature, as an important part of that process.",
+      "The authors build an analytical framework using physics-inspired models of social dynamics. It predicts a transition toward collective bias when conformity exceeds a critical threshold determined by the agents' initial bias and debate noise. This connects a group's eventual agreement to the interaction between starting preferences, pressure to conform, and randomness during discussion.",
+      "Controlled experiments reveal a finite-size crossover consistent with the predicted underlying phase transition. Differences between agents suppress the emergence of collective bias by smoothing that transition. The authors also find that the insights extend to investment decisions and language models used as judges. The findings help explain why strong group consensus can coexist with bias and why agent diversity can change the dynamics of reaching agreement."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ef3282485bfe6b227a2f655c58c29b2f6da98674392d0c7e0af579fc58c3c176",
+    "tldr": "A social-dynamics framework explains how conformity and debate noise can produce biased LLM consensus, with agent heterogeneity suppressing its emergence."
+  },
+  "icml-2026-finite-and-corruption-robust-regret-bounds-in-online-inverse-linear-optimization-under-m-3c1aa278f3": {
+    "backgroundConcepts": [
+      "topic-056-optimistic-online-mirror-descent-for-bridging-st"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Online inverse linear optimization learns someone's hidden objective by observing their optimal choices as available options change. The learner recommends actions and accumulates regret whenever those recommendations achieve less objective value than the person's optimal action. A central question is whether total regret can remain bounded independently of the number of rounds without an exponential dependence on problem dimension.",
+      "The paper partially resolves this question for M-convex feasible sets, a structured class that includes matroids. It proves an O(d log d) total-regret bound, where d is the optimization dimension. The argument combines a characterization of optimal solutions on these sets with geometric reasoning about volume.",
+      "The authors also allow adversarially corrupted feedback in up to C rounds. By monitoring directed graphs constructed from feedback, their method detects corruptions adaptively and achieves O((C+1)d log d) regret without knowing C beforehand. The contribution is a time-independent, near-linear dimensional guarantee within the stated structured setting, together with a controlled increase in regret when observations are corrupted."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e8af04b8534f72bb1fbbf220d1ebfe02f8bf06dc3ae68b50f85400c97b3364e3",
+    "tldr": "For M-convex action sets, the paper proves finite O(d log d) regret and extends it to unknown amounts of corrupted feedback."
+  },
+  "icml-2026-hermes-towards-efficient-and-verifiable-mathematical-reasoning-in-llms-71c59d2a3b": {
+    "backgroundConcepts": [
+      "topic-186-3d-prover-diversity-driven-theorem-proving-with-"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Informal mathematical reasoning lets language models explore arguments flexibly, but it can conceal logical gaps. Formal theorem proving checks individual inferences rigorously, although it offers less freedom for exploratory problem solving. Hermes combines these approaches by interleaving informal reasoning with proofs verified in Lean.",
+      "The agent performs formal checks during intermediate reasoning, helping prevent an argument from drifting away from valid steps. A memory module maintains proof continuity across longer reasoning chains. Together, these components let exploratory reasoning and formal verification interact throughout the solution process, with remembered proof information supporting subsequent steps.",
+      "The authors evaluate Hermes on four mathematical reasoning benchmarks using models ranging from small systems to leading large models. They report improved base-model accuracy throughout the evaluated settings, with lower token use and computational cost than reward-based approaches. On difficult datasets including AIME and HARDMath2, Hermes@1 achieves up to 40% accuracy improvement while using 80% fewer total inference FLOPs. Additional test-time scaling with Hermes@5 raises accuracy further by 20%."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "92519e35441f546d819778973ff6e4bc935a63c6a341ecb5ab6df587d51ae18b",
+    "tldr": "Hermes interleaves informal mathematical reasoning with Lean verification, improving evaluated accuracy while reducing inference cost."
+  },
+  "icml-2026-learning-to-extrapolate-to-new-tasks-a-relational-approach-to-task-extrapolation-57cffcaa51": {
+    "backgroundConcepts": [
+      "topic-060-learning-to-branch-for-multi-task-learning"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Learning systems often handle tasks similar to training examples but struggle when task parameters or structures move beyond the training distribution. The paper approaches this problem through relationships between tasks. Its central idea is that a learned transformation between familiar tasks can also help connect a familiar task to an unfamiliar one.",
+      "The Relational Task Extrapolator, or RTE, represents a target task using a known anchor task and a transformation connecting them. A learned relational operator takes that pair and produces predictions for the target. This makes the relationship between tasks an explicit component of prediction, providing a mechanism for reusing transformations outside the observed task range.",
+      "The authors instantiate RTE for functions with out-of-range parameters, greater compositional depth, and previously unseen combinations of primitives. They also extend the approach to sequence prediction through foundation-model fine-tuning. Across their empirical studies, RTE substantially outperforms existing approaches on unseen-task extrapolation. These results support learning task transformations as a useful strategy across several distinct forms of extrapolation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "26abbfa36d6538d105af78fcdbb8e881df9bc44381f337ae5fa7d811cdd1f6d0",
+    "tldr": "RTE predicts unseen tasks by learning transformations that connect them to known anchor tasks."
+  },
+  "icml-2026-linguistic-properties-and-model-scale-in-brain-encoding-from-small-to-compressed-languag-fb3c6c8f72": {
+    "backgroundConcepts": [
+      "topic-109-how-do-language-models-track-state"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Larger language models can better predict human brain activity, but that leaves open how much model capacity those predictions actually require. This paper investigates whether smaller or compressed models retain representations useful for predicting fMRI responses during naturalistic language comprehension.",
+      "The researchers compare full-precision models, small models, and variants compressed through quantization or pruning. Across the studied model families, which extend to 14 billion parameters, models with 3 billion parameters achieve brain predictivity indistinguishable from larger models. Models with 1 billion parameters perform substantially worse, especially in brain regions associated with meaning.",
+      "Compression also leaves brain predictivity largely intact. Most tested quantization and pruning methods preserve it, although GPTQ consistently departs from that pattern. This suggests that the information supporting these brain-response predictions can survive substantial changes to model precision or structure.",
+      "Linguistic probing reveals a further separation: compression weakens performance involving discourse, syntax, and morphology while brain predictivity remains largely unchanged. These findings mean that linguistic task performance and brain alignment need not move together. Within the comparisons studied, brain predictivity levels off at a modest model scale, motivating the use of compact models to study language representations relevant to brain activity."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5ff14b6f8b12aa3993a6c1d7ac6b682df34243978ede6603e07e54840a745565",
+    "tldr": "In the studied models, 3-billion-parameter models match larger models in predicting brain activity, and most compression methods preserve that ability despite weakening linguistic performance."
+  },
+  "icml-2026-neuro-symbolic-ai-for-analytical-solutions-of-differential-equations-68f48f4791": {
+    "backgroundConcepts": [
+      "topic-206-hey-that-s-not-an-ode-faster-ode-adjoints-via-se"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Analytical solutions to differential equations provide explicit mathematical expressions, but finding them can require expert intuition or searching enormous spaces of possibilities. SIGS combines symbolic construction with numerical optimization to make that search more tractable. A context-free grammar supplies valid, physically meaningful building blocks, while a user-specified Ansatz determines how those blocks may be combined.",
+      "The framework embeds candidates into a continuous latent space with topology regularization. Search first selects a symbolic structure and then refines its coefficients using gradient descent. Candidates are scored against the differential-equation residual and prescribed initial and boundary conditions, so the search does not require solution data.",
+      "The authors report recovering analytical solutions for coupled nonlinear PDE systems, finding equivalent symbolic expressions when natural primitives are absent from the grammar, and producing accurate symbolic approximations when no closed-form solution is known. Across standard PDE benchmarks, they report orders-of-magnitude improvements in accuracy and runtime over existing symbolic methods. The approach makes the grammar and Ansatz central tools for organizing a difficult mathematical discovery problem."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2b7847439907b46e1a8fa828cd3eeb2ff39b7d37e9c4d6e255b13fd480d928a7",
+    "tldr": "SIGS combines grammar-constrained symbolic expressions with continuous optimization to discover PDE solutions and accurate symbolic approximations without solution data."
+  },
+  "icml-2026-omnisapiens-a-foundation-model-for-social-behavior-processing-via-heterogeneity-aware-re-0d05c80ead": {
+    "backgroundConcepts": [
+      "topic-190-a-causal-world-model-underlying-next-token-predi"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Social behavior data spans different modalities and prediction targets, producing uneven learning signals across examples. A model trained across these tasks can therefore experience imbalanced updates. OmniSapiens-7B 2.0 addresses this challenge with a reinforcement-learning method designed explicitly for heterogeneous behavioral data.",
+      "Heterogeneity-Aware Relative Policy Optimization estimates how much each sample contributes to a policy update. It uses those estimates to adjust the advantages that guide learning, applying geometric centering and inertial smoothing for stability. The purpose is to rebalance how examples influence training while supporting a shared model across diverse behavioral tasks.",
+      "The authors report the best and most consistent performance across ten behavioral tasks, with gains up to +12.02%. They also report the best performance on all five held-out benchmarks, with gains up to +9.37%. More consistent and interpretable reasoning traces accompany these results. Together, the findings support accounting for unequal sample contributions when building behavioral models intended to transfer across social contexts, rather than treating heterogeneous training signals as interchangeable."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2054f4ecfd6afbf890b139dea1d2dbbbb1a9b4c19ba2fbd298a03dc6e1bc4e20",
+    "tldr": "OmniSapiens rebalances heterogeneous behavioral training signals through a new policy optimizer, improving performance across evaluated tasks and held-out benchmarks."
+  },
+  "icml-2026-opportunistic-expert-activation-batch-aware-expert-routing-for-faster-decode-without-ret-53d15308be": {
+    "backgroundConcepts": [
+      "topic-161-s-3-increasing-gpu-utilization-during-generative"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Mixture-of-Experts language models activate only a few experts per token, but a batch of tokens can collectively require many experts. During autoregressive generation, moving those experts through memory can become the bottleneck even at moderate batch sizes. The number of distinct activated experts then strongly influences decoding latency.",
+      "Opportunistic Expert Activation changes token-to-expert routing dynamically without retraining. Its strongest approach considers the whole batch: some tokens use experts already loaded because those experts are crucial for other tokens. This shared use reduces the number of experts that must be activated while aiming to maintain comparable output quality.",
+      "At batch size 16, the method reduces MoE-layer decoding latency by 39% on Qwen3-30B while preserving downstream accuracy after accounting for standard error. On Qwen3-235B, it achieves a 15% reduction with small overall degradation on a long-generation benchmark suite. These measurements concern MoE-layer latency, and they show how coordinating expert choices across tokens can trade modest routing flexibility for reduced memory-related work."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ed6452fa33dbd0865c8fb2becfb484c91914f676d165fb7651c84b5499530989",
+    "tldr": "Batch-aware expert routing speeds MoE decoding by letting tokens share already-loaded experts without retraining."
+  },
+  "icml-2026-pdagent-an-llm-driven-autonomous-agent-framework-towards-in-silico-protein-design-via-di-420343a7dc": {
+    "backgroundConcepts": [
+      "topic-249-be-cautious-bio-foundation-models-are-not-yet-ro"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Computational protein design must connect desired properties to changes in protein sequences. Existing approaches can require substantial expertise, restrict the properties users can express, or lack a feedback loop for improving candidates. PDAgent addresses these issues through an autonomous language-model agent that accepts natural-language specifications and designs proteins through template-based directed mutation.",
+      "The framework cycles through thinking, planning, acting, observing, and reflecting. It combines template retrieval, mutation strategies that account for conservation, and specialized computational tools. These components support iterative property optimization across seven biophysical dimensions, allowing the agent to use observations from its actions when deciding what to try next.",
+      "Across 100 diverse computational design tasks, PDAgent achieves an average constraint satisfaction rate of 91.86% and a mean pLDDT of 87.69, with the authors reporting high structural quality. It substantially outperforms direct language-model generation and specialized deep-learning approaches in these experiments. The findings support combining language-based goals, existing protein templates, and tool feedback into a closed-loop in silico design process."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f38d43f18d533be36e88b5397d40d751fee1dbe68f1e4c6fd556a61b5853ffe2",
+    "tldr": "PDAgent turns natural-language protein goals into iterative, tool-assisted template mutations, achieving strong constraint satisfaction in computational design experiments."
+  },
+  "icml-2026-representation-learning-for-equivariant-inference-with-guarantees-f3d6e0d723": {
+    "backgroundConcepts": [
+      "topic-163-3d-steerable-cnns-learning-rotationally-equivari"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Physical and geometric symmetries can help learning systems generalize from fewer examples. Equivariant representations preserve how quantities should transform when the input undergoes a symmetry. This paper develops a common framework for regression, conditional probability estimation, and uncertainty quantification, pairing symmetry-aware representations with statistical learning guarantees.",
+      "The method draws on operator theory and group representation theory. It approximates the spectral decomposition of the conditional expectation operator, using that structure to build representations that are equivariant and separated along independent symmetry quotient groups. This connects the organization of the representation to both the prediction problem and its underlying symmetries.",
+      "The authors provide non-asymptotic guarantees, which address learning with finite amounts of data. They also evaluate the approach on synthetic datasets and robotics applications. Regression performance matches or exceeds existing equivariant baselines, alongside well-calibrated uncertainty estimates. The contribution brings prediction and uncertainty into the same symmetry-based framework, with theoretical analysis supporting capabilities often assessed mainly through empirical geometric deep-learning results."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "39e69f11133955fc31d3aba0d79833459a39e1bdd3458d6323a3a1002c236c85",
+    "tldr": "A symmetry-based representation framework unifies prediction and uncertainty estimation with finite-data learning guarantees and competitive empirical results."
+  },
+  "icml-2026-revisiting-regularized-policy-optimization-for-stable-and-efficient-reinforcement-learni-896815d0a6": {
+    "backgroundConcepts": [
+      "topic-076-varepsilon-fractional-core-stability-in-hedonic-"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Learning strategies in two-player zero-sum games requires policy updates that remain stable as players compete. This paper revisits an optimization method that combines reverse Kullback–Leibler regularization with entropy regularization. It studies the combination through both mathematical analysis and practical reinforcement-learning experiments.",
+      "The theoretical work examines policy-update stability in normal-form games and finite-length games. The authors establish new convergence guarantees and test the theoretical results numerically on synthetic games. Studying both settings connects the update rule to games expressed through direct strategic choices and games that unfold over a finite sequence of decisions.",
+      "The authors then derive a practical model-free reinforcement-learning algorithm from the regularized optimization method. They evaluate training efficiency on Animal Shogi, Gardner Chess, Go, Hex, and Othello, reporting more efficient learning than existing methods across the tested environments. The paper's contribution is the connection between a mathematically analyzed regularization scheme and an implementable game-learning algorithm, with evidence addressing both update stability and training efficiency."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b4447dda0510dddc580c07fb9241e31fce9b67bd26a1e83eabd7161a0a847f7a",
+    "tldr": "Combining reverse-KL and entropy regularization yields convergence guarantees and a model-free algorithm that learns efficiently across five board games."
+  },
+  "icml-2026-safeguarded-stochastic-polyak-step-sizes-for-non-smooth-optimization-robust-performance--40dfe042d2": {
+    "backgroundConcepts": [
+      "topic-181-s-gd-over-diagonal-linear-networks-implicit-bias"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Stochastic Polyak step sizes adapt the size of optimization updates and have performed well on smooth problems. Extending them to non-smooth objectives is harder: existing approaches often depend on interpolation assumptions or information about the optimal solution. The paper introduces Safeguarded SPS for stochastic subgradient optimization to address this setting.",
+      "The authors prove convergence guarantees for non-smooth convex optimization without the strong assumptions motivating their critique of earlier extensions. They also add momentum to the update rule and obtain equally tight theoretical results. This places the adaptive step-size method and its momentum version within the same analyzed non-smooth optimization setting.",
+      "Experiments cover convex benchmarks and deep neural networks. Safeguarded SPS performs competitively with existing adaptive baselines and behaves stably across a wide range of tested problems. During the reported neural-network training, gradient norms do not collapse toward zero, which the authors interpret as evidence of robustness to vanishing gradients. The theoretical guarantees concern non-smooth convex problems, while the neural-network results provide additional empirical support."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "462ff44330332c65cb0239341362d9d803d72b8cdb6801c627b77f169d1d2eaf",
+    "tldr": "Safeguarded SPS extends adaptive Polyak step sizes to non-smooth optimization with convergence guarantees and stable empirical behavior."
+  },
+  "icml-2026-skipping-the-zeros-in-diffusion-models-for-sparse-data-generation-45fefc4440": {
+    "backgroundConcepts": [
+      "topic-080-text-s-2-q-vdit-accurate-quantized-video-diffusi"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Sparse continuous data contains many exact zeros that indicate a signal is absent. Conventional diffusion models are designed for dense continuous data and do not naturally represent this kind of exact absence. Applying them to sparse data can therefore destroy meaningful sparsity patterns while spending computation on entries that should remain zero.",
+      "Sparsity-Exploiting Diffusion, or SED, focuses modeling on nonzero values and skips zeros during both training and inference. This makes preserving sparsity part of the generative approach itself. The same design also avoids unnecessary processing, connecting the statistical structure of sparse data to a direct opportunity for computational savings.",
+      "Across physics and biology benchmarks, SED matches or exceeds conventional diffusion models and domain-specific baselines while reducing computation. Vision experiments illustrate the difficulties dense diffusion models face and the benefits of the sparse approach. The reported findings show that exploiting exact zeros can support generation quality and efficiency together, particularly when those zeros carry information about deliberate signal absence."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3106ce0011b0bf040f503c455d5274c95843ed9f80fb59eb8b36af9d0b327b8e",
+    "tldr": "SED preserves sparse data by modeling nonzero values and skipping zeros, saving computation while maintaining or improving generation quality."
+  },
+  "icml-2026-supervised-graph-contrastive-learning-for-gene-regulatory-networks-dc4f19a344": {
+    "backgroundConcepts": [
+      "topic-044-a-collective-learning-framework-to-boost-gnn-exp"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Graph contrastive learning often creates training examples by artificially changing graph structure. For gene regulatory networks, operations such as dropping nodes can produce changes that do not reflect biological processes. This paper asks how measured biological perturbations can instead provide useful supervision for learning network representations.",
+      "SupGCL incorporates gene knockdown experiments directly into a probabilistic contrastive-learning formulation. Its formulation continuously connects conventional artificial augmentations with real perturbations and uses the experimental changes as explicit supervision. Structural changes therefore become evidence about biological behavior, giving the representation-learning process information that avoiding graph modifications altogether would leave unused.",
+      "The authors evaluate patient-derived gene regulatory networks from three cancer types. In embedding-space analysis, SupGCL produces clearer disease-subtype structure and better clustering. After task-specific fine-tuning, it consistently exceeds strong graph representation-learning baselines on 13 tasks covering gene-level functional annotation and patient-level prediction. These results support using experimentally meaningful changes to shape network representations that are useful both for exploratory analysis and downstream prediction."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1d8b55c6f84c0849c8dc06ea9e48230b6501956f660c7b435d6c9e3cbd4c5aef",
+    "tldr": "SupGCL uses real gene knockdown perturbations to supervise graph representations, improving disease structure and downstream predictions."
+  },
+  "icml-2026-test-time-graph-search-for-goal-conditioned-reinforcement-learning-f03982b7aa": {
+    "backgroundConcepts": [
+      "topic-006-a-boolean-task-algebra-for-reinforcement-learnin"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Offline goal-conditioned reinforcement learning often struggles to reach distant goals because value-estimation errors accumulate over long horizons. This paper finds that existing value functions nevertheless contain locally consistent geometric information sufficient for planning. Test-Time Graph Search uses that information to improve existing policies without additional training.",
+      "The method constructs a graph over the offline dataset and adaptively selects subgoals. During shortest-path search, it softly penalizes long-distance transitions whose value estimates may be unreliable. This lets planning depend more effectively on local structure while organizing progress toward a distant target. The wrapper requires no new supervision or parameter updates and adds negligible computational overhead.",
+      "On OGBench, TTGS improves success rates across several base learners and tasks. The largest gains occur in difficult long-horizon locomotion tasks, where some success rates rise from near zero to above 90%. It often matches or exceeds approaches requiring complex auxiliary training. The results show that useful long-horizon behavior can emerge from reorganizing the information already present in learned policies and their offline data."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c6e2268e7d7487da8d835217f96839cfdc4a8e71eeffcf1defbde719aa2343d1",
+    "tldr": "TTGS adds training-free graph planning to existing goal-conditioned policies, substantially improving some difficult long-horizon tasks."
+  },
+  "icml-2026-timesae-causal-sparse-decoding-for-faithful-explanations-of-black-box-time-series-models-886725a5bc": {
+    "backgroundConcepts": [
+      "topic-026-k-2-vae-a-koopman-kalman-enhanced-variational-au"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Explaining a time-series model becomes especially challenging when the data encountered in use differs from its training data. An explanation method that works within the familiar distribution may become unreliable outside it. The paper identifies this sensitivity to distribution shift as a weakness of many existing approaches to explaining black-box predictions.",
+      "TimeSAE approaches explanation through sparse autoencoders and causality. It builds on sparse autoencoder representations to explain time-series models, with causal sparse decoding providing the framework's organizing perspective. The goal is to produce explanations that remain faithful to model behavior and robust when the data distribution changes.",
+      "The authors evaluate TimeSAE on synthetic and real-world time-series datasets against leading baselines. Both quantitative measurements and qualitative examination support more faithful and robust explanations. This matters because an explanation's usefulness depends on how accurately it reflects the model being explained, including under changing conditions. The work also provides TimeSAE-Lib, an accessible library for using the proposed framework in time-series explanation workflows."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "bac9234430250d08c2919cf6ac0ed479a9247f0dbf8e1935b2625a6d53331858",
+    "tldr": "TimeSAE combines sparse autoencoders and a causal perspective to improve the faithfulness and robustness of time-series model explanations."
+  },
+  "icml-2026-twice-sequential-monte-carlo-for-tree-search-f19af3c4f1": {
+    "backgroundConcepts": [
+      "topic-042-a-bayesian-approach-for-policy-learning-from-tra"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Search can improve decisions in model-based reinforcement learning by evaluating possible future action sequences. Sequential Monte Carlo offers an alternative to Monte Carlo Tree Search that is easier to parallelize and better suited to GPU acceleration. Its difficulty is scaling to deeper searches, where high variance and path degeneracy undermine the benefit of additional sequential computation.",
+      "Twice Sequential Monte Carlo Tree Search, or TSMCTS, is introduced to address those weaknesses while retaining the parallel structure of SMC. The method targets both estimator variance and path degeneracy, aiming to make deeper searches provide more useful policy improvement. This connects search quality to how effectively an algorithm uses additional computation over successive search steps.",
+      "Across the tested discrete and continuous environments, TSMCTS outperforms both the SMC baseline and a popular modern MCTS variant as a policy improvement operator. It reduces estimator variance, mitigates path degeneracy, and scales favorably with sequential compute. The reported combination matters because efficient parallel execution and productive increases in search depth are both valuable properties for computationally intensive planning."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "40bd5a29bbd2531d8bda09e7300c0d46687fc1072174f5ddfe44f9abc44d8c17",
+    "tldr": "TSMCTS improves the depth scaling and decision quality of parallel-friendly Monte Carlo search by reducing variance and path degeneracy."
+  },
+  "icml-2026-when-search-goes-wrong-red-teaming-web-augmented-large-language-models-c44b3bd4d5": {
+    "backgroundConcepts": [
+      "topic-049-a-coin-flip-for-safety-llm-judges-fail-to-reliab"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Web search extends language models beyond their stored knowledge, but it also introduces risks through retrieved pages and citations. A system can expose users to harmful or low-credibility material through its sources. Red-teaming focused mainly on unsafe generated text can miss vulnerabilities in this broader search workflow.",
+      "CREST-Search is a framework for evaluating that threat surface. It uses three attack strategies to create apparently benign search queries that induce unsafe citations. An iterative in-context refinement process improves adversarial effectiveness under black-box constraints. The authors also construct WebSearch-Harm, a search-specific harmful dataset that supports fine-tuning a specialized red-teaming model to improve query quality.",
+      "Experiments show that CREST-Search can bypass safety filters and systematically reveal weaknesses in search-enabled language-model systems. The contribution is an evaluation approach centered on what a model retrieves and cites as well as what it writes. These findings support treating the retrieval-and-citation process as an explicit part of safety testing when language models access the open web."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a525a60a27ef862c65c0166201f08bd24a9f9a65ca1c76b5b46a2f41d2efbff7",
+    "tldr": "CREST-Search reveals safety weaknesses in web-enabled LLMs by testing whether benign-looking queries can induce unsafe citations."
+  }
+}

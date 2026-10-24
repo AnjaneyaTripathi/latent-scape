@@ -1,0 +1,327 @@
+{
+  "icml-2026-a-tale-of-two-problems-multi-task-bilevel-learning-meets-equality-constrained-multi-obje-35fa3a8177": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Bilevel learning involves an optimization problem whose outcome depends on another optimization problem. Extending this arrangement to several tasks introduces competing objectives. This paper studies that setting while relaxing a common requirement: the lower-level problem needs to be convex, but need not satisfy the stronger condition of strong convexity. That broadens the class of problems covered by the formulation.",
+      "The authors convert the multi-task bilevel problem into a multi-objective problem with equality constraints. They then define a convergence criterion using Karush–Kuhn–Tucker conditions and Pareto stationarity, which describes a stationary tradeoff among objectives. Their weighted Chebyshev penalty algorithm is designed to reach this criterion while handling the equality constraints.",
+      "The stated convergence rate is O(S/√T), where S is the number of objectives and T is the iteration count, in both deterministic and stochastic settings. Changing a preference vector lets the method explore the Pareto front. Solutions of the reformulated problem translate back to the original bilevel problem, connecting the algorithmic result to the learning task it was designed to solve."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2379251ef725d78a36069f995bd796b7e3e942f6017b3ad90a8f007e5622d77b",
+    "tldr": "The paper connects multi-task bilevel learning to constrained multi-objective optimization and develops an algorithm with a proved rate toward Pareto stationarity."
+  },
+  "icml-2026-attn-qat-4-bit-attention-with-quantization-aware-training-1cb110b7d8": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Four-bit floating-point computation offers a route to faster models, but attention is difficult to run reliably at this precision. FP4 represents only a small range of values, while attention activations can include unusually large values. This paper investigates how quantization-aware training can help attention accommodate those numerical constraints.",
+      "The authors find that simply pairing an FP4 forward pass with a high-precision Flash Attention-style backward pass causes instability. Their solution addresses the training calculation itself: recomputed attention scores in the backward pass must match the low-precision computation, and implicit precision assumptions in the gradient formula must be resolved. Attn-QAT implements these principles with fused training kernels and FP4 inference kernels.",
+      "Across the evaluated diffusion and language models, Attn-QAT recovers quality lost with FP4 attention without the explicit outlier-handling heuristics used in prior work. Reported speedups reach 1.5× over SageAttention3 on an RTX 5090 and 1.74× over FA4 on a GB300. The contribution links reliable low-precision attention to consistent forward and backward calculations, alongside implementations that deliver measured speed benefits."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "dbca555fecc9b31c61001cb341fadb1f86ccf50d16ec694e224348c63bedd1d0",
+    "tldr": "Attn-QAT stabilizes FP4 attention training by correcting precision mismatches and recovers model quality while delivering hardware-specific speedups."
+  },
+  "icml-2026-causalx-a-unified-and-causally-interpretable-plug-and-play-model-for-multi-modal-spatio--c9a38b8660": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Forecasting events across space and time becomes harder when several kinds of input interact and those relationships change. CausalX addresses both prediction and interpretation by learning a dynamic graph connecting modalities and time steps. Its edge weights represent the strength of causal attribution within the model, providing a structured account of influences on a forecast.",
+      "A central challenge is that the true causal graph is unavailable. CausalX combines constraints from causal analysis methods and a variational autoencoder, drawing on predictive, temporal, interventional, and generative information. A diffusion-based generation process, guided by structural priors, further refines the graph. These components supply several complementary sources of structure for learning the relationships.",
+      "Experiments include pedestrian trajectory prediction and tropical cyclone forecasting. The authors report superior forecasting accuracy together with interpretable causal graphs. CausalX is presented as a modular, architecture-agnostic component, allowing the graph-based approach to support different forecasting models. Its stated contribution is a way to improve predictions while exposing the learned relationships across inputs and time that help explain them."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c3e53cc6572443ee96e09cae29d2b51885d6b03846637cafd6a0b14cb0a278d3",
+    "tldr": "CausalX combines dynamically learned causal graphs with multiple structural constraints to improve and interpret multimodal forecasting."
+  },
+  "icml-2026-causalxrl-explainable-reinforcement-learning-through-causal-graph-reasoning-3755857429": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A reinforcement learning agent can perform well while leaving its decisions difficult to understand. That makes inspecting behavior and identifying problems harder. CausalXRL addresses this interpretability problem through causal graph reasoning, producing structured explanations at multiple levels of an agent’s decision-making. The framework aims to make the relationships behind behavior available for inspection.",
+      "The evaluation separates two questions: whether explanations faithfully represent agent behavior, and whether people find them useful. Quantitative experiments in benchmark reinforcement learning environments assess explanation fidelity and the efficiency of learning causal structures. Case studies provide additional examination of the framework, while an expert study evaluates explanations in the real-time strategy environment MicroRTS.",
+      "The quantitative results indicate that CausalXRL can generate faithful explanations while learning causal structures efficiently. The qualitative study suggests that participants found it useful for inspecting high-level strategies. Together, these findings support both technical fidelity and practical interpretability in the evaluated settings. The human study specifically concerns understanding strategy, giving the explanation framework a concrete use beyond simply displaying a graph."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2a2dfe0e26a6af27f885fdc62ee065f96ecfb57bc1c324809b2bd5b233252f84",
+    "tldr": "CausalXRL uses causal graphs to explain agent decisions, with evidence of faithful explanations and expert usefulness for inspecting strategies."
+  },
+  "icml-2026-cofactgvr-counterfactual-intervention-for-grounded-visual-reasoning-70caeaddbb": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Visual reasoning systems need to choose useful image evidence as well as produce correct answers. A training signal focused on the final answer can leave those intermediate choices weakly supervised and permit shortcuts. CofactGVR separates evidence generation from answer reasoning and represents their connection with a causal graph in which the selected evidence mediates the answer.",
+      "The method tests the value of that evidence through a matched counterfactual intervention. It perturbs the predicted region while holding the original image and question context fixed, then compares factual and counterfactual rewards. The difference provides an intermediate training bonus, selectively applied to high-quality factual trajectories, to encourage reasoning that depends on informative evidence.",
+      "A sampling strategy called Q-PAS prioritizes trajectories with large-magnitude advantages and filters samples with weak signals. This helps stabilize and use the intervention-based feedback efficiently. Experiments across grounded visual reasoning benchmarks show consistent improvements. The findings indicate stronger reliance on useful visual evidence under the controlled interventions, connecting better intermediate grounding decisions with improved overall reasoning."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8e0adc6bdb62b69847a0b30304cacf862fda27a7d70f065029e4175482b3873a",
+    "tldr": "CofactGVR rewards useful visual evidence by measuring how controlled changes to a selected image region affect answer rewards."
+  },
+  "icml-2026-correcting-in-hindsight-editing-past-key-value-states-for-robust-llm-reasoning-31579e1ec1": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "An early reasoning error can continue influencing a language model as it generates later steps. HEdit gives the model a way to revisit the internal states associated with those earlier decisions. Its focus is the key-value cache: stored representations from preceding tokens that subsequent generation uses.",
+      "The framework distinguishes between logical anchors, where problematic internal representations emerge, and later trigger points, where inconsistency becomes detectable. It monitors for those signals during generation, traces them back to important anchors, and applies a small trainable editor to their cached states. This lets later evidence change the internal context supporting future reasoning, introducing a form of correction during inference.",
+      "On mathematical reasoning tasks, the authors report average accuracy improvements ranging from 2.2% to 10.8% across various models. The added parameters amount to less than 0.5%, and the abstract reports very low overhead. These findings support the usefulness of selectively revising earlier internal representations, with a small added component that can be plugged into models and is positioned as particularly helpful in low-resource settings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7548d860f65c779ed757e5615594a20900f7da41670b3d8169d22ab1f4299512",
+    "tldr": "HEdit improves mathematical reasoning by detecting inconsistencies and using a small learned editor to revise earlier key-value cache states."
+  },
+  "icml-2026-decision-transformers-as-zero-shot-learners-via-text-behavior-alignment-453a85a398": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Offline meta-reinforcement learning trains agents from existing data so they can adapt to new tasks. Many approaches still need demonstrations of the target task, which may be unavailable even when its objective can be described. The Text-Guided Decision Transformer, or TG-DT, explores adaptation using only a natural-language description of the new task.",
+      "During training, TG-DT aligns task descriptions with behavioral trajectories in a shared representation space. It combines contrastive and matching objectives to strengthen that alignment. A transformer policy then uses the aligned representations to produce appropriate actions. The description becomes a way to connect a new objective with behavior learned from the available training tasks.",
+      "At test time, the framework generates policies for unseen tasks without requiring target-task data. It can also use an optional description-guided data-sharing strategy to enhance adaptation. Experiments on MuJoCo and Meta-World benchmarks report strong generalization to unseen tasks. The results support text-behavior alignment as a practical route to task adaptation when instructions are available but target demonstrations are not."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0e74ee7da41784f42eedf0037e5a4437d236ce9ae20f5510289a315a1b638938",
+    "tldr": "TG-DT aligns task descriptions with behavioral trajectories so an offline-trained agent can tackle unseen tasks from text alone."
+  },
+  "icml-2026-dila-disentangled-latent-action-world-models-dc8291fff5": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Learning a world model from unlabeled video requires inferring what changes between frames without explicit action labels. Latent action models represent those changes as abstract actions, but compact action representations can conflict with detailed image generation. DiLA addresses this tradeoff by separating spatial structure from visual content within the world model.",
+      "The proposed mechanism makes this separation and action learning reinforce each other. The restricted predictive representation used for latent actions pushes spatial layouts into a structure pathway, while a separate content pathway supplies visual details for generation. This division lets the action representation focus on meaningful changes while the generator retains access to information needed for high-quality images.",
+      "The authors report superior results in video generation, action transfer, visual planning, and interpretation of the learned action space. They describe that space as continuous and semantically organized, with no compromise in generative quality. These findings support a unified approach to learning abstract actions and detailed visual predictions from unlabeled video, linking the organization of the representation to its usefulness across several tasks."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d4c5415a3f6ae3dad2761bfae2339aebd089c22c913d4e2c752c72ee9f4c3f61",
+    "tldr": "DiLA separates spatial structure from visual detail to learn meaningful latent actions while preserving high-quality video generation."
+  },
+  "icml-2026-docksmith-scaling-reliable-coding-environments-via-an-agentic-docker-builder-b4b15faa5d": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Software engineering agents need working execution environments to train and be evaluated reliably. Constructing those environments can itself demand substantial reasoning about dependencies, tool use, and recovery from failures. DockSmith treats Docker environment building as an agent capability worth training directly, with skills that may also transfer to broader software tasks.",
+      "The training data consists of large-scale Docker-building trajectories grounded in actual execution. The generation pipeline includes a controller for detecting loops and a memory of successes across tasks. These additions support the production of trajectories for training a 30B-A3B model, making environment construction both the immediate task and a source of supervision for longer-horizon agent behavior.",
+      "On Multi-Docker-Eval, DockSmith achieves 39.72% Fail-to-Pass and a 58.28% Commit Rate, which the authors report as open-source state-of-the-art performance. They also report improvements on SWE-bench Verified, SWE-bench Multilingual, and Terminal-Bench 2.0 outside the training distribution. Those results support the claim that learning to construct environments can benefit capabilities beyond Docker building itself."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "92e8e8f81d9f5bffcbef46eb7f0c79d522f4c951eb6588480436dc75ba5c3e84",
+    "tldr": "DockSmith trains an agent on executed Docker-building trajectories, improving environment construction and performance on broader software-agent benchmarks."
+  },
+  "icml-2026-evaluating-and-steering-modality-preferences-in-multi-modal-llms-88c15e3208": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A multimodal model may favor one kind of input when different modalities provide conflicting evidence. This paper makes that preference measurable through the MC² benchmark, which constructs controlled evidence conflicts. The setup allows researchers to examine which source a model follows when its inputs disagree.",
+      "Across 20 tested models, the authors find that all generally display clear modality preferences. Those preferences are statistically associated with downstream task performance. Further analysis shows that instructions can influence the preferences and that information about them is present in internal model representations. The findings connect observable choices under conflict with signals inside the models.",
+      "The authors use those internal signals to develop a representation-engineering method that probes and steers preference without additional fine-tuning. It strengthens preference in a chosen direction and shows promising improvements on several multimodal understanding and reasoning tasks. The contribution therefore combines a controlled evaluation of input preference with a way to adjust it, while the reported performance relationship remains an association rather than a universal rule about which modality to favor."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d3e07d27816eda15dcb86afb3521d151106495dfc4db4007bcf927e3ebc2ae40",
+    "tldr": "The paper measures modality preferences under conflicting evidence and steers those preferences through internal representations without additional fine-tuning."
+  },
+  "icml-2026-geometric-collapse-when-vision-models-fail-to-verify-physical-causality-60ffc09825": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Better depth prediction does not by itself establish that a vision model checks whether visual cues are physically plausible. This paper tests that distinction using Scrambled Edges, a controlled image alteration that introduces prominent edge-like signals while breaking surface continuity, lighting coherence, and occlusion ordering.",
+      "The experiments use controls matched for energy and structure to separate the influence of unsupported edges from high-frequency energy and edge sparsity. Across convolutional, vision-transformer, and self-supervised depth predictors on NYU Depth v2 and KITTI, the alterations cause deviations from clean predictions up to 3.2 times larger than energy-matched noise. The effect therefore exceeds the response to a matched amount of generic noise.",
+      "The disruption also spreads beyond the altered region. Even with perfect knowledge of its location, output-level repair recovers only 47%, with substantial error remaining outside the mask. These results provide behavioral evidence that the tested predictors do not reliably isolate physically unsupported edge cues. They motivate explicit plausibility assessment and more selective use of visual evidence when forming geometric predictions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "548d87735cf024aa313d4893bfd2c5c8accf32db2985d0b4d913eb7eb84fa1f1",
+    "tldr": "Controlled edge corruptions reveal that tested depth predictors can spread physically unsupported visual evidence into widespread geometric errors."
+  },
+  "icml-2026-learning-human-robot-collaboration-via-heterogeneous-agent-lyapunov-policy-optimization-6f7fa58590": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Human–robot collaboration must accommodate different human behaviors and changing contexts. In decentralized learning, differences between human and robot agents can make their individual policy updates diverge from cooperative joint optimization. The paper calls this mismatch a rationality gap and explains that the resulting learning dynamics can oscillate or diverge.",
+      "HALO introduces structure to stabilize those updates. It uses a Lyapunov-based criterion in policy-parameter space and adjusts decentralized gradients through optimal quadratic projections. The stated result is monotonic contraction of the rationality gap, helping learning remain coordinated while exploring varied interactions. The certificate concerns stability of the learning process; the abstract explicitly distinguishes it from Lyapunov methods that enforce physical state or trajectory constraints.",
+      "The authors evaluate HALO through simulations and experiments with a real humanoid robot. They report that certified learning stability improves generalization and robustness in collaborative corner cases. The contribution connects a mathematical mechanism for coordinating decentralized updates with observed benefits when collaboration encounters difficult combinations of partner behavior and context."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "dbc3c5b61e1ded33790ea0623783f0b403ba7328a994a03719c45b17e3e92083",
+    "tldr": "HALO stabilizes decentralized human–robot policy learning by adjusting gradients to contract the gap from cooperative optimization."
+  },
+  "icml-2026-livenewsbench-evaluating-web-search-agents-with-freshly-curated-news-bf74dcfc4d": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Evaluating a web-search agent requires distinguishing successful retrieval from answers already stored in its model. LiveNewsBench addresses this by automatically constructing question-answer pairs from recent news. Its regularly refreshed questions require information beyond a model’s training data, creating a clearer test of the ability to obtain and reason over new information.",
+      "The questions are intentionally demanding: answering them can require multiple linked searches, visits to pages, and reasoning across retrieved material. This makes the benchmark relevant to agentic search behavior across several steps. A subset of the test samples is verified by humans to support evaluation reliability alongside the automated curation process.",
+      "The same pipeline supports frequent benchmark updates and the construction of large training datasets for web-search agents. The authors evaluate commercial models, open-weight models, and language-model-based search APIs. The contribution is both an evaluation resource and a data-generation process: it provides a way to test search on fresh information while helping supply training material for that capability."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "fef8db40c2fef5ea5e34780b4e42890a89392917acbb7574f8994d7aecaf72bc",
+    "tldr": "LiveNewsBench generates difficult, regularly refreshed news questions to evaluate agents’ ability to search for information beyond their training data."
+  },
+  "icml-2026-localize-and-neutralize-gradient-guided-token-suppression-against-visual-prompt-injectio-d480385732": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Visual prompt injection can redirect a multimodal model through an adversarial image. This paper finds that successful attacks depend on a small set of critical image tokens rather than drawing equally on the whole image. That observation motivates a targeted defense: locate those tokens and mask them to interrupt the attack.",
+      "The authors identify a weakness in attribution methods based on output probabilities: they fail when an attack preserves the predicted token. Their alternative, the Hidden-State Gradient Norm score, measures attribution through internal states. They prove that its token ranking agrees with the ranking from the full adversarial-loss gradient, supplying theoretical support for the localization method.",
+      "The resulting defense, GTM, needs one forward–backward pass to score tokens and zero out a small number of high-scoring ones. Experiments on visual prompt injection and multimodal jailbreak attacks reduce attack success rates to near zero while preserving utility with negligible reported computational overhead. These results support selective suppression as an efficient defense in the evaluated attacks, with localization central to balancing protection and useful image information."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9f309e952d761cd79e98982481d0f84a3782007beb63440e10ac1940129a697f",
+    "tldr": "GTM identifies and masks a few influential image tokens, reducing tested visual attacks to near-zero success while preserving model utility."
+  },
+  "icml-2026-memevolve-meta-evolution-of-agent-memory-systems-192bd95d4d": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "An agent can accumulate experience while continuing to use the same fixed memory system. MemEvolve targets that restriction by adapting both the knowledge an agent retains and the architecture responsible for handling it. The aim is to improve how agents learn from experience as task contexts change.",
+      "The work also introduces EvolveLab, a shared codebase that organizes twelve representative memory systems into four functions: encoding, storage, retrieval, and management. This modular design supplies a common implementation foundation and experimental setting for comparing memory approaches. It also makes the components of memory architecture explicit within the framework’s adaptation process.",
+      "Evaluations on four agentic benchmarks report substantial gains, including improvements of up to 17.06% for frameworks such as SmolAgent and Flash-Searcher. The authors also find that evolved memory architectures transfer effectively across tasks and language-model backbones. These findings support adapting the machinery of memory alongside its contents, with the transfer results suggesting that useful architectural changes can extend beyond the particular setting in which they were developed."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "477196c67d7d5e700e663c993107acc7ebb94cbe13536fa5a29776d7b21a0cfe",
+    "tldr": "MemEvolve adapts agents’ memory architectures alongside their accumulated experience, yielding performance gains and transfer across tasks and models."
+  },
+  "icml-2026-on-the-interplay-of-pre-training-mid-training-and-rl-on-reasoning-language-models-056607d68d": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Whether reinforcement learning expands reasoning ability is hard to determine when earlier training data and stages are poorly controlled. This paper builds a controlled framework using synthetic tasks with explicit atomic operations and readable reasoning traces. By manipulating training distributions, it separates contributions from pre-training, mid-training, and reinforcement-learning post-training.",
+      "The evaluation distinguishes handling more complex compositions from transferring across surface contexts. In this framework, gains in capability measured by pass@128 appear only when pre-training leaves sufficient room for improvement and reinforcement-learning data targets tasks near the model’s current competence boundary. Transfer across contexts requires a minimal but sufficient amount of pre-training exposure, after which reinforcement learning transfers reliably.",
+      "The authors also find that mid-training improves performance under fixed compute compared with reinforcement learning alone. Rewards for intermediate reasoning steps reduce reward hacking and improve the fidelity of reasoning traces. Together, these controlled results explain why reinforcement learning can produce different outcomes depending on prior training and task selection, and identify mid-training and reward design as consequential parts of the pipeline."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4ea7dc5507ecd778a4839030cb6519c04e860000438f7d055db5c0f179c1b45e",
+    "tldr": "Controlled synthetic experiments show how reasoning gains from reinforcement learning depend on prior training, task difficulty, mid-training, and reward design."
+  },
+  "icml-2026-predictive-prefetching-for-retrieval-augmented-generation-e3b782520b": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Retrieval-augmented generation grounds answers in external information, but waiting synchronously for retrieval adds latency. Retrieving asynchronously can reduce waiting, yet coordination becomes difficult when information needs change during generation. This paper proposes predicting those needs early enough to fetch relevant material before uncertainty becomes critical.",
+      "The framework combines a retrieval predictor, a context monitor, and a query generator. Together, they determine when to initiate retrieval and what information to request. Their decisions use semantic precursors in the generation process that emerge several tokens before the critical point. Monitoring the evolving context is central to keeping prefetching aligned with changing information demands.",
+      "Across multiple benchmarks, the authors report end-to-end latency reductions of up to 43.5% and a 62.4% improvement in time to first token, while retaining answer quality comparable to synchronous retrieval baselines. These findings support predictive coordination as a way to reduce retrieval-related waiting. The result connects anticipation of future information needs with faster responses, while evaluating quality against the synchronous approach."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1c7501f63d045df615c4267695135c7403529bdfc25abbffd046505ee5c8af7e",
+    "tldr": "The framework predicts when and what to retrieve, reducing response latency while maintaining answer quality comparable to synchronous RAG."
+  },
+  "icml-2026-provably-convergent-actor-critic-for-marl-through-risk-aversion-8572a5181f": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Learning stable strategies is difficult in general-sum multi-agent games, where participants’ objectives need not be aligned or directly opposed. The paper focuses on stationary policies for infinite-horizon Markov games. Computing stationary versions of classical equilibria is intractable, motivating a solution concept that is more amenable to learning.",
+      "The authors study Risk-averse Quantal response Equilibria, which incorporate risk aversion and bounded rationality. They establish regularity properties of this equilibrium concept and use them to design an actor-critic algorithm. The method is described as single-timescale, with a faster actor and a slower critic, linking policy updates and value estimation in the proposed learning procedure.",
+      "Using the regularity of the risk-averse equilibrium, the authors prove global convergence with finite-sample guarantees. Experiments in several environments also show better convergence properties than risk-neutral baselines. The theoretical result is tied to this particular equilibrium concept: the contribution provides a learnable target that includes risk sensitivity, together with a convergent algorithm and empirical evidence supporting its learning behavior."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9572d135921cf6eaa81f9c5315fd2ed5f07a38b01b89f63a241d12d85d222c0a",
+    "tldr": "Risk-averse Quantal response Equilibria enable an actor-critic algorithm with proved global convergence and finite-sample guarantees in the studied Markov-game setting."
+  },
+  "icml-2026-seizure-semiology-suite-s-3-a-clinically-multimodal-dataset-benchmark-and-models-for-sei-adf23f6916": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Understanding seizure videos requires tracking involuntary movements, their timing, and their clinical meaning. Seizure-Semiology-Suite examines these abilities in multimodal language models through a clinically grounded dataset. It contains 438 seizure videos with more than 35,000 dense labels covering 20 semiological features defined by the ILAE.",
+      "A seven-task hierarchy evaluates abilities from basic visual perception to symptom ordering, report writing, and seizure diagnosis. The authors also introduce Seizure-RQI to assess the clinical quality of generated reports. This structure makes it possible to examine distinct components of seizure understanding rather than reducing the evaluation to a single classification result.",
+      "Tests of 11 open-weight models reveal recurring problems with identifying the affected side, localizing symptoms in time, sequencing events, and producing clinically faithful reports. Seizure-specific fine-tuning substantially improves performance across tasks. A two-stage neuro-symbolic framework achieves an F1 score of 0.96 for distinguishing epileptic from non-epileptic seizures. Together, the dataset, evaluation measures, and model results establish a detailed basis for studying domain-specific medical video understanding."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d4e844af8fe76b5198c1018e6b410badfd97de2070b478400fdfb6032530b62e",
+    "tldr": "Seizure-Semiology-Suite benchmarks detailed seizure-video understanding, exposes recurring model weaknesses, and demonstrates improvements from domain-specific training."
+  },
+  "icml-2026-supervise-less-see-more-training-free-nuclear-instance-segmentation-with-prototype-guide-cbfce3f2d7": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Nuclear instance segmentation identifies individual cell nuclei in pathology images. Although large vision models can help, adapting them often requires dense annotations and expensive fine-tuning. SPROUT proposes a framework that produces prompts for nuclear segmentation without training, annotations, or updates to model parameters.",
+      "The method uses histology-informed priors to build reference prototypes specific to each slide. These prototypes address differences between the slide’s appearance and the model’s representations, progressively guiding feature alignment through partial optimal transport. The resulting foreground and background features are converted into positive and negative point prompts. Those prompts guide the Segment Anything Model in delineating individual nuclei.",
+      "Experiments across multiple histopathology benchmarks report competitive performance without supervision or retraining. The contribution is therefore a way to adapt segmentation behavior through slide-specific references and automatically generated prompts. It shows how domain information can shape the inputs to an existing foundation model, allowing that model to perform the target segmentation task while its learned parameters remain fixed."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e29cd4b9697aeebbe1134926b0476e53991196bb4bdd083dce694483a9928e6e",
+    "tldr": "SPROUT uses slide-specific prototypes to automatically prompt SAM for nuclear segmentation without annotations, training, or parameter updates."
+  },
+  "icml-2026-td-vad-breaking-visual-dependence-in-video-anomaly-detection-with-text-driven-learning-e39d936a0c": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Abnormal events are rare and varied, making annotated anomaly videos difficult to collect at scale. TD-VAD explores training a video anomaly detector with text descriptions instead. It uses language-model-generated descriptions that unfold over time like video sequences, with labels derived directly from the descriptions and no reliance on target-domain anomaly data.",
+      "To learn how events develop, the framework includes an event evolution causal attention module that models both short-range and long-range temporal dependencies. At inference, it must connect this text-based training to actual video. A frozen CLIP encoder extracts frame embeddings that align with the text modality while preserving important visual information.",
+      "Experiments on XD-Violence and UCF-Crime show that TD-VAD outperforms prior one-class and unsupervised anomaly-detection methods by a large margin. The findings support using temporally structured language as training material for this visual task. The approach connects accessible descriptions of abnormal events with video-frame representations, reducing dependence on collecting target-domain anomaly footage for training."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f5737ac9f82f8ef62af1386ed878df456b5221acafbe2614ba1606fbb9ebe442",
+    "tldr": "TD-VAD learns temporal anomaly patterns from generated text and applies them to video without target-domain anomaly training data."
+  },
+  "icml-2026-threshold-based-exclusive-batching-for-llm-inference-4e3aa30057": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Language-model serving combines prompt processing, called prefill, with token-by-token decoding. Mixed batching puts both in the same batch to use hardware efficiently. This paper shows that their interference can increase the marginal cost per step, making exclusive batching preferable under some hardware and workload conditions.",
+      "In controlled experiments, that cost exceeds pure decoding when decode tokens pass 80% of a batch on an H200, but only 20% on an RTX PRO 6000. The authors derive a closed-form crossover condition depending on memory bandwidth, model size, and workload composition. They also derive asymptotically optimal switching thresholds and memory-safe batch sizes for exclusive batching.",
+      "Optimized exclusive batching delivers up to 41.9% higher throughput on bandwidth-constrained GPUs, while mixed batching remains advantageous on high-bandwidth hardware with larger models. The hybrid scheduler EB+ applies the crossover condition online. Under changing traffic distributions or concurrency, it achieves the highest or near-highest throughput in every evaluated setting and improves over mixed batching by up to 36.4%. The result supports adapting scheduling to operating conditions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "591fddf3ec85cc702fe87b58a60e80947e3ecdb82882eeb21ade0b9de7d0b7df",
+    "tldr": "EB+ switches between mixed and exclusive batching using hardware- and workload-dependent thresholds to improve language-model serving throughput."
+  },
+  "icml-2026-towards-practical-world-model-based-reinforcement-learning-for-vision-language-action-mo-c8eecd7531": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Fine-tuning vision-language-action models through real robot interaction can be costly and risky. Learned world models offer an alternative environment for reinforcement learning, but must produce useful visual predictions while handling multiple views and accumulating prediction errors. VLA-MBPO addresses these obstacles in a framework for improving robot policies.",
+      "Its design has three parts. It adapts unified multimodal models for data-efficient world modeling, uses interleaved view decoding to enforce consistency between views, and introduces chunk-level branched rollouts to mitigate error accumulation. These choices address the quality and reliability of the simulated experience used for policy learning, including the challenge of learning under sparse rewards.",
+      "The paper provides theoretical analysis and experiments across simulated and real-world tasks, reporting significant improvements in policy performance and sample efficiency. It also uses one set of hyperparameters across all evaluated tasks. That consistency supports the framework’s stated robustness across tasks, while the performance results show the value of coordinating visual world modeling and rollout design for reinforcement-learning-based adaptation of vision-language-action models."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a4641e3ff83d3d4bbc535fa901afcb91b0eb95426bffa27d4014f813c30a0b0f",
+    "tldr": "VLA-MBPO combines multimodal world modeling, consistent multi-view generation, and branched rollouts to improve robot policy performance and sample efficiency."
+  },
+  "icml-2026-towards-sub-second-molecular-docking-as-a-structural-primitive-a-quantized-consistency-d-ec1254249e": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Frequent molecular docking calls could give scientific agents rapid structural feedback, but iterative generation and heavy computation make high-fidelity models expensive. This paper presents a co-folding framework designed to make docking fast enough for such repeated use while preserving accuracy.",
+      "Progressive Consistency Regularization compresses diffusion dynamics into a few inference steps through reconstruction-anchored consistency tuning. Residual-Safe Quantization reduces precision in selected compute-heavy linear operations while keeping residual streams and geometry-sensitive operations in BF16. The evaluation separately matches blind docking methods and interface-informed methods according to the structural information they receive.",
+      "The model achieves state-of-the-art docking accuracy under the matched interface-informed protocol and reports blind performance separately. For a representative 256-token complex, it generates five conformations in 0.17 seconds on one NVIDIA H20, exceeding a 300× speedup over AlphaFold3 in the benchmarked setting. The result supports rapid structural feedback through fewer generation steps and selective quantization, with the accuracy claim specifically attached to the interface-informed comparison."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9725d9ab9a6e6fb759f6c73f105e23277a6556214d741085ed56e3ae928b7da9",
+    "tldr": "Few-step diffusion and selective quantization enable sub-second docking, with leading accuracy reported under an information-matched interface-informed protocol."
+  },
+  "icml-2026-urbanmllm-joint-learning-of-cross-view-imagery-for-urban-understanding-4efa545834": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Understanding an urban area requires both its broad spatial organization and detailed street-level appearance. Satellite-focused multimodal models have limited access to the latter and to relationships between viewpoints. UrbanMLLM jointly learns from satellite and street-view images to support perception and reasoning across those complementary views.",
+      "The authors construct a large-scale dataset pairing the two image types with geospatial alignment and textual annotations. A cross-view perceiver explicitly models interactions between their representations. During pre-training, a structured interleaving scheme organizes images and text into coherent urban documents, helping the model combine information across viewpoints within a shared context.",
+      "Evaluation covers 13 urban understanding tasks involving satellite imagery, street-view imagery, and cross-view inputs. The authors report consistent improvements over strong open-source and proprietary multimodal models. These findings support both the joint representation design and the organized training material as parts of a unified approach. The resulting model connects large-scale spatial information with fine-grained urban semantics across a diverse set of evaluated tasks."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "65798fdc87c2d6cbdb330d3ebf08fbfdce3bfadaa49a4b5e7b8509dc11d0d745",
+    "tldr": "UrbanMLLM jointly learns aligned satellite and street-view imagery, improving performance across 13 urban understanding tasks."
+  }
+}

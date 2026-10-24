@@ -5,12 +5,11 @@ import { resolve } from 'node:path';
 
 /**
  * Version every byte a cached client can execute or read. The worker itself is
- * excluded because it is the file being rewritten, and report.json is emitted
- * after Vite by the artifact-report step.
+ * excluded because it is the file being rewritten.
  */
 export async function fingerprintStaticOutput(output: string): Promise<string> {
   const hash = createHash('sha256');
-  const excluded = new Set(['sw.js', 'data/report.json']);
+  const excluded = new Set(['sw.js']);
   const digestDirectory = async (path: string): Promise<void> => {
     const entries = await readdir(path, { withFileTypes: true });
     for (const entry of entries.sort((left, right) => left.name.localeCompare(right.name))) {
@@ -30,7 +29,9 @@ export async function fingerprintStaticOutput(output: string): Promise<string> {
 export default defineConfig({
   // GitHub Pages project deployments serve this at /<repo>/.
   base: process.env.GITHUB_ACTIONS ? '/latent-scape/' : '/',
-  build: { target: 'es2022', sourcemap: true },
+  // Source maps expose implementation comments and source paths to every site
+  // reader. Release diagnostics live outside the static artifact instead.
+  build: { target: 'es2022', sourcemap: false },
   plugins: [{
     name: 'version-service-worker-from-output',
     async closeBundle() {

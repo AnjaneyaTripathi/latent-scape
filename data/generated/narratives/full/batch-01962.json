@@ -1,0 +1,377 @@
+{
+  "icml-2026-activation-free-backbones-for-image-recognition-polynomial-alternatives-within-metaforme-f68628e0fb": {
+    "backgroundConcepts": [
+      "topic-110-a-comparative-analysis-and-study-of-multiview-cn"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Vision models commonly use activation functions such as ReLU and GELU, together with softmax in attention, to create nonlinear transformations. This paper asks whether those particular operations are needed in MetaFormer-style vision backbones. Its answer is that polynomial alternatives can provide effective replacements within that architectural setting.",
+      "The authors redesign three building blocks: multilayer perceptrons, convolutions, and attention. Their replacements use elementwise multiplication, also called Hadamard products, to produce polynomial functions of the input. Thus, activation-free does not mean the model becomes linear: multiplying input-dependent quantities still produces nonlinear behavior. The modules fit into existing MetaFormer architectures, yielding the PolyNeXt family.",
+      "Across model sizes, PolyNeXt matches or exceeds activation-based counterparts on ImageNet classification, ADE20K segmentation, and robustness to distribution changes. It also surpasses earlier polynomial networks while using less computation. These results support a concrete design lesson: polynomial versions of familiar modules can be effective without requiring elaborate custom architectures. The demonstrated claim concerns these vision backbones and evaluations, rather than every possible neural network."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5fb4a7a3f3e74bf0308e45868a226280edd8c88a09423cfb144cfe0a457559ed",
+    "tldr": "PolyNeXt replaces standard activations and softmax with polynomial modules while matching or exceeding comparable MetaFormer-style vision models."
+  },
+  "icml-2026-beyond-heuristic-tuning-power-calibrated-llm-watermarking-aca1b2af3d": {
+    "backgroundConcepts": [
+      "topic-120-texttt-rp-mod-texttt-rp-crowd-moderator-and-crow"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Logit-based watermarking changes a language model’s token preferences to make generated text identifiable. Its central design problem is a trade-off: a stronger detectable signal can also distort the text’s meaning. The paper addresses how to select watermark settings systematically, rather than relying on trial-and-error tuning.",
+      "The authors develop a statistical framework that quantitatively connects watermark hyperparameters with detection power and semantic distortion. Detection power describes the detector’s ability to identify watermarked content. Expressing these relationships explicitly turns parameter selection into an optimization problem, where a desired detection capability or an acceptable distortion level can guide the choice.",
+      "Using this characterization, the paper derives practical procedures for choosing parameters with optimal trade-offs under constraints. Experiments across multiple language models and datasets support the theory and consistently locate Pareto-optimal settings: points where improving one objective requires worsening another. The contribution therefore concerns making the trade-off predictable and actionable. It does not claim that watermarking can achieve arbitrarily strong detection without affecting the generated content."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "426c2c82acba5c6ca6ad53136ef80b2e55e1c58ae34e4a74a5b2ce8d3d630dae",
+    "tldr": "A statistical framework selects watermark parameters by explicitly balancing detection power against semantic distortion."
+  },
+  "icml-2026-circle-rope-cone-like-decoupled-rotary-positional-embedding-for-vision-language-models-6bd2662f75": {
+    "backgroundConcepts": [
+      "topic-196-hyperbolic-image-text-representations"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Rotary positional embeddings help models represent where tokens occur, but their use with both images and text can introduce an unwanted interaction. Coupled position indices may make attention favor particular image tokens because of positional geometry. This paper studies how to remove that cross-modal bias while retaining useful spatial relationships inside images.",
+      "The authors introduce Per-Token Distance, or PTD, to measure positional disentanglement between modalities. They prove that PTD equal to zero is sufficient to eliminate the geometric attention bias induced by RoPE. Guided by that result, Circle-RoPE places image coordinates on an annulus perpendicular to the text position axis. Each text token is then equally distant from all image tokens, while image spatial structure remains represented.",
+      "A further mechanism, Alternating Geometry Encoding, switches across layers between Circle-RoPE’s decoupled geometry and standard RoPE’s grid-based geometry. This combines complementary spatial information. Experiments across several vision-language backbones and multimodal benchmarks report consistent improvements in spatial grounding and visual reasoning. The theoretical result supplies a sufficient geometric criterion; the experiments show practical benefits from the resulting design."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "cb4632d58abc7ef2a49c66495a92a9037557ea7f99e7e1e728698a33f9dfb5ab",
+    "tldr": "Circle-RoPE separates image and text positional geometry to reduce attention bias and improve spatial grounding and visual reasoning."
+  },
+  "icml-2026-dimensional-collapse-in-transformer-attention-outputs-a-challenge-for-sparse-dictionary--4364054066": {
+    "backgroundConcepts": [
+      "topic-086-a-capacity-based-rationale-for-multi-head-attent"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A transformer can have a large hidden representation without using every available direction in its attention outputs. This paper finds that those outputs occupy an effective subspace of about 60% of the full dimensionality across diverse model families and datasets. Overlap between the output subspaces of different attention heads produces this reduced dimensionality.",
+      "That geometry matters for sparse dictionary learning, which seeks features that explain model activations. The authors identify the low-rank structure as a key contributor to dead features: learned features that fail to become active. Random initialization can place feature directions poorly relative to the subspace the attention outputs actually occupy, creating a mismatch before useful learning develops.",
+      "The proposed remedy constrains sparse autoencoder training to the relevant subspace and initializes feature directions within it. For attention-output autoencoders containing one million features, the reported dead-feature proportion falls from 87% to below 1%. The approach can also extend to other sparse dictionary methods. The result connects a measured property of attention geometry to a concrete improvement in learning usable features."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "061d1e32b8ffcdc9340d0d7020d4d8b1d623b7c78b778f202afd5b83525c873f",
+    "tldr": "Initializing sparse autoencoder features inside attention outputs’ active subspace reduces dead features from 87% to below 1% in the reported million-feature setting."
+  },
+  "icml-2026-dont-overthink-with-pixels-efficient-reasoning-for-segmentation-a94df576f9": {
+    "backgroundConcepts": [
+      "topic-081-a-benchmark-for-compositional-visual-reasoning"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Reasoning segmentation asks a model to interpret an image and instruction, then identify the relevant pixels. Models trained to reason more extensively can produce long explanations even when a scene is straightforward. The paper targets this mismatch between the amount of reasoning generated and the difficulty of the segmentation decision.",
+      "PixelThink combines two signals during reinforcement learning: an external estimate of task difficulty and an internal measure of the model’s uncertainty. These signals teach the model to adjust reasoning length according to scene complexity and predictive confidence. The goal is to make reasoning effort responsive to the current example, so additional text serves the decision rather than becoming a uniform habit.",
+      "The authors also introduce ReasonSeg-Diff, which adds reasoning references and difficulty scores, plus metrics that jointly examine segmentation, reasoning quality, and efficiency. Experiments report better segmentation performance alongside a 30.4% reduction in inference latency and a 48.2% reduction in token use. Together, these findings show that shorter, selectively allocated reasoning can accompany improved predictions in the evaluated setting."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b9ff0f97ca264abca762fd86ff51da810c19af3383b878692ac56f82cb203910",
+    "tldr": "PixelThink adapts segmentation reasoning to difficulty and uncertainty, improving segmentation while reducing latency by 30.4% and token use by 48.2%."
+  },
+  "icml-2026-effective-model-pruning-measuring-the-redundancy-of-model-components-8f7fa5c668": {
+    "backgroundConcepts": [
+      "topic-001-a-fast-post-training-pruning-framework-for-trans"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Pruning methods assign importance scores to model components, but those scores do not automatically specify how many components to remove. Effective Model Pruning addresses that second decision. It uses the distribution of existing scores to determine an adaptive pruning amount, making it applicable to several different ways of measuring importance.",
+      "The method borrows effective sample size, also known as the inverse Simpson index, from particle filtering. It converts a vector of scores into an effective component count, N_eff, then removes the N minus N_eff components with the lowest scores. Conceptually, the distribution reveals whether importance is spread broadly across components or concentrated in a smaller subset.",
+      "The authors derive a tight lower bound on the fraction of normalized score mass retained and establish an upper bound on the change in loss relative to the dense model. Such a bound controls possible loss change rather than asserting that it is always zero. Experiments cover architectures including MLPs, CNNs, Transformers, LLMs, and KANs, with importance signals ranging from weights and attention scores to image pixels."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e771f5df533f115254df7b4e1122ccb59ef6a778719486df21f3ff5243ee2c2f",
+    "tldr": "Effective Model Pruning derives how much to prune from importance-score distributions and provides bounds on retained score mass and loss change."
+  },
+  "icml-2026-faps-a-general-and-fast-training-method-for-diffusion-models-2e8cded554": {
+    "backgroundConcepts": [
+      "topic-080-text-s-2-q-vdit-accurate-quantized-video-diffusi"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Diffusion training spends substantial computation learning both broad image structure and fine detail. This paper observes two related learning patterns: low-frequency components are learned earlier during training, and coarse structure emerges earlier along the denoising process. Higher-frequency detail develops later in both senses. The authors use these observations to guide where training computation is spent.",
+      "Frequency-aware Patch Selection, or FaPS, introduces a gate that chooses image patches according to their frequency information. Computation focuses on the selected patches, adapting the work to the image content. Because selecting or skipping a patch is a discrete decision, the gate is modeled as a stochastic policy and trained end-to-end through policy gradients.",
+      "The method applies to both UNet and diffusion Transformer backbones. Experiments report training speedups of up to three times while preserving comparable or better generation quality, as well as improved performance when training data are limited. The contribution links an observed learning tendency to an adaptive computation mechanism, showing that selective processing can accelerate diffusion training without a corresponding quality drop in the reported evaluations."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b5a82d7e7273ab6767b378edb8b2055ce442f39463b6e4c8c31c7817566639e9",
+    "tldr": "FaPS selects image patches by frequency content to achieve up to threefold faster diffusion training with comparable or better generation quality."
+  },
+  "icml-2026-global-credit-assignment-via-dynamical-criticality-6c63cfe9c0": {
+    "backgroundConcepts": [
+      "topic-246-convolutional-sequence-to-sequence-learning"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Training recurrent networks requires assigning responsibility for errors to computations that may have happened far earlier. Backpropagation through time performs this global assignment, but its activation memory grows with sequence length and its gradients can vanish or explode. Local learning rules save memory, yet often provide strongly biased updates.",
+      "Criticality-driven Online Local Alignment, or COLA, uses long-range correlations present when a network operates in a critical dynamical regime. These correlations allow a strictly local learning rule to approximate how errors would propagate globally. The critical regime is central to the mechanism: it supplies the relationships across space and time that make local information useful for estimating broader effects.",
+      "For a recurrent network with H hidden units, the theoretical memory requirements are O(H) auxiliary state and constant activation memory, both independent of sequence length. Experiments find COLA competitive with backpropagation through time on standard benchmarks and more robust on stability-sensitive tasks. An accompanying approximation-error analysis supports the method’s theoretical basis. The contribution is an efficient approximation to global credit assignment, rather than an assertion that local updates always equal exact gradients."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3ddab96a76435e1bcde25d140574f1ab471fd83ce223e4ffdd9c9096f789f532",
+    "tldr": "COLA uses correlations in critical recurrent dynamics to approximate global learning with local updates and memory independent of sequence length."
+  },
+  "icml-2026-granularity-aware-adaptive-classifier-expansion-via-zero-shot-learning-462e5f263a": {
+    "backgroundConcepts": [
+      "topic-099-a-closer-look-at-few-shot-classification-again"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Zero-shot classifier expansion adds recognition categories by translating class semantics into classifier weights without access to images. A single shared translation becomes difficult when the expanding category set mixes clearly different classes with very similar ones. Broad attributes can separate the former, while the latter require attention to much subtler distinctions.",
+      "The paper identifies a training conflict caused by this difference in granularity. Gradients associated with distinct classes can dominate, leaving fine distinctions insufficiently learned, and irrelevant noise compounds the problem. The proposed framework first creates semantic information from multiple sources through interventions on non-causal noise. It then discovers latent class structure to separate distinct categories before refining the distinctions among similar ones.",
+      "This staged treatment aims to synthesize classifier weights that preserve useful differences while remaining invariant to non-causal noise. The authors support the framework with theoretical and empirical analyses. Its main contribution is to make semantic-to-classifier mapping sensitive to the structure of the category set: the same level of descriptive detail need not serve every class equally well as the classifier expands."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1b1c7db720080eb96f477e8857fdd561e0095cafdab2c2c58c4a1b79bd001639",
+    "tldr": "A granularity-aware framework expands classifiers from class semantics by separating broad distinctions, refining similar classes, and suppressing non-causal noise."
+  },
+  "icml-2026-harnessing-spectrum-video-for-subject-level-few-shot-and-cross-montage-eeg-generalizatio-d9b7463273": {
+    "backgroundConcepts": [
+      "topic-130-a-deep-learning-approach-for-the-segmentation-of"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "EEG models must cope with differences between people and between electrode arrangements. Architectures that treat each sensor as an independent input feature can tie learned representations closely to a particular layout. Brain Signal Rendering addresses this problem by representing EEG as a physical projection of neural activity with spatial and temporal structure.",
+      "The framework transforms raw signals into structured tensors called Spectrum Videos. This representation enables the use of a video foundation model, VideoMAE, for self-supervised pretraining. The intended benefit is to transfer useful knowledge about patterns across space and time while preserving neural topology and learning representations that are less dependent on the electrode layout.",
+      "The authors evaluate adaptation with few examples at the subject level and introduce cross-montage fine-tuning to study changes in electrode configuration. VideoMAE combined with Brain Signal Rendering significantly outperforms the spectrum-based methods used for comparison. These findings support the representation as a data-efficient route toward EEG models that generalize across people and sensor arrangements, with the evaluation explicitly addressing both sources of variation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "dd6be6bb270dcfad1e97b2264b6e4d879b102184e66d072605100d3d1907a9c6",
+    "tldr": "Brain Signal Rendering converts EEG into Spectrum Videos so video pretraining can support generalization across subjects and electrode layouts."
+  },
+  "icml-2026-he-snr-uncovering-latent-logic-via-entropy-for-guiding-mid-training-on-swe-bench-69b7372bc5": {
+    "backgroundConcepts": [
+      "topic-236-beta-dpo-direct-preference-optimization-with-dyn"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper targets the problem of measuring progress during the mid-training stage that develops software engineering capabilities in language models. It argues that standard perplexity is a weak guide to downstream SWE-bench performance, partly because of what the authors call the Long-Context Tax. A useful metric should expose latent capabilities before supervised fine-tuning elicits them.",
+      "Alongside a data-filtering strategy, the authors propose the Entropy Compression Hypothesis. It shifts attention from compression into a single top prediction toward the structure of the model’s remaining uncertainty. Their notion of reasonable hesitation treats uncertainty concentrated into low-order, entropy-compressed states as informative. From this finer-grained analysis, they construct High-Entropy Signal-to-Noise Ratio, or HE-SNR.",
+      "The approach is validated on models with up to 560 billion parameters and context windows of 32K and 128K. The stated contribution is a theoretical perspective and practical measurement tools for guiding mid-training in complex engineering tasks. The entropy-based account remains a proposed hypothesis; the reported validation supports studying structured uncertainty as a training signal rather than reducing progress to one scalar compression score."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "962baf3b8811a490afbad1164eebf22904d24d6f5378a365444f3f10014c0acc",
+    "tldr": "HE-SNR uses the structure of predictive uncertainty to guide software-engineering mid-training beyond standard perplexity."
+  },
+  "icml-2026-hydra-nav-object-navigation-via-adaptive-dual-process-reasoning-6c872d5628": {
+    "backgroundConcepts": [
+      "topic-004-3d-vla-a-3d-vision-language-action-generative-wo"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Object-goal navigation requires an agent to find a requested object while interpreting its surroundings and remembering earlier exploration. Vision-language agents can benefit from explicit reasoning, but reasoning frequently can add substantial computation. Hydra-Nav addresses both navigation effectiveness and the cost of deciding what to do next.",
+      "Its architecture switches adaptively between a slow system that reviews exploration history and develops high-level plans, and a fast system that executes reactively. Training follows three stages: aligning spatial information with actions, integrating memory with reasoning over long exploration sequences, and using iterative rejection fine-tuning to encourage reasoning at critical decisions. This makes selective deliberation part of the learned behavior.",
+      "The authors report state-of-the-art performance on HM3D, MP3D, and OVON, exceeding the second-best methods by 11.1%, 17.4%, and 21.2%, respectively. They also introduce Success weighted by Operation Time to assess search efficiency when reasoning intensity differs. Under this measure, adaptive reasoning improves efficiency over fixed-frequency approaches. The findings connect successful navigation with deciding when deeper reasoning is worth its computational cost."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f821ba09d7790eb03acaa9e518f51cc6f59045eba5334750ffa3735261757081",
+    "tldr": "Hydra-Nav learns when to alternate between deliberative planning and reactive execution, improving object-navigation performance and search efficiency."
+  },
+  "icml-2026-investigating-memory-in-model-free-rl-with-popgym-arcade-dc39e07422": {
+    "backgroundConcepts": [
+      "topic-209-a-deep-bayesian-policy-reuse-approach-against-no"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "When an agent cannot observe the full state of its environment, earlier observations can help it choose an action. This paper develops tools for examining how reinforcement-learning policies actually use that memory. The emphasis is on analyzing the influence of history on decisions, rather than treating memory solely as an architectural feature.",
+      "To support controlled investigation, the authors introduce POPGym Arcade, a collection of Atari-inspired environments accelerated for hardware execution. The environments share observation and action spaces, and each offers fully observable and partially observable versions. These paired versions enable counterfactual studies of observability: researchers can examine how behavior changes when relevant information is available directly or must be recovered from history.",
+      "The study finds that controlled comparisons are necessary and identifies a failure in which value functions spread credit across irrelevant past events. Using that pathology, the authors show how out-of-distribution experiences can contaminate memory and continue perturbing decisions far into the future. The result highlights a specific way memory can transmit errors over time, alongside its intended role in carrying useful information."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ca7d881687bf8b749c6f21335f7385f2b084eeba4e772452cf72b958e4cbf6ac",
+    "tldr": "POPGym Arcade enables controlled studies of agent memory and reveals how irrelevant history can distort decisions long after an unusual experience."
+  },
+  "icml-2026-learning-credal-ensembles-via-distributionally-robust-optimization-7b7ff7e059": {
+    "backgroundConcepts": [
+      "topic-149-a-dynamic-learning-strategy-for-dempster-shafer-"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A credal predictor represents uncertainty through a convex set of probability predictions instead of one probability distribution. Many existing methods build that set from models trained with different random initializations. The paper argues that this disagreement mainly reveals sensitivity to optimization randomness, leaving other substantive sources of uncertainty insufficiently represented.",
+      "CreDRO changes what the ensemble members disagree about. It trains plausible models under different degrees of relaxation of the assumption that training and test data follow the same independent, identically distributed sampling setup. Distributionally robust optimization provides the training mechanism. Disagreement can therefore reflect potential differences between training and deployment distributions, as well as ordinary randomness in training.",
+      "Empirically, CreDRO consistently surpasses the state-of-the-art credal methods evaluated on downstream tasks. These include detecting out-of-distribution inputs across extensive benchmarks and selective classification in medical settings, where a predictor can withhold some decisions. The contribution is a more informative basis for epistemic uncertainty: the ensemble explicitly varies assumptions about distribution shift, connecting its range of predictions to a practical source of uncertainty."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "35c3d869de87282d4cd757fb3a139d058b54d0c8cd7ab39ef62e0f3510bd7736",
+    "tldr": "CreDRO builds uncertainty-aware ensembles whose disagreement reflects possible train–test distribution shifts as well as training randomness."
+  },
+  "icml-2026-model-merging-scaling-laws-in-large-language-models-f7c59a2030": {
+    "backgroundConcepts": [
+      "topic-236-beta-dpo-direct-preference-optimization-with-dyn"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Combining specialized language models is widely practiced, but deciding how many experts to merge requires knowing the likely return. This paper studies that return using cross-entropy loss. It identifies an empirical power law linking base-model size and expert count, separating a capacity-dependent loss floor from diminishing improvements as experts are added.",
+      "The relationship closely fits measurements across architectures, in-domain and cross-domain settings, and merging methods including Average, TA, TIES, and DARE. It also captures two recurring observations: most improvements occur early, and outcome variability decreases with more experts. A simple accompanying theory explains roughly inverse-expert-count gains and relates the floor and remaining improvement to base-model properties and domain diversity.",
+      "The practical purpose is predictive planning. Estimated curves can guide how many specialists are needed for a target loss, when to stop merging, and whether a fixed budget favors a larger base model or additional experts. These are empirical scaling relationships supported by the studied settings. The paper’s broader suggestion that composing specialists could contribute toward AGI-level systems is a prospective implication, rather than a demonstrated capability."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a921e842b105d9961f6c1b44ba1c188ff6625674d4daaec66feb5eadbfe35595",
+    "tldr": "An empirical scaling law predicts diminishing returns from merging language-model experts and helps allocate budgets between model size and expert count."
+  },
+  "icml-2026-mosa-motion-constrained-stress-adaptation-for-mitigating-real-to-sim-gap-in-continuum-dy-80172bc91f": {
+    "backgroundConcepts": [
+      "topic-218-bf-textrmflow-differentiable-simulations-for-pyt"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Calibrating a simulator cannot fully correct errors caused by its underlying material assumptions. Models often assume uniform properties and equal behavior in every direction, while real objects can show mild spatial variation and directional differences. MoSA targets these residual effects after a near-isotropic physical backbone has already been well calibrated.",
+      "The framework retains an isotropic model as its physical prior and learns residual stress operators for the remaining anisotropy and heterogeneity. A physics-informed cascaded network progressively redistributes stresses under microplane constraints. It also supervises temporal and spatial derivatives of the deformation field, connecting learned corrections to how observed deformation changes over time and across the object.",
+      "Experiments report improved accuracy, generalization, and robustness, together with physically meaningful learned residual anisotropy. A robot-manipulation evaluation further shows that improved modeling of real dynamics in simulation translates into more reliable transfer back to the physical setting. The approach’s scope is important to its rationale: it learns mild corrections around a calibrated physical model, preserving useful structure rather than having a network learn the entire dynamics from scratch."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "97e078ed144d4483480eb267d85b0fd034e6dfd9fa6e6d7aef056b45c0ef732e",
+    "tldr": "MoSA learns physically constrained residual stresses around a calibrated isotropic simulator to better reproduce real materials and improve robot transfer."
+  },
+  "icml-2026-multi-scale-wavelet-transformers-for-operator-learning-of-dynamical-systems-700cb03da4": {
+    "backgroundConcepts": [
+      "topic-136-sparse-attention-to-the-details-preserving-spect"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Learned surrogates can simulate dynamical systems much faster than numerical solvers, but they often underrepresent high-frequency components. Those components carry small-scale structure, so losing them can damage forecasts over long horizons. The paper addresses this spectral bias by changing how the model represents and processes system dynamics.",
+      "Multi-scale wavelet transformers operate on tokens in a wavelet representation, which separates low- and high-frequency information across scales. Their downsampling scheme preserves high-frequency features instead of discarding them as the representation becomes coarser. Wavelet-based attention then models dependencies among scales and frequency bands, allowing broad behavior and fine detail to inform one another.",
+      "On chaotic dynamical systems, the authors report substantial error reductions and better preservation of frequency content over long forecasts. On ERA5 climate reanalysis, the models also reduce climatological bias. These findings support the value of explicitly retaining small-scale information throughout the architecture. The contribution is more than a different input representation: both downsampling and attention are designed to keep the separated frequency information useful during prediction."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1252220193043d8e872067ba50bad4fe25b3e447b1bc6ab26243cbeec528d6b1",
+    "tldr": "Multi-scale wavelet transformers preserve fine-scale frequency information to improve dynamical-system forecasts and reduce climate prediction bias."
+  },
+  "icml-2026-ragen-2-reasoning-collapse-in-agentic-rl-22d22825b3": {
+    "backgroundConcepts": [
+      "topic-017-texttt-multi-2-hierarchical-multi-agent-decision"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "During reinforcement learning, a multi-turn language-model agent can retain diverse outputs while losing sensitivity to the actual task input. RAGEN-2 calls this template collapse: reasoning becomes generic boilerplate even though entropy remains stable. Entropy misses the problem because it measures variation for a given input, rather than differences in reasoning across inputs.",
+      "The authors introduce an online mutual-information proxy that measures cross-input distinguishability. Across tasks, this signal correlates with final performance much more strongly than entropy. They explain collapse through a signal-to-noise mechanism: when rewards vary little among responses to the same input, task-specific gradients weaken, allowing input-independent regularization to dominate and erase distinctions between tasks.",
+      "Their remedy, SNR-Aware Filtering, prioritizes prompts with high within-input reward variance at each training iteration. Across planning, mathematical reasoning, web navigation, and code execution, it consistently improves both input dependence and task performance. The findings distinguish two kinds of diversity that can otherwise be confused: generating varied text and generating reasoning that meaningfully changes with the problem being solved."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d65b69ea17379fd1e61ebbd40fb129f4889558856bf0df218c587aab03bc8759",
+    "tldr": "RAGEN-2 detects input-insensitive reasoning that entropy misses and mitigates it by prioritizing prompts with stronger reward variation."
+  },
+  "icml-2026-samt-generating-structured-avatar-meshes-and-textures-from-a-single-image-0374e04898": {
+    "backgroundConcepts": [
+      "topic-022-text-id-3-identity-preserving-yet-diversified-di"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Creating a 3D face from one image requires both convincing geometry and surface appearance that remains coherent from different viewpoints. Small facial structures are particularly important because they contribute to identity. SAMT divides this problem into two linked stages: generating the facial mesh and then producing textures aligned with that mesh.",
+      "For geometry, the authors pretrain a latent 3D diffusion model and adapt it through domain-specific fine-tuning on 35,000 curated 3D avatar models. The second stage uses a 2D diffusion model for texturing. It receives guidance from both the generated geometry and multi-view facial priors, so texture synthesis accounts for how the face should appear across views.",
+      "Experiments show improvements over existing baselines in facial geometry coherence, texture detail, and consistency between viewpoints. The two stages matter together: a detailed texture must agree with the mesh, while a well-formed mesh still needs appearance that remains consistent when viewed from different directions. The reported results support combining specialized geometry learning with explicitly multi-view-aware texture generation for single-image avatar creation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "89234226a5217f7ebd14d63bacc2c890893adcbbbd3a389dc2b13d00d693c266",
+    "tldr": "SAMT generates facial geometry and then applies mesh-guided, multi-view-aware textures to create more coherent 3D avatars from one image."
+  },
+  "icml-2026-slim-secure-and-efficient-inference-for-large-language-models-on-untrusted-devices-via-t-4b01309c74": {
+    "backgroundConcepts": [
+      "topic-119-textttfhaim-fully-homomorphic-aim-for-private-ta"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Running a language model on untrusted hardware creates a risk that its weights will be extracted. Trusted Execution Environments can help protect obfuscated weights, but frequent interactions with the protected environment can slow inference. SLIM addresses the tension between strong weight protection and efficient execution.",
+      "The framework exploits the model’s repeated layer structure so transformed representations can pass through consecutive obfuscated layers. This reduces how often computation must interact with the trusted environment. Its T-Way Mixing algorithm combines successive inter-vector covering with random permutations. Carefully constructed block-diagonal Householder matrices provide the mixing operation while keeping work inside the trusted environment lightweight.",
+      "Evaluations report robust security guarantees and speedups of up to 13.80 times over prior state-of-the-art obfuscation schemes while preserving fidelity. The architectural insight is that the cost of protection depends on how transformed data move across layers, as well as on the transformations themselves. By letting those representations continue through multiple layers, SLIM reduces a key source of overhead within its TEE-based inference framework."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a8864ccc92ad3b16703a66ff69a4ba114b486c1e1116ca71adf0ceb7229e505c",
+    "tldr": "SLIM carries transformed representations across obfuscated layers to protect model weights with fewer TEE interactions and up to 13.80-fold faster inference."
+  },
+  "icml-2026-styledistillation-a-new-insight-of-image-style-enables-personalized-aesthetic-manipulati-0fbfd4afbf": {
+    "backgroundConcepts": [
+      "topic-183-artificial-spectator-developing-ai-audiences-for"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A reference image provides both an aesthetic style and particular visual content. For text-guided stylization, those two sources of information can become entangled, making it difficult to reproduce the desired style while following a new prompt. StyleDistillation addresses this by extracting a more focused representation of style from the reference.",
+      "The method builds on two observations about style in CLIP’s embedding space. A lightweight StyleDistiller module uses optimization objectives informed by geometric and semantic priors to extract fine-grained style information. During inference, a separate Prompt Alignment Enhancement mechanism strengthens the influence of the text prompt on the generated image, complementing the representation learned from the reference.",
+      "Experiments report strong performance in both style reproduction and prompt alignment. The framework also supports personalized operations such as editing a style and combining styles. These outcomes matter together because successful stylization requires control over appearance and over what the image depicts. The paper’s contribution is a coordinated approach to those requirements, pairing style extraction with an explicit mechanism for maintaining textual control during generation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "354edac3df3328b883b069e053072b589624caa47c3e6884f897e023d607eb6c",
+    "tldr": "StyleDistillation extracts fine-grained reference-image style and strengthens prompt alignment to support controlled stylization, style editing, and style fusion."
+  },
+  "icml-2026-topadapter-topology-aware-prompt-tuning-for-efficient-point-cloud-understanding-9493efc544": {
+    "backgroundConcepts": [
+      "topic-036-3d-focusing-and-matching-network-for-multi-insta"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Point clouds describe 3D structure, so adapting a model to them can benefit from representing local geometric relationships explicitly. The paper argues that existing parameter-efficient fine-tuning methods focus heavily on input prompts and overlook this information. TopAdapter introduces local topology into pretrained 3D vision models while retaining a parameter-efficient adaptation framework.",
+      "Its basic geometric units are zero-, one-, and two-dimensional simplices: points, edges, and triangular structures. The Topology Injection module constructs these features at multiple scales using a simplex generator. A geometric controller dynamically combines them with semantic features, allowing the geometric contribution to adapt. The Topology Transfer module then passes these primitives through Transformer layers.",
+      "This division addresses both introducing geometry and keeping it available deeper in the model. Across the reported benchmarks, TopAdapter outperforms existing parameter-efficient methods and reaches performance comparable to full fine-tuning. The results support treating geometric relationships as explicit information to construct and propagate during adaptation, rather than expecting input prompting alone to make that structure available throughout the network."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8c6c011f48c893cbbca12723615f1cf6b22053a2b0b672c797a9baeebfad8ff4",
+    "tldr": "TopAdapter injects and propagates local topological features to achieve point-cloud adaptation performance comparable to full fine-tuning."
+  },
+  "icml-2026-towards-a-generative-protein-evolution-machine-with-dplm-evo-7ff66cf6c8": {
+    "backgroundConcepts": [
+      "topic-249-be-cautious-bio-foundation-models-are-not-yet-ro"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Proteins evolve through accumulated sequence edits, but masked diffusion models learn to recover sequences from hidden positions. DPLM-Evo makes the editing process explicit. During denoising, it predicts substitutions, insertions, and deletions, providing objectives that more directly support modifying existing proteins and generating sequences whose lengths can change.",
+      "Handling insertions and deletions requires aligning sequences of different lengths. The framework separates an expanded latent alignment space from the variable-length sequence that is observed, making this generation process tractable. It also uses a contextualized evolutionary noising kernel, so the mutations introduced during noising depend on biological context rather than treating all substitutions identically.",
+      "Across tasks, DPLM-Evo improves sequence understanding and reaches state-of-the-art mutation-effect prediction on ProteinGym in the single-sequence setting. It also supports variable-length simulated evolution and protein post-editing or optimization through explicit edit trajectories. The contribution links generation with a sequence of identifiable operations, giving the model a direct mechanism for changing both protein content and length while learning evolutionary constraints."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9a354feadf35f0014d60ed4fa4391693ddacdfc66d1ed646ca5a1b5e57c5f747",
+    "tldr": "DPLM-Evo learns explicit protein substitutions, insertions, and deletions to improve sequence modeling and enable variable-length generation and editing."
+  },
+  "icml-2026-wet-mitigating-world-conditioned-knowledge-conflicts-via-world-entropy-tethering-f123d7e6bd": {
+    "backgroundConcepts": [
+      "topic-107-very-likely-means-uncertain-how-llms-diverge-fro"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A language model’s answer can depend on which world of discourse the prompt establishes. The paper identifies world misattribution as a failure in which generation becomes grounded in an incompatible regime. In this account, some hallucinations arise because the model drifts away from the intended world, rather than simply failing to retrieve a fact.",
+      "World Entropy Tethering monitors that risk during inference. A world-entropy probe examines prompt anchors, while a geometry model based on conditional score matching identifies attention heads suitable for tethering. Entropy-gated rescaling then adjusts those heads. The method therefore combines a signal for possible drift with a targeted intervention in the model’s internal computation.",
+      "Experiments find that world labels can be decoded linearly from internal states and that measurable departures from the target world’s region precede hallucinations. WET improves world consistency and reduces hallucination rates by up to 22.4% without compromising generation quality in the evaluations. These findings support both the proposed diagnosis of world drift and the usefulness of intervening on it during generation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a6a578a9f5517ef46c694cfb577e8f77871ce4578d4ed8706d8a37633e3b466f",
+    "tldr": "WET detects internal drift from the intended world of discourse and adjusts attention heads, reducing hallucination rates by up to 22.4%."
+  },
+  "icml-2026-world-r1-reinforcing-3d-constraints-for-text-to-video-generation-d621709f00": {
+    "backgroundConcepts": [
+      "topic-191-3d-gaussian-splatting-based-scene-independent-re"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A generated video can look convincing while containing geometry that changes inconsistently across frames. World-R1 targets this gap between visual quality and coherent 3D structure. Instead of modifying the video model’s architecture to incorporate 3D priors, it uses reinforcement learning to align generation with geometric constraints.",
+      "The authors introduce a text-only dataset designed for world simulation and train with Flow-GRPO. Feedback from pretrained 3D foundation models and vision-language models guides the generator toward structural coherence. Because this feedback shapes training without changing the underlying architecture, the approach offers a route for applying 3D guidance to an existing video foundation model.",
+      "A periodic decoupled training strategy balances geometric consistency with the fluidity of dynamic scenes. That balance matters because a video must preserve coherent structure while still allowing motion and change. Evaluations report significant improvements in 3D consistency while preserving the foundation model’s original visual quality. The findings support reinforcement-based geometric alignment as a way to advance video generation toward scalable world simulation without requiring architectural redesign."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2d283ff389f1fc4bb4af7bcc6bda35f722ea1c24c85583d9da00dfe9cfc3cb5b",
+    "tldr": "World-R1 uses reinforcement learning with 3D and vision-language feedback to improve video geometry while preserving visual quality and the model architecture."
+  }
+}

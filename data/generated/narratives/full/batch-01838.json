@@ -1,0 +1,327 @@
+{
+  "icml-2026-advantage-collapse-in-group-relative-policy-optimization-diagnosis-and-mitigation-ec0a3e21ee": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Group Relative Policy Optimization trains language models by comparing rewards among answers generated in the same group. This comparison becomes uninformative when every answer receives the same reward, whether all answers are correct or all are incorrect. The resulting advantages approach zero, leaving little gradient signal for learning. The paper calls this failure mode advantage collapse.",
+      "The authors introduce Advantage Collapse Rate, which measures the proportion of training batches with ineffective gradients. On mathematical reasoning benchmarks with models ranging from 0.5 billion to 14 billion parameters, this rate strongly predicts training stagnation and final performance. It therefore provides a diagnostic connection between an apparently routine batch of answers and stalled optimization.",
+      "Their mitigation, Adaptive Virtual Sample Policy Optimization, uses live collapse measurements to decide when to inject virtual reward samples. These samples let homogeneous groups contribute to learning without generating additional model rollouts. In the reported evaluations, the method reduces collapse by 58–63% relative to GRPO and improves accuracy by 4–6 percentage points across tested model sizes, while maintaining generalization on the evaluated out-of-domain task."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "814ff3def003d8b2cbb0e03558dd686b01c6303da79577387bc0a9c6f16dacde",
+    "tldr": "Monitoring uninformative reward groups and adding virtual reward samples reduces GRPO training collapse and improves mathematical reasoning accuracy."
+  },
+  "icml-2026-anchored-decoding-provably-reducing-copyright-risk-for-any-language-model-0e69209141": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Language models can reproduce memorized training passages verbatim, creating concerns when those passages come from protected or sensitive sources. Anchored Decoding addresses this during generation by constraining a model trained on mixed-license material to remain within a bounded distance of a reference model trained on permissively licensed material. The method is designed to attach to an existing model at inference time.",
+      "A user selects an information budget, and the method distributes that budget adaptively across generation steps. Constraints at individual steps combine into a guarantee for the complete sequence. This gives users a way to adjust the trade-off between copying risk and output usefulness. The authors also introduce the permissively trained TinyComma 1.8B reference model and a byte-level variant that supports model pairs with different vocabularies.",
+      "Across six model pairs, the methods achieve improved measured risk–utility trade-offs while preserving nearly the original fluency and factuality. They close up to 75% of the measurable copying gap between a risky baseline and a safe reference, with modest inference overhead. That finding describes reduced measured copying relative to a reference, rather than complete elimination of reproduction."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7b682bb8c264d09c5acc2bd94b78a7ec5acf3edc10981faf9c5c0aa996f55256",
+    "tldr": "Anchored Decoding constrains generation using a permissively trained reference model to improve the trade-off between verbatim copying risk and output quality."
+  },
+  "icml-2026-approximation-error-upper-and-lower-bounds-for-holder-class-with-transformers-d5abf354bd": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies how large a Transformer must be to approximate functions from a specified smoothness class. Its target is bounded Hölder functions, whose allowed variation is controlled by a smoothness parameter alpha between zero and one. The architecture analyzed uses standard components: Softmax, ReLU activations, and residual connections.",
+      "The upper bound establishes that a number of blocks on the order of epsilon raised to minus d₀/alpha is sufficient to approximate any function in the class to accuracy epsilon, where d₀ is the input dimension. A separate argument using VC dimension establishes a lower bound on the order of epsilon raised to minus d₀/(4 alpha). Thus, the paper gives both a sufficient construction size and a necessary size bound for approximation across the class.",
+      "These bounds make the dependence on accuracy, dimension, and smoothness explicit, but their different exponents leave a gap between sufficiency and necessity. The authors also extend the analysis to regression and derive excess-risk rates, connecting representational capacity with prediction error in a learning problem."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0faedf6df0ed86d9f28db8eda76366ceaa1d614203177f50c264e91f0a1f9563",
+    "tldr": "The paper bounds how Transformer depth must scale to approximate bounded Hölder functions and extends the analysis to regression risk."
+  },
+  "icml-2026-can-llms-reason-structurally-benchmarking-via-the-lens-of-data-structures-e14efbf133": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Algorithmic reasoning depends on tracking relationships such as order, hierarchy, and connectivity. This paper uses data structures to test those abilities directly. The motivation is diagnostic: success on a broad task can conceal whether a model actually understands the relationships that its solution requires it to manipulate.",
+      "The authors introduce DSR-Bench, covering 20 data structures, 35 operations, and 4,140 problem instances. Tasks are organized hierarchically, with automated generation and evaluation supporting detailed comparisons. This organization makes structural reasoning a collection of inspectable capabilities, allowing evaluation to examine particular kinds of relationships and operations instead of treating algorithmic competence as a single undifferentiated score.",
+      "Testing 13 leading language models reveals substantial weaknesses. Even the strongest evaluated model scores only 0.46 out of one on challenging instances. Three additional probes examine settings closer to practical use and find difficulties with spatial data, richer context, and reasoning about models’ own code. Together, these results indicate that strong language-model performance elsewhere does not establish reliable structural reasoning on the benchmark’s demanding tasks."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5d2dcf3c937eb829ff6f7707d09c2cb405547a3e02f795ff39e60c1272d1a345",
+    "tldr": "DSR-Bench uses data structures to expose substantial weaknesses in language models’ reasoning about order, hierarchy, and connectivity."
+  },
+  "icml-2026-demystifying-when-pruning-works-via-representation-hierarchies-911fed6650": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Removing model parameters can preserve performance on some language tasks while damaging text generation. This paper investigates that discrepancy by following how pruning-induced changes move through a model’s internal representations. It separates computation into hidden embeddings, logits before Softmax, and the probability distributions produced afterward.",
+      "The analysis finds that embeddings and logits are largely resistant to the perturbations caused by pruning. However, the nonlinear conversion from logits into probabilities amplifies those deviations. During generation, these changes persist across successive time steps and can lead to substantial performance degradation. Stability in an earlier representation therefore does not by itself establish stability throughout the generation process.",
+      "The paper also explains why non-generative tasks can remain effective after pruning. Robust embeddings and stability in the probability subspace associated with categorical tokens support tasks such as retrieval and multiple-choice classification. The contribution is a representation-level account of why pruning behaves differently across tasks. It suggests that assessing pruning requires attention to the representations a task uses and whether its outputs are produced through repeated generation steps."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "17d1d805467dbf7de002a4950c451be4bce8ff4e13743b2779f81a12a17382d9",
+    "tldr": "Pruning can preserve hidden representations while amplifying probability errors that persist during generation, helping explain its uneven effects across tasks."
+  },
+  "icml-2026-diffthinker-towards-generative-multimodal-reasoning-with-diffusion-models-e9d4318278": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Many multimodal language models handle visual reasoning mainly through text, which can make it difficult to track changing visual states over a long task. DiffThinker approaches this problem by making image generation itself the reasoning process. It frames multimodal reasoning as an image-to-image task performed by a diffusion model.",
+      "In this framework, successive denoising stages form a visual reasoning trajectory. Intermediate visual information can evolve within that trajectory instead of being represented predominantly through textual reasoning. The authors systematically compare this approach with multimodal language models and identify efficiency, controllability, native parallelism, and collaboration as core properties of the proposed paradigm.",
+      "Across seven evaluated tasks, the authors report improvements over GPT-5, Gemini-3-Flash, and a fine-tuned Qwen3-VL-32B baseline of 314.2%, 111.6%, and 39.0%, respectively. These are reported comparative gains within the evaluation, rather than absolute accuracy values. The findings support generative image-based reasoning as a promising approach for vision-centric tasks, particularly when solving the problem involves maintaining and changing visual information through multiple stages."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "964317ff5c995cb9e72656deb27b0349ab257179e5897e2054fb914cfac0aa0d",
+    "tldr": "DiffThinker uses a diffusion model’s evolving images as a visual reasoning process and reports strong gains across seven vision-centric tasks."
+  },
+  "icml-2026-doubly-regularized-markov-decision-processes-for-robust-reinforcement-learning-7b238e90d4": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Regularization can improve reinforcement learning stability and efficiency, but its theory has largely focused on standard learning settings. This paper studies regularization in robust reinforcement learning, where policy learning must account for uncertainty in environment dynamics. It introduces a framework that regularizes both the policy and the dynamics, while naturally allowing continuous action spaces.",
+      "Within this framework, the authors develop an online algorithm based on optimism and establish finite-sample regret guarantees for both tabular and linear settings. These guarantees characterize learning performance over a finite amount of interaction. Their results show sample efficiency comparable to established robust Markov decision process algorithms, with the additional flexibility of soft policies that distribute probability over actions.",
+      "The authors also develop practical variants for the two settings and evaluate their ability to handle function approximation and exploration in large state-action spaces. The experiments report efficient learning and robust performance. The contribution combines a theoretical account of doubly regularized learning with empirical evidence that the framework can support practical robust reinforcement learning beyond small, explicitly enumerated problems."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "653156e327c194643815fca52f749f886f83bd156205bf12e9988188817f65c9",
+    "tldr": "Regularizing both policies and dynamics yields a robust reinforcement learning framework with finite-sample guarantees and practical algorithmic variants."
+  },
+  "icml-2026-dsgcr-decomposed-spectral-geometry-aware-cross-modal-semantic-representation-for-3d-visu-0ff4838028": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Locating objects in a 3D scene from language requires both semantic matching and precise spatial reasoning. The paper identifies two obstacles: visual and language encoders trained separately can produce poorly aligned representations, while spatial models based on handcrafted assumptions can miss complex geometric relations. DSGCR addresses these obstacles with complementary semantic and geometric components.",
+      "Text-Aware Feature Tuning introduces linguistic context into the visual feature hierarchy, encouraging the two modalities to align earlier in processing. Decomposed Spectral Geometry uses a learnable Fourier basis to represent object relationships. It separates pairwise relations into symmetric and antisymmetric components, supporting both fine geometric detail and relations whose meaning depends on direction.",
+      "Experiments on ScanRefer, Nr3D, and Sr3D support the method’s effectiveness and report state-of-the-art performance. On ScanRefer, the abstract reports gains of 2.05% in Acc@0.25 for 3D referring expression comprehension and 1.09% in mIoU for referring expression segmentation. The combined approach connects language-guided visual features with a more expressive representation of geometry, addressing both what an object means and how it relates spatially to other objects."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "68a37c39f848ee96f81f08a61110a064407b1ff4a8deeb305dd9aaadd48eaf8a",
+    "tldr": "DSGCR combines early language–vision alignment with spectral representations of geometry to improve object grounding in 3D scenes."
+  },
+  "icml-2026-efficient-multi-round-llm-inference-over-disaggregated-serving-0562c2e99f": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Language-model serving often separates prompt processing, called prefill, from token generation, called decode, because the two phases have different resource demands. Multi-round workflows complicate this arrangement: agents and iterative retrieval repeatedly alternate between processing new input and generating output. The paper argues that existing systems handle these interleaved workloads and their incremental prefill work inefficiently.",
+      "AMPD coordinates prefill work using the system’s current workload. It adaptively chooses where that work should run and how it should be scheduled, with the objective of increasing service-level objective attainment. This makes placement and scheduling responsive to the repeated interaction pattern rather than relying only on a fixed division between the two phases.",
+      "The framework also includes a planning algorithm tailored to resource allocation and parallel execution strategies for prefill and decode. Empirical comparisons show substantially better service-level objective attainment than state-of-the-art baselines. The stated benefit is improved fulfillment of serving targets under multi-round workloads, connecting deployment planning with runtime decisions about where and when incoming prompt work should execute."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f38b1a1a05848a67496354337fd26dca5cc7a0544a1a237457488327e38a345e",
+    "tldr": "AMPD adapts prompt-processing placement, scheduling, and resource planning to improve serving-target attainment for multi-round language-model workloads."
+  },
+  "icml-2026-fedpissa-towards-federated-personalized-adaptation-of-foundation-models-via-lora-subspac-95c7a5128c": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Low-rank adaptation, or LoRA, makes foundation-model fine-tuning cheaper by updating a compact set of parameters. In federated learning, distributed clients can collaborate on adaptation, but differences between their data make personalization difficult. Existing personalized approaches often maintain separate LoRA branches for shared knowledge and client-specific changes, introducing additional computation and redundant structure.",
+      "FedPissa instead uses a single LoRA structure with selective aggregation and subspace decorrelation. It chooses which components to aggregate according to their aggregation dynamics. It then applies a decorrelated subspace projection to reduce conflicts among heterogeneous updates. Together, these operations aim to make shared learning less disruptive to each client’s adaptation.",
+      "The authors evaluate the framework in text and vision settings. They report up to 35% lower communication and computation costs, alongside improved performance compared with counterparts. The findings support the idea that personalization can benefit from controlling which updates are shared and how their subspaces interact, without requiring a second LoRA branch. The cost reduction is a reported maximum across the experiments, rather than a fixed saving for every deployment."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6efeeb0d91e9d628b333105f5aed99cdb483ce8b75a55ca21e2690e027076ffe",
+    "tldr": "FedPissa personalizes federated fine-tuning with one LoRA structure by selectively sharing updates and reducing conflicts between their subspaces."
+  },
+  "icml-2026-gp2f-cross-domain-graph-prompting-with-adaptive-fusion-of-pre-trained-graph-neural-netwo-5a5fb82351": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Graph prompt learning adapts pretrained graph models to downstream tasks, including cases where source and target data differ substantially. This paper investigates why prompting can remain useful across such domain shifts. Its starting observation is that representative prompting methods are competitive with both full fine-tuning and linear probing, suggesting value in both adaptation and preservation of pretrained knowledge.",
+      "The authors provide a theoretical analysis in which combining these complementary branches yields lower estimation error than either branch alone. GP2F turns that insight into an explicit architecture: one branch stays frozen to retain pretrained knowledge, while another uses lightweight adapters to learn task-specific changes. This separates the two roles before combining their representations.",
+      "Fusion is adaptive and constrained by graph topology through contrastive and topology-consistent losses. These objectives make the combination sensitive to graph structure as well as to the two sources of information. Experiments on cross-domain few-shot node and graph classification show improvements over existing methods. The work thus links an analysis of complementary adaptation strategies to a concrete model for transferring graph knowledge when labeled target examples are scarce."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f658bd791feda1b65295c96759668d3f844479de1f286faf3dc661c6c863f84f",
+    "tldr": "GP2F adaptively combines frozen pretrained graph knowledge with lightweight task adaptation to improve cross-domain few-shot classification."
+  },
+  "icml-2026-hermite-ngp-gradient-augmented-hash-encoding-for-learning-pdes-af21ba511b": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Neural solvers for partial differential equations need spatial derivatives as well as function values. Existing methods based on multi-resolution hash encoding can incur instability or high costs when obtaining those derivatives through automatic differentiation or finite differences. Hermite-NGP changes the representation so that derivative information is stored directly at hash-grid vertices.",
+      "Each vertex stores function values and mixed partial derivatives. Hermite interpolation then supports analytic evaluation of gradients, Jacobians, and Hessians, providing differential operators through second order. This retains the efficiency and spatial adaptivity of hash encoding while making derivative computation an explicit part of the representation. A multi-resolution training curriculum, analogous to multigrid V-cycles, further supports optimization from coarse to fine scales.",
+      "Across the evaluated 2D and 3D equation benchmarks, the method achieves up to approximately 20-fold lower error than prior neural PDE methods. It also reduces wall-clock convergence time by factors of two to ten compared with other solvers, with reported epoch times as low as 3.5 milliseconds for models of up to 17 million parameters. These results connect derivative-aware representation design with both accuracy and computational efficiency."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "79b11b886fa6e38187a8e30e6a97f19d13bba5b60de081c91e95b842a080740b",
+    "tldr": "Hermite-NGP stores derivative information in hash grids to enable fast analytic differentiation and improve neural PDE solving."
+  },
+  "icml-2026-hymtrl-a-hybrid-multi-task-reinforcement-learning-framework-via-phased-policy-evolution-cd85506484": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Sharing knowledge across reinforcement-learning tasks can improve learning efficiency, but tasks do not necessarily converge at the same speed. This paper identifies the shared critic, which supports policy optimization, as a bottleneck when it must represent tasks at different stages of mastery. Easier and harder tasks continue imposing demands on the same network.",
+      "HyMTRL divides learning into reinforcement exploration and imitation refinement. Once a task is mastered, its policy moves from reinforcement-based optimization to imitation-based consolidation. That task is then removed from the critic’s optimization objective, reducing the critic’s representational burden while maintaining its learned behavior through imitation. The framework also resets the critic to restore capacity while preserving the policy and historical experience.",
+      "The approach is designed to integrate with a broad range of existing multi-task reinforcement-learning methods. Evaluations on MetaWorld report significant gains in both learning efficiency and final performance. The findings support adapting the learning process to each task’s progress: mastered tasks can be consolidated through a different objective, allowing the shared critic to focus its capacity on tasks still requiring reinforcement learning."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "cadd7cf13b02df72b7835e877d07d90586220beabbd6abc0404cffb090fc8617",
+    "tldr": "HyMTRL moves mastered tasks into imitation learning to reduce shared-critic overload and improve multi-task reinforcement learning."
+  },
+  "icml-2026-learning-taxonomic-trees-with-hierarchical-representation-regularization-for-large-multi-41de92fabd": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Recognizing concepts hierarchically requires a multimodal model to respect relationships between broad categories and their more specific members. The paper argues that ordinary language-modeling objectives do not explicitly teach this taxonomic organization, contributing to inconsistent hierarchical visual recognition. HiR² adds a regularizer intended to make those relationships visible in learned representations.",
+      "The method first constructs a visual tree using textual guidance to extract coarse-to-fine features from intermediate language-model layers. It then combines two geometric objectives. A taxonomic entailment loss uses hyperbolic entailment cones in the Lorentz model to encode hierarchical relationships. A discriminative dispersive loss separates semantically similar embeddings by angle on a unit sphere while preserving their radial hierarchical organization.",
+      "The two objectives address complementary needs: representing category relationships and keeping related concepts distinguishable. Experiments across multiple large multimodal models and fine-tuning approaches show that the regularizer captures taxonomic structure effectively. The contribution is a plug-and-play way to supplement fine-tuning with explicit hierarchy-aware supervision, encouraging representations that retain both broad-to-specific organization and distinctions among nearby semantic concepts."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7d7fe9bd8864612edc7fbe8d05b7662df2b8ccc75a52cb6aa53ec5d1b84a6082",
+    "tldr": "HiR² adds complementary geometric losses that help multimodal models represent taxonomic hierarchies while distinguishing related concepts."
+  },
+  "icml-2026-liftquant-continuous-bit-width-llm-via-dimensional-lifting-and-projection-d10f206cd5": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Compressing language-model weights to fixed integer bit widths can leave a mismatch between available GPU memory and model size. A two-bit model may fit while a higher-precision choice does not, leaving no suitable setting between them. LiftQuant introduces finer control over effective bit width through a lift-then-project representation of weight vectors.",
+      "The method represents low-dimensional weights by projecting a one-bit lattice from a higher-dimensional space. The ratio between the lifted and original dimensions determines the effective bit width, so changing that structural ratio enables quasi-continuous precision choices. Projection creates a structured, non-uniform codebook with vector-quantization-like expressiveness. Its decoding operations remain linear transformations and uniform one-bit quantizers, maintaining a hardware-friendly structure.",
+      "The reported deployment example compresses a 70-billion-parameter language model to 2.4 bits so that it fits a 24 GB GPU. On that device, it substantially outperforms state-of-the-art two-bit models. This demonstrates the practical value of using more of a specific memory budget: intermediate effective precision can preserve additional model performance while still meeting a hard deployment constraint."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6059a946a1bee4d9eee5a34b63d0e0dbe995b9a2bce9b1bf464c7ea1f86e6c07",
+    "tldr": "LiftQuant uses dimensional lifting and projection to tune effective weight precision more finely and fit language models to specific memory budgets."
+  },
+  "icml-2026-navigating-the-flatlands-dual-adaptive-sharpness-aware-minimization-for-domain-generaliz-063abaace7": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Domain generalization aims to learn models that work beyond the training domains. Seeking flat regions of the loss landscape is one strategy, but the paper identifies two weaknesses in existing sharpness-aware optimization. A uniform treatment of domains overlooks differences in difficulty, and probing only one parameter direction can miss sharpness in other directions.",
+      "DA-SAM addresses both issues through two interacting modules. Dynamic Adaptive Scaling uses each domain’s current loss to generate domain-specific scaling factors that guide perturbation directions. Adaptive Multi-Directional Flattening probes several directions to estimate local flatness, then adjusts perturbation step size to steer parameters away from regions that remain sharp along some directions.",
+      "The interaction matters because domain-specific guidance makes the geometric exploration more targeted. The optimizer therefore adapts both to which domains are difficult and to how sensitivity varies across parameter directions. Experiments on five domain-generalization benchmarks demonstrate the algorithm’s effectiveness. The stated result supports combining domain-aware optimization with broader local exploration, rather than assuming that a single directional flatness check adequately characterizes robustness in multi-domain training."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3c765aacb63680c178486121bcc89c1ff47e3b190321b0dc3eec8702d413932c",
+    "tldr": "DA-SAM combines domain-specific guidance with multidirectional flatness exploration to improve optimization for domain generalization."
+  },
+  "icml-2026-newton-coupled-dual-teacher-semi-supervised-learning-framework-a0c5feb604": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Semi-supervised learning often trains a student using pseudo-labels supplied by a teacher. Those labels identify desired outputs but do not describe the local geometry of the training loss. This paper links that restricted supervision to unstable optimization and limited generalization when labeled data are scarce, then proposes a framework with two complementary teachers.",
+      "TTN combines supervision from MAE and DINOv3. Their structural and semantic cues operate at multiple scales, and the framework fuses both their pseudo-labels and local Hessians using confidence weights. The Hessians provide curvature information about the loss. A Newton-guided student update uses this combined curvature to precondition parameter changes, making the optimization responsive to geometry as well as predicted categories.",
+      "Across ImageNet, CIFAR-10, SVHN, and STL-10, TTN consistently improves on the evaluated single-teacher and consistency-based methods. The findings support coupling complementary self-supervised teachers with curvature-guided optimization. Its central contribution is to enrich what the student receives: supervision includes both the teachers’ predictions and second-order information that helps guide how the student moves toward those predictions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "75056b8940b6dbd0ad35364aad17a239135ef903c80a76ef2a4e90ef72c914a9",
+    "tldr": "TTN combines two teachers’ predictions and loss curvature to guide more effective semi-supervised student learning."
+  },
+  "icml-2026-search-r2-enhancing-search-integrated-reasoning-via-actor-refiner-collaboration-0c28d358d1": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Training search-enabled language agents from final-answer rewards makes it difficult to identify which reasoning and retrieval steps deserve credit. A correct answer can arise from strong evidence use or a lucky guess, while unnecessary searches may receive little direct feedback. Search-R2 addresses this credit-assignment problem through collaboration between an Actor and a Meta-Refiner.",
+      "The Actor generates an initial reasoning trajectory. The Meta-Refiner selectively identifies flawed steps and repairs them by cutting the trajectory and regenerating from the intervention point. Both components are optimized jointly. A hybrid reward combines answer correctness with a dense process signal based on the information density of retrieved evidence, providing feedback about the usefulness of the search process itself.",
+      "The authors formalize the interaction as a smoothed mixture policy and prove strict performance improvements from selective correction within that formulation. Experiments on general and multi-hop question answering show consistent gains over strong retrieval-augmented and reinforcement-learning baselines across model scales, with minimal overhead. The approach connects targeted repair with more detailed supervision, helping training distinguish useful reasoning from merely successful final outcomes."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7072ebb799433616331d32f806794be82d13101f8d40d2ba78b595c8cac01f01",
+    "tldr": "Search-R2 jointly trains an Actor and selective Refiner using answer and evidence-quality rewards to improve search-integrated reasoning."
+  },
+  "icml-2026-sequential-kernel-based-conditional-independence-testing-via-adaptive-betting-6b62f4d044": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Conditional independence testing asks whether two variables remain related after accounting for other variables. Reliable false-positive control is impossible in full generality without additional assumptions. Model-X methods address this by assuming that a relevant conditional distribution is known exactly, but sequential tests can become fragile when that distribution must instead be estimated.",
+      "The proposed method combines testing-by-betting with a kernel conditional independence statistic that is optimized adaptively. It also introduces normalization and a truncate-and-shift calibration strategy. These modifications target the sensitivity of the sequential testing procedure to errors in the estimated conditional distribution, aiming to reduce false positives without sacrificing the ability to detect genuine dependence.",
+      "Evaluations on high-dimensional synthetic benchmarks and real-world fairness tasks show substantially less Type I error inflation while retaining high statistical power. The method outperforms the evaluated sequential Model-X approaches. Its contribution is increased robustness to conditional-distribution estimation error; the findings do not remove the underlying need for assumptions in conditional independence testing or establish unrestricted false-positive control under arbitrary estimation errors."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "724221ebe6b56bb5530a518e8db827d7bc371ea73444521f35d8aa20eeba8f6f",
+    "tldr": "Adaptive betting and calibrated kernel statistics make sequential conditional independence testing more robust to estimated conditional distributions."
+  },
+  "icml-2026-strat-reasoner-reinforcing-strategic-reasoning-of-llms-in-multi-agent-games-bfe6a0e7cb": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Strategic reasoning in a multi-agent game depends on other agents’ choices as well as one’s own. Because those agents can change their behavior, evaluating a reasoning sequence and assigning credit to intermediate steps becomes difficult. Strat-Reasoner targets this challenge by making other agents’ reasoning part of the learning process.",
+      "Its recursive reasoning approach incorporates the reasoning processes of other agents into an agent’s own deliberation. A centralized Chain-of-Thought comparison module evaluates intermediate reasoning quality to supply more useful reward signals. The framework then computes a hybrid advantage and uses group-relative reinforcement learning to optimize the language-model policy.",
+      "Experiments across multiple multi-agent games report an average performance improvement of 22.1% for the underlying models. The result supports explicitly accounting for other agents when training strategic reasoning, alongside evaluating the intermediate reasoning that leads to an action. The contribution combines a way to represent strategic interdependence with a training signal for it, addressing the difficulty of learning from outcomes that reflect several agents’ joint decisions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f4917ed3625c011bfe4167e5ab5dbceda3b9d7fb106c33c05fe77820979b0c5d",
+    "tldr": "Strat-Reasoner trains language models to incorporate other agents’ reasoning and improves performance across evaluated multi-agent games."
+  },
+  "icml-2026-structure-centric-graph-foundation-model-via-geometric-bases-2db319271a": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Transferring a graph model between domains is difficult when graphs differ both in connection patterns and in the features attached to nodes. SCGFM makes topology the main source of transferable knowledge. Its goal is to create a shared representation of structure while accommodating incompatible node-feature spaces.",
+      "The method treats graphs as metric measure spaces and learns geometric bases that serve as a common structural coordinate system. It aligns graphs to these bases using Gromov–Wasserstein distances, producing latent representations organized around structural correspondence. This gives heterogeneous graph topologies a shared reference through which their representations can be related.",
+      "A structure-aware re-encoding mechanism also unifies node representations without requiring a fixed input-feature dimension or dataset-specific preprocessing. Experiments on both node-level and graph-level tasks report strong generalization within and across domains, outperforming existing graph foundation models. The findings support using structural alignment and feature re-encoding together: a common topology-based representation handles differences in connectivity, while the feature mechanism addresses differences in what each dataset records about its nodes."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "104d3562205082be0dd16e550ef19bb8e5f8cdba580e803c8d25fcff46278f07",
+    "tldr": "SCGFM aligns graphs to learned geometric bases and re-encodes node features to transfer knowledge across structurally different graph domains."
+  },
+  "icml-2026-swe-perf-can-language-models-optimize-code-performance-on-real-world-repositories-bc53544147": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Writing working code and making existing software faster are distinct engineering capabilities. This paper introduces SWE-Perf to evaluate the latter within real repositories, where optimization must account for an existing codebase and its execution environment. The benchmark addresses a gap left by evaluations focused mainly on code generation and bug fixing.",
+      "SWE-Perf contains 140 curated tasks drawn from performance-improving pull requests in popular GitHub repositories. Each task includes the relevant codebase, functions to target, performance tests, an expert-authored patch, and an executable environment. These components connect an optimization request to both a realistic implementation context and a way to evaluate its performance.",
+      "The authors compare representative file-level and repository-level approaches, including Agentless and OpenHands. Their evaluation finds a substantial gap between existing language-model methods and expert optimization performance. This establishes repository-level performance optimization as a demanding capability to measure in its own right. The benchmark provides a concrete setting for investigating that gap, with expert changes and executable tests grounding the comparison in actual software improvements."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9b667ad3126b4a7c904c5ead8e5d9db7250f97d8a37396477a95e23ddfaca07b",
+    "tldr": "SWE-Perf benchmarks repository-level code optimization and finds a substantial gap between language-model methods and expert performance improvements."
+  },
+  "icml-2026-the-accumulation-of-score-estimation-error-in-diffusion-models-263a63f1d9": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Diffusion generation depends on an estimated score that guides the reversal of noise. Errors in this estimate can accumulate during sampling and change the generated distribution. This paper analyzes that accumulation using stepwise bounds in Wasserstein distance, connecting local estimation errors with distribution-level discrepancies.",
+      "The analysis begins with Gaussian mixtures, where the score has an explicit form and its Hessian can be controlled directly. That structure enables sharp error estimates. The authors then extend the argument to general data distributions, obtaining a broader upper bound that is typically looser. This progression separates what can be established with tractable distributional structure from what remains available more generally.",
+      "A regularity condition improves the general result: if the initial distribution’s score is globally Lipschitz, the curvature contribution stays uniformly bounded at small times, avoiding the worst-case blow-up. The conclusions cover variance-preserving and variance-exploding diffusions, as well as both reverse-time stochastic dynamics and the associated probability-flow ordinary differential equation. The work clarifies how score accuracy and curvature jointly influence error accumulation across these sampling formulations."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "48acece91ba45104c681d353898fa3fcc2e2cbded7f46c178c5a3bb8e29ae966",
+    "tldr": "The paper bounds how score-estimation errors accumulate in diffusion sampling and shows when regularity prevents a small-time curvature blow-up."
+  },
+  "icml-2026-understand-and-accelerate-memory-processing-pipeline-for-large-language-model-inference-910919b310": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Sparse attention, retrieval-augmented generation, and compressed contextual memory all help language models use information efficiently, but processing that memory introduces its own costs. This paper organizes those operations into four stages: preparing memory, computing relevance, retrieving information, and applying it during inference. Profiling identifies memory-processing overhead ranging from 22% to 97%, with substantially different computational demands across stages.",
+      "The authors use these differences to motivate a heterogeneous GPU–FPGA system. Sparse, irregular, and memory-bound operations are assigned to the FPGA, while compute-intensive operations stay on the GPU. The design matches different parts of the memory pipeline to hardware suited to their computational behavior.",
+      "On an AMD MI210 GPU paired with an Alveo U55C FPGA, the system achieves up to 2.2-fold speedup and a reported 4.7-fold energy reduction over the GPU baseline across multiple language-model optimizations. Similar results are reported with an NVIDIA A100. The findings show that accelerating memory operations can improve end-to-end inference, and support heterogeneous hardware as a practical direction for workloads whose stages place different demands on computation and memory."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9f6c10245c6b9da3c3be2205a3ba943b901b4ed736ebc011aa77cc37abf3f973",
+    "tldr": "A shared view of language-model memory processing enables GPU–FPGA acceleration with reported gains in inference speed and energy use."
+  },
+  "icml-2026-vision2web-a-hierarchical-benchmark-for-visual-website-development-with-agent-verificati-ae91d8491d": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Building a website from visual references involves more than reproducing a single screen. Vision2Web evaluates a progression from static interface generation to interactive multi-page frontend reproduction and extended full-stack development. This hierarchy distinguishes increasingly demanding forms of website-building capability within one benchmark.",
+      "The benchmark draws from real websites and contains 193 tasks across 16 categories, supported by 918 prototype images and 1,255 test cases. Its evaluation combines a graphical-interface agent verifier with a vision-language-model judge in a workflow-based verification approach. The complementary components are intended to make assessment flexible, thorough, and reliable across the benchmark’s different task levels.",
+      "The authors evaluate multiple vision-language models operating through different coding-agent frameworks. They find substantial performance gaps throughout the hierarchy, with leading models still struggling on full-stack development. The results show why website development benefits from evaluation at several levels of complexity: reproducing static visual material captures only part of the broader capability. Vision2Web provides a structured way to examine the remaining demands of interaction, multiple pages, and longer development workflows."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b2de420af47017d4c8aedd73ee07f749ab372e22dd7bac262bec684a68eb6880",
+    "tldr": "Vision2Web evaluates website-building agents from static interfaces through full-stack workflows and reveals substantial capability gaps."
+  }
+}

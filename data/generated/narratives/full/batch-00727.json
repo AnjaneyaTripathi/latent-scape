@@ -1,0 +1,327 @@
+{
+  "neurips-2023-a-unified-approach-to-count-based-weakly-supervised-learning-095164e933": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies learning when supervision describes how many examples belong to each class, rather than assigning a reliable label to every example. Such information can be available even when high-quality individual labels are scarce. The authors bring this setting under a common formulation called count-based weakly supervised learning, making aggregate class frequencies the central training signal.",
+      "The mathematical core is a procedure for calculating the probability that exactly k of n model outputs are true. The authors describe this calculation as exact, efficient, and differentiable. Differentiability matters because the resulting probability can participate directly in training: changes to the model's outputs can be connected to changes in how well its predictions satisfy the supplied count information.",
+      "Using this computation, the paper constructs a count loss that penalizes disagreement between the model's predicted distribution and an arithmetic constraint on label counts. The contribution is therefore a way to translate group-level supervision into an optimization objective. It connects what is known about a collection of examples to learning predictions for its members."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "bace116fb502c04d9d19b84815c0c5d91a08a5f2c859841851614e189ee111c2",
+    "tldr": "The paper turns aggregate label counts into a trainable loss through an exact, efficient, differentiable count-probability calculation."
+  },
+  "neurips-2023-alim-adjusting-label-importance-mechanism-for-noisy-partial-label-learning-583d86dc90": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Partial label learning trains a model from a set of possible labels for each example. Its usual assumption is that the correct label appears somewhere in that set. This paper addresses the noisier setting where even that assumption can fail, so choosing among the supplied candidates may never produce the right answer.",
+      "Existing approaches often try to identify examples with faulty candidate sets and then estimate their true labels. The problem is that mistakes in this detection process can accumulate and continue influencing training. ALIM addresses that issue by adjusting label importance through a tradeoff between the original candidate set and the model's own outputs. Its aim is to reduce the harm caused by detection errors.",
+      "The framework includes theoretical interpretations and is designed as a plug-in strategy for existing partial label learning methods. Across multiple benchmark datasets, the authors report state-of-the-art performance for noisy partial label learning. The result supports balancing candidate information with model predictions as a useful approach when supplied label sets themselves may be unreliable."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "701b5abe7c5e0d453895d07f1db5d5be43954b6c5e95e03e79c9a96bf6e798c9",
+    "tldr": "ALIM balances candidate labels with model predictions to reduce the impact of detection errors in noisy partial label learning."
+  },
+  "neurips-2023-beyond-confidence-reliable-models-should-also-consider-atypicality-45d63c3a36": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A prediction's confidence does not fully explain why it may be unreliable. Low confidence can reflect an inherently ambiguous input or an input poorly represented in training data. This paper investigates an additional signal: atypicality, meaning how rare an input or its class is. The goal is to distinguish reliability patterns that confidence alone does not adequately capture.",
+      "The authors empirically find that atypical examples and classes tend to have lower accuracy and more overconfident predictions. They then use atypicality information to improve uncertainty estimates and model performance in discriminative neural networks and large language models. Simple estimators applied after training provide value, making atypicality useful beyond an observation about model behavior.",
+      "A skin lesion classification case study reports improvements across skin tone groups without using the group attributes. This illustrates how accounting for atypicality can help across groups even when those group labels are unavailable to the method. The findings support combining confidence with information about rarity, while remaining empirical results rather than a guarantee that every rare input will be misclassified."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ea0b5ed5bc9647563545a57fe1e1dc0a312accc1b1c2dab312e77366f6e5714e",
+    "tldr": "Accounting for how atypical an input or class is improves reliability estimates and performance beyond using confidence alone."
+  },
+  "neurips-2023-binarized-spectral-compressive-imaging-30961dbda0": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Reconstructing hyperspectral images from compressed measurements can require neural networks with substantial memory and computation demands. Those demands make deployment on resource-limited mobile devices difficult. BiSRNet tackles this problem by designing a compact reconstruction network specifically for binarization, with the aim of making restoration in snapshot compressive imaging systems more practical.",
+      "Its main building block, BiSR-Conv, adaptively redistributes image representations before converting activations to binary values. During training, it uses a scalable hyperbolic tangent function to approximate the sign operation in backpropagation. These changes address both the representations being compressed and the gradient calculation used to learn through that compression.",
+      "The authors also build four specialized binary convolution modules to handle mismatched dimensions and carry full-precision information through the network. BiSRNet combines these components by binarizing the redesigned base model. Quantitative and qualitative experiments report better performance than state-of-the-art binarization algorithms. The stated comparison supports the effectiveness of this task-specific binary design; it does not establish superiority over every full-precision hyperspectral reconstruction method."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "15ee0bde8438c3b6119bffe83779e46930facd2bc6fa340a52a22431be8a97df",
+    "tldr": "BiSRNet uses specialized binary convolutions to reconstruct hyperspectral images efficiently and outperform existing binarization algorithms."
+  },
+  "neurips-2023-conditional-score-guidance-for-text-driven-image-to-image-translation-1d38983d8f": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Text-guided image editing needs to change the requested regions while preserving the rest of the source image. This paper builds an editing algorithm around a pretrained text-to-image diffusion model. Its guidance incorporates the source image and source text prompt as well as the desired target description, giving the editing process information about both the starting point and the intended change.",
+      "The authors derive a conditional score function and separate it into a standard score and an additional guidance term. To calculate the guidance gradient, they assume a Gaussian posterior distribution and estimate its mean and variance. This is a stated modeling assumption underlying a method that adjusts guidance without additional training.",
+      "The method also mixes cross-attention maps obtained from source and target latents. This is intended to combine unchanged source content with edited regions that match the target prompt. Experiments across several translation tasks report strong image-to-image translation performance. Together, the guidance and attention mixing address the linked requirements of making a requested edit and retaining the image content that should remain invariant."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "cbc7319292c8df17913fcf32b88a1ca97cf1d1dd2a440de5ec2efa6492097732",
+    "tldr": "Conditional score guidance uses source and target information to steer pretrained diffusion models toward selective image edits without additional training."
+  },
+  "neurips-2023-efficient-potential-based-exploration-in-reinforcement-learning-using-inverse-dynamic-bi-852d947ede": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Reinforcement learning agents can explore more effectively when they receive informative rewards beyond the original task reward. However, manually designed shaping rewards introduce dependence on human choices, while exploration bonuses based heavily on episodic counts can face scalability problems. LIBERTY proposes a learned, end-to-end exploration bonus based on differences between states.",
+      "The method measures novelty between adjacent states using a potential function built from a bisimulation metric. This state discrepancy provides denser rewards and encourages discovery of novel states without manual reward design. The authors also state that their construction preserves policy invariance, connecting exploration assistance to a formal property of potential-based shaping.",
+      "The theoretical analysis bounds value differences using the proposed inverse dynamic bisimulation metric and establishes exploration of states with higher temporal-difference error. These are states where learning has a larger discrepancy to resolve. Evaluations in MuJoCo and the Arcade Learning Environments report superior performance and scalability relative to competitive methods. The contribution combines a learned exploration signal with theoretical support for the behavior that signal encourages."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "39d920305454ea56070e84dff1b0457da8666fc8bbf72d4cd0bf4e08ff6c27ed",
+    "tldr": "LIBERTY learns a state-discrepancy exploration bonus with policy-invariance guarantees and reports improved exploration performance and scalability."
+  },
+  "neurips-2023-ego4d-goal-step-toward-hierarchical-understanding-of-procedural-activities-1d5eaa4847": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Understanding an activity requires connecting individual actions to the steps and goals they serve. Much activity recognition research instead concentrates on short, low-level actions. Ego4D Goal-Step adds annotations that make these higher-level relationships explicit, supporting the study of how procedural activities unfold over time and how their parts contribute to an overall objective.",
+      "The resource includes dense labels for 48,000 procedural step segments covering 430 hours, together with high-level goal annotations for 2,807 hours of Ego4D video. Its hierarchy connects goals, steps, and substeps. Additional information includes natural-language summaries, whether steps were completed, and how steps relate to goals, providing several complementary descriptions of the same activity.",
+      "The authors construct the taxonomy from the data to avoid poor alignment between observed activities and labels defined in advance. Their evaluations and analyses show how the annotations support goal inference, step prediction, learning hierarchical relationships, and modeling longer time spans. The contribution is a substantial annotation resource for studying purposeful activity beyond recognizing isolated motions or brief action segments."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "40726821921c964e3d41a05cd4eabba74693c6413452267cdd75511cca68a959",
+    "tldr": "Ego4D Goal-Step adds large-scale hierarchical annotations that connect video actions and procedural steps to their broader goals."
+  },
+  "neurips-2023-generalizable-lightweight-proxy-for-robust-nas-against-diverse-perturbations-3021657f3b": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Neural architecture search often selects networks for accuracy on clean images, even though deployed models may encounter many forms of perturbation or corruption. Existing robustness-focused searches can be computationally expensive and concentrate on adversarial attacks. This paper proposes a lightweight proxy for identifying architectures with broader robustness at a much lower search cost.",
+      "The proxy examines networks at initialization, comparing consistency across features, parameters, and gradients associated with clean and perturbed images. These signals are used to guide architecture selection before undertaking the expensive training involved in existing robust search methods. The intended target is an architecture capable of learning features that remain useful across different perturbations.",
+      "Experiments span multiple benchmark datasets and search spaces. The authors report that their proxy finds architectures with consistent robustness across varied perturbations and substantially outperforms existing clean zero-shot and robust search methods while reducing search cost. The findings support initialization-time consistency as a useful search signal in the tested settings, connecting efficient architecture selection with robustness beyond a single attack type."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f0de53c98ef57560b38ed3599d92e490558aa23826d0bb1dce7ab825cd11810d",
+    "tldr": "A lightweight initialization-time proxy guides architecture search toward robustness across diverse perturbations with reduced search cost."
+  },
+  "neurips-2023-geq-gaussian-kernel-inspired-equilibrium-models-a77c534476": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Optimization-induced equilibrium models connect their outputs to underlying optimization problems, but their performance has lagged behind deep networks. This paper identifies linear feature-extraction kernels as one factor limiting that performance. It proposes GEQ, an equilibrium model that replaces the linear kernel with a Gaussian kernel to capture nonlinear relationships in the input features.",
+      "The change brings a classical machine learning idea into the equilibrium-model formulation. Instead of relying on linear dependencies during feature extraction, GEQ uses the Gaussian kernel to obtain nonlinear information. The authors also give an interpretation of GEQ as a neural network with shared weights and infinite width and depth, linking the construction to another view of neural computation.",
+      "The paper reports improved theoretical properties, better overall performance than the original OptEqs, and enhanced stability across different samples. Experiments support both the effectiveness and stability claims. Its main message is that the feature-extraction function is consequential within an equilibrium architecture: replacing the linear component can improve performance while retaining the model's connection to an underlying optimization formulation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "35957d9e9430d01bc673e1491651e10fe31cd70b69aaf94b76a4646f6db23ab0",
+    "tldr": "GEQ introduces Gaussian kernels into equilibrium models to capture nonlinear features and improve performance and stability over OptEqs."
+  },
+  "neurips-2023-h3t-efficient-integration-of-memory-optimization-and-parallelism-for-large-scale-transfo-01563fceec": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Training large Transformers presents two connected problems: storing the training state and performing the computation efficiently. Memory-saving techniques and parallel execution both help, but their combination affects the balance between memory use and training speed. H3T treats that combination as a search problem, automatically selecting memory optimization strategies together with parallelism schemes.",
+      "The framework's search algorithms look for an efficient integration of techniques such as rematerialization and offloading with data and model parallelism. The contribution is the joint choice of these strategies, an interaction the authors describe as receiving limited attention in existing training systems. H3T is implemented using the BMTrain toolkit and evaluated on Transformers of different sizes.",
+      "In the reported experiments, H3T achieves 1.2 to 4.3 times the training speed of Megatron-DeepSpeed while reducing memory overhead by 34.6% to 80.5%. The authors also train GPT-3-175B using 64 NVIDIA A100 GPUs. These results show that jointly arranging memory management and parallel computation can improve both throughput and memory use in the evaluated training configurations."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "916495b187f2b2c237d7bc07d37a0650acc05dd2217b9494c115a0d28063cff3",
+    "tldr": "H3T jointly searches memory-saving and parallel-training strategies, reporting faster Transformer training with substantially lower memory overhead."
+  },
+  "neurips-2023-ignorance-is-bliss-robust-control-via-information-gating-903e126d7c": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A control policy can become unreliable when it depends on visual details that are irrelevant to its task. InfoGating addresses this by learning which information is needed to solve the task. It explores two complementary objectives: revealing as little information as possible while keeping the task solvable, or hiding as little as possible to make it unsolvable.",
+      "The method controls information through a differentiable signal-to-noise parameterization. Applied to input pixels, it learns which visual cues matter; applied inside a network, it learns which activations later computations need. This makes the same information-selection idea applicable at different stages of a model rather than restricting it to preprocessing observations.",
+      "The authors apply InfoGating to forward and inverse dynamics objectives, Q-learning, and behavior cloning. Their results show that learning to identify and use minimal information can improve generalization on downstream tasks. Policies using InfoGating are reported to be considerably more robust to irrelevant visual features, with improvements in reinforcement learning pretraining and finetuning. The findings support information parsimony as a useful bias for control representations."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "27ede32eecbc8face5916a89b6bf08fe99379bf879a386f12219577a191593f1",
+    "tldr": "InfoGating learns which information a control task needs, improving robustness to irrelevant visual features and downstream generalization."
+  },
+  "neurips-2023-in-defense-of-softmax-parametrization-for-calibrated-and-consistent-learning-to-defer-842551025b": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Learning to defer trains a classifier to decide both what to predict and when to pass a decision to an expert. Reliable deferral requires meaningful estimates of when that handoff is appropriate. Earlier analyses found that popular softmax-based estimators could produce unbounded estimates of deferral likelihood, leaving open whether softmax itself caused the problem.",
+      "This paper locates the cause in the symmetry of the surrogate training losses used by those estimators. That distinction matters because it separates the parameterization from the objective used to train it. The authors then construct an asymmetric softmax-based surrogate loss that is statistically consistent and produces valid estimates without the earlier unboundedness issue.",
+      "The work also analyzes non-asymptotic properties, addressing behavior beyond a purely limiting statistical description, and evaluates performance and calibration on benchmark datasets. The result supports retaining softmax while changing the loss structure. More broadly, it shows that a calibration failure in a learning-to-defer system can arise from how the learning objective is designed, rather than being an unavoidable property of softmax."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c809fda7c740f86a4a9a9101a090a1bc64df2ed8fcd1d371ee063373f0b44e25",
+    "tldr": "An asymmetric loss makes softmax-based learning to defer statistically consistent while avoiding unbounded probability estimates."
+  },
+  "neurips-2023-leveraging-vision-centric-multi-modal-expertise-for-3d-object-detection-cf481c1919": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A camera-only 3D detector can learn from a stronger expert that also uses LiDAR, but transferring that knowledge is difficult when their internal features differ. Combining information across time creates another incompatibility. VCD addresses both issues by designing an expert that is structurally compatible with the camera-only learner and adding supervision suited to temporal fusion.",
+      "The expert, VCD-E, uses the same structure as the camera-only apprentice while incorporating LiDAR as a depth prior for reconstructing the 3D scene. This reduces feature disparity while achieving performance comparable to other multimodal experts. A trajectory-based distillation module then corrects motion misalignment separately for each object, making the transferred temporal information better matched to the scene.",
+      "The resulting camera-only model, VCD-A, achieves a reported 63.1% NDS on nuScenes, which the paper presents as a new state-of-the-art result. The contribution is not only a stronger teacher but a teacher whose representations and temporal supervision are more compatible with its learner. The reported outcome supports that compatibility as a useful part of knowledge transfer."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "26eebb32ac6c5cb250e8ec90b574ce589144f35b7263ac041c696238b0b45614",
+    "tldr": "VCD improves camera-only 3D detection using a structurally compatible multimodal expert and object-specific temporal distillation."
+  },
+  "neurips-2023-massively-multilingual-corpus-of-sentiment-datasets-and-multi-faceted-sentiment-classifi-9301168586": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Sentiment analysis across languages is challenging because expressions of feeling can depend on cultural context and subtle linguistic cues. This paper contributes an open collection of sentiment datasets intended to support training multilingual models. Its emphasis is on carefully selecting existing resources and organizing them into a broad corpus that researchers can use and inspect.",
+      "The authors manually select 79 datasets from more than 350 described in the scientific literature, applying strict quality criteria. The resulting collection covers 27 languages across six language families. Users can query datasets through linguistic and functional features, allowing them to identify relevant parts of the collection rather than treating all sentiment data as interchangeable.",
+      "Alongside the corpus, the paper introduces a benchmark summarizing hundreds of experiments. These vary base models, training objectives, dataset collections, and finetuning strategies. The contribution therefore combines access to curated training resources with a structured examination of modeling choices. It provides a foundation for studying multilingual sentiment across different configurations, with cultural dependence serving as the motivation for broader and more carefully organized coverage."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "cc5be42662d49924b6c8bbce33d20ef592d2ae63453dfb130dac028202915d11",
+    "tldr": "The paper provides a curated multilingual sentiment corpus and a benchmark spanning hundreds of training and modeling configurations."
+  },
+  "neurips-2023-neural-latent-geometry-search-product-manifold-inference-via-gromov-hausdorff-informed-b-1ae7e15798": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A model's latent representation need not use only Euclidean geometry. Hyperbolic, spherical, or combined spaces may better match the structure of its data. This paper formalizes the task of automatically choosing that geometry, calling it neural latent geometry search. It presents an initial approach for searching products of constant-curvature spaces using relatively few evaluations, under simplifying assumptions.",
+      "To organize the search, the authors define a distance between candidate geometries inspired by the Gromov-Hausdorff distance. A mapping places different manifolds into a shared high-dimensional ambient space so that they can be compared. These comparisons help construct a graph of candidate geometries and supply an additional inductive bias based on smoothness between them.",
+      "Bayesian optimization then uses this structured search space to seek a suitable latent geometry efficiently. Experiments on synthetic and real datasets apply the approach to multiple machine learning problems. The contribution turns representation geometry into an explicit object of optimization, providing a general search method that can be applied across models and tasks within the proposed formulation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9307dc17490eae24c3b86e5991b96de002afbd248f185a47c78918f80ebd9f8f",
+    "tldr": "Neural latent geometry search uses geometry-aware distances and Bayesian optimization to choose latent spaces with relatively few evaluations."
+  },
+  "neurips-2023-no-regret-online-reinforcement-learning-with-adversarial-losses-and-transitions-8c805e9572": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Online reinforcement learning can tolerate adversarially chosen losses when environment transitions remain fixed, but unrestricted adversarial transitions make no-regret learning impossible. This paper studies a graded response to that difficulty. Its algorithms incur regret that grows with a measure of how adversarial the transitions are, rather than requiring the transition function to remain unchanged.",
+      "The first guarantee is approximately square-root T plus a transition-adversariality quantity, Cᴾ, with logarithmic factors suppressed. Because Cᴾ can grow linearly with T, this bound does not promise sublinear regret under every adversary. The initial algorithm requires knowing Cᴾ; a subsequent black-box reduction removes the need for that advance knowledge.",
+      "Further refinements retain the same general bound while adapting to easier environments with stochastically constrained losses. There, regret depends on a gap-related coefficient, loss corruption, and transition adversariality. The contribution is a family of guarantees that reflects environmental difficulty: performance can improve when losses are easier, while transition corruption continues to impose an explicit cost."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "bde857e237eaf7225d4da03eee6df9b81fc9c68a4718cc50d82787b51a7c949c",
+    "tldr": "The paper gives online reinforcement learning algorithms whose regret scales with transition adversariality and can adapt to easier loss environments."
+  },
+  "neurips-2023-recovering-from-out-of-sample-states-via-inverse-dynamics-in-offline-reinforcement-learn-1d1047d18f": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "An offline reinforcement learning agent learns from a fixed dataset, yet during testing it may reach states that dataset does not represent. Its actions can then become unreliable. This paper proposes a state recovery principle: action selection should consider immediate consequences as well as long-term return, favoring actions that move the agent toward the behavior policy's state distribution.",
+      "The method learns an inverse dynamics model and uses it to guide recovery behavior in the new policy. This gives action selection a way to account for returning toward states represented in the offline data. The approach focuses on the next-state consequences of an action while retaining long-term return as part of the decision.",
+      "The theoretical result shows that the method helps align the policy's resulting state distribution with the offline dataset at unseen states. It does so without explicitly predicting that distribution, a difficult task in complex, high-dimensional environments. The authors report state-of-the-art results on general offline reinforcement learning benchmarks, supporting recovery-oriented action selection as a practical response to test-time state distribution shift."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "733b5dc1a7181a925f46b41c8c943929fa046da0f27f5a779018c5443036178e",
+    "tldr": "An inverse dynamics model guides offline reinforcement learning policies toward actions that recover familiar state distributions after reaching unseen states."
+  },
+  "neurips-2023-reduced-policy-optimization-for-continuous-control-with-hard-constraints-700c7800e5": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Continuous control becomes difficult when actions must satisfy hard constraints, especially non-convex ones. Reduced Policy Optimization combines reinforcement learning with the generalized reduced gradient method from constrained optimization. Its aim is to handle equality and inequality constraints within the action-generation and learning process, rather than relying only on a conventional constrained reinforcement learning formulation.",
+      "RPO partitions each action into basic and nonbasic components. A policy network produces the basic components, and equations derived from equality constraints determine the remaining ones. Training uses implicit differentiation to account for how the solved components change with the network's outputs. A reduced-gradient projection procedure and modified Lagrangian relaxation address inequality constraints.",
+      "The authors also introduce three benchmarks because existing reinforcement learning environments offer limited coverage of complex hard constraints. These comprise two robotic manipulation tasks and a smart grid control task. On those benchmarks, RPO improves both cumulative reward and constraint violation relative to previous constrained reinforcement learning algorithms. The work therefore contributes both a constraint-aware optimization method and environments for evaluating it."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "08510b131535e828622e062f27ba46daf82669cb4def50969307a7fcf12b1527",
+    "tldr": "RPO combines reinforcement learning with reduced-gradient optimization to handle hard action constraints and improves results on three new benchmarks."
+  },
+  "neurips-2023-reversible-and-irreversible-bracket-based-dynamics-for-deep-graph-neural-networks-5f919adab3": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Physics-inspired graph neural networks have enabled deep models to avoid oversmoothing, but the reason for their success remains unclear. Both reversible systems, such as Hamiltonian dynamics, and irreversible systems, such as diffusion, have produced comparable results despite their different mechanisms. Some existing architectures also behave differently from the mathematical theory used to motivate them.",
+      "This paper introduces a series of graph neural network architectures built from structure-preserving bracket-based dynamical systems. Their construction provides proofs that, as network depth increases, the models either conserve energy or produce positive dissipation. These guarantees make the intended physical behavior a property of the architecture rather than only an analogy used to describe it.",
+      "The framework provides explainable constructions for examining how reversibility and irreversibility relate to network performance. It also helps place discrepancies between prior architectures and theory in context. The central contribution is a principled way to distinguish these mechanisms while preserving their mathematical structure, improving the basis for understanding what physics-inspired dynamics contribute to deep graph learning."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "82282571dcedada366941cc3705e0d580b9f00a9bb1a97f6d9d8b0f500b49bb4",
+    "tldr": "The paper constructs graph neural networks with provable energy conservation or positive dissipation to clarify the role of physics-inspired dynamics."
+  },
+  "neurips-2023-scientific-document-retrieval-using-multi-level-aspect-based-queries-679a9ec0b7": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Scientific searches often combine several requirements, making relevance more complex than matching a single topic. DORIS-MAE introduces a retrieval task and benchmark designed around such multifaceted queries. Its computer science dataset contains 100 human-written complex queries, each paired with a collection of 100 relevant documents and annotated scores for ranking them.",
+      "The authors also introduce Anno-GPT, a framework for assessing whether language models can perform expert-level annotation tasks. Applied to DORIS-MAE, it delivers a reported 500-fold cost reduction without reducing annotation quality. The queries have a multilevel structure, allowing the dataset to expand into more than 4,000 sub-query test cases without further annotation.",
+      "Evaluation of 17 recent retrieval methods reveals notable performance declines relative to traditional datasets. This suggests that satisfying multiple aspects of a scientific information need remains challenging for the tested systems. The contribution combines a more demanding retrieval benchmark with an annotation framework that makes its construction less expensive, enabling evaluation at both the full-query and component-query levels."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "fa11b6140601cc8d324fcf406d6310c92f5c4a4d30933d8122690b842462330b",
+    "tldr": "DORIS-MAE benchmarks complex scientific searches and uses an LLM annotation framework that sharply reduces labeling costs while preserving quality."
+  },
+  "neurips-2023-tmt-vis-taxonomy-aware-multi-dataset-joint-training-for-video-instance-segmentation-df0dc58246": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Video instance segmentation can benefit from more annotated data, but creating those annotations requires substantial labor. Combining existing datasets offers greater volume and diversity, yet their category systems differ. The paper identifies a tension: additional data can improve object masks while making it harder for a model to focus on the appropriate categories.",
+      "TMT-VIS addresses this with explicit taxonomy information. A two-stage module first compiles category-related information from the input video, then incorporates those taxonomy priors into instance queries before the transformer decoder. This gives the model category context at the point where it prepares to produce its instance-level outputs.",
+      "The authors evaluate the method on YouTube-VIS 2019, YouTube-VIS 2021, OVIS, and UVO. They report significant improvements over baseline solutions and new state-of-the-art results on all four benchmarks. The findings support taxonomy-aware joint training as a way to benefit from multiple datasets while maintaining attention to their category distinctions, connecting increased training diversity with the classification demands of video instance segmentation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e70857698d25592fe24abea7bf7d9dd1210ff3f1871479a8953f47514e4baffa",
+    "tldr": "TMT-VIS injects taxonomy information into instance queries to improve video instance segmentation when training jointly across datasets."
+  },
+  "neurips-2023-transformers-are-uninterpretable-with-myopic-methods-a-case-study-with-bounded-dyck-gram-0f40a96cad": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Understanding a Transformer often involves inspecting its attention patterns or weight matrices. This paper asks whether focusing exclusively on such individual components can reveal the algorithm implemented by the whole network. It investigates that question through theoretical analysis and controlled synthetic experiments on learning a bounded Dyck language.",
+      "Using ideas from the pumping lemma in formal language theory, the authors derive a structural characterization of models that solve the task exactly or approximately. That characterization reveals a rich variety of successful solutions. In particular, a single layer's attention pattern can be nearly randomized while preserving the network's functionality, showing that local appearance need not uniquely reflect the computation being performed.",
+      "Experiments demonstrate that substantially different solutions can also arise through standard training, even under severe architectural constraints. The examples therefore extend beyond constructions that exist only in theory. The findings caution that interpreting an isolated head or matrix can be misleading in this setting and motivate considering the network's components together when making claims about its implemented algorithm."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ac7186f7495aae653bd0001105f9b32c49e3a72c61610254cf852373e680191b",
+    "tldr": "A bounded-Dyck case study shows that very different internal Transformer patterns can preserve functionality, making isolated-component interpretations potentially misleading."
+  },
+  "neurips-2023-vtac-a-benchmark-dataset-of-ventricular-tachycardia-alarms-from-icu-monitors-b725665d52": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "False arrhythmia alarms remain a persistent problem in intensive care, and ventricular tachycardia is particularly difficult to detect reliably. VTaC provides an annotated benchmark built from alarms that bedside monitors actually triggered. The dataset is intended to support development and evaluation of methods that reduce false ventricular tachycardia alarms.",
+      "It contains more than 5,000 waveform recordings, each labeled by at least two independent human experts. The data come from intensive care units at two major US hospitals and include monitors from three leading manufacturers. Each recording contains at least two electrocardiogram leads plus one or more pulsatile signals, such as photoplethysmography or arterial blood pressure waveforms.",
+      "The authors demonstrate the dataset's utility by presenting results from several machine learning approaches, including conventional supervised models, deep learning, semi-supervised learning, and generative methods. The contribution is a shared evaluation resource with expert annotations and multiple physiological signals. Its hospital and manufacturer coverage introduces variety into the recorded alarms, supporting comparisons on the specific task of false-alarm reduction."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "89f5f84cc1d7f09b0a9fb843516e1317e14671d70a14c1d69cd08ea5abf0078e",
+    "tldr": "VTaC provides over 5,000 expert-annotated ICU alarm recordings for evaluating methods that reduce false ventricular tachycardia alarms."
+  },
+  "neurips-2023-whats-left-concept-grounding-with-logic-enhanced-foundation-models-a4ee6bd0ce": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A concept such as left can apply to an image, a 3D scene, or a movement. Existing systems that compose pretrained models through generated programs have limited ability to adapt those concepts to new domains. LEFT addresses this by combining a shared logical reasoning framework with trainable modules that connect concepts to domain-specific data.",
+      "An LLM interpreter first translates a request into a program expressed in a general first-order logic language. A differentiable executor runs that program using domain-specific grounding modules. The reasoning language and executor are shared across domains, while the grounding modules can learn how concepts apply within each one. This makes adaptation part of the framework rather than restricting it to inference with fixed pretrained components.",
+      "The authors demonstrate concept learning in 2D images, 3D scenes, human motions, and robotic manipulation. They report strong reasoning across varied tasks, including complex tasks absent from training, and describe the framework as readily applicable to new domains. The results support separating reusable logical reasoning from learned domain-specific concept grounding."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c603de318df61364a5e60023ec1554ac19a5d0eb7bd5497d7bb4f98992d877ba",
+    "tldr": "LEFT combines shared logical programs with trainable grounding modules to learn and reason about concepts across visual, motion, and robotics domains."
+  },
+  "neurips-2023-when-can-we-track-significant-preference-shifts-in-dueling-bandits-918ff6fa60": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Dueling bandits learn from noisy pairwise preferences rather than direct reward values. This paper studies what happens when those preferences change over time. It asks whether an adaptive algorithm can achieve dynamic regret on the order of the square root of K times L̃ times T, where L̃ counts significant preference shifts and is unknown to the learner.",
+      "The answer depends on assumptions about the underlying preference distributions. The authors prove that the target guarantee is impossible for the Condorcet and strong stochastic transitivity classes. These negative results show that familiar preference structure alone does not necessarily make adaptation to significant shifts achievable at the desired rate.",
+      "The positive result concerns distributions satisfying both strong stochastic transitivity and the stochastic triangle inequality. Among the popular classes considered, their intersection is the largest class permitting an algorithm with the requested guarantee. The contribution is therefore a boundary between feasible and impossible adaptation within the studied hierarchy, offering an almost complete answer there rather than a universal characterization of all possible preference distributions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "63ba9706b02703b073a08cc6059c0f799030812d6736fa2b39138fb375381577",
+    "tldr": "Tracking significant preference shifts at the desired regret rate is possible under SST and STI together, but impossible under broader studied classes."
+  }
+}

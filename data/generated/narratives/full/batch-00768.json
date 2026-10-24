@@ -1,0 +1,327 @@
+{
+  "neurips-2023-cal-ql-calibrated-offline-rl-pre-training-for-efficient-online-fine-tuning-ce6c7aa770": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Offline reinforcement learning can give an agent a starting policy from existing data before it collects new experience. The difficulty is making that starting point useful for rapid online improvement. This paper addresses the observation that methods which learn successfully offline can behave poorly when fine-tuning begins, reducing the practical benefit of pre-training.",
+      "Calibrated Q-learning, or Cal-QL, controls the scale of the value estimates used to guide learning. Its estimates are conservative: they sit below the true value of the learned policy. But they also sit above the value of a suboptimal reference policy, which can be the policy that collected the data. These two bounds give pessimistic estimates a meaningful reference scale.",
+      "The authors show that learning value functions with this calibration property supports effective online fine-tuning. They implement the approach through a one-line modification to conservative Q-learning and report better performance than the compared state-of-the-art methods on nine of eleven studied tasks. The findings connect the usefulness of offline initialization to how its value estimates are positioned."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4b25f6ccf0cf92db148fee56dafd3d61ce96f77dc0858f7032a719f8c4ea40f5",
+    "tldr": "Cal-QL calibrates conservative value estimates during offline learning to provide a stronger starting point for online fine-tuning."
+  },
+  "neurips-2023-daw-exploring-the-better-weighting-function-for-semi-supervised-semantic-segmentation-829b7eea06": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Semi-supervised semantic segmentation uses a model's predictions as training labels for pixels in unlabeled images. Deciding which predictions to trust creates two competing errors: accepting incorrect pseudo-labels introduces misleading supervision, while rejecting correct ones wastes useful information. This paper studies that trade-off as a problem of choosing an appropriate weighting function.",
+      "The authors explicitly model the confidence distributions of correct and incorrect pseudo-labels. Distribution-Aware Weighting, or DAW, uses this formulation to reduce the combined negative impact of the two errors. Within their formulation, the optimal weighting function is a hard threshold, with its cutoff at the intersection of the two confidence distributions. The result gives a distribution-based justification for where selection should change.",
+      "DAW also includes distribution alignment to reduce discrepancies between predictions on labeled and unlabeled data. Experiments across multiple benchmarks, including mitochondria segmentation, show favorable performance against state-of-the-art methods. The contribution connects pseudo-label selection to the distribution of prediction confidence, making the treatment of useful and harmful supervision an explicit part of the method."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "938d743cdcf0c3106a55eb4e303d6a35c7c342271dbab749e712c5bd31012b9b",
+    "tldr": "DAW models correct and incorrect pseudo-label confidence to choose pixel supervision more effectively for semi-supervised segmentation."
+  },
+  "neurips-2023-deep-optimal-transport-a-practical-algorithm-for-photo-realistic-image-restoration-c87b8b9ecf": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Image restoration involves a trade-off between numerical reconstruction error and perceptual quality. This paper proposes a way to adjust that trade-off after a restoration model has already been trained. Given about a dozen restored images, its procedure can improve perceptual quality and/or mean squared error on newly restored images without further training.",
+      "The method draws on a theoretical connection between minimum-error prediction and prediction constrained to have perfect perceptual quality. Under that connection, optimal transport transforms the former predictor's outputs so their distribution matches the source data. The authors approximate this transport with a linear transformation inside a variational autoencoder's latent space, computing it directly from empirical means and covariances.",
+      "The experiments extend beyond the theory's original motivation: applying the procedure to models already trained for perceptual quality typically improves that quality further. Interpolating transformed results with the original outputs can instead improve squared error at a perceptual cost. Demonstrations cover several degradations and general-content images of arbitrary dimensions, supporting test-time control over the restoration trade-off."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "73338625925ff7203443ef8322f0c32d4b60c5237617092e86b4cc91cba7de0d",
+    "tldr": "A few-shot latent-space transport procedure adjusts restored images' perceptual quality and squared error without retraining the restoration model."
+  },
+  "neurips-2023-diffusion-schrodinger-bridge-matching-4db1993ba6": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Transport problems ask how to transform samples from one distribution into samples from another. Diffusion and flow-matching models can perform such transformations through continuous dynamics, but their transports are not guaranteed to resemble an optimal transport map. That distinction matters in applications where the properties of optimal transport are desirable.",
+      "Schrödinger bridges offer stochastic dynamic mappings corresponding to entropy-regularized optimal transport. However, existing numerical approaches can struggle with high dimensionality or accumulate errors over repeated iterations. The paper introduces Iterative Markovian Fitting as a methodology for solving these bridge problems, together with Diffusion Schrödinger Bridge Matching as a numerical algorithm for carrying out its iterations.",
+      "The authors report substantial improvements over previous Schrödinger bridge numerical methods and demonstrate performance across a variety of problems. They also show that several recent transport methods appear as special or limiting cases of their approach. The contribution therefore combines a computational method with a broader framework connecting transport algorithms, while retaining the bridge formulation's relationship to regularized optimal transport."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c525b11073852a76a2ed172e2c443ee46e0e3a43d740228500cc76afe0baa284",
+    "tldr": "Diffusion Schrödinger Bridge Matching improves numerical computation of stochastic transport maps linked to entropy-regularized optimal transport."
+  },
+  "neurips-2023-embedding-space-interpolation-beyond-mini-batch-beyond-pairs-and-beyond-examples-116b597308": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Mixup creates training examples by interpolating existing examples. Many variants change where or how interpolation happens while still mixing pairs and generating relatively few samples. MultiMix changes the augmentation process itself: it interpolates across an entire mini-batch in embedding space and can generate arbitrarily many interpolated examples beyond the batch size.",
+      "Geometrically, this samples throughout the mini-batch's convex hull rather than only along lines joining pairs. Dense MultiMix extends the approach to sequence data by mixing features and targets at individual spatial locations and applying the loss there. Because dense labels may be unavailable, it inherits example-level labels and uses attention to weight interpolation factors according to confidence.",
+      "Working in embedding space lets the methods increase the number of loss terms by orders of magnitude at little additional cost. Across four benchmarks, the authors report significant improvements over state-of-the-art mixup methods despite using linear interpolation. Their analysis finds tighter class clusters and a more uniform spread of classes in embedding space, offering an explanation for the observed improvements."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2e3b4f446e7ae8c9ab34a075fab42a22f504b120f1bc28c5ad8a045afd01ba49",
+    "tldr": "MultiMix expands mixup to whole mini-batches in embedding space, producing many more training loss terms at little additional cost."
+  },
+  "neurips-2023-equivariant-neural-operator-learning-with-graphon-convolution-f1be35e125": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies learning mappings between continuous functions in three-dimensional space. Its architecture, InfGCN, combines a coefficient-learning scheme with a residual operator layer. A defining property is SE(3)-equivariance: rotating or translating an input produces the corresponding transformation of the output. The authors guarantee this behavior through the model's design.",
+      "The architecture also has an interpretation through graph spectra. From that perspective, its operation is convolution on graphons, which the abstract describes as dense graphs with infinitely many nodes. InfGCN combines this continuous structure with the discrete graph structure of the supplied data. This combination is intended to capture geometric information while preserving the required transformation behavior.",
+      "Experiments on large-scale electron-density datasets show significant improvements over the state-of-the-art architectures considered by the authors. Additional ablation studies support the effectiveness of the proposed architecture. The contribution links continuous function learning and discrete geometric data within one model, with a built-in equivariance guarantee and empirical evidence for its usefulness on the evaluated electron-density problems."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6c7fbb5b6c557204593e76f0790ee5e1e577a74101bee5d1886ca1bcaef91a3b",
+    "tldr": "InfGCN combines continuous graphon convolution and discrete graph structure to learn 3D function mappings with guaranteed SE(3)-equivariance."
+  },
+  "neurips-2023-ev-eye-rethinking-high-frequency-eye-tracking-through-the-lenses-of-event-cameras-28275b50cf": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "EV-Eye provides a large multimodal dataset for studying high-frequency eye and gaze tracking. Its event cameras record intensity changes independently at individual pixels, capturing changes caused by eye movement with sub-microsecond latency. The dataset pairs these event measurements with conventional images and gaze references, giving researchers several complementary views of eye movement.",
+      "Collected over two weeks from 48 participants spanning different genders and ages, EV-Eye contains over 1.5 million near-eye grayscale images and 2.7 billion event samples from two DAVIS346 cameras. It also includes 675 thousand scene images and 2.7 million gaze references from a Tobii Pro Glasses 3 tracker for cross-modality validation. The recorded gaze patterns include fixation, saccades, and smooth pursuit.",
+      "The authors also present a hybrid benchmark method that combines near-eye grayscale images with event data for robust, high-frequency tracking. It achieves higher pupil and gaze estimation accuracy than the existing solution used for comparison. Together, the dataset and method support investigation of how complementary sensing modalities can improve eye tracking across more natural movement patterns."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0a0d703ac326b7bc88299f746ead5c4790566a8c27e84cec98d954d35961a79e",
+    "tldr": "EV-Eye pairs a large event-camera eye-tracking dataset with a hybrid method that improves pupil and gaze estimation accuracy."
+  },
+  "neurips-2023-feature-dropout-revisiting-the-role-of-augmentations-in-contrastive-learning-3062a0a934": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A common explanation for effective contrastive-learning augmentations is that they preserve the labels needed for a downstream task. This paper examines a different setting: learning representations for several tasks at once. In that setting, the authors find that augmentations which sometimes destroy task-relevant information can still help produce useful, general-purpose representations.",
+      "Experiments span image and audio datasets with multiple downstream tasks. Learned Viewmaker augmentations randomly remove or alter features needed by different tasks, including interpretable changes to shapes, digits, or letters in images. Despite losing some label information, these augmentations often outperform expert-designed alternatives. The findings suggest that preserving every task's information in every augmented view is not always required for strong performance.",
+      "A theoretical analysis of a simple linear contrastive model provides a possible mechanism. In that setting, label-destroying augmentation is crucial for preventing one feature set from suppressing the learning of features useful to another task. The paper therefore motivates analyzing competition among downstream tasks when explaining how augmentations support broadly useful representations."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7c0cc5f90b16371c00c8cfc42421316522c34cfac3002631bc088d7efb1e741b",
+    "tldr": "Augmentations that randomly destroy task-relevant features can improve multitask representations by reducing competition between feature sets."
+  },
+  "neurips-2023-fed-fa-theoretically-modeling-client-data-divergence-for-federated-language-backdoor-def-c81e6ebe6a": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Federated learning trains a shared model across clients without collecting their private datasets centrally. Malicious clients can nevertheless introduce backdoors. This paper argues that defenses based on distances between model parameters are ineffective for language tasks because text backdoors can be conspicuous in the data while causing comparatively small changes in parameter statistics.",
+      "Fed-FA instead estimates differences between clients' underlying data distributions. The authors derive an f-divergence indicator from aggregation updates and Hessians, linking information available during federated training to client data divergence. Because the actual datasets needed for the Hessian calculation are inaccessible, they introduce dataset synthesis and a Hessian reassignment mechanism guided by diffusion theory.",
+      "The resulting aggregation algorithm uses the divergence indicator to detect and discard suspicious clients. Across the natural-language backdoor scenarios evaluated, Fed-FA outperforms all compared parameter-distance methods. The central contribution is to make estimated data divergence the basis for screening clients, addressing a mismatch between where text backdoor patterns appear and where conventional aggregation defenses look for them."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2ddfd8d0088f24f696858ea381923266c1c3f13a07b7e39c2ebb1452a5fb0ee1",
+    "tldr": "Fed-FA detects suspicious federated language-learning clients by estimating data divergence rather than relying on parameter distances."
+  },
+  "neurips-2023-fetv-a-benchmark-for-fine-grained-evaluation-of-open-domain-text-to-video-generation-debf5d2711": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Selected examples can make text-to-video models look impressive without revealing which kinds of prompts they handle well. FETV addresses this evaluation gap by organizing prompts along three separate dimensions: their main content, the attributes users want to control, and their complexity. It also includes temporal categories tailored to video generation.",
+      "Using this organization, the authors manually evaluate four representative models and identify strengths and weaknesses across prompt categories. The benchmark's structure allows evaluation to ask more specific questions than an overall score can answer. In particular, including temporal information makes time-dependent requirements part of the assessment rather than treating videos only through their depicted content.",
+      "FETV also tests whether automatic metrics agree with human judgments across different scenarios. The authors find poor correlations for existing metrics, including CLIPScore and FVD. They investigate improvements and develop two automatic metrics with significantly higher human correlation than existing alternatives. The work therefore contributes both a more detailed evaluation benchmark and evidence for improving the measurements used to judge generated videos."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f873fc083f23c5315f3771e9177fcd5a6523346283af587ee7b42c9c032824b9",
+    "tldr": "FETV evaluates text-to-video models by prompt category and introduces metrics that better match human judgments in its evaluation."
+  },
+  "neurips-2023-interpreting-unsupervised-anomaly-detection-in-security-via-rule-extraction-b7fee14c7e": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Security anomaly detectors often learn from unlabeled normal data because malicious examples are extremely rare. Their decisions can nevertheless be difficult for operators to inspect. This paper proposes a post-training explanation method that turns a black-box unsupervised detector into a set of understandable rules describing its overall behavior.",
+      "The method first decomposes the complex distribution of normal data into simpler component distributions. An unsupervised Interior Clustering Tree finds this decomposition using splitting criteria that incorporate the detector's predictions. Compositional Boundary Exploration then derives rules estimating the detector's decision boundary within each component. Combining the decomposition rules and boundary rules produces an account of how the model separates normal and anomalous inputs.",
+      "The same rule set can serve as a surrogate model for online deployment. Experiments cover four distinct unsupervised anomaly detectors and multiple real-world datasets, with improvements over existing methods on fidelity, correctness, robustness, and other evaluated metrics. The contribution connects global explanation and deployable approximation through rules that represent both the structure of normal data and the detector's boundaries."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8c20d603400305df000423e17f5e02148d71f2866402cadb92257e92cdff5438",
+    "tldr": "A two-stage rule-extraction method explains unsupervised security anomaly detectors and produces a deployable rule-based surrogate."
+  },
+  "neurips-2023-lico-explainable-models-with-language-image-consistency-e5f5a2f43b": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Saliency methods highlight image regions associated with a classifier's decisions, but categorical labels offer limited information for connecting those highlights to image content. LICO addresses this problem by connecting learnable language prompts with visual features. Its aim is to improve the correspondence between an image and the attention maps used to explain its classification.",
+      "The method works at two levels. First, it aligns the overall structure of language and image representations by minimizing a distance between their feature distributions. It then uses optimal transport to associate local visual feature maps with class-specific prompts. This coarse-to-fine process connects global consistency between modalities with more detailed, localized saliency.",
+      "Across eight benchmark datasets, LICO significantly improves the explainability of attention maps when combined with existing interpretation methods such as Grad-CAM. The authors also report improved classification performance without additional computation during inference. The findings suggest that language-image consistency can benefit both the decisions a model makes and the visual evidence supplied to help people interpret those decisions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "88bf79216f3c05becf50d9a7e3bf8141b4d7fdbc5c205ce79018fa6157043084",
+    "tldr": "LICO aligns language prompts with global and local image features to improve saliency explanations and classification without added inference computation."
+  },
+  "neurips-2023-metropolis-sampling-for-constrained-diffusion-models-8a7aa0e0f6": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Diffusion models are increasingly used beyond ordinary images, including on curved spaces relevant to natural science. Many such applications also require samples to satisfy constraints supplied by domain knowledge. This paper addresses constrained diffusion modeling, where earlier sampling approaches can be computationally expensive or restricted to convex regions of Euclidean space.",
+      "The authors introduce a simple noising scheme based on Metropolis sampling. They prove that the resulting process is a valid discretization of reflected Brownian motion, providing a theoretical connection between the practical procedure and the continuous process used to model constrained noise. The method thus contributes both a sampling construction and a mathematical justification for that construction.",
+      "Compared with earlier samplers, the proposed scheme delivers substantial gains in computational efficiency and empirical performance. Demonstrations include convex and non-convex constraints in geospatial modeling, robotics, and protein design. These results support the approach's scalability and flexibility across the evaluated settings, making domain-informed constraints more practical to incorporate into diffusion models across varied problem geometries."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9ef39485b390c62eeca037cd5bfede88d70b461fff070c9022de67507b898bee",
+    "tldr": "A Metropolis-based noising scheme makes constrained diffusion modeling more efficient while supporting both convex and non-convex settings."
+  },
+  "neurips-2023-on-the-exploitability-of-instruction-tuning-2e04ccc356": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Instruction tuning teaches language models to respond to human requests using examples of desired behavior. This paper examines how that same learning process can be manipulated when an adversary inserts deliberately constructed examples into the training data. The focus is on changing downstream behavior through poisoned instruction-following data.",
+      "The authors introduce AutoPoison, an automated pipeline that uses an oracle language model to incorporate attack objectives into coherent training examples. They study two objectives: causing models to include targeted content and causing excessive refusals. These examples investigate different ways training-data contamination can redirect a model, while retaining the natural appearance of instruction-tuning examples.",
+      "The evaluation measures both attack strength and the stealthiness of the poisoned data. The reported results show that changing only a small fraction of training examples can alter model behavior while keeping those examples difficult to distinguish as malicious. The paper's practical implication is that instruction-tuning data quality affects behavioral reliability, including when unwanted objectives are expressed through otherwise natural-looking training material."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4b45d2367bea08ab5719cc6c3f78f8e6c21ec47a1e1d5b08c2e6c51d4db41208",
+    "tldr": "AutoPoison shows that a small fraction of coherent poisoned instruction examples can induce targeted content or excessive refusals."
+  },
+  "neurips-2023-one-less-reason-for-filter-pruning-gaining-free-adversarial-robustness-with-structured-g-d5158d1f0b": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Structured pruning can compress and accelerate neural networks while retaining acceptable performance on ordinary inputs. However, good ordinary-input accuracy does not establish resistance to adversarial attacks. This paper investigates that distinction through a broad comparison of more than ten popular structured pruning methods, finding poor adversarial performance among the modern methods examined.",
+      "For a remedy, the authors build on Grouped Kernel Pruning, which permits finer-grained choices within densely structured pruning. They modify its procedure to incorporate kernel smoothness, a kernel-level measure associated with robustness. The resulting method makes pruning decisions from a trained network's weights in a one-shot procedure, bringing robustness-related information directly into the pruning process.",
+      "The authors report advances over state-of-the-art performance on both benign and adversarial evaluations without extra cost relative to standard pruning; the procedure often costs less. The contribution is therefore twofold: a systematic examination of an overlooked weakness in structured pruning, and a modified pruning method that improves the evaluated robustness-performance trade-off within the usual pruning budget."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5d4b364bc3f879c94d36a1fb4c89d0bdd83b1c835b762a567d4e3a71b7210617",
+    "tldr": "Adding kernel smoothness to Grouped Kernel Pruning improves evaluated benign and adversarial performance without increasing standard pruning costs."
+  },
+  "neurips-2023-plastic-improving-input-and-label-plasticity-for-sample-efficient-reinforcement-learning-d69b05d804": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Off-policy reinforcement learning can reuse each interaction for multiple model updates, potentially reducing the amount of new experience an agent needs. But repeated updates can also make the model overfit to earlier experience and become less adaptable. This paper studies that loss of plasticity, which limits the usefulness of extensive data reuse.",
+      "The authors separate adaptability into input plasticity and label plasticity. The first concerns changing input data; the second concerns changing relationships between inputs and outputs. Synthetic experiments using CIFAR-10 suggest different ways to support them: smoother minima in the loss landscape improve input plasticity, while better gradient propagation improves label plasticity. This separation guides the design of PLASTIC.",
+      "PLASTIC combines techniques addressing both forms of adaptability with minimal architectural changes. It achieves competitive performance on Atari-100k and the DeepMind Control Suite. The findings support treating continued adaptability as part of sample efficiency: an agent needs to remain responsive to new experience and changing learning targets if repeated updates are to make productive use of its data."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a259371a66a36e346afec7a70c4cdd4aac0b1836f96227756d00257fd831092e",
+    "tldr": "PLASTIC supports adaptation to changing inputs and learning targets to improve data reuse in reinforcement learning."
+  },
+  "neurips-2023-pruning-vs-quantization-which-is-better-20ddf085d8": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Pruning and quantization are established ways to compress neural networks, but comparisons between them have often been ad hoc. This paper builds a more systematic comparison intended to inform compression choices and future neural-network hardware design. It combines analytical error comparisons with experiments on trained networks rather than relying on only one type of evidence.",
+      "The analysis first compares expected pruning and quantization error for general data distributions. It then develops lower and upper error bounds for individual layers in trained networks and compares those bounds with empirical errors after optimization. This connects mathematical estimates of compression error to the behavior of networks whose parameters have been adjusted.",
+      "The experimental study covers eight large-scale models across three tasks and examines representations learned during fine-tuning with compression in the loop. Quantization performs better in most evaluated cases. The abstract also notes that compression might benefit accuracy in some very-high-compression scenarios. Overall, the findings provide a qualified empirical preference for quantization alongside analysis that helps ground the comparison."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b5690588246b310a0a7fbd2c4eb3967cddf3877b6d755a6e2ba0fe2bc29d08c7",
+    "tldr": "A combined theoretical and empirical comparison finds that quantization outperforms pruning in most studied cases."
+  },
+  "neurips-2023-recurrent-hypernetworks-are-surprisingly-strong-in-meta-rl-0bfd9fa6d6": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Meta-reinforcement learning aims to teach an agent how to learn quickly, using a distribution of related tasks during meta-training. One appealing approach is to train an ordinary sequential model end to end. Whether such recurrent models are strong alternatives to specialized meta-learning methods has been disputed, with earlier findings pointing in different directions.",
+      "This paper investigates that question empirically and identifies hypernetworks as a crucial ingredient for maximizing recurrent models' performance in the study. The authors also find that recurrent networks can perform strongly, but the combination with hypernetworks provides the strongest results. The architectural combination is therefore central to their assessment of how capable these comparatively simple baselines can be.",
+      "When equipped with hypernetworks, the recurrent baselines outperform every other method evaluated, despite being much simpler than the specialized alternatives. This result strengthens the case for using them as serious comparison points in meta-RL research. Its scope remains the empirical comparison conducted in the paper, within the setting where related tasks are available for meta-training."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2a6bb03507ddca68b845708dc9b82c148ffbc5c9903f59f3aaf5c10179d96597",
+    "tldr": "Recurrent models combined with hypernetworks achieve the strongest performance among the meta-RL methods evaluated in this study."
+  },
+  "neurips-2023-reinforcement-learning-with-simple-sequence-priors-228bbd880a": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A strategy can be simple because its actions form a repeating or predictable sequence, even when examining each action separately misses that structure. This paper builds reinforcement learning around that observation. It encourages agents to solve tasks using compressible action sequences, bringing temporal regularity into the definition of policy simplicity.",
+      "The authors investigate two sources of sequence preferences: patterns that autoregressive models can learn and patterns that standard data-compression algorithms can compress. They turn these preferences into sequence priors and derive an information-theoretic objective. The agent then learns to obtain rewards while also conforming to the preferred kinds of action sequences, balancing task performance with sequential simplicity.",
+      "On a series of continuous-control tasks from the DeepMind Control Suite, the resulting algorithm learns faster and reaches higher returns than the state-of-the-art model-free approaches compared. The sequence priors also support robustness to noisy observations and open-loop control. These findings suggest that regularities spanning multiple actions can provide useful guidance that an action-by-action view of simplicity overlooks."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4ac06492e00ff2660dbe2c936e1f76b95d1802c058602ccb8f7e31b3f3da907b",
+    "tldr": "Preferences for compressible action sequences improve learning speed, returns, and observation-noise robustness in the evaluated control tasks."
+  },
+  "neurips-2023-residual-q-learning-offline-and-online-policy-customization-without-value-fe6e6fa891": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Imitation learning can reproduce demonstrated behavior when designing a reward function is difficult. A learned policy may then need to satisfy new downstream requirements while retaining the character of that behavior. This paper formalizes that goal as policy customization: learning a policy that inherits properties of a prior policy and accommodates additional task objectives.",
+      "The authors express customization as a Markov decision process whose reward combines the demonstration's inherent reward with an added downstream reward. This gives a principled way to describe the trade-off between preserving behavior and meeting new requirements. The challenge is that the prior policy's inherent reward and value function may be unknown.",
+      "Residual Q-learning solves the formulated problem by using the prior policy without requiring either of those unknown quantities. The framework yields a family of algorithms for customization using offline data or online interaction. Results across various environments show effective customization. The contribution is a way to adapt an existing imitative policy through a combined objective even when the reward underlying its original behavior is unavailable."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "21d3aa06790ca09d4a3501b57aa063abb25d445f1e0102a033a79778436c5538",
+    "tldr": "Residual Q-learning customizes an imitative policy for new requirements without knowing its original reward or value function."
+  },
+  "neurips-2023-retr-modeling-rendering-via-transformer-for-generalizable-neural-surface-reconstruction-4598ee96b2": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Generalizable neural surface reconstruction depends on reasoning about surfaces from image observations. This paper identifies an oversimplified volume-rendering process as a source of uncertain depth distributions and inaccurate surface estimates. ReTR addresses that issue by redesigning rendering with a transformer so the model can represent more complex interactions during reconstruction.",
+      "A learnable meta-ray token uses cross-attention to interact with sampled points and render the observed color. This makes the rendering interaction part of a learned attention process. ReTR also performs its reasoning in a high-dimensional feature space instead of directly in color space, reducing sensitivity to colors projected from source views.",
+      "The authors report that these changes yield more accurate, higher-confidence surface assessment. Across various datasets, ReTR surpasses the compared state-of-the-art methods in reconstruction quality and generalization ability. The contribution connects improvements in surface reconstruction to a richer model of rendering itself: how sampled points interact along the rendering process becomes a mechanism for improving the final inferred surface."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5235021d4907048b0b9bf5043975a7773339d5745245ad4bea2c214ea6db2924",
+    "tldr": "ReTR uses transformer-based rendering interactions and feature-space reasoning to improve surface reconstruction quality and generalization."
+  },
+  "neurips-2023-solving-inverse-physics-problems-with-score-matching-434893656f": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Inverse problems involving physical dynamics ask how a system could have reached its current state. This paper proposes recovering earlier states step by step using an approximate inverse physics simulator together with a learned correction. The simulator supplies a physical starting point for each backward step, and the correction adjusts that approximate reverse evolution.",
+      "The authors connect how the correction is trained to probabilistic modeling. Training it with a single-step loss is equivalent to a score-matching objective. Training by recursively predicting longer trajectory segments instead relates to maximum-likelihood training of a corresponding probability flow. These connections explain how the backward solver relates to methods developed around diffusion models.",
+      "Across a wide range of inverse physics problems, the authors report advantages over standard denoising score matching, implicit score matching, and fully learned baselines. The solver achieves strong accuracy and temporal stability while allowing samples from the posterior distribution of solutions. That sampling capability makes the method useful for representing possible histories compatible with the inverse problem, alongside reconstructing accurate trajectories."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "474055babb363c28c64d879ba7d7df5dc3674e9acd3d6bae27ca602b3a47a193",
+    "tldr": "An approximate backward physics simulator with learned corrections produces accurate inverse trajectories and supports posterior sampling."
+  },
+  "neurips-2023-stability-guarantees-for-feature-attributions-with-multiplicative-smoothing-6f6388ccef": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Feature-attribution methods assign importance to parts of an input to explain a model's decision. Such explanations often lack formal guarantees, making their reliability difficult to establish. This paper studies stability as one property that can be analyzed mathematically, aiming to give attribution methods guarantees about the stability of their explanations.",
+      "The authors prove that relaxed forms of stability hold when a model is sufficiently Lipschitz with respect to feature masking. In plain terms, the condition controls how strongly the model can change as features are masked. They introduce Multiplicative Smoothing, or MuS, to obtain a model with the required behavior and thereby support the stability result.",
+      "MuS overcomes theoretical limitations of standard smoothing approaches and can be integrated with any classifier and feature-attribution method. Evaluations use vision and language models with methods including LIME and SHAP, demonstrating non-trivial stability guarantees. The contribution supplies a formal foundation for this particular aspect of explanation reliability: the guarantees concern relaxed stability under the stated masking-related condition."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "48de5f96cd13546c942877ede5b3926bf845ae7836c8bc1b6528791460d7479f",
+    "tldr": "Multiplicative Smoothing enables formal relaxed-stability guarantees for feature attributions by controlling model sensitivity to feature masking."
+  },
+  "neurips-2023-survival-instinct-in-offline-reinforcement-learning-a120cea91a": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper reports that offline reinforcement learning can produce effective, safe policies on many benchmarks even with incorrect rewards, including all-zero rewards or reversed reward signs. That behavior is difficult to explain through reward maximization alone. The authors investigate how the learning algorithm and the distribution of collected data jointly produce this robustness.",
+      "Their explanation combines pessimism with biased data coverage. Pessimism gives an agent an incentive to remain within the dataset's support over the long term, which the authors call a survival instinct. Limited coverage then restricts which policies can satisfy that incentive. Consequently, the data can strongly shape behavior even when reward labels provide poor guidance.",
+      "The theory identifies conditions on the training distribution under which any reward in a specified class can yield a near-optimal, safe policy, even if the class excludes the true reward. These are conditional guarantees. Together with the experiments, they motivate reconsidering offline benchmarks and exploring deliberately biased data coverage as a way to guide learning with imperfect rewards."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d3c30df7e802f09792873d131222b74bfdd7441a18750d702b4aac485476edae",
+    "tldr": "Pessimism and biased data coverage can make offline RL learn effective, safe behavior despite incorrect rewards under identified conditions."
+  },
+  "neurips-2023-the-target-charging-technique-for-privacy-analysis-across-interactive-computations-ba73eacded": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Interactive analysis may access the same sensitive dataset repeatedly through differentially private algorithms. Accounting for those accesses using traditional composition can cause the privacy guarantee to deteriorate quickly as their number grows. The Target Charging Technique provides a unified framework for analyzing privacy across such repeated, interactive computations.",
+      "The framework distinguishes computations according to whether they hit a specified target. Computations that miss their target can be essentially free in the privacy analysis, while computations that hit it incur a small additional overhead. Because misses are often the vast majority, this changes which events drive the accumulated privacy cost. The benefit depends on that target-based accounting structure.",
+      "TCT generalizes existing tools such as the sparse vector technique and top-k selection from private candidates. It also extends their privacy-enhancing benefits beyond noisy Lipschitz functions to general private algorithms. The paper's contribution is therefore a broader way to obtain and explain improved privacy accounting, allowing established target-sensitive ideas to apply across a wider class of interactive computations."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "949ba99ff49e72887f093127f1992e7a80b712b3179293e6ee82f7a1e4026501",
+    "tldr": "Target Charging concentrates privacy accounting on computations that hit specified targets, making non-hitting computations essentially free."
+  }
+}

@@ -1,0 +1,377 @@
+{
+  "icml-2023-accelerated-primal-dual-methods-for-convex-strongly-concave-saddle-point-problems-e9357d0047": {
+    "backgroundConcepts": [
+      "topic-124-a-catalyst-framework-for-minimax-optimization"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper studies saddle point optimization, where one part of a problem is minimized while another is maximized. Its focus is the convex–strongly concave setting. A linearized primal-dual method replaces a standard proximal update with a linear approximation of the primal function, but its computational cost depends less favorably than desired on that function’s Lipschitz constant.",
+      "The authors combine this linearized method with features of accelerated gradient descent. Their resulting Accelerated Linearized Primal-Dual method uses a single loop. When the interaction between the two sides has a semi-linear form, it achieves optimal gradient complexity: the number of gradient evaluations has the optimal dependence established for that setting.",
+      "For more general nonlinear interactions, the paper introduces an inexact variant. It preserves optimal gradient evaluation requirements for the primal parts while substantially reducing evaluations of the coupling term relative to the original accelerated method. Numerical experiments support the analysis. The contribution distinguishes the cost of optimizing individual components from the cost of handling their interaction, with guarantees tied to the coupling structure."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2496d06e2ff8a5c9c221ac9fc42a3e4550b497b135937dfb9caa046b65867393",
+    "tldr": "An accelerated primal-dual method improves gradient efficiency, with optimal complexity for semi-linear coupling and an inexact extension for nonlinear coupling."
+  },
+  "icml-2023-bpipe-memory-balanced-pipeline-parallelism-for-training-large-language-models-96431ca9f5": {
+    "backgroundConcepts": [
+      "topic-161-s-3-increasing-gpu-utilization-during-generative"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Pipeline parallelism spreads large language model training across GPUs, but it can leave their memory usage uneven. Some devices face heavy memory pressure while others have spare capacity. Consequently, sufficient memory across the cluster does not necessarily translate into an efficient training configuration: the uneven distribution can still constrain training.",
+      "BPipe addresses this problem by moving intermediate activations between GPUs during training. These activations are the intermediate results produced as data passes through the model. Redistributing them makes memory consumption more comparable across devices. The method therefore treats available memory as a resource that can be balanced across the pipeline.",
+      "That balance can improve efficiency by removing redundant recomputation or allowing a larger micro-batch size. In an evaluation using 48 A100 GPUs across six nodes connected with HDR InfiniBand, BPipe accelerated GPT-3 96B and 134B training by 1.25 to 2.17 times relative to Megatron-LM. The result demonstrates that better placement of intermediate training data can yield substantial speed improvements in the evaluated large-model configurations."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f277c85114e388850818b7a55b0ef49468b81438928b274fae6a4758115bb91a",
+    "tldr": "BPipe redistributes intermediate activations across GPUs to balance memory and accelerate large language model training."
+  },
+  "icml-2023-crosssplit-mitigating-label-noise-memorization-through-data-splitting-8cc4c3e38a": {
+    "backgroundConcepts": [
+      "topic-247-a-close-look-at-negative-label-guided-out-of-dis"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Deep networks can memorize incorrect training labels, making learning less reliable when a dataset contains annotation errors. CrossSplit tackles this problem through a training arrangement involving two networks and two disjoint portions of the labeled data. Each network learns from the labels in its own portion while receiving help from its peer.",
+      "The first component uses predictions from one network to smoothly adjust the labels presented to the other. The rationale is that a network cannot have memorized the example-label pairs from the other split, because those pairs are outside its labeled training portion. Its predictions can therefore provide a separate signal for correcting labels, without implying that those predictions are always correct.",
+      "The second component lets each network use the other split’s inputs without their labels through semi-supervised training. This preserves access to information in the broader dataset while maintaining the separation of labeled examples. Experiments on CIFAR-10, CIFAR-100, Tiny-ImageNet, and mini-WebVision show that CrossSplit can outperform existing leading methods across a wide range of noise ratios."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a7a47a9180232a07d438431b28c168558cff3e08d309bd73443b001f25dbaa66",
+    "tldr": "CrossSplit trains two networks on separate labeled splits so they can correct each other’s labels while sharing unlabeled inputs."
+  },
+  "icml-2023-demonstration-free-autonomous-reinforcement-learning-via-implicit-and-bidirectional-curr-ea5078a036": {
+    "backgroundConcepts": [
+      "topic-019-a-bayesian-approach-to-generative-adversarial-im"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Reinforcement learning commonly assumes that an environment can return to its initial state after each episode. For an embodied agent, arranging those resets can require cumbersome physical intervention. Autonomous reinforcement learning instead seeks to learn through continuing interactions, making the organization of experience especially important when useful task-related encounters are sparse.",
+      "The paper proposes Implicit and Bidirectional Curriculum, or IBC, as an autonomous learning method that does not require demonstrations. It combines an auxiliary agent, activated conditionally according to learning progress, with a bidirectional curriculum over goals. The goal curriculum is based on optimal transport, providing a structured mechanism for organizing the learning process.",
+      "The reported comparison finds that IBC outperforms previous methods, including methods that use demonstrations. This supports the value of coordinating assistance and goal selection when learning must proceed without routine episodic resets. The contribution is a way to structure autonomous experience without demonstration data, addressing both the practical reset burden and the difficulty of obtaining task-relevant interactions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "23303eaa2ad82dadbd839ccab6e5d43e01d3956fe94b54632ec794aa206ce621",
+    "tldr": "IBC combines progress-dependent assistance with a bidirectional goal curriculum to improve autonomous reinforcement learning without demonstrations."
+  },
+  "icml-2023-devformer-a-symmetric-transformer-for-context-aware-device-placement-4c5a31ad4a": {
+    "backgroundConcepts": [
+      "topic-133-mathrm-nit-scaling-simple-and-scalable-fp8-llm-t"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Hardware design optimization involves computationally demanding choices about how components should be arranged. Transformers offer a possible approach, but limited offline training data makes their application difficult. DevFormer addresses this challenge by building information about the design problem into the architecture, so learning can make better use of the available examples.",
+      "The architecture incorporates relative positional embeddings and action-permutation symmetry. These are structural biases intended to capture hardware context and account for symmetry in placement actions. Their role is to guide the transformer toward relationships relevant to design optimization, enabling efficient learning even when the offline dataset is limited.",
+      "The authors apply DevFormer to decoupling capacitor placement and report improvements over leading methods in both simulation and real hardware. The evaluated designs improve performance while reducing component count by more than 30 percent. The paper also reports promising results on other offline contextual combinatorial optimization tasks. Those findings suggest that incorporating spatial context and action symmetry can make transformers useful for design decisions beyond the principal placement application."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a3f2fb833c498d7355b6167154060bd1172575f3d4003f256272dbe09e4f6d38",
+    "tldr": "DevFormer embeds hardware context and action symmetry into a transformer to improve placement decisions with limited offline data."
+  },
+  "icml-2023-efficient-latency-aware-cnn-depth-compression-via-two-stage-dynamic-programming-f7a1b70960": {
+    "backgroundConcepts": [
+      "topic-007-high-performance-zero-memory-overhead-direct-con"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper targets faster convolutional networks by reducing their depth. Existing approaches that merge convolution layers can be restricted by narrow search spaces and hand-designed rules. The proposed method instead considers general convolution operations and chooses which activation layers to replace with identity functions, allowing consecutive convolutions to be merged.",
+      "The goal is efficient end-to-end inference latency. Once selected activations are removed, consecutive convolution operations can be combined into shallower equivalent operations. Choosing the activation subset is NP-hard, so the authors introduce a surrogate optimization problem. Two-stage dynamic programming solves that surrogate exactly within a few seconds; the exactness applies to the surrogate rather than the original hard selection problem.",
+      "The evaluation measures both the proposed method and its baseline using TensorRT. On ImageNet with MobileNetV2, the method achieves better accuracy and faster inference than the baseline. For MobileNetV2-1.0, the reported result is a 1.41-times speedup with a 0.11 percentage-point accuracy gain. This connects the compression procedure to measured execution speed in the evaluated deployment framework."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b6e68221a976109ba7547e3bd60063601305b01ca36a7911d0f405ce726bc10f",
+    "tldr": "Two-stage dynamic programming selects activation removals and convolution merges to compress network depth and improve measured inference speed."
+  },
+  "icml-2023-emergent-asymmetry-of-precision-and-recall-for-measuring-fidelity-and-diversity-of-gener-eaa39ecc9a": {
+    "backgroundConcepts": [
+      "topic-128-f-divergence-based-classification-beyond-the-use"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Precision and recall are used to assess generative models by separately describing sample fidelity and diversity. This paper examines a common implementation that approximates these quantities using nearest neighbors. It shows that, in high-dimensional spaces, the resulting numbers can fail to support the meanings normally assigned to them and can produce misleading comparisons.",
+      "The central finding concerns distributions whose supports—the regions where their samples can occur—are equally distant point by point from the real distribution’s support. Despite this matching distance relationship, their measured precision and recall can differ greatly as dimensionality increases. The authors establish this asymmetry through both theoretical analysis and empirical evidence.",
+      "Using the analysis, the paper modifies the metrics to make them symmetric regardless of dimension. Experiments on real-world datasets show that the problem is relevant beyond specially constructed cases and that the modifications alleviate its impact. The contribution is a correction to a particular measurement procedure: it helps clarify when reported fidelity and diversity differences may reflect the metric’s geometry rather than the intended comparison."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c46181308aaa3e222ef9fef213c59a0529165880c801a0b870a70bac96891d1f",
+    "tldr": "Nearest-neighbor precision and recall can become misleadingly asymmetric in high dimensions, and modified metrics alleviate this problem."
+  },
+  "icml-2023-exact-inference-in-high-order-structured-prediction-7ec7e62165": {
+    "backgroundConcepts": [
+      "topic-030-a-consistent-regularization-approach-for-structu"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Structured prediction assigns labels that must be considered together. In the Markov random field setting studied here, an assignment receives a score combining contributions from individual labels and interactions involving larger groups of labels. Inference seeks the assignment with the highest total score, so those group interactions are central to the problem.",
+      "The authors study high-order inference through a generative model and introduce a two-stage convex optimization algorithm for exact label recovery. They also identify a class of structural properties of hypergraphs, which represent interactions among groups of variables. These properties concern hyperedge expansion and help explain when the inference procedure succeeds.",
+      "The paper then connects the algorithm’s performance to expansion through a new hypergraph Cheeger-type inequality. This gives a mathematical relationship between the structure of the interactions and the ability to recover labels exactly. The contribution therefore includes both an inference procedure and an explanation of its success in terms of hypergraph structure, rather than an unconditional claim that every high-order prediction problem can be solved exactly."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "756687c594fd0d3ebc9130dd02c410199ae6820f7c6d7726233d3786092dcb1d",
+    "tldr": "A two-stage convex inference algorithm connects exact label recovery to hypergraph expansion through a new Cheeger-type inequality."
+  },
+  "icml-2023-homomorphism-autoencoder-learning-group-structured-representations-from-observed-transit-8a5ae40a5d": {
+    "backgroundConcepts": [
+      "topic-087-reinforcement-learning-with-prototypical-represe"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "An agent’s internal representation should describe both what it observes and how its actions change those observations. This paper investigates that relationship using representation learning and group theory. The aim is to learn a representation of sensory information whose transformations remain consistent with the actions applied to the environment.",
+      "The proposed autoencoder includes a group representation operating in its latent space. Its training loss encourages equivariance: changes caused by actions in the world should correspond to changes in the internal representation. The loss also enforces a suitable homomorphism property, so combining actions is reflected consistently in their latent transformations. The method requires neither prior knowledge of the group nor a restriction on the actions available to the agent.",
+      "The authors provide theoretical motivation and empirical evidence that the method can learn the transformation structure of the actions. They further show improved accuracy when predicting the effects of future action sequences. This makes the learned representation useful for anticipating interventions, extending its role beyond describing individual observations."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "286f562c5a879238fb373d3cc8c5c3ee78a7409de421545271a402f751e772ef",
+    "tldr": "An autoencoder learns action-consistent group structure in its latent space and improves predictions of future action sequences."
+  },
+  "icml-2023-improved-algorithms-for-multi-period-multi-class-packing-problems-with-bandit-feedback-32122ed826": {
+    "backgroundConcepts": [
+      "topic-171-a-bandit-learning-algorithm-and-applications-to-"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies sequential decisions that earn value while consuming limited resources. Items belong to different classes, and each action’s reward and resource consumption are class-dependent linear functions of its context. The decision-maker receives bandit feedback, learning from selected actions while trying to keep total consumption within a vector of budgets.",
+      "The authors introduce an estimator with a faster convergence rate and use its parameter estimates in a closed-form decision policy. More accurate estimation leads to lower regret, the performance shortfall used to assess the policy. The formulation covers both linear contextual bandits with knapsack constraints and online revenue management, connecting several resource-allocation settings.",
+      "The regret guarantee depends on non-degenerate contexts and budgets growing at least as the square root of the time horizon. Under those conditions, regret is sublinear in context dimension, class count, and time horizon. The paper also resolves a previously posed open problem and extends the result to multiple classes. Numerical experiments report better performance than the literature benchmarks considered."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "bf82e5482a91e872e60f2fe663afcf6acb51da82b750a2ba61f10391872cae49",
+    "tldr": "A faster estimator supports a closed-form resource-allocation policy with improved regret under stated context and budget conditions."
+  },
+  "icml-2023-learning-augmented-private-algorithms-for-multiple-quantile-release-8ae73e28ed": {
+    "backgroundConcepts": [
+      "topic-178-texttt-pfl-research-simulation-framework-for-acc"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Differentially private analysis can benefit from outside information, including public data, other sensitive datasets, or human expectations. This paper uses the learning-augmented algorithms framework to incorporate that information into private computation. It focuses on releasing multiple quantiles, which describe positions within a data distribution while preserving privacy.",
+      "The algorithms use predictions, and their error guarantees depend on a measure of prediction quality. This makes the potential benefit of useful outside information explicit in the analysis. At the same time, the guarantees almost recover leading bounds that do not depend on predictions, providing protection against relying entirely on accurate external guidance.",
+      "The analysis makes minimal assumptions about the data, offers a way to introduce robustness, and supplies surrogate losses for two methods that learn predictions from other potentially sensitive data. Experiments show that learning across one or more instances can substantially reduce error while preserving privacy. The contribution combines prediction-sensitive improvements with nearly retained prediction-independent guarantees in a concrete private estimation task."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7b9158a1c7d9a7acc597ed96dad35395be9b86447ff76604bd752e6035208989",
+    "tldr": "Prediction-guided private quantile algorithms improve accuracy with useful external information while nearly retaining prediction-independent error guarantees."
+  },
+  "icml-2023-lesson-learning-to-integrate-exploration-strategies-for-reinforcement-learning-via-an-op-fa4bb8051b": {
+    "backgroundConcepts": [
+      "topic-043-exploration-a-study-of-count-based-exploration-f"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Reinforcement learning involves deciding when to explore unfamiliar behavior and when to exploit what an agent has already learned. LESSON addresses this trade-off by bringing multiple exploration strategies into one framework. Its central idea is that the choice of exploration strategy can itself be learned and adapted to the task.",
+      "The framework is built on an option-critic architecture and integrates a diverse set of exploration strategies. This provides a mechanism for the agent to select among different ways of exploring. The intended benefit comes from coordinating the available strategies: the agent learns which strategy is most effective for the task while balancing exploration with exploitation.",
+      "Experiments in MiniGrid and Atari demonstrate the effectiveness of the proposed framework. The stated contribution concerns learned integration and adaptive selection of exploration strategies. It treats exploration as a decision within the learning system, giving the agent a way to use a repertoire of strategies as part of its overall task learning."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d4fe36c4318ebf29571e56331b2cf4dcb747f82761e2e1784bc913beb10b5b7a",
+    "tldr": "LESSON learns to select among diverse exploration strategies using an option-critic framework."
+  },
+  "icml-2023-linearly-constrained-bilevel-optimization-a-smoothed-implicit-gradient-approach-3d521d1f28": {
+    "backgroundConcepts": [
+      "topic-176-how-to-escape-saddle-points-efficiently"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Bilevel optimization places one optimization problem inside another: the upper-level objective depends on the solution of a lower-level problem. This paper studies cases where the lower level has linear constraints. Such constraints complicate differentiation, and common approximate reformulations can introduce constraints that are themselves non-convex and non-differentiable.",
+      "The authors show that the resulting implicit objective is generally non-differentiable. Their key observation is that adding a small linear perturbation to the lower-level objective makes the implicit objective differentiable almost surely. This opens a route to implicit-gradient methods, allowing gradient-based optimization techniques resembling those used for unconstrained bilevel problems.",
+      "The paper develops both deterministic and stochastic algorithms from this observation. It establishes convergence rates under respective strong-convexity, convexity, and weak-convexity assumptions on the implicit function. Experiments on numerical problems and adversarial learning support the theoretical findings. The approach matters because it addresses the differentiability obstacle directly and yields an implementable gradient framework, with its convergence guarantees linked to the stated assumptions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "bc1df2ab0b60609c76a26979a561cf17df7311543aea14ecc064e96cbef6a272",
+    "tldr": "Small linear perturbations enable implicit-gradient algorithms for bilevel problems with linearly constrained lower levels."
+  },
+  "icml-2023-loss-balancing-for-fair-supervised-learning-b2aad69dd3": {
+    "backgroundConcepts": [
+      "topic-085-a-game-theoretic-framework-for-measuring-and-exp"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper studies Equalized Loss, a fairness criterion requiring approximately equal expected prediction loss across different groups. This targets disparities in the losses experienced by protected groups. Enforcing the criterion creates an optimization difficulty: even when the original loss function is convex, the fairness-constrained learning problem can become non-convex.",
+      "The proposed ELminimizer algorithm handles this difficulty by reducing the non-convex problem to a sequence of convex optimization problems. This allows the procedure to use existing convex programming tools. The method connects a difficult fairness constraint to computational machinery that can solve the component problems efficiently.",
+      "The authors prove that ELminimizer reaches a global optimum under certain conditions and support their theoretical results with empirical studies. The guarantee is therefore conditional, and the meaning of fairness remains specifically tied to Equalized Loss. Within that formulation, the contribution is a method for finding an optimal fair predictor through repeated convex optimization despite the non-convexity introduced by the group-balancing requirement."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d289a64ff8a79df0c2b86ab9ab468a9f7f619715b898d9d45d7e00f60bb1dd93",
+    "tldr": "ELminimizer solves Equalized Loss learning through a sequence of convex problems, with conditional guarantees of global optimality."
+  },
+  "icml-2023-margin-based-neural-network-watermarking-04f2df24cb": {
+    "backgroundConcepts": [
+      "topic-102-chameleon-adapting-to-peer-images-for-planting-d"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Neural network watermarks help an owner verify a model through its outputs, without requiring access to its internal parameters. The paper addresses a weakness in earlier watermarking methods: attacks that copy a model’s functionality through extraction or distillation can undermine ownership verification and allow false ownership claims.",
+      "The proposed method strengthens watermarked samples during training by maximizing their margins using projected gradient ascent on those samples. The margin expresses how firmly the model assigns the intended label. The aim is to make the watermark’s predictions sufficiently robust that changing them would compromise the accuracy of the functionality an attacker is trying to copy.",
+      "Evaluations on multiple benchmarks show that the method withstands model extraction attacks and outperforms recent watermarking baselines. The approach links watermark persistence to the copied model’s useful predictive behavior. Its stated robustness targets functionality stealing through extraction and distillation, and the reported benchmark results support the use of larger watermark margins for preserving evidence of ownership."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3b9665d2b527376a45f02768c3c979295ab1b04454ef2e5fa3bcf06e432dfcfc",
+    "tldr": "Margin-based watermarking strengthens watermark predictions so removing them compromises the accuracy sought by functionality-stealing attacks."
+  },
+  "icml-2023-neural-wave-machines-learning-spatiotemporally-structured-representations-with-locally-c-8e8f328e14": {
+    "backgroundConcepts": [
+      "topic-028-textit-neuropath-a-neural-pathway-transformer-fo"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Traveling waves occur across many brain regions and scales, but their computational purpose remains unsettled. This paper investigates the hypothesis that waves help organize neural representations across space and time. It introduces a Neural Wave Machine, a recurrent network with local coupling and oscillatory dynamics that can produce traveling waves in its hidden state.",
+      "After training on simple dynamic sequences, the network learns spatial organization, including topographic structure. It also uses patterns unfolding across space and time, such as traveling waves, to encode observed transformations. These findings connect the model’s internal dynamics to how it represents changing inputs.",
+      "The authors assess computational consequences using sequence classification and physical dynamics modeling tasks. They report greater parameter efficiency and more accurate forecasting of simple physical systems than existing leading counterparts. The results support the usefulness of wave-capable dynamics as an architectural bias in the studied tasks. They provide evidence for a computational role such structure can play in artificial networks while leaving the broader biological question open."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "def35a52a8b9c7c237c7d997f101251067500ad7ee237cdea6393e2bfecee583",
+    "tldr": "Neural Wave Machines learn spatial and temporal structure and improve parameter efficiency and simple physical trajectory forecasting."
+  },
+  "icml-2023-pac-prediction-sets-for-large-language-models-of-code-3f2f2d901e": {
+    "backgroundConcepts": [
+      "topic-104-a-2-dept-large-language-model-driven-automated-a"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Prediction sets express uncertainty by returning a collection of possible outputs with a theoretical coverage guarantee. For code generation, however, the space of programs is so large that even a small fraction of possible outputs can be impractical to enumerate. The paper addresses how to represent such sets compactly.",
+      "Its solution uses partial programs: code with uncertain portions replaced by holes. A partial program represents a restricted set of programs through its possible completions. Starting with a trained code-generation model, the algorithm uses the language’s abstract syntax tree to construct these sets, with a high-confidence guarantee that the correct program belongs to the represented set.",
+      "The authors evaluate the approach on PICARD for SQL semantic parsing and Codex for code generation across programming languages. The results demonstrate compact PAC prediction sets. This makes uncertainty visible within the generated program while retaining a theoretical guarantee about set coverage. The guarantee concerns inclusion of the correct program among possible completions, rather than certainty about every completion."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1e46f6801f8e048dbf613822b02c12bce7eaa3d171ec5b06616d09bd035499ae",
+    "tldr": "Partial programs with holes compactly represent code prediction sets with high-confidence coverage guarantees."
+  },
+  "icml-2023-probabilistic-concept-bottleneck-models-6b5b596cff": {
+    "backgroundConcepts": [
+      "topic-078-mathcal-m-4-a-unified-xai-benchmark-for-faithful"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Concept bottleneck models first predict human-understandable concepts and then use those concepts to predict a class. Their explanations depend on the reliability of that intermediate step. This paper addresses cases where the input does not clearly establish whether a concept is present, making a deterministic concept prediction an incomplete account of the evidence.",
+      "Probabilistic Concept Bottleneck Models represent concepts with probabilistic embeddings. This lets the model express uncertainty about a concept alongside the concept itself. The explanation can therefore communicate ambiguity in the intermediate representation, rather than presenting every predicted concept as equally definite. The proposed design uses that uncertainty to improve explanation reliability.",
+      "The model also derives uncertainty in the final class prediction from uncertainty in the concepts. This creates a connection between uncertainty about the decision and uncertainty about its interpretable ingredients. The contribution is thus both a probabilistic concept representation and a way to explain class-level uncertainty through concepts, making ambiguity part of the explanation process."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7407fec98d424aa477eaed3cab5c389fd4a9dc870c101f450ccd642091889bc6",
+    "tldr": "ProbCBM represents uncertain concepts probabilistically and explains class uncertainty through uncertainty in those concepts."
+  },
+  "icml-2023-probabilistic-imputation-for-time-series-classification-with-missing-data-38b675835b": {
+    "backgroundConcepts": [
+      "topic-026-k-2-vae-a-koopman-kalman-enhanced-variational-au"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Missing observations in multivariate time series can admit several plausible values. Filling each gap with a single fixed or learned value can overlook this ambiguity and its effect on classification. This paper develops a probabilistic framework that represents multiple plausible completions and carries the resulting uncertainty into the prediction process.",
+      "The model combines a deep generative component with a classifier. The generative component is adapted to capture time-series structure and produce alternative imputations for missing values. The classifier uses the completed signals and is trained to capture uncertainty in its predictions arising from those different possibilities.",
+      "The authors show that simply combining these components can produce trivial solutions in which the imputations are not meaningful. They introduce a regularization technique to encourage useful imputations that help classification. Experiments on real-world time series with missing data demonstrate the method’s effectiveness. The contribution joins uncertainty-aware completion with classification while addressing a specific failure mode in learning the two components together."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0dd7e049f02580679954a088694030ba3bc1e165ae52be2472b4ddc521832385",
+    "tldr": "A regularized generative model and classifier account for multiple plausible imputations when classifying incomplete time series."
+  },
+  "icml-2023-refining-generative-process-with-discriminator-guidance-in-score-based-diffusion-models-8ea67c6d6c": {
+    "backgroundConcepts": [
+      "topic-080-text-s-2-q-vdit-accurate-quantized-video-diffusi"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Discriminator Guidance aims to improve samples from an already trained diffusion model. It adds a discriminator that judges whether a sample’s denoising path appears realistic. The score network is trained first, and the discriminator is trained afterward, avoiding a requirement to train the two networks jointly.",
+      "During generation, the method adds an auxiliary term to the pretrained score to steer samples toward fooling the discriminator. The paper shows that, at an optimal discriminator, this correction turns the model score into the data score. This establishes a conditional theoretical explanation for how the discriminator can complement the original score estimate. The authors also report stable discriminator training and fast convergence.",
+      "On ImageNet at 256-by-256 resolution, the method reports state-of-the-art results with FID 1.83 and recall 0.64, compared with validation-data values of 1.68 and 0.66. These results demonstrate the effectiveness of the additional guidance in the evaluated setting. The approach improves the generative process by learning a supplementary signal after the diffusion model’s initial training."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c3c4362ed4f871d2e4acd6416cf063d76d9583ca75e4d7b9da2854c2e3e31d99",
+    "tldr": "A separately trained discriminator guides pretrained diffusion sampling and conditionally provides an exact score correction at discriminator optimality."
+  },
+  "icml-2023-rethinking-backdoor-attacks-0eb2d3f26d": {
+    "backgroundConcepts": [
+      "topic-102-chameleon-adapting-to-peer-images-for-planting-d"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Backdoor attacks insert specially constructed examples into training data so that a learned model can later be manipulated. A common defense treats these examples as statistical outliers. This paper asks what information is actually needed to distinguish a maliciously introduced pattern from a naturally occurring feature.",
+      "The authors show that, without structural information about the training distribution, that distinction cannot be made in general. They use this observation to examine existing defenses and expose the assumptions those defenses rely on, including assumptions that may be implicit. The impossibility claim is conditional on the absence of structural information, rather than a claim that all backdoor detection is impossible.",
+      "The paper then adopts a different assumption: a backdoor corresponds to the strongest feature in the training data. After formalizing this premise, the authors develop a detection primitive that yields an algorithm with theoretical guarantees and practical effectiveness. The contribution clarifies both why general detection needs assumptions and how a particular explicit assumption can support a constructive defense."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b0ecb136b1aa989c85a43e86fa114d1ffa4e69d02417a12838e42b0cf081ee2d",
+    "tldr": "Backdoor detection requires structural assumptions, and a formal strongest-feature assumption enables a guaranteed and practically effective detector."
+  },
+  "icml-2023-robust-non-linear-feedback-coding-via-power-constrained-deep-learning-6027764aae": {
+    "backgroundConcepts": [
+      "topic-138-lossless-compression-of-deep-neural-networks-a-h"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Feedback-enabled communication lets information return from the receiving side, but noise can affect both the forward and feedback channels. The paper develops nonlinear codes learned through an autoencoder architecture to improve robustness in this setting. Its encoder operates on consecutive blocks of bits, gaining denoising advantages over processing each bit individually.",
+      "The architecture also includes an encoder power-control layer that incorporates hardware constraints into training. The authors prove that the resulting average power constraint is satisfied asymptotically. This connects the learned communication scheme to a physical resource requirement while preserving the stated asymptotic scope of the guarantee.",
+      "Numerical experiments show large improvements over leading feedback codes across practical forward and feedback noise regimes and provide information-theoretic insights into the learned codes. The paper also reports a boundary to their usefulness: for long block lengths and sufficiently noisy feedback, conventional error-correcting codes remain preferable. The findings therefore support block-based learned feedback coding while identifying an evaluated regime where feedback coding loses its advantage."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "767c598de4e71b49ef2a7c4062b7f797b62893b42b41b31a6c138e43a993c368",
+    "tldr": "Block-based learned feedback codes improve noise robustness while satisfying an asymptotic average-power constraint."
+  },
+  "icml-2023-saal-sharpness-aware-active-learning-cbb4fdf218": {
+    "backgroundConcepts": [
+      "topic-237-active-statistical-inference"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Active learning chooses which unlabeled examples should receive labels, making that choice central when labeled data are limited. SAAL uses the sharpness of the loss landscape to guide acquisition. The motivation is to select examples according to how large their loss can become under perturbation, addressing overfitting through the choice of training data.",
+      "The acquisition function prioritizes unlabeled instances with maximal perturbed loss. Because their true labels are not yet available, the method introduces a pseudo-labeling mechanism to anticipate the perturbed loss associated with those labels. The paper provides a theoretical bound for the optimization, connecting the unlabeled selection procedure to the quantity it seeks to estimate.",
+      "Experiments cover image classification, object detection, and domain-adaptive semantic segmentation. The reported results show that SAAL outperforms the tested baselines by acquiring instances with potentially large perturbation effects on loss. The contribution brings a property usually associated with model optimization into data acquisition, using sensitivity of loss as a signal for deciding what to label next."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "da6c765ba0237e14636aa172c39ad93f47c0330fafac89122812691e67f9eebe",
+    "tldr": "SAAL selects examples for labeling using estimated perturbed loss, bringing loss sharpness into active learning."
+  },
+  "icml-2023-trainability-expressivity-and-interpretability-in-gated-neural-odes-ecc94e524c": {
+    "backgroundConcepts": [
+      "topic-028-textit-neuropath-a-neural-pathway-transformer-fo"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Neural ordinary differential equations describe neural computation through continuous dynamics. This paper extends them with gating interactions that create adaptive timescales, producing gated neural ODEs. The motivation includes tasks requiring memory of continuous quantities, where the learned dynamics must support storing and retrieving information.",
+      "On such a memory task, the authors show that gating biases the model toward learning approximate continuous attractors. They also find that reduced-dimensional gated models retain modeling power while making the learned dynamics easier to interpret. In particular, the lower-dimensional representations allow explicit visualization of attractor structure.",
+      "The paper introduces an expressivity measure based on the ability to generate complex trajectories. Using it, the authors study both the number of state-space dimensions and the complexity of the function defining the dynamics. A more complex flow-field function allows a lower-dimensional neural ODE to capture a given target dynamics. Results on several real-world tasks further demonstrate benefits from gating, connecting architectural choices to memory, expressive capacity, and interpretability."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d7040b19e2a5d70bf33d36d7c90428d99efb44159491cd35109575db5aa87fa4",
+    "tldr": "Gating gives neural ODEs adaptive timescales, supporting continuous memory and interpretable low-dimensional dynamics."
+  },
+  "icml-2023-variational-curriculum-reinforcement-learning-for-unsupervised-discovery-of-skills-0cbc42311c": {
+    "backgroundConcepts": [
+      "topic-006-a-boolean-task-algebra-for-reinforcement-learnin"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Unsupervised skill discovery seeks useful behaviors without a task-specific reward. Mutual-information approaches offer one route, but the order in which skills are trained can strongly affect how much experience learning requires. This paper reframes variational empowerment as curriculum learning within goal-conditioned reinforcement learning using an intrinsic reward.",
+      "From this perspective, the authors develop Value Uncertainty Variational Curriculum. Under regularity conditions, they prove that it increases the entropy of visited states faster than a uniform curriculum. This gives a conditional theoretical connection between curriculum selection and the expansion of the agent’s state-visitation distribution.",
+      "Experiments on complex navigation and robotic manipulation tasks support improvements in sample efficiency and state coverage speed. The learned skills also complete a real-world robot navigation task in a zero-shot setup, and combining them with a global planner further improves performance. The contribution makes training order an explicit part of information-based skill discovery and connects that choice to both exploration behavior and later use of the discovered skills."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b9939a172b6a0620afb3b6d5862d57080bf43ad858f0cddb6711059da4531a60",
+    "tldr": "A value-uncertainty curriculum improves unsupervised skill discovery and conditionally accelerates growth in visited-state entropy."
+  }
+}

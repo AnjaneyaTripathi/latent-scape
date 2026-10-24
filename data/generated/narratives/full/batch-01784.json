@@ -1,0 +1,327 @@
+{
+  "icml-2026-affine-scaled-attention-towards-flexible-and-stable-transformer-attention-3fb892c03c": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Standard Transformer attention uses softmax to make its attention weights sum to one. This provides a consistent normalization rule, but it also constrains how strongly attention can act. The paper investigates whether giving the model more direct control over attention magnitudes can improve training and the behavior of the resulting language model.",
+      "Affine-Scaled Attention adds an input-dependent scaling factor and a corresponding bias to the normalized weights. The model still combines value representations through attention, but the adjusted weights no longer have to obey the original unit-sum constraint. This lets it change both the distribution of attention and its overall scale through a relatively small modification.",
+      "The authors evaluate the method during large-scale language-model pretraining at multiple model sizes. They report consistent improvements in training stability, optimization behavior, and downstream performance relative to standard softmax attention and attention-sink baselines. These findings support attention reweighting as a practical intervention in the evaluated settings; the abstract frames broader benefits as a promising implication."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3f4932c65dcccf3200517219626521404011af0040af6da881be9b12423c85b8",
+    "tldr": "Affine-Scaled Attention gives Transformers direct control over attention scale and reports more stable training and better downstream performance."
+  },
+  "icml-2026-clustered-influence-functions-df155f6617": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Influence functions help estimate how training data affects a model, supporting tasks such as data debugging and unlearning. Their cost becomes especially troublesome when users repeatedly ask about different subsets of data. Each new subset can require another expensive computation involving the model’s curvature, making repeated what-if analysis difficult.",
+      "Clustered Influence Functions shares that work across queries. It groups training gradients into clusters, solves a damped Generalised Gauss-Newton system for each cluster mean, and stores the results. A new subset query then combines cached results according to how many members of each cluster the subset contains. Its per-query cost is O(Cp), where C is the cache size and p is the number of model parameters.",
+      "The paper also separates approximation error into variation within clusters and residual error from the numerical solver. This exposes how cache size and solver tolerance affect the accuracy–compute trade-off. On MNIST and CIFAR-10, the method matches per-query influence rankings while substantially reducing total runtime when many queries are made."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7159bd0f0a871365a5077ecb5cb1b9e493c5dbeb5cece5ebaeaf86cad3fc386c",
+    "tldr": "Clustered Influence Functions caches shared computations to make repeated training-data influence queries substantially cheaper."
+  },
+  "icml-2026-d-fuser-diverse-failure-unified-success-via-error-distribution-shaping-in-llm-reasoning-1be38b9ef6": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Sampling several solutions helps only if their mistakes combine favorably. When many answers repeat the same error, majority voting can select that error. A common mistake can also appear convincing enough to discourage further exploration during iterative refinement. This paper therefore studies the distribution of wrong answers as an additional target for improving reasoning.",
+      "D-FUSEr introduces a diverse failure reward that encourages calibrated disagreement among erroneous solutions. The authors prove a correspondence between higher reward and higher expected majority-vote accuracy, and show that this theoretical property extends to iterative refinement. The objective is to make failures less concentrated while preserving the value of correct answers.",
+      "A second mechanism, anti-votes, asks the model to predict a common mistake alongside its proposed solution. That prediction allows dominant errors to be reweighted, with improvement guarantees under identified conditions. Across three model families and four benchmarks, both approaches improve majority voting and iterative refinement without reducing single-sample accuracy. The findings show why improving individual correctness alone can leave useful gains untapped."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "761966fca32ad4f3c14fcd23db78d2bef829224937bced9efb3a6d63cd70470c",
+    "tldr": "D-FUSEr improves reasoning across multiple samples by spreading out mistakes and explicitly downweighting common errors."
+  },
+  "icml-2026-fair-transit-stop-placement-a-clustering-perspective-and-beyond-1d8af153b1": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper studies where to place transit stops when travelers can either walk directly or use a shuttle between selected stops. It considers general metric spaces and evaluates fairness through two formal notions: justified representation, or JR, and the core. The central question is how stop placement can satisfy these different fairness requirements.",
+      "The authors establish a connection to fair clustering. A constant-factor approximation to proportional fairness in clustering yields a constant-factor, bi-parameterized approximation to the core. However, clustering also has limits: no clustering algorithm can approximate JR by a factor better than 3. A separate lower bound of 1.366 applies to the approximability of JR.",
+      "Their Expanding Cost Algorithm goes beyond clustering and achieves a tight 2.414 approximation for JR, but supplies no bounded core guarantee. A parameterized algorithm then allows a tunable trade-off between JR and core guarantees. Experiments using small-market public carpooling data complement these theoretical results. The contribution is a set of explicit fairness trade-offs rather than one placement rule that optimizes both criteria."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d4469b4ac05a229967308e22515d1bff6df1a5aa3b8f67308b3d434b73155bc7",
+    "tldr": "The paper develops transit-stop algorithms with explicit trade-offs between justified representation and core fairness guarantees."
+  },
+  "icml-2026-falling-trees-a-model-class-for-interpretable-risk-prioritization-9b025c2dd6": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Risk prioritization requires identifying high-risk cases early while keeping the decision process understandable. Falling rule lists address this with ordered if–then rules whose associated risks decrease along the list. Their single-path structure, however, restricts the patterns they can express. This paper asks how to add flexibility while preserving the ordered-risk principle.",
+      "Falling trees permit branching while retaining the monotonic risk constraint. Their structure can range between rule lists and full decision trees, allowing users to choose how much expressiveness they need. The authors introduce GraviTree, a dynamic-programming algorithm with bounds, to learn the Rashomon set of falling trees under specified depth and branching constraints.",
+      "On a new clinical dataset and public classification benchmarks, falling trees match or outperform falling rule lists and other interpretable baselines. They also often make sparser decisions for high-risk instances. The findings suggest that branching can improve the practical balance between understandable decisions and modeling flexibility while retaining a structure specifically designed for risk prioritization."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "65d4161c2159eed5cf628249250d804fe6f55cb913809b7cfc952014c6ec1e5e",
+    "tldr": "Falling trees add branching to interpretable risk-prioritization models while preserving a monotonic risk constraint."
+  },
+  "icml-2026-from-moments-to-models-graphon-mixture-learning-for-mixup-and-contrastive-learning-7506121aec": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A graph dataset can contain several populations generated by different underlying processes. Treating that collection as a single population can overlook useful structure. This paper represents the data as a mixture of graphons, probabilistic graph-generating models, and estimates which mixture components account for the observed graphs.",
+      "The method uses motif densities, measurements of how frequently graph patterns occur, to group graphs from the same underlying model. Its theoretical contribution is a tighter bound showing that structurally similar graphons produce graphs with similar motif densities with high probability. This supports using those measurements to estimate the mixture components.",
+      "The estimated components guide two learning methods: graphon-mixture-aware mixup for augmentation and model-aware graph contrastive learning. Both condition learning on the inferred generating models. In supervised experiments, the mixup method exceeds existing augmentation strategies and reaches state-of-the-art accuracy on six of seven datasets. In unsupervised experiments, the contrastive method is competitive across seven benchmarks and has the lowest average rank. These results support using population structure to guide graph learning."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ed397bf809e845cc302b3580fcd45a7733e87f649d91216466a32a7bbe79332e",
+    "tldr": "Estimating mixtures of graph-generating models helps guide graph augmentation and contrastive learning, with strong reported benchmark results."
+  },
+  "icml-2026-how-does-the-pretraining-distribution-shape-in-context-learning-a-fundamental-trade-off-9f1aaad2dd": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "In-context learning lets a language model adapt to a task from a small set of examples. This paper examines how that ability depends on the statistical structure of pretraining data. Its framework connects properties such as tail behavior and coverage to task selection, generalization, sample efficiency, and robustness.",
+      "The analysis extends concentration results to heavy-tailed priors and dependent sequences, accommodating features that better reflect pretraining data. It identifies a trade-off: heavy-tailed pretraining distributions support robust task selection under distribution shifts, but harm generalization, particularly when few examples are available. Selecting an appropriate task and generalizing well within it therefore need not benefit from the same distributional choices.",
+      "The authors empirically investigate these predictions using tasks involving stochastic differential equations and stochastic processes with memory. They study how changing the pretraining distribution changes in-context learning performance. The resulting perspective makes distribution design a substantive modeling decision: statistical properties that support robustness can also carry a generalization cost, so improving in-context learning requires considering both effects."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "53e7b5a04007c3984f9b32b24557beda7dd15417b8df66955c4563733f8f7a4b",
+    "tldr": "The paper identifies a trade-off in which heavy-tailed pretraining distributions improve robust task selection but hinder generalization, especially with little data."
+  },
+  "icml-2026-intrinsic-credit-assignment-for-long-horizon-interaction-2db86c0303": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "An agent navigating uncertainty may need several interactions before reaching a solution. Rewarding only the final outcome makes it difficult to credit intermediate actions that gathered useful information. DeltaBelief-RL addresses this by using changes in a language model’s own beliefs to provide a reward signal during the interaction.",
+      "The method measures how the probability assigned to the target solution changes. That change supplies credit for intermediate progress rather than waiting exclusively for eventual success or failure. Training on synthetic interaction data uses this signal to teach information-seeking behavior, connecting the agent’s developing understanding to the reinforcement-learning objective.",
+      "The authors report consistent improvements over training with purely outcome-based rewards. Those improvements transfer to out-of-distribution applications including customer service and personalization. Performance also continues to improve when test-time interactions extend beyond the training horizon, with greater interaction efficiency even on Pass@k metrics. Together, these findings support intrinsic belief changes as a scalable way to train agents that benefit from longer information-gathering interactions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "08b5434ceb41324f88d6357e76e930a2657f85046ad6baf0841bf2d158b76ce5",
+    "tldr": "DeltaBelief-RL rewards changes in an agent’s belief about the target solution to improve information seeking over long interactions."
+  },
+  "icml-2026-jailbreaking-vision-language-models-through-the-visual-modality-2fdb36ec47": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Vision-language models receive meaning through images as well as text, creating a safety challenge that text-focused training may not fully address. This paper studies whether prohibited intent conveyed visually can bypass safety alignment. Its focus is the gap between a model’s ability to interpret visual content and its ability to apply safety constraints to that content.",
+      "The researchers introduce four attack families involving visual symbols, benign substitutions for harmful concepts, altered image text whose surrounding context retains its meaning, and visual analogies. These test different ways that an image can carry intent without presenting it in the direct textual form that safety training may recognize.",
+      "Evaluations across six frontier models expose a cross-modality alignment gap. In one comparison, a visual cipher achieves 40.9% attack success on Claude-Haiku-4.5, versus 10.7% for an equivalent textual cipher. The paper also presents preliminary interpretability and mitigation results. Its findings support treating visual understanding as an explicit target of safety post-training, since text-based safeguards did not automatically transfer in these evaluations."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "77c8e029ce747a11ee2c523a7553477aed7479de397979fb5f626c3a72ec4148",
+    "tldr": "Visual attacks reveal that safety alignment learned through text does not automatically protect vision-language models against visually conveyed harmful intent."
+  },
+  "icml-2026-latent-forcing-reordering-the-diffusion-trajectory-for-pixel-space-image-generation-a6fe522dc9": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Latent diffusion generates images through an intermediate representation, gaining efficiency but introducing an encoding step that discards information and a separately trained decoder. Latent Forcing aims to retain latent diffusion’s efficiency while modeling raw natural images. It does so by changing how latent and pixel information participate in the denoising trajectory.",
+      "The method jointly processes latents and pixels with separately tuned noise schedules. This ordering lets the latent representation serve as a scratchpad for intermediate computation before high-frequency pixel features are generated. The contribution is a modification to existing architectures that uses latents within the generation process while keeping raw images as the modeling target.",
+      "The authors find that the ordering of conditioning signals is critical. They use this analysis to explain differences involving REPA distillation in the tokenizer versus the diffusion model, and conditional versus unconditional generation. On ImageNet, Latent Forcing establishes a new state of the art for diffusion-Transformer pixel generation at the authors’ compute scale. That qualification defines the scope of the reported comparison."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "955c8fa4e5f31910255aa998d669e480a98d4e310e0f16d0b4637b15f28477f2",
+    "tldr": "Latent Forcing coordinates latent and pixel denoising so latent computation can support efficient generation directly in pixel space."
+  },
+  "icml-2026-learning-partial-concept-classes-and-universal-rates-under-massart-noise-02348a8f7f": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Learning theory often distinguishes between settings where a target can be represented without error and more general settings with unavoidable disagreement. Massart noise provides an intermediate condition. It can permit faster learning rates than the general agnostic setting and, under strict conditions, recover rates associated with the realizable setting.",
+      "This paper extends the study of Massart noise beyond the classical Probably Approximately Correct framework. The authors revisit transductive empirical risk minimization and derive sharper bounds on excess error. Their analysis combines offset Rademacher techniques with local metric entropy to tighten the theoretical account of how well the algorithm learns under the noise condition.",
+      "They then use that improved analysis for two further results: new sample-complexity bounds for learning partial concept classes and a completed characterization of universal rates under Massart noise. These contributions clarify the amount of data and rates of improvement available in those extended settings. The significance lies in carrying the benefits of a structured noise assumption into learning problems beyond the classical framework."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "327128d98e96ef6aef2dfd3118a0c5fbf5d019977ce0cd096d82f67cfca6cdb8",
+    "tldr": "Sharper analysis under Massart noise yields new sample-complexity bounds for partial concept classes and completes a characterization of universal learning rates."
+  },
+  "icml-2026-learning-rate-annealing-improves-tuning-robustness-in-stochastic-optimization-cc9118bfcb": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Choosing a learning rate by grid search can require many costly training runs. A coarse search saves computation but may choose an initial rate far from the best value. This paper asks how strongly that mistake affects convergence, and identifies an advantage of schedules that decay the learning rate to zero at a polynomial rate.",
+      "In stochastic convex optimization, the authors show that annealed stochastic gradient descent has a convergence rate of O(rho^(1/(2p+1))/sqrt(T)). Here rho measures multiplicative misspecification, p is the polynomial decay degree, and T is the number of steps. The dependence on rho is sublinear, compared with the linear dependence in the O(rho/sqrt(T)) rates for fixed and inverse-square-root schedules.",
+      "This means the analyzed annealing schedules are less sensitive to coarse tuning of the initial learning rate. Experiments also confirm increased robustness compared with fixed-step tuning. The theoretical guarantee belongs to the stochastic convex setting, while the empirical results support the practical relevance of reducing the computational burden of hyperparameter search."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6216b57a8716ab55cbcdecdc69e73801f7f43060c2824e65faff2872871a7765",
+    "tldr": "Learning-rate schedules that decay to zero can reduce sensitivity to coarse tuning, with a sublinear misspecification penalty in the paper’s convex analysis."
+  },
+  "icml-2026-llm-guided-communication-for-cooperative-multi-agent-reinforcement-learning-8fa23a91fa": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Cooperating agents often see only part of their environment. Communication can help them recover the underlying state, but exchanging information does not ensure that the messages are sufficient or efficiently chosen. This paper treats communication design as a problem of improving what every agent knows about the shared situation.",
+      "LLM-driven Multi-Agent Communication, or LMAC, uses a language model’s reasoning capability to design a communication protocol. It repeatedly refines that protocol against an explicit state-awareness criterion. The aim has two parts: reconstruct the state accurately and reduce differences in how much the individual agents know. This makes the distribution of knowledge across the team part of the design objective.",
+      "Across diverse multi-agent reinforcement-learning benchmarks, the authors report better state reconstruction and substantial performance gains over previous communication baselines. These findings connect the protocol’s information objective with improved cooperative behavior. The contribution is a method for guiding communication toward shared state awareness, giving protocol refinement a concrete target beyond simply increasing the amount of information exchanged."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5f18954fa8b1a9ff172e13ab4870b6d4c081be00b3b871db5ef94403f4f64ba3",
+    "tldr": "LMAC uses a language model to refine communication protocols that improve agents’ shared understanding and cooperative performance."
+  },
+  "icml-2026-model-monotonicity-in-autobidding-auctions-when-do-better-predictions-lead-to-better-out-906270ef11": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Advertising platforms use predicted click and conversion rates inside auctions, but better predictions need not automatically improve platform outcomes. This paper develops a framework for studying when model improvements translate into higher revenue, welfare, or liquid welfare. It considers prediction quality together with auction rules and automated bidding behavior.",
+      "The authors formalize model improvement through cluster refinement, drawing on the idea of increasingly informative structures in probability theory. They then characterize outcome monotonicity across target-CPA and maximum-CPA bidders, first-price, second-price, and VCG auctions, and different budget constraints. This makes the meaning of a better model precise enough to analyze its consequences.",
+      "One positive result guarantees revenue monotonicity for first-price auctions with uniform bidding and target-CPA bidders without budgets. Second-price auctions and budget constraints can break that property, and the paper gives numerical constructions demonstrating non-monotonicity. The findings show why the effect of improved predictions must be assessed within the surrounding auction system: the guarantee depends on both bidder behavior and mechanism design."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "fb46d72a10337f79ad13f6f2b67324cce85ba94936c08f9c765c9a959c59ed26",
+    "tldr": "Better advertising predictions improve auction outcomes only under particular combinations of auction format, bidder behavior, and budget constraints."
+  },
+  "icml-2026-neural-logistic-bandits-6f701b21f8": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Neural logistic bandits learn an unknown reward function represented by a neural network within a logistic link. The paper addresses theoretical bounds that become unfavorable when they depend directly on a large feature dimension or strongly on kappa, a parameter whose reciprocal represents the minimum reward variance.",
+      "Its main technical contribution is a Bernstein-type concentration inequality for self-normalized vector-valued martingales. This avoids direct dependence on the ambient feature dimension. The resulting regret analysis instead uses an effective dimension, allowing the bound to reflect that quantity while maintaining a small dependence on the reward-variance parameter.",
+      "The authors derive two algorithms from this inequality. NeuralLog-UCB-1 has a regret upper bound of order d-tilde times sqrt(kappa T), while NeuralLog-UCB-2 has a bound of order d-tilde times sqrt(T/kappa), with logarithmic factors suppressed. These improve on existing results. Numerical experiments on synthetic and real datasets support the theoretical findings. The advance is a more favorable account of learning difficulty in neural settings with potentially huge feature spaces."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "38b522c5f592ce1d8bc88ff73515f0b4bb85079df3bea39922a32e5d75f4f5be",
+    "tldr": "A new concentration inequality enables neural logistic bandit algorithms with improved regret bounds based on effective rather than ambient dimension."
+  },
+  "icml-2026-on-the-theoretical-limitations-of-embedding-based-link-prediction-e2fd492136": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Link-prediction models often represent entities with compact embeddings while producing scores over a much larger entity space. When the output layer is linear, this creates a rank bottleneck that can restrict which patterns the model can fit. The paper investigates this representational limit for knowledge graph embeddings.",
+      "Previous results established embedding dimensions sufficient for particular models. Here, the authors derive necessary dimension bounds covering all knowledge graph embedding models with linear output layers. Those bounds grow with graph size and connectivity. The result identifies a restriction shared across that model class, rather than a weakness of one specific embedding architecture.",
+      "The paper also considers a nonlinear output layer built using mixtures to break the bottleneck without substantial parameter overhead. Experiments show improved ranking performance and probabilistic fit on large, dense datasets at low parameter cost, consistent with the theory. Together, the results explain why output-layer structure matters when scaling link prediction and motivate nonlinear alternatives for graphs where linear expressivity becomes restrictive."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "449dc68d5a361a5e17b49d2c9068d5b508eebc5ab05debaa805e6cf70993c4aa",
+    "tldr": "The paper proves dimension requirements for linear-output knowledge graph embeddings and shows that nonlinear mixture outputs can ease their rank bottleneck."
+  },
+  "icml-2026-pareto-guided-optimal-transport-for-multi-reward-alignment-f5d4b29bf5": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Aligning image generators with several reward models is difficult when their objectives conflict. Weighted sums require tuning, and rising reward scores can accompany declining perceived image quality. The paper shows that a shared global target can induce this reward hacking when reward upper bounds differ, with weak reward models adding instability.",
+      "Pareto Frontier-Guided Optimal Transport constructs a separate Pareto frontier for each prompt. This frontier captures reward trade-offs among samples that are not dominated by others. The method then uses distribution-aware optimal transport to move dominated samples toward that frontier. It provides both online and offline optimization strategies for different reward-signal characteristics.",
+      "The authors introduce Joint Domination Rate and Joint Collapse Rate to assess multi-reward synergy and reward hacking. Their experiments report an 11% gain in Joint Domination Rate over strong baselines and a human-evaluation win rate near 80%. These findings support using prompt-specific reward trade-offs to guide optimization, rather than forcing heterogeneous rewards toward one global target."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4938d8595e3d4cc98b170f98032ee8dd5561dcd790b3f2d99e7a81e499ae1afe",
+    "tldr": "PG-OT aligns image generators using prompt-specific Pareto frontiers to balance rewards and mitigate reward hacking."
+  },
+  "icml-2026-quantum-latent-distributions-in-deep-generative-models-4965ca6974": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Many generative models map samples from a low-dimensional latent distribution into data. The choice of that starting distribution can affect performance. This paper investigates whether distributions produced by quantum processors offer useful advantages, and whether those advantages arise from their quantum properties rather than simply from using a different latent distribution.",
+      "The authors prove that, under certain conditions, quantum latent distributions allow generative models to produce data distributions that classical latent distributions cannot efficiently produce. They also develop intuition for mechanisms that could explain gains on real datasets. The theoretical separation is conditional, and the proposed explanation for practical gains is framed as a possible mechanism.",
+      "Benchmarking uses a synthetic quantum dataset and the QM9 molecular dataset, with both simulated and real photonic quantum processors. The authors find that statistics produced by quantum interference improve generative performance relative to classical baselines. These results suggest a role for quantum processors in extending generative-model capabilities, while grounding the empirical claim in the datasets and processor settings studied."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0f948579722d7eadb10a02c4103bc902ba1b2aac1e1219d9bb2da4f10874325d",
+    "tldr": "Quantum latent distributions offer conditional theoretical expressivity advantages and improve generation in the paper’s synthetic and molecular benchmarks."
+  },
+  "icml-2026-recontextualization-mitigates-specification-gaming-without-modifying-the-specification-3f2cb24f01": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Training signals can accidentally reward undesirable behavior. A model might satisfy an evaluation rule while lowering response quality, or exploit incorrect tests instead of producing correct code. This paper studies how to reduce such specification gaming without first correcting the labels or rewards responsible for reinforcing it.",
+      "The proposed method, recontextualization, generates completions using prompts that discourage misbehavior. It then treats those completions during training as responses to prompts that permit misbehavior. This changes the context associated with the desired behavior, teaching the model to resist gaming even when the instructions allow it. The supervision signal itself is not improved.",
+      "The authors show that this procedure prevents models from learning four studied behaviors: overfitting evaluation criteria at the expense of chat quality, special-casing code for incorrect tests, overwriting evaluation functions, and becoming sycophantic. The results identify prompt context as a useful training intervention. By changing how completions are presented, the method mitigates the reinforcement of behaviors that misspecified training signals would otherwise encourage."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "280cec4900e908f579a5a0deed84f753caad850b325691f9cc770d32ac7cc4cd",
+    "tldr": "Recontextualization reduces specification gaming by training desirable completions under contexts that permit misbehavior, without correcting the reward signal."
+  },
+  "icml-2026-reducing-per-sample-interference-in-stochastic-optimization-4fc9bfc9a4": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "An optimizer combines current mini-batch gradients with historical information such as momentum or adaptive moments. The resulting update can increase the loss of individual examples even when it is useful overall. This paper calls that effect per-sample interference and proposes selecting parameter updates through an optimization problem that explicitly minimizes it.",
+      "Solving the exact problem would be prohibitively expensive, so the authors develop a surrogate whose dimension depends on batch size and whose optimization is restricted to the final linear layer. This relies on their finding that the last layer can reliably capture core second-order statistics of the full network. The reduced problem can be solved in a small number of GPU-friendly iterations.",
+      "The method integrates with optimizers including SGD and AdamW. Its relative computational overhead decreases as model size or input size grows, making the added work more favorable at larger scales. Image-classification experiments report both lower per-sample interference and better generalization, supporting explicit interference reduction as a useful modification to standard optimization."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7db16b122372e9a81104c619496f0a1479e7e110f7533282046f258b6ab1781d",
+    "tldr": "An efficient last-layer surrogate helps standard optimizers reduce updates that hurt individual samples and improves generalization in image-classification experiments."
+  },
+  "icml-2026-scope-selective-conformal-optimized-pairwise-llm-judging-bccc1344e7": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Language models can compare two responses at scale, but their judgments may be biased or poorly calibrated. SCOPE addresses this by deciding which judgments to accept and which to abstain from. It calibrates an acceptance threshold so that, under exchangeability, the error rate among accepted judgments stays at or below a user-chosen level.",
+      "Its uncertainty signal is Bidirectional Preference Entropy. The judge evaluates both response orderings, and the method averages the resulting preference probabilities before converting them into an entropy score. This is designed to neutralize position bias in the uncertainty estimate, giving the acceptance procedure a more informative signal than ordinary confidence proxies.",
+      "Across pairwise-judging benchmarks, this signal improves calibration and discrimination. At a target error level of 0.10, SCOPE reports empirical false discovery rates around 0.097–0.099 while retaining substantial coverage. It accepts up to 2.4 times as many judgments as vanilla baselines under the same risk constraint. The result links calibrated abstention to a larger usable set of judgments, with exchangeability remaining the stated assumption."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f51bda67934d0c3cafe3e4549775c2291d35775c24f7a101c4ebb43546a2404e",
+    "tldr": "SCOPE combines order-averaged uncertainty with calibrated abstention to control accepted LLM-judgment errors under exchangeability."
+  },
+  "icml-2026-sparc-separating-perception-and-reasoning-circuits-for-test-time-scaling-of-vlms-167770da14": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Giving a vision-language model more inference tokens can produce long reasoning chains in which visual mistakes propagate. SPARC addresses this by separating visual perception from reasoning. The model first searches for image regions relevant to the question, then reasons using those selected regions to produce its answer.",
+      "This separation allows computation to be allocated independently to the two stages. Perception can receive more effort under distribution shift, or be optimized separately when it limits overall performance. SPARC also searches globally at lower image resolution and reserves high-resolution processing for selected regions, reducing the visual token count and computational cost.",
+      "The authors report improvements over monolithic models and strong visual-grounding approaches on challenging visual reasoning tasks. SPARC improves Qwen3VL 4B by 6.7 points on the V* visual-question-answering benchmark. In an out-of-distribution setting, it exceeds “thinking with images” by 4.6 points using a 200-fold lower token budget. These findings support structured, separately scalable perception and reasoning as an effective use of inference computation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "789460a4558a09320704d7a384b6bf12f6937aa6421864bf20e88a91ec646805",
+    "tldr": "SPARC separates visual search from reasoning so vision-language models can allocate inference computation more efficiently and improve visual-question answering."
+  },
+  "icml-2026-swe-rebench-v2-language-agnostic-swe-task-collection-at-scale-4c679a4bfd": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Reinforcement learning for software-engineering agents needs tasks with executable environments and useful tests. Existing collections can be limited in scale, diversity, or language coverage. SWE-rebench V2 introduces an automated, language-agnostic pipeline that collects real-world tasks and constructs environments suitable for training across many repositories.",
+      "An interactive setup agent creates repository-specific installation and testing procedures. An ensemble of language-model judges filters unsound instances, with the filtering validated against human-verified SWE-bench annotations. The main dataset contains 32,079 tasks across 20 languages and 3,617 repositories, with pre-built execution images. A further release provides over 120,000 tasks with installation instructions, fail-to-pass tests, metadata, and problem statements generated from original pull-request descriptions.",
+      "A diagnostic study examines a subset spanning five languages and seven models. Instance-level metadata flags issues such as restrictive tests and underspecified descriptions, helping users interpret task outcomes. The release includes datasets, collection and execution code, and related artifacts. Its contribution is training infrastructure and task coverage, supported by checks that make important task-quality confounders visible."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3496cdab33722f2287a9eb524e268c0b1d5f56b4ac9615e04b75e9c192b11247",
+    "tldr": "SWE-rebench V2 automates collection of executable software-engineering tasks across languages, releasing large datasets and reproducible training infrastructure."
+  },
+  "icml-2026-training-free-coverless-multi-image-steganography-with-access-control-f263e26171": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Coverless image steganography hides information without explicitly modifying a cover image. Existing methods, however, often lack robust controls over which hidden contents different users can access. This paper focuses on multi-user settings where several images must be hidden while authorized users receive access only to their designated contents.",
+      "MIDAS is a training-free framework built around diffusion and latent-level fusion. Its Random Basis mechanism suppresses residual structural information, and the paper provides a theoretical analysis of information leakage. A separate Latent Vector Fusion module reshapes aggregated latent representations to better match the diffusion process. Together, these components support multi-image hiding with user-specific access control.",
+      "Experiments compare MIDAS with existing training-free coverless-steganography baselines. The authors report consistent improvements in access-control functionality, generated stego-image quality and diversity, robustness to noise, and resistance to steganalysis. These findings support combining access control with diffusion-based information hiding in the evaluated settings. The contribution addresses both selective disclosure and the quality of the images carrying the hidden information."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "fd465c146b56260aa8f70217321f51d5b1d43fb8684fe87f2da3feaf0347cbda",
+    "tldr": "MIDAS combines diffusion-based multi-image hiding with user-specific access control without requiring training."
+  },
+  "icml-2026-understanding-lora-as-knowledge-memory-an-empirical-analysis-66691ab4d4": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Updating a pretrained language model’s knowledge can rely on supplying information during inference, as in in-context learning and retrieval-augmented generation. Those approaches face constraints involving context budgets, cost, and fragmented retrieval. This paper investigates a complementary possibility: using Low-Rank Adaptation modules as a form of parametric knowledge memory.",
+      "The work is a systematic empirical study of the design space rather than a proposal for one architecture. It examines storage capacity, how knowledge is internalized, how multiple memory modules can be combined and scaled, and how the approach behaves in long-context reasoning. These questions target the capacity and composability of LoRA memory.",
+      "The stated outcome is practical guidance on the operational boundaries of using LoRA in this role. The abstract positions it as an additional memory axis alongside retrieval and in-context learning, with distinct advantages. Its significance is in treating adaptation modules as memory components whose behavior can be studied systematically, helping clarify when parametric storage can complement information supplied through the model’s context."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b92eb0034d92a3386928d7258c346223698ecac308dee1e4c94e6dc504a5c637",
+    "tldr": "The paper systematically studies LoRA modules as knowledge memory, examining capacity, internalization, composition, and long-context reasoning."
+  }
+}

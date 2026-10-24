@@ -1,0 +1,327 @@
+{
+  "icml-2017-adversarial-feature-matching-for-text-generation-6d81e4524a": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Generating text through adversarial training presents difficulties beyond those encountered with continuous data. Sentences contain discrete choices, and adversarial optimization can struggle to converge. This paper develops a text-generation framework that changes the training objective, aiming to make the interaction between the generator and discriminator more effective.",
+      "The generator is a long short-term memory network, while a convolutional network serves as the discriminator. Rather than using the standard adversarial objective, the method compares distributions of learned features from real and generated sentences. A kernel-based discrepancy measures their difference in a high-dimensional feature space, giving training a distribution-matching target.",
+      "The authors report that this approach alleviates mode collapse, the problem of a generator producing too narrow a range of outputs, and thereby eases adversarial training. Their experiments show superior quantitative performance and realistic-looking generated sentences. The contribution connects sentence generation with feature-distribution matching: training attends to the distribution of sentence representations, with reported benefits for both optimization and output quality."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8950ae4d953dd2970f1b4a19fa3cdfabe6309e1bbffbc6ec9d2ded8230b6076f",
+    "tldr": "Matching real and generated sentence feature distributions makes adversarial text training easier and improves the reported generation results."
+  },
+  "icml-2017-asynchronous-stochastic-gradient-descent-with-delay-compensation-fb7dcf9df9": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Asynchronous stochastic gradient descent lets multiple workers contribute updates to a shared neural network. Its efficiency comes with a timing problem: while one worker computes a gradient, other workers may change the global model. By the time that gradient arrives, it describes an older version of the parameters.",
+      "The paper introduces Delay Compensated ASGD to correct for this mismatch. It uses a Taylor expansion of the gradient function to estimate how the gradient should change as the parameters move. Efficient approximations to the loss function's Hessian supply the curvature information needed for that correction. The goal is to make asynchronous optimization behave more like sequential stochastic gradient descent.",
+      "Experiments on CIFAR-10 and ImageNet show the proposed method outperforming both synchronous and ordinary asynchronous SGD, while nearly reaching sequential SGD's performance. These results support compensating for outdated gradients as a useful way to improve distributed training. The reported outcome is an approximation to sequential behavior, with the correction explicitly addressing changes that occurred during a worker's computation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "377ba718f5ba495bd2d16250f83b9dd4bdc874e51ad35c483bb527241cc6944b",
+    "tldr": "Delay compensation adjusts stale worker gradients and improves the reported performance of asynchronous neural-network training."
+  },
+  "icml-2017-canopy-fast-sampling-with-cover-trees-a852a9fc55": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Hierarchical Bayesian models can organize large collections of unlabeled data, but their distributions may involve enormous numbers of distinct atoms. Sampling from these distributions then becomes a computational challenge. The paper motivates this setting with image collections represented through features extracted by deep convolutional networks.",
+      "Canopy addresses this challenge with an exact sampler built on cover trees, a hierarchical data structure. Its stated runtime guarantee grows logarithmically with the number of atoms and polynomially with the inherent dimensionality of the parameter space. These two dependencies distinguish the size of the collection from the dimensional complexity of the space in which its parameters live.",
+      "The authors provide theoretical analysis and evaluate Canopy on synthetic and real datasets, including a collection containing more than 100 million images. They report that the sampler is effective at this scale. The central significance is that exact sampling can have a runtime comparable to searching a hierarchy, making a difficult inference operation more manageable without replacing it with approximate sampling."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7bbac6df8065b1b2f880e9fd26ac69e079bc29baceb5b1b6c227a8045fc1e5b9",
+    "tldr": "Canopy uses cover trees for exact sampling with logarithmic dependence on the number of atoms and polynomial dependence on inherent dimensionality."
+  },
+  "icml-2017-collect-at-once-use-effectively-making-non-interactive-locally-private-learning-possible-a02e21d228": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Non-interactive local differential privacy requires collecting users' data through a noisy channel in a single round. This creates a learning problem in which the analyst must make effective use of already collected private information. The paper develops methods that expand the range of learning and estimation tasks possible under this restriction.",
+      "For smooth generalized linear losses, the authors use a Chebyshev expansion to construct an approximate stochastic gradient oracle from the private channel. They combine this oracle with optimization methods that tolerate inaccurate gradients. The resulting algorithm has a quasi-polynomial sample-complexity bound, establishing a route from noisy one-time collection to iterative learning.",
+      "For high-dimensional sparse linear regression and mean estimation, the paper obtains logarithmic dependence on dimension under an assumption on the data points' l2 norms. Random projection and approximate recovery are central to these results. The methods also extend to kernel ridge regression. Together, these contributions establish several distinct possibilities for non-interactive private learning, with the favorable high-dimensional dependence tied to the stated norm assumption."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0908c94df05ce9f357010cee7bc22c35c053d1bcd8f23fb0af1433a44b539fd3",
+    "tldr": "Approximate gradients and random projections enable several learning tasks from one-time locally private data collection, with stated complexity guarantees."
+  },
+  "icml-2017-combined-group-and-exclusive-sparsity-for-deep-neural-networks-424edd0df7": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Large neural networks have substantial learning capacity, but their many parameters also increase memory use, computation, and the risk of overfitting. This paper proposes a regularization approach that makes networks sparse while reducing redundancy among the features used by their weights. It draws on both positive and negative feature correlations.",
+      "The method combines two complementary penalties. Exclusive sparsity, expressed through a (1,2)-norm, encourages different weights to compete for features and use disjoint feature sets. Group sparsity, based on a (2,1)-norm, promotes feature sharing. Combining them allows training to encourage shared structure and specialization within the same network, rather than relying on a single sparsity preference.",
+      "Across multiple public datasets, the authors report more compact and efficient networks that also improve on the predictive performance of their fully weighted counterparts. These findings show that the tested compression benefits did not require an accuracy sacrifice. The contribution is therefore about organizing the remaining capacity as well as reducing parameter use: the penalties encourage weights to use features less redundantly."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e6754f5c551a979bcab2439ed75381c38d050b67b13e2c0ba1df545a61c4a050",
+    "tldr": "Combining feature-sharing and feature-competition penalties produces more compact networks with improved predictive performance in the reported experiments."
+  },
+  "icml-2017-continual-learning-through-synaptic-intelligence-dd34b56815": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Neural networks can struggle when the data they encounter changes during learning. Learning a new task may interfere with what the network previously learned, making continued adaptation difficult. This paper addresses that problem through artificial synapses that retain information about their relevance to tasks over time.",
+      "The approach takes inspiration from biological neural networks' ability to adapt continually. Each synapse accumulates task-related information and uses that history when storing new memories. The important design choice is to give individual connections a continuing record of their learning role, so that acquiring new knowledge can take previously acquired knowledge into account.",
+      "The authors evaluate the method on sequences of classification tasks and report a dramatic reduction in forgetting while maintaining computational efficiency. The stated empirical finding is reduced forgetting, rather than a demonstrated universal elimination of it. This makes the work significant as an efficient approach to continual learning: it connects information gathered during learning with later efforts to preserve useful memories while the network adapts."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a0b9c59776daffc6250552ea28d076e880f544982c100908a1b37404c296ca49",
+    "tldr": "Synapses that accumulate task-relevant information substantially reduce forgetting in continual classification learning while remaining computationally efficient."
+  },
+  "icml-2017-convexified-convolutional-neural-networks-0e7b88aa08": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Convolutional neural networks share parameters across their inputs, an important part of their structure. This paper develops convexified convolutional neural networks, or CCNNs, to retain that sharing in a convex learning formulation. The approach connects convolutional modeling with a different way of representing and optimizing its parameters.",
+      "The authors represent nonlinear convolutional filters as vectors in a reproducing kernel Hilbert space. This allows the network parameters to be expressed as a low-rank matrix. Relaxing the resulting representation produces a convex optimization problem, providing the mathematical basis for learning while preserving the parameter-sharing idea.",
+      "For two-layer convolutional networks, the paper proves that the CCNN generalization error converges to that of the best possible CNN. Deeper models are trained layer by layer. Experiments show performance competitive with or better than several alternatives, including backpropagation-trained CNNs and support vector machines. The theoretical result specifically concerns two-layer networks; the deeper construction and empirical comparisons provide additional evidence for the usefulness of the approach."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "31848916db3212f07e61defb0e658e9bfe47fe4ecf0367e51e9cd47cbde5f966",
+    "tldr": "CCNNs express convolutional parameter sharing through convex optimization, with a two-layer generalization guarantee and competitive empirical results."
+  },
+  "icml-2017-follow-the-moving-leader-in-deep-learning-17d6c3eebe": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Deep-network optimization takes place in a changing landscape. Parameters may move between different local basins, and the distribution of training data may also change. This paper uses the connection between stochastic optimization and online learning to develop an optimizer designed to respond more quickly to such changes.",
+      "The method, Follow the Moving Leader, modifies the Follow the Regularized Leader approach. At each iteration, it gives greater weight to recent samples. That emphasis makes the optimization history more responsive to current conditions, rather than treating older and newer evidence in the same way. The moving emphasis is the central mechanism behind the proposed adaptation.",
+      "The authors state that FTML preserves favorable properties of RMSprop and Adam while avoiding their pitfalls. Experiments across several deep-learning models and tasks show fast convergence and better performance than other state-of-the-art optimizers in those evaluations. The findings support recency weighting as a useful optimization design choice when the information most relevant to the current update changes over training."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d0bf6c1deabbe1fad0196de8cf5f8f63106d3e9efcdb648fbc2fefbca3307fd4",
+    "tldr": "FTML emphasizes recent samples to adapt optimization more quickly and achieves strong convergence and performance in the reported deep-learning experiments."
+  },
+  "icml-2017-high-dimensional-variance-reduced-stochastic-gradient-expectation-maximization-algorithm-b769c082cc": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Estimating high-dimensional latent-variable models requires learning parameters while accounting for hidden structure. This paper proposes a general stochastic expectation-maximization algorithm for that setting. Its aim is to reduce computational work while retaining strong guarantees about convergence and the statistical quality of the estimated parameters.",
+      "The main ingredient is a semi-stochastic gradient with reduced variance, designed specifically for the Q-function used by EM. Under a mild condition on initialization, the algorithm has a linear convergence guarantee toward the unknown model parameter. It also achieves a parameter-estimation rate that is optimal up to a logarithmic factor, linking optimization progress with statistical accuracy.",
+      "The authors establish better computational complexity than existing high-dimensional EM algorithms. They illustrate the method with Gaussian mixtures and mixtures of linear regressions, using both theory and numerical experiments to demonstrate its advantages. They also suggest that the gradient construction may be useful for other nonconvex problems with bivariate structure. That broader relevance is presented as a possibility beyond the two models studied."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1637ede215b42428b07d6f342ec6ef0ac986211fef3b51e8314227f3ca7db0fd",
+    "tldr": "A variance-reduced stochastic EM method improves computational complexity and provides convergence and near-optimal estimation guarantees under an initialization condition."
+  },
+  "icml-2017-identify-the-nash-equilibrium-in-static-games-with-random-payoffs-664221d361": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper studies how to identify a pure Nash equilibrium in a two-player zero-sum static game when payoffs are random and their distributions are unknown. The learner obtains information by querying payoffs. The central challenge is to use those queries efficiently while distinguishing useful evidence from randomness in the observed outcomes.",
+      "The authors frame the task through a multi-armed bandit model, drawing on its ability to identify good choices from noisy observations. They propose two algorithms. LUCB-G uses confidence bounds to reason about uncertain payoffs, while a racing algorithm progressively eliminates actions. These provide different ways to narrow the search as payoff information accumulates.",
+      "The paper also analyzes a lower bound on sample complexity when a Nash equilibrium exists. This gives a theoretical perspective on the amount of information the identification problem requires. The existence qualification matters because the target is a pure equilibrium. Together, the algorithms and lower-bound analysis connect equilibrium identification with the efficient allocation of queries under payoff uncertainty."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "af625d5c17c368e33c2a40ad2278900ec0c9c580bf609c6f4a369eb19b910b56",
+    "tldr": "Two bandit-based algorithms seek pure Nash equilibria from noisy payoff queries, alongside a sample-complexity lower bound when an equilibrium exists."
+  },
+  "icml-2017-latent-feature-lasso-a4cf0b547b": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A latent feature model describes each instance through a combination of hidden features. A binary vector records which features are present or absent. This is more flexible than assigning each instance to one hidden class, but it also creates a combinatorial estimation problem because many feature combinations are possible.",
+      "The paper addresses the difficulty of estimating these models efficiently. It introduces an atomic-norm regularizer as the central ingredient of its approach. The motivation is that earlier efforts still faced exponential computational complexity or sample requirements growing as a high-order polynomial in the number of latent features, leaving tractable estimation an important unresolved issue.",
+      "The authors report an algorithm with polynomial runtime and polynomial sample complexity, without requiring assumptions on the data distribution that they characterize as impractical. The contribution concerns both resources: how much data estimation needs and how much computation it takes. It provides a tractable route to learning combinations of latent features, with regularization serving as the mechanism for addressing the model's combinatorial complexity."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "af5fb1aa02254cb990a6b2bf50d5383268edbd15ef9a2afd8647ab5b21f23177",
+    "tldr": "Atomic-norm regularization enables latent feature estimation with polynomial runtime and sample complexity."
+  },
+  "icml-2017-latent-lstm-allocation-joint-clustering-and-non-linear-dynamic-modeling-of-sequence-data-5c369201c0": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Modeling user behavior directly as a sequence of individual actions can make an LSTM unnecessarily complex. Many actions may express similar intentions or topics, yet a large action space still demands many parameters. Latent LSTM Allocation addresses this mismatch by combining hierarchical Bayesian modeling with recurrent neural networks.",
+      "The model jointly groups actions into topics and learns how the resulting topic sequence changes over time. Each user is still represented through a sequence of actions, but temporal modeling operates over the inferred topics. Learning the grouping and dynamics together produces a concise, interpretable representation that can still capture intricate patterns of behavior.",
+      "The authors introduce an efficient stochastic EM inference algorithm that scales to millions of users or documents. Their experimental evaluations compare favorably with several state-of-the-art baselines. The contribution brings together interpretability, sequence modeling, and scalable inference: related actions can share a topic representation, allowing the temporal model to focus on changes among meaningful groups instead of handling every action separately."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4c2b7b4acff018b888b9c9bbb4742e4fbe1c2380ec56596e33336930d2718eb9",
+    "tldr": "Latent LSTM Allocation jointly groups actions into topics and learns their temporal dynamics for concise, interpretable sequence modeling."
+  },
+  "icml-2017-learning-hierarchical-features-from-deep-generative-models-04497ece94": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Deep supervised networks have been successful at learning hierarchies of features, but generative models with multiple latent layers have benefited less from comparable depth. This paper investigates why adding hierarchical latent structure may fail to produce the expected representational advantages when the model is trained.",
+      "The authors prove that hierarchical latent-variable models trained with existing variational methods do not exploit their hierarchical structure. They also establish limitations on the kinds of features existing models can learn. These results connect the usefulness of a model's hierarchy to the training approach, showing why architectural depth alone does not establish that useful hierarchical features will emerge.",
+      "The paper then introduces an alternative architecture that avoids the identified limitations. On several natural-image datasets, it learns highly interpretable and disentangled hierarchical features without task-specific regularization or prior knowledge. The contribution combines a theoretical diagnosis with a constructive response: it identifies obstacles in existing approaches and demonstrates a model that learns the desired kinds of features in the reported evaluations."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f37aab81fa1ab09366520878766296fafd3c7de63c35ec85589b76ae48f568b3",
+    "tldr": "The paper identifies limits of existing variational hierarchies and proposes an architecture that learns interpretable hierarchical image features."
+  },
+  "icml-2017-learning-sleep-stages-from-radio-signals-a-conditional-adversarial-architecture-0eae549aed": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper aims to predict sleep stages from radio measurements without attaching sensors to the person being monitored. Its modeling challenge includes extracting information about sleep while handling differences between individuals and measurement conditions. The proposed predictor combines convolutional and recurrent neural networks to address these aspects together.",
+      "The architecture extracts sleep-related features from radio signals and models how sleep progresses over time. Its key innovation is a modified adversarial training regime designed to discard information specific to a person or recording condition while retaining information relevant to sleep-stage prediction. This makes the desired representation both task-focused and invariant to the subject.",
+      "The authors analyze the adversarial interaction through a game-theoretic setup and report significant empirical improvements over state-of-the-art solutions. The findings support combining temporal modeling with a training objective that separates predictive information from extraneous variation. The contribution is a method for learning which aspects of radio measurements matter for sleep staging while reducing dependence on who was measured or under what conditions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "05d7cdd75585813242b7c5bb42f926eb4bc8f7f091a9f6d415929c29679e1e7a",
+    "tldr": "A convolutional-recurrent model uses adversarial training to predict sleep stages from radio signals while removing subject- and condition-specific information."
+  },
+  "icml-2017-leveraging-node-attributes-for-incomplete-relational-data-a7f56ef8a7": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Relational datasets often reveal only part of a network's connections. That incompleteness makes community detection and link prediction difficult when the model relies on relationships alone. This paper introduces a Bayesian approach that incorporates attributes of the nodes as additional information for learning about the network.",
+      "The method accepts different kinds of node attributes encoded in binary form and incorporates them into relational models with a Poisson likelihood. It works with both directed and undirected networks. Inference uses Gibbs sampling, with efficiency coming from exploiting sparsity in both the observed network and the attribute representation.",
+      "Extensive experiments yield link-prediction results reported as state of the art, especially when the relational data is highly incomplete. The stated evidence is strongest for predicting links in those settings. The broader contribution is a flexible probabilistic framework that uses two available sources of information together: observed relationships and descriptions of the entities involved. Its inference procedure also uses their sparse structure to keep computation efficient."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8243fbbd59e434b8306f5a349c7bebfee247c9204c7b5c078d6b1abe101cde5e",
+    "tldr": "A Bayesian relational model incorporates binary node attributes and achieves strong link prediction, particularly for highly incomplete networks."
+  },
+  "icml-2017-multi-class-optimal-margin-distribution-machine-a3b91c2a3e": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A classifier's margin expresses how strongly its decision favors the correct class. Maximizing the smallest margin, as support vector machines do, does not necessarily produce better generalization. This paper studies a broader target: optimizing how margins are distributed across examples in a multiclass classification problem.",
+      "Earlier binary-classification work had shown benefits from describing the margin distribution through its mean and variance. Extending that idea to multiple classes is difficult because multiclass margins have a more complex structure. The proposed multiclass Optimal margin Distribution Machine, or mcODM, is designed to solve this optimization problem efficiently.",
+      "The authors provide theoretical analysis supporting the importance of the margin distribution for multiclass classification. In their empirical study, mcODM outperforms all four evaluated versions of multiclass SVMs on every experimental dataset. That consistency is a finding within the reported evaluation. The contribution provides both an efficient method and theoretical support for considering the overall pattern of margins when designing multiclass classifiers."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "939893f53c97792a5e84e51a332278e50e00d5dafced7d38ff74b0621e6553e9",
+    "tldr": "mcODM efficiently optimizes multiclass margin distributions and outperforms four multiclass SVM variants across all reported experimental datasets."
+  },
+  "icml-2017-projection-free-distributed-online-learning-in-networks-6992af6a32": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Distributed online learning asks connected learners to update their models over time while keeping local computation lightweight. This paper brings conditional gradient optimization into that setting. It focuses on avoiding projection operations, which can make otherwise useful constrained optimization methods expensive at each learning step.",
+      "The proposed distributed online conditional gradient algorithm replaces those projections with simpler linear optimization steps. The authors derive a regret bound that depends on the network's size and topology. Regret measures accumulated learning performance relative to a comparison choice, so this bound connects the quality of online learning with the structure of communication among learners.",
+      "The bound is smaller for smaller networks or networks that are well connected. Experiments on two large real-world datasets, using multiclass classification, confirm computational benefits and support the theoretical regret result. The contribution therefore addresses both the cost of local updates and the consequences of network organization: efficient optimization steps work within a distributed procedure whose performance guarantee reflects the graph connecting its participants."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0488de31a8b2a17ded275cedb5bb9eb10a491e041f4d2de97d2095f3ab74d96d",
+    "tldr": "A distributed online conditional gradient method avoids costly projections and provides a regret bound that reflects network size and connectivity."
+  },
+  "icml-2017-re-revisiting-learning-on-hypergraphs-confidence-interval-and-subgradient-method-3a2048f3fd": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper revisits semi-supervised learning on hypergraphs, where some vertices are labeled and the remaining vertices must be inferred. Its formulation uses a convex objective that is not differentiable everywhere. An important feature of this optimization problem is that more than one solution may achieve the optimal value.",
+      "The authors use that non-uniqueness to construct confidence intervals for unlabeled vertices. Each interval gives the exact range of values that a vertex can take across all optimal solutions. These intervals describe ambiguity within the optimization problem itself, making variation among equally optimal answers part of the learning method.",
+      "The paper also presents a simpler solver based on the subgradient method, which accommodates the objective's lack of differentiability. Experiments on real-world datasets show that the confidence-interval approach outperforms existing methods. The solver runs faster when vertices greatly outnumber edges. The two contributions address different aspects of the same problem: interpreting multiple optimal answers and computing solutions efficiently in the stated graph-size regime."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7f5252cc3e797254cbe291b85a9b3c4bf76fe9dc64a4ccd97495fe917aa3dfee",
+    "tldr": "Exact ranges across optimal hypergraph solutions improve the reported learning results, while a simpler subgradient solver accelerates vertex-heavy cases."
+  },
+  "icml-2017-recovery-guarantees-for-one-hidden-layer-neural-networks-3ef2f6a30a": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies when regression with a one-hidden-layer neural network can recover the parameters that generated the data. It identifies activation-function properties that make the squared-loss objective locally strongly convex near those true parameters. Several common activations satisfy these properties, including ReLUs, leaky ReLUs, squared ReLUs, and sigmoids.",
+      "The recovery argument has separate components with different requirements. For activations that are also smooth, gradient descent has local linear convergence under a resampling rule. For homogeneous activations, tensor methods can initialize parameters inside the locally strongly convex region. Combining initialization and refinement yields a high-probability recovery guarantee for smooth homogeneous activations.",
+      "The sample bound scales as d times log(1/epsilon) times a polynomial in hidden-layer size k and conditioning parameter lambda. The computational bound is n times d times such a polynomial, where n is the sample count and k is at most d. These dependencies clarify the result's scope: favorable scaling in input dimension accompanies explicit activation, initialization, sampling, and conditioning requirements."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "034f745fdb31334d5192ee5db51415981d7338e0b04642fad9026b682f33c071",
+    "tldr": "Tensor initialization followed by gradient descent recovers one-hidden-layer network parameters with high probability under stated activation and sampling conditions."
+  },
+  "icml-2017-scaling-up-sparse-support-vector-machines-by-simultaneous-feature-and-sample-reduction-697265695a": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Sparse support vector machines can select a small set of useful features while identifying the training examples that act as support vectors. Yet training remains difficult when both the number of examples and the feature dimension are enormous. This paper uses sparsity in both spaces to reduce the problem before training.",
+      "The method estimates the primal and dual optima accurately enough to identify features and samples guaranteed to be irrelevant to the resulting outputs. Those inactive elements can then be removed from training. The guarantee is central: the reduction is designed to save memory and computation without sacrificing the accuracy of the sparse SVM solution.",
+      "Experiments on synthetic and real datasets show significant improvements over state-of-the-art methods, with speedups that can reach orders of magnitude. The evaluated data includes kddb, with about 20 million samples and 30 million features. The contribution combines feature screening and sample screening in one static reduction procedure, addressing both major sources of scale in a large sparse classification problem."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "79f25cfbfd2ab834541099ca9c42e31e53b16054a88415483676bf25488d46cf",
+    "tldr": "Jointly screening guaranteed-irrelevant features and samples speeds sparse SVM training without sacrificing accuracy."
+  },
+  "icml-2017-stochastic-adaptive-quasi-newton-methods-for-minimizing-expected-values-493150ae3b": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper considers minimizing self-concordant functions expressed as expected values. In this setting, the objective is estimated through samples rather than evaluated directly in full. The authors propose a class of stochastic adaptive optimization methods that includes extensions of gradient descent and the quasi-Newton method BFGS.",
+      "At each step, the methods form an empirical mean from a drawn sample to estimate the true objective. They also choose step sizes adaptively, removing the need for the user to supply a step size. Sampling and update selection are thus both built into the optimization procedure for this particular class of functions.",
+      "With a suitable amount of sampling, the stochastic adaptive gradient-descent method achieves linear convergence in expectation. With further sampling, the adaptive BFGS method achieves R-superlinear convergence. Experiments show favorable comparisons with SGD. The sampling qualifications are part of the result: the stronger guarantees depend on obtaining enough information from the objective estimates, alongside the assumed self-concordant structure."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ec75c8f5e9e080484b83996a40d2d139fe02f18e991a634a4baf80363271c8b7",
+    "tldr": "Adaptive stochastic gradient and BFGS methods avoid user-specified step sizes and achieve strong convergence rates with sufficient sampling."
+  },
+  "icml-2017-stochastic-gradient-monomial-gamma-sampler-95c6048b94": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Stochastic-gradient methods make Markov chain Monte Carlo more practical for estimating posterior distributions from large datasets. However, a manageable number of samples may still explore a complicated distribution poorly. This is especially troublesome for multimodal distributions, where slow mixing can leave important regions insufficiently visited.",
+      "The paper proposes a generalized stochastic-gradient MCMC framework that changes the sampler's kinetics. The intended benefit is better stationary mixing, particularly when the posterior has multiple modes. The authors also introduce several techniques to address practical issues arising from this framework, connecting the proposed sampling dynamics with usable inference procedures.",
+      "The reported results show better exploration of a complicated multimodal posterior and improvements over other stochastic-gradient MCMC methods across various applications. These findings concern the quality of exploration as well as scalability. Making individual sampling steps affordable is only part of effective posterior estimation; the sampler must also move through the distribution sufficiently well for its collected samples to represent the structure being estimated."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "031c1d1bb93d98e31142bd7399990ca8a63505965ede9e430975789c513ef7bb",
+    "tldr": "Generalized sampling kinetics improve stochastic-gradient MCMC exploration, especially for the multimodal posteriors examined in the paper."
+  },
+  "icml-2017-theoretical-properties-for-neural-networks-with-weight-matrices-of-low-displacement-rank-1ba29e4b77": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Low-displacement-rank matrices provide structured representations of neural-network weights. Prior empirical results cited in the abstract show that these networks can reduce storage and computation substantially while retaining high accuracy. This paper investigates the theoretical capabilities of such networks, addressing what their constrained weight structure still allows them to represent.",
+      "The authors prove a universal approximation property under a mild condition on the displacement operators that define the structure. They also show that error bounds for low-displacement-rank networks are as efficient as those for general neural networks, covering both single-layer and multiple-layer structures. These results give mathematical support to the expressive capacity of the compressed models.",
+      "The paper additionally proposes a backpropagation-based training algorithm for general low-displacement-rank networks. Together, the results address representation, approximation error, and training. The universal approximation claim remains conditional on the stated operator requirement. Its significance is that structured weight matrices can preserve strong theoretical approximation properties, complementing the earlier empirical motivation for using them to reduce network resource demands."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f5e314c6ec5c4c1f9d6278b64730a309095d7be27c1920980be2330a26e61be4",
+    "tldr": "Low-displacement-rank networks retain strong approximation guarantees under a mild operator condition, and the paper supplies a general training algorithm."
+  },
+  "icml-2017-when-can-multi-site-datasets-be-pooled-for-regression-hypothesis-tests-ell-2-consistency-b56518f6c5": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Small studies may lack enough data to detect weak but scientifically interesting associations. Pooling data from several laboratories can increase the available evidence, but differences between sites complicate the decision. This paper asks when pooling helps regression, seeking guidance that is independent of the particular inference algorithm used.",
+      "The authors develop a hypothesis test for both classical and high-dimensional linear regression. Their analysis identifies regimes in which combining datasets is sensible. It also translates that decision into simple checks that each site can perform locally, before any data is transferred, making the pooling question actionable at the planning stage.",
+      "Empirical results focus on Alzheimer's disease studies. In regimes indicated by the analysis, combining a local dataset with an international study improves statistical power. The conditional nature of this finding is central: the paper provides a way to assess pooling, rather than treating additional data as automatically beneficial. Its contribution links a theoretical decision rule with evidence that the identified regimes can improve the detection of associations."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "150ee630c6291a3ecfe13cdc91e3ee60aa258baf66b4248a8274dadc5b14768b",
+    "tldr": "Local hypothesis checks identify when pooling datasets can benefit regression, with improved power demonstrated in the indicated Alzheimer's-study regimes."
+  },
+  "icml-2017-zipml-training-linear-models-with-end-to-end-low-precision-and-a-little-bit-of-deep-lear-cf59d4cb10": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Using fewer bits during model training can reduce computation and communication, but naive quantization can introduce bias into learning. ZipML investigates end-to-end low-precision training from theoretical and practical perspectives, with its main guarantees focused on linear models. The framework's central strategy is called double sampling.",
+      "Double sampling enables unbiased low-precision training with a convergence guarantee. The authors also develop a variance-optimal stochastic quantization strategy, addressing how precision is allocated within the quantization process. Combined with double sampling for linear models, this strategy reduces data movement by up to an additional 1.7 times compared with uniform quantization.",
+      "Across application evaluations, ZipML enables an FPGA prototype that runs up to 6.5 times faster than a full 32-bit implementation. The paper also reports higher accuracy than XNOR-Net when training deep networks with quantized models. These are separate empirical findings alongside the linear-model guarantees. Together, they show how controlling quantization bias and variance can translate reduced numerical precision into useful training efficiency."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "46c4adeeb0ec36fb229883df128f76240c6dd399a0f7173483775f0e7483c3b1",
+    "tldr": "ZipML uses double sampling for unbiased low-precision linear-model training, with convergence guarantees and an FPGA speedup of up to 6.5 times."
+  }
+}

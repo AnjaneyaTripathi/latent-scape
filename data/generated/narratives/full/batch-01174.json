@@ -1,0 +1,335 @@
+{
+  "neurips-2025-a-multimodal-bimamba-network-with-test-time-adaptation-for-emotion-recognition-based-on--7e541df9c6": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "BiM-TTA addresses two connected problems in recognizing emotions from physiological measurements. A model needs to connect events separated in time within each signal, while also understanding relationships between different signals. It must additionally cope when some modalities are missing, which changes the data it encounters compared with the data used for training.",
+      "The proposed network divides this representation problem between two bidirectional Mamba components. The intra-modal component captures dependencies across time within a modality. The inter-modal component captures relationships across modality channels. This division gives the architecture explicit mechanisms for learning both the temporal structure of individual signals and the complementary information available from combining them.",
+      "A separate test-time adaptation component responds to distribution shifts intensified by missing modalities. It combines entropy-based sample filtering at two levels with information sharing across modalities. The authors report state-of-the-art results on two multimodal emotion datasets. These findings support combining specialized signal modeling with adaptation during use, especially when incomplete inputs would otherwise undermine the learned relationships between modalities."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "06a36ba1ce89cf2f72b2588ebd3b9e8db683a44e6cd041059d77a9eec2fe242a",
+    "tldr": "BiM-TTA combines bidirectional multimodal signal modeling with test-time adaptation to improve emotion recognition when modalities may be missing."
+  },
+  "neurips-2025-alignvlm-bridging-vision-and-language-latent-spaces-for-multimodal-document-understandin-2795602157": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "AlignVLM focuses on the connector that translates image features into representations a language model can interpret. Conventional connectors learn this translation without explicitly respecting the structure of the language model's embedding space. The paper argues that this freedom can require substantial training data and produce visual representations that align poorly with linguistic meaning.",
+      "Its alternative constructs the translated visual representation as a weighted average of the language model's existing text embeddings. This introduces a structural constraint: visual features are expressed through representations already associated with language. The connector therefore draws on linguistic knowledge already encoded in the model instead of learning the entire relationship between visual and textual representations without that guidance.",
+      "The authors report state-of-the-art performance against previous alignment methods, with especially large gains for document understanding and settings with limited resources. Documents are a natural fit because their visual and textual information are closely connected. Additional analysis supports efficiency and robustness to noise. Together, the findings suggest that the connector's representation structure can materially affect how effectively a model combines vision and language."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "98bec4865fd3bdd58a4f42c2d57fe1d57ff41c19aa3e3ccce0214551ad3bba49",
+    "tldr": "AlignVLM translates visual features through weighted combinations of language embeddings, improving alignment especially for documents and limited-resource settings."
+  },
+  "neurips-2025-class-wise-balancing-data-replay-for-federated-class-incremental-learning-d4047f05b5": {
+    "backgroundConcepts": [
+      "topic-083-online-continual-learning-from-imbalanced-data"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "FedCBDR tackles forgetting when multiple clients collaboratively learn a growing collection of classes. Replaying examples from earlier tasks can preserve old knowledge, but replay introduces two balancing problems. The stored examples may unevenly represent classes, and the older classes represented through replay may be overwhelmed by newly arriving classes during subsequent learning.",
+      "The method first coordinates memory construction using a global perspective. It reconstructs representations of earlier knowledge while preserving privacy, then uses those representations to guide sampling that considers both class membership and example importance. This addresses the limited view available to individual clients, helping replay reflect the broader distribution of knowledge across the collaborative system.",
+      "A second component adjusts the temperature of prediction logits at both class and instance levels according to task dynamics. This reduces overconfidence in majority classes and increases sensitivity to minority classes. Experiments report balanced sampling under heterogeneous client data and improved generalization when earlier and recent tasks are imbalanced. Across comparisons with six state-of-the-art methods, the reported Top-1 accuracy improvements range from 2% to 15%."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "cebf79cf44e45ceef41d82e88b4fa774a82236cc508ef4fd47f977720467003b",
+    "tldr": "FedCBDR balances replayed classes and adjusts prediction temperatures to reduce forgetting and class imbalance in federated incremental learning."
+  },
+  "neurips-2025-credal-prediction-based-on-relative-likelihood-ec80ad8a2f": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper represents uncertainty using a set of probability distributions rather than a single predicted distribution. Such a credal set can express uncertainty about which model is supported by the evidence. The central question is how to decide which models are plausible enough that their predictions should remain inside the set.",
+      "The proposed answer uses relative likelihood. Models whose relative likelihood exceeds a chosen threshold contribute their conditional probability distributions to the prediction set. The threshold provides a way to control the trade-off between correctness and precision: retaining more plausible alternatives allows broader predictions, while a more selective collection produces tighter predictions. The method thus connects the meaning of predictive uncertainty to a statistical criterion.",
+      "Because directly constructing the entire set is difficult, the authors adapt ensemble learning techniques to approximate it. Experiments on benchmark datasets show improved uncertainty representation without sacrificing predictive performance, alongside comparisons with state-of-the-art credal prediction methods. The contribution combines a principled definition of which predictions belong in the set with a practical learning approach for approximating that definition."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3948d57373d24bfc83f7db7ba7294152fcb3734c19aff632fe10f42d9b3b37de",
+    "tldr": "The paper builds uncertainty-aware prediction sets from statistically plausible models and approximates those sets with modified ensembles."
+  },
+  "neurips-2025-diffusion-tree-sampling-scalable-inferencetime-alignment-of-diffusion-models-9d5416e4c1": {
+    "backgroundConcepts": [
+      "topic-064-psi-sampler-initial-particle-sampling-for-smc-ba"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Diffusion Tree Sampling addresses how to steer a pretrained diffusion model toward a new reward during generation. Earlier steering methods can estimate future value poorly when samples are still very noisy. They also fail to reuse information from previous generations, leaving useful evidence unavailable when deciding where to spend additional computation.",
+      "The method organizes generation as a tree search. Rewards from completed samples are passed backward through the diffusion chain, improving value estimates as more generations accumulate. DTS targets sampling from the reward-aligned distribution and becomes exact in the limit of infinitely many rollouts. Its greedy variant, DTS*, instead searches for individual samples with high rewards; these are distinct objectives.",
+      "For class-conditional generation on MNIST and CIFAR-10, DTS matches the best baseline's FID using up to five times less computation. For text-to-image generation and language completion, DTS* matches best-of-N reward search with two times less computation. Reusing earlier results makes the approach an anytime algorithm, allowing additional computation to progressively improve samples rather than repeatedly starting independent searches."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f0aaceab100079c871ae4f690969f5fff50f16989538feab442685e66b2c45bc",
+    "tldr": "Diffusion Tree Sampling reuses rewards from previous generations to improve diffusion guidance and reduce the computation needed for aligned outputs."
+  },
+  "neurips-2025-disc-dynamic-decomposition-improves-llm-inference-scaling-bec50ee738": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "DISC studies how language models should divide reasoning into steps when additional computation is available during inference. Many inference-scaling methods sample several possible continuations and select promising next steps. Their effectiveness depends on the boundaries of those steps, yet existing approaches often fix the boundaries beforehand or rely on manual choices informed by domain knowledge.",
+      "Dynamic decomposition makes those boundaries adaptive. It partitions reasoning and solution traces automatically during inference, with particular attention to difficult portions. Challenging steps can be subdivided and receive more sampling effort. This connects the size of a reasoning unit to how much work it needs, giving the system a way to allocate computation more selectively.",
+      "Experiments on APPS, MATH, and LiveCodeBench show improvements over static decomposition approaches. Against token-level, sentence-level, and single-step decomposition, the abstract reports pass@10 error-rate reductions of 5.0%, 6.7%, and 10.5%, respectively. These results suggest that choosing where to divide a solution is itself an important part of inference scaling, alongside choosing how many candidate continuations to generate and evaluate."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "46af0a9a6fd164bb73fe8b57bcafa9d019456ebc69e5116f0b69454291aacbab",
+    "tldr": "DISC adaptively divides reasoning into steps and concentrates sampling on difficult portions, improving inference efficiency over fixed decompositions."
+  },
+  "neurips-2025-efficient-and-near-optimal-algorithm-for-contextual-dueling-bandits-with-offline-regress-223492671e": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Contextual dueling bandits describe learning from comparisons between actions in a given context. This is relevant to preference-based learning, including reinforcement learning with human feedback. The paper addresses a general setting with continuous action spaces, where earlier methods are limited by restrictive preference assumptions, finite action sets, or demanding optimization procedures that must operate online.",
+      "The proposed algorithm uses a regularized min-max optimization framework and relies on offline regression oracles. Replacing online optimization oracles matters because the abstract identifies them as computationally infeasible for complex function classes. The contribution therefore concerns both the scope of the preference-learning problem that can be analyzed and the computational machinery used to solve it.",
+      "The authors establish a regret bound of roughly the square root of d times T, with logarithmic factors suppressed, and identify it as the first guarantee of this form for their general setting. Regret measures accumulated performance loss from learning rather than already knowing what to choose. Empirical evaluations also show substantially lower regret than existing baselines, supporting the theoretical development with observed improvements."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ff913a35154c927b4a8d74645d3514ac7c35a7c0a18e139cd5376f051c01bb74",
+    "tldr": "The paper gives a continuous-action preference-learning algorithm with a near-optimal regret guarantee and more practical offline regression oracles."
+  },
+  "neurips-2025-gmv-a-unified-and-efficient-graph-multi-view-learning-framework-3e99353b24": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "GMV aims to improve graph classification without making prediction substantially more expensive. Graph neural networks can overfit and generalize poorly, motivating approaches that learn from multiple views. Here, a view extends beyond a different version of the input graph: the framework also creates diversity through the model and the optimization process used during training.",
+      "Drawing on the lottery ticket hypothesis, GMV activates different subnetworks within a single graph neural network. Its training pipeline combines mixed-view generation with multi-view decomposition and learning. These components broaden the perspectives available during learning while keeping them within a shared network, connecting diversity in training to the goal of more robust graph representations.",
+      "At inference, the added machinery consists only of additional prediction heads attached to the standard network. This design keeps the extra prediction cost small while retaining the benefits of multi-view training. Experiments report stronger performance than other augmentation and ensemble methods across graph classification settings, covering both graph neural networks and Graph Transformers. The findings support shared-network diversity as an efficient route to better generalization."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "cb3569835fb85a273b8eb33982a07cb19448a9b5563c7063d3dbb12eb493969b",
+    "tldr": "GMV trains diverse views within one graph network and adds only prediction heads at inference, improving graph classification with little extra cost."
+  },
+  "neurips-2025-guiding-llm-decision-making-with-fairness-reward-models-3921f681b6": {
+    "backgroundConcepts": [
+      "topic-041-understanding-instance-level-impact-of-fairness-"
+    ],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper addresses a tension in using language-model reasoning for consequential decisions. Sampling multiple reasoning chains can improve average accuracy, but the abstract notes that it can also amplify unfair bias. Simply aggregating more reasoning therefore does not ensure that the resulting decision treats people more equitably, even when its overall accuracy improves.",
+      "The authors train a Fairness Reward Model to score the fairness of individual reasoning chains. Those scores guide aggregation by reducing the influence of biased trajectories and favoring more equitable ones. Training uses weak supervision from examples that a language model has annotated as biased or unbiased, creating a learned evaluator specifically for this aspect of reasoning.",
+      "A single trained evaluator transfers across tasks, domains, and model families without additional fine-tuning in the reported study. On decision tasks including recidivism prediction and social media moderation, the framework consistently improves fairness while matching or exceeding baseline accuracy. The findings support fairness-aware weighting of reasoning as a useful intervention at the decision-aggregation stage, with empirical evidence of transfer beyond the evaluator's original training setting."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4e50048617e1cc9f85c734ca714e82c60e2928431499a6a382df8a6a784fa095",
+    "tldr": "A learned fairness evaluator reweights LLM reasoning chains, improving fairness while preserving or improving accuracy across the tested decision tasks."
+  },
+  "neurips-2025-mmot-the-first-challenging-benchmark-for-drone-based-multispectral-multi-object-tracking-76db54d7e4": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "MMOT addresses a data gap in tracking multiple objects from drones using multispectral imagery. Aerial targets can be tiny, crowded, or obscured, weakening the color and texture cues used by RGB trackers. Spectral reflectance supplies additional information for distinguishing objects when those spatial appearance cues become unreliable, motivating a dedicated benchmark.",
+      "The dataset contains 125 video sequences and more than 488,800 annotations spanning eight object categories. It covers small targets, dense scenes, severe occlusion, and complex drone motion. Oriented annotations describe object alignment as well as location, helping reduce ambiguity in aerial views. These features make the benchmark relevant to both spectral information use and orientation-aware tracking.",
+      "The authors also adapt tracking methods with a lightweight spectral 3D input component, an orientation-aware Kalman filter, and an orientation-adaptive transformer architecture. The spectral component retains compatibility with RGB pretraining. Across representative trackers, experiments find clear gains from multispectral inputs over RGB baselines, particularly for small and densely packed objects. The work supplies both an evaluation resource and concrete modeling components for exploiting its additional information."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "794827261f845ae592721b1388164cbc465990b5c1340b2429eaee83e05bda38",
+    "tldr": "MMOT introduces a multispectral drone-tracking benchmark and orientation-aware methods that improve tracking, especially for small and crowded objects."
+  },
+  "neurips-2025-near-optimal-regret-queue-length-tradeoff-in-online-learning-for-two-sided-markets-38a600a751": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies a platform where heterogeneous customers and servers arrive in response to prices, wait in separate queues, and leave when a compatible pair is matched. The platform wants high profit without excessive waiting populations. Learning complicates this objective because the demand and supply curves linking prices to arrivals may initially be unknown.",
+      "The proposed online pricing policy combines a dynamic component that manages the profit–queue trade-off with a probabilistic component that balances informative sampling against queue growth. For a tuning parameter gamma between zero and one-sixth, inclusive at the upper end, the authors prove regret scaling as T to the power 1−gamma, average queue length as T to gamma/2, and maximum queue length as T to gamma, ignoring logarithmic factors.",
+      "These bounds expose the cost of improving one objective: increasing gamma improves the regret exponent while allowing larger queues. Apart from the permissible gamma range, the regret–average-queue trade-off is optimal up to logarithmic factors within a specified class of policies. It also matches the corresponding trade-off available when demand and supply curves are known, showing how learning can preserve that benchmark within the stated scope."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "218798fa1109a07fee3b65df4684b4cf9994fb4b423cb4df80bbc8f6416053b5",
+    "tldr": "The paper develops online pricing with a provably near-optimal trade-off between profit regret and queue lengths in two-sided markets."
+  },
+  "neurips-2025-neural-tangent-knowledge-distillation-for-optical-convolutional-networks-478b997f98": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Hybrid optical neural networks combine an optical frontend with digital processing, offering an energy-efficient option for systems constrained by power and response time. Their practical accuracy can suffer twice: first from a gap relative to large electronic networks during training, and then from differences between simulated optical behavior and the hardware that is actually fabricated.",
+      "The proposed pipeline addresses design, training, and post-fabrication correction together. Before training, it chooses a metasurface layout that accounts for fabrication constraints. During training, Neural Tangent Knowledge Distillation aligns the optical model with an electronic teacher network. After fabrication, the same distillation approach guides adjustments to the digital backend to compensate for implementation errors.",
+      "The framework is designed to work across tasks and optical hardware configurations, including image classification and segmentation. Experiments on datasets including MNIST, CIFAR, and Carvana Masking report consistent improvements across multiple hardware settings. Results cover both simulations before fabrication and physical implementations. The practical contribution is a connected workflow that transfers teacher knowledge while addressing the mismatch between an optical design and its realized behavior."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ad00ee520456509b75603bfdea11ce55799bc2ab68714d25b1ffc973cdc05e98",
+    "tldr": "Neural Tangent Knowledge Distillation improves optical networks during training and guides digital correction after hardware fabrication."
+  },
+  "neurips-2025-noisy-multi-label-learning-through-co-occurrence-aware-diffusion-8bc54b1877": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Co-Occurrence-Aware Diffusion addresses classification where each example can have several labels and some labels are incorrect. Such errors can cause overfitting, while relationships among labels make correction harder than in single-label learning. The paper replaces the usual discriminative treatment with a generative formulation that models possible label combinations conditioned on input features.",
+      "The diffusion model uses features as conditions and multi-label outputs as generation targets. To reduce the influence of noisy labels in its forward process, it constructs pseudo-clean labels from neighborhoods in a learned latent space. These neighborhood-based proxies replace estimates made separately for each example, allowing nearby examples to inform the guidance used during learning.",
+      "During reverse generation, constraints on label co-occurrence help identify incorrect directions and encourage more robust optimization. The paper provides theoretical guarantees for its diffusion-based learning formulation and reports improvements over state-of-the-art methods on Pascal-VOC and MS-COCO with synthetic noise and NUS-WIDE with real-world noise. The findings support using both local neighborhood structure and relationships between labels to learn through corrupted supervision."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "786dfe7300eadca14479fbca8debd1cbf00c3fc09b914acb4d90581b9732935b",
+    "tldr": "CAD generates label combinations with diffusion, using neighborhood-derived guidance and label co-occurrence constraints to resist noisy supervision."
+  },
+  "neurips-2025-pdpo-parametric-density-path-optimization-eb13eab5b6": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "PDPO computes paths that transform one probability density into another while minimizing an action, the objective assigned to the whole transformation. Directly optimizing such a path involves an infinite-dimensional space of densities. The paper makes the problem finite-dimensional by representing each density as the result of applying a parameterized map to a reference density.",
+      "The optimization then concerns how the map's parameters change along the path. The authors derive a static formulation of the original dynamic problem and solve it using cubic spline interpolation in parameter space. Under appropriate regularity assumptions on the parameter path, they establish an error bound for the action. This provides theoretical support for approximating a continuous path with a compact parameterization.",
+      "In experiments, three to five spline control points suffice to accurately resolve the tested multimodal and high-dimensional problems. PDPO also accommodates potential terms for obstacles, mean-field interactions, stochastic control, and higher-order dynamics. Benchmark results show better computational efficiency and solution quality than existing state-of-the-art approaches, suggesting that a small spline representation can be effective across varied action-minimization settings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "54bfdebb178a8797ef130dfae5732568769390ede74c62a1e15e29ac5e9f92fd",
+    "tldr": "PDPO turns optimization over probability-density paths into a compact spline optimization over map parameters, improving efficiency and solution quality."
+  },
+  "neurips-2025-playerone-egocentric-world-simulator-618fcff2a7": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "PlayerOne generates first-person video from a user-provided first-person scene image, with movement controlled by the user's real motions captured by an external camera. The task combines two requirements: generated views must follow the person's movements, and the surrounding world must remain coherent as the video continues. This makes motion control and scene consistency central to the simulator.",
+      "Training proceeds from broad understanding to detailed alignment. The model first learns from large-scale first-person text–video pairs, then is fine-tuned using synchronized motion and video data. An automatic construction pipeline extracts this training material from datasets containing both first-person and external viewpoints. A motion injection mechanism separates body parts so that their movements can exert more precise control.",
+      "PlayerOne also jointly reconstructs the evolving scene in space and time and the video frames, supporting consistency during long-form generation. Experiments demonstrate generalization across different human movements and diverse scenarios, with precise motion control and consistent world modeling. The contribution brings together motion-aligned training, part-level conditioning, and joint scene reconstruction within a first-person simulation framework."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a4aeba0b0c84ebba7b3c80380d9c3545da9f059564ea95652fd0a5cb7337556b",
+    "tldr": "PlayerOne generates scene-consistent first-person videos from an initial image and a user's externally captured body movements."
+  },
+  "neurips-2025-prescribe-predicting-single-cell-responses-with-bayesian-estimation-187adee000": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "PRESCRIBE predicts how individual cells respond when a gene is perturbed, focusing on genes whose perturbations were absent from training. Reliability depends on how similar that gene is to those already studied and on the quality of the relevant training measurements. The paper treats these as distinct sources of uncertainty that should inform confidence together.",
+      "Its multivariate deep evidential regression framework jointly measures model uncertainty and data uncertainty using Bayesian estimation. Model uncertainty reflects the evidence available for extending predictions to an unfamiliar gene. Data uncertainty reflects the quality and stochasticity of the observations themselves. Accounting for both matters because gene perturbation is an inherently variable biochemical process, so unfamiliarity alone cannot explain unreliable predictions.",
+      "The resulting confidence score is strongly correlated with empirical prediction accuracy in the authors' analysis. This makes it useful for filtering out predictions that are less trustworthy. Experiments report steady accuracy gains exceeding 3% relative to comparable baselines. The contribution therefore combines response prediction with an assessment of reliability that can help determine which predicted responses deserve greater confidence."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "dbd36748295b46ec9adc341e686769ec037ddc53dd6b40d832b718f8433c1d9f",
+    "tldr": "PRESCRIBE jointly estimates model and data uncertainty to identify reliable predictions of cellular responses to unseen gene perturbations."
+  },
+  "neurips-2025-problem-parameter-free-decentralized-bilevel-optimization-18b1ddd03e": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "AdaSDBO addresses decentralized bilevel optimization, where a distributed learning problem contains two linked levels of optimization. Existing methods often choose update sizes using properties such as smoothness, convexity, or the communication network's structure. Those properties may be unavailable in practice, leaving users to spend substantial effort tuning hyperparameters before an algorithm behaves effectively.",
+      "The proposed algorithm selects adaptive stepsizes from accumulated gradient norms. This lets its updates respond to information collected during optimization instead of requiring advance knowledge of problem parameters. It also uses a single-loop structure that updates all variables simultaneously. Together, these choices provide a fully problem-parameter-free approach designed to remove the need for problem-specific tuning.",
+      "The theoretical analysis establishes a convergence rate of approximately one over the number of iterations, up to polylogarithmic factors. That matches the stated performance of well-tuned leading methods at that level of precision. Numerical experiments show competitive performance and strong robustness across stepsize configurations. The main result is therefore a combination of theoretical convergence and practical tolerance to update-size choices without relying on unavailable problem constants."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4b43c1195bf52a0d1cea11b3e076598365fd8d3e6809a96bb5cf2db4c53824f6",
+    "tldr": "AdaSDBO uses gradient-based adaptive stepsizes to achieve competitive decentralized bilevel optimization without prior knowledge of problem parameters."
+  },
+  "neurips-2025-rred-black-box-unsupervised-domain-adaptation-via-rectifying-reasoning-errors-of-diffusi-c3b1b110e3": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "RrED studies adaptation to an unlabeled target domain when neither the original source data nor the trained source model is accessible. It uses a diffusion model to provide supervision. The paper argues that existing diffusion-based adaptation methods emphasize combining visual concepts while overlooking sensitivity to subtle differences in text, leaving a source of adaptation errors unaddressed.",
+      "The method separates learning into two stages. Diffusion-Target model Rectification disentangles the diffusion model's image and text encoders so they can support different parts of adaptation. A feature-sensitive module works with the visual encoder to generate visuals with enhanced inferential information, while the text encoder supports joint multimodal fine-tuning. This gives visual and textual information distinct roles in improving the target model.",
+      "The Self-rectifying Reasoning Model stage then focuses on the adaptation task itself, using the target model's differential reasoning capability to correct learning errors. Experiments on four benchmark datasets show substantial improvements over other methods. The findings support combining diffusion-based supervision with task-focused correction, rather than relying on generated visual compositions alone to improve target-domain reasoning and generalization."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b348e132ed10634e67cedeadd4c6c287eb05ee4c5a6cbd2f800a09b732537c8d",
+    "tldr": "RrED combines separate visual and textual diffusion supervision with target-model error correction to improve black-box domain adaptation."
+  },
+  "neurips-2025-ruago-effective-and-practical-retain-free-unlearning-via-adversarial-attack-and-ood-gene-366b9604e0": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "RUAGO addresses machine unlearning when the data that should remain learned is unavailable. Selectively removing sensitive information can damage a model's broader usefulness, and many approaches counteract that damage by revisiting retained training examples. The retain-free setting removes that option, making preservation of useful knowledge a central challenge alongside the requested forgetting.",
+      "The method combines adversarial soft labels with synthetic data generation. The soft labels mitigate excessive unlearning, while a generator pretrained on out-of-distribution data supplies examples for distilling knowledge from the original model. A progressive sampling strategy gradually increases synthetic-data complexity. An inversion-based alignment step brings those generated examples closer to the original training distribution, making them more suitable for knowledge preservation.",
+      "Across multiple benchmark datasets and model architectures, RUAGO consistently outperforms existing retain-free approaches. It also achieves comparable or better performance than retain-based methods in the reported experiments. These results support using carefully constructed synthetic data and controlled forgetting together when original retained examples cannot be accessed, providing a practical way to address the utility loss associated with unlearning under that constraint."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "fd743a436e257f8533d132bc56496305c73c059b17beb63144c970ea91455e10",
+    "tldr": "RUAGO combines controlled forgetting with aligned synthetic data to preserve model utility during unlearning without retained training examples."
+  },
+  "neurips-2025-smooth-regularization-for-efficient-video-recognition-1d2ff4e47c": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper improves video recognition by encouraging a model's internal representations to change smoothly between consecutive frames. The motivation is that videos contain temporal coherence, yet a lightweight network may not capture that structure effectively on its own. The proposed regularizer builds this expectation into training, helping limited-capacity models use the relationships between nearby frames.",
+      "The method models changes in intermediate-layer embeddings using a Gaussian Random Walk. It penalizes abrupt shifts in those representations and promotes low-acceleration solutions that align with the temporal continuity of video. Applying the constraint inside the network makes temporal structure part of representation learning, supporting the model's ability to capture complex dynamics without relying only on independent frame content.",
+      "On Kinetics-600, the technique produces reported accuracy improvements of 3.8%–6.4% for lightweight models. MoViNets improves the state of the art by 3.8%–6.1% within the corresponding FLOP budgets. MobileNetV3 and MoViNets-Stream achieve gains of 4.9%–6.4% over prior leading models with comparable memory footprints. These results connect temporal regularization to stronger recognition under concrete computation and memory constraints."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "765916d59008b9b19f6a09d2e3d797328e3e3b76cb84766ce57e25482512e77a",
+    "tldr": "Regularizing frame-to-frame feature changes improves lightweight video recognition within comparable computation and memory budgets."
+  },
+  "neurips-2025-sonar-long-range-graph-propagation-through-information-waves-b22e36e66b": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "SONAR targets a central difficulty in graph learning: information from distant parts of a graph must remain useful when it reaches another location. The architecture takes inspiration from waves in continuous media. It models graph information as oscillations governed by the wave equation, aiming to maintain effective propagation dynamics across long distances.",
+      "The model extends this wave-based behavior with adaptive edge resistances and external forces that depend on the current state. These components let the network balance dynamics that conserve energy with dynamics that change it. That flexibility matters because learning complex graph behavior requires both preserving information during propagation and adapting how it moves through particular connections.",
+      "The authors analyze energy conservation and information propagation theoretically, supporting SONAR's capacity to address long-range communication. Experiments on synthetic and real-world benchmarks report state-of-the-art performance, particularly when tasks require information exchange over long distances. The contribution links a physical model of propagation to a trainable graph architecture, with both theoretical analysis and empirical results supporting the usefulness of that design."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "38866d3672eaaf059995e2de613c80a378ed7f133b3aca5f23464519945a939f",
+    "tldr": "SONAR uses wave-inspired graph dynamics with adaptive resistances and forces to improve long-range information propagation."
+  },
+  "neurips-2025-split-gibbs-discrete-diffusion-posterior-sampling-5616af59a4": {
+    "backgroundConcepts": [
+      "topic-200-do-diffusion-models-dream-of-electric-planes-dis"
+    ],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "SGDD addresses posterior sampling for data whose states are discrete, such as sequences or discrete images. The task is to generate samples that reflect both a diffusion model's learned distribution and additional information or objectives. Although analogous methods for continuous diffusion have advanced substantially, transferring that capability to discrete spaces remains challenging.",
+      "The proposed algorithm uses split Gibbs sampling to create a principled, plug-and-play discrete diffusion sampler. It supports both reward-guided generation and inverse problems, allowing the same sampling framework to address different forms of conditioning. The authors prove convergence to the intended posterior distribution and use controlled synthetic experiments to verify that behavior, connecting the algorithm's design to a specific sampling target.",
+      "Applications include DNA sequence design, discrete image inverse problems, and filling missing sections of music. Across the evaluated discrete-data benchmarks, the paper reports state-of-the-art posterior sampling performance and improvements exceeding 30% relative to existing baselines. These findings indicate that the framework can combine a theoretical convergence result with effective generation across several distinct kinds of discrete structures."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5d9e59103ce26793a99e0e64388820b246bd9320df9f5087b4cc37a2c75bcc44",
+    "tldr": "SGDD uses split Gibbs sampling to guide discrete diffusion models toward target posteriors for design, reconstruction, and infilling tasks."
+  },
+  "neurips-2025-steering-generative-models-with-experimental-data-for-protein-fitness-optimization-d9c8471ab5": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This study examines how to steer protein generators when only hundreds of measured sequence–fitness pairs are available. Finding a sequence with desirable quantitative properties requires navigating an enormous combinatorial space. Earlier work often used surrogate rewards or large labeled datasets, leaving uncertainty about how guidance methods compare under the limited experimental throughput of practical optimization campaigns.",
+      "The authors evaluate classifier guidance and posterior sampling for several discrete diffusion models of protein sequences. The comparison focuses on using small labeled datasets to direct generation toward desired fitness. They also integrate guidance into adaptive sequence selection resembling Thompson sampling in Bayesian optimization, linking the generation strategy to decisions about which sequences to select as optimization proceeds.",
+      "The study finds advantages for plug-and-play guidance over alternatives including reinforcement learning with protein language models. Its contribution is a comparative assessment centered on scarce fitness measurements, together with a way to incorporate guidance into adaptive selection. The findings provide practical direction for choosing how to steer modern generators when labeled experimental evidence is limited and must be used carefully."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "09abfe5dda576b050685c529e325f621cfe400537f76d3da05eb882cb58efb31",
+    "tldr": "The study evaluates protein-generator guidance with hundreds of fitness labels and finds advantages for plug-and-play methods and adaptive sequence selection."
+  },
+  "neurips-2025-syntsbench-rethinking-temporal-pattern-learning-in-deep-learning-models-for-time-series-6dae3dee02": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "SynTSBench asks what time-series forecasting models actually learn, beyond their overall scores on standard datasets. Strong benchmark results can coexist with unreliable real-world behavior. The paper argues that existing evaluation frameworks often do not clearly separate a model's strengths and weaknesses, making it difficult to choose a suitable model for a particular forecasting situation.",
+      "The framework generates synthetic data with programmable features so that individual capabilities can be examined with fewer confounding factors. One evaluation dimension maps models to the temporal patterns they can learn. Another measures robustness to irregular data, including tolerance to noise and recovery from anomalies. A third compares predictions with mathematically optimal performance boundaries for each pattern type.",
+      "Experiments show that current deep learning models do not consistently approach optimal baselines across every temporal feature type. This finding gives a more specific interpretation of forecasting performance: success on a benchmark does not establish uniformly strong pattern-learning capabilities. SynTSBench offers an interpretable way to investigate those differences by relating observed errors to controlled temporal structures, disturbances, and theoretical reference points."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "406adf06cbcd9562c1f66c81b9bbf5bb3a416c87d09de43b40d88b7cb228d997",
+    "tldr": "SynTSBench uses controlled synthetic time series and mathematical optima to reveal which patterns forecasting models learn and where they struggle."
+  },
+  "neurips-2025-truthful-aggregation-of-llms-with-an-application-to-online-advertising-98636b5149": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "MOSAIC studies how a platform can combine advertisers' preferences over language-model responses while also considering user satisfaction. Advertisers may want different outcomes from users and may misrepresent their preferences to gain influence. The paper treats this as a mechanism-design problem, where the rules governing influence and payment must account for strategically self-interested participants.",
+      "The proposed auction makes truthful reporting a dominant strategy for advertisers and aligns each advertiser's utility with its contribution to social welfare. It works without fine-tuning the language model or accessing its weights. The authors also prove that its output converges to that of an optimally fine-tuned model as computational resources increase, giving a theoretical relationship between the mechanism and a fine-tuning-based optimum.",
+      "Advertiser context can be incorporated to improve social welfare. Experiments with publicly available language models show high advertiser value and platform revenue at low computational cost. Although advertising motivates the work, the proposed mechanism applies more broadly to preference aggregation over generated replies in settings that permit monetary transfers. Its contribution combines strategic truthfulness with a computational approach for influencing language-model outputs."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "0f5ab1aa3a1fdbe546ea4eff825c6377019cc8ac233e360aa88ae59df8b2640a",
+    "tldr": "MOSAIC uses an auction to truthfully aggregate advertiser preferences over LLM replies without model fine-tuning or weight access."
+  }
+}

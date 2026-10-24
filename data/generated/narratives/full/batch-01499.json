@@ -1,0 +1,327 @@
+{
+  "icml-2023-autoregressive-diffusion-model-for-graph-generation-7584f4e8d9": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies how to generate graphs through diffusion while respecting their discrete structure. Earlier approaches often add Gaussian noise to a continuous version of the adjacency matrix and generate the graph in one shot. The authors identify potential difficulties with training, sampling speed, and incorporating constraints in that strategy.",
+      "Their model instead uses a process that absorbs nodes directly in discrete graph space. A learned ordering network decides the absorption order from the graph’s topology. Generation reverses that order: a denoising network reconstructs one node at a time, predicting its type and its connections to nodes already reconstructed. This makes graph construction a sequence of structured decisions.",
+      "The authors use the fact that relabeling nodes does not change the underlying graph to derive a simple likelihood lower bound for jointly training both networks. Across six general graph datasets and two molecular datasets, they report generation quality that matches or improves on previous leading methods, together with fast generation. These results support sequential discrete diffusion as a practical graph-generation approach."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9c44cfe6cc2ef06086ea10fbb2672701a4856a1077d020a459f704575a8043d2",
+    "tldr": "A diffusion model generates graphs node by node in discrete space, achieving competitive or better generation quality with fast sampling."
+  },
+  "icml-2023-benign-overfitting-in-two-layer-relu-convolutional-neural-networks-e157ad58f4": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Benign overfitting occurs when a model fits its training data extremely closely yet still predicts well on new data. This paper asks when that behavior is possible for networks using ReLU activations. Earlier theoretical treatments had focused on smooth activations or the neural tangent kernel regime, leaving an important gap for ReLU networks.",
+      "The authors analyze two-layer convolutional networks trained by gradient descent when some training labels have been flipped. They derive risk bounds that depend on the learning algorithm. Under conditions described as mild, the trained network can achieve almost zero training loss while attaining Bayes-optimal test risk: the best prediction risk available for the underlying data distribution.",
+      "The analysis also identifies a sharp change between benign and harmful overfitting as conditions on the data distribution vary. Fitting noisy training labels therefore need not have the same effect in every setting. Synthetic-data experiments support the theoretical results. The contribution is a conditional explanation of successful overfitting in this specific ReLU architecture, including when its test performance can deteriorate."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7a0d08135eec751d1495172a164f64e70378a6385ffc96b9a4643ecf9787f363",
+    "tldr": "For two-layer ReLU convolutional networks with label noise, the paper establishes conditions separating benign from harmful overfitting."
+  },
+  "icml-2023-covariate-balancing-using-the-integral-probability-metric-for-causal-inference-b8bd093854": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Weighting methods for causal inference try to make treated and control groups more comparable in their observed characteristics. The paper highlights two difficulties with existing methods: their theoretical guarantees depend on correctly specifying a treatment-assignment or outcome model, and their estimates can have high variance even when that specification is correct.",
+      "The proposed approach chooses weights by directly comparing the groups’ weighted empirical distributions. It uses an integral probability metric, or IPM, which measures distributional differences through a selected collection of discriminator functions. The optimization finds weights that make the two groups as similar as possible according to that collection. This places distributional balance at the center of weight selection.",
+      "The authors prove that the resulting estimator can be consistent without correctly specifying either a propensity-score model or an outcome-regression model. Consistency concerns approaching the target as the amount of data grows. They also report substantial improvements over existing weighting methods in finite-sample experiments. Together, these findings address both large-sample justification and the practical difficulty of unstable estimates with limited data."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3cf676ef91680edc3f03ca3d5f5427e480e48242226e24809b58f37d2aca84fb",
+    "tldr": "Choosing causal-inference weights through a distributional distance can yield consistent estimation without correctly specified propensity or outcome models."
+  },
+  "icml-2023-detecting-adversarial-directions-in-deep-reinforcement-learning-to-make-robust-decisions-095b883431": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Deep reinforcement learning can handle complex observations, but the resulting policies can be sensitive to adversarial changes in those observations. An attacker can move an input along a direction that makes the policy behave poorly. This paper focuses on detecting such non-robust directions as a way to address instability in decision making.",
+      "The method uses a local quadratic approximation of the neural policy’s loss. This approximation captures how the loss changes near an observation, including its local curvature. The authors use it to establish a theoretical basis for distinguishing safe observations from adversarial ones. They describe the technique as computationally efficient and independent of the procedure used to construct the adversarial direction.",
+      "Experiments in the Arcade Learning Environment test the detector against several attack techniques. The reported results show effectiveness even when adversarial directions are explicitly optimized to evade the proposed method. That adaptive-attack setting is particularly relevant to the detection objective: it tests whether the method remains useful when the attacker targets the detector itself."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1720da4192bc9a96f91df8cdedaf2695dcf1f455788f5d78ec491a0b13af3258",
+    "tldr": "A local quadratic analysis of policy loss detects adversarial observation directions and remains effective against tested attacks designed to evade it."
+  },
+  "icml-2023-diffusion-models-for-black-box-optimization-e60c10c2fe": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Offline black-box optimization seeks inputs that perform well on an expensive function using only a fixed collection of past evaluations. One approach learns to predict scores from inputs; another learns to generate inputs from desired scores. The latter faces a difficult one-to-many relationship because many different inputs can have the same function value.",
+      "The paper introduces Denoising Diffusion Optimization Models, or DDOM, to learn that inverse relationship as a conditional distribution. Given a requested function value, the diffusion model generates candidate inputs associated with it. Representing a distribution lets the method accommodate multiple possible inputs instead of forcing each score to correspond to a single design.",
+      "The authors investigate emphasizing high-value examples during training and using classifier-free guidance during generation. These choices are intended to support generalization to requested values that can exceed the dataset’s maximum. On Design-Bench, DDOM achieves results competitive with leading baselines. The empirical finding supports diffusion as an optimization tool, while the ability to condition on higher values is not a guarantee that every generated candidate attains them."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "759cb94af5f925a146d800879ba0785bed90ef15f0c15496d037f6ee69a5e714",
+    "tldr": "DDOM uses score-conditioned diffusion to propose inputs for offline black-box optimization, achieving competitive results on Design-Bench."
+  },
+  "icml-2023-enabling-first-order-gradient-based-learning-for-equilibrium-computation-in-markets-6384b25b39": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Computing market equilibria analytically is often infeasible, motivating learning-based approaches. Existing methods that estimate gradients from function evaluations can be expensive and noisy. Direct differentiation through a simulator looks attractive, but discrete decisions about who receives goods create discontinuities that make ordinary first-order Monte Carlo gradient estimates inapplicable and their feedback misleading.",
+      "The authors introduce a smoothing procedure that replaces the original market game with a surrogate suitable for first-order methods. Smoothing changes the problem, so a central question is how much bias that replacement introduces. The paper derives theoretical bounds on this bias, providing a justification for computing an equilibrium through the smoothed game.",
+      "Those bounds also support choosing the smoothing strength in advance so that the resulting gradient estimate has low variance. The approach therefore connects a computational benefit to control of the approximation introduced to obtain it. The authors report both theoretical and experimental advantages over zeroth-order methods in approximation quality and computational efficiency. The contribution makes gradient-based market computation usable despite discrete allocation decisions."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1e08be13c47e468e97183a299c2f5b1937bcc7301471c2fe955ec3e7e9596e49",
+    "tldr": "A smoothed market game enables first-order equilibrium learning with bounded bias and reported gains in accuracy and computational efficiency."
+  },
+  "icml-2023-end-to-end-full-atom-antibody-design-85aeeabd06": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper tackles antibody design as a connected sequence-and-structure problem. The authors argue that methods covering only individual design stages can be inefficient or suboptimal, while leaving out framework regions or side chains prevents a full account of atomic geometry. Their model, dyMEAN, takes a target epitope and an incomplete antibody sequence as inputs.",
+      "The process begins with an informed initial guess of the antibody’s structure. A representation called a shadow paratope links the antibody to the target binding region. An adaptive graph encoder then updates both the sequence and the three-dimensional structure while accommodating residues with different numbers of atoms. Its equivariance makes the geometric processing consistent with transformations of the coordinate system.",
+      "Finally, the model docks the updated antibody to the epitope by aligning the shadow paratope. Experiments cover epitope-binding CDR-H3 design, prediction of antibody–target complex structures, and affinity optimization. The reported advantages support combining the design stages and representing full atomic structure. These are results for the evaluated design tasks, rather than a claim that generated antibodies have demonstrated therapeutic effectiveness."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "005f6bcc4c24820a12c66a8d9aec527188afe2a53699a8d7d2b4824e73e7aea3",
+    "tldr": "dyMEAN jointly designs antibody sequences and full-atom structures, with reported advantages across binding-region design, complex prediction, and affinity optimization."
+  },
+  "icml-2023-estimation-beyond-data-reweighting-kernel-method-of-moments-037070c93b": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Many estimation problems describe what a model should satisfy through moment restrictions: conditions on averages, sometimes conditional on other variables. Such problems arise in causal inference and reinforcement learning. The paper examines empirical likelihood approaches, including the generalized method of moments, through how they approximate an unknown population distribution from observed samples.",
+      "In the formulation discussed by the authors, using a phi-divergence to compare a candidate distribution with the empirical distribution restricts candidates to reweightings of observed data points. The proposed kernel method of moments, or KMM, replaces that comparison with maximum mean discrepancy. This change allows estimation to consider distributions beyond those obtained by merely assigning different weights to the original samples.",
+      "The authors also develop a version for conditional moment restrictions and establish asymptotic first-order optimality for that setting. This is a large-sample theoretical result about the estimator’s leading behavior. Experiments on several conditional-moment tasks show competitive performance. The main contribution is a broader distributional formulation of moment-based estimation, paired with theoretical support and empirical evidence for its conditional variant."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e0ee87f5fea4f91d662e7e2c33bf4d009271c4d3182d3ad9abf56376aadce60d",
+    "tldr": "KMM uses maximum mean discrepancy to extend moment-based estimation beyond sample reweighting, with asymptotic optimality for its conditional variant."
+  },
+  "icml-2023-ewald-based-long-range-message-passing-for-molecular-graphs-fb7ead979e": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Molecular message-passing networks often restrict communication to nearby atoms, helping computation scale with system size. That local focus can make it harder to learn interactions acting over longer distances, including electrostatic and van der Waals effects. This paper adds a way for molecular models to represent those distant influences when predicting energy.",
+      "Ewald message passing operates in Fourier space and limits interactions by frequency rather than by physical distance. The construction draws theoretical support from Ewald summation. It is designed as an inexpensive addition to existing message-passing networks without depending on their architectural details, so the proposed long-range component can complement established local modeling.",
+      "The authors evaluate the addition with four baseline models on periodic structures from OC20 and aperiodic structures from OE62. Energy mean absolute errors improve across all tested models and datasets, averaging 10% on OC20 and 16% on OE62. The improvements are especially pronounced for structures whose reference energies contain large long-range contributions. That pattern connects the measured gains to the physical interactions the method was designed to capture."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3bb94d606fdc874f7780f46c1bf12aabd0009e593e11cf0028d7647d4646562d",
+    "tldr": "Ewald message passing adds inexpensive long-range interactions to molecular networks, reducing energy errors across the tested models and datasets."
+  },
+  "icml-2023-goat-a-global-transformer-on-large-scale-graphs-63054ac2a0": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Node classification requires predicting properties of individual nodes in a graph. The paper identifies a mismatch in existing models: graph transformers had been competitive for whole-graph classification but less successful against graph neural networks on node classification. Many graph neural networks also favor either graphs connecting similar nodes or graphs connecting dissimilar nodes.",
+      "GOAT is a global graph transformer designed to address both concerns. Each node conceptually attends to every other node, allowing information to come from across the graph. The model can learn from data how similarity and dissimilarity relationships should influence predictions. Its approximate global self-attention scheme makes that broad interaction pattern scalable, and the authors provide theoretical justification for the approximation.",
+      "The experiments demonstrate competitive performance on both homophilous graphs, where connected nodes tend to be similar, and heterophilous graphs, where they tend to differ. The evaluated graphs include millions of nodes. These findings support global attention as a practical approach to large-scale node classification across both relationship patterns, without establishing that it always outperforms every alternative."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "add2d379f4f4304361bcc55106ef978086e99ca94cefdf22eee9c26a5ff19a54",
+    "tldr": "GOAT makes approximate global attention scalable to million-node graphs and achieves competitive classification across different neighborhood similarity patterns."
+  },
+  "icml-2023-gradient-descent-monotonically-decreases-the-sharpness-of-gradient-flow-solutions-in-sca-d2096b72a1": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "During neural-network training, gradient descent can produce an oscillating loss as it approaches the edge of stability. This paper looks for a quantity that changes more predictably. It examines the sharpness of the gradient-flow solution: the solution reached if training switched from its current parameters to infinitesimally small steps and continued until convergence.",
+      "This quantity concerns the curvature at that eventual solution, rather than simply the loss at the current training point. For scalar neural networks with squared loss, the authors prove that its sharpness decreases monotonically throughout gradient descent. They then use that result to characterize settings in which gradient descent provably approaches the edge of stability.",
+      "The authors also observe monotonic decreases in gradient-flow-solution sharpness in experiments with a squared regression model and practical neural-network architectures. The scope of the proof and the empirical observations are distinct: the formal analysis establishes the behavior in scalar networks, while the experiments show it in broader tested settings. The result offers a more orderly perspective on training dynamics whose observed loss can fluctuate."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "1d3c78301b2fdec8425f569dd8c1dfacaf9da765adb46a3b44b7158c84b5325e",
+    "tldr": "Gradient-flow-solution sharpness decreases monotonically in a proven scalar-network setting and in experiments with broader neural architectures."
+  },
+  "icml-2023-graph-neural-tangent-kernel-convergence-on-large-graphs-5a976c4d56": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper investigates how graph neural-network training behaves as graphs become large. It uses graph neural tangent kernels, which connect the optimization of sufficiently wide networks to kernel regression. The authors separate two different kinds of scale: network width, which underlies that connection, and graph size, which is the main variable studied here.",
+      "Graphons provide mathematical limit objects for describing increasingly large graphs. Using them, the authors define limiting versions of both graph neural networks and their tangent kernels. They prove convergence of the graph kernels along a graph sequence and establish a spectral convergence result. The spectral analysis matters because kernel spectra are related to the directions in which learning proceeds.",
+      "The resulting large-graph picture supports using a kernel fitted on a moderately sized graph to solve the same task on a larger graph and infer the larger network’s learning dynamics. Experiments on node regression and classification verify the reported results. The contribution gives a theoretical basis for this transfer in the analyzed graph-limit setting, rather than an unrestricted claim about transferring between unrelated graphs."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "231409f7399f6e627bcb3be471bcb403621eb391b425348c0e58afcb6e808c5f",
+    "tldr": "Graph-limit analysis shows how neural tangent kernels can connect learning on moderate-sized graphs to the dynamics of much larger graphs."
+  },
+  "icml-2023-grounding-language-models-to-images-for-multimodal-inputs-and-outputs-9eb8854230": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper extends pretrained text-only language models so they can work with sequences containing both images and text. The goal includes understanding mixed inputs and producing responses that combine written language with retrieved images. It builds on abilities already learned during text pretraining, including free-form generation and learning from examples provided in context.",
+      "The method keeps the language model’s parameters fixed and trains linear layers at its input and output to connect language and visual information. These learned interfaces enable cross-modal interaction while preserving the pretrained model as the central language component. Inputs can interleave images and text in arbitrary arrangements, and outputs can insert retrieved images among generated passages.",
+      "The authors report strong zero-shot results on contextual image retrieval and multimodal dialogue, along with interactive demonstrations. These findings indicate that a frozen language model can support useful visually grounded behavior through relatively focused adaptation. The approach is described as compatible with any off-the-shelf language model. Its visual outputs come from image retrieval, so the demonstrated capability is selecting images for a response rather than synthesizing new images."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "21e66a810dfe3ad15b5c315219e8065dbfe18d5e87f04bccd82b675aaf235632",
+    "tldr": "Training linear interfaces around a frozen language model enables mixed image–text inputs and responses combining generated text with retrieved images."
+  },
+  "icml-2023-learning-to-design-analog-circuits-to-meet-threshold-specifications-42ddaf1266": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Automated circuit design often learns a mapping from desired performance measurements to circuit parameters. The paper points out that users commonly express requirements as thresholds rather than exact performance values. A useful design system therefore needs to find a circuit satisfying those requirements, without requiring the user to supply a precisely achievable target vector.",
+      "The authors propose a way to construct a training dataset from circuit simulations specifically for this threshold-based task. A supervised learning system can then learn to produce circuit parameters that meet the requested specifications. The key contribution is aligning the training problem with the form of requirements users actually provide, making threshold satisfaction the design objective.",
+      "The evaluation covers linear, nonlinear, and autonomous circuits, with a more diverse collection than prior work according to the authors. Their method consistently exceeds a 90% success rate at a 5% error margin in the reported evaluation. They also report more than an order-of-magnitude improvement in data efficiency. These results support learning threshold-oriented design from simulation data across the tested range of circuit configurations."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "f2f08fd2d062fc64a0cc4eccb6a5dfbfd158e5a400b9d6e61c2eb952bfef5c8b",
+    "tldr": "A simulation-derived training dataset teaches circuit designers to satisfy threshold specifications, with high reported success and improved data efficiency."
+  },
+  "icml-2023-masked-bayesian-neural-networks-theoretical-guarantee-and-its-posterior-inference-c53886a8ff": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Bayesian neural networks represent uncertainty over a model rather than relying on a single fitted network. Choosing a suitable architecture remains important, and sparse networks offer one way to control that structure. This paper proposes a node-sparse Bayesian model, making the selection of active nodes part of the modeling approach.",
+      "The theoretical contribution concerns posterior concentration: how quickly the model’s posterior distribution gathers around the true model as data accumulate. The authors prove a rate that is near minimax optimal and adapts to the true model’s smoothness. In practical terms, the guarantee adjusts to this property of the underlying target rather than being tied to only one smoothness level. The authors identify this adaptivity result as the first for node-sparse Bayesian neural networks.",
+      "The paper also introduces a Markov chain Monte Carlo algorithm for posterior inference in the proposed model. This addresses the computational side of using the sparse Bayesian formulation. Together, the contributions combine an adaptive statistical guarantee with an inference procedure intended to make that formulation feasible in practice."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "37a1aef813c0cd7388d755858a52e33b253c348e67535f53a27b63984fec4d7b",
+    "tldr": "A node-sparse Bayesian neural network combines near-optimal, smoothness-adaptive posterior concentration with a practical MCMC inference algorithm."
+  },
+  "icml-2023-multi-task-differential-privacy-under-distribution-skew-479e6ea956": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies multi-task learning when privacy must be protected at the user level and each user can contribute data to several tasks. The tasks may have very different amounts of data. That imbalance matters because small tasks are more vulnerable to the noise introduced for privacy, potentially reducing the usefulness of the overall system.",
+      "The authors analyze how to allocate a user’s privacy budget among tasks in a way that accounts for this uneven distribution. They propose a general algorithm based on adaptively reweighting the empirical loss. This makes the distribution of data across tasks part of the learning procedure rather than treating every task’s contribution in the same fixed way.",
+      "Their theoretical analysis establishes a quantifiable improvement in excess empirical risk when task distributions are skewed. Experiments examine recommendation problems containing a long tail of small tasks. The method significantly improves utility and reaches state-of-the-art results on two standard benchmarks. These findings connect privacy-budget allocation to a concrete source of performance loss: uneven amounts of evidence across tasks."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "23a458126b183822bd7ff30a14d7f95c71a2e32429f848612787f99c39d4cf66",
+    "tldr": "Adaptive loss weighting allocates user-level privacy budgets across uneven tasks, improving theoretical risk bounds and recommendation utility."
+  },
+  "icml-2023-on-computing-optimal-tree-ensembles-d2ac565baf": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Decision-tree ensembles are widely used, but finding an ensemble that is optimal for a specified criterion poses an algorithmic challenge. This paper develops exact algorithms and corresponding lower bounds for that problem. It extends work on optimal individual trees to collections of trees, where the interaction among multiple trees changes the search.",
+      "The first algorithm uses a new witness-tree technique. Its running time depends exponentially on the total number of cuts, with additional dependence on the largest feature-domain size and the maximum number of features distinguishing two examples. The second algorithm uses dynamic programming, with an exponential term given by the number of trees raised to the number of examples. These dependencies clarify which problem dimensions govern computational difficulty.",
+      "The authors also compare the number of cuts required to classify training data using one tree versus an ensemble. They show that ensembles can require exponentially fewer cuts as the number of trees increases. This establishes a possible representational advantage, alongside algorithms for searching for optimal ensembles; it does not imply that every dataset benefits equally."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "180e051905dddb24d6718f0d6c721ed0a50870221213e23019857a10860bb670",
+    "tldr": "Two exact algorithms clarify the complexity of optimal tree ensembles, which can classify some datasets with exponentially fewer cuts than individual trees."
+  },
+  "icml-2023-parameter-level-soft-masking-for-continual-learning-b43704b571": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Continual learning asks a network to learn successive tasks without losing earlier knowledge. Some approaches prevent forgetting by reserving separate parts of the network for each task. The paper argues that this restricts knowledge transfer and consumes capacity, making it harder to maintain performance as the sequence of tasks grows.",
+      "The proposed technique, SPG, adjusts how much each parameter can change according to its importance for previous tasks. This soft masking partially blocks updates instead of giving tasks exclusive ownership of subnetworks. Every task continues to use the full network, creating opportunities to reuse learned knowledge while limiting changes to parameters that matter for earlier tasks.",
+      "Experiments evaluate the three linked objectives of reducing forgetting, encouraging transfer, and managing network capacity. The authors report effectiveness on all three, including significant knowledge transfer between both similar and dissimilar tasks. Their findings support parameter-level protection as a way to balance retaining old capabilities with learning new ones. The reported outcome is mitigation of catastrophic forgetting, rather than a universal guarantee that forgetting disappears."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6d1d84bec91c2579fad740d9e4fcbd36c18f1427e6594bf2725a06de40f05cfc",
+    "tldr": "SPG partially restricts updates to important parameters, mitigating forgetting while supporting knowledge transfer and more efficient use of network capacity."
+  },
+  "icml-2023-randomized-schur-complement-views-for-graph-contrastive-learning-43cf796dea": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Graph contrastive learning uses different views of a graph to learn useful representations. How those views are constructed can therefore influence what the model learns. This paper introduces a randomized method for generating structural views using Schur complements of the graph’s Laplacian matrix, a mathematical representation of its connectivity.",
+      "The method produces unbiased approximations of those Schur complements and interprets the resulting matrices as augmented graphs. The authors provide theoretical justification for this construction and describe its connections to graph diffusion. This gives the augmentation a specific mathematical foundation. The unbiasedness claim applies to the Schur-complement approximations, rather than automatically establishing that every later prediction is unbiased.",
+      "The experimental study varies choices in later contrastive-learning stages, including encoding and contrasting, to examine the augmentor in a controlled way. Across node-classification and graph-classification benchmarks, the authors report consistent improvements over predefined and adaptive augmentation approaches, reaching state-of-the-art results. The findings support this structural augmentation across the tested downstream configurations, rather than only as part of one fixed learning pipeline."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b783d0b6a095c68a72ac1a38d784ba28b3ffc564be2759619158d85bc1c0958b",
+    "tldr": "Randomized Schur-complement graph views improve contrastive learning across tested encoding and contrasting choices, with leading classification results."
+  },
+  "icml-2023-revisiting-gradient-clipping-stochastic-bias-and-tight-convergence-guarantees-2208148edf": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Gradient clipping caps the size of a gradient before an optimization update. It is widely used to stabilize training and in differential privacy, yet its simplicity can hide important effects on convergence. This paper analyzes those effects while allowing arbitrary positive clipping thresholds, rather than requiring a particular threshold choice.",
+      "The authors establish tight guarantees for both deterministic and stochastic gradients. With deterministic gradient descent, the clipping threshold affects only higher-order convergence terms. In the stochastic setting, however, clipping can create a more fundamental obstacle: under the standard noise assumption, convergence to the true optimum cannot be guaranteed, even when the step size is arbitrarily small.",
+      "This distinction means that making updates smaller does not by itself resolve the stochastic issue identified by the analysis. The paper provides matching upper and lower bounds on convergence of the gradient norm for clipped stochastic gradient descent and illustrates the results experimentally. Matching bounds show that the guarantees capture the difficulty tightly in the analyzed setting, clarifying how clipping thresholds and stochastic bias shape optimization behavior."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2d7e2ac389d380d19d71eb447077bda4dbd29053b13725b50081cf5cd35fc9a0",
+    "tldr": "Tight clipping bounds show mild threshold effects for deterministic gradients but no general guarantee of reaching the true optimum with stochastic gradients."
+  },
+  "icml-2023-rigid-body-flows-for-sampling-molecular-crystal-structures-0eee384c9d": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper develops a normalizing flow for distributions over the positions and orientations of multiple rigid objects in three dimensions. Molecules arranged in a crystal provide the motivating example. The challenge is to represent rotations smoothly while assigning valid probabilities to physical orientations, which have a different geometry from ordinary position coordinates.",
+      "The authors construct expressive flows on unit quaternions, a representation of three-dimensional rotations. Two opposite unit quaternions describe the same rotation, so the method explicitly accounts for this double representation when defining a density over orientations. That step enables standard likelihood-based training or variational inference against a thermodynamic target distribution.",
+      "The method is evaluated through Boltzmann generators for a tetrahedral system with multiple density modes in an external field and for ice XI using the TIP4P water model. The flows can also be combined with models of molecules’ internal degrees of freedom. The contribution is thus a probability-consistent component for molecular sampling, with demonstrations on two systems and a route toward combining rigid motion with internal molecular variation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "de6016904f33265298887da0b681129c381fce3254a13285d03a66b5aeaaadc7",
+    "tldr": "Quaternion-based normalizing flows model rigid molecular positions and orientations while preserving valid probabilities over three-dimensional rotations."
+  },
+  "icml-2023-tabddpm-modelling-tabular-data-with-diffusion-models-449cc836f7": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Tabular data presents a different modeling problem from data whose components all have a similar form. A single row can mix continuous measurements with discrete categories, so a generative model must handle features of different kinds together. This paper investigates whether denoising diffusion models can provide an effective general approach to that heterogeneous setting.",
+      "The proposed model, TabDDPM, is designed to accommodate tabular datasets with any feature types. Its contribution is to bring the diffusion framework to data represented as mixed-feature vectors. Handling that mixture is central to the task: a model intended for general tables must represent the different feature types within the same generated record.",
+      "The authors evaluate TabDDPM on a broad set of benchmarks and report better performance than existing generative adversarial network and variational autoencoder alternatives. These findings extend the empirical case for diffusion beyond the domains where it had already attracted attention. The broad applicability claim concerns the kinds of tabular inputs the method can handle, while the reported superiority is evidence from the evaluated benchmarks."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "4b46ebed02ee4a1ca8c942d9dd1245f2a0925564b9f21f948eee9556159da452",
+    "tldr": "TabDDPM adapts diffusion modeling to tables with mixed feature types and outperforms GAN and VAE alternatives on the reported benchmarks."
+  },
+  "icml-2023-towards-bridging-the-gaps-between-the-right-to-explanation-and-the-right-to-be-forgotten-5542d7b050": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "An actionable explanation tells a person how to respond to an algorithmic decision. But deleting training data can lead to model updates that make an earlier explanation invalid. This paper studies that technical conflict between providing explanations and honoring requests to remove data from databases and models.",
+      "The authors formulate an optimization problem that seeks explanations remaining valid after model changes caused by training-data deletion. Accounting for possible deletion requests creates a combinatorial challenge. They address it with an efficient approximation algorithm, making robustness to future deletions part of explanation generation rather than treating each explanation as tied only to the current model.",
+      "For linear models and certain classes of nonlinear models, the authors prove robustness against worst-case deletion requests with bounded explanation costs. Those model classes are part of the stated scope of the guarantee. Experiments on real-world datasets demonstrate the framework’s effectiveness. The result offers a technical way to reduce the risk that fulfilling a deletion request undermines previously supplied guidance, connecting explanation quality to the model’s potential future updates."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2c7d666900480c4a424746798cf45ba7100a99a8c210e225dd476ce940d7ed97",
+    "tldr": "An optimization framework generates explanations robust to data-deletion-driven model updates, with bounded-cost guarantees for specified model classes."
+  },
+  "icml-2023-variance-control-for-distributional-reinforcement-learning-a904d0361c": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Distributional reinforcement learning models a distribution of returns, while action evaluation still involves estimating a Q-function. This paper focuses on the statistical quality of that estimate. The authors ask how approximation errors in the Q-function affect the broader training process, an issue they describe as relatively underexamined in the distributional setting.",
+      "They analyze the error terms and theoretically show how to reduce both their bias and their variance. These are distinct aspects of estimation quality: systematic error and variability. Building on that analysis, they construct an estimator called Quantiled Expansion Mean, or QEM, and use it in a new distributional reinforcement-learning algorithm called QEMRL.",
+      "The authors evaluate QEMRL on a variety of Atari and Mujoco tasks. They report significant improvements over baseline algorithms in sample efficiency and convergence performance. The findings support the practical value of examining how return distributions are turned into Q-function estimates. The contribution links a statistical error analysis to an estimator and then to observed improvements in learning behavior across the tested environments."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b747c93f0423e1269e382422d278b7e36c561e8341fdde6de392b31b8eb9f20e",
+    "tldr": "QEMRL uses a statistically motivated Q-function estimator to improve sample efficiency and convergence on tested Atari and Mujoco tasks."
+  },
+  "icml-2023-variational-mixture-of-hypergenerators-for-learning-distributions-over-functions-bf25df6d9a": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Implicit neural representations describe data through continuous functions, creating a way to learn distributions over functions rather than only fixed collections of values. Existing generative approaches can make inference tasks such as filling in missing observations expensive or unavailable. This paper introduces VaMoH to combine expressive function modeling with more efficient inference.",
+      "VaMoH joins implicit neural representations with the inference capabilities of variational autoencoders. It uses a normalizing flow for the prior distribution and a mixture of hypernetworks to parameterize the data likelihood. The authors attribute expressive capacity and interpretability to this combination. The architecture brings together mechanisms for representing continuous signals, modeling their variability, and inferring from observations.",
+      "Experiments cover images, voxels, and climate data, showing that VaMoH can learn rich distributions over continuous functions across these data types. It also performs conditional super-resolution generation and in-painting as well as or better than previous approaches while requiring less computation. These results support its usefulness for both generating function-based data and completing inference tasks conditioned on partially observed information."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2e6e0448c65c887a23ac31c03b216ddbf8f7da5e904fecdd705dfc3e6e55a71a",
+    "tldr": "VaMoH combines continuous neural representations with variational inference to learn function distributions and perform competitive, less costly conditional generation."
+  }
+}

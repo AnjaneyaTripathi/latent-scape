@@ -1,0 +1,327 @@
+{
+  "icml-2023-active-policy-improvement-from-multiple-black-box-oracles-fb18efc5ee": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Learning an effective policy through reinforcement learning can require extensive exploration. Expert demonstrations can help, but the available experts may all be imperfect. When different experts perform best in different states, choosing a single teacher leaves useful guidance unused. This paper studies how a learner can actively decide whose advice to follow and where to seek it.",
+      "The authors introduce MAPS and MAPS-SE, algorithms for policy improvement using multiple black-box oracles. MAPS actively chooses which oracle to imitate and improves estimates of the oracles’ value functions. MAPS-SE adds a second decision: it uses an active exploration criterion to select states worth exploring. Together, these choices address both the source and the location of useful guidance.",
+      "The paper provides theoretical analysis supporting a sample efficiency advantage over existing policy improvement algorithms. Experiments across control tasks in the DeepMind Control Suite show that MAPS-SE accelerates policy optimization. The stated benefit comes from making imitation sensitive to the current state and the relative strengths of available experts."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2a715ae8866ae6a7e4c7ceebeffde11b1a8b18732e9837ac4135fc4e1507c6bb",
+    "tldr": "MAPS and MAPS-SE improve learning from imperfect experts by actively choosing which expert to imitate and, for MAPS-SE, which states to explore."
+  },
+  "icml-2023-contextual-combinatorial-bandits-with-probabilistically-triggered-arms-554864b82f": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper studies sequential decisions in which context informs a combined action, and the action activates individual options only probabilistically. Applications include cascading recommendations and influence maximization. The central challenge is learning good decisions when an option’s contribution depends partly on whether it is activated at all. The authors analyze this problem under several smoothness conditions.",
+      "Under triggering probability modulated smoothness, their C²-UCB-T algorithm achieves regret of order d√(KT), with logarithmic factors suppressed. Here, d measures context dimension, K is the maximum number of options activated per round, and T is the number of rounds. The analysis removes an inverse minimum-triggering-probability factor that could otherwise be exponentially large.",
+      "Under variance modulated or triggering probability and variance modulated conditions, the variance-adaptive VAC²-UCB algorithm achieves order d√T regret, again suppressing logarithmic factors. This bound removes dependence on K under those conditions. The techniques also improve results in related bandit settings, while synthetic and real-world experiments demonstrate better performance than benchmark algorithms."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ed87eddd46853b127ce5bbed2613acdf34b59e8586f771586b2dba422fcd6f46",
+    "tldr": "New contextual combinatorial bandit algorithms improve regret guarantees by accounting for triggering probabilities and, under suitable conditions, variance."
+  },
+  "icml-2023-d2match-leveraging-deep-learning-and-degeneracy-for-subgraph-matching-4abfd29ad7": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Subgraph matching asks whether a graph contains a structure corresponding to another graph. Its difficulty comes from the many interacting choices involved in matching nodes and connections. The paper describes a tension between combinatorial approaches with exponential computational costs and learning approaches whose searches lack theoretical guarantees. D²Match aims to connect efficient learning with a structural account of matching.",
+      "The authors establish a reduction from subgraph matching to subtree matching, followed by an equivalence to finding a perfect matching in a bipartite graph. They use the tree-shaped aggregation already built into graph neural networks to obtain a linear-time implementation of their approach. Cycle structures and node attributes can also be incorporated to improve matching performance.",
+      "Experiments report superior performance and examine what the method uses to make its decisions. The authors find that D²Match exploits subtree information, distinguishing it from existing graph neural network approaches that depend on memorizing differences between data distributions. The contribution therefore concerns both computational design and evidence that matching behavior draws on relevant graph structure."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2b45c3628366f469675ed7dcc6c66548a850f09515fe92f9c5df02d2d1c7cdb4",
+    "tldr": "D²Match connects subgraph matching to subtree and bipartite matching, using graph neural network aggregation for an efficient implementation."
+  },
+  "icml-2023-deja-vu-contextual-sparsity-for-efficient-llms-at-inference-time-87b8cc579e": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Large language models are expensive to run because inference involves substantial computation. This paper investigates contextual sparsity: small sets of attention heads and MLP parameters that depend on the input and approximately reproduce the full model’s output. The useful subset can change with the context, making the problem one of predicting which computation matters for each input.",
+      "The authors show that such sparsity exists and can be predicted accurately. Their DejaVu system makes these predictions cheaply from the inputs to each layer. It combines the prediction algorithm with asynchronous execution and an implementation designed around hardware behavior. This combination matters because reducing the amount of arithmetic alone does not necessarily reduce elapsed inference time.",
+      "For OPT-175B, the reported latency reduction exceeds a factor of two relative to FasterTransformer and a factor of six relative to the Hugging Face implementation. These results preserve model quality, and the paper also reports retaining in-context learning ability. The findings support input-dependent computation as a practical route to faster inference."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ebebdb7c3f539cc340430436d21ce2180d628506f69c477824ac3cce811c3f5c",
+    "tldr": "DejaVu predicts input-dependent subsets of model computation to accelerate LLM inference while preserving quality in the reported evaluations."
+  },
+  "icml-2023-dropout-reduces-underfitting-302105c010": {
+    "backgroundConcepts": [],
+    "difficulty": "beginner",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Dropout is usually associated with preventing a neural network from fitting its training data too closely. This paper shows that its timing can produce a different benefit: using dropout early in training can help models that fit the training data insufficiently. The result makes the training schedule an important part of understanding what dropout does.",
+      "During early training, the authors find that dropout reduces variation in gradient directions across mini-batches. Those gradients also become better aligned with the gradient of the entire dataset. This limits how strongly individual batches steer learning. Their early dropout method applies dropout only during the initial training phase, then switches it off; the resulting models reach lower final training loss than counterparts without dropout.",
+      "The authors also investigate late dropout for models prone to overfitting, leaving it inactive initially and enabling it later. Experiments on ImageNet and other vision tasks show consistent improvements in generalization accuracy. These findings support choosing when to apply dropout according to the training problem being addressed."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "35d9ed8d09d4d983f7dff4d7b31317a790f1f88a07be88d2d1a18610c3279f67",
+    "tldr": "Applying dropout only early in training can reduce underfitting, while activating it later can help regularize overfitting models."
+  },
+  "icml-2023-flipping-coins-to-estimate-pseudocounts-for-exploration-in-reinforcement-learning-6b2e9dd99b": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Count-based exploration encourages a reinforcement learning agent to investigate states it has visited less often. The paper addresses this idea in high-dimensional state spaces, where obtaining useful visitation counts is difficult. Its central contribution is a way to estimate those counts through a simple supervised learning problem, avoiding the density models used by previous approaches.",
+      "The key observation connects visitation counts to averages of samples from a Rademacher distribution, which can be understood as signed coin flips. The authors use this connection to construct a learning objective whose optimized predictions yield a state’s visitation count. Random coin outcomes therefore provide a route to estimating how familiar a state is to the agent.",
+      "The method is reported to recover ground-truth visitation counts substantially more effectively than previous work. When its estimates supply an exploration bonus to a model-free reinforcement learning algorithm, it outperforms existing approaches on most of nine challenging exploration tasks, including Montezuma’s Revenge. The findings link improved count estimation to better exploration in the evaluated tasks."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "c02432596356f5b2bee3c78d9a11aa76689fc830b8236c490e39c1de971e79ef",
+    "tldr": "A supervised objective built from coin flips estimates state visitation counts and improves exploration on most of the evaluated tasks."
+  },
+  "icml-2023-global-optimization-with-parametric-function-approximation-574f839334": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper studies how to find a function’s global optimum when evaluations are noisy and provide values without derivatives. Such problems arise in hyperparameter tuning and materials design. The authors identify dimensionality as a challenge for existing approaches based on Gaussian processes or other nonparametric function families, motivating an alternative built around a parametric approximation.",
+      "Their algorithm, GO-UCB, can use a function family such as neural networks. It constructs an uncertainty set over model parameters using gradients, then uses that uncertainty to guide optimistic exploration. The distinction between observations and internal calculations matters: the oracle supplies noisy function values, while gradients of the approximation help organize the search.",
+      "Under a realizability assumption and additional geometric conditions, GO-UCB achieves cumulative regret of order √T, up to logarithmic factors. Realizability means the chosen function family can represent the objective. Synthetic and real-world experiments report advantages over popular Bayesian optimization approaches even with model misspecification, extending the empirical evidence beyond the assumptions of the stated guarantee."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "d09ca7ec01d5bf2b303b719352d8bd6a296bf66d8402745710d7075e301f0837",
+    "tldr": "GO-UCB uses parametric function models and gradient-based parameter uncertainty to guide global optimization from noisy function evaluations."
+  },
+  "icml-2023-gradient-based-wang-landau-algorithm-a-novel-sampler-for-output-distribution-of-neural-n-29437cc35b": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper examines the distribution of a neural network’s outputs across its entire input space. That perspective seeks a broader understanding of network behavior than inspecting a limited collection of inputs. Exhaustively enumerating inputs is impractical, and ordinary Monte Carlo sampling can also take too long, particularly when the input space has many dimensions.",
+      "The authors connect this sampling problem to the density of states of a physical system. They adapt the Wang-Landau algorithm, a sampler developed for that setting, to neural networks. Their Gradient-based Wang-Landau method replaces random proposals with gradient-based Monte Carlo proposals, allowing it to investigate underexplored parts of the input space more efficiently.",
+      "Experiments support the accuracy of the resulting output distribution estimates and reveal patterns in network responses. In one binary image classification task, both CNN and ResNet models assigned very negative logits to most images that humans could not recognize. This is a finding from that experiment, illustrating how broad input-space sampling can expose behavior beyond familiar examples."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3dfa5eb30a4b9c770c19e8e1ad0923aae57308b0d8118d4a93881fd0705f70c8",
+    "tldr": "Gradient-based Wang-Landau sampling estimates neural network output distributions by exploring neglected regions of the input space more efficiently."
+  },
+  "icml-2023-i-2-sb-image-to-image-schrodinger-bridge-1e9a4fd053": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Image restoration starts with an observation that is damaged but still contains useful structure. I²SB builds a conditional diffusion model around that information by learning a nonlinear process connecting degraded and clean image distributions directly. The degraded image therefore serves as an informative starting point for reconstruction, giving the generative process a clear relationship to the restoration task.",
+      "The method belongs to a tractable class of Schrödinger bridges. Given paired endpoints, its intermediate marginal distributions can be calculated analytically. This enables training without simulating the nonlinear diffusion process and lets the authors adopt practical training techniques from standard diffusion models. The analytic structure is what makes the proposed bridge framework scalable.",
+      "The authors evaluate inpainting, super-resolution, deblurring, and JPEG restoration on ImageNet at 256-by-256 resolution. They report better results than standard conditional diffusion models, alongside more interpretable generation processes. I²SB also matches inverse methods that additionally require knowledge of the corruption operators, showing that this direct distribution-to-distribution approach can be competitive across the tested restoration problems."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "eff362fdcb60ea3d3cd0268a936b1478a9b1bec2a1a9362cedfcdab676cdb50c",
+    "tldr": "I²SB learns diffusion bridges directly between degraded and clean images, enabling scalable training and strong results on several restoration tasks."
+  },
+  "icml-2023-image-shortcut-squeezing-countering-perturbative-availability-poisons-with-compression-abb9ed619f": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Perturbative availability poisoning adds small changes to images to make them unsuitable for model training. This paper challenges the belief that practical countermeasures are unavailable. Its Image Shortcut Squeezing method uses simple compression, and extensive experiments find that twelve leading poisoning methods are vulnerable to this treatment. The result questions how reliably these perturbations prevent learning.",
+      "On CIFAR-10, ISS restores model accuracy to an average of 81.73%, exceeding the previous best preprocessing countermeasures by 37.97 percentage points. It also slightly surpasses adversarial training in the reported comparison, with greater efficiency and better generalization to unseen perturbation norms. These results establish compression as a consequential countermeasure within the evaluated settings.",
+      "The authors also investigate why different compression choices work for different poisons. They connect perturbation properties to the surrogate model used to generate them. Stronger adaptive poisoning is tested but still does not provide an ideal defense against ISS. The broader implication is that availability poisons should be evaluated against varied simple countermeasures when assessing their effectiveness."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "08594f843c781b150399ed18e5bafeb7425a2968508d0cdeee828684bd1e2cf9",
+    "tldr": "Simple compression counteracts twelve evaluated availability-poisoning methods, challenging claims that such perturbations reliably prevent image-based training."
+  },
+  "icml-2023-n-text-a-text-2-q-neural-attention-additive-model-for-interpretable-multi-agent-q-learni-1fe1e492e1": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "In cooperative multi-agent reinforcement learning, value decomposition relates a team’s value to the contributions of individual agents. Black-box networks can make this credit assignment hard to understand. This paper develops an interpretable framework using generalized additive models, aiming to make the learned account of collaboration visible within the model’s structure.",
+      "The proposed Neural Attention Additive Q-learning method, N A²Q, enriches shape functions to represent possible coalitions of agents. This supports an explicit factorization of the induced optimal joint policy into individual policies. The method also introduces identity semantics into credit estimation alongside the global state and individual value functions. Local semantic masks help diagnose whether each agent captures information relevant to its task.",
+      "The experiments report consistently better performance than the compared state-of-the-art methods across the challenging tasks evaluated, while providing human-like interpretability. The stated contribution combines a way to model cooperative interactions with tools for examining the information behind agent contributions. This makes interpretability part of the value decomposition framework itself."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "08847386f576322715c857caa5df6bf594e899a10027e8cea6f808fbc3672c20",
+    "tldr": "N A²Q uses an additive value decomposition framework to improve cooperative learning while making agent contributions and collaboration more interpretable."
+  },
+  "icml-2023-online-nonstochastic-control-with-adversarial-and-static-constraints-cb8d791d9d": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "The paper studies online control with both fixed constraints and constraints that may vary adversarially. A controller must manage cumulative cost while responding to these restrictions over time. The comparison target is the optimal constrained linear control policy chosen in hindsight, so the analysis asks how much an online controller loses relative to that retrospective benchmark.",
+      "The proposed algorithms achieve sublinear regret and sublinear violation of adversarial constraints while keeping static constraint violation minimal. Sublinear growth means these accumulated quantities grow more slowly than the time horizon, so their per-round averages diminish. To establish the results, the authors develop an online convex optimization framework with memory that handles both types of constraints.",
+      "That optimization framework serves as a control subroutine and also obtains state-of-the-art regret and constraint violation bounds for constrained online convex optimization. Experiments show adaptation to adversarial constraints, smaller cumulative costs and violations, and less conservative behavior than the compared state-of-the-art controller. The work connects theoretical long-run guarantees with empirical improvements in constrained control."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5d8315ec5e8447f7010bdd1c1a32f474184fc02558e70de84aabdefda2ad5618",
+    "tldr": "New online control algorithms balance cost and changing constraints with sublinear regret and adversarial constraint violation guarantees."
+  },
+  "icml-2023-optimization-for-amortized-inverse-problems-3a180e69d6": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Inverse problems reconstruct an image from a corrupted observation. A deep generative model can provide a prior distribution that guides this reconstruction, and the paper builds on the success of that approach. Its focus is the optimization needed to recover an image, especially when the resulting objective is nonconvex and ordinary gradient descent is sensitive to its starting point.",
+      "The authors propose an efficient amortized optimization scheme that breaks a difficult optimization task into a sequence of easier ones. This decomposition changes how the reconstruction problem is solved, addressing the difficulty of the optimization landscape rather than simply applying gradient descent to the full task. The sequence is the central mechanism described for making the problem more manageable.",
+      "The paper provides a theoretical guarantee for the algorithm and evaluates it on several inverse problems. The reported reconstructions outperform baseline methods by a large margin in both qualitative and quantitative comparisons. These findings support the value of adapting the optimization procedure when using a deep generative prior for image recovery."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "2048399ed453498a387ebfcd6434f8b067659bcd5fd809ad7ac679f46b180deb",
+    "tldr": "An amortized optimization scheme decomposes difficult image reconstruction problems into easier stages and improves the reported reconstruction results."
+  },
+  "icml-2023-partially-observable-multi-agent-rl-with-quasi-efficiency-the-blessing-of-information-sh-6339d5ce08": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Partially observable stochastic games model multiple learning agents that lack complete observations of their environment. Solving these games faces known computational barriers. This paper examines whether information sharing among agents can help overcome those barriers, drawing on communication practices already used in empirical multi-agent learning and control systems.",
+      "The authors first establish computational complexity results supporting the necessity of information sharing and an observability assumption for computational efficiency in the setting they study. They then approximate the agents’ shared common information to construct an approximate game model. Under those assumptions, this model permits planning an approximate equilibrium for the original game in quasi-polynomial time.",
+      "The paper also develops a partially observable multi-agent reinforcement learning algorithm that is quasi-efficient in both statistical and computational terms. The qualifier matters: the stated efficiency is quasi-polynomial rather than polynomial. The results show how assumptions about what agents observe and share can support tractable learning guarantees, motivating attention to the design of communication and information structures."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "de19139e98b69e0cad9308c0a05254b080d258607eceabfb8cd8de7139f4a97f",
+    "tldr": "Information sharing and an observability assumption enable quasi-efficient planning and learning in the paper’s partially observable multi-agent setting."
+  },
+  "icml-2023-prometheus-taming-sample-and-communication-complexities-in-constrained-decentralized-sto-77071bc6bf": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Decentralized bilevel learning involves multiple agents jointly solving an optimization problem with two coupled levels. Such formulations can model multi-agent reinforcement learning and meta-learning. This paper focuses on domain constraints, which can arise from safety requirements, and asks how to handle them without excessive data sampling or communication between agents.",
+      "The studied problem class has a nonconvex upper level, a strongly convex lower level, and constraints on upper-level variables. The authors show that adding constraints makes the coupling more challenging than in the unconstrained case. They propose Prometheus, a proximal tracked stochastic recursive estimator, together with analysis designed for this constrained decentralized structure.",
+      "Prometheus achieves sample and communication complexities of order one over epsilon, where epsilon is the desired stationarity error. The authors describe these as the first such results for constrained decentralized bilevel optimization. The guarantee concerns approaching stationarity in the specified problem class. By controlling both resource requirements, the work establishes a theoretical basis for coordinating constrained bilevel learning efficiently."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "228da3504ab5675ac0edcaa8e8cb8a044ad98fd9857fdc3211e13e0f88e65b95",
+    "tldr": "Prometheus provides order-one-over-epsilon sample and communication guarantees for a specified class of constrained decentralized bilevel problems."
+  },
+  "icml-2023-retrosynthetic-planning-with-dual-value-networks-e2a91b0072": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Retrosynthetic planning searches for a route from commercially available starting materials to a target molecule. A predictor that proposes accurate individual reactions may still give poor guidance for completing an entire route. This paper addresses that mismatch by using reinforcement learning to improve a single-step reaction predictor according to complete-route objectives.",
+      "Planning with Dual Value Networks, or PDVN, represents the task through a tree-shaped Markov decision process and alternates between planning and model updates. Two value networks separately predict whether molecules can be synthesized and how costly synthesis will be. A two-branch design for the reaction predictor aims to preserve its single-step accuracy during this route-oriented training.",
+      "On USPTO, PDVN raises Retro* search success from 85.79% to 98.95%. With RetroGraph, it halves model calls while solving 99.47% of molecules. It also shortens average routes for both planners. These results show that training reaction prediction with feedback from complete plans can improve search success, search efficiency, and route length together in the evaluated setting."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "537b3c85bf47daa6a944a92f270c8936fcbf7de8d759e5ea8ccd941ce7f0e059",
+    "tldr": "PDVN trains reaction prediction around complete synthesis routes, improving planner success, efficiency, and route length on USPTO."
+  },
+  "icml-2023-revisiting-pseudo-label-for-single-positive-multi-label-learning-b54de0f970": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "An example in multi-label learning can have several relevant labels, making complete annotation expensive. Single-positive multi-label learning reduces that burden by providing only one positive label per example. Existing methods use generated pseudo-labels to fill in supervision, but their empirical success had not been accompanied by theoretical guarantees for learning in this setting.",
+      "The paper establishes conditions under which learning from these pseudo-labels is effective and proves learnability for pseudo-label-based methods. Building on that analysis, the authors introduce MIME, a method for mutual label enhancement. They also prove that the pseudo-labels generated by MIME approximately converge toward the fully supervised case.",
+      "The approximate nature of that result matters: it supports recovering useful supervision without claiming that every missing label is always reconstructed exactly. Experiments on four image datasets and five multi-label learning datasets show effectiveness relative to several existing approaches. The contribution combines a theoretical account of when pseudo-labeling can work with a method designed around that account."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "def453615d99cd128d17bc64008f318575787bb7bf095e9136fd8b83d13e13bd",
+    "tldr": "MIME builds on conditions for learning from pseudo-labels to improve multi-label classification when each example has only one annotated positive label."
+  },
+  "icml-2023-same-pre-training-loss-better-downstream-implicit-bias-matters-for-language-models-a06be89835": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Validation loss during language model pretraining often serves as a proxy for performance on later tasks. This paper shows that the proxy is incomplete: models with the same pretraining loss can perform differently downstream. The authors produce such differences by continuing pretraining after convergence, increasing model size, and changing the pretraining algorithm.",
+      "These experiments reveal implicit bias, meaning that training procedures can prefer particular solutions even when those solutions achieve the same minimum loss. The paper connects this preference to flatness of the loss landscape. It proves that stochastic gradient descent with standard mini-batch noise implicitly favors flatter minima in language models and observes a strong correlation between Hessian-trace flatness and downstream performance among models with equal pretraining loss.",
+      "A further proof in a synthetic language setting shows that the flattest model among minimum-loss solutions transfers to downstream tasks. This theoretical result is specific to that setting, while the broader empirical finding concerns correlation. Together, they explain why evaluating pretraining loss alone can miss meaningful differences in transfer."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "911ddaf5e07d4f9d37a8a7e9d7d9953f5d2887429258b41e6b963bcf105fa327",
+    "tldr": "Language models with equal pretraining loss can transfer differently, with loss-landscape flatness helping explain the observed differences."
+  },
+  "icml-2023-taxonomy-structured-domain-adaptation-3229690572": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Domain adaptation helps models cope with differences between data domains. Treating domains as separate categories can overlook meaningful relationships among them. This paper studies domains arranged in a taxonomy, where nested groups express hierarchical similarities, as in animal species or product catalogs. The aim is to preserve this structure while adapting across distributions.",
+      "The method extends an adversarial adaptation framework with a component called a taxonomist. It competes with the adversarial discriminator to retain information about the domain hierarchy. This introduces an explicit role for relationships between domains, allowing adaptation to account for more than the identity of the domain that produced an example.",
+      "The equilibrium reduces to the classic adversarial adaptation solution when the taxonomy supplies no useful structure, such as a flat hierarchy connecting every leaf directly to the root. Other taxonomies yield nontrivial solutions. Experiments report state-of-the-art performance on synthetic and real-world datasets, supporting the usefulness of representing hierarchical domain relationships within the adaptation process."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "44e26f90b46e52b566ae464ff00a7628f97dddf3bf3a7e88743cc1f7bcee6c38",
+    "tldr": "A taxonomist component preserves hierarchical domain relationships within adversarial adaptation and improves performance on the evaluated datasets."
+  },
+  "icml-2023-tr0n-translator-networks-for-0-shot-plug-and-play-conditional-generation-98e34256f5": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "TR0N turns a pretrained unconditional generator into a conditional generator with help from a pretrained auxiliary model. A classifier can supply class-based guidance, while CLIP can support text-to-image generation. The framework aims to accommodate a broad range of conditions without requiring training data or fine-tuning the existing models.",
+      "Its central component is a lightweight stochastic translator that maps conditions into the generator’s latent space. The generated latent is intended to produce a sample satisfying the requested condition. TR0N then refines translated latent samples using Langevin dynamics to improve sample quality. The approach thus combines a learned conditional starting point with a subsequent refinement procedure.",
+      "The authors report a zero-shot FID of 10.9 on MS-COCO, outperforming competing alternatives in both that metric and sampling speed. They also emphasize the framework’s generality across generators and conditioning mechanisms. Although no training data or fine-tuning is required, the framework does learn its lightweight translator; that mapping is central to how it connects the pretrained components."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5754f2ad025a3ba3d8523304faa156e3936c38aee34626a84cca365cc14c97b3",
+    "tldr": "TR0N adds conditional generation to pretrained generators through a lightweight latent translator and Langevin refinement."
+  },
+  "icml-2023-trapdoor-normalization-with-irreversible-ownership-verification-0b0f5937f9": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A model watermark embeds ownership information so that a creator can later verify a claim to the model. This paper focuses on ambiguity attacks, where forged watermarks create competing ownership claims. The authors argue and empirically show that relevant existing methods are vulnerable to this problem, making resistance to forgery a central verification concern.",
+      "Trapdoor Normalization, or TdN, embeds ownership information in normalization layers during training. Inspired by trapdoor functions in cryptography, it establishes a bidirectional connection between a watermark and the deep model. The authors use this design to create an irreversible ownership verification scheme that is difficult for an adversary to compromise.",
+      "The paper reports that TdN effectively defeats ambiguity attacks and demonstrates better robustness and efficiency than previous state-of-the-art methods in extensive experiments. Its contribution concerns the relationship between the ownership evidence and the model, beyond simply placing a watermark inside a network. The reported resistance supports stronger ownership verification without establishing universal immunity to every possible attack."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9edb569def6e8437fa6ae436f41f8832d541cb8eb76cbe99d504c80eba4f1606",
+    "tldr": "Trapdoor Normalization embeds ownership information in normalization layers and strengthens verification against forged-watermark ambiguity attacks."
+  },
+  "icml-2023-unsupervised-out-of-distribution-detection-with-diffusion-inpainting-143551810a": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Unsupervised out-of-distribution detection asks whether an input falls outside the domain represented by unlabeled training data. This paper introduces Lift, Map, Detect, or LMD, which uses a diffusion model’s denoising behavior to make that judgment. The model supplies a way to move corrupted images toward the kinds of images represented in its training distribution.",
+      "LMD first corrupts an image, lifting it away from its original manifold, or region of image structure. It then applies the diffusion model to map the corrupted image toward the in-domain manifold. The detection intuition is that an unfamiliar image will be moved substantially away from its original structure during this process, providing evidence that it lies outside the learned domain.",
+      "The authors evaluate LMD across a broad variety of datasets and report competitive performance. The approach connects image generation and detection through the effect of reconstruction: the movement caused by denoising becomes the detection signal. Its stated findings support this mechanism empirically across the tested datasets."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "48daa7caa3a9788495d14ab8f8be797d2befb78222eff994a53deaf66fa989ce",
+    "tldr": "LMD detects unfamiliar images by corrupting them and measuring the displacement associated with diffusion-based reconstruction toward the training domain."
+  },
+  "icml-2023-vectormapnet-end-to-end-vectorized-hd-map-learning-1c872c905b": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Autonomous driving systems use detailed semantic maps to navigate urban roads. Manual map annotation is difficult to scale, while learning methods that predict dense image-like maps need additional processing to recover separate vectorized elements. VectorMapNet addresses this representation gap by learning to predict a vector map directly from observations collected by onboard sensors.",
+      "The system outputs a sparse set of polylines in a bird’s-eye view. These connected line segments represent map geometry in a form suited to downstream driving tasks. The pipeline can explicitly model spatial relationships between map elements, bringing element structure and geometry into the prediction process instead of relying on heuristic conversion from raster segmentation.",
+      "Experiments on nuScenes and Argoverse2 report improvements over previous state-of-the-art methods of 14.2 and 14.6 mAP, respectively. Qualitative results show comprehensive maps and fine road-geometry details. The authors describe it, to their knowledge, as the first work aimed at end-to-end vectorized map learning from onboard observations, with the reported results supporting that direct prediction approach."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "719a392f12ef6fbb53bd864af74fa713f41eaba79aad7485a0e8279d247812aa",
+    "tldr": "VectorMapNet predicts vectorized road maps directly from onboard sensor observations, improving map learning on nuScenes and Argoverse2."
+  },
+  "icml-2023-what-can-online-reinforcement-learning-with-function-approximation-benefit-from-general--0eef92c875": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Efficient online reinforcement learning is often analyzed using structural assumptions about the environment. This paper explores a different route: coverage conditions that describe how well relevant distributions are represented. Building on the sufficiency of a coverage condition for sample-efficient learning, the authors investigate broader conditions and the benefits they can provide.",
+      "The analysis considers Lᵖ concentrability, realizability of density ratios, and trade-offs involving partial and remaining coverage. These concepts give additional ways to control the distributional relationships that matter for learning, leading to improved regret bounds. When exploratory offline data are also available, the paper establishes both statistical and computational efficiency under its coverage conditions.",
+      "The benefits can persist even when the environment already has a known structure, such as a linear Markov decision process. With good coverage, the authors obtain regret rates faster than square-root growth and even logarithmic regret in the covered settings. These are conditional guarantees that show coverage can complement structural assumptions as well as provide an alternative analytical foundation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "9f77b423c582e31965fb50859fc7a4ec9b12a4dd50a15926db03faa1d6c4ff3d",
+    "tldr": "General coverage conditions can improve online reinforcement learning guarantees, including computational efficiency with exploratory offline data and faster conditional regret rates."
+  },
+  "icml-2023-which-invariance-should-we-transfer-a-causal-minimax-learning-approach-54f0b2312d": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Models facing dataset shifts often seek information that remains stable across environments. This paper asks a more selective question: which part of that stable information should be transferred? Its causal minimax analysis studies the choice according to worst-case risk, rather than assuming that retaining the entire stable set necessarily gives the best generalization.",
+      "The authors provide a graphical condition under which transferring the whole stable set is optimal. When that condition fails, an example shows that using all stable information can be suboptimal. To select a better subset in that case, they estimate worst-case risk through optimization over interventions on causal mechanisms that are allowed to change.",
+      "The paper then introduces an equivalence relation between stable subsets and uses it to search efficiently for a subset with minimal worst-case risk. The resulting search has polynomial complexity, compared with the exponential cost of exhaustive subset enumeration. Experiments on synthetic data and Alzheimer’s disease diagnosis demonstrate effectiveness and efficiency, supporting selective transfer within the proposed causal framework."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b6d799d8c73d0027c6364415fa0d6295cadc69ac89cdeec5d030117d58e97021",
+    "tldr": "A causal minimax framework identifies when all stable information is optimal to transfer and efficiently searches for a better subset otherwise."
+  }
+}

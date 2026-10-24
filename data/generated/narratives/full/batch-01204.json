@@ -1,0 +1,327 @@
+{
+  "neurips-2025-accelerating-multimodal-large-language-models-via-dynamic-visual-token-exit-and-the-empi-85bf8c61f1": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Multimodal language models process images alongside text, but their image representations may not need to remain active throughout inference. This paper investigates that redundancy through attention behavior. Its experiments identify three stages: an initial exchange of information between modalities, a period of processing within each modality, and a return to multimodal reasoning that continues through the remaining computation.",
+      "The central observation is that visual tokens stop contributing to reasoning once text tokens have received enough image information. The proposed dynamic visual-token exit method, DyVTE, uses this finding to avoid further unnecessary visual computation. It addresses when visual tokens can leave processing, making it complementary to methods that compress the visual tokens themselves.",
+      "The authors evaluate DyVTE on LLaVA, VILA, EAGLE, and InternVL. For LLaVA-1.5, they report computation reductions of up to 45.7% without a performance drop. The findings support both an efficiency technique and an empirical account of how information moves through multiple multimodal models; the reported maximum saving is specific to the evaluated settings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "edda6b3b0c2af9896366b794b65a00a0cb37f3407882da0921ccfbdb274856bb",
+    "tldr": "DyVTE reduces multimodal inference computation by letting visual tokens exit after their information has reached the text tokens."
+  },
+  "neurips-2025-amplifying-prominent-representations-in-multimodal-learning-via-variational-dirichlet-pr-adb9260003": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Combining multiple modalities requires preserving useful information within each source while learning relationships between sources. This paper argues that emphasizing distribution alignment too strongly can interfere with that balance. Making modalities look similar can impose excessive regularization, weakening distinctive representations that would otherwise help the combined model.",
+      "The proposed framework uses a Dirichlet process mixture to assign contributions to different feature components. It assumes each modality can be represented by a mixture of multivariate Gaussian distributions. The Dirichlet process determines component weights through its richer-gets-richer behavior, giving greater emphasis to prominent components. This provides an adaptive mechanism for balancing strong representations within a modality with alignment across modalities.",
+      "Experiments across several multimodal datasets report better performance than the compared methods. Ablation studies also support the Dirichlet process component's role in distribution alignment and show robustness to changes in key hyperparameters. The findings suggest that fusion benefits from selectively strengthening useful modality-specific structure, alongside learning shared relationships, within the proposed mixture-based modeling approach."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "694f5b499b5d2930bc376d1eddcaf850ee19706e8cbe2f8a7850025a26e975d4",
+    "tldr": "A Dirichlet process mixture strengthens prominent features while balancing modality-specific representations with cross-modal alignment."
+  },
+  "neurips-2025-beyond-least-squares-uniform-approximation-and-the-hidden-cost-of-misspecification-b7c36c16f8": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Least-squares regression minimizes squared prediction errors, but this does not necessarily control the largest error when the chosen features cannot represent the true function. This paper studies that mismatch with randomly sampled inputs, a setting relevant to value-function approximation in bandits and reinforcement learning. It identifies the Lebesgue constant as the quantity governing how least squares amplifies approximation error.",
+      "That constant depends jointly on the feature space and the input distribution. The authors show that the resulting dependence is tight: methods minimizing empirical squared loss, including regularized least squares, generally cannot substantially improve it. This offers an explanation for why different feature families can behave differently in reinforcement learning even when each appears suitable for function approximation.",
+      "The proposed remedy adds auxiliary features and competes provably with an oracle that knows how best to use them. For monomials on a real interval, it reduces amplification to a bounded order as dimension grows, compared with at least linear growth without the method. Consequently, there are functions and feature choices where the new estimator is consistent and least squares is not."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "29d06a2790da401839101c588d6ab737ab228386a011220c9626c72f5f1fb28d",
+    "tldr": "Auxiliary features can overcome worst-case error amplification that ordinary and regularized least squares cannot generally avoid."
+  },
+  "neurips-2025-defending-multimodal-backdoored-models-by-repulsive-visual-prompt-tuning-b370d56fac": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Image-text models such as CLIP can learn strong representations while remaining vulnerable to backdoor triggers. This paper attributes much of that vulnerability to features extending beyond patterns that predict the task within the dataset. Those additional features make visual representations easier for a trigger to reshape, allowing an input perturbation to redirect model behavior.",
+      "Repulsive Visual Prompt Tuning, or RVPT, combines deep visual prompts with a feature-repelling objective. During adaptation, it repels encoded features from deeper layers while also optimizing the usual classification loss. The intended effect is to retain task-predictive information and strengthen resistance to perturbations. The method uses a few clean downstream examples and adjusts only a small portion of the model.",
+      "In the reported experiments, RVPT updates 0.27% of CLIP's parameters. Against the evaluated advanced multimodal attacks on ImageNet, attack success falls from 89.70% to 2.76%, outperforming the compared defenses. Results across multiple datasets also indicate defensive generalization. These findings support a compact adaptation approach that does not require access to poisoned training examples."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "b7c5deb5876d6d335810033ba18b4972642454b7a485b1b33e95b4350919753d",
+    "tldr": "RVPT uses a few clean examples and lightweight visual prompt tuning to substantially reduce backdoor attack success in CLIP."
+  },
+  "neurips-2025-dense-backpropagation-improves-training-for-sparse-mixture-of-experts-f22731564b": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "A mixture-of-experts model saves computation by routing each input to only a small subset of its feedforward parameters. The paper focuses on a training consequence of that sparsity: backward updates are sparse too. Limited feedback can make training unstable and prevent the router from learning as effectively as it could with information from more experts.",
+      "Default MoE supplies an approximate output for experts that were not activated. Each default is an exponential moving average of outputs that the expert produced earlier in training. These stored summaries stand in for missing activations, allowing the router to receive a gradient signal involving every expert for each token while actual expert activation remains sparse.",
+      "The reported experiments show improvements over standard TopK routing across several settings without significant computational overhead. The contribution is specifically a denser learning signal for the router, achieved through lightweight approximations. Its results suggest that retaining sparse execution need not require equally sparse information for learning how inputs should be routed."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6e8474d790f4a677a4b2b33f0fbb3ce899129209cb8ee5bcd24909472bf00bad",
+    "tldr": "Default MoE improves sparse expert routing by using historical expert outputs to give the router denser gradient feedback."
+  },
+  "neurips-2025-dgsolver-diffusion-generalist-solver-with-universal-posterior-sampling-for-image-restora-2c19c1f732": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Diffusion models can restore images affected by different degradations, but errors can accumulate when restoration uses few sampling steps with large intervals. Existing approaches also face a tension between representing degradations in a common framework and recovering high-quality images efficiently. DGSolver addresses both issues through the mathematical formulation and numerical execution of the reverse process.",
+      "The authors derive exact ordinary differential equations for generalist diffusion models, providing a unified treatment of degradation representations. They then design high-order solvers and a queue-based sampling acceleration strategy. Universal posterior sampling adds another correction mechanism: it better approximates gradients constrained to the image manifold, improving noise estimates and reducing errors during inverse inference.",
+      "Experiments report stronger restoration accuracy, stability, and scalability than the compared state-of-the-art methods, supported by qualitative and quantitative evaluations. The approach matters because sampling accuracy and computational efficiency are addressed together. Better numerical integration and more accurate correction signals provide a way to improve restoration without relying solely on increasingly elaborate compensation mechanisms."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "937653719fe27500619e09080403f2aedaba8cfc5823d5e4519aaa4222d095c1",
+    "tldr": "DGSolver combines tailored diffusion solvers with posterior sampling to improve the accuracy and efficiency of image restoration."
+  },
+  "neurips-2025-dynamicrag-leveraging-outputs-of-large-language-model-as-feedback-for-dynamic-reranking--7c742ff3eb": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Retrieval-augmented generation depends on more than finding potentially relevant documents. A reranker must decide which documents to present and in what order. Selecting too few can leave out essential information, while selecting too many can add distracting material and unnecessary processing. The appropriate number can therefore vary with the query.",
+      "DynamicRAG treats reranking as a learned decision process that controls both document order and document count. Its reranker is trained as a reinforcement-learning agent, with rewards derived from the quality of the language model's generated output. This links document-selection decisions to their downstream usefulness for answering, using the generator's responses as supervision for the reranker.",
+      "Across seven knowledge-intensive datasets, the authors report state-of-the-art performance. The results support adapting the retrieved context to each query and training that adaptation with feedback from answer quality. The main contribution is the connection between retrieval decisions and generation outcomes: the reranker learns from how its selected evidence affects the response it helps produce."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "665ff5f0dcfef826de860b95ca1cd2af88a9413d6a0a857517e5eae78a5d2241",
+    "tldr": "DynamicRAG learns query-specific document ordering and selection counts using language-model answer quality as reinforcement-learning feedback."
+  },
+  "neurips-2025-foresight-adaptive-layer-reuse-for-accelerated-and-high-quality-text-to-video-generation-cbb217ace0": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Generating video with diffusion transformers requires repeated processing across denoising steps. Large models and attention over space and time make this expensive. Reusing previously computed features can reduce the cost, but a fixed reuse schedule cannot respond to changing generation dynamics. That can produce an unfavorable balance between speed and video quality.",
+      "Foresight introduces adaptive reuse of transformer block outputs across denoising steps. It dynamically identifies outputs to reuse throughout the model's layers, accounting for generation parameters such as resolution and the denoising schedule. The method targets repeated computation whose results can be reused while preserving the baseline model's performance.",
+      "Applied to OpenSora, Latte, and CogVideoX, Foresight achieves up to a 1.63-fold end-to-end speedup while maintaining video quality in the reported evaluations. End-to-end acceleration makes the result relevant to the overall generation process, beyond savings in an individual operation. The findings support choosing reuse opportunities adaptively, with the reported maximum reflecting the tested models and generation settings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8b2fc3f9f5506d9865230ba779f0db22fa42cfc7e3731cdcaf25afbdc35b2c58",
+    "tldr": "Foresight adaptively reuses diffusion-transformer layer outputs to accelerate video generation by up to 1.63 times while maintaining quality."
+  },
+  "neurips-2025-geolink-empowering-remote-sensing-foundation-model-with-openstreetmap-data-d4dabbfec0": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Remote-sensing images and OpenStreetMap describe geography in different ways. Their structures, content, and spatial detail differ, making it difficult to combine them effectively. GeoLink brings these sources together during both foundation-model pretraining and downstream use, aiming to enrich image representations with geographic context.",
+      "During self-supervised pretraining, GeoLink derives learning signals at multiple levels of spatial granularity from OpenStreetMap. Spatial correlations guide information exchange between the modalities. Image mask reconstruction also allows sparse inputs for more efficient pretraining. For downstream applications, the framework supplies detailed representations from individual modalities or their combination, supporting tasks ranging from land-cover classification to urban function zone mapping.",
+      "Experiments find that OpenStreetMap information during pretraining improves the remote-sensing image encoder itself. Combining both sources during downstream tasks further improves adaptability to complex geographic settings. The authors also identify spatial correlation as crucial to effective integration. Together, these results show benefits at two distinct stages: learning better visual representations and using complementary geographic information when solving a task."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ad8fc92f108f435a5542c9d6773349224b59284f9915dd27a02a2c5661c5a028",
+    "tldr": "GeoLink uses spatial relationships between remote-sensing imagery and OpenStreetMap to improve pretraining and downstream geographic tasks."
+  },
+  "neurips-2025-gradient-alignment-in-physics-informed-neural-networks-a-second-order-optimization-persp-05b34b3fa4": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Physics-informed neural networks can solve scientific problems but often encounter difficult optimization and limited accuracy. This paper identifies conflicting gradient directions during training as a critical source of trouble. It introduces a gradient alignment score to measure that conflict and studies the issue through both theory and experiments.",
+      "The authors show that second-order and approximate second-order optimization methods inherently reduce these conflicts. They connect this behavior to their consistent advantages over Adam in the study. Particular attention goes to SOAP: establishing a relationship with Newton's method helps explain why this optimizer can improve training, connecting an empirical performance gain to a mathematical optimization perspective.",
+      "SOAP achieves state-of-the-art results on ten challenging partial differential equation benchmarks, with reported accuracy improvements of two to ten times over existing methods while retaining computational scalability. The authors also report the first successful PINN application to turbulent flows at Reynolds numbers up to 10,000. These results identify optimizer choice and gradient alignment as consequential factors in extending neural solvers to demanding physical systems."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "45206e6569bd8cd838cf4c976a35c89e6388d8fab451ef25e01e714c6a1a38ba",
+    "tldr": "The paper links PINN training difficulties to gradient conflicts and shows how second-order optimization, especially SOAP, improves accuracy."
+  },
+  "neurips-2025-improving-regret-approximation-for-unsupervised-dynamic-environment-generation-d515a174ec": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Unsupervised environment design automatically creates training curricula for reinforcement-learning agents. A major difficulty arises when only a small subset of environment configurations demands substantially more complex behavior. Existing regret approximations can miss these challenging levels, while the environment generator struggles to determine which decisions produced a useful challenge. Both problems become harder as environments grow.",
+      "The paper introduces two complementary changes. Dynamic Environment Generation, or DEGen, gives the level generator a denser reward signal, easing credit assignment. Maximised Negative Advantage, or MNA, supplies a new approximation of regret that better identifies difficult levels. One component improves the feedback available for constructing environments; the other improves the criterion used to judge their challenge.",
+      "Empirically, MNA outperforms the existing regret approximations considered in the study. Combining MNA with DEGen consistently outperforms the compared environment-design methods, particularly for larger environments. These results support improving both challenge measurement and generator feedback as a route toward curricula that remain effective as environment size increases."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "a7b4494592d18fdcd66085c3b6f7ecf8863774523a58b7fb0da74f76c4a0af2e",
+    "tldr": "DEGen and MNA improve environment-generation feedback and challenge estimation, with especially strong empirical gains as environments grow."
+  },
+  "neurips-2025-mitigating-the-privacyutility-trade-off-in-decentralized-federated-learning-via-f-differ-380e53fe2d": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Decentralized federated learning lets users collaborate without sending their data to a central server. Adding differential privacy requires tracking how much information the learning process might reveal. That accounting becomes difficult when local training steps interact with communication across a network, so overly loose estimates can obscure the actual privacy–utility trade-off.",
+      "This paper develops two accounting methods within f-differential privacy for two decentralized algorithms. Pairwise Network f-DP measures leakage between user pairs when communication follows a random walk. Secret-based f-Local DP handles structured noise introduced through shared secrets. Using f-DP theory and concentration results for Markov chains, the analysis captures privacy amplification from sparse communication, local iterations, and correlated noise.",
+      "Experiments on synthetic and real datasets report consistently tighter epsilon–delta privacy bounds and improved utility relative to Rényi-DP-based approaches. The contribution is a more tailored analysis of how decentralized algorithm components affect privacy. Its results show that accounting for these components together can improve the assessed trade-off between privacy guarantees and useful learning."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "92b7d71f9abd360c82f36e02f72809920839472dac8a0dae1d29e04dbd806dc9",
+    "tldr": "Two f-DP accounting methods capture decentralized communication and noise structure to obtain tighter privacy bounds and improved utility."
+  },
+  "neurips-2025-modality-aware-sam-sharpness-aware-minimization-driven-gradient-modulation-for-harmonize-b948ad2c29": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "When a model learns from several modalities, one source can dominate training and leave complementary information underused. This imbalance can limit generalization. Modality-Aware Sharpness-Aware Minimization, or M-SAM, addresses the problem through the optimization procedure. The framework is model-agnostic and supports both early and late fusion across multiple modalities.",
+      "Each iteration begins by estimating modalities' contributions to accuracy using Shapley values and identifying the dominant modality. M-SAM then modulates the loss to prioritize robustness with respect to that modality. Finally, it updates model weights by backpropagating the modified gradients. The intended effect is robust learning for the dominant source together with stronger contributions from the others.",
+      "Across four diverse datasets, the authors report improvements over the compared state-of-the-art optimization and gradient-manipulation methods. The results indicate better modality balance alongside better overall performance. The approach matters because it treats imbalance as something the training dynamics can address, using measured modality contributions to guide how the model learns complementary features."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "6b721413d8a2f7c722ee7067a9e2bd2f8c799c8bcd2c02429da2f858e332218c",
+    "tldr": "M-SAM adjusts gradients according to modality contributions to improve robustness, balance, and multimodal performance."
+  },
+  "neurips-2025-on-geometry-enhanced-parameter-efficient-fine-tuning-for-3d-scene-segmentation-5e426ca150": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Adapting pretrained point-cloud models through full fine-tuning can demand substantial computation and storage. Parameter-efficient methods reduce the number of updated weights, but techniques transferred directly from language or two-dimensional vision can underperform in three dimensions. This paper attributes that weakness to geometric distribution shifts and insufficient attention to local spatial structure and global shape context.",
+      "The Geometric Encoding Mixer, or GEM, is a compact adaptation module designed for point-cloud transformers. It combines detailed local positional encodings with lightweight latent attention for global context. This gives adaptation an explicit view of nearby spatial relationships and broader geometry, addressing information that can be lost when points are treated simply as unordered tokens.",
+      "Experiments show performance comparable to, and sometimes better than, full fine-tuning while updating only 1.6% of model parameters. The authors also report reduced training time and memory requirements, with fewer updated parameters than other evaluated PEFT methods. These findings support incorporating geometry directly into efficient adaptation for three-dimensional scene segmentation."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "02de3ec97817cdef9165bf890fdaee444637d414f58d6e946f0267f709fafdb8",
+    "tldr": "GEM adds local and global geometry to efficient point-cloud adaptation, matching or sometimes exceeding full fine-tuning with 1.6% of parameters updated."
+  },
+  "neurips-2025-optimal-single-policy-sample-complexity-and-transient-coverage-for-average-reward-offlin-02c794b3da": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Offline reinforcement learning must learn from existing data, making coverage of relevant behavior especially important. For average-reward problems, earlier guarantees assumed coverage of one target policy but still relied on complexity measures spanning all policies. This paper develops sample-complexity guarantees whose complexity terms depend only on the target policy, using its bias span and a new policy hitting radius.",
+      "The analysis handles general weakly communicating Markov decision processes. Its algorithm combines pessimistic discounted value iteration with quantile clipping, which enables a sharper penalty based on an empirically measured span. The implementation also avoids requiring prior knowledge of the problem parameters. These elements support the paper's first fully single-policy bound for this setting.",
+      "Hard examples reveal an important coverage requirement: observing the target policy's stationary distribution alone is insufficient under the paper's conditions. Coverage must also reach beyond that long-run distribution. Nearly matching lower bounds support the sharpness of the main guarantee. Thus, the work both refines which policy complexity matters and clarifies what data coverage learning requires."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "98022fbd83f50b6f399d9ae5ee4a480e1dda5f899b9d5da17ae3080c94a5f0c3",
+    "tldr": "The paper derives target-policy-specific offline RL guarantees and shows that coverage beyond the policy's stationary distribution is required."
+  },
+  "neurips-2025-parallelization-of-non-linear-state-space-models-scaling-up-liquid-resistance-liquid-cap-fcb0d18ab9": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Nonlinear recurrent models offer expressive sequence processing, but their recurrence creates a challenge for efficient computation over long inputs. LrcSSM is designed to retain nonlinear dynamics while processing long sequences as quickly as contemporary linear state-space layers. Its central structural choice is to constrain the model's Jacobian matrix to be diagonal.",
+      "That restriction allows the full sequence to be solved in parallel. For sequence length T and state dimension D, the method requires O(TD) computational work and memory, with only O(log T) sequential depth. The paper also provides a formal gradient-stability guarantee, addressing how learning signals behave through the recurrent computation.",
+      "The authors report no performance loss from the diagonal Jacobian compared with the original dense-Jacobian model. On the evaluated long-range forecasting tasks, LrcSSM outperforms Transformers, LRU, S5, and Mamba. They also describe the approach as generalizable to other nonlinear recurrent models. The findings support structured nonlinear recurrence as a way to combine parallel computation, stable gradients, and strong forecasting performance."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "5c80ae76ac2047f7e2f5ea6a0f05426676f438f93ff59569a8dbb461169dc8e7",
+    "tldr": "LrcSSM uses a diagonal Jacobian to parallelize nonlinear recurrence while providing gradient stability and strong long-range forecasting results."
+  },
+  "neurips-2025-principled-fine-tuning-of-llms-from-user-edits-a-medley-of-preference-supervision-and-re-ba556002d0": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Users of writing assistants and coding agents naturally produce edits to model responses. This paper studies how to learn from records containing the original context, the agent's response, and the user's revision. Such records offer several kinds of feedback together: preferences, supervised targets, and cost information that are often considered separately.",
+      "The authors first derive learning bounds for methods using each feedback type on its own. Their analysis shows that the trade-offs depend on the user, the data distribution, and the model class. This means the usefulness of a particular feedback interpretation depends on the learning setting. They then propose a simple ensemble procedure that learns jointly from the different signals.",
+      "Evaluations on two domains show that the ensemble outperforms methods trained from individual feedback types. The procedure also adapts robustly to different user-edit distributions at test time in the reported experiments. The work provides a theoretical and practical basis for treating ordinary user corrections as a combined source of information for model adaptation and personalization."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3049fa0bd9ff80f6c452ef227796c6e36839c505821490d46e2c954ff51b1b05",
+    "tldr": "A simple ensemble combines preference, supervision, and cost signals from user edits to improve language-model adaptation."
+  },
+  "neurips-2025-promptable-3-d-object-localization-with-latent-diffusion-models-ae3f186d70": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Three-dimensional object detection must locate objects in a scene, and different applications may specify the desired object in different ways. Existing diffusion-based detectors often generate boxes through direct coordinate regression. This paper argues that this formulation limits adaptability, particularly when detection needs to follow a natural-language description.",
+      "The proposed framework encodes bounding boxes as latent representations and applies diffusion within that space. Prompts condition the transformation from noise to a box representation. Class labels can refine ordinary detection, natural-language descriptions enable grounding-based detection, and annotated examples act as visual prompts for few-shot detection. The shared formulation accommodates these different sources of guidance.",
+      "The authors evaluate the framework on general detection, few-shot detection, and grounding-based detection in three-dimensional scenes. Results are competitive with state-of-the-art methods across these tasks. The contribution is a flexible detection mechanism that connects latent box generation with several prompt types, showing how one diffusion-based formulation can support distinct ways of specifying which objects to find."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "e006d5f49ff11339466041fdffde31257c491e53027a0ecf57bf6ec37b196a6d",
+    "tldr": "Latent diffusion generates 3-D bounding boxes conditioned on class names, natural-language descriptions, or annotated visual examples."
+  },
+  "neurips-2025-proper-holder-kullback-dirichlet-diffusion-a-framework-for-high-dimensional-generative-m-699c354391": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Diffusion generative models have largely relied on Gaussian priors. This paper explores a different distributional foundation through a Dirichlet diffusion framework. It defines both forward and reverse processes using multiplicative transformations that change over time, expanding the mathematical choices available for constructing diffusion models.",
+      "The authors also introduce two divergence measures for training: Proper Hölder Divergence and Proper Hölder–Kullback divergence. The latter is designed to restore symmetry missing from existing formulations. These objectives provide alternatives to the reweighted evidence lower bounds and Kullback–Leibler upper bounds discussed in the paper, pairing a different diffusion process with new optimization tools.",
+      "With the Proper Hölder–Kullback objective, the Dirichlet model obtains a Fréchet Inception Distance of 2.78 on unconditional CIFAR-10 generation. Experiments on natural-image datasets further support its generative performance and the training objective's effectiveness. The results establish a concrete non-Gaussian option for diffusion modeling and suggest that both the process distribution and the divergence used to train it can be productive design choices."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "7df2cb23bcfb511a5439937051dd597da25a4cb51f9bc3afb6b7778dc3bae6bf",
+    "tldr": "A Dirichlet diffusion framework and new divergence objectives provide a non-Gaussian route to high-quality image generation."
+  },
+  "neurips-2025-rectified-point-flow-generic-point-cloud-pose-estimation-73d5aa449a": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Aligning two point clouds and assembling several shape parts both require recovering spatial arrangements from unposed geometry. Rectified Point Flow expresses these tasks through one conditional generative formulation. This creates a shared way to represent the problem across pairwise registration and multipart assembly.",
+      "The method learns a continuous velocity field for individual points, moving noisy points toward their target locations. Part poses are then recovered from those positions. This formulation learns assembly symmetries without symmetry labels. An overlap-aware encoder emphasizes contacts between parts, giving the model information about the geometric relationships that matter for placing components together.",
+      "The authors report state-of-the-art performance on six benchmarks covering registration and assembly. The unified formulation also supports joint training across diverse datasets, which improves accuracy by helping the model learn shared geometric priors. The findings suggest that representing pose recovery through point motion can serve multiple geometric tasks and make training data from different sources useful within a common model."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "82abcb32b2547e2ef084cb23379e2a69d9ac6fc0668b1d58ba1386a81d12266b",
+    "tldr": "Rectified Point Flow unifies point-cloud registration and shape assembly by learning point motions from which poses are recovered."
+  },
+  "neurips-2025-ridge-boosting-is-both-robust-and-efficient-b1b5358b75": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Statistical estimators often face a trade-off between low variance for a particular target and low bias across several possible targets. This paper studies a simple procedure called ridge boosting: begin with any predictor and apply one boosting step using ridge regression, potentially with a kernel. The surprising result is that this procedure can achieve both objectives within a specified family of distribution shifts.",
+      "The guarantee applies to target shifts lying in the unit ball of a reproducing kernel Hilbert space. Across these shifts, ridge boosting maintains low bias and achieves variance at the semiparametric efficiency bound for each target. The restriction on the shift family is central to the stated robustness result.",
+      "Because the procedure uses only source-distribution data, a single fitted model can support robust and efficient estimation of multiple target quantities. This avoids fitting a separate efficient estimator for each target within the covered setting. The authors assess the method through simulations and an application estimating how retirement income varies with age, connecting the theoretical result to a practical estimation problem."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "144d93c8a77a310d79dfd10025238348a3809e1cd4bb71773703cdfe216edc6f",
+    "tldr": "One ridge-regression boosting step achieves low bias and efficient variance across target shifts within an RKHS unit ball."
+  },
+  "neurips-2025-sampling-3d-molecular-conformers-with-diffusion-transformers-9d54f3b818": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Generating molecular conformers requires producing three-dimensional coordinates consistent with atomic connectivity. Adapting diffusion transformers to this task introduces challenges involving discrete molecular graphs, continuous geometry, spatial symmetries, and variation in molecular size and structure. DiTMC addresses these challenges through a modular architecture that separates coordinate processing from conditioning on the molecular graph.",
+      "The framework introduces two complementary graph-based conditioning strategies. It combines them with attention mechanisms that include standard non-equivariant and SO(3)-equivariant versions, the latter explicitly respecting rotational symmetry. These alternatives make architectural and symmetry choices available for controlling the trade-off between generation accuracy and computational efficiency.",
+      "On GEOM-QM9, GEOM-DRUGS, and GEOM-XL, DiTMC achieves state-of-the-art precision and physical validity in the reported experiments. The study also examines how architectural decisions and symmetry priors affect sample quality and efficiency. Its contribution therefore includes both a strong conformer generator and evidence about how to adapt diffusion transformers to molecular geometry across varying structures and sizes."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "ccf39a030c8271a5b914249ffea2f483c5afae574b0b621691e3a735fec9fe75",
+    "tldr": "DiTMC combines graph conditioning and geometric attention choices to generate molecular conformers with strong precision and physical validity."
+  },
+  "neurips-2025-soft-thinking-unlocking-the-reasoning-potential-of-llms-in-continuous-concept-space-2a21704f09": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Standard chain-of-thought reasoning selects a discrete token at each step. This paper argues that committing to one token can restrict exploration of possible reasoning paths. Soft Thinking introduces a training-free alternative in which intermediate concept tokens occupy a continuous space, allowing a representation to combine meanings associated with several discrete tokens.",
+      "Each concept token is formed as a probability-weighted mixture of token embeddings. The resulting representation can move smoothly among related meanings instead of selecting a single embedding immediately. The authors describe this as implicitly exploring multiple reasoning paths, with the aim of reaching a correct answer more effectively.",
+      "Across mathematical and coding benchmarks, Soft Thinking improves pass@1 accuracy by up to 2.48 points and reduces token use by up to 22.4% relative to standard chain of thought. Qualitative analysis also finds its outputs readable and interpretable. These results support continuous intermediate representations as a promising inference-time reasoning technique, with the reported gains representing maxima across the evaluated settings."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "bc336f257efeaad5d4ae9abe10edc714b4caec6bac6b7e221af6ee87ea454393",
+    "tldr": "Soft Thinking uses probability-weighted token embeddings for training-free reasoning, improving accuracy and reducing token usage in reported evaluations."
+  },
+  "neurips-2025-understanding-llm-behaviors-via-compression-data-generation-knowledge-acquisition-and-sc-7470d74ab7": {
+    "backgroundConcepts": [],
+    "difficulty": "advanced",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "This paper uses the relationship between prediction and compression to explain language-model behavior. Its perspective draws on Kolmogorov complexity and Shannon information theory, interpreting model compression as a two-part coding process. This provides a way to discuss which information models acquire as model size and available data increase.",
+      "The account distinguishes widespread syntactic patterns from progressively rarer pieces of knowledge. Using the Kolmogorov Structure Function and assumptions inspired by Heap's and Zipf's laws, the authors construct a simplified hierarchical data generator called the Syntax-Knowledge model. They analyze prediction and compression in this model under a Bayesian setting.",
+      "Within that framework, the analysis explains several learning behaviors: scaling with model size and data, knowledge acquisition during training and fine-tuning, and factual hallucinations. Experiments support the theoretical predictions. The contribution is a common mathematical perspective connecting these phenomena through information storage and compression, with its explanations grounded in the stated simplified data model and assumptions rather than an unrestricted characterization of every language model."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "8f7b935e95165cc3424b0cfafdf3e71d86bd8d1c15506a074cc5e57aaa9fb563",
+    "tldr": "A compression-based theory connects language-model scaling, knowledge acquisition, and hallucinations through a simplified hierarchical data model."
+  },
+  "neurips-2025-unimrseg-unified-modality-relax-segmentation-via-hierarchical-self-supervised-compensati-555c9a2977": {
+    "backgroundConcepts": [],
+    "difficulty": "intermediate",
+    "model": "gpt-6-astra",
+    "paragraphs": [
+      "Multimodal segmentation can deteriorate when an input modality is missing or corrupted. Maintaining separate models for every available-input combination raises deployment costs and requires matching inputs to models. UniMRSeg addresses this with a unified network that compensates for differences between complete and incomplete inputs at the input, feature, and output levels.",
+      "The method first combines shuffled masking with modality reconstruction to learn representations for missing inputs through cross-modal fusion. Modality-invariant contrastive learning brings incomplete-input and complete-input representations closer together. A lightweight reverse attention adapter further compensates for weak semantic perception in the frozen encoder. Fine-tuning then applies a hybrid consistency constraint to stabilize predictions across modality combinations.",
+      "Experiments report improvements over state-of-the-art methods under diverse missing-modality scenarios in MRI brain-tumor segmentation, RGB-D semantic segmentation, and RGB-D/T salient-object segmentation. The findings support coordinating several levels of compensation within one network. This offers a practical path toward handling varying input availability while reducing the need to deploy a separate specialized model for each combination."
+    ],
+    "source": "abstract",
+    "sourceAbstractSha256": "3e145de6e3cb30fcb306e742e6971624b40ee0909c72167af8eba86c9a46197b",
+    "tldr": "UniMRSeg compensates for missing modalities at multiple representation levels so one segmentation network can handle varied input combinations."
+  }
+}
