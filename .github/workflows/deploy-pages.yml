@@ -1,4 +1,4 @@
-name: Build static site (manual Pages deployment opt-in)
+name: Build and deploy static site
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
     inputs:
       deploy:
-        description: Deploy the already-built artifact to GitHub Pages (requires Pages support for this private repository)
+        description: Deploy the validated artifact to GitHub Pages for this manual run
         required: true
         default: false
         type: boolean
@@ -49,7 +49,7 @@ jobs:
           retention-days: 7
 
   deploy:
-    if: ${{ github.event_name == 'workflow_dispatch' && inputs.deploy }}
+    if: ${{ (github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event_name == 'workflow_dispatch' && inputs.deploy) }}
     needs: build
     permissions:
       pages: write

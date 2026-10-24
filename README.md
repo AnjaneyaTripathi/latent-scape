@@ -38,4 +38,4 @@ Open the local address printed by Vite. To develop with live reload instead, run
 
 The application is fully static: it has no server, accounts, database, or runtime research API. Its offline pipeline lives in `pipeline/`, and the web application lives in `site/`.
 
-For frozen-snapshot rules, rebuilding stages, configuration, validation, and manual release instructions, read [the maintenance guide](docs/maintaining.md). The supporting technical references are [architecture](docs/architecture.md), [data sources](docs/data-sources.md), and [summary provenance](docs/summary-provenance.md).
+For frozen-snapshot rules, rebuilding stages, configuration, validation, and release instructions, read [the maintenance guide](docs/maintaining.md). The supporting technical references are [architecture](docs/architecture.md), [data sources](docs/data-sources.md), and [summary provenance](docs/summary-provenance.md).

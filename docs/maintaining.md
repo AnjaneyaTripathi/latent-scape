@@ -47,4 +47,6 @@ Read [full build](full-build.md), [narrative authoring](astra-runner.md), and [s
 1. Build the static artifact and run its validator.
 2. Run browser smoke tests for navigation, search, offline behavior, and mobile layouts.
 3. Review the artifact boundary: no PDFs, credentials, build logs, review pages, source audits, or operational metadata may be published.
-4. Use the repository's manual Pages workflow only after the artifact is ready for release. Collection and authoring never run in that workflow.
+4. Push release-ready changes to `main`. The **Build and deploy static site** workflow builds and validates the committed inputs, then automatically deploys the artifact to GitHub Pages only if the build and validation succeed. Collection and authoring never run in that workflow.
+
+Set **Settings → Pages → Build and deployment → Source** to **GitHub Actions** once. To rebuild manually, run **Build and deploy static site** from the Actions tab; check `deploy` to publish that run, or leave it unchecked for a build-only run.
