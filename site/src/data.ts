@@ -1,5 +1,5 @@
 export type ItemType = 'paper' | 'topic';
-export interface SearchDoc { id: string; slug: string; type: ItemType; title: string; abstract?: string; description?: string; venue?: string; year?: number; topicSlugs?: string[]; url?: string; originalUrl?: string; sourceLinkLabel?: string }
+export interface SearchDoc { id: string; slug: string; type: ItemType; title: string; abstract?: string; tldr?: string; description?: string; venue?: string; year?: number; topicSlugs?: string[]; url?: string; originalUrl?: string; sourceLinkLabel?: string }
 export interface Summary {
   tldr: string;
   /** A reader-facing account of the work, authored as 3–5 paragraphs when present. */

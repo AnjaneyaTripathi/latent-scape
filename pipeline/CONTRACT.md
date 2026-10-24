@@ -19,6 +19,15 @@ research, embedding, or LLM API at runtime.
 `topicSlugs`. It is sufficient for keyword search and its ordering fixes the vector
 row order for paper documents.
 
+Paper search documents also carry optional `tldr`, copied exactly and in full from
+the published paper's `summary.tldr` when it is a nonempty string. It is absent
+when no published TLDR exists. Search cards display this complete TLDR; their
+480-character `abstract` field is only for indexing. Full abstracts and summary
+paragraphs remain in paper shards and load when a reader opens the paper details.
+`scripts/build-search-summaries.mjs` refreshes only this projection offline during
+prebuild, preserving document order and vector alignment. It never authors prose
+or modifies paper shards, and keeps `search.json` below the 100 MB asset limit.
+
 `topics.json` is an array. Each topic contains reader-facing fields only:
 `slug`, `title`, `area`, `broadGroupId`, `overview`, `whyItMatters`, `evolution`,
 `openQuestions`, `prerequisites`, `difficulty`, `paperSlugs`, and `relatedTopics`.
@@ -40,8 +49,8 @@ shard must remain below 16 MB. The browser dequantizes components by dividing by
 neighborhood for every topic. First-degree cards contain the complete direct
 union: the root topic's outgoing ranked semantic neighbors first, then
 incoming-only neighbors in deterministic slug order; duplicates and self-links
-are excluded. Selected second-degree cards are known neighbors of those cards
-after every root-adjacent topic is excluded. An edge is included only when either
+are excluded. Second-degree cards contain every known distance-two neighbor of
+those cards after every root-adjacent topic is excluded. An edge is included only when either
 endpoint records that relationship. Each neighborhood has fixed-width (1040px),
 per-neighborhood bounds with a minimum 900px height; positions are for
 navigation and do not imply a spatial similarity metric.

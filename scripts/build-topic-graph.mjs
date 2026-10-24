@@ -13,7 +13,6 @@ const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const INPUT = resolve(ROOT, 'site/public/data/topics.json');
 const OUTPUT = resolve(ROOT, 'site/public/data/topic-graph.json');
 const MAX_OVERVIEW = 240;
-const MAX_SECOND_DEGREE = 6;
 const GRAPH_WIDTH = 1040;
 const MIN_GRAPH_HEIGHT = 900;
 const DIRECT_START_Y = 106;
@@ -117,12 +116,13 @@ function neighborhood(rootTopic) {
     const a = candidates.get(left); const b = candidates.get(right);
     return b.connections - a.connections || a.sourceRank - b.sourceRank || a.slug.localeCompare(b.slug);
   });
-  const second = allSecondDegree.slice(0, MAX_SECOND_DEGREE);
+  // Every genuine distance-two relation is displayed; ranking only fixes order.
+  const second = allSecondDegree;
   const visible = [rootTopic, ...direct, ...second];
   const degreeByTopic = new Map([[rootTopic, 0], ...direct.map((topic) => [topic, 1]), ...second.map((topic) => [topic, 2])]);
   // x/y are card top-left positions, not node centers.
   // Keep the focus card in the initial viewport even for neighborhoods with
-  // many incoming relations; only the direct-neighbor column grows downward.
+  // many related topics; the direct and second-degree columns grow downward.
   const rootPosition = { x: 24, y: 260 };
   const firstPositions = columnPositions(direct.length, 386, CARD_DIMENSIONS.neighbor.height, DIRECT_START_Y);
   const secondPositions = columnPositions(second.length, 746, CARD_DIMENSIONS.neighbor.height, SECOND_START_Y);
@@ -178,6 +178,6 @@ const graph = {
   neighborhoods: topics.map((_, index) => neighborhood(index)),
 };
 const serialized = `${JSON.stringify(graph)}\n`;
-if (Buffer.byteLength(serialized) >= 1_000_000) throw new Error(`Topic graph is too large: ${Buffer.byteLength(serialized)} bytes`);
+if (Buffer.byteLength(serialized) >= 2_000_000) throw new Error(`Topic graph is too large: ${Buffer.byteLength(serialized)} bytes`);
 await writeFile(OUTPUT, serialized);
 console.log(JSON.stringify({ output: OUTPUT, bytes: Buffer.byteLength(serialized), topics: topics.length, neighborhoods: graph.neighborhoods.length }));

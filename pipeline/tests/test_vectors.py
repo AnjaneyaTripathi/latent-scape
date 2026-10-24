@@ -138,7 +138,7 @@ def test_export_strips_editorial_provenance_from_browser_records(tmp_path):
         "url": "https://example.test/paper", "venue": "ICML", "year": 2024,
         "topicSlugs": ["reader-topic"], "citationCount": 3,
         "summary": {
-            "tldr": "A short explanation.", "paragraphs": ["One.", "Two.", "Three."],
+            "tldr": "A complete published explanation. " * 30, "paragraphs": ["One.", "Two.", "Three."],
             "difficulty": "beginner", "model": "gpt-6-astra", "source": "abstract",
             "sourceAbstractSha256": "secret-editorial-hash", "backgroundConcepts": ["reader-topic"],
         },
@@ -163,6 +163,10 @@ def test_export_strips_editorial_provenance_from_browser_records(tmp_path):
         for item in json.loads(path.read_text())
     )
     topic = json.loads((settings.output_dir / "topics.json").read_text())[0]
+    search = json.loads((settings.output_dir / "search.json").read_text())
+    paper_document = next(item for item in search if item["type"] == "paper")
+    assert paper_document["tldr"] == paper["summary"]["tldr"] == papers[0]["summary"]["tldr"]
+    assert "tldr" not in next(item for item in search if item["type"] == "topic")
     assert not {"provenance", "abstractSource", "sourceRecoveryLocked", "summaryEvidenceStatus"}.intersection(paper)
     assert not {"model", "source", "sourceAbstractSha256", "backgroundConcepts"}.intersection(paper["summary"])
     assert not {"provenance", "curationStatus"}.intersection(topic)
@@ -241,3 +245,12 @@ def test_optional_link_repair_normalizes_only_exact_duplicate_markdown_destinati
     ]
     assert next(paper for paper in values if paper["slug"] == "recoverable")["projectUrl"] == "https://project.test"
     assert next(paper for paper in values if paper["slug"] == "unsafe")["projectUrl"] is None
+
+
+def test_export_search_summary_uses_complete_public_tldr_only():
+    from pipeline.export import _search_summary
+
+    tldr = "This published TLDR must never be cut midword. " * 30
+    assert _search_summary({"summary": {"tldr": tldr, "model": "private", "paragraphs": ["Longer explanation"]}}) == {"tldr": tldr}
+    for summary in (None, {}, {"tldr": ""}, {"tldr": 42}):
+        assert _search_summary({"summary": summary}) == {}

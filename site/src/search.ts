@@ -6,12 +6,12 @@ let engine: MiniSearch<SearchDoc> | undefined;
 export let lastSemanticNotice = '';
 
 export function configureSearch(documents: SearchDoc[]) {
-  engine = new MiniSearch<SearchDoc>({ fields: ['title', 'abstract', 'description', 'venue'], storeFields: ['slug', 'type', 'title', 'abstract', 'description', 'venue', 'year', 'topicSlugs', 'url', 'originalUrl', 'sourceLinkLabel'], searchOptions: { prefix: true, fuzzy: 0.2, boost: { title: 4 } } });
+  engine = new MiniSearch<SearchDoc>({ fields: ['title', 'abstract', 'description', 'venue'], storeFields: ['slug', 'type', 'title', 'abstract', 'tldr', 'description', 'venue', 'year', 'topicSlugs', 'url', 'originalUrl', 'sourceLinkLabel'], searchOptions: { prefix: true, fuzzy: 0.2, boost: { title: 4 } } });
   engine.addAll(documents);
 }
 
 export function keywordSearch(query: string) {
-  return engine?.search(query).map((result, index) => ({ item: { id: result.id, slug: result.slug, type: result.type, title: result.title, abstract: result.abstract, description: result.description, venue: result.venue, year: result.year, topicSlugs: result.topicSlugs, url: result.url, originalUrl: result.originalUrl, sourceLinkLabel: result.sourceLinkLabel } as SearchDoc, score: 1 / (60 + index + 1) })) || [];
+  return engine?.search(query).map((result, index) => ({ item: { id: result.id, slug: result.slug, type: result.type, title: result.title, abstract: result.abstract, tldr: result.tldr, description: result.description, venue: result.venue, year: result.year, topicSlugs: result.topicSlugs, url: result.url, originalUrl: result.originalUrl, sourceLinkLabel: result.sourceLinkLabel } as SearchDoc, score: 1 / (60 + index + 1) })) || [];
 }
 
 export async function search(query: string, documents: SearchDoc[]) {

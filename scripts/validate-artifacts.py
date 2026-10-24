@@ -262,7 +262,7 @@ def validate_topic_graph(root: Path, topics: list[dict], errors: list[str]) -> N
                 connections, old_rank, _ = candidate_scores.get(candidate, (0, rank, rows[candidate].get("slug", "")))
                 candidate_scores[candidate] = (connections + 1, min(old_rank, rank), rows[candidate].get("slug", ""))
         second_all = sorted(candidate_scores, key=lambda item: (-candidate_scores[item][0], candidate_scores[item][1], candidate_scores[item][2]))
-        second = second_all[:6]
+        second = second_all
         expected_nodes = [root, *direct, *second]
         nodes = neighborhood.get("nodes")
         if not isinstance(nodes, list) or [node.get("topic") for node in nodes if isinstance(node, dict)] != expected_nodes or [node.get("degree") for node in nodes if isinstance(node, dict)] != [0, *([1] * len(direct)), *([2] * len(second))]:
@@ -372,6 +372,24 @@ def has_remote_asset(value: Any, key: str = "") -> bool:
     }
 
 
+def validate_search_summaries(search: list[dict], papers: list[dict], errors: list[str]) -> None:
+    """Search cards must expose the complete current published TLDR, or none."""
+    papers_by_slug = {paper.get("slug"): paper for paper in papers}
+    for document in search:
+        if not isinstance(document, dict) or document.get("type") != "paper":
+            continue
+        paper = papers_by_slug.get(document.get("slug"))
+        if paper is None:
+            continue  # Corpus membership is checked separately.
+        summary = paper.get("summary")
+        tldr = summary.get("tldr") if isinstance(summary, dict) else None
+        if isinstance(tldr, str) and tldr:
+            if document.get("tldr") != tldr:
+                error(errors, f"search paper {document.get('slug')} TLDR is missing, truncated, or stale")
+        elif "tldr" in document:
+            error(errors, f"search paper {document.get('slug')} has a TLDR without a published summary")
+
+
 def validate_corpus(root: Path, manifest: dict[str, Any], errors: list[str]) -> tuple[list[dict], list[dict], int]:
     """Check that static records form one closed, internally consistent atlas."""
     data = root / "data"
@@ -412,6 +430,7 @@ def validate_corpus(root: Path, manifest: dict[str, Any], errors: list[str]) -> 
         error(errors, "search paper ids do not exactly match paper shards")
     if indexed_topics != topic_set:
         error(errors, "search topic ids do not exactly match topics")
+    validate_search_summaries(search, papers, errors)
 
     summaries = 0
     for paper in papers:

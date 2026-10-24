@@ -162,6 +162,13 @@ def _resolve_source_link(paper: dict, corrections: dict[str, str]) -> tuple[str 
     return None, "Publication record"
 
 
+def _search_summary(paper: dict) -> dict:
+    """Copy the complete reader TLDR without exposing other summary metadata."""
+    summary = _public_summary(paper.get("summary")) or {}
+    tldr = summary.get("tldr")
+    return {"tldr": tldr} if isinstance(tldr, str) and tldr else {}
+
+
 def _summary_coverage(papers: list[dict]) -> dict[str, int]:
     """Report editorial state without treating absent prose as a summary."""
     narrative = legacy = pending = unavailable = 0
@@ -274,7 +281,8 @@ def export_site_data(settings: Settings, corpus: str = "sample") -> dict:
         {"id": paper["slug"], "slug": paper["slug"], "type": "paper", "title": paper["title"],
          "abstract": paper["abstract"], "url": paper["url"], "venue": paper["venue"], "year": paper["year"], "topicSlugs": paper["topicSlugs"],
          "originalUrl": _resolve_source_link(paper, corrections)[0],
-         "sourceLinkLabel": _resolve_source_link(paper, corrections)[1]}
+         "sourceLinkLabel": _resolve_source_link(paper, corrections)[1],
+         **_search_summary(paper)}
         for paper in papers
     ]
     search.extend({"id": topic["slug"], "slug": topic["slug"], "type": "topic", "title": topic["title"],
@@ -294,8 +302,8 @@ def export_site_data(settings: Settings, corpus: str = "sample") -> dict:
               "citationMatchRate": round(sum(p["citationCount"] is not None for p in papers) / len(papers), 4) if papers else 0,
               "sourceLinks": {"directOriginalPapers": source_link_counts["Original paper"],
                               "publicationRecords": source_link_counts["Publication record"]}}
-    # Keep full abstracts in paper shards. Search snippets remain bounded at full
-    # corpus scale, below Pages' individual asset limit.
+    # Keep full abstracts in paper shards and bound the indexing-only excerpts.
+    # Reader cards use the complete published TLDR, which is never truncated.
     for document in search:
         if document.get("type") == "paper":
             document["abstract"] = document["abstract"][:480]

@@ -1,6 +1,10 @@
 import importlib.util
+import json
+import subprocess
 from pathlib import Path
 from xml.etree import ElementTree
+
+import pytest
 
 
 def _validator():
@@ -133,13 +137,20 @@ def test_topic_graph_rejects_out_of_bounds_card_geometry(tmp_path):
     assert any("falls outside bounds" in message for message in errors)
 
 
-def test_topic_graph_requires_every_outgoing_and_incoming_direct_neighbor(tmp_path):
-    """Direct cards retain all known root adjacency, beyond the old five-card cap."""
+def test_topic_graph_requires_every_direct_and_second_degree_neighbor(tmp_path):
+    """Direct and distance-two cards retain complete known membership beyond old caps."""
     validator = _validator()
-    slugs = ["alpha", "beta", "gamma", "delta", "epsilon", "zeta", "eta", "theta"]
+    slugs = [
+        "alpha", "beta", "gamma", "delta", "epsilon", "zeta", "eta", "theta",
+        "lambda", "mu", "nu", "xi", "omicron", "pi", "rho",
+    ]
     topics = [
         {"slug": slug, "title": slug.title(), "area": "Area", "paperSlugs": [slug],
-         "relatedTopics": ["beta", "gamma", "delta", "epsilon", "zeta"] if slug == "alpha" else (["alpha"] if slug in {"eta", "theta"} else [])}
+         "relatedTopics": (
+             ["beta", "gamma", "delta", "epsilon", "zeta"] if slug == "alpha"
+             else (["lambda", "mu", "nu", "xi", "omicron", "pi", "rho"] if slug == "beta"
+                   else (["alpha"] if slug in {"eta", "theta"} else []))
+         )}
         for slug in slugs
     ]
     rows = [
@@ -148,14 +159,21 @@ def test_topic_graph_requires_every_outgoing_and_incoming_direct_neighbor(tmp_pa
         for topic in topics
     ]
     direct = list(range(1, 8))
+    second = list(range(8, 15))
     root_neighborhood = {
         "rootTopic": 0, "bounds": {"width": 1040, "height": 1200},
-        "directNeighborTotal": 7, "secondDegreeTotal": 0,
+        "directNeighborTotal": 7, "secondDegreeTotal": 7,
         "nodes": [{"topic": 0, "degree": 0, "x": 0, "y": 0}, *[
             {"topic": topic, "degree": 1, "x": 20, "y": 20 + index * 130}
             for index, topic in enumerate(direct)
+        ], *[
+            {"topic": topic, "degree": 2, "x": 50, "y": 20 + index * 130}
+            for index, topic in enumerate(second)
         ]],
-        "edges": [{"source": 0, "target": topic, "degree": 1} for topic in direct],
+        "edges": [
+            *[{"source": 0, "target": topic, "degree": 1} for topic in direct],
+            *[{"source": 1, "target": topic, "degree": 2} for topic in second],
+        ],
     }
     graph = {
         "version": 2, "layoutKind": "focused-semantic-neighborhoods", "defaultTopicSlug": "alpha",
@@ -175,7 +193,7 @@ def test_topic_graph_requires_every_outgoing_and_incoming_direct_neighbor(tmp_pa
     assert not any(message.endswith(": 0") for message in errors)
     graph["neighborhoods"][0]["nodes"].pop()
     graph["neighborhoods"][0]["edges"].pop()
-    graph["neighborhoods"][0]["directNeighborTotal"] = 6
+    graph["neighborhoods"][0]["secondDegreeTotal"] = 6
     destination.write_text(__import__("json").dumps(graph))
     errors = []
     validator.validate_topic_graph(tmp_path, topics, errors)
@@ -213,3 +231,72 @@ def test_topic_paper_lists_require_full_ordered_compact_projection(tmp_path):
     errors = []
     validator.validate_topic_paper_lists(tmp_path, topics, papers, errors)
     assert any("membership is incomplete" in message for message in errors)
+
+
+@pytest.mark.parametrize("indexed_tldr", [None, "A complete", "An older summary."])
+def test_search_summaries_reject_missing_truncated_or_stale_tldr(indexed_tldr):
+    validator = _validator()
+    tldr = "A complete published summary. " * 30
+    papers = [{"slug": "p1", "summary": {"tldr": tldr}}]
+    document = {"slug": "p1", "type": "paper"}
+    if indexed_tldr is not None:
+        document["tldr"] = indexed_tldr
+    errors = []
+    validator.validate_search_summaries([document], papers, errors)
+    assert errors == ["search paper p1 TLDR is missing, truncated, or stale"]
+    document["tldr"] = tldr
+    errors = []
+    validator.validate_search_summaries([document], papers, errors)
+    assert not errors
+
+
+@pytest.mark.parametrize("summary", [None, {}, {"tldr": ""}, {"tldr": 42}])
+def test_search_summaries_require_absence_without_published_tldr(summary):
+    validator = _validator()
+    papers = [{"slug": "p1", "summary": summary}]
+    document = {"slug": "p1", "type": "paper", "tldr": None}
+    errors = []
+    validator.validate_search_summaries([document], papers, errors)
+    assert errors == ["search paper p1 has a TLDR without a published summary"]
+    del document["tldr"]
+    errors = []
+    validator.validate_search_summaries([document], papers, errors)
+    assert not errors
+
+
+def test_search_summary_refresh_preserves_full_text_order_and_other_fields(tmp_path):
+    script = Path(__file__).parents[2] / "scripts" / "build-search-summaries.mjs"
+    tldr = "Published Unicode α summary with a complete final sentence. " * 20
+    papers = [
+        {"slug": "p1", "summary": {"tldr": tldr, "paragraphs": ["Full explanation."]}},
+        {"slug": "p2", "summary": None},
+    ]
+    documents = [
+        {"id": "p2", "slug": "p2", "type": "paper", "abstract": "Bounded excerpt", "tldr": "Removed summary."},
+        {"id": "topic", "slug": "topic", "type": "topic", "description": "Unchanged."},
+        {"id": "p1", "slug": "p1", "type": "paper", "abstract": "x" * 480, "tldr": tldr[:480]},
+    ]
+    (tmp_path / "papers").mkdir()
+    shard_path = tmp_path / "papers" / "00.json"
+    shard_path.write_text(json.dumps(papers), encoding="utf-8")
+    shard_before = shard_path.read_bytes()
+    (tmp_path / "manifest.json").write_text(json.dumps({"shards": {"papers": {"00": "papers/00.json"}}}))
+    search_path = tmp_path / "search.json"
+    search_path.write_text(json.dumps(documents, indent=2), encoding="utf-8")
+    first = subprocess.run(["node", str(script), str(tmp_path)], check=True, capture_output=True, text=True)
+    assert json.loads(first.stdout)["updated"] == 1
+    assert json.loads(first.stdout)["removed"] == 1
+    refreshed = json.loads(search_path.read_text(encoding="utf-8"))
+    assert refreshed[2]["tldr"] == tldr
+    assert "tldr" not in refreshed[0]
+    without_tldr = lambda rows: [{key: value for key, value in row.items() if key != "tldr"} for row in rows]
+    assert without_tldr(refreshed) == without_tldr(documents)
+    assert shard_path.read_bytes() == shard_before
+    first_bytes = search_path.read_bytes()
+    second = subprocess.run(["node", str(script), str(tmp_path)], check=True, capture_output=True, text=True)
+    assert json.loads(second.stdout)["updated"] == 0
+    assert json.loads(second.stdout)["removed"] == 0
+    assert search_path.read_bytes() == first_bytes
+    errors = []
+    _validator().validate_search_summaries(refreshed, papers, errors)
+    assert not errors

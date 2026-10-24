@@ -2,7 +2,9 @@ import './style.css';
 import './overrides.css';
 import './topic-graph.css';
 import './topic-papers.css';
-import { atlas, type Paper, type SearchDoc } from './data';
+import './search-cards.css';
+import { atlas, type Paper } from './data';
+import { mountSearchCards } from './search-cards';
 import { renderAbout } from './about';
 import { configureSearch, keywordSearch, lastSemanticNotice, search } from './search';
 import { semanticSearch } from './semantic';
@@ -15,6 +17,7 @@ const href = (path: string) => `#/${encodeURIComponent(path).replace(/%2F/g, '/'
 const link = (kind: 'paper' | 'topic', slug: string, label: string) => `<a href="${href(`${kind}/${slug}`)}">${esc(label)}</a>`;
 const topicLabel = (slug: string) => atlas.topic(slug)?.title || slug.replaceAll('-', ' ');
 let disposeActiveMap: (() => void) | undefined;
+let disposeActiveSearch: (() => void) | undefined;
 const navigation = new NavigationState();
 const renderGate = new RenderGate();
 let hasRenderedRoute = false;
@@ -24,6 +27,7 @@ window.latentscapeSemanticSearch = async (query) => { const results = await sema
 function shell(content: string, renderId?: number) {
   if (renderId !== undefined && !renderGate.isCurrent(renderId)) return false;
   disposeActiveMap?.(); disposeActiveMap = undefined;
+  disposeActiveSearch?.(); disposeActiveSearch = undefined;
   app.innerHTML = `<a class="skip" href="#main">Skip to content</a><aside class="rail"><a class="brand" href="#/discover"><span class="brand-dot"></span>latent<span>scape</span></a><nav aria-label="Primary"><a href="#/discover">Discover</a><a href="#/topics">Topics</a><a href="#/map">Knowledge map</a><a href="#/about">About</a></nav><div class="rail-foot">NeurIPS + ICML<br><span>Research, mapped.</span></div></aside><header class="mobile-head"><a class="brand" href="#/discover">latent<span>scape</span></a><button id="theme" aria-label="Toggle theme">◐</button></header><main id="main" tabindex="-1">${content}</main><button class="theme" id="theme-wide" aria-label="Toggle theme">◐</button>`;
   document.querySelectorAll<HTMLButtonElement>('#theme,#theme-wide').forEach((button) => button.onclick = toggleTheme);
   return true;
@@ -38,6 +42,20 @@ function navigate(path: string) {
 }
 function finishRoute(renderId: number, current: string, intent: ReturnType<NavigationState['consumeIntent']>, waitForAsyncContent = false) {
   if (!renderGate.isCurrent(renderId) || route() !== current) return;
+  const searchResults = document.querySelector<HTMLElement>('#search-results');
+  const active = document.activeElement;
+  const preserveSearchInteraction = Boolean(waitForAsyncContent && searchResults && (
+    searchResults.contains(active)
+    || active === document.querySelector('#search')
+    || document.querySelector('dialog[data-paper-dialog][open]')
+  ));
+  if (preserveSearchInteraction) {
+    // Semantic search can finish after a reader has opened a card. Do not turn
+    // that completion into a route-level scroll or focus change.
+    pendingHistoryScroll = undefined;
+    hasRenderedRoute = true;
+    return;
+  }
   const position = intent === 'restore' ? restoreScroll(sessionStorage, current) : undefined;
   pendingHistoryScroll = position ? { renderId, position } : undefined;
   window.scrollTo(position?.left ?? 0, position?.top ?? 0);
@@ -50,15 +68,11 @@ function finishRoute(renderId: number, current: string, intent: ReturnType<Navig
 }
 function finishDeferredScroll(renderId: number) {
   if (!renderGate.isCurrent(renderId) || pendingHistoryScroll?.renderId !== renderId) return;
+  if (document.querySelector('dialog[data-paper-dialog][open]')) { pendingHistoryScroll = undefined; return; }
   window.scrollTo(pendingHistoryScroll.position.left, pendingHistoryScroll.position.top);
   pendingHistoryScroll = undefined;
 }
 
-function card(doc: SearchDoc) {
-  const type = doc.type === 'topic' ? 'Topic' : `${doc.venue || 'Paper'} · ${doc.year || ''}`;
-  const sourceUrl = doc.originalUrl || doc.url;
-  return `<article class="card ${doc.type}"><p class="eyebrow">${esc(type)}</p><h3>${link(doc.type, doc.slug, doc.title)}</h3><p>${esc(doc.description || doc.abstract || 'Explore this part of the research landscape.').slice(0, 210)}</p>${doc.type === 'paper' && sourceUrl ? `<a class="source-link" href="${esc(sourceUrl)}" target="_blank" rel="noreferrer">${esc(doc.sourceLinkLabel || 'Original paper')} ↗</a>` : ''}<span class="arrow">→</span></article>`;
-}
 function graphArt() { return `<svg class="hero-graph" viewBox="0 0 620 370" aria-label="Illustration of a connected research graph" role="img"><g stroke="currentColor" stroke-opacity=".23" fill="none"><path d="M87 284 185 190 303 243 440 161 543 215M185 190 235 82 385 91 440 161M303 243 371 320 543 215M87 284 371 320M235 82 303 243" /></g><g fill="currentColor"><circle cx="87" cy="284" r="7"/><circle cx="185" cy="190" r="13"/><circle cx="235" cy="82" r="8"/><circle cx="303" cy="243" r="20"/><circle cx="385" cy="91" r="10"/><circle cx="440" cy="161" r="17"/><circle cx="543" cy="215" r="8"/><circle cx="371" cy="320" r="11"/></g><g class="graph-label"><text x="53" y="312">optimisation</text><text x="168" y="169">representation</text><text x="282" y="278">learning</text><text x="422" y="145">generative</text></g></svg>`; }
 
 async function discover(renderId: number) {
@@ -75,19 +89,28 @@ async function discover(renderId: number) {
   });
 }
 
-function paperCard(paper: Paper) { return `<article class="paper-card"><p class="eyebrow">${esc(paper.venue)} · ${paper.year}</p><h3>${link('paper', paper.slug, paper.title)}</h3><p>${esc(paper.summary?.tldr || paper.abstract).slice(0, 180)}</p>${paper.summary ? `<small class="ai-label">AI-generated summary</small> ${officialLink(paper)}` : ''}<div>${paper.topicSlugs?.slice(0, 2).map((slug) => `<span class="tag">${esc(topicLabel(slug))}</span>`).join('') || ''}</div></article>`; }
+function paperCard(paper: Paper) { return `<article class="paper-card"><p class="eyebrow">${esc(paper.venue)} · ${paper.year}</p><h3>${link('paper', paper.slug, paper.title)}</h3><p>${paper.summary ? esc(paper.summary.tldr) : 'Read the original abstract on the paper page.'}</p>${paper.summary ? `<small class="ai-label">AI-generated summary</small> ${officialLink(paper)}` : ''}<div>${paper.topicSlugs?.slice(0, 2).map((slug) => `<span class="tag">${esc(topicLabel(slug))}</span>`).join('') || ''}</div></article>`; }
 
 async function searchPage(query = '', renderId: number) {
-  if (!shell(`<section class="page-top"><p class="kicker">SEARCH LATENTSCAPE</p><h1>Where should we begin?</h1><form id="search-form" class="searchbox wide"><label class="sr-only" for="search">Search topics and papers</label><input id="search" value="${esc(query)}" placeholder="A method, problem, or plain-language question" autofocus /><button>Search</button></form><div id="search-results" aria-live="polite">${query ? '<p class="loading-inline">Loading the search index…</p>' : '<p class="empty">Search mixes concepts and papers, then follows the meaning of your query.</p>'}</div></section>`, renderId)) return;
+  if (!shell(`<section class="page-top"><p class="kicker">SEARCH LATENTSCAPE</p><h1>Where should we begin?</h1><form id="search-form" class="searchbox wide"><label class="sr-only" for="search">Search topics and papers</label><input id="search" value="${esc(query)}" placeholder="A method, problem, or plain-language question" autofocus /><button>Search</button></form><div id="search-results">${query ? '<p class="loading-inline" aria-live="polite">Loading the search index…</p>' : '<p class="empty">Search mixes concepts and papers, then follows the meaning of your query.</p>'}</div></section>`, renderId)) return;
   document.querySelector<HTMLFormElement>('#search-form')!.onsubmit = (event) => { event.preventDefault(); navigate(`search?q=${encodeURIComponent(document.querySelector<HTMLInputElement>('#search')!.value.trim())}`); };
   if (!query) return;
-  const target = document.querySelector('#search-results');
+  const target = document.querySelector<HTMLElement>('#search-results');
   if (!target) return;
   const documents = await atlas.ensureSearch();
   if (!renderGate.isCurrent(renderId)) return;
   configureSearch(documents);
-  const show = (results: Awaited<ReturnType<typeof search>>, note = '') => { if (!renderGate.isCurrent(renderId) || !target.isConnected || document.querySelector<HTMLInputElement>('#search')?.value !== query) return; target.innerHTML = results.length ? `<p class="result-count">${results.length} results${note ? ` · ${note}` : ''}</p><section class="results">${results.map((result) => card(result.item)).join('')}</section>` : `<p class="empty">No close matches yet. Try a broader idea or a named method.</p>`; };
-  show(keywordSearch(query), 'Loading semantic search…');
+  target.innerHTML = '<p class="result-count" data-search-result-count aria-live="polite"></p><section class="results" data-search-results></section>';
+  const cards = mountSearchCards(target.querySelector<HTMLElement>('[data-search-results]')!);
+  disposeActiveSearch = cards.dispose;
+  const show = (results: Awaited<ReturnType<typeof search>>, note = '') => {
+    if (!renderGate.isCurrent(renderId) || !target.isConnected || document.querySelector<HTMLInputElement>('#search')?.value !== query) return;
+    const count = target.querySelector<HTMLElement>('[data-search-result-count]');
+    if (!results.length) { if (count) count.textContent = 'No close matches yet. Try a broader idea or a named method.'; cards.render([]); return; }
+    if (count) count.textContent = `${results.length} results${note ? ` · ${note}` : ''}`;
+    cards.render(results.map((result) => result.item));
+  };
+  show(keywordSearch(query).slice(0, 40), 'Loading semantic search…');
   show(await search(query, documents), lastSemanticNotice);
   finishDeferredScroll(renderId);
 }

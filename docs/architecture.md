@@ -9,10 +9,12 @@ The browser loads the application shell and lightweight navigation data first. S
 The knowledge map reads `topic-graph.json`, a precomputed focused semantic
 neighbourhood for each topic. First-degree cards contain every known direct
 semantic relation: the source topic's ranked outgoing neighbours followed by
-incoming-only neighbours in deterministic order. Selected second-degree cards
-are known neighbours of those cards, excluding every direct root relation.
-Each neighbourhood stores its own measured bounds so a long direct-neighbour
-column grows downward while the focus card remains in the initial viewport.
+incoming-only neighbours in deterministic order. Second-degree cards contain
+every known distance-two neighbour of those cards, excluding every direct root
+relation.
+Each neighbourhood stores its own measured bounds so long direct- and
+second-degree columns grow downward while the focus card remains in the initial
+viewport.
 Stored card positions avoid a runtime layout, and lines are emitted only for an
 existing semantic relation (never an inferred citation or similarity).
 

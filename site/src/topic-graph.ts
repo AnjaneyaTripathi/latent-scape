@@ -64,13 +64,11 @@ export function mountTopicGraph(container: HTMLElement, data: TopicGraphData, sl
       const content = `${isRoot ? `<p class="topic-graph-area">${esc(topic.area || 'Research area')}</p>` : ''}<h2>${esc(topic.title)}</h2>${isRoot ? `<p class="topic-graph-overview">${esc(topic.overview || 'Explore the papers and related concepts for this topic.')}</p>` : ''}<p class="topic-graph-count">${count(topic.paperCount)} papers</p>`;
       return isRoot ? `<article class="${classes}" ${attrs}>${content}<a data-graph-read-topic href="#/topic/${encodeURIComponent(topic.slug)}">Read topic <span aria-hidden="true">→</span></a></article>` : `<a class="${classes}" ${attrs} href="#/map?topic=${encodeURIComponent(topic.slug)}&depth=${twoHop.checked ? '2' : '1'}">${content}<span class="topic-graph-action">Explore connections <span aria-hidden="true">→</span></span></a>`;
     }).join('');
-    const shownDirect = visible.filter((node) => node.degree === 1).length;
-    const shownSecond = visible.filter((node) => node.degree === 2).length;
-    const directCaption = neighborhood.directNeighborTotal > shownDirect ? `${shownDirect} of ${neighborhood.directNeighborTotal} direct neighbours` : `${shownDirect} direct neighbours`;
-    const secondCaption = neighborhood.secondDegreeTotal > shownSecond ? `${shownSecond} of ${neighborhood.secondDegreeTotal} second-degree neighbours` : `${shownSecond} second-degree neighbours`;
-    const subset = `<p class="topic-graph-subset">${directCaption}${twoHop.checked ? ` · ${secondCaption}` : ''}</p>`;
-    graphRoot.style.setProperty('--graph-height', `${neighborhood.bounds.height}px`);
-    graphRoot.innerHTML = `<svg class="topic-graph-edges" viewBox="0 0 ${neighborhood.bounds.width} ${neighborhood.bounds.height}" aria-hidden="true">${svgEdges}</svg><div class="topic-graph-column focus">Focus topic</div><div class="topic-graph-column direct">Direct neighbours <span>${neighborhood.directNeighborTotal}</span></div>${twoHop.checked ? '<div class="topic-graph-column second">Second-degree neighbours</div>' : ''}${subset}${cards}`;
+    const dimensions = (node: GraphNode) => node.degree === 0 ? data.cardDimensions.root : data.cardDimensions.neighbor;
+    const activeHeight = Math.max(900, ...visible.map((node) => node.y + dimensions(node).height + 60));
+    const subset = `<p class="topic-graph-subset">${neighborhood.directNeighborTotal} direct neighbours${twoHop.checked ? ` · ${neighborhood.secondDegreeTotal} second-degree neighbours` : ''}</p>`;
+    graphRoot.style.setProperty('--graph-height', `${activeHeight}px`);
+    graphRoot.innerHTML = `<svg class="topic-graph-edges" viewBox="0 0 ${neighborhood.bounds.width} ${activeHeight}" aria-hidden="true">${svgEdges}</svg><div class="topic-graph-column focus">Focus topic</div><div class="topic-graph-column direct">Direct neighbours <span>${neighborhood.directNeighborTotal}</span></div>${twoHop.checked ? `<div class="topic-graph-column second">Second-degree neighbours <span>${neighborhood.secondDegreeTotal}</span></div>` : ''}${subset}${cards}`;
     graphRoot.querySelectorAll<HTMLElement>('.topic-graph-card').forEach((card) => {
       const index = Number(card.dataset.topicIndex);
       const emphasize = (on: boolean) => graphRoot.querySelectorAll<SVGPathElement>('.topic-graph-edge').forEach((edge) => edge.classList.toggle('is-related', on && (Number(edge.dataset.edgeSource) === index || Number(edge.dataset.edgeTarget) === index)));

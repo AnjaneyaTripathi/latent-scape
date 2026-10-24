@@ -58,7 +58,7 @@ for (const neighborhood of graphData.neighborhoods) {
   const directNodes = new Set(neighborhood.nodes.filter((node) => node.degree === 1).map((node) => node.topic));
   const secondNodes = new Set(neighborhood.nodes.filter((node) => node.degree === 2).map((node) => node.topic));
   if (!sameSet(directNodes, direct)) throw new Error(`root ${root} does not render the exact outgoing+incoming direct-neighbor union`);
-  if (![...secondNodes].every((node) => second.has(node)) || [...secondNodes].some((node) => direct.has(node) || node === root)) throw new Error(`root ${root} renders a second-degree node that is not genuine graph distance two`);
+  if (!sameSet(secondNodes, second) || [...secondNodes].some((node) => direct.has(node) || node === root)) throw new Error(`root ${root} does not render the complete known undirected distance-two set`);
   if (neighborhood.directNeighborTotal !== direct.size || neighborhood.secondDegreeTotal !== second.size) throw new Error(`root ${root} neighborhood totals do not match its complete graph distances`);
   const bounds = neighborhood.bounds;
   if (!bounds || bounds.width !== 1040 || !Number.isFinite(bounds.height) || bounds.height < 900) throw new Error(`root ${root} has invalid per-neighborhood bounds`);
@@ -138,12 +138,20 @@ try {
   };
   const screenshot = async (name, target = graph) => {
     await page.waitForTimeout(500);
-    await target.screenshot({ path: `/tmp/latentscape-graph-${name}${screenshotSuffix}.png` });
+    // A complete distance-two neighborhood can be very tall. Preserve a useful
+    // viewport capture without creating impractically large PNG artifacts.
+    const targetHeight = await target.boundingBox().then((box) => box?.height || 0);
+    if (targetHeight <= 1800) await target.screenshot({ path: `/tmp/latentscape-graph-${name}${screenshotSuffix}.png` });
+    else {
+      await page.evaluate(() => window.scrollTo(0, 0));
+      await page.screenshot({ path: `/tmp/latentscape-graph-${name}${screenshotSuffix}.png` });
+    }
     // Locator screenshots scroll their target into view. Reset before the
     // full-page capture so fixed navigation is never recorded mid-document.
     await page.evaluate(() => window.scrollTo(0, 0));
     await page.waitForTimeout(50);
-    await page.screenshot({ path: `/tmp/latentscape-graph-${name}${screenshotSuffix}-page.png`, fullPage: true });
+    const pageHeight = await page.evaluate(() => document.documentElement.scrollHeight);
+    await page.screenshot({ path: `/tmp/latentscape-graph-${name}${screenshotSuffix}-page.png`, fullPage: pageHeight <= 3000 });
   };
   const screenshotControls = async (name) => {
     await page.waitForTimeout(500);
@@ -186,6 +194,12 @@ try {
     }));
     assert(!overflowing, `${name} graph card text is clipped or overflows its card`);
   };
+  const activeHeight = (rootIndex, includeSecond) => {
+    const neighborhood = graphData.neighborhoods[rootIndex];
+    const visible = neighborhood.nodes.filter((node) => includeSecond || node.degree <= 1);
+    const bottom = Math.max(...visible.map((node) => node.y + (node.degree === 0 ? graphData.cardDimensions.root.height : graphData.cardDimensions.neighbor.height)));
+    return Math.max(900, bottom + 60);
+  };
   const assertRenderedNeighborhood = async (rootIndex, name, includeSecond = true) => {
     const expectedDirect = directFor(rootIndex);
     const expectedSecond = secondFor(rootIndex);
@@ -194,6 +208,8 @@ try {
       caption: document.querySelector('.topic-graph-subset')?.textContent || '',
       height: document.querySelector('#topic-graph')?.getBoundingClientRect().height || 0,
       viewBox: document.querySelector('.topic-graph-edges')?.getAttribute('viewBox') || '',
+      headings: [...document.querySelectorAll('.topic-graph-column')].map((heading) => heading.textContent?.replace(/\s+/g, ' ').trim() || ''),
+      edgeBoxes: [...document.querySelectorAll('.topic-graph-edge')].map((edge) => { const box = edge.getBBox(); return { x: box.x, y: box.y, right: box.x + box.width, bottom: box.y + box.height }; }),
       cards: [...document.querySelectorAll('.topic-graph-card')].map((card) => {
         const box = card.getBoundingClientRect(); const title = card.querySelector('h2')?.getBoundingClientRect();
         return { left: box.left, right: box.right, top: box.top, bottom: box.bottom, title: title && { left: title.left, right: title.right, top: title.top, bottom: title.bottom }, scrollWidth: card.scrollWidth, clientWidth: card.clientWidth, scrollHeight: card.scrollHeight, clientHeight: card.clientHeight };
@@ -204,15 +220,22 @@ try {
     const actualDirect = new Set(rendered.nodes.filter((node) => node.degree === 1).map((node) => node.index));
     const actualSecond = new Set(rendered.nodes.filter((node) => node.degree === 2).map((node) => node.index));
     assert(sameSet(actualDirect, expectedDirect), `${name} rendered direct neighbors are not the exact outgoing+incoming union`);
-    assert(includeSecond && [...actualSecond].every((node) => expectedSecond.has(node) && !expectedDirect.has(node) && node !== rootIndex) || !includeSecond && actualSecond.size === 0, `${name} rendered second-degree neighbors are not genuine graph distance two`);
+    assert(includeSecond && sameSet(actualSecond, expectedSecond) && [...actualSecond].every((node) => !expectedDirect.has(node) && node !== rootIndex) || !includeSecond && actualSecond.size === 0, `${name} rendered second-degree neighbors are not the complete genuine distance-two set`);
     assert(rendered.nodes.length === new Set(rendered.nodes.map((node) => node.index)).size, `${name} rendered duplicate topic cards`);
     assert(rendered.caption.includes(`${expectedDirect.size} direct neighbours`), `${name} direct-neighbor count label is incorrect: ${rendered.caption}`);
-    if (includeSecond) assert(rendered.caption.includes(`${actualSecond.size}${expectedSecond.size > actualSecond.size ? ` of ${expectedSecond.size}` : ''} second-degree neighbours`), `${name} second-degree count label is incorrect: ${rendered.caption}`);
+    assert(rendered.headings.some((heading) => heading.includes(`Direct neighbours ${expectedDirect.size}`)), `${name} direct-neighbor heading count is incorrect: ${rendered.headings.join(' | ')}`);
+    if (includeSecond) {
+      assert(rendered.caption.includes(`${expectedSecond.size} second-degree neighbours`), `${name} second-degree count label is incorrect: ${rendered.caption}`);
+      assert(rendered.headings.some((heading) => heading.includes(`Second-degree neighbours ${expectedSecond.size}`)), `${name} second-degree heading count is incorrect: ${rendered.headings.join(' | ')}`);
+    }
     const expectedBounds = graphData.neighborhoods[rootIndex].bounds;
-    assert(Math.abs(rendered.height - expectedBounds.height) < 2, `${name} graph height (${rendered.height}) does not match its per-neighborhood bounds (${expectedBounds.height})`);
-    assert(rendered.viewBox === `0 0 ${expectedBounds.width} ${expectedBounds.height}`, `${name} graph SVG does not use its active neighborhood bounds (${rendered.viewBox})`);
-    assert(rendered.deepestCardBottom <= expectedBounds.height, `${name} deepest graph card escapes its active bounds (${rendered.deepestCardBottom} > ${expectedBounds.height})`);
-    assert(rendered.captionBottom <= expectedBounds.height, `${name} graph count caption escapes its active bounds (${rendered.captionBottom} > ${expectedBounds.height})`);
+    const expectedHeight = activeHeight(rootIndex, includeSecond);
+    if (includeSecond) assert(expectedBounds.height === expectedHeight, `${name} artifact bounds do not fit its complete neighborhood (${expectedBounds.height} !== ${expectedHeight})`);
+    assert(Math.abs(rendered.height - expectedHeight) < 2, `${name} graph height (${rendered.height}) does not fit its visible cards (${expectedHeight})`);
+    assert(rendered.viewBox === `0 0 ${expectedBounds.width} ${expectedHeight}`, `${name} graph SVG does not use its active visible bounds (${rendered.viewBox})`);
+    assert(rendered.deepestCardBottom <= expectedHeight, `${name} deepest graph card escapes its active bounds (${rendered.deepestCardBottom} > ${expectedHeight})`);
+    assert(rendered.captionBottom <= expectedHeight, `${name} graph count caption escapes its active bounds (${rendered.captionBottom} > ${expectedHeight})`);
+    assert(rendered.edgeBoxes.every((edge) => edge.x >= -1 && edge.y >= -1 && edge.right <= expectedBounds.width + 1 && edge.bottom <= expectedHeight + 1), `${name} graph edge escapes its active bounds`);
     const cardsOverlap = rendered.cards.some((a, index) => rendered.cards.slice(index + 1).some((b) => a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top));
     assert(!cardsOverlap, `${name} rendered graph cards overlap`);
     const clipped = rendered.cards.some((card) => card.scrollWidth > card.clientWidth + 1 || card.scrollHeight > card.clientHeight + 1 || (card.title && (card.title.left < card.left - 1 || card.title.right > card.right + 1 || card.title.top < card.top - 1 || card.title.bottom > card.bottom + 1)));
@@ -322,11 +345,11 @@ try {
   }
   await page.goto(mapUrl(), { waitUntil: 'networkidle' }); await ready();
 
-  const highDegree = graphData.neighborhoods.reduce((best, item) => item.directNeighborTotal > best.directNeighborTotal ? item : best, graphData.neighborhoods[0]);
+  const highDegree = graphData.neighborhoods.reduce((best, item) => item.secondDegreeTotal > best.secondDegreeTotal ? item : best, graphData.neighborhoods[0]);
   const highTopic = graphData.topics[highDegree.rootTopic];
   await page.goto(mapUrl(highTopic.slug), { waitUntil: 'networkidle' }); await ready(highTopic.slug);
-  await assertRenderedNeighborhood(highDegree.rootTopic, 'highest-degree');
-  await screenshot('highest-degree');
+  await assertRenderedNeighborhood(highDegree.rootTopic, 'largest-second-degree');
+  await screenshot('largest-second-degree');
   await page.goto(mapUrl(), { waitUntil: 'networkidle' }); await ready();
 
   const read = root.locator('[data-graph-read-topic]');
