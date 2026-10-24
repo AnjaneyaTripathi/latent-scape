@@ -144,7 +144,7 @@ try {
   // Topic pages are long enough to reproduce the original issue: a paper card
   // selected below the fold must open at its own heading, while Back restores
   // the reader to the card they chose.
-  const topicPaper = page.locator('.grid.featured .paper-card h3 a[href^="#/paper/"]').first();
+  const topicPaper = page.locator('.topic-paper-preview .topic-paper-row h3 a[href^="#/paper/"]').first();
   if (await topicPaper.count()) {
     const sourceScroll = await page.evaluate(() => {
       const top = Math.min(700, Math.max(0, document.documentElement.scrollHeight - innerHeight));
@@ -169,13 +169,17 @@ try {
 
   await page.goto(`${base}/latent-scape/#/map`, { waitUntil: 'networkidle' });
   const topicPicker = page.locator('#map-topic');
+  const topicSearch = page.locator('#map-topic-search');
+  const topicList = page.locator('#map-topic-listbox');
   await topicPicker.waitFor();
-  const optionCount = await topicPicker.locator('option').count();
+  await topicPicker.click(); await topicSearch.waitFor();
+  const optionCount = await topicList.locator('[role="option"]').count();
   await assert(dataManifest.totalTopics === 256, `map fixture has ${dataManifest.totalTopics} topics, expected 256`);
   await assert(optionCount === 256, `map topic picker has ${optionCount} topics, expected 256`);
-  await topicPicker.selectOption({ index: 1 });
-  const mapSelection = await topicPicker.inputValue();
-  const selectedTitle = await topicPicker.locator('option:checked').textContent();
+  const option = topicList.locator('[role="option"]').nth(1);
+  const mapSelection = await option.getAttribute('data-topic-picker-option');
+  const selectedTitle = await option.locator('span').textContent();
+  await option.click();
   await page.waitForFunction((slug) => document.querySelector('.topic-graph-card.is-root')?.dataset.topicSlug === slug, mapSelection);
   const readTopic = page.locator('.topic-graph-card.is-root [data-graph-read-topic]');
   await readTopic.focus();

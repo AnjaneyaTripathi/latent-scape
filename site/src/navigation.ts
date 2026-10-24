@@ -15,6 +15,13 @@ export function parseHashRoute(hash: string): ParsedRoute {
   const encoded = hash.replace(/^#\/?/, '');
   if (!encoded || encoded === 'main') return { path: 'discover', query: '', value: 'discover' };
   try {
+    const rawSeparator = encoded.indexOf('?');
+    if (rawSeparator !== -1) {
+      const path = decodeURIComponent(encoded.slice(0, rawSeparator));
+      const query = encoded.slice(rawSeparator + 1);
+      if (!path || path === 'main') return { path: 'discover', query: '', value: 'discover' };
+      return { path, query, value: `${path}?${query}` };
+    }
     const outer = decodeURIComponent(encoded);
     const separator = outer.indexOf('?');
     const path = separator === -1 ? outer : outer.slice(0, separator);

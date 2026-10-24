@@ -7,7 +7,7 @@ Latentscape is a static guide to machine-learning research from NeurIPS and ICML
 The site offers these ways into the collection:
 
 - **Search** accepts plain-language queries and returns relevant papers and topics.
-- **Topic pages** explain an idea, its development, related concepts, and a selection of early and recent papers.
+- **Topic pages** explain an idea, its development, related concepts, and every paper in the topic through a paginated list.
 - **Knowledge map** starts from a topic and shows its closest semantic neighbours and selected second-degree connections.
 - **Paper pages** show the unchanged source abstract when available, followed by a clearly labelled AI-generated TL;DR and plain-language explanation. Each page includes the available original-source or publication-record link.
 

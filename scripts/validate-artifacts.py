@@ -52,12 +52,13 @@ FORBIDDEN_PAPER_FIELDS = {
 FORBIDDEN_SUMMARY_FIELDS = {"model", "sourceAbstractSha256", "source"}
 FORBIDDEN_TOPIC_FIELDS = {"provenance", "curationStatus"}
 LEGAL_FILES = {"LICENSE", "NOTICE", "ThirdPartyNotices.txt"}
-STATIC_RUNTIME_FILES = {"index.html", "sw.js"}
+STATIC_RUNTIME_FILES = {"index.html", "sw.js", "favicon.svg"}
 STATIC_DATA_FILES = set(DATA_FILES) | {"data/glossary.json"}
 WASM_FILE = re.compile(r"wasm/ort-wasm-[A-Za-z0-9_.-]+\.(?:wasm|mjs)$")
 ASSET_FILE = re.compile(r"assets/[A-Za-z0-9_.-]+\.(?:js|css|wasm)$")
 PAPER_SHARD = re.compile(r"papers/[0-9a-f]{2}\.json$")
 VECTOR_SHARD = re.compile(r"vectors/[0-9]{4}\.i8$")
+TOPIC_PAPER_FILE = re.compile(r"topic-papers/[a-z0-9][a-z0-9-]*\.json$")
 
 
 def error(errors: list[str], message: str) -> None:
@@ -147,6 +148,17 @@ def validate_public_paths(root: Path, files: list[Path], manifest: dict[str, Any
             safe = _safe_dynamic_path(shard.get("path") if isinstance(shard, dict) else None, VECTOR_SHARD)
             if safe is None:
                 error(errors, "vectors has invalid shard allowlist entry")
+            else:
+                allowed.add(f"data/{safe}")
+    topics = require_json(root / "data" / "topics.json", errors)
+    if not isinstance(topics, list):
+        error(errors, "topics must be available for topic-paper static allowlist validation")
+    else:
+        for topic in topics:
+            slug = topic.get("slug") if isinstance(topic, dict) else None
+            safe = _safe_dynamic_path(f"topic-papers/{slug}.json" if isinstance(slug, str) else None, TOPIC_PAPER_FILE)
+            if safe is None:
+                error(errors, "topics has invalid slug for topic-paper allowlist")
             else:
                 allowed.add(f"data/{safe}")
     for path in files:
@@ -266,6 +278,67 @@ def validate_topic_graph(root: Path, topics: list[dict], errors: list[str]) -> N
                 if rectangle[0] < other[0] + other[2] and other[0] < rectangle[0] + rectangle[2] and rectangle[1] < other[1] + other[3] and other[1] < rectangle[1] + rectangle[3]:
                     error(errors, f"topic graph cards overlap: {root}")
             rectangles.append(rectangle)
+
+
+def validate_topic_paper_lists(root: Path, topics: list[dict], papers: list[dict], errors: list[str]) -> None:
+    """Ensure every complete topic list is a faithful compact projection."""
+    paper_by_slug = {paper.get("slug"): paper for paper in papers if isinstance(paper.get("slug"), str)}
+    required_topic_fields = {
+        "slug", "title", "area", "overview", "whyItMatters", "evolution", "openQuestions", "difficulty", "paperCount",
+    }
+    for topic in topics:
+        slug = topic.get("slug") if isinstance(topic, dict) else None
+        if not isinstance(slug, str) or not TOPIC_PAPER_FILE.fullmatch(f"topic-papers/{slug}.json"):
+            error(errors, "topic-paper list has invalid topic slug")
+            continue
+        value = require_json(root / "data" / "topic-papers" / f"{slug}.json", errors)
+        if not isinstance(value, dict) or set(value) != {"version", "topic", "relatedTopics", "prerequisites", "papers"} or value.get("version") != 1:
+            error(errors, f"topic-paper list has invalid schema: {slug}")
+            continue
+        context = value.get("topic")
+        if not isinstance(context, dict) or set(context) != required_topic_fields:
+            error(errors, f"topic-paper list exposes unsupported topic fields: {slug}")
+            continue
+        expected_context = {field: topic.get(field) for field in required_topic_fields if field != "paperCount"}
+        expected_context["paperCount"] = len(topic.get("paperSlugs") or [])
+        if context != expected_context:
+            error(errors, f"topic-paper context is stale or inconsistent: {slug}")
+        topic_lookup = {item.get("slug"): item for item in topics if isinstance(item, dict)}
+        expected_related = [
+            {"slug": related_slug, "title": topic_lookup[related_slug].get("title"), "paperCount": len(topic_lookup[related_slug].get("paperSlugs") or [])}
+            for related_slug in topic.get("relatedTopics") or [] if related_slug in topic_lookup
+        ]
+        expected_prerequisites = [
+            {"slug": prerequisite_slug, "title": topic_lookup[prerequisite_slug].get("title")}
+            for prerequisite_slug in topic.get("prerequisites") or [] if prerequisite_slug in topic_lookup
+        ]
+        if len(expected_related) != len(topic.get("relatedTopics") or []) or value.get("relatedTopics") != expected_related:
+            error(errors, f"topic-paper related topics are stale or inconsistent: {slug}")
+        if len(expected_prerequisites) != len(topic.get("prerequisites") or []) or value.get("prerequisites") != expected_prerequisites:
+            error(errors, f"topic-paper prerequisites are stale or inconsistent: {slug}")
+        rows = value.get("papers")
+        expected_slugs = topic.get("paperSlugs") or []
+        if not isinstance(rows, list) or [row.get("slug") for row in rows if isinstance(row, dict)] != expected_slugs or len(rows) != len(set(expected_slugs)):
+            error(errors, f"topic-paper membership is incomplete, duplicated, or out of order: {slug}")
+            continue
+        for row in rows:
+            if not isinstance(row, dict) or not set(row).issubset({"slug", "title", "authors", "year", "venue", "sourceUrl", "sourceLinkLabel", "tldr"}) or not {"slug", "title", "authors", "year", "venue", "sourceUrl", "sourceLinkLabel"}.issubset(row):
+                error(errors, f"topic-paper row exposes unsupported fields: {slug}")
+                continue
+            source = paper_by_slug.get(row.get("slug"))
+            if not source:
+                error(errors, f"topic-paper row has missing paper: {slug}")
+                continue
+            expected_url = source.get("originalUrl") or source.get("url")
+            expected = {
+                "slug": source.get("slug"), "title": source.get("title"), "authors": source.get("authors"),
+                "year": source.get("year"), "venue": source.get("venue"), "sourceUrl": expected_url,
+                "sourceLinkLabel": source.get("sourceLinkLabel"),
+            }
+            if isinstance((source.get("summary") or {}).get("tldr"), str) and source["summary"]["tldr"]:
+                expected["tldr"] = source["summary"]["tldr"]
+            if row != expected or not valid_outbound_paper_url(row.get("sourceUrl")):
+                error(errors, f"topic-paper row is stale or has invalid source metadata: {slug}/{row.get('slug')}")
 
 
 def has_remote_asset(value: Any, key: str = "") -> bool:
@@ -432,6 +505,7 @@ def main() -> int:
         validate_public_paths(root, files, manifest, errors)
         papers, topics, summaries = validate_corpus(root, manifest, errors)
         validate_topic_graph(root, topics, errors)
+        validate_topic_paper_lists(root, topics, papers, errors)
     else:
         _papers, topics, summaries = [], [], 0
     if args.expected_summaries is not None and summaries != args.expected_summaries:

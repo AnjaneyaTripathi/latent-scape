@@ -47,6 +47,20 @@ describe('route navigation', () => {
     expect(new URLSearchParams(parsed.query).get('q')).toBe('L1 & L2 regularization ? % κ');
   });
 
+  it('keeps a normal topic hash query opaque until URLSearchParams decodes it', () => {
+    const parsed = parseHashRoute('#/topic/valid-topic?tab=papers&q=A%26B%2BC%25%3F%CE%BA');
+
+    expect(parsed.path).toBe('topic/valid-topic');
+    expect(new URLSearchParams(parsed.query).get('q')).toBe('A&B+C%?κ');
+  });
+
+  it('supports a legacy outer-encoded topic query with special characters', () => {
+    const parsed = parseHashRoute('#/topic%2Fvalid-topic%3Ftab%3Dpapers%26q%3DA%2526B%252BC%2525%253F%25CE%25BA');
+
+    expect(parsed.path).toBe('topic/valid-topic');
+    expect(new URLSearchParams(parsed.query).get('q')).toBe('A&B+C%?κ');
+  });
+
   it('falls back safely for a malformed hash escape', () => {
     expect(parseHashRoute('#/paper/%E0%A4%A')).toEqual({ path: 'discover', query: '', value: 'discover' });
   });

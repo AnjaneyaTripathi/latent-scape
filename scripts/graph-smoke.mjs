@@ -84,6 +84,10 @@ try {
   });
   const graph = page.locator('#topic-graph[data-topic-graph-ready="true"]');
   const picker = page.locator('#map-topic');
+  const pickerSearch = page.locator('#map-topic-search');
+  const pickerList = page.locator('#map-topic-listbox');
+  const pickerClear = page.locator('[data-topic-picker-clear]');
+  const pickerPopover = page.locator('#map-topic-popover');
   const depth = page.locator('#map-two-hop');
   const controls = page.locator('.topic-map-controls');
   const switchTrack = page.locator('.topic-map-switch');
@@ -110,11 +114,18 @@ try {
     await page.waitForTimeout(50);
     await page.screenshot({ path: `/tmp/latentscape-graph-controls-${name}${screenshotSuffix}-page.png`, fullPage: true });
   };
+  const screenshotPicker = async (name) => {
+    await page.waitForTimeout(500);
+    await pickerPopover.screenshot({ path: `/tmp/latentscape-graph-picker-${name}${screenshotSuffix}.png` });
+    await page.evaluate(() => window.scrollTo(0, 0));
+    await page.waitForTimeout(50);
+    await page.screenshot({ path: `/tmp/latentscape-graph-picker-${name}${screenshotSuffix}-page.png`, fullPage: true });
+  };
   const controlStyle = async () => page.evaluate(() => {
     const select = document.querySelector('#map-topic');
     const checkbox = document.querySelector('#map-two-hop');
     const track = document.querySelector('.topic-map-switch');
-    if (!(select instanceof HTMLSelectElement) || !(checkbox instanceof HTMLInputElement) || !(track instanceof HTMLElement)) return null;
+    if (!(select instanceof HTMLButtonElement) || !(checkbox instanceof HTMLInputElement) || !(track instanceof HTMLElement)) return null;
     const selectStyle = getComputedStyle(select); const trackStyle = getComputedStyle(track); const knob = getComputedStyle(track, '::after');
     return {
       appearance: selectStyle.appearance,
@@ -144,15 +155,47 @@ try {
   const readyMs = Math.round(performance.now() - started);
   captureCold = false;
   const readyBytes = (await Promise.all(coldBodies)).reduce((total, bytes) => total + bytes, 0);
-  const optionCount = await picker.locator('option').count();
+  await picker.click(); await pickerSearch.waitFor();
+  const optionCount = await pickerList.locator('[role="option"]').count();
   assert(optionCount === 256, `topic picker has ${optionCount} options, expected 256`);
+  const rootBeforeSearch = await root.getAttribute('data-topic-slug');
+  await pickerList.locator(`[data-topic-picker-option="${rootBeforeSearch}"]`).click();
+  assert(await page.evaluate(() => document.activeElement?.id === 'map-topic'), 'selecting the current topic did not return focus to the picker trigger');
+  await picker.click();
+  const pickerProbe = graphData.topics.find((topic) => topic.slug !== rootBeforeSearch) || graphData.topics[0];
+  const partial = pickerProbe.title.slice(0, Math.max(3, Math.ceil(pickerProbe.title.length / 2)));
+  await pickerSearch.fill(partial.toUpperCase());
+  assert(await pickerList.locator(`[data-topic-picker-option="${pickerProbe.slug}"]`).count() === 1, 'title-case topic query did not find its topic');
+  assert((await root.getAttribute('data-topic-slug')) === rootBeforeSearch, 'typing into topic search unexpectedly changed the graph');
+  await screenshotPicker('light-filtered');
+  await pickerSearch.fill('not-a-real-topic-query');
+  assert(await page.locator('[data-topic-picker-empty]').count() === 1, 'topic picker did not show an empty result state');
+  await pickerClear.click();
+  assert(await pickerList.locator('[role="option"]').count() === 256, 'clearing topic search did not restore all 256 topics');
+  await pickerSearch.fill(partial);
+  await pickerSearch.press('Escape');
+  assert(await page.locator('#map-topic-popover[hidden]').count() === 1, 'Escape did not close the topic picker');
+  assert((await root.getAttribute('data-topic-slug')) === rootBeforeSearch, 'Escape changed the selected topic');
+  await picker.click();
+  assert(await pickerList.locator('[role="option"]').count() === 256, 'Escape did not clear the topic query for the next open');
+  await pickerSearch.press('Tab'); await page.waitForTimeout(20);
+  const tabState = await page.evaluate(() => ({ hidden: document.querySelector('#map-topic-popover')?.hasAttribute('hidden'), active: document.activeElement?.id, expanded: document.querySelector('#map-topic-search')?.getAttribute('aria-expanded') }));
+  assert(tabState.hidden, `Tab away did not close the topic picker (active=${tabState.active || 'none'}, expanded=${tabState.expanded})`);
+  await picker.click(); await pickerSearch.fill(partial);
+  await page.locator('.map-page>h1').click();
+  assert(await page.locator('#map-topic-popover[hidden]').count() === 1, 'outside click did not close the topic picker');
+  await picker.click(); await pickerSearch.fill(pickerProbe.title.toUpperCase());
+  await pickerSearch.press('ArrowDown'); await pickerSearch.press('Enter');
+  await page.waitForFunction((slug) => location.hash.includes(`topic=${encodeURIComponent(slug)}`), pickerProbe.slug);
+  await ready(pickerProbe.slug);
+  assert((await root.getAttribute('data-topic-slug')) === pickerProbe.slug, 'keyboard topic selection did not focus the expected graph root');
+  await page.goto(mapUrl(), { waitUntil: 'networkidle' }); await ready();
   assert(await page.locator('.topic-graph-card[data-degree="0"]').count() === 1, 'default graph has no single root card');
   assert(await page.locator('.topic-graph-card[data-degree="1"]').count() > 0, 'default graph has no first-degree labels');
   assert(await page.locator('.topic-graph-card[data-degree="2"]').count() > 0, 'default graph has no second-degree labels');
   assert(await page.locator('.topic-graph-edge[data-degree="1"], .topic-graph-edge.degree-1').count() > 0, 'default graph has no first-degree edges');
   assert(await page.locator('.topic-graph-edge[data-degree="2"], .topic-graph-edge.degree-2').count() > 0, 'default graph has no second-degree edges');
   const lightOnStyle = await controlStyle();
-  assert(lightOnStyle?.appearance === 'none', `topic picker native appearance was not removed (${lightOnStyle?.appearance})`);
   assert((lightOnStyle?.selectHeight || 0) >= 44, `topic picker is shorter than 44px (${lightOnStyle?.selectHeight})`);
   assert((lightOnStyle?.switchWidth || 0) >= 32 && (lightOnStyle?.switchHeight || 0) >= 20 && lightOnStyle?.switchDisplay !== 'none', 'second-degree switch is not visibly styled');
   await assertCardTextFits('default');
@@ -197,7 +240,8 @@ try {
   // displayed neighbors for clipping instead of relying on a short fixture.
   const longestTopics = [...graphData.topics].sort((left, right) => right.title.length - left.title.length).slice(0, 3);
   for (const topic of longestTopics) {
-    await picker.selectOption(topic.slug);
+    await picker.click(); await pickerSearch.fill(topic.title);
+    await pickerList.locator(`[data-topic-picker-option="${topic.slug}"]`).click();
     await page.waitForFunction((slug) => location.hash.includes(`topic=${encodeURIComponent(slug)}`), topic.slug);
     await ready(topic.slug);
     assert((await root.locator('h2').textContent())?.trim() === topic.title, `long-title topic did not become the root: ${topic.slug}`);
@@ -239,13 +283,20 @@ try {
   if (await theme.count()) {
     await theme.click();
     const darkOnStyle = await controlStyle();
-    assert(darkOnStyle?.appearance === 'none' && (darkOnStyle?.selectHeight || 0) >= 44, 'dark theme picker lost its styled touch target');
+    assert((darkOnStyle?.selectHeight || 0) >= 44, 'dark theme picker lost its styled touch target');
     await depth.focus(); await page.keyboard.press('Space');
     await page.waitForFunction(() => !location.hash.includes('depth=2') && document.querySelectorAll('.topic-graph-card[data-degree="2"]').length === 0);
     await page.waitForTimeout(250);
     const darkOffStyle = await controlStyle();
     assert(darkOffStyle?.visual !== darkOnStyle?.visual, 'dark theme second-degree switch did not visibly change when unchecked');
     await screenshotControls('dark-off');
+    await page.setViewportSize({ width: 390, height: 844 });
+    await picker.click(); await pickerSearch.fill(partial);
+    const mobilePickerWidth = await page.evaluate(() => ({ scroll: document.documentElement.scrollWidth, viewport: innerWidth }));
+    assert(mobilePickerWidth.scroll <= mobilePickerWidth.viewport + 1, `mobile open topic picker overflows (${mobilePickerWidth.scroll} > ${mobilePickerWidth.viewport})`);
+    await screenshotPicker('mobile-dark-filtered');
+    await pickerSearch.press('Escape');
+    await page.setViewportSize({ width: 1440, height: 920 });
     await screenshot('dark');
   } else failures.push('theme control is unavailable');
 

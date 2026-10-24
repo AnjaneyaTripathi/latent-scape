@@ -12,4 +12,8 @@ semantic neighbours; selected second-degree cards are known neighbours of those
 cards. Stored card positions avoid a runtime layout, and lines are emitted only
 for an existing semantic relation (never an inferred citation or similarity).
 
+Each topic also has a static `topic-papers/<slug>.json` list. It carries the
+topic context and compact metadata for every member paper, so pagination does
+not require loading the all-topic index or full paper-detail shards.
+
 `scripts/validate-artifacts.py` is the release boundary. It rejects PDFs, remote model or runtime assets, oversized artifacts, and internal audit or review material in the published bundle. Build measurements and maintainer provenance stay outside the reader-facing artifact.

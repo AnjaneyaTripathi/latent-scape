@@ -1,3 +1,5 @@
+import { mountTopicPicker } from './topic-picker';
+
 export interface GraphTopic { slug: string; title: string; area: string; paperCount: number; overview?: string; relatedTopics: number[] }
 interface GraphNode { topic: number; degree: 0 | 1 | 2; x: number; y: number }
 interface GraphEdge { source: number; target: number; degree: 1 | 2 }
@@ -20,11 +22,10 @@ export function mountTopicGraph(container: HTMLElement, data: TopicGraphData, sl
   const abort = new AbortController();
   const topicIndex = new Map(data.topics.map((topic, index) => [topic.slug, index]));
   let rootIndex = topicIndex.get(slug || '') ?? topicIndex.get(data.defaultTopicSlug) ?? 0;
-  const picker = container.querySelector<HTMLSelectElement>('#map-topic');
+  const picker = container.querySelector<HTMLElement>('[data-topic-picker]');
   const depthControl = container.querySelector<HTMLInputElement>('#map-two-hop');
   const graph = container.querySelector<HTMLElement>('#topic-graph');
   if (!picker || !depthControl || !graph) throw new Error('The knowledge map could not mount');
-  const topicPicker = picker;
   const twoHop = depthControl;
   const graphRoot = graph;
 
@@ -40,7 +41,6 @@ export function mountTopicGraph(container: HTMLElement, data: TopicGraphData, sl
     const visible = neighborhood.nodes.filter((node) => node.degree <= (twoHop.checked ? 2 : 1));
     const visibleIndices = new Set(visible.map((node) => node.topic));
     const nodeByIndex = new Map(visible.map((node) => [node.topic, node]));
-    const root = data.topics[rootIndex];
     const edges = neighborhood.edges.filter((edge) => visibleIndices.has(edge.source) && visibleIndices.has(edge.target));
     const svgEdges = edges.map((edge) => {
       const source = nodeByIndex.get(edge.source)!; const target = nodeByIndex.get(edge.target)!;
@@ -78,9 +78,10 @@ export function mountTopicGraph(container: HTMLElement, data: TopicGraphData, sl
       card.addEventListener('focusin', () => emphasize(true), { signal: abort.signal });
       card.addEventListener('focusout', () => emphasize(false), { signal: abort.signal });
     });
-    topicPicker.value = root.slug;
   }
-  topicPicker.addEventListener('change', () => { const index = topicIndex.get(topicPicker.value); if (index !== undefined) routeTo(index); }, { signal: abort.signal });
+  mountTopicPicker(picker, data.topics, data.topics[rootIndex]?.slug || data.defaultTopicSlug, (nextSlug) => {
+    const index = topicIndex.get(nextSlug); if (index !== undefined) routeTo(index);
+  }, abort.signal);
   twoHop.checked = depth === 2;
   twoHop.addEventListener('change', () => routeTo(rootIndex), { signal: abort.signal });
   render();

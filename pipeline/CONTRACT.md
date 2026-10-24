@@ -42,6 +42,12 @@ Selected second-degree cards are known neighbors of those cards, and an edge is
 included only when either endpoint records that relationship. Its fixed card
 positions are for navigation; they do not imply a spatial similarity metric.
 
+`topic-papers/<topic-slug>.json` is a complete, paginatable paper list for one
+topic. It includes the topic's reader-facing context, named related topics and
+prerequisites, and one compact row for every `paperSlugs` member in that exact
+order. Rows include source-link metadata and an existing TLDR when available;
+they intentionally omit abstracts and explanatory paragraphs.
+
 Coverage audits, source-recovery records, release measurements, and summary-review
 artifacts are retained outside `site/public` for maintainers. They are intentionally
 not part of the browser contract.

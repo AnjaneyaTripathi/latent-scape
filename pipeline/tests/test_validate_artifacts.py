@@ -1,5 +1,6 @@
 import importlib.util
 from pathlib import Path
+from xml.etree import ElementTree
 
 
 def _validator():
@@ -62,6 +63,24 @@ def test_static_path_allowlist_rejects_unreferenced_working_and_review_files(tmp
     assert len([message for message in errors if "outside reader allowlist" in message]) == 3
 
 
+def test_favicon_is_a_parseable_allowlisted_runtime_asset(tmp_path):
+    validator = _validator()
+    root = Path(__file__).parents[2]
+    favicon = root / "site" / "public" / "favicon.svg"
+    ElementTree.parse(favicon)
+    assert '%BASE_URL%favicon.svg' in (root / "site" / "index.html").read_text()
+    assert "'./favicon.svg'" in (root / "site" / "public" / "sw.js").read_text()
+    data = tmp_path / "data"
+    data.mkdir()
+    (data / "vectors.json").write_text('{"dimensions": 1, "shards": []}')
+    (data / "topics.json").write_text('[]')
+    copied = tmp_path / "favicon.svg"
+    copied.write_text(favicon.read_text())
+    errors: list[str] = []
+    validator.validate_public_paths(tmp_path, [copied], {"shards": {"papers": {}}}, errors)
+    assert not errors
+
+
 def test_topic_graph_must_match_sanitized_topics_and_known_edges(tmp_path):
     validator = _validator()
     topics = [
@@ -111,3 +130,36 @@ def test_topic_graph_rejects_out_of_bounds_card_geometry(tmp_path):
     errors: list[str] = []
     validator.validate_topic_graph(tmp_path, topics, errors)
     assert any("falls outside bounds" in message for message in errors)
+
+
+def test_topic_paper_lists_require_full_ordered_compact_projection(tmp_path):
+    validator = _validator()
+    topics = [{
+        "slug": "alpha", "title": "Alpha", "area": "Area", "overview": "Overview", "whyItMatters": "Why",
+        "evolution": "Evolution", "openQuestions": ["Open"], "difficulty": "beginner", "paperSlugs": ["p2", "p1"],
+        "relatedTopics": [], "prerequisites": [],
+    }]
+    papers = [
+        {"slug": "p1", "title": "Paper 1", "authors": ["One"], "year": 2024, "venue": "ICML", "url": "https://example.test/p1", "originalUrl": None, "sourceLinkLabel": "Original paper", "summary": {"tldr": "One."}},
+        {"slug": "p2", "title": "Paper 2", "authors": ["Two"], "year": 2023, "venue": "NeurIPS", "url": "https://example.test/p2", "originalUrl": "https://publisher.test/p2", "sourceLinkLabel": "Original paper", "summary": None},
+    ]
+    list_path = tmp_path / "data" / "topic-papers" / "alpha.json"
+    list_path.parent.mkdir(parents=True)
+    list_path.write_text(__import__("json").dumps({
+        "version": 1,
+        "topic": {"slug": "alpha", "title": "Alpha", "area": "Area", "overview": "Overview", "whyItMatters": "Why", "evolution": "Evolution", "openQuestions": ["Open"], "difficulty": "beginner", "paperCount": 2},
+        "relatedTopics": [], "prerequisites": [],
+        "papers": [
+            {"slug": "p2", "title": "Paper 2", "authors": ["Two"], "year": 2023, "venue": "NeurIPS", "sourceUrl": "https://publisher.test/p2", "sourceLinkLabel": "Original paper"},
+            {"slug": "p1", "title": "Paper 1", "authors": ["One"], "year": 2024, "venue": "ICML", "sourceUrl": "https://example.test/p1", "sourceLinkLabel": "Original paper", "tldr": "One."},
+        ],
+    }))
+    errors: list[str] = []
+    validator.validate_topic_paper_lists(tmp_path, topics, papers, errors)
+    assert not errors
+    value = __import__("json").loads(list_path.read_text())
+    value["papers"] = value["papers"][:1]
+    list_path.write_text(__import__("json").dumps(value))
+    errors = []
+    validator.validate_topic_paper_lists(tmp_path, topics, papers, errors)
+    assert any("membership is incomplete" in message for message in errors)
