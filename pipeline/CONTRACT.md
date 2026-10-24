@@ -36,11 +36,15 @@ limit. `vectors.json` stores `{dimensions, scale: 127, shards: [{path, ids}]}`. 
 shard must remain below 16 MB. The browser dequantizes components by dividing by
 `scale` and lazy-loads shards.
 
-`topic-graph.json` is a compact, precomputed semantic neighborhood for every topic.
-The first-degree cards are the root topic's outgoing ranked semantic neighbors.
-Selected second-degree cards are known neighbors of those cards, and an edge is
-included only when either endpoint records that relationship. Its fixed card
-positions are for navigation; they do not imply a spatial similarity metric.
+`topic-graph.json` (schema version 2) is a compact, precomputed semantic
+neighborhood for every topic. First-degree cards contain the complete direct
+union: the root topic's outgoing ranked semantic neighbors first, then
+incoming-only neighbors in deterministic slug order; duplicates and self-links
+are excluded. Selected second-degree cards are known neighbors of those cards
+after every root-adjacent topic is excluded. An edge is included only when either
+endpoint records that relationship. Each neighborhood has fixed-width (1040px),
+per-neighborhood bounds with a minimum 900px height; positions are for
+navigation and do not imply a spatial similarity metric.
 
 `topic-papers/<topic-slug>.json` is a complete, paginatable paper list for one
 topic. It includes the topic's reader-facing context, named related topics and

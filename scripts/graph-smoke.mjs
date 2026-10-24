@@ -26,12 +26,50 @@ if (useWebKit && !webkitAvailable) throw new Error(`Playwright WebKit is not ins
 const artifactArg = process.argv.slice(2).find((value) => value !== '--webkit');
 const artifact = resolve(artifactArg || 'site/dist');
 const screenshotSuffix = useWebKit ? '-webkit' : '';
+// The static host publishes this artifact below /latent-scape/. The local
+// server accepts root aliases for routing convenience, so reject a root-base
+// Vite build here instead of accidentally masking a broken Pages deploy.
+const artifactIndex = await readFile(join(artifact, 'index.html'), 'utf8');
+const deploymentLinks = [...artifactIndex.matchAll(/\b(?:src|href)="([^"]+)"/g)].map((match) => match[1]).filter((value) => /(?:^|\/)(?:assets\/|favicon\.svg(?:$|\?))/.test(value));
+if (!deploymentLinks.length || deploymentLinks.some((value) => !value.startsWith('/latent-scape/'))) throw new Error(`artifact is not built for /latent-scape/: ${deploymentLinks.join(', ') || 'no asset links'}`);
 const graphData = JSON.parse(await readFile(join(artifact, 'data', 'topic-graph.json'), 'utf8'));
-if (graphData.layoutKind !== 'focused-semantic-neighborhoods') throw new Error('topic graph has an unexpected layout kind');
+if (graphData.version !== 2 || graphData.layoutKind !== 'focused-semantic-neighborhoods') throw new Error('topic graph has an unexpected version or layout kind');
 if (graphData.topics?.length !== 256 || graphData.neighborhoods?.length !== 256) throw new Error('topic graph must contain 256 topics and neighborhoods');
+const incoming = graphData.topics.map(() => []);
+for (const [source, topic] of graphData.topics.entries()) {
+  for (const target of topic.relatedTopics || []) incoming[target]?.push(source);
+}
+const neighborsOf = (index) => new Set([...(graphData.topics[index]?.relatedTopics || []), ...(incoming[index] || [])]);
+const directFor = (index) => neighborsOf(index);
+const secondFor = (index) => {
+  const direct = directFor(index); const second = new Set();
+  for (const neighbor of direct) for (const candidate of neighborsOf(neighbor)) {
+    if (candidate !== index && !direct.has(candidate)) second.add(candidate);
+  }
+  return second;
+};
+const sameSet = (actual, expected) => actual.size === expected.size && [...actual].every((item) => expected.has(item));
 for (const neighborhood of graphData.neighborhoods) {
   if (neighborhood.nodes.some((node) => !Number.isFinite(node.x) || !Number.isFinite(node.y)) || neighborhood.edges.some((edge) => !Number.isInteger(edge.source) || !Number.isInteger(edge.target))) {
     throw new Error(`topic graph has invalid coordinates or edges for root ${neighborhood.rootTopic}`);
+  }
+  const root = neighborhood.rootTopic;
+  const direct = directFor(root); const second = secondFor(root);
+  const directNodes = new Set(neighborhood.nodes.filter((node) => node.degree === 1).map((node) => node.topic));
+  const secondNodes = new Set(neighborhood.nodes.filter((node) => node.degree === 2).map((node) => node.topic));
+  if (!sameSet(directNodes, direct)) throw new Error(`root ${root} does not render the exact outgoing+incoming direct-neighbor union`);
+  if (![...secondNodes].every((node) => second.has(node)) || [...secondNodes].some((node) => direct.has(node) || node === root)) throw new Error(`root ${root} renders a second-degree node that is not genuine graph distance two`);
+  if (neighborhood.directNeighborTotal !== direct.size || neighborhood.secondDegreeTotal !== second.size) throw new Error(`root ${root} neighborhood totals do not match its complete graph distances`);
+  const bounds = neighborhood.bounds;
+  if (!bounds || bounds.width !== 1040 || !Number.isFinite(bounds.height) || bounds.height < 900) throw new Error(`root ${root} has invalid per-neighborhood bounds`);
+  const rectangles = neighborhood.nodes.map((node) => {
+    const size = node.degree === 0 ? graphData.cardDimensions.root : graphData.cardDimensions.neighbor;
+    return { ...node, right: node.x + size.width, bottom: node.y + size.height };
+  });
+  if (rectangles.some((box) => box.x < 0 || box.y < 0 || box.right > bounds.width || box.bottom > bounds.height)) throw new Error(`root ${root} has a card outside its own graph bounds`);
+  for (let left = 0; left < rectangles.length; left += 1) for (let right = left + 1; right < rectangles.length; right += 1) {
+    const a = rectangles[left]; const b = rectangles[right];
+    if (a.x < b.right && a.right > b.x && a.y < b.bottom && a.bottom > b.y) throw new Error(`root ${root} has overlapping graph cards (${a.topic}, ${b.topic})`);
   }
 }
 const defaultIndex = graphData.topics.findIndex((topic) => topic.slug === graphData.defaultTopicSlug);
@@ -148,6 +186,38 @@ try {
     }));
     assert(!overflowing, `${name} graph card text is clipped or overflows its card`);
   };
+  const assertRenderedNeighborhood = async (rootIndex, name, includeSecond = true) => {
+    const expectedDirect = directFor(rootIndex);
+    const expectedSecond = secondFor(rootIndex);
+    const rendered = await page.evaluate(() => ({
+      nodes: [...document.querySelectorAll('.topic-graph-card[data-topic-index]')].map((card) => ({ index: Number(card.getAttribute('data-topic-index')), degree: Number(card.getAttribute('data-degree')) })),
+      caption: document.querySelector('.topic-graph-subset')?.textContent || '',
+      height: document.querySelector('#topic-graph')?.getBoundingClientRect().height || 0,
+      viewBox: document.querySelector('.topic-graph-edges')?.getAttribute('viewBox') || '',
+      cards: [...document.querySelectorAll('.topic-graph-card')].map((card) => {
+        const box = card.getBoundingClientRect(); const title = card.querySelector('h2')?.getBoundingClientRect();
+        return { left: box.left, right: box.right, top: box.top, bottom: box.bottom, title: title && { left: title.left, right: title.right, top: title.top, bottom: title.bottom }, scrollWidth: card.scrollWidth, clientWidth: card.clientWidth, scrollHeight: card.scrollHeight, clientHeight: card.clientHeight };
+      }),
+      deepestCardBottom: Math.max(0, ...[...document.querySelectorAll('.topic-graph-card')].map((card) => card.offsetTop + card.offsetHeight)),
+      captionBottom: (() => { const caption = document.querySelector('.topic-graph-subset'); return caption instanceof HTMLElement ? caption.offsetTop + caption.offsetHeight : 0; })(),
+    }));
+    const actualDirect = new Set(rendered.nodes.filter((node) => node.degree === 1).map((node) => node.index));
+    const actualSecond = new Set(rendered.nodes.filter((node) => node.degree === 2).map((node) => node.index));
+    assert(sameSet(actualDirect, expectedDirect), `${name} rendered direct neighbors are not the exact outgoing+incoming union`);
+    assert(includeSecond && [...actualSecond].every((node) => expectedSecond.has(node) && !expectedDirect.has(node) && node !== rootIndex) || !includeSecond && actualSecond.size === 0, `${name} rendered second-degree neighbors are not genuine graph distance two`);
+    assert(rendered.nodes.length === new Set(rendered.nodes.map((node) => node.index)).size, `${name} rendered duplicate topic cards`);
+    assert(rendered.caption.includes(`${expectedDirect.size} direct neighbours`), `${name} direct-neighbor count label is incorrect: ${rendered.caption}`);
+    if (includeSecond) assert(rendered.caption.includes(`${actualSecond.size}${expectedSecond.size > actualSecond.size ? ` of ${expectedSecond.size}` : ''} second-degree neighbours`), `${name} second-degree count label is incorrect: ${rendered.caption}`);
+    const expectedBounds = graphData.neighborhoods[rootIndex].bounds;
+    assert(Math.abs(rendered.height - expectedBounds.height) < 2, `${name} graph height (${rendered.height}) does not match its per-neighborhood bounds (${expectedBounds.height})`);
+    assert(rendered.viewBox === `0 0 ${expectedBounds.width} ${expectedBounds.height}`, `${name} graph SVG does not use its active neighborhood bounds (${rendered.viewBox})`);
+    assert(rendered.deepestCardBottom <= expectedBounds.height, `${name} deepest graph card escapes its active bounds (${rendered.deepestCardBottom} > ${expectedBounds.height})`);
+    assert(rendered.captionBottom <= expectedBounds.height, `${name} graph count caption escapes its active bounds (${rendered.captionBottom} > ${expectedBounds.height})`);
+    const cardsOverlap = rendered.cards.some((a, index) => rendered.cards.slice(index + 1).some((b) => a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top));
+    assert(!cardsOverlap, `${name} rendered graph cards overlap`);
+    const clipped = rendered.cards.some((card) => card.scrollWidth > card.clientWidth + 1 || card.scrollHeight > card.clientHeight + 1 || (card.title && (card.title.left < card.left - 1 || card.title.right > card.right + 1 || card.title.top < card.top - 1 || card.title.bottom > card.bottom + 1)));
+    assert(!clipped, `${name} rendered graph cards are clipped`);
+  };
 
   const started = performance.now();
   await page.goto(mapUrl(), { waitUntil: 'domcontentloaded' });
@@ -195,8 +265,9 @@ try {
   assert(await page.locator('.topic-graph-card[data-degree="2"]').count() > 0, 'default graph has no second-degree labels');
   assert(await page.locator('.topic-graph-edge[data-degree="1"], .topic-graph-edge.degree-1').count() > 0, 'default graph has no first-degree edges');
   assert(await page.locator('.topic-graph-edge[data-degree="2"], .topic-graph-edge.degree-2').count() > 0, 'default graph has no second-degree edges');
+  await assertRenderedNeighborhood(defaultIndex, 'default');
   const lightOnStyle = await controlStyle();
-  assert((lightOnStyle?.selectHeight || 0) >= 44, `topic picker is shorter than 44px (${lightOnStyle?.selectHeight})`);
+  assert(lightOnStyle?.selectHeight === 56, `topic picker must be 56px high (${lightOnStyle?.selectHeight})`);
   assert((lightOnStyle?.switchWidth || 0) >= 32 && (lightOnStyle?.switchHeight || 0) >= 20 && lightOnStyle?.switchDisplay !== 'none', 'second-degree switch is not visibly styled');
   await assertCardTextFits('default');
   await screenshot('overview');
@@ -208,6 +279,7 @@ try {
   const lightOffStyle = await controlStyle();
   assert(lightOffStyle?.visual !== lightOnStyle?.visual, 'second-degree switch did not visibly change when unchecked');
   assert(await page.locator('.topic-graph-card[data-degree="2"]').count() === 0, 'depth=1 still shows second-degree cards');
+  await assertRenderedNeighborhood(defaultIndex, 'default depth=1', false);
   const depthOneHasHiddenEndpoint = await page.locator('.topic-graph-edge').evaluateAll((edges) => {
     const visible = new Set([...document.querySelectorAll('.topic-graph-card[data-topic-index]')].map((card) => card.getAttribute('data-topic-index')));
     return edges.some((edge) => !visible.has(edge.getAttribute('data-edge-source')) || !visible.has(edge.getAttribute('data-edge-target')));
@@ -219,6 +291,7 @@ try {
   await page.waitForFunction(() => location.hash.includes('depth=2'));
   assert(await depth.isChecked(), 'Space did not restore second-degree neighbors');
   await page.locator('.topic-graph-card[data-degree="2"]').first().waitFor();
+  await assertRenderedNeighborhood(defaultIndex, 'default restored');
   await screenshot('second-degree');
 
   const exploreAndBack = async (degree) => {
@@ -247,6 +320,13 @@ try {
     assert((await root.locator('h2').textContent())?.trim() === topic.title, `long-title topic did not become the root: ${topic.slug}`);
     await assertCardTextFits(`long-title ${topic.slug}`);
   }
+  await page.goto(mapUrl(), { waitUntil: 'networkidle' }); await ready();
+
+  const highDegree = graphData.neighborhoods.reduce((best, item) => item.directNeighborTotal > best.directNeighborTotal ? item : best, graphData.neighborhoods[0]);
+  const highTopic = graphData.topics[highDegree.rootTopic];
+  await page.goto(mapUrl(highTopic.slug), { waitUntil: 'networkidle' }); await ready(highTopic.slug);
+  await assertRenderedNeighborhood(highDegree.rootTopic, 'highest-degree');
+  await screenshot('highest-degree');
   await page.goto(mapUrl(), { waitUntil: 'networkidle' }); await ready();
 
   const read = root.locator('[data-graph-read-topic]');
@@ -283,7 +363,7 @@ try {
   if (await theme.count()) {
     await theme.click();
     const darkOnStyle = await controlStyle();
-    assert((darkOnStyle?.selectHeight || 0) >= 44, 'dark theme picker lost its styled touch target');
+    assert(darkOnStyle?.selectHeight === 56, `dark theme picker lost its 56px target (${darkOnStyle?.selectHeight})`);
     await depth.focus(); await page.keyboard.press('Space');
     await page.waitForFunction(() => !location.hash.includes('depth=2') && document.querySelectorAll('.topic-graph-card[data-degree="2"]').length === 0);
     await page.waitForTimeout(250);

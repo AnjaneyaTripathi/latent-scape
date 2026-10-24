@@ -177,18 +177,15 @@ def validate_topic_graph(root: Path, topics: list[dict], errors: list[str]) -> N
     graph = require_json(root / "data" / "topic-graph.json", errors)
     if not isinstance(graph, dict):
         return
-    if set(graph) != {"version", "layoutKind", "defaultTopicSlug", "bounds", "cardDimensions", "topics", "neighborhoods"}:
+    if set(graph) != {"version", "layoutKind", "defaultTopicSlug", "cardDimensions", "topics", "neighborhoods"}:
         error(errors, "topic graph exposes unsupported or operational fields")
-    rows, neighborhoods, bounds, cards = (
-        graph.get("topics"), graph.get("neighborhoods"), graph.get("bounds"), graph.get("cardDimensions"),
+    rows, neighborhoods, cards = (
+        graph.get("topics"), graph.get("neighborhoods"), graph.get("cardDimensions"),
     )
-    if graph.get("version") != 1 or graph.get("layoutKind") != "focused-semantic-neighborhoods":
+    if graph.get("version") != 2 or graph.get("layoutKind") != "focused-semantic-neighborhoods":
         error(errors, "topic graph has unsupported version or layout kind")
-    if not isinstance(rows, list) or not isinstance(neighborhoods, list) or not isinstance(bounds, dict) or not isinstance(cards, dict):
-        error(errors, "topic graph must contain topics, neighborhoods, bounds, and card dimensions")
-        return
-    if set(bounds) != {"width", "height"} or not all(_finite_number(bounds.get(key)) and bounds[key] > 0 for key in ("width", "height")):
-        error(errors, "topic graph bounds must be positive finite geometry")
+    if not isinstance(rows, list) or not isinstance(neighborhoods, list) or not isinstance(cards, dict):
+        error(errors, "topic graph must contain topics, neighborhoods, and card dimensions")
         return
     if set(cards) != {"root", "neighbor"} or any(
         not isinstance(card, dict)
@@ -229,12 +226,32 @@ def validate_topic_graph(root: Path, topics: list[dict], errors: list[str]) -> N
         for target in targets:
             incoming[target].append(source)
     def adjacent(index: int) -> set[int]:
-        return set(related[index]) | set(incoming[index])
+        return (set(related[index]) | set(incoming[index])) - {index}
     for root, neighborhood in enumerate(neighborhoods):
-        if not isinstance(neighborhood, dict) or set(neighborhood) != {"rootTopic", "nodes", "edges", "directNeighborTotal", "secondDegreeTotal"} or neighborhood.get("rootTopic") != root:
+        if not isinstance(neighborhood, dict) or set(neighborhood) != {"rootTopic", "bounds", "nodes", "edges", "directNeighborTotal", "secondDegreeTotal"} or neighborhood.get("rootTopic") != root:
             error(errors, f"topic graph neighborhood has wrong root: {root}")
             continue
-        direct = related[root][:5]
+        bounds = neighborhood.get("bounds")
+        if (
+            not isinstance(bounds, dict)
+            or set(bounds) != {"width", "height"}
+            or bounds.get("width") != 1040
+            or not _finite_number(bounds.get("height"))
+            or bounds["height"] < 900
+        ):
+            error(errors, f"topic graph neighborhood has invalid bounds: {root}")
+            continue
+        direct = []
+        direct_seen: set[int] = set()
+        for topic in related[root]:
+            if topic != root and topic not in direct_seen:
+                direct.append(topic)
+                direct_seen.add(topic)
+        incoming_only = sorted(
+            (topic for topic in set(incoming[root]) if topic != root and topic not in direct_seen),
+            key=lambda topic: rows[topic].get("slug", ""),
+        )
+        direct.extend(incoming_only)
         root_adjacent = adjacent(root)
         candidate_scores: dict[int, tuple[int, int, str]] = {}
         for neighbor in direct:

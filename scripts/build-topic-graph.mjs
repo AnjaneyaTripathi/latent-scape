@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Build a compact, fixed-layout semantic-neighborhood graph for every topic.
+ * Build a compact, deterministic semantic-neighborhood graph for every topic.
  *
  * The source relationships are the offline topic centroid-neighbor rankings.
  * This script never estimates edges or performs a browser-side layout.
@@ -14,7 +14,11 @@ const INPUT = resolve(ROOT, 'site/public/data/topics.json');
 const OUTPUT = resolve(ROOT, 'site/public/data/topic-graph.json');
 const MAX_OVERVIEW = 240;
 const MAX_SECOND_DEGREE = 6;
-const BOUNDS = { width: 1040, height: 900 };
+const GRAPH_WIDTH = 1040;
+const MIN_GRAPH_HEIGHT = 900;
+const DIRECT_START_Y = 106;
+const SECOND_START_Y = 35;
+const COLUMN_GAP = 16;
 const CARD_DIMENSIONS = {
   root: { width: 270, height: 380 },
   neighbor: { width: 270, height: 125 },
@@ -27,13 +31,11 @@ function excerpt(value = '') {
   return `${text.slice(0, boundary > MAX_OVERVIEW - 35 ? boundary : MAX_OVERVIEW).trim()}…`;
 }
 
-function columnPositions(count, x, height) {
+function columnPositions(count, x, height, startY) {
   if (!count) return [];
-  const gap = 16;
-  const total = count * height + (count - 1) * gap;
   return Array.from({ length: count }, (_, index) => ({
     x,
-    y: Math.round((BOUNDS.height - total) / 2 + index * (height + gap)),
+    y: startY + index * (height + COLUMN_GAP),
   }));
 }
 
@@ -70,7 +72,7 @@ const incoming = topics.map(() => []);
 topics.forEach((topic, source) => topic.relatedTopics.forEach((target) => incoming[target].push(source)));
 
 function adjacency(index) {
-  return [...new Set([...outgoing(index), ...incoming[index]])];
+  return [...new Set([...outgoing(index), ...incoming[index]])].filter((topic) => topic !== index);
 }
 
 function hasSemanticEdge(left, right) {
@@ -78,9 +80,21 @@ function hasSemanticEdge(left, right) {
 }
 
 function neighborhood(rootTopic) {
-  // Degree one is intentionally only the root's outgoing top-five ranking.
-  const direct = outgoing(rootTopic).slice(0, 5);
-  const directSet = new Set(direct);
+  // Preserve the source's ranked outgoing order, then append incoming-only
+  // semantic neighbors in a stable order. No relation is invented here.
+  const direct = [];
+  const directSet = new Set();
+  for (const topic of outgoing(rootTopic)) {
+    if (topic !== rootTopic && !directSet.has(topic)) {
+      direct.push(topic);
+      directSet.add(topic);
+    }
+  }
+  const incomingOnly = [...new Set(incoming[rootTopic])]
+    .filter((topic) => topic !== rootTopic && !directSet.has(topic))
+    .sort((left, right) => topics[left].slug.localeCompare(topics[right].slug));
+  direct.push(...incomingOnly);
+  for (const topic of incomingOnly) directSet.add(topic);
   // Excluding all known root adjacency means an incoming-only root relation
   // can never be labelled degree two while still drawing an edge to the root.
   const rootAdjacent = new Set(adjacency(rootTopic));
@@ -107,9 +121,17 @@ function neighborhood(rootTopic) {
   const visible = [rootTopic, ...direct, ...second];
   const degreeByTopic = new Map([[rootTopic, 0], ...direct.map((topic) => [topic, 1]), ...second.map((topic) => [topic, 2])]);
   // x/y are card top-left positions, not node centers.
-  const rootPosition = { x: 24, y: Math.round((BOUNDS.height - CARD_DIMENSIONS.root.height) / 2) };
-  const firstPositions = columnPositions(direct.length, 386, CARD_DIMENSIONS.neighbor.height);
-  const secondPositions = columnPositions(second.length, 746, CARD_DIMENSIONS.neighbor.height);
+  // Keep the focus card in the initial viewport even for neighborhoods with
+  // many incoming relations; only the direct-neighbor column grows downward.
+  const rootPosition = { x: 24, y: 260 };
+  const firstPositions = columnPositions(direct.length, 386, CARD_DIMENSIONS.neighbor.height, DIRECT_START_Y);
+  const secondPositions = columnPositions(second.length, 746, CARD_DIMENSIONS.neighbor.height, SECOND_START_Y);
+  const bottoms = [
+    rootPosition.y + CARD_DIMENSIONS.root.height,
+    ...firstPositions.map(({ y }) => y + CARD_DIMENSIONS.neighbor.height),
+    ...secondPositions.map(({ y }) => y + CARD_DIMENSIONS.neighbor.height),
+  ];
+  const bounds = { width: GRAPH_WIDTH, height: Math.max(MIN_GRAPH_HEIGHT, Math.max(...bottoms) + 60) };
   const nodes = [
     { topic: rootTopic, degree: 0, ...rootPosition },
     ...direct.map((topic, index) => ({ topic, degree: 1, ...firstPositions[index] })),
@@ -124,7 +146,7 @@ function neighborhood(rootTopic) {
       const key = canonicalEdge(source, target);
       if (seen.has(key)) continue;
       seen.add(key);
-      // A primary edge means root → an outgoing ranked direct neighbor only.
+      // A primary edge connects the root to any displayed known direct neighbor.
       const [edgeSource, edgeTarget] = source < target ? [source, target] : [target, source];
       const other = source === rootTopic ? target : source;
       edges.push({
@@ -136,6 +158,7 @@ function neighborhood(rootTopic) {
   }
   return {
     rootTopic,
+    bounds,
     nodes,
     edges,
     directNeighborTotal: rootAdjacent.size,
@@ -147,15 +170,14 @@ const defaultTopicSlug = indexBySlug.has('topic-080-text-s-2-q-vdit-accurate-qua
   ? 'topic-080-text-s-2-q-vdit-accurate-quantized-video-diffusi'
   : [...topics].sort((left, right) => right.paperCount - left.paperCount || left.slug.localeCompare(right.slug))[0].slug;
 const graph = {
-  version: 1,
+  version: 2,
   layoutKind: 'focused-semantic-neighborhoods',
   defaultTopicSlug,
-  bounds: BOUNDS,
   cardDimensions: CARD_DIMENSIONS,
   topics,
   neighborhoods: topics.map((_, index) => neighborhood(index)),
 };
 const serialized = `${JSON.stringify(graph)}\n`;
-if (Buffer.byteLength(serialized) >= 600_000) throw new Error(`Topic graph is too large: ${Buffer.byteLength(serialized)} bytes`);
+if (Buffer.byteLength(serialized) >= 1_000_000) throw new Error(`Topic graph is too large: ${Buffer.byteLength(serialized)} bytes`);
 await writeFile(OUTPUT, serialized);
 console.log(JSON.stringify({ output: OUTPUT, bytes: Buffer.byteLength(serialized), topics: topics.length, neighborhoods: graph.neighborhoods.length }));

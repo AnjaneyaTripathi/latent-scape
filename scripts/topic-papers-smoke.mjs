@@ -82,6 +82,16 @@ try {
   const waitForPaper = async (title) => { const heading = page.locator('.paper-detail h1').filter({ hasText: title }); await heading.waitFor(); check((await heading.textContent())?.trim() === title, `paper detail heading did not match selected paper: ${title}`); };
   const waitForScroll = async (position) => page.waitForFunction((top) => Math.abs(scrollY - top) < 80, position, { timeout: 5000 }).catch(() => {});
   const noOverflow = async (name) => { const size = await page.evaluate(() => ({ scroll: document.documentElement.scrollWidth, viewport: innerWidth })); check(size.scroll <= size.viewport + 1, `${name} has horizontal overflow (${size.scroll} > ${size.viewport})`); };
+  const paperControlStyle = async () => page.evaluate(() => {
+    const controls = [...document.querySelectorAll('.topic-paper-controls input, .topic-paper-controls select, .topic-paper-controls button')];
+    const selects = [...document.querySelectorAll('.topic-paper-controls select')];
+    const wrappers = [...document.querySelectorAll('.topic-paper-select')];
+    return {
+      heights: controls.map((control) => Math.round(control.getBoundingClientRect().height)),
+      appearances: selects.map((select) => { const style = getComputedStyle(select); return { standard: style.appearance, webkit: style.webkitAppearance }; }),
+      chevrons: wrappers.map((wrapper) => getComputedStyle(wrapper, '::after').content),
+    };
+  });
   const currentRows = async () => rows.evaluateAll((items) => items.map((item) => ({ text: item.textContent || '', title: item.querySelector('h3')?.textContent || '', href: item.querySelector('h3 a')?.getAttribute('href') || '' })));
   const navigationDiagnostic = async (label) => {
     const state = await page.evaluate(() => ({ url: location.href, rows: document.querySelectorAll('[data-topic-paper-row], .topic-paper-list .topic-paper-row').length, count: document.querySelector('.topic-paper-count')?.textContent?.trim() || null, controls: [...document.querySelectorAll('[data-topic-paper-search], [data-topic-paper-year], [data-topic-paper-venue], [data-topic-paper-sort]')].map((control) => ({ name: control.getAttributeNames().find((name) => name.startsWith('data-topic-paper-')) || null, value: control instanceof HTMLInputElement || control instanceof HTMLSelectElement ? control.value : null })), activeElement: document.activeElement instanceof HTMLElement ? { tag: document.activeElement.tagName, data: document.activeElement.getAttributeNames().filter((name) => name.startsWith('data-topic-paper')).join(',') || null } : null }));
@@ -97,10 +107,34 @@ try {
   check(await tabs.getByText(`All papers (${fixture.papers.length})`, { exact: true }).count() === 1, 'All papers tab has an incorrect count');
   check(!cold.some((path) => forbidden.test(path)), `cold overview fetched heavyweight data: ${cold.filter((path) => forbidden.test(path)).join(', ')}`);
   check(cold.some((path) => path.endsWith(`/data/topic-papers/${encodeURIComponent(fixture.topic.slug)}.json`)), 'overview did not fetch its compact topic catalog');
+  const overviewCards = page.locator('.topic-paper-preview .paper-card.topic-paper-card');
+  const overviewHeaders = page.locator('.topic-paper-preview-head h2');
+  check(await overviewHeaders.filter({ hasText: /^Early work$/ }).count() === 1, 'Overview does not restore its Early work section');
+  check(await overviewHeaders.filter({ hasText: /^Recent work$/ }).count() === 1, 'Overview does not restore its Recent work section');
+  check(await overviewCards.count() === Math.min(6, fixture.papers.length) * 2, 'Overview does not render separate early and recent paper card collections');
+  const earlyExpected = fixture.papers.slice().sort((a, b) => a.year - b.year || a.title.localeCompare(b.title)).slice(0, 6).map((paper) => paper.title);
+  const recentExpected = fixture.papers.slice().sort((a, b) => b.year - a.year || a.title.localeCompare(b.title)).filter((paper) => !earlyExpected.includes(paper.title)).slice(0, 6).map((paper) => paper.title);
+  const overviewTitles = await overviewCards.locator('h3').allTextContents();
+  check(overviewTitles.slice(0, earlyExpected.length).map((title) => title.trim()).join('|') === earlyExpected.join('|'), 'Overview early cards are not chronological');
+  check(overviewTitles.slice(earlyExpected.length).map((title) => title.trim()).join('|') === recentExpected.join('|'), 'Overview recent cards are not newest-first and distinct from early cards');
+  check(await page.locator('.topic-paper-card-footer').count() === await overviewCards.count(), 'Overview cards are missing their source/AI-summary footers');
+  const overviewContextHref = await overviewCards.first().locator('h3 a').getAttribute('href');
+  check(Boolean(overviewContextHref && /[?&]from=%23%2Ftopic%2F/i.test(overviewContextHref)), 'Overview paper card does not preserve its topic context link');
   await screenshot('overview');
   await tabs.getByText(`All papers (${fixture.papers.length})`, { exact: true }).click(); await ready('papers');
   check(await rows.count() === Math.min(25, fixture.papers.length), 'all-papers first page does not show 25 (or fewer final) rows');
   check(await rows.count() <= 25, 'all-papers page exceeds 25 rows');
+  check((await currentRows()).map((item) => item.title.trim()).join('|') === expected().slice(0, 25).map((paper) => paper.title).join('|'), 'All-papers default rows changed from the catalog ordering');
+  const lightControlStyle = await paperControlStyle();
+  check(lightControlStyle.heights.length === 5 && lightControlStyle.heights.every((height) => height === 56), `All-papers controls must share a 56px height (${lightControlStyle.heights.join(', ')})`);
+  check(lightControlStyle.appearances.length === 3 && lightControlStyle.appearances.every(({ standard, webkit }) => standard === 'none' && webkit === 'none'), `native All-papers selects must disable browser appearance (${JSON.stringify(lightControlStyle.appearances)})`);
+  check(lightControlStyle.chevrons.length === 3 && lightControlStyle.chevrons.every((content) => content && content !== 'none'), 'All-papers select wrappers have no visible custom chevron');
+  await page.goto(`${base}/latent-scape/#/map`, { waitUntil: 'networkidle' });
+  const mapTrigger = page.locator('#map-topic'); await mapTrigger.waitFor();
+  const mapTriggerHeight = Math.round(await mapTrigger.evaluate((trigger) => trigger.getBoundingClientRect().height));
+  check(mapTriggerHeight === 56, `map topic picker must be 56px high (${mapTriggerHeight})`);
+  check(lightControlStyle.heights.every((height) => height === mapTriggerHeight), `All-papers controls do not match map picker height (${lightControlStyle.heights.join(', ')} vs ${mapTriggerHeight})`);
+  await page.goto(hash(fixture.topic.slug, new URLSearchParams({ tab: 'papers' })), { waitUntil: 'networkidle' }); await ready('papers');
   await viewportScreenshot('list');
   const pagination = page.locator('.topic-paper-pages');
   const allSeen = new Set();
@@ -136,8 +170,8 @@ try {
   const crumb = page.locator('[data-topic-paper-back], .topic-reader .crumb').first(); await crumb.focus(); await page.keyboard.press('Enter'); await page.waitForFunction(() => location.hash.startsWith('#/topics')); check(true, 'visible Back to listing crumb is keyboard operable');
 
   const encoded = new URLSearchParams({ tab: 'papers', q: specialQuery }); await page.goto(hash(fixture.topic.slug, encoded), { waitUntil: 'networkidle' }); await ready('papers'); check(await search.inputValue() === specialQuery, 'query punctuation or Unicode was corrupted in a deep link');
-  for (const [width, height, name] of [[1440, 920, 'desktop'], [900, 860, 'tablet'], [390, 844, 'mobile'], [320, 760, 'narrow']]) { await page.setViewportSize({ width, height }); await page.goto(hash(fixture.topic.slug, new URLSearchParams({ tab: 'papers' })), { waitUntil: 'networkidle' }); await ready('papers'); await noOverflow(name); const clipped = await rows.evaluateAll((items) => items.some((item) => { const title = item.querySelector('h3'); return Boolean(title && (title.scrollWidth > title.clientWidth + 1 || getComputedStyle(title).textOverflow === 'ellipsis')); })); check(!clipped, `${name} paper title is clipped`); if (name === 'mobile') { await viewportScreenshot('mobile'); await screenshot('mobile'); } }
-  await page.setViewportSize({ width: 1440, height: 920 }); const theme = page.locator('#theme-wide:visible, #theme:visible').first(); if (await theme.count()) { await theme.click(); check(await page.locator('html').getAttribute('data-theme') === 'dark', 'dark theme did not activate'); await screenshot('dark'); }
+  for (const [width, height, name] of [[1440, 920, 'desktop'], [900, 860, 'tablet'], [390, 844, 'mobile'], [320, 760, 'narrow']]) { await page.setViewportSize({ width, height }); await page.goto(hash(fixture.topic.slug, new URLSearchParams({ tab: 'papers' })), { waitUntil: 'networkidle' }); await ready('papers'); await noOverflow(name); const clipped = await rows.evaluateAll((items) => items.some((item) => { const title = item.querySelector('h3'); return Boolean(title && (title.scrollWidth > title.clientWidth + 1 || getComputedStyle(title).textOverflow === 'ellipsis')); })); check(!clipped, `${name} paper title is clipped`); if (name === 'mobile' || name === 'narrow') { const mobileControls = await paperControlStyle(); check(mobileControls.heights.every((controlHeight) => controlHeight === 56), `${name} All-papers controls lost their 56px target`); check(mobileControls.appearances.every(({ standard, webkit }) => standard === 'none' && webkit === 'none'), `${name} native select appearance reappeared`); check(mobileControls.chevrons.every((content) => content && content !== 'none'), `${name} select chevron is absent`); } if (name === 'mobile') { await viewportScreenshot('mobile'); await screenshot('mobile'); } }
+  await page.setViewportSize({ width: 1440, height: 920 }); const theme = page.locator('#theme-wide:visible, #theme:visible').first(); if (await theme.count()) { await theme.click(); check(await page.locator('html').getAttribute('data-theme') === 'dark', 'dark theme did not activate'); const darkControls = await paperControlStyle(); check(darkControls.heights.every((controlHeight) => controlHeight === 56), 'dark All-papers controls lost their 56px target'); check(darkControls.appearances.every(({ standard, webkit }) => standard === 'none' && webkit === 'none'), 'dark native select appearance reappeared'); check(darkControls.chevrons.every((content) => content && content !== 'none'), 'dark select chevron is absent'); await screenshot('dark'); }
   await page.goto(hash(fixture.topic.slug, new URLSearchParams({ tab: 'papers' })), { waitUntil: 'networkidle' }); await ready('papers'); await page.evaluate(() => navigator.serviceWorker?.ready); await page.reload({ waitUntil: 'networkidle' }); await ready('papers'); await context.setOffline(true); await page.reload({ waitUntil: 'domcontentloaded' }); await ready('papers').catch((error) => problems.push(`fresh service-worker controlled offline reload failed: ${error.message}`)); await context.setOffline(false);
   if (external.length) problems.push(`off-origin browser requests: ${[...new Set(external)].join(', ')}`);
 } finally { await context?.close(); await browser.close(); await new Promise((done) => server.close(done)); }

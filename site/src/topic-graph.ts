@@ -3,8 +3,8 @@ import { mountTopicPicker } from './topic-picker';
 export interface GraphTopic { slug: string; title: string; area: string; paperCount: number; overview?: string; relatedTopics: number[] }
 interface GraphNode { topic: number; degree: 0 | 1 | 2; x: number; y: number }
 interface GraphEdge { source: number; target: number; degree: 1 | 2 }
-interface Neighborhood { rootTopic: number; nodes: GraphNode[]; edges: GraphEdge[]; directNeighborTotal: number; secondDegreeTotal: number }
-export interface TopicGraphData { version: 1; layoutKind: 'focused-semantic-neighborhoods'; defaultTopicSlug: string; bounds: { width: number; height: number }; cardDimensions: { root: { width: number; height: number }; neighbor: { width: number; height: number } }; topics: GraphTopic[]; neighborhoods: Neighborhood[] }
+interface Neighborhood { rootTopic: number; bounds: { width: 1040; height: number }; nodes: GraphNode[]; edges: GraphEdge[]; directNeighborTotal: number; secondDegreeTotal: number }
+export interface TopicGraphData { version: 2; layoutKind: 'focused-semantic-neighborhoods'; defaultTopicSlug: string; cardDimensions: { root: { width: number; height: number }; neighbor: { width: number; height: number } }; topics: GraphTopic[]; neighborhoods: Neighborhood[] }
 
 let graphLoad: Promise<TopicGraphData> | undefined;
 export function loadTopicGraph() {
@@ -69,7 +69,8 @@ export function mountTopicGraph(container: HTMLElement, data: TopicGraphData, sl
     const directCaption = neighborhood.directNeighborTotal > shownDirect ? `${shownDirect} of ${neighborhood.directNeighborTotal} direct neighbours` : `${shownDirect} direct neighbours`;
     const secondCaption = neighborhood.secondDegreeTotal > shownSecond ? `${shownSecond} of ${neighborhood.secondDegreeTotal} second-degree neighbours` : `${shownSecond} second-degree neighbours`;
     const subset = `<p class="topic-graph-subset">${directCaption}${twoHop.checked ? ` · ${secondCaption}` : ''}</p>`;
-    graphRoot.innerHTML = `<svg class="topic-graph-edges" viewBox="0 0 ${data.bounds.width} ${data.bounds.height}" aria-hidden="true">${svgEdges}</svg><div class="topic-graph-column focus">Focus topic</div><div class="topic-graph-column direct">Direct neighbours</div>${twoHop.checked ? '<div class="topic-graph-column second">Second-degree neighbours</div>' : ''}${subset}${cards}`;
+    graphRoot.style.setProperty('--graph-height', `${neighborhood.bounds.height}px`);
+    graphRoot.innerHTML = `<svg class="topic-graph-edges" viewBox="0 0 ${neighborhood.bounds.width} ${neighborhood.bounds.height}" aria-hidden="true">${svgEdges}</svg><div class="topic-graph-column focus">Focus topic</div><div class="topic-graph-column direct">Direct neighbours <span>${neighborhood.directNeighborTotal}</span></div>${twoHop.checked ? '<div class="topic-graph-column second">Second-degree neighbours</div>' : ''}${subset}${cards}`;
     graphRoot.querySelectorAll<HTMLElement>('.topic-graph-card').forEach((card) => {
       const index = Number(card.dataset.topicIndex);
       const emphasize = (on: boolean) => graphRoot.querySelectorAll<SVGPathElement>('.topic-graph-edge').forEach((edge) => edge.classList.toggle('is-related', on && (Number(edge.dataset.edgeSource) === index || Number(edge.dataset.edgeTarget) === index)));

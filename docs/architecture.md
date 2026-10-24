@@ -7,10 +7,14 @@ The offline Python pipeline writes a constrained reader-facing data set into `si
 The browser loads the application shell and lightweight navigation data first. Search lazily loads a keyword index and starts semantic search in a worker. The worker runs `Xenova/all-MiniLM-L6-v2` locally, embeds a query, and compares it with quantized vectors generated from the same model. Paper detail shards load only when a reader opens a paper.
 
 The knowledge map reads `topic-graph.json`, a precomputed focused semantic
-neighbourhood for each topic. First-degree cards are the source topic's ranked
-semantic neighbours; selected second-degree cards are known neighbours of those
-cards. Stored card positions avoid a runtime layout, and lines are emitted only
-for an existing semantic relation (never an inferred citation or similarity).
+neighbourhood for each topic. First-degree cards contain every known direct
+semantic relation: the source topic's ranked outgoing neighbours followed by
+incoming-only neighbours in deterministic order. Selected second-degree cards
+are known neighbours of those cards, excluding every direct root relation.
+Each neighbourhood stores its own measured bounds so a long direct-neighbour
+column grows downward while the focus card remains in the initial viewport.
+Stored card positions avoid a runtime layout, and lines are emitted only for an
+existing semantic relation (never an inferred citation or similarity).
 
 Each topic also has a static `topic-papers/<slug>.json` list. It carries the
 topic context and compact metadata for every member paper, so pagination does

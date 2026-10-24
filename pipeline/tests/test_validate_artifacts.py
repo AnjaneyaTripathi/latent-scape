@@ -88,18 +88,19 @@ def test_topic_graph_must_match_sanitized_topics_and_known_edges(tmp_path):
         {"slug": "beta", "title": "Beta", "area": "Area", "broadGroupId": "broad-a", "paperSlugs": ["p2"], "relatedTopics": []},
     ]
     graph = {
-        "version": 1, "layoutKind": "focused-semantic-neighborhoods", "defaultTopicSlug": "alpha",
-        "bounds": {"width": 100, "height": 100}, "cardDimensions": {"root": {"width": 10, "height": 10}, "neighbor": {"width": 10, "height": 10}},
+        "version": 2, "layoutKind": "focused-semantic-neighborhoods", "defaultTopicSlug": "alpha",
+        "cardDimensions": {"root": {"width": 10, "height": 10}, "neighbor": {"width": 10, "height": 10}},
         "topics": [
             {"slug": "alpha", "title": "Alpha", "area": "Area", "paperCount": 1, "overview": "", "relatedTopics": [1]},
             {"slug": "beta", "title": "Beta", "area": "Area", "paperCount": 1, "overview": "", "relatedTopics": []},
         ],
         "neighborhoods": [
-            {"rootTopic": 0, "directNeighborTotal": 1, "secondDegreeTotal": 0,
+            {"rootTopic": 0, "bounds": {"width": 1040, "height": 900}, "directNeighborTotal": 1, "secondDegreeTotal": 0,
              "nodes": [{"topic": 0, "degree": 0, "x": 0, "y": 0}, {"topic": 1, "degree": 1, "x": 10, "y": 10}],
              "edges": [{"source": 0, "target": 1, "degree": 1}]},
-            {"rootTopic": 1, "directNeighborTotal": 1, "secondDegreeTotal": 0,
-             "nodes": [{"topic": 1, "degree": 0, "x": 0, "y": 0}], "edges": []},
+            {"rootTopic": 1, "bounds": {"width": 1040, "height": 900}, "directNeighborTotal": 1, "secondDegreeTotal": 0,
+             "nodes": [{"topic": 1, "degree": 0, "x": 0, "y": 0}, {"topic": 0, "degree": 1, "x": 10, "y": 10}],
+             "edges": [{"source": 0, "target": 1, "degree": 1}]},
         ],
     }
     destination = tmp_path / "data" / "topic-graph.json"
@@ -119,10 +120,10 @@ def test_topic_graph_rejects_out_of_bounds_card_geometry(tmp_path):
     validator = _validator()
     topics = [{"slug": "alpha", "title": "Alpha", "area": "Area", "paperSlugs": ["p1"], "relatedTopics": []}]
     graph = {
-        "version": 1, "layoutKind": "focused-semantic-neighborhoods", "defaultTopicSlug": "alpha",
-        "bounds": {"width": 20, "height": 20}, "cardDimensions": {"root": {"width": 10, "height": 10}, "neighbor": {"width": 5, "height": 5}},
+        "version": 2, "layoutKind": "focused-semantic-neighborhoods", "defaultTopicSlug": "alpha",
+        "cardDimensions": {"root": {"width": 10, "height": 10}, "neighbor": {"width": 5, "height": 5}},
         "topics": [{"slug": "alpha", "title": "Alpha", "area": "Area", "paperCount": 1, "overview": "", "relatedTopics": []}],
-        "neighborhoods": [{"rootTopic": 0, "directNeighborTotal": 0, "secondDegreeTotal": 0, "nodes": [{"topic": 0, "degree": 0, "x": 15, "y": 0}], "edges": []}],
+        "neighborhoods": [{"rootTopic": 0, "bounds": {"width": 1040, "height": 900}, "directNeighborTotal": 0, "secondDegreeTotal": 0, "nodes": [{"topic": 0, "degree": 0, "x": 1035, "y": 0}], "edges": []}],
     }
     destination = tmp_path / "data" / "topic-graph.json"
     destination.parent.mkdir()
@@ -130,6 +131,55 @@ def test_topic_graph_rejects_out_of_bounds_card_geometry(tmp_path):
     errors: list[str] = []
     validator.validate_topic_graph(tmp_path, topics, errors)
     assert any("falls outside bounds" in message for message in errors)
+
+
+def test_topic_graph_requires_every_outgoing_and_incoming_direct_neighbor(tmp_path):
+    """Direct cards retain all known root adjacency, beyond the old five-card cap."""
+    validator = _validator()
+    slugs = ["alpha", "beta", "gamma", "delta", "epsilon", "zeta", "eta", "theta"]
+    topics = [
+        {"slug": slug, "title": slug.title(), "area": "Area", "paperSlugs": [slug],
+         "relatedTopics": ["beta", "gamma", "delta", "epsilon", "zeta"] if slug == "alpha" else (["alpha"] if slug in {"eta", "theta"} else [])}
+        for slug in slugs
+    ]
+    rows = [
+        {"slug": topic["slug"], "title": topic["title"], "area": topic["area"], "paperCount": 1,
+         "overview": "", "relatedTopics": [slugs.index(related) for related in topic["relatedTopics"]]}
+        for topic in topics
+    ]
+    direct = list(range(1, 8))
+    root_neighborhood = {
+        "rootTopic": 0, "bounds": {"width": 1040, "height": 1200},
+        "directNeighborTotal": 7, "secondDegreeTotal": 0,
+        "nodes": [{"topic": 0, "degree": 0, "x": 0, "y": 0}, *[
+            {"topic": topic, "degree": 1, "x": 20, "y": 20 + index * 130}
+            for index, topic in enumerate(direct)
+        ]],
+        "edges": [{"source": 0, "target": topic, "degree": 1} for topic in direct],
+    }
+    graph = {
+        "version": 2, "layoutKind": "focused-semantic-neighborhoods", "defaultTopicSlug": "alpha",
+        "cardDimensions": {"root": {"width": 10, "height": 10}, "neighbor": {"width": 10, "height": 10}},
+        "topics": rows,
+        "neighborhoods": [root_neighborhood, *[
+            {"rootTopic": index, "bounds": {"width": 1040, "height": 900}, "directNeighborTotal": 0,
+             "secondDegreeTotal": 0, "nodes": [{"topic": index, "degree": 0, "x": 0, "y": 0}], "edges": []}
+            for index in range(1, len(slugs))
+        ]],
+    }
+    destination = tmp_path / "data" / "topic-graph.json"
+    destination.parent.mkdir()
+    destination.write_text(__import__("json").dumps(graph))
+    errors: list[str] = []
+    validator.validate_topic_graph(tmp_path, topics, errors)
+    assert not any(message.endswith(": 0") for message in errors)
+    graph["neighborhoods"][0]["nodes"].pop()
+    graph["neighborhoods"][0]["edges"].pop()
+    graph["neighborhoods"][0]["directNeighborTotal"] = 6
+    destination.write_text(__import__("json").dumps(graph))
+    errors = []
+    validator.validate_topic_graph(tmp_path, topics, errors)
+    assert any("neighborhood nodes are stale or inconsistent: 0" in message for message in errors)
 
 
 def test_topic_paper_lists_require_full_ordered_compact_projection(tmp_path):

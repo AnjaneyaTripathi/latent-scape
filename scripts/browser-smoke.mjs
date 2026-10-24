@@ -139,13 +139,25 @@ try {
 
   await page.goto(`${base}/latent-scape/#/topics`, { waitUntil: 'networkidle' });
   const firstTopic = page.locator('.topic-card a').first();
-  if (await firstTopic.count()) { await firstTopic.click(); await page.waitForTimeout(350); await page.screenshot({ path: '/tmp/latentscape-topic.png', fullPage: true }); }
+  if (await firstTopic.count()) {
+    const firstTopicHref = await firstTopic.getAttribute('href');
+    await firstTopic.click();
+    await page.waitForFunction((href) => location.hash === href, firstTopicHref);
+    await page.locator('[data-topic-papers-ready="true"] .topic-reader-tabs').waitFor();
+    await assert(await page.locator('.topic-reader-tabs a[aria-current="page"]').getByText('Overview', { exact: true }).count() === 1, 'topic detail did not restore the Overview tab');
+    await assert(await page.locator('.topic-paper-preview .topic-paper-card').count() > 0, 'topic Overview did not render restored early/recent paper cards');
+    await assert(await page.locator('.topic-paper-preview-head').count() >= 2, 'topic Overview is missing its early/recent section headings');
+    await page.screenshot({ path: '/tmp/latentscape-topic.png', fullPage: true });
+  }
 
   // Topic pages are long enough to reproduce the original issue: a paper card
   // selected below the fold must open at its own heading, while Back restores
   // the reader to the card they chose.
-  const topicPaper = page.locator('.topic-paper-preview .topic-paper-row h3 a[href^="#/paper/"]').first();
+  const topicPaper = page.locator('.topic-paper-preview .topic-paper-card h3 a[href^="#/paper/"], .topic-paper-preview .topic-paper-row h3 a[href^="#/paper/"]').first();
   if (await topicPaper.count()) {
+    const topicPaperTitle = (await topicPaper.textContent())?.trim();
+    const topicPaperHref = await topicPaper.getAttribute('href');
+    await assert(Boolean(topicPaperHref && /[?&]from=%23%2Ftopic%2F/i.test(topicPaperHref)), 'Overview paper card did not preserve a topic-context return link');
     const sourceScroll = await page.evaluate(() => {
       const top = Math.min(700, Math.max(0, document.documentElement.scrollHeight - innerHeight));
       window.scrollTo(0, top);
@@ -153,7 +165,8 @@ try {
     });
     await assert(sourceScroll > 100, 'topic page was too short for the scroll navigation regression check');
     await topicPaper.click();
-    await page.locator('.paper-detail h1').waitFor();
+    await page.waitForFunction((href) => location.hash === href, topicPaperHref);
+    await page.locator('.paper-detail h1').filter({ hasText: topicPaperTitle || '' }).waitFor();
     await assert((await page.evaluate(() => window.scrollY)) <= 1, 'paper navigation retained the old page scroll position');
     await page.goBack({ waitUntil: 'networkidle' });
     await page.locator('.detail h1').waitFor();
